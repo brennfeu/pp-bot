@@ -64,8 +64,8 @@ client.on("message", async message => {
 			DEXFighter1 -= 5;
 		}
 		if (fighter1.roles.find("name", "Fast PP")) {
-			STRFighter1 -= 5;
-			DEXFighter1 += 10;
+			STRFighter1 -= 10;
+			DEXFighter1 += 5;
 		}
 		if (fighter1.roles.find("name", "Drunken PP")) {
 			DEXFighter1 -= 25;
@@ -80,8 +80,8 @@ client.on("message", async message => {
 			DEXFighter2 -= 5;
 		}
 		if (fighter2.roles.find("name", "Fast PP")) {
-			STRFighter2 -= 5;
-			DEXFighter2 += 10;
+			STRFighter2 -= 10;
+			DEXFighter2 += 5;
 		}
 		if (fighter2.roles.find("name", "Drunken PP")) {
 			DEXFighter2 -= 25;
@@ -142,11 +142,11 @@ client.on('messageReactionAdd', (reaction, user) => {
 			
 		// Attaque brutale
 		if (attackFighter1 == "PunchingPPReallyHard") {
-			STRFighter1Battle += 20;
+			STRFighter1Battle += 100;
 			DEXFighter1Battle -= 10;
 		}
 		if (attackFighter2 == "PunchingPPReallyHard") {
-			STRFighter2Battle += 20;
+			STRFighter2Battle += 100;
 			DEXFighter2Battle -= 10;
 		}
 		
