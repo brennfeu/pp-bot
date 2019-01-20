@@ -23,6 +23,7 @@ var attackFighter2 = "";
 
 var emotePP1 = "535844749467320322";
 var emotePP2 = "535240768441548810";
+var emotePP3 = "358232421537284109";
 
 
 // This event will run on every single message received, from any channel or DM.
@@ -105,7 +106,8 @@ client.on("message", async message => {
 		battleChannel.send("Attack with a reaction !")
             .then(function (message2) {
 				message2.react(emotePP1);
-				message2.react(emotePP2)
+				message2.react(emotePP2);
+				message2.react(emotePP3);
             }).catch(function(e) {
 				battleChannel.send(e);
 			});
@@ -148,6 +150,16 @@ client.on('messageReactionAdd', (reaction, user) => {
 		if (attackFighter2 == "PunchingPPReallyHard") {
 			STRFighter2Battle += 100;
 			DEXFighter2Battle -= 10;
+		}
+		
+		// Attaque Fuck
+		if (attackFighter1 == "Hologram") {
+			STRFighter1Battle += 1000000;
+			DEXFighter1Battle -= 30;
+		}
+		if (attackFighter2 == "Hologram") {
+			STRFighter2Battle += 1000000;
+			DEXFighter2Battle -= 30;
 		}
 		
 		// CALCUL
@@ -232,7 +244,8 @@ client.on('messageReactionAdd', (reaction, user) => {
 		battleChannel.send("Attack with a reaction !")
             .then(function (message2) {
 				message2.react(emotePP1);
-				message2.react(emotePP2)
+				message2.react(emotePP2);
+				message2.react(emotePP3);
             }).catch(function(e) {
 				battleChannel.send(e);
 			});
