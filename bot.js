@@ -38,7 +38,7 @@ client.on("message", async message => {
 	if (message.mentions.users.array().length <= 1) return;
 	if (!message.mentions.users.array()[1].bot) return;
 	
-	if (message.mentions.users.array()[0].id == message.author.id) return message.reply("You can't battle yourself you dumb shit");
+	if (message.mentions.users.array()[0].id == message.author.id) return message.reply("you can't battle yourself you dumb shit");
 
 	var argsUser = message.content.slice(prefixCommande.length).trim().split(/ +/g);
 	var commandUser = argsUser.shift().toLowerCase();
