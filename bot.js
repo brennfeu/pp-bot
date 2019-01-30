@@ -112,6 +112,7 @@ client.on("message", async message => {
 				message2.react(EMOTE_PP2);
 				message2.react(EMOTE_PP3);
 				message2.react(EMOTE_PP4);
+				message2.react(EMOTE_PP5);
             }).catch(function(e) {
 				battleChannel.send(e);
 			});
@@ -176,6 +177,33 @@ client.on('messageReactionAdd', (reaction, user) => {
 			DEXFighter2Battle -= 10;
 		}
 		
+		// Attaque HighFive
+		if (attackFighter1 == "HighFiveBro" && attackFighter2 == "HighFiveBro") {
+			battleChannel.send("HIGH FIVES !");
+			battleChannel.send("Both " + fighter1.user.username + " and " + fighter2.user.username + " wins !");
+			
+			// end fight
+			attackFighter1 = "";
+			attackFighter2 = "";
+			fighter1 = null;
+			fighter2 = null;
+			
+			return;
+		}
+		else if (attackFighter1 == "HighFiveBro") {
+			battleChannel.send(fighter1.user.username + " is feeling lonely... :(");
+			
+			STRFighter1Battle = -100;
+			DEXFighter1Battle = 0;
+		}
+		else if (attackFighter2 == "HighFiveBro") {
+			battleChannel.send(fighter2.user.username + " is feeling lonely... :(");
+		
+			STRFighter2Battle = -100;
+			DEXFighter2Battle = 0;
+		}
+		
+		
 		// CALCUL
 		DEXFighter1Battle += Math.floor(Math.random() * 50 + 1);
 		DEXFighter2Battle += Math.floor(Math.random() * 50 + 1);
@@ -187,7 +215,7 @@ client.on('messageReactionAdd', (reaction, user) => {
 		
 		// Test qui gagne
 		if (DEXFighter1Battle > DEXFighter2Battle) {
-			battleChannel.send(fighter1.user.username + " hits " + fighter2.user.username);
+			battleChannel.send(fighter1.user.username + " move passed !");
 			
 			// Heal P1
 			if(attackFighter1 == "FlexBro") {
@@ -201,13 +229,14 @@ client.on('messageReactionAdd', (reaction, user) => {
 				}
 				else {
 					// Damage P2
+					battleChannel.send(fighter1.user.username + " hits " + fighter2.user.username);
 					STRFighter2 -= Math.floor(10 + STRFighter1Battle / 10);
 				}
 			}
 			
 		}
 		else if (DEXFighter1Battle < DEXFighter2Battle) {
-			battleChannel.send(fighter2.user.username + " hits " + fighter1.user.username);
+			battleChannel.send(fighter2.user.username + " move passed !");
 			
 			// Heal P2
 			if(attackFighter2 == "FlexBro") {
@@ -221,12 +250,14 @@ client.on('messageReactionAdd', (reaction, user) => {
 				}
 				else {
 					// Damage P1
+					battleChannel.send(fighter2.user.username + " hits " + fighter1.user.username);
 					STRFighter1 -= Math.floor(10 + STRFighter2Battle / 10);
 				}
 			}
 		}
 		else {
 			battleChannel.send("Both of you attacks !");
+			
 			// Heal P1
 			if(attackFighter1 == "FlexBro") {
 				STRFighter1 += 10;
@@ -239,6 +270,7 @@ client.on('messageReactionAdd', (reaction, user) => {
 				}
 				else {
 					// Damage P2
+					battleChannel.send(fighter1.user.username + " hits " + fighter2.user.username);
 					STRFighter2 -= Math.floor(10 + STRFighter1Battle / 10);
 				}
 			}
@@ -255,6 +287,7 @@ client.on('messageReactionAdd', (reaction, user) => {
 				}
 				else {
 					// Damage P1
+					battleChannel.send(fighter2.user.username + " hits " + fighter1.user.username);
 					STRFighter1 -= Math.floor(10 + STRFighter2Battle / 10);
 				}
 			}
@@ -301,6 +334,7 @@ client.on('messageReactionAdd', (reaction, user) => {
 				message2.react(EMOTE_PP2);
 				message2.react(EMOTE_PP3);
 				message2.react(EMOTE_PP4);
+				message2.react(EMOTE_PP5);
             }).catch(function(e) {
 				battleChannel.send(e);
 			});
