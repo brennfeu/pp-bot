@@ -27,6 +27,7 @@ var EMOTE_PP2 = "535240768441548810";
 var EMOTE_PP3 = "358232421537284109";
 var EMOTE_PP4 = "358018762991075328";
 var EMOTE_PP5 = "358018763020435456"; 
+var EMOTE_PP6 = "358205593712066560";
 
 
 // This event will run on every single message received, from any channel or DM.
@@ -113,6 +114,7 @@ client.on("message", async message => {
 				message2.react(EMOTE_PP3);
 				message2.react(EMOTE_PP4);
 				message2.react(EMOTE_PP5);
+				message2.react(EMOTE_PP6);
             }).catch(function(e) {
 				battleChannel.send(e);
 			});
@@ -203,6 +205,16 @@ client.on('messageReactionAdd', (reaction, user) => {
 			DEXFighter2Battle = 0;
 		}
 		
+		// Attaque interdite :o
+		if (attackFighter1 == "RoundhouseKick") {
+			STRFighter1Battle += 300;
+			DEXFighter1Battle -= 10;
+		}
+		if (attackFighter2 == "RoundhouseKick") {
+			STRFighter2Battle += 300;
+			DEXFighter2Battle -= 10;
+		}
+		
 		
 		// CALCUL
 		DEXFighter1Battle += Math.floor(Math.random() * 50 + 1);
@@ -211,7 +223,49 @@ client.on('messageReactionAdd', (reaction, user) => {
 		var testDrunk1 = (Math.floor(Math.random() * 1000 + 1) > 500);
 		var testDrunk2 = (Math.floor(Math.random() * 1000 + 1) > 500);
 		
+		var testIllegal1 = (Math.floor(Math.random() * 1000 + 1) < 200);
+		var testIllegal2 = (Math.floor(Math.random() * 1000 + 1) < 200);
+		
 		battleChannel.send(fighter1.user.username + " : " + DEXFighter1Battle + " /VS/ " + fighter2.user.username + " : " + DEXFighter2Battle);
+		
+		if (attackFighter1 == "RoundhouseKick" && attackFighter2 == "RoundhouseKick" && (testIllegal1 || testIllegal2)) {
+			battleChannel.send("Hey ! Kicking PP is forbidden !");
+			battleChannel.send("You both loose the fight !");
+			
+			// end fight
+			attackFighter1 = "";
+			attackFighter2 = "";
+			fighter1 = null;
+			fighter2 = null;
+			
+			return;
+		}
+		if (attackFighter1 == "RoundhouseKick" && testIllegal1 |) {
+			battleChannel.send("Hey ! Kicking PP is forbidden !");
+			battleChannel.send(fighter1.user.username + ", you are disqualified");
+			battleChannel.send(fighter2.user.username + " won !");
+			
+			// end fight
+			attackFighter1 = "";
+			attackFighter2 = "";
+			fighter1 = null;
+			fighter2 = null;
+			
+			return;
+		}
+		if (attackFighter1 == "RoundhouseKick" && testIllegal2) {
+			battleChannel.send("Hey ! Kicking PP is forbidden !");
+			battleChannel.send(fighter2.user.username + ", you are disqualified");
+			battleChannel.send(fighter1.user.username + " won !");
+			
+			// end fight
+			attackFighter1 = "";
+			attackFighter2 = "";
+			fighter1 = null;
+			fighter2 = null;
+			
+			return;
+		}
 		
 		// Test qui gagne
 		if (DEXFighter1Battle > DEXFighter2Battle) {
@@ -335,6 +389,7 @@ client.on('messageReactionAdd', (reaction, user) => {
 				message2.react(EMOTE_PP3);
 				message2.react(EMOTE_PP4);
 				message2.react(EMOTE_PP5);
+				message2.react(EMOTE_PP6);
             }).catch(function(e) {
 				battleChannel.send(e);
 			});
