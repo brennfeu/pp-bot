@@ -3,7 +3,7 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  client.user.setGame('[BETA TEST] PP Punch Arena');
+  client.user.setGame('PP Punch Arena');
 });
 
 var STRFighter1;
@@ -25,8 +25,6 @@ var attackFighter2 = "";
 var EMOTE_PP1 = "535844749467320322";
 var EMOTE_PP2 = "535240768441548810";
 var EMOTE_PP3 = "358232421537284109";
-var EMOTE_PP4 = "358018762991075328";
-var EMOTE_PP5 = "358018763020435456"; 
 
 
 // This event will run on every single message received, from any channel or DM.
@@ -111,7 +109,6 @@ client.on("message", async message => {
 				message2.react(EMOTE_PP1);
 				message2.react(EMOTE_PP2);
 				message2.react(EMOTE_PP3);
-				message2.react(EMOTE_PP4);
             }).catch(function(e) {
 				battleChannel.send(e);
 			});
@@ -173,81 +170,40 @@ client.on('messageReactionAdd', (reaction, user) => {
 		var testDrunk1 = (Math.floor(Math.random() * 1000 + 1) > 500);
 		var testDrunk2 = (Math.floor(Math.random() * 1000 + 1) > 500);
 		
-		// Attaque Heal
-		if (attackFighter1 == "FlexBro") {
-			STRFighter1Battle = -10;
-			DEXFighter1Battle -= 10;
-		}
-		if (attackFighter2 == "FlexBro") {
-			STRFighter2Battle = -10;
-			DEXFighter2Battle -= 10;
-		}
-		
 		battleChannel.send(fighter1.user.username + " : " + DEXFighter1Battle + " /VS/ " + fighter2.user.username + " : " + DEXFighter2Battle);
 		
 		// Test qui gagne
 		if (DEXFighter1Battle > DEXFighter2Battle) {
-			// Heal
-			if(attackFighter1 == "FlexBro") {
-				STRFighter1 += 10;
-				STRFighter1 += Math.floor(50-STRFighter1*0.2);
+			battleChannel.send(fighter1.user.username + " hits " + fighter2.user.username);
+			if (fighter2.roles.find("name", "Drunken PP") && testDrunk2) {
+				battleChannel.send(fighter2.user.username + " felt nothing cause too drunk");
 			}
 			else {
-				// Immune
-				if (fighter1.roles.find("name", "Drunken PP") && testDrunk1) {
-					battleChannel.send(fighter1.user.username + " felt nothing cause too drunk");
-				}
-				else {
-					STRFighter1 -= Math.floor(10 + STRFighter2Battle / 10);
-				}
+				STRFighter2 -= Math.floor(10 + STRFighter1Battle / 10);
 			}
 		}
 		else if (DEXFighter1Battle < DEXFighter2Battle) {
-			// Heal
-			if(attackFighter2 == "FlexBro") {
-				STRFighter2 += 10;
-				STRFighter2 += Math.floor(50-STRFighter2*0.2);
+			battleChannel.send(fighter2.user.username + " hits " + fighter1.user.username);
+			if (fighter1.roles.find("name", "Drunken PP") && testDrunk1) {
+				battleChannel.send(fighter1.user.username + " felt nothing cause too drunk");
 			}
 			else {
-				// Immune
-				if (fighter2.roles.find("name", "Drunken PP") && testDrunk2) {
-					battleChannel.send(fighter2.user.username + " felt nothing cause too drunk");
-				}
-				else {
-					STRFighter2 -= Math.floor(10 + STRFighter1Battle / 10);
-				}
+				STRFighter1 -= Math.floor(10 + STRFighter2Battle / 10);
 			}
 		}
 		else {
-			battleChannel.send("Both of you attacks !");
-			// Heal
-			if(attackFighter1 == "FlexBro") {
-				STRFighter1 += 10;
-				STRFighter1 += Math.floor(50-STRFighter1*0.2);
+			battleChannel.send("Both of you gets hit !");
+			if (fighter1.roles.find("name", "Drunken PP") && testDrunk1) {
+				battleChannel.send(fighter1.user.username + " felt nothing cause too drunk");
 			}
 			else {
-				// Immune
-				if (fighter1.roles.find("name", "Drunken PP") && testDrunk1) {
-					battleChannel.send(fighter1.user.username + " felt nothing cause too drunk");
-				}
-				else {
-					STRFighter1 -= Math.floor(10 + STRFighter2Battle / 10);
-				}
+				STRFighter1 -= Math.floor(10 + STRFighter2Battle / 10);
 			}
-			
-			// Heal
-			if(attackFighter2 == "FlexBro") {
-				STRFighter2 += 10;
-				STRFighter2 += Math.floor(50-STRFighter2*0.2);
+			if (fighter2.roles.find("name", "Drunken PP") && testDrunk2) {
+				battleChannel.send(fighter2.user.username + " felt nothing cause too drunk");
 			}
 			else {
-				// Immune
-				if (fighter2.roles.find("name", "Drunken PP") && testDrunk2) {
-					battleChannel.send(fighter2.user.username + " felt nothing cause too drunk");
-				}
-				else {
-					STRFighter2 -= Math.floor(10 + STRFighter1Battle / 10);
-				}
+				STRFighter2 -= Math.floor(10 + STRFighter1Battle / 10);
 			}
 		}
 		// reset attaques
@@ -291,7 +247,6 @@ client.on('messageReactionAdd', (reaction, user) => {
 				message2.react(EMOTE_PP1);
 				message2.react(EMOTE_PP2);
 				message2.react(EMOTE_PP3);
-				message2.react(EMOTE_PP4);
             }).catch(function(e) {
 				battleChannel.send(e);
 			});
