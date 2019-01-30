@@ -3,7 +3,7 @@ const client = new Discord.Client();
 
 client.on('ready', () => {
   console.log(`Logged in as ${client.user.tag}!`);
-  client.user.setGame('PP Punch Arena');
+  client.user.setGame('[BETA TEST] PP Punch Arena');
 });
 
 var STRFighter1;
@@ -187,33 +187,35 @@ client.on('messageReactionAdd', (reaction, user) => {
 		
 		// Test qui gagne
 		if (DEXFighter1Battle > DEXFighter2Battle) {
-			battleChannel.send(fighter1.user.username + " hits " + fighter2.user.username);
-			if (fighter2.roles.find("name", "Drunken PP") && testDrunk2) {
-				battleChannel.send(fighter2.user.username + " felt nothing cause too drunk");
-			}
-			else {
-				STRFighter2 -= Math.floor(10 + STRFighter1Battle / 10);
-			}
-			
 			// Heal
 			if(attackFighter1 == "FlexBro") {
 				STRFighter1 += 10;
 				STRFighter1 += Math.floor(50-STRFighter1*0.2);
 			}
+			else {
+				// Immune
+				if (fighter1.roles.find("name", "Drunken PP") && testDrunk1) {
+					battleChannel.send(fighter1.user.username + " felt nothing cause too drunk");
+				}
+				else {
+					STRFighter1 -= Math.floor(10 + STRFighter2Battle / 10);
+				}
+			}
 		}
 		else if (DEXFighter1Battle < DEXFighter2Battle) {
-			battleChannel.send(fighter2.user.username + " hits " + fighter1.user.username);
-			if (fighter1.roles.find("name", "Drunken PP") && testDrunk1) {
-				battleChannel.send(fighter1.user.username + " felt nothing cause too drunk");
-			}
-			else {
-				STRFighter1 -= Math.floor(10 + STRFighter2Battle / 10);
-			}
-			
 			// Heal
 			if(attackFighter2 == "FlexBro") {
 				STRFighter2 += 10;
 				STRFighter2 += Math.floor(50-STRFighter2*0.2);
+			}
+			else {
+				// Immune
+				if (fighter2.roles.find("name", "Drunken PP") && testDrunk2) {
+					battleChannel.send(fighter2.user.username + " felt nothing cause too drunk");
+				}
+				else {
+					STRFighter2 -= Math.floor(10 + STRFighter1Battle / 10);
+				}
 			}
 		}
 		else {
