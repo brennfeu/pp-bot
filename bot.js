@@ -240,7 +240,7 @@ client.on('messageReactionAdd', (reaction, user) => {
 			
 			return;
 		}
-		if (attackFighter1 == "RoundhouseKick" && testIllegal1 |) {
+		if (attackFighter1 == "RoundhouseKick" && testIllegal1) {
 			battleChannel.send("Hey ! Kicking PP is forbidden !");
 			battleChannel.send(fighter1.user.username + ", you are disqualified");
 			battleChannel.send(fighter2.user.username + " won !");
