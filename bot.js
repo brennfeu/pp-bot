@@ -230,7 +230,7 @@ client.on('messageReactionAdd', (reaction, user) => {
 		
 		if (attackFighter1 == "RoundhouseKick" && attackFighter2 == "RoundhouseKick" && (testIllegal1 || testIllegal2)) {
 			battleChannel.send("Hey ! Kicking PP is forbidden !");
-			battleChannel.send("You both loose the fight !");
+			battleChannel.send("Both of you lost. No one won this time. You losers");
 			
 			// end fight
 			attackFighter1 = "";
