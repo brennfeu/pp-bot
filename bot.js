@@ -1,403 +1,67 @@
-const Discord = require("discord.js");
-const client = new Discord.Client();
+// PP ARBITRATOR
 
-client.on('ready', () => {
-  console.log(`Logged in as ${client.user.tag}!`);
-  client.user.setActivity('PP Punch Arena');
+// VARIABLES
+// Constantes
+const DISCORD = require("discord.js");
+const CLIENT = new DISCORD.Client();
+
+const BETA_TEST = true;
+const PRIVATE_TEST = true;
+
+const EMOTE_PP1 = "535844749467320322"; // Fast Punch
+const EMOTE_PP2 = "535240768441548810"; // Big Punch
+const EMOTE_PP3 = "358232421537284109"; // Hologram
+const EMOTE_PP4 = "358018762991075328"; // Flex
+const EMOTE_PP5 = "358018763020435456"; // High Five
+const EMOTE_PP6 = "358205593712066560"; // Kick
+
+// Variables
+var IS_BUSY = false;
+
+
+// FONCTIONS
+function getRandomPercent() {
+	return Math.floor(Math.random() * 100 + 1);
+}
+
+function setBotActivity(texte) {
+	if (BETA_TEST || PRIVATE_TEST) {
+		return CLIENT.user.setActivity("[BETA TEST] " + texte);
+	}
+	return CLIENT.user.setActivity(texte);
+}
+function clearBotActivity() {
+	return CLIENT.user.setActivity("");
+}
+
+
+CLIENT.on('ready', () => {
+  console.log(`Logged in as ${CLIENT.user.tag}!`);
 });
-
-var STRFighter1;
-var DEXFighter1;
-var STRFighter2;
-var DEXFighter2;
-
-var STRFighter1Battle;
-var DEXFighter1Battle;
-var STRFighter2Battle;
-var DEXFighter2Battle;
-
-var fighter1;
-var fighter2;
-
-var attackFighter1 = "";
-var attackFighter2 = "";
-
-var EMOTE_PP1 = "535844749467320322";
-var EMOTE_PP2 = "535240768441548810";
-var EMOTE_PP3 = "358232421537284109";
-var EMOTE_PP4 = "358018762991075328";
-var EMOTE_PP5 = "358018763020435456"; 
-var EMOTE_PP6 = "358205593712066560";
 
 
 // This event will run on every single message received, from any channel or DM.
-client.on("message", async message => {
-	var prefixCommande = "PP Arbitrator#2638"
-	var battleChannel = message.channel;
+client.on("message", async _message => {
+	var _battleChannel = _message.channel;
   
 	// Ignore les autres bots
-	if(message.author.bot) return;
-
+	if(_message.author.bot) return;
 	// Ignore si pas appelé
-	if (message.mentions.users.array().length <= 1) return;
-	if (!message.mentions.users.array()[1].bot) return;
-	
-	if (message.mentions.users.array()[0].id == message.author.id) return message.reply("you can't battle yourself you dumb shit");
+	if (_message.mentions.users.array()[_message.mentions.users.array().size()].id != CLIENT.user.id) return;
+	// Ignore si test privé
+	if (_PRIVATE_TEST && _message.guild.members.get(_message.author.id).username != "brennfeu") return _message.reply("I am currently unavailable, sorry :/");
+	// Ignore si deja occupé
+	if (IS_BUSY) return;
 
-	var argsUser = message.content.slice(prefixCommande.length).trim().split(/ +/g);
-	var commandUser = argsUser.shift().toLowerCase();
-	
-	// reset attaques
-	attackFighter1 = "";
-	attackFighter2 = "";
-  
-	if(argsUser[0] === "duel") { 
-		// def variables fighters
-		fighter1 = message.guild.members.get(message.author.id);
-		fighter2 = message.guild.members.get(message.mentions.users.array()[0].id);
-		
-		battleChannel.send(fighter1.roles);
-		
-		STRFighter1 = 50;
-		DEXFighter1 = 30;
-		STRFighter2 = 50;
-		DEXFighter2 = 30;
-		
-		// changements en fonction des roles
-		if (fighter1.roles.find("name", "Big PP")) {
-			STRFighter1 += 10;
-			DEXFighter1 -= 5;
-		}
-		if (fighter1.roles.find("name", "Fast PP")) {
-			STRFighter1 -= 10;
-			DEXFighter1 += 5;
-		}
-		if (fighter1.roles.find("name", "Drunken PP")) {
-			DEXFighter1 -= 25;
-		}
-		if (fighter1.roles.find("name", "Hockey Puck PP")) {
-			STRFighter1 -= 45;
-			DEXFighter1 -= 45;
-		}
-		
-		if (fighter2.roles.find("name", "Big PP")) {
-			STRFighter2 += 10;
-			DEXFighter2 -= 5;
-		}
-		if (fighter2.roles.find("name", "Fast PP")) {
-			STRFighter2 -= 10;
-			DEXFighter2 += 5;
-		}
-		if (fighter2.roles.find("name", "Drunken PP")) {
-			DEXFighter2 -= 25;
-		}
-		if (fighter2.roles.find("name", "Hockey Puck PP")) {
-			STRFighter2 -= 45;
-			DEXFighter2 -= 45;
-		}
-		
-		// au cas ou, pas super utile je pense
-		STRFighter1Battle = STRFighter1;
-		DEXFighter1Battle = DEXFighter1;
-		STRFighter2Battle = STRFighter2;
-		DEXFighter2Battle = DEXFighter2;
-		
-		// messages
-		battleChannel.send(fighter1.user.username + " /VS/ " + fighter2.user.username);
-		battleChannel.send("STR : " + STRFighter1 + ", DEX : " + DEXFighter1 + " /VS/ STR : " + STRFighter2 + ", DEX : " + DEXFighter2);
-		
-		// message w/ emotes
-		battleChannel.send("Attack with a reaction !")
-            .then(function (message2) {
-				message2.react(EMOTE_PP1);
-				message2.react(EMOTE_PP2);
-				message2.react(EMOTE_PP3);
-				message2.react(EMOTE_PP4);
-				message2.react(EMOTE_PP5);
-				message2.react(EMOTE_PP6);
-            }).catch(function(e) {
-				battleChannel.send(e);
-			});
-		return;
-	}
-	
-	return "error ?";
 });
 
-client.on('messageReactionAdd', (reaction, user) => {
-	var message = reaction.message;
-	var battleChannel = message.channel;
+client.on('messageReactionAdd', (_reaction, _user) => {
+	var _message = _raction.message;
+	var _battleChannel = _message.channel;
 	
 	// ignore si bot
-	if (user.bot) return;
+	if (_user.bot) return;
 	
-	// definit type attaque
-	if (user.username == fighter1.user.username) {
-		attackFighter1 = reaction.emoji.name;
-		battleChannel.send(fighter1.user.username + " : " + attackFighter1);
-	}
-	if (user.username == fighter2.user.username) {
-		attackFighter2 = reaction.emoji.name;
-		battleChannel.send(fighter2.user.username + " : " + attackFighter2);
-	}
-	
-	// Les deux joueurs ont une attaque
-	if (attackFighter1 != "" && attackFighter2 != "") {	
-		// setup variables
-		STRFighter1Battle = STRFighter1;
-		DEXFighter1Battle = DEXFighter1;
-		STRFighter2Battle = STRFighter2;
-		DEXFighter2Battle = DEXFighter2;
-			
-		// Attaque brutale
-		if (attackFighter1 == "PunchingPPReallyHard") {
-			STRFighter1Battle += 100;
-			DEXFighter1Battle -= 10;
-		}
-		if (attackFighter2 == "PunchingPPReallyHard") {
-			STRFighter2Battle += 100;
-			DEXFighter2Battle -= 10;
-		}
-		
-		// Attaque Fuck
-		if (attackFighter1 == "Hologram") {
-			STRFighter1Battle += 1000000;
-			DEXFighter1Battle -= 30;
-		}
-		if (attackFighter2 == "Hologram") {
-			STRFighter2Battle += 1000000;
-			DEXFighter2Battle -= 30;
-		}
-		
-		// Attaque Heal
-		if (attackFighter1 == "FlexBro") {
-			STRFighter1Battle = -100;
-			DEXFighter1Battle -= 10;
-		}
-		if (attackFighter2 == "FlexBro") {
-			STRFighter2Battle = -100;
-			DEXFighter2Battle -= 10;
-		}
-		
-		// Attaque HighFive
-		if (attackFighter1 == "HighFiveBro" && attackFighter2 == "HighFiveBro") {
-			battleChannel.send("HIGH FIVES !");
-			battleChannel.send("Both " + fighter1.user.username + " and " + fighter2.user.username + " wins !");
-			
-			// end fight
-			attackFighter1 = "";
-			attackFighter2 = "";
-			fighter1 = null;
-			fighter2 = null;
-			
-			return;
-		}
-		else if (attackFighter1 == "HighFiveBro") {
-			battleChannel.send(fighter1.user.username + " is feeling lonely... :(");
-			
-			STRFighter1Battle = -100;
-			DEXFighter1Battle = 0;
-		}
-		else if (attackFighter2 == "HighFiveBro") {
-			battleChannel.send(fighter2.user.username + " is feeling lonely... :(");
-		
-			STRFighter2Battle = -100;
-			DEXFighter2Battle = 0;
-		}
-		
-		// Attaque interdite :o
-		if (attackFighter1 == "RoundhouseKick") {
-			STRFighter1Battle += 300;
-			DEXFighter1Battle -= 10;
-		}
-		if (attackFighter2 == "RoundhouseKick") {
-			STRFighter2Battle += 300;
-			DEXFighter2Battle -= 10;
-		}
-		
-		
-		// CALCUL
-		DEXFighter1Battle += Math.floor(Math.random() * 50 + 1);
-		DEXFighter2Battle += Math.floor(Math.random() * 50 + 1);
-		
-		var testDrunk1 = (Math.floor(Math.random() * 1000 + 1) > 500);
-		var testDrunk2 = (Math.floor(Math.random() * 1000 + 1) > 500);
-		
-		var testIllegal1 = (Math.floor(Math.random() * 1000 + 1) < 200);
-		var testIllegal2 = (Math.floor(Math.random() * 1000 + 1) < 200);
-		
-		battleChannel.send(fighter1.user.username + " : " + DEXFighter1Battle + " /VS/ " + fighter2.user.username + " : " + DEXFighter2Battle);
-		
-		if (attackFighter1 == "RoundhouseKick" && attackFighter2 == "RoundhouseKick" && (testIllegal1 || testIllegal2)) {
-			battleChannel.send("Hey ! Kicking PP is forbidden !");
-			battleChannel.send("Both of you lost. No one won this time. You losers");
-			
-			// end fight
-			attackFighter1 = "";
-			attackFighter2 = "";
-			fighter1 = null;
-			fighter2 = null;
-			
-			return;
-		}
-		if (attackFighter1 == "RoundhouseKick" && testIllegal1) {
-			battleChannel.send("Hey ! Kicking PP is forbidden !");
-			battleChannel.send(fighter1.user.username + ", you are disqualified");
-			battleChannel.send(fighter2.user.username + " won !");
-			
-			// end fight
-			attackFighter1 = "";
-			attackFighter2 = "";
-			fighter1 = null;
-			fighter2 = null;
-			
-			return;
-		}
-		if (attackFighter2 == "RoundhouseKick" && testIllegal2) {
-			battleChannel.send("Hey ! Kicking PP is forbidden !");
-			battleChannel.send(fighter2.user.username + ", you are disqualified");
-			battleChannel.send(fighter1.user.username + " won !");
-			
-			// end fight
-			attackFighter1 = "";
-			attackFighter2 = "";
-			fighter1 = null;
-			fighter2 = null;
-			
-			return;
-		}
-		
-		// Test qui gagne
-		if (DEXFighter1Battle > DEXFighter2Battle) {
-			battleChannel.send(fighter1.user.username + " move passed !");
-			
-			// Heal P1
-			if(attackFighter1 == "FlexBro") {
-				STRFighter1 += 10;
-				STRFighter1 += Math.floor(50-STRFighter1*0.2);
-			}
-			else {
-				// Immune P1
-				if (fighter1.roles.find("name", "Drunken PP") && testDrunk1) {
-					battleChannel.send(fighter1.user.username + " felt nothing cause too drunk");
-				}
-				else {
-					// Damage P2
-					battleChannel.send(fighter1.user.username + " hits " + fighter2.user.username);
-					STRFighter2 -= Math.floor(10 + STRFighter1Battle / 10);
-				}
-			}
-			
-		}
-		else if (DEXFighter1Battle < DEXFighter2Battle) {
-			battleChannel.send(fighter2.user.username + " move passed !");
-			
-			// Heal P2
-			if(attackFighter2 == "FlexBro") {
-				STRFighter2 += 10;
-				STRFighter2 += Math.floor(50-STRFighter2*0.2);
-			}
-			else {
-				// Immune P2
-				if (fighter2.roles.find("name", "Drunken PP") && testDrunk2) {
-					battleChannel.send(fighter2.user.username + " felt nothing cause too drunk");
-				}
-				else {
-					// Damage P1
-					battleChannel.send(fighter2.user.username + " hits " + fighter1.user.username);
-					STRFighter1 -= Math.floor(10 + STRFighter2Battle / 10);
-				}
-			}
-		}
-		else {
-			battleChannel.send("Both of you attacks !");
-			
-			// Heal P1
-			if(attackFighter1 == "FlexBro") {
-				STRFighter1 += 10;
-				STRFighter1 += Math.floor(50-STRFighter1*0.2);
-			}
-			else {
-				// Immune P1
-				if (fighter1.roles.find("name", "Drunken PP") && testDrunk1) {
-					battleChannel.send(fighter1.user.username + " felt nothing cause too drunk");
-				}
-				else {
-					// Damage P2
-					battleChannel.send(fighter1.user.username + " hits " + fighter2.user.username);
-					STRFighter2 -= Math.floor(10 + STRFighter1Battle / 10);
-				}
-			}
-			
-			// Heal P2
-			if(attackFighter2 == "FlexBro") {
-				STRFighter2 += 10;
-				STRFighter2 += Math.floor(50-STRFighter2*0.2);
-			}
-			else {
-				// Immune P2
-				if (fighter2.roles.find("name", "Drunken PP") && testDrunk2) {
-					battleChannel.send(fighter2.user.username + " felt nothing cause too drunk");
-				}
-				else {
-					// Damage P1
-					battleChannel.send(fighter2.user.username + " hits " + fighter1.user.username);
-					STRFighter1 -= Math.floor(10 + STRFighter2Battle / 10);
-				}
-			}
-		}
-		// reset attaques
-		attackFighter1 = "";
-		attackFighter2 = "";
-		
-		// messages
-		battleChannel.send("-----------------------------");
-		if (STRFighter1 <= 0 && STRFighter2 <= 0) {
-			battleChannel.send("Both of you lost. No one won this time. You losers");
-			
-			fighter1 = null;
-			fighter2 = null;
-			
-			return;
-		}
-		else if (STRFighter1 <= 0) {
-			battleChannel.send(fighter2.user.username + " won ! Congrats !");
-			
-			fighter1 = null;
-			fighter2 = null;
-			
-			return;
-		}
-		else if (STRFighter2 <= 0) {
-			battleChannel.send(fighter1.user.username + " won ! Congrats !");
-			
-			fighter1 = null;
-			fighter2 = null;
-			
-			return;
-		}
-		
-		// messages
-		battleChannel.send(fighter1.user.username + " /VS/ " + fighter2.user.username);
-		battleChannel.send("STR : " + STRFighter1 + ", DEX : " + DEXFighter1 + " /VS/ STR : " + STRFighter2 + ", DEX : " + DEXFighter2);
-		
-		// message w/ emotes
-		battleChannel.send("Attack with a reaction !")
-            .then(function (message2) {
-				message2.react(EMOTE_PP1);
-				message2.react(EMOTE_PP2);
-				message2.react(EMOTE_PP3);
-				message2.react(EMOTE_PP4);
-				message2.react(EMOTE_PP5);
-				message2.react(EMOTE_PP6);
-            }).catch(function(e) {
-				battleChannel.send(e);
-			});
-		return;
-		
-	}
-	
-	return; 
 });
 
-client.login(process.env.BOT_TOKEN);
+CLIENT.login(process.env.BOT_TOKEN);
