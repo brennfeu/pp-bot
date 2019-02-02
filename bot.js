@@ -230,62 +230,62 @@ function setRandomAttackList(_isBlind = false) {
 	// Attaque 1
 	if (getRandomPercent() > 20) {
 		emote = getRandomEmote();
-		listeAttaques.add(emote);
+		listeAttaques.push(emote);
 	}
 	else {
-		listeAttaques.add(EMOTE_PP2);
+		listeAttaques.push(EMOTE_PP2);
 	}
 	// Attaque 2
 	if (getRandomPercent() > 20) {
 		emote = getRandomEmote();
 		if (listeAttaques.indexOf(emote) >= 1) {
-			listeAttaques.add(emote);
+			listeAttaques.push(emote);
 		}
 		else {
-			listeAttaques.add(EMOTE_PP2);
+			listeAttaques.push(EMOTE_PP2);
 		}
 	}
 	else {
-		listeAttaques.add(EMOTE_PP2);
+		listeAttaques.push(EMOTE_PP2);
 	}
 	// Attaque 3
 	if (getRandomPercent() > 20) {
 		emote = getRandomEmote();
 		if (listeAttaques.indexOf(emote) >= 1) {
-			listeAttaques.add(emote);
+			listeAttaques.push(emote);
 		}
 		else {
-			listeAttaques.add(EMOTE_PP3);
+			listeAttaques.push(EMOTE_PP3);
 		}
 	}
 	else {
-		listeAttaques.add(EMOTE_PP3);
+		listeAttaques.push(EMOTE_PP3);
 	}
 	// Attaque 4
 	if (getRandomPercent() > 20) {
 		emote = getRandomEmote();
 		if (listeAttaques.indexOf(emote) >= 1) {
-			listeAttaques.add(emote);
+			listeAttaques.push(emote);
 		}
 		else {
-			listeAttaques.add(EMOTE_PP4);
+			listeAttaques.push(EMOTE_PP4);
 		}
 	}
 	else {
-		listeAttaques.add(EMOTE_PP4);
+		listeAttaques.push(EMOTE_PP4);
 	}
 	// Attaque 5
 	if (getRandomPercent() > 20) {
 		emote = getRandomEmote();
 		if (listeAttaques.indexOf(emote) >= 1) {
-			listeAttaques.add(emote);
+			listeAttaques.push(emote);
 		}
 		else {
-			listeAttaques.add(EMOTE_PP5);
+			listeAttaques.push(EMOTE_PP5);
 		}
 	}
 	else {
-		listeAttaques.add(EMOTE_PP5);
+		listeAttaques.push(EMOTE_PP5);
 	}
 	
 	LIST_AVAILABLE_ATTACKS = listeAttaques;
