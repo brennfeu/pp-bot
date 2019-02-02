@@ -36,22 +36,23 @@ class Fighter {
 	constructor(_idUser) {
 		// set variables
 		this.idUser = _idUser;
-		this.user = GUILD.members.get(_idUser).user;
+		this.guildUser = GUILD.members.get(_idUser);
+		this.user = this.guildUser.user;
 		
 		// set roles
-		if (this.user.roles.find("name", "Big PP")) {
+		if (this.guildUser.roles.find("name", "Big PP")) {
 			this.isBigPP = true;
 		}
-		if (this.user.roles.find("name", "Fast PP")) {
+		if (this.guildUser.roles.find("name", "Fast PP")) {
 			this.isFastPP = true;
 		} 
-		if (this.user.roles.find("name", "Drunken PP")) {
+		if (this.guildUser.roles.find("name", "Drunken PP")) {
 			this.isDrunkPP = true;
 		}
-		if (this.user.roles.find("name", "Hockey Puck PP")) {
+		if (this.guildUser.roles.find("name", "Hockey Puck PP")) {
 			this.isHockeyPuckPP = true;
 		}
-		if (this.user.roles.find("name", "Alien PP")) {
+		if (this.guildUser.roles.find("name", "Alien PP")) {
 			this.isAlienPP = true;
 		}
 	}
