@@ -100,7 +100,7 @@ class Fighter {
 		var txt = this.user.username;
 		txt += "\nSTR : " + this.STR + "  //  DEX : " + this.DEX;
 		
-		txt += "\n\nRoles :\n";
+		txt += "\n\nFighting Styles :\n";
 		if (this.isBigPP) {
 			txt += "Big PP\n";
 		}
