@@ -148,7 +148,7 @@ CLIENT.on("message", async _message => {
 	// Ignore si bot
 	if(_message.author.bot) return;
 	// Ignore si pas appelé
-	if (_message.mentions.users.array()[_message.mentions.users.array().length].id != CLIENT.user.id) return;
+	if (_message.mentions.users.array()[_message.mentions.users.array().length-1].id != CLIENT.user.id) return;
 	// Ignore si test privé
 	if (_PRIVATE_TEST && _message.guild.members.get(_message.author.id).username != "brennfeu") return _message.reply("I am currently unavailable, sorry :/");
 	// Ignore si deja occupé
