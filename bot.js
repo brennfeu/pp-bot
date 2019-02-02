@@ -199,10 +199,13 @@ function illegalGetCaught(_percentage) {
 	if (IS_ARBITRATORY_BLIND) {
 		return false;
 	}
-	return (getRandomPercent > _percentage);
+	var result = (getRandomPercent > _percentage);
+	console.log("Illegal : " + result);
+	return result;
 }
 function getRisk(_move) {
 	switch(_move) {
+		console.log("move : " + _move);
 		case EMOTE_PP10:
 			return 90;
 		case EMOTE_PP43:
