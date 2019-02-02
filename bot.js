@@ -34,8 +34,6 @@ class Fighter {
 	*/
 	
 	constructor(_idUser) {
-		console.log("constructor");
-		
 		// set variables
 		this.idUser = _idUser;
 		this.guildUser = GUILD.members.get(_idUser);
@@ -67,13 +65,13 @@ class Fighter {
 	// fighter.STR
 	get STR() {
 		var str = 50;
-		if (isBigPP) {
+		if (this.isBigPP) {
 			str += 10;
 		}
-		if (isFastPP) {
+		if (this.isFastPP) {
 			str -= 5;
 		}
-		if (isHockeyPuckPP) {
+		if (this.isHockeyPuckPP) {
 			str -= 45;
 		}
 		return str;
@@ -82,13 +80,13 @@ class Fighter {
 	// fighter.DEX
 	get DEX() {
 		var dex = 20;
-		if (isBigPP) {
+		if (this.isBigPP) {
 			dex -= 5;
 		}
-		if (isFastPP) {
+		if (this.isFastPP) {
 			dex += 5;
 		}
-		if (isDrunkPP) {
+		if (this.isDrunkPP) {
 			dex -= 25;
 		}
 		if (isHockeyPuckPP) {
