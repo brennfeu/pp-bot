@@ -240,7 +240,7 @@ function setRandomAttackList(_isBlind = false) {
 	// Attaque 2
 	if (getRandomPercent() > 20) {
 		emote = getRandomEmote();
-		if (listeAttaques.indexOf(emote) >= 1) {
+		if (listeAttaques.indexOf(emote) < 0) {
 			listeAttaques.push(emote);
 		}
 		else {
@@ -253,7 +253,7 @@ function setRandomAttackList(_isBlind = false) {
 	// Attaque 3
 	if (getRandomPercent() > 20) {
 		emote = getRandomEmote();
-		if (listeAttaques.indexOf(emote) >= 1) {
+		if (listeAttaques.indexOf(emote) < 0) {
 			listeAttaques.push(emote);
 		}
 		else {
@@ -266,7 +266,7 @@ function setRandomAttackList(_isBlind = false) {
 	// Attaque 4
 	if (getRandomPercent() > 20) {
 		emote = getRandomEmote();
-		if (listeAttaques.indexOf(emote) >= 1) {
+		if (listeAttaques.indexOf(emote) < 0) {
 			listeAttaques.push(emote);
 		}
 		else {
@@ -279,7 +279,7 @@ function setRandomAttackList(_isBlind = false) {
 	// Attaque 5
 	if (getRandomPercent() > 20) {
 		emote = getRandomEmote();
-		if (listeAttaques.indexOf(emote) >= 1) {
+		if (listeAttaques.indexOf(emote) < 0) {
 			listeAttaques.push(emote);
 		}
 		else {
