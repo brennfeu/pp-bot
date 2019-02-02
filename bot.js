@@ -17,6 +17,101 @@ const EMOTE_PP6 = "358205593712066560"; // Kick
 
 // Variables
 var IS_BUSY = false;
+var GUILD;
+
+
+// CLASSES
+class Fighter {
+	this.isBigPP = false;
+	this.isFastPP = false;
+	this.isDrunkPP = false;
+	this.isHockeyPuckPP = false;
+	this.isAlienPP = false;
+	
+	this.idUser = 0;
+	this.user;
+	
+	constructor(_idUser) {
+		// set variables
+		this.idUser = _idUser;
+		this.user = GUILD.members.get(_idUser);
+		
+		// set roles
+		if (this.user.roles.find("name", "Big PP")) {
+			this.isBigPP = true;
+		}
+		if (this.user.roles.find("name", "Fast PP")) {
+			this.isFastPP = true;
+		} 
+		if (this.user.roles.find("name", "Drunken PP")) {
+			this.isDrunkPP = true;
+		}
+		if (this.user.roles.find("name", "Hockey Puck PP")) {
+			this.isHockeyPuckPP = true;
+		}
+		if (this.user.roles.find("name", "Alien PP")) {
+			this.isAlienPP = true;
+		}
+	}
+	
+	function getSTR() {
+		var str = 50;
+		if (isBigPP) {
+			str += 10;
+		}
+		if (isFastPP) {
+			str -= 5;
+		}
+		if (isHockeyPuckPP) {
+			str -= 45;
+		}
+		return str;
+	}
+	
+	function getDEX() {
+		var dex = 20;
+		if (isBigPP) {
+			dex -= 5;
+		}
+		if (isFastPP) {
+			dex += 5;
+		}
+		if (isDrunkPP) {
+			dex -= 25;
+		}
+		if (isHockeyPuckPP) {
+			dex -= 45;
+		}
+		return dex;
+	}
+	
+	function toString() {
+		var txt = this.user.username;
+		txt += "\nSTR : " + this.getSTR();
+		txt += "\nDEX : " + this.getDEX();
+		
+		txt += "\n\nRoles :\n";
+		if (isBigPP) {
+			txt += "Big PP\n";
+		}
+		if (isFastPP) {
+			txt += "Fast PP\n";
+		}
+		if (isDrunkPP) {
+			txt += "Drunken PP\n";
+		}
+		if (isHockeyPuckPP) {
+			txt += "Hockey Puck PP\n";
+		}
+		if (isAlienPP) {
+			txt += "Alien PP\n";
+		}
+		
+		txt += "\n"
+		
+		return txt;
+	}
+}
 
 
 // FONCTIONS
@@ -43,8 +138,9 @@ CLIENT.on('ready', () => {
 // This event will run on every single message received, from any channel or DM.
 CLIENT.on("message", async _message => {
 	var _battleChannel = _message.channel;
+	GUILD = _message.guild;
   
-	// Ignore les autres bots
+	// Ignore si bot
 	if(_message.author.bot) return;
 	// Ignore si pas appelé
 	if (_message.mentions.users.array()[_message.mentions.users.array().size()].id != CLIENT.user.id) return;
@@ -52,14 +148,20 @@ CLIENT.on("message", async _message => {
 	if (_PRIVATE_TEST && _message.guild.members.get(_message.author.id).username != "brennfeu") return _message.reply("I am currently unavailable, sorry :/");
 	// Ignore si deja occupé
 	if (IS_BUSY) return;
+	
+	
+	// TEST
+	fighter1 = new Fighter(_message.user.id);
+	_battleChannel.send(fighter1.toString());
 
 });
 
 CLIENT.on('messageReactionAdd', (_reaction, _user) => {
-	var _message = _raction.message;
+	var _message = _reaction.message;
 	var _battleChannel = _message.channel;
+	GUILD = _message.guild;
 	
-	// ignore si bot
+	// Ignore si bot
 	if (_user.bot) return;
 	
 });
