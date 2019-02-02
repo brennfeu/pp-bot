@@ -200,7 +200,7 @@ function illegalGetCaught(_percentage) {
 		console.log("blind");
 		return false;
 	}
-	var result = (getRandomPercent() > _percentage);
+	var result = (getRandomPercent() < _percentage);
 	console.log("Illegal : " + result);
 	return result;
 }
