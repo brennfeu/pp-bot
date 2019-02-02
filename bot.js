@@ -163,7 +163,7 @@ CLIENT.on("message", async _message => {
 	if (IS_BUSY) return;
 	
 	// Recuperation argsUser
-	var argsUser = message.content.trim().split(" ");
+	var argsUser = _message.content.trim().split(" ");
 	console.log(argsUser);
 });
 
