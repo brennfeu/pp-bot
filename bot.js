@@ -19,6 +19,9 @@ const EMOTE_PP6 = "358205593712066560"; // Kick
 var IS_BUSY = false;
 var GUILD;
 
+var FIGHTER1;
+var FIGHTER2;
+
 
 // CLASSES
 class Fighter {
@@ -129,17 +132,40 @@ function getRandomPercent() {
 	return Math.floor(Math.random() * 100 + 1);
 }
 
-function setBotActivity(texte) {
+function setBotActivity(_texte) {
 	if (PRIVATE_TEST) {
-		return CLIENT.user.setActivity("[PRIVATE TEST] " + texte);
+		return CLIENT.user.setActivity("[PRIVATE TEST] " + _texte);
 	}
 	if (BETA_TEST) {
-		return CLIENT.user.setActivity("[BETA TEST] " + texte);
+		return CLIENT.user.setActivity("[BETA TEST] " + _texte);
 	}
-	return CLIENT.user.setActivity(texte);
+	return CLIENT.user.setActivity(_texte);
 }
 function clearBotActivity() {
 	return CLIENT.user.setActivity("");
+}
+
+function getOpponentOf(_fighter) {
+	if (FIGHTER1.user.id == _fighter.user.id) {
+		return fighter2;
+	}
+	return FIGHTER1;
+}
+
+function startDuel(_message) {
+	IS_BUSY = true;
+	setBotActivity("PP Punch Arena");
+	
+	FIGHTER1 = new Fighter(_message.author.user.id);
+	FIGHTER2 = new Fighter(_message.mentions.users.array()[0].user.id);
+	
+}
+function stopDuel() {
+	FIGHTER1 = null;
+	FIGHTER2 = null;
+	
+	setBotActivity("");
+	IS_BUSY = false;
 }
 
 
@@ -169,25 +195,37 @@ CLIENT.on("message", async _message => {
 	
 	// Recuperation commande
 	var argsUser = _message.content.trim().split(" ");
+	
 	if (argsUser[1] == "rank") {
 		if (_message.mentions.users.array().length > 1) {
+			// RANK @SOMEONE
 			return _message.reply("sorry " + _message.mentions.users.array()[0].username + "'s rank is not available atm :/");
 		}
+		// RANK
 		return _message.reply("sorry, your rank is not availables atm :/");
 	}
 	if (argsUser[1] == "ranks") {
+		// RANKS
 		return _message.reply("sorry, global ranks are not availables atm :/");
 	}
 	if (argsUser[1] == "duel") {
 		if (_message.mentions.users.array().length <= 1) {
-			return _message.reply("you need to tag the person you want to duel in the command");
+			return _message.reply("you need to tag the person you want to duel in the command !\nSee the help command for more help !");
 		}
+		
+		// DUEL
+		startDuel(_message);
+		_battleChannel.send(FIGHTER1.toString());
+		_battleChannel.send(FIGHTER2.toString());
+		
 		return _message.reply("WIP");
 	}
 	if (argsUser[1] == "help") {
+		// HELP
 		return _message.reply("too lazy to make the doc for now\ncommands : rank, rank @someone, ranks, duel @someone, help");
 	}
-	console.log(argsUser);
+	
+	return _message.reply("I don't know this command, try using the help command !");
 });
 
 CLIENT.on('messageReactionAdd', (_reaction, _user) => {
