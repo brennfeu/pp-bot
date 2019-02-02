@@ -40,6 +40,11 @@ class Fighter {
 		this.user = this.guildUser.user;
 		
 		// set roles
+		this.isBigPP = false;
+		this.isFastPP = false;
+		this.isDrunkPP = false;
+		this.isHockeyPuckPP = false;
+		this.isAlienPP = false;
 		if (this.guildUser.roles.find("name", "Big PP")) {
 			this.isBigPP = true;
 		}
