@@ -61,6 +61,8 @@ const EMOTE_PP50 = "342313262651670528"; // Perhaps
 
 // Variables
 var IS_BUSY = false;
+var IS_DUELLING = false;
+
 var GUILD;
 var BATTLE_CHANNEL;
 var LIST_AVAILABLE_ATTACKS;
@@ -194,6 +196,7 @@ function getOpponentOf(_fighter) {
 
 function startDuel(_message) {
 	IS_BUSY = true;
+	IS_DUELLING = true;
 	setBotActivity("PP Punch Arena");
 	
 	console.log("F1 " + _message.author.id);
@@ -210,6 +213,7 @@ function stopDuel() {
 	ILLEGAL_BOMBING = false;
 	
 	setBotActivity("");
+	IS_DUELLING = false;
 	IS_BUSY = false;
 }
 function newTurnDuel() {
@@ -375,7 +379,7 @@ CLIENT.on("message", async _message => {
 		
 		// DUEL
 		startDuel(_message);
-		newTurnDuel()
+		newTurnDuel();
 		
 		return;
 	}
@@ -392,6 +396,29 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	
 	// Ignore si bot
 	if (_user.bot) return;
+	
+	// DUEL
+	if (IS_DUELLING) {
+		// Assigne attaque
+		if (_user.id == FIGHTER1.user.id) {
+			FIGHTER1.attack = _reaction.emoji.id;
+			BATTLE_CHANNEL.send(FIGHTER1.user.username + " : " + _reaction.emoji.name);
+		}
+		else if (_user.id == FIGHTER2.user.id) {
+			FIGHTER2.attack = _reaction.emoji.id;
+			BATTLE_CHANNEL.send(FIGHTER2.user.username + " : " + _reaction.emoji.name);
+		}
+		
+		// Deux attaques sont faites
+		if (FIGHTER1.attack != "" && FIGHTER2.attack != "") {
+			// TODO
+			
+			newTurnDuel();
+		}
+		return;
+	}
+	
+	// CHANGE ROLE
 	
 });
 
