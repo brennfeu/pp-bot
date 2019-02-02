@@ -204,8 +204,8 @@ function illegalGetCaught(_percentage) {
 	return result;
 }
 function getRisk(_move) {
+	console.log("move : " + _move);
 	switch(_move) {
-		console.log("move : " + _move);
 		case EMOTE_PP10:
 			return 90;
 		case EMOTE_PP43:
