@@ -62,6 +62,7 @@ const EMOTE_PP50 = "342313262651670528"; // Perhaps
 // Variables
 var IS_BUSY = false;
 var GUILD;
+var BATTLE_CHANNEL;
 var LIST_AVAILABLE_ATTACKS;
 
 var FIGHTER1;
@@ -211,7 +212,7 @@ function stopDuel() {
 	setBotActivity("");
 	IS_BUSY = false;
 }
-function newTurnDuel() {
+function newTurnDuel(_battleChannel) {
 	_battleChannel.send(FIGHTER1.toString());
 	_battleChannel.send("===== /VS/ =====");
 	_battleChannel.send(FIGHTER2.toString());
@@ -340,7 +341,7 @@ CLIENT.on('ready', () => {
 
 // This event will run on every single message received, from any channel or DM.
 CLIENT.on("message", async _message => {
-	var _battleChannel = _message.channel;
+	BATTLE_CHANNEL = _message.channel;
 	GUILD = _message.guild;
   
 	// Ignore si bot
@@ -388,8 +389,6 @@ CLIENT.on("message", async _message => {
 
 CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	var _message = _reaction.message;
-	var _battleChannel = _message.channel;
-	GUILD = _message.guild;
 	
 	// Ignore si bot
 	if (_user.bot) return;
