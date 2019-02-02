@@ -56,7 +56,8 @@ class Fighter {
 		}
 	}
 	
-	function getSTR() {
+	// fighter.STR
+	get STR() {
 		var str = 50;
 		if (isBigPP) {
 			str += 10;
@@ -70,7 +71,8 @@ class Fighter {
 		return str;
 	}
 	
-	function getDEX() {
+	// fighter.DEX
+	get DEX() {
 		var dex = 20;
 		if (isBigPP) {
 			dex -= 5;
@@ -87,7 +89,8 @@ class Fighter {
 		return dex;
 	}
 	
-	function toString() {
+	// fighter.toString
+	toString() {
 		var txt = this.user.username;
 		txt += "\nSTR : " + this.getSTR();
 		txt += "\nDEX : " + this.getDEX();
