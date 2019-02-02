@@ -371,6 +371,7 @@ CLIENT.on("message", async _message => {
 		setRandomAttackList();
 		_battleChannel.send("\n\nAttack with a reaction !").then(function (_message2) {
 				for (var emote in LIST_AVAILABLE_ATTACKS) {
+					console.log(emote);
 					_message2.react(emote);
 				}
             }).catch(function(e) {
