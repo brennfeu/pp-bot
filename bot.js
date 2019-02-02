@@ -98,8 +98,7 @@ class Fighter {
 	// fighter.toString
 	toString() {
 		var txt = this.user.username;
-		txt += "\nSTR : " + this.STR;
-		txt += "    DEX : " + this.DEX;
+		txt += "\nSTR : " + this.STR + "  //  DEX : " + this.DEX;
 		
 		txt += "\n\nRoles :\n";
 		if (this.isBigPP) {
