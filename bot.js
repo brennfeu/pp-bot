@@ -65,12 +65,13 @@ var IS_DUELLING = false;
 
 var GUILD;
 var BATTLE_CHANNEL;
-var LIST_AVAILABLE_ATTACKS;
+var LIST_AVAILABLE_ATTACKS = [];
 
-var FIGHTER1;
-var FIGHTER2;
+var FIGHTER1 = null;
+var FIGHTER2 = null;
 
-var ILLEGAL_BOMBING;
+var ILLEGAL_BOMBING = false;
+var IS_ARBITRATORY_BLIND = false;
 
 
 // CLASSES
@@ -194,6 +195,29 @@ function getOpponentOf(_fighter) {
 	return FIGHTER1;
 }
 
+function illegalGetCaught(_percentage) {
+	if (IS_ARBITRATORY_BLIND) {
+		return false;
+	}
+	return (getRandomPercent > _percentage);
+}
+function getRisk(_move) {
+	switch(_move) {
+		case EMOTE_PP10:
+			return 90;
+		case EMOTE_PP43:
+			return 15;
+		case EMOTE_PP25:
+			return 60;
+		case EMOTE_PP23:
+			return 75;
+		case EMOTE_PP44:
+			return 40;
+		
+		return 0;
+	}
+}
+
 function startDuel(_message) {
 	IS_BUSY = true;
 	IS_DUELLING = true;
@@ -217,6 +241,7 @@ function stopDuel() {
 	IS_BUSY = false;
 }
 function newTurnDuel() {
+	BATTLE_CHANNEL.send("\n\n===== NEW TURN =====");
 	BATTLE_CHANNEL.send(FIGHTER1.toString());
 	BATTLE_CHANNEL.send("===== /VS/ =====");
 	BATTLE_CHANNEL.send(FIGHTER2.toString());
@@ -332,6 +357,11 @@ function getRandomEmote(_canBeIllegal = true) {
 	return goodList[Math.floor(Math.random()*goodList.length)];
 }
 
+function addWinCounter(_fighter, _number) {
+	// TODO
+	// negative number of wins for cheaters
+}
+
 
 CLIENT.on('ready', () => {
 	console.log(`Logged in as ${CLIENT.user.tag}!`);
@@ -411,7 +441,42 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		
 		// Deux attaques sont faites
 		if (FIGHTER1.attack != "" && FIGHTER2.attack != "") {
+			// test illegal
+			var caught1 = illegalGetCaught(getRisk(FIGHTER1.attack));
+			var caught2 = illegalGetCaught(getRisk(FIGHTER2.attack));
+			
+			var winner;
+			
+			if (caught1 && caught2) {
+				BATTLE_CHANNEL.send("WAIT YOU ARE DOING ILLEGAL STUFF RIGHT NOW !");
+				BATTLE_CHANNEL.send("You both loose the fight !");
+				
+				addWinCounter(FIGHTER1, -1);
+				addWinCounter(FIGHTER2, -1);
+				
+				stopDuel();
+				return;
+			}
+			else if (caught1) {
+				winner = FIGHTER2;
+			}
+			else if (caught2) {
+				winner = FIGHTER1;
+			}
+			
+			if (caught1 || caught2) {
+				BATTLE_CHANNEL.send("WAIT " + getOpponentOf(winner) + " IS DOING ILLEGAL STUFF RIGHT NOW !");
+				BATTLE_CHANNEL.send(winner.user.username + " wins !");
+				
+				addWinCounter(winner, 1);
+				addWinCounter(getOpponentOf(winner), -1);
+				
+				stopDuel();
+				return;
+			}
+			
 			// TODO
+			// ATTAQUES
 			
 			newTurnDuel();
 		}
