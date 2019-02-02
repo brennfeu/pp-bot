@@ -197,15 +197,18 @@ function getOpponentOf(_fighter) {
 
 function illegalGetCaught(_percentage) {
 	if (IS_ARBITRATORY_BLIND) {
+		console.log("blind");
 		return false;
 	}
-	var result = (getRandomPercent > _percentage);
+	var result = (getRandomPercent() > _percentage);
 	console.log("Illegal : " + result);
 	return result;
 }
 function getRisk(_move) {
 	console.log("move : " + _move);
 	switch(_move) {
+		case EMOTE_PP6:
+			return 20;
 		case EMOTE_PP10:
 			return 90;
 		case EMOTE_PP43:
