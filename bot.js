@@ -146,19 +146,19 @@ class Fighter {
 		
 		txt += "\n\nFighting Styles :\n";
 		if (this.isBigPP) {
-			txt += "Big PP\n";
+			txt += " - Big PP\n";
 		}
 		if (this.isFastPP) {
-			txt += "Fast PP\n";
+			txt += " - Fast PP\n";
 		}
 		if (this.isDrunkPP) {
-			txt += "Drunken PP\n";
+			txt += " - Drunken PP\n";
 		}
 		if (this.isHockeyPuckPP) {
-			txt += "Hockey Puck PP\n";
+			txt += " - Hockey Puck PP\n";
 		}
 		if (this.isAlienPP) {
-			txt += "Alien PP\n";
+			txt += " - Alien PP\n";
 		}
 		
 		txt += "\n"
@@ -454,6 +454,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			var winner;
 			
 			if (caught1 && caught2) {
+				BATTLE_CHANNEL.send("\n\n===== NEW TURN =====");
 				BATTLE_CHANNEL.send("WAIT YOU ARE DOING ILLEGAL STUFF RIGHT NOW !");
 				BATTLE_CHANNEL.send("You both loose the fight !");
 				BATTLE_CHANNEL.send("You cheaters do net deserve to live !");
@@ -473,6 +474,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			}
 			
 			if (caught1 || caught2) {
+				BATTLE_CHANNEL.send("\n\n===== NEW TURN =====");
 				BATTLE_CHANNEL.send("WAIT " + getOpponentOf(winner).user.username + " IS DOING ILLEGAL STUFF RIGHT NOW !");
 				BATTLE_CHANNEL.send(getOpponentOf(winner).user.username + " is disqualified for being a dumb shit.");
 				BATTLE_CHANNEL.send(winner.user.username + " wins !");
