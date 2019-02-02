@@ -150,7 +150,7 @@ CLIENT.on("message", async _message => {
 	// Ignore si pas appelé
 	if (_message.mentions.users.array()[_message.mentions.users.array().length-1].id != CLIENT.user.id) return;
 	// Ignore si test privé
-	if (PRIVATE_TEST && _message.guild.members.get(_message.author.id).username != "brennfeu") return _message.reply("I am currently unavailable, sorry :/ (" + _message.guild.members.get(_message.author.id).username + ")");
+	if (PRIVATE_TEST && _message.author.username != "brennfeu") return _message.reply("I am currently unavailable, sorry :/");
 	// Ignore si deja occupé
 	if (IS_BUSY) return;
 	
