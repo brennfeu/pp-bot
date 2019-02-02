@@ -176,4 +176,5 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	
 });
 
+setBotActivity("Private for now");
 CLIENT.login(process.env.BOT_TOKEN);
