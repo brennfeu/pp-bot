@@ -130,7 +130,10 @@ function getRandomPercent() {
 }
 
 function setBotActivity(texte) {
-	if (BETA_TEST || PRIVATE_TEST) {
+	if (PRIVATE_TEST) {
+		return CLIENT.user.setActivity("[PRIVATE TEST] " + texte);
+	}
+	if (BETA_TEST) {
 		return CLIENT.user.setActivity("[BETA TEST] " + texte);
 	}
 	return CLIENT.user.setActivity(texte);
@@ -142,6 +145,8 @@ function clearBotActivity() {
 
 CLIENT.on('ready', () => {
 	console.log(`Logged in as ${CLIENT.user.tag}!`);
+	
+	// annonce BETA_TEST
 	if (BETA_TEST || PRIVATE_TEST) {
 		setBotActivity("");
 	}
@@ -162,8 +167,26 @@ CLIENT.on("message", async _message => {
 	// Ignore si deja occupé
 	if (IS_BUSY) return;
 	
-	// Recuperation argsUser
+	// Recuperation commande
 	var argsUser = _message.content.trim().split(" ");
+	if (argsUser[1] == "rank") {
+		if (_message.mentions.users.array().length > 1) {
+			return _message.reply("sorry " + _message.mentions.users.array()[0].username + "'s rank is not available atm :/");
+		}
+		return _message.reply("sorry, your rank is not availables atm :/");
+	}
+	if (argsUser[1] == "ranks") {
+		return _message.reply("sorry, global ranks are not availables atm :/");
+	}
+	if (argsUser[1] == "duel") {
+		if (_message.mentions.users.array().length <= 1) {
+			return _message.reply("you need to tag the person you want to duel in the command");
+		}
+		return _message.reply("WIP");
+	}
+	if (argsUser[1] == "help") {
+		return _message.reply("too lazy to make the doc for now\ncommands : rank, rank @someone, ranks, duel @someone, help");
+	}
 	console.log(argsUser);
 });
 
