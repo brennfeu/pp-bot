@@ -22,7 +22,7 @@ var GUILD;
 
 // CLASSES
 class Fighter {
-	/* 
+	/*
 	this.isBigPP = false;
 	this.isFastPP = false;
 	this.isDrunkPP = false;
@@ -34,6 +34,8 @@ class Fighter {
 	*/
 	
 	constructor(_idUser) {
+		console.log("constructor");
+		
 		// set variables
 		this.idUser = _idUser;
 		this.guildUser = GUILD.members.get(_idUser);
