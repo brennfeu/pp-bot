@@ -22,14 +22,16 @@ var GUILD;
 
 // CLASSES
 class Fighter {
-	isBigPP = false;
-	isFastPP = false;
-	isDrunkPP = false;
-	isHockeyPuckPP = false;
-	isAlienPP = false;
+	/* 
+	this.isBigPP = false;
+	this.isFastPP = false;
+	this.isDrunkPP = false;
+	this.isHockeyPuckPP = false;
+	this.isAlienPP = false;
 	
-	idUser = 0;
-	user;
+	this.idUser = 0;
+	this.user; 
+	*/
 	
 	constructor(_idUser) {
 		// set variables
