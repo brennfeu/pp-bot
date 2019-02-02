@@ -71,23 +71,13 @@ var ILLEGAL_BOMBING;
 
 
 // CLASSES
-class Fighter {
-	/*
-	this.isBigPP = false;
-	this.isFastPP = false;
-	this.isDrunkPP = false;
-	this.isHockeyPuckPP = false;
-	this.isAlienPP = false;
-	
-	this.idUser = 0;
-	this.user; 
-	*/
-	
+class Fighter {	
 	constructor(_idUser) {
 		// set variables
 		this.idUser = _idUser;
 		this.guildUser = GUILD.members.get(_idUser);
 		this.user = this.guildUser.user;
+		this.attack = "";
 		
 		// set roles
 		this.isBigPP = false;
@@ -220,6 +210,23 @@ function stopDuel() {
 	
 	setBotActivity("");
 	IS_BUSY = false;
+}
+function newTurnDuel() {
+	_battleChannel.send(FIGHTER1.toString());
+	_battleChannel.send("===== /VS/ =====");
+	_battleChannel.send(FIGHTER2.toString());
+	setRandomAttackList();
+	_battleChannel.send("\n\nAttack with a reaction !").then(function (_message2) {
+		for (var i in LIST_AVAILABLE_ATTACKS) {
+			console.log(LIST_AVAILABLE_ATTACKS[i]);
+			_message2.react(LIST_AVAILABLE_ATTACKS[i]);
+		}
+	}).catch(function(e) {
+		_battleChannel.send(e);
+	});
+	
+	FIGHTER1.attack = "";
+	FIGHTER2.attack = "";
 }
 
 function setRandomAttackList(_isBlind = false) {
@@ -367,21 +374,9 @@ CLIENT.on("message", async _message => {
 		
 		// DUEL
 		startDuel(_message);
-		_battleChannel.send(FIGHTER1.toString());
-		_battleChannel.send("===== /VS/ =====");
-		_battleChannel.send(FIGHTER2.toString());
-		setRandomAttackList();
-		_battleChannel.send("\n\nAttack with a reaction !").then(function (_message2) {
-				for (var i in LIST_AVAILABLE_ATTACKS) {
-					console.log(LIST_AVAILABLE_ATTACKS[i]);
-					_message2.react(LIST_AVAILABLE_ATTACKS[i]);
-				}
-            }).catch(function(e) {
-				_battleChannel.send(e);
-			});
+		newTurnDuel()
 		
-		stopDuel();
-		return _message.reply("WIP");
+		return;
 	}
 	if (argsUser[1] == "help") {
 		// HELP
