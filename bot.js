@@ -89,7 +89,7 @@ class Fighter {
 		if (this.isDrunkPP) {
 			dex -= 25;
 		}
-		if (isHockeyPuckPP) {
+		if (this.isHockeyPuckPP) {
 			dex -= 45;
 		}
 		return dex;
@@ -102,19 +102,19 @@ class Fighter {
 		txt += "\nDEX : " + this.DEX;
 		
 		txt += "\n\nRoles :\n";
-		if (isBigPP) {
+		if (this.isBigPP) {
 			txt += "Big PP\n";
 		}
-		if (isFastPP) {
+		if (this.isFastPP) {
 			txt += "Fast PP\n";
 		}
-		if (isDrunkPP) {
+		if (this.isDrunkPP) {
 			txt += "Drunken PP\n";
 		}
-		if (isHockeyPuckPP) {
+		if (this.isHockeyPuckPP) {
 			txt += "Hockey Puck PP\n";
 		}
-		if (isAlienPP) {
+		if (this.isAlienPP) {
 			txt += "Alien PP\n";
 		}
 		
