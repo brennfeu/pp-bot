@@ -201,7 +201,7 @@ function illegalGetCaught(_percentage) {
 		return false;
 	}
 	var result = (getRandomPercent() < _percentage);
-	console.log("Illegal : " + result);
+	console.log("Illegal : " + _percentage);
 	return result;
 }
 function getRisk(_move) {
