@@ -41,7 +41,7 @@ CLIENT.on('ready', () => {
 
 
 // This event will run on every single message received, from any channel or DM.
-client.on("message", async _message => {
+CLIENT.on("message", async _message => {
 	var _battleChannel = _message.channel;
   
 	// Ignore les autres bots
@@ -55,7 +55,7 @@ client.on("message", async _message => {
 
 });
 
-client.on('messageReactionAdd', (_reaction, _user) => {
+CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	var _message = _raction.message;
 	var _battleChannel = _message.channel;
 	
