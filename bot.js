@@ -67,7 +67,7 @@ var LIST_AVAILABLE_ATTACKS;
 var FIGHTER1;
 var FIGHTER2;
 
-var SUICIDE_BOMBING;
+var ILLEGAL_BOMBING;
 
 
 // CLASSES
@@ -208,13 +208,13 @@ function startDuel(_message) {
 	FIGHTER1 = new Fighter(_message.author.id);
 	FIGHTER2 = new Fighter(_message.mentions.users.array()[0].id);
 	
-	SUICIDE_BOMBING = false;
+	ILLEGAL_BOMBING = false;
 }
 function stopDuel() {
 	FIGHTER1 = null;
 	FIGHTER2 = null;
 	
-	SUICIDE_BOMBING = false;
+	ILLEGAL_BOMBING = false;
 	
 	setBotActivity("");
 	IS_BUSY = false;
