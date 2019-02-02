@@ -141,8 +141,10 @@ function clearBotActivity() {
 
 
 CLIENT.on('ready', () => {
-  console.log(`Logged in as ${CLIENT.user.tag}!`);
-  setBotActivity("Private tests");
+	console.log(`Logged in as ${CLIENT.user.tag}!`);
+	if (BETA_TEST || PRIVATE_TEST) {
+		setBotActivity("");
+	}
 });
 
 
@@ -160,11 +162,9 @@ CLIENT.on("message", async _message => {
 	// Ignore si deja occupé
 	if (IS_BUSY) return;
 	
-	
-	// TEST
-	fighter1 = new Fighter(_message.author.id);
-	_battleChannel.send(fighter1.toString());
-
+	// Recuperation argsUser
+	var argsUser = message.content.slice(0).trim().split(/ +/g);
+	console.log(argsUser);
 });
 
 CLIENT.on('messageReactionAdd', (_reaction, _user) => {
