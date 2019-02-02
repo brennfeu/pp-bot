@@ -6,7 +6,7 @@ const DISCORD = require("discord.js");
 const CLIENT = new DISCORD.Client();
 
 const BETA_TEST = true;
-const PRIVATE_TEST = true;
+const PRIVATE_TEST = false;
 
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
 const EMOTE_PP2 = "535240768441548810"; // PunchingPPRealyHard
@@ -475,7 +475,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			
 			if (caught1 || caught2) {
 				BATTLE_CHANNEL.send("\n\n===== NEW TURN =====");
-				BATTLE_CHANNEL.send("WAIT " + getOpponentOf(winner).user.username + " IS DOING ILLEGAL STUFF RIGHT NOW !");
+				BATTLE_CHANNEL.send("WAIT " + getOpponentOf(winner).user.usernametoUpperCase() + " IS DOING ILLEGAL STUFF RIGHT NOW !");
 				BATTLE_CHANNEL.send(getOpponentOf(winner).user.username + " is disqualified for being a dumb shit.");
 				BATTLE_CHANNEL.send(winner.user.username + " wins !");
 				
