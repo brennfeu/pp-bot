@@ -176,7 +176,9 @@ class Fighter {
 
 // FONCTIONS
 function getRandomPercent() {
-	return Math.floor(Math.random() * 100 + 1);
+	var i = Math.floor(Math.random() * 100 + 1);
+	console.log(i);
+	return i;
 }
 
 function setBotActivity(_texte) {
@@ -233,7 +235,7 @@ function setRandomAttackList(_isBlind = false) {
 		listeAttaques.push(emote);
 	}
 	else {
-		listeAttaques.push(EMOTE_PP2);
+		listeAttaques.push(EMOTE_PP1);
 	}
 	// Attaque 2
 	if (getRandomPercent() > 20) {
