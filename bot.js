@@ -212,12 +212,12 @@ function stopDuel() {
 	setBotActivity("");
 	IS_BUSY = false;
 }
-function newTurnDuel(_battleChannel) {
-	_battleChannel.send(FIGHTER1.toString());
-	_battleChannel.send("===== /VS/ =====");
-	_battleChannel.send(FIGHTER2.toString());
+function newTurnDuel() {
+	BATTLE_CHANNEL.send(FIGHTER1.toString());
+	BATTLE_CHANNEL.send("===== /VS/ =====");
+	BATTLE_CHANNEL.send(FIGHTER2.toString());
 	setRandomAttackList();
-	_battleChannel.send("\n\nAttack with a reaction !").then(function (_message2) {
+	BATTLE_CHANNEL.send("\n\nAttack with a reaction !").then(function (_message2) {
 		for (var i in LIST_AVAILABLE_ATTACKS) {
 			console.log(LIST_AVAILABLE_ATTACKS[i]);
 			_message2.react(LIST_AVAILABLE_ATTACKS[i]);
