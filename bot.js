@@ -156,9 +156,9 @@ function startDuel(_message) {
 	IS_BUSY = true;
 	setBotActivity("PP Punch Arena");
 	
-	console.log("F1 " + _message.author.user.id);
+	console.log("F1 " + _message.author.id);
 	console.log("F2 " + _message.mentions.users.array()[0]);
-	FIGHTER1 = new Fighter(_message.author.user.id);
+	FIGHTER1 = new Fighter(_message.author.id);
 	FIGHTER2 = new Fighter(_message.mentions.users.array()[0].id);
 	
 }
