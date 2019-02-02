@@ -370,9 +370,9 @@ CLIENT.on("message", async _message => {
 		_battleChannel.send(FIGHTER2.toString());
 		setRandomAttackList();
 		_battleChannel.send("\n\nAttack with a reaction !").then(function (_message2) {
-				for (var emote in LIST_AVAILABLE_ATTACKS) {
-					console.log(emote);
-					_message2.react(emote);
+				for (var i in LIST_AVAILABLE_ATTACKS) {
+					console.log(LIST_AVAILABLE_ATTACKS[i]);
+					_message2.react(LIST_AVAILABLE_ATTACKS[i]);
 				}
             }).catch(function(e) {
 				_battleChannel.send(e);
