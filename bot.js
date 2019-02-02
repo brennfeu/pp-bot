@@ -36,7 +36,7 @@ class Fighter {
 	constructor(_idUser) {
 		// set variables
 		this.idUser = _idUser;
-		this.user = GUILD.members.get(_idUser);
+		this.user = GUILD.members.get(_idUser).user;
 		
 		// set roles
 		if (this.user.roles.find("name", "Big PP")) {
@@ -156,7 +156,7 @@ CLIENT.on("message", async _message => {
 	
 	
 	// TEST
-	fighter1 = new Fighter(_message.user.id);
+	fighter1 = new Fighter(_message.author.id);
 	_battleChannel.send(fighter1.toString());
 
 });
