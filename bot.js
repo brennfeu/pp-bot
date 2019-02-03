@@ -170,22 +170,22 @@ class Fighter {
 	}
 	
 	playMove() {
-		if (this.attack = EMOTE_PP1) {
+		if (this.attack == EMOTE_PP1) {
 			// Punching PP
 			BATTLE_CHANNEL.send(this.user.username + " punches " + getOpponentOf(this).user.username + "'s PP !");
 			getOpponentOf(this).damage(Math.floor(10 + this.STR / 10));
 		}
-		else if (this.attack = EMOTE_PP2) {
+		else if (this.attack == EMOTE_PP2) {
 			// Punching PP Really Hard
 			BATTLE_CHANNEL.send(this.user.username + " punches " + getOpponentOf(this).user.username + "'s PP really hard !");
 			getOpponentOf(this).damage(Math.floor(110 + this.STR / 10));
 		}
-		else if (this.attack = EMOTE_PP3) {
+		else if (this.attack == EMOTE_PP3) {
 			// Hologram
 			BATTLE_CHANNEL.send(this.user.username + " touches " + getOpponentOf(this).user.username + "'s PP vital point !");
 			getOpponentOf(this).damage(10000);
 		}
-		else if (this.attack = EMOTE_PP4) {
+		else if (this.attack == EMOTE_PP4) {
 			// Flex
 			BATTLE_CHANNEL.send(this.user.username + " flexes !");
 			var bonus = 10 + Math.floor(50-this.STR*0.2);
