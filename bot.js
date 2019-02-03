@@ -224,6 +224,8 @@ function getRisk(_move) {
 			return 75;
 		case EMOTE_PP44:
 			return 40;
+		case EMOTE_PP49:
+			return 98;
 	}
 	return 0;
 }
