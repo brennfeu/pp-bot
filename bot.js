@@ -475,10 +475,10 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			var caught1 = illegalGetCaught(getRisk(FIGHTER1.attack));
 			var caught2 = illegalGetCaught(getRisk(FIGHTER2.attack));
 			
-			if (listeAttaques.indexOf(FIGHTER1.attack) < 0) {
+			if (LIST_AVAILABLE_ATTACKS.indexOf(FIGHTER1.attack) < 0) {
 				caught1 = caught1 || illegalGetCaught(50);
 			}
-			if (listeAttaques.indexOf(FIGHTER2.attack) < 0) {
+			if (LIST_AVAILABLE_ATTACKS.indexOf(FIGHTER2.attack) < 0) {
 				caught2 = caught2 || illegalGetCaught(50);
 			}
 			
