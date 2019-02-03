@@ -178,7 +178,7 @@ class Fighter {
 		else if (this.attack == EMOTE_PP2) {
 			// Punching PP Really Hard
 			BATTLE_CHANNEL.send(this.user.username + " punches " + getOpponentOf(this).user.username + "'s PP really hard !");
-			getOpponentOf(this).damage(Math.floor(110 + this.STR / 10));
+			getOpponentOf(this).damage(Math.floor(20 + this.STR / 10));
 		}
 		else if (this.attack == EMOTE_PP3) {
 			// Hologram
