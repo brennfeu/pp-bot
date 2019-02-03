@@ -541,6 +541,11 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	
 	// CHANGE ROLE
 	
+	
+	
+	
+	return;
+	
 });
 
 CLIENT.login(process.env.BOT_TOKEN);
