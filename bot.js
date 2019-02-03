@@ -167,8 +167,44 @@ class Fighter {
 	}
 	
 	playMove() {
-		BATTLE_CHANNEL.send(this.user.username + " MOVE ARE IN PROGRESS");
-		console.log(this.attack);
+		if (this.attack = EMOTE_PP1) {
+			// Punching PP
+			BATTLE_CHANNEL.send(this.user.username + " punches " + getOpponentOf(this).user.username + "'s PP !");
+			getOpponentOf(this).damage(Math.floor(10 + this.STR / 10));
+		}
+		else if (this.attack = EMOTE_PP2) {
+			// Punching PP Really Hard
+			BATTLE_CHANNEL.send(this.user.username + " punches " + getOpponentOf(this).user.username + "'s PP really hard !");
+			getOpponentOf(this).damage(Math.floor(110 + this.STR / 10));
+		}
+		else if (this.attack = EMOTE_PP3) {
+			// Hologram
+			BATTLE_CHANNEL.send(this.user.username + " touches " + getOpponentOf(this).user.username + "'s PP vital point !");
+			getOpponentOf(this).damage(10000);
+		}
+		else if (this.attack = EMOTE_PP4) {
+			// Flex
+			BATTLE_CHANNEL.send(this.user.username + " flexes !");
+			var bonus = 10 + Math.floor(50-this.STR*0.2);
+			BATTLE_CHANNEL.send(this.user.username + " get " + bonus + " STR !");
+			this.STR += bonus;			
+		}else if (this.attack = EMOTE_PP5) {
+			// High Five
+			// Not here			
+		}
+		else {
+			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
+		}
+	}
+	
+	damage(_amount) {
+		if (this.isDrunkPP && getRandomPercent() > 50) {
+			BATTLE_CHANNEL.send(this.user.username + " felt nothing because too drunk !");
+		}
+		else {
+			this.STR -= _amount;
+			BATTLE_CHANNEL.send(this.user.username + " take " + _amount + " damages !");
+		}
 	}
 }
 
@@ -234,6 +270,7 @@ function getDexChange(_move) {
 	switch(_move) {
 		case EMOTE_PP26:
 		case EMOTE_PP17:
+		case EMOTE_PP4:
 			return -20;
 		case EMOTE_PP2:
 		case EMOTE_PP6:
@@ -491,7 +528,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			if (caught1 && caught2) {
 				BATTLE_CHANNEL.send("WAIT YOU ARE DOING ILLEGAL STUFF RIGHT NOW !");
 				BATTLE_CHANNEL.send("You both loose the fight !");
-				BATTLE_CHANNEL.send("You cheaters do net deserve to live !");
+				BATTLE_CHANNEL.send("You cheaters do not deserve to live !");
 				BATTLE_CHANNEL.send("You fucking suckers");
 				
 				addWinCounter(FIGHTER1, -1);
@@ -523,6 +560,18 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			var dexAttack1 = FIGHTER1.DEX + getDexChange(FIGHTER1.attack) + Math.floor(Math.random() * 50 + 1);
 			var dexAttack2 = FIGHTER2.DEX + getDexChange(FIGHTER2.attack) + Math.floor(Math.random() * 50 + 1);
 			BATTLE_CHANNEL.send(FIGHTER1.user.username + " : " + dexAttack1 + " /VS/ " + FIGHTER2.user.username + " : " + dexAttack2);
+			
+			if (FIGHTER1.attack == EMOTE_PP5 && FIGHTER2.attack == EMOTE_PP5) {
+				// HIGH FIVES :D
+				BATTLE_CHANNEL.send("Wow, look at those bros !");
+				BATTLE_CHANNEL.send("That was some good high five.");
+				BATTLE_CHANNEL.send("Okay, the fight ends now !");
+				BATTLE_CHANNEL.send("I'm literally shaking and crying right now.");
+				BATTLE_CHANNEL.send("This is so beautiful...");
+				BATTLE_CHANNEL.send("I love you all.");
+				stopDuel();
+				return;
+			}
 			
 			if (dexAttack1 == dexAttack2) {
 				BATTLE_CHANNEL.send("Both opponents attack this turn !");
