@@ -205,7 +205,7 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " felt nothing because too drunk !");
 		}
 		else {
-			this.STR -= _amount;
+			this.STRValue -= _amount;
 			BATTLE_CHANNEL.send(this.user.username + " take " + _amount + " damages !");
 		}
 	}
