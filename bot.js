@@ -472,6 +472,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		
 		// Deux attaques sont faites
 		if (FIGHTER1.attack != "" && FIGHTER2.attack != "") {
+			console.log(FIGHTER1.attack + " / " + FIGHTER2.attack);
+			
 			// test illegal
 			var caught1 = illegalGetCaught(getRisk(FIGHTER1.attack));
 			var caught2 = illegalGetCaught(getRisk(FIGHTER2.attack));
@@ -537,6 +539,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			
 			newTurnDuel();
 		}
+		
 		return;
 	}
 	
