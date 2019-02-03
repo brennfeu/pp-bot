@@ -259,6 +259,7 @@ function startDuel(_message) {
 	FIGHTER2 = new Fighter(_message.mentions.users.array()[0].id);
 	
 	ILLEGAL_BOMBING = false;
+	BATTLE_CHANNEL.send("TIME FOR A DUEL");
 }
 function stopDuel() {
 	FIGHTER1 = null;
@@ -271,6 +272,9 @@ function stopDuel() {
 	IS_BUSY = false;
 }
 function newTurnDuel() {
+	FIGHTER1.attack = "";
+	FIGHTER2.attack = "";
+	
 	BATTLE_CHANNEL.send("\n\n===== NEW TURN =====");
 	BATTLE_CHANNEL.send(FIGHTER1.toString());
 	BATTLE_CHANNEL.send("===== /VS/ =====");
@@ -284,9 +288,6 @@ function newTurnDuel() {
 	}).catch(function(e) {
 		_battleChannel.send(e);
 	});
-	
-	FIGHTER1.attack = "";
-	FIGHTER2.attack = "";
 }
 
 function setRandomAttackList(_isBlind = false) {
