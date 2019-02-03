@@ -167,7 +167,7 @@ class Fighter {
 	}
 	
 	playMove() {
-		BATTLE_CHANNEL.send("MOVE ARE IN PROGRESS");
+		BATTLE_CHANNEL.send(this.user.username + " MOVE ARE IN PROGRESS");
 		console.log(this.attack);
 	}
 }
@@ -518,8 +518,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			}
 			
 			// ATTAQUES
-			var dexAttack1 = FIGHTER1.DEX + getDexChange(FIGHTER1.attack);
-			var dexAttack2 = FIGHTER2.DEX + getDexChange(FIGHTER2.attack);
+			var dexAttack1 = FIGHTER1.DEX + getDexChange(FIGHTER1.attack) + Math.floor(Math.random() * 50 + 1);
+			var dexAttack2 = FIGHTER2.DEX + getDexChange(FIGHTER2.attack) + Math.floor(Math.random() * 50 + 1);
 			BATTLE_CHANNEL.send(FIGHTER1.user.username + " : " + dexAttack1 + " /VS/ " + FIGHTER2.user.username + " : " + dexAttack2);
 			
 			if (dexAttack1 == dexAttack2) {
