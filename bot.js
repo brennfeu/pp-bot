@@ -188,12 +188,18 @@ class Fighter {
 		else if (this.attack == EMOTE_PP4) {
 			// Flex
 			BATTLE_CHANNEL.send(this.user.username + " flexes !");
-			var bonus = 10 + Math.floor(50-this.STR*0.2);
+			var bonus = Math.floor(Math.random() * 30 + 1);
 			BATTLE_CHANNEL.send(this.user.username + " get " + bonus + " STR !");
 			this.STRValue += bonus;			
-		}else if (this.attack = EMOTE_PP5) {
+		}
+		else if (this.attack = EMOTE_PP5) {
 			// High Five
 			// Not here			
+		}
+		else if (this.attack == EMOTE_PP6) {
+			// Kick
+			BATTLE_CHANNEL.send(this.user.username + " kicks " + getOpponentOf(this).user.username + "'s PP !");
+			getOpponentOf(this).damage(Math.floor(20 + this.STR / 10)*3);
 		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
@@ -206,7 +212,7 @@ class Fighter {
 		}
 		else {
 			this.STRValue -= _amount;
-			BATTLE_CHANNEL.send(this.user.username + " take " + _amount + " damages !");
+			BATTLE_CHANNEL.send(this.user.username + " takes " + _amount + " damages !");
 		}
 	}
 }
