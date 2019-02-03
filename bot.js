@@ -506,7 +506,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			}
 			
 			if (caught1 || caught2) {
-				BATTLE_CHANNEL.send("WAIT " + getOpponentOf(winner).user.usernametoUpperCase() + " IS DOING ILLEGAL STUFF RIGHT NOW !");
+				BATTLE_CHANNEL.send("WAIT " + getOpponentOf(winner).user.username.toUpperCase() + " IS DOING ILLEGAL STUFF RIGHT NOW !");
 				BATTLE_CHANNEL.send(getOpponentOf(winner).user.username + " is disqualified for being a dumb shit.");
 				BATTLE_CHANNEL.send(winner.user.username + " wins !");
 				
