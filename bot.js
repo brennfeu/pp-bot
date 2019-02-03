@@ -104,11 +104,14 @@ class Fighter {
 		if (this.guildUser.roles.find("name", "Alien PP")) {
 			this.isAlienPP = true;
 		}
+		
+		this.STRValue = 50;
+		this.DEXValue = 20;
 	}
 	
 	// fighter.STR
 	get STR() {
-		var str = 50;
+		var str = this.STRValue;
 		if (this.isBigPP) {
 			str += 10;
 		}
@@ -123,7 +126,7 @@ class Fighter {
 	
 	// fighter.DEX
 	get DEX() {
-		var dex = 20;
+		var dex = this.DEXValue;
 		if (this.isBigPP) {
 			dex -= 5;
 		}
@@ -187,7 +190,7 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " flexes !");
 			var bonus = 10 + Math.floor(50-this.STR*0.2);
 			BATTLE_CHANNEL.send(this.user.username + " get " + bonus + " STR !");
-			this.STR += bonus;			
+			this.STRValue += bonus;			
 		}else if (this.attack = EMOTE_PP5) {
 			// High Five
 			// Not here			
