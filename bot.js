@@ -183,7 +183,7 @@ class Fighter {
 		else if (this.attack == EMOTE_PP3) {
 			// Hologram
 			BATTLE_CHANNEL.send(this.user.username + " touches " + getOpponentOf(this).user.username + "'s PP vital point !");
-			getOpponentOf(this).damage(10000);
+			getOpponentOf(this).damage(1000);
 		}
 		else if (this.attack == EMOTE_PP4) {
 			// Flex
@@ -215,7 +215,7 @@ class Fighter {
 // FONCTIONS
 function getRandomPercent() {
 	var i = Math.floor(Math.random() * 100 + 1);
-	console.log(i);
+	console.log("random : " + i);
 	return i;
 }
 
