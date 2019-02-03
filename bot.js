@@ -6,7 +6,7 @@ const DISCORD = require("discord.js");
 const CLIENT = new DISCORD.Client();
 
 const BETA_TEST = true;
-const PRIVATE_TEST = false;
+const PRIVATE_TEST = true;
 
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
 const EMOTE_PP2 = "535240768441548810"; // PunchingPPRealyHard
@@ -165,6 +165,11 @@ class Fighter {
 		
 		return txt;
 	}
+	
+	playMove(_move) {
+		BATTLE_CHANNEL.send("MOVE ARE IN PROGRESS");
+		console.log(_move);
+	}
 }
 
 
@@ -219,6 +224,25 @@ function getRisk(_move) {
 			return 75;
 		case EMOTE_PP44:
 			return 40;
+		
+		return 0;
+	}
+}
+function getDexChange(_move) {
+	console.log("move : " + _move);
+	switch(_move) {
+		case EMOTE_PP26:
+		case EMOTE_PP17:
+			return -20;
+		case EMOTE_PP2:
+		case EMOTE_PP6:
+			return -10;
+		case EMOTE_PP28:
+			return -5;
+		case EMOTE_PP13:
+			return 100;
+		case EMOTE_PP49:
+			return 10000;
 		
 		return 0;
 	}
@@ -460,8 +484,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			
 			var winner;
 			
+			BATTLE_CHANNEL.send("\n\n===== ATTACKS =====");
 			if (caught1 && caught2) {
-				BATTLE_CHANNEL.send("\n\n===== NEW TURN =====");
 				BATTLE_CHANNEL.send("WAIT YOU ARE DOING ILLEGAL STUFF RIGHT NOW !");
 				BATTLE_CHANNEL.send("You both loose the fight !");
 				BATTLE_CHANNEL.send("You cheaters do net deserve to live !");
@@ -481,7 +505,6 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			}
 			
 			if (caught1 || caught2) {
-				BATTLE_CHANNEL.send("\n\n===== NEW TURN =====");
 				BATTLE_CHANNEL.send("WAIT " + getOpponentOf(winner).user.usernametoUpperCase() + " IS DOING ILLEGAL STUFF RIGHT NOW !");
 				BATTLE_CHANNEL.send(getOpponentOf(winner).user.username + " is disqualified for being a dumb shit.");
 				BATTLE_CHANNEL.send(winner.user.username + " wins !");
@@ -493,8 +516,23 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				return;
 			}
 			
-			// TODO
 			// ATTAQUES
+			var dexAttack1 = FIGHTER1.DEX + getDexChange(FIGHTER1.attack);
+			var dexAttack2 = FIGHTER2.DEX + getDexChange(FIGHTER2.attack);
+			BATTLE_CHANNEL.send(FIGHTER1.user.username + " : " + dexAttack1 + " /VS/ " + FIGHTER2.user.username + " : " + dexAttack2);
+			
+			if (dexAttack1 == dexAttack2) {
+				BATTLE_CHANNEL.send("Both opponents attack this turn !");
+				FIGHTER1.playMove(attackFighter1);
+				BATTLE_CHANNEL.send("-----------------");
+				FIGHTER2.playMove(attackFighter2);
+			}
+			else if (dexAttack1 > dexAttack2) {
+				FIGHTER1.playMove(attackFighter1);
+			}
+			else {
+				FIGHTER2.playMove(attackFighter2);
+			}
 			
 			newTurnDuel();
 		}
