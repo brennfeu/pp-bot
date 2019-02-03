@@ -166,9 +166,9 @@ class Fighter {
 		return txt;
 	}
 	
-	playMove(_move) {
+	playMove() {
 		BATTLE_CHANNEL.send("MOVE ARE IN PROGRESS");
-		console.log(_move);
+		console.log(this.attack);
 	}
 }
 
@@ -206,11 +206,11 @@ function illegalGetCaught(_percentage) {
 		return false;
 	}
 	var result = (getRandomPercent() < _percentage);
-	console.log("Illegal : " + _percentage);
+	console.log("Illegal percentage : " + _percentage);
 	return result;
 }
 function getRisk(_move) {
-	console.log("move : " + _move);
+	console.log("risk of move : " + _move);
 	switch(_move) {
 		case EMOTE_PP6:
 			return 20;
@@ -224,12 +224,11 @@ function getRisk(_move) {
 			return 75;
 		case EMOTE_PP44:
 			return 40;
-		
-		return 0;
 	}
+	return 0;
 }
 function getDexChange(_move) {
-	console.log("move : " + _move);
+	console.log("move dex : " + _move);
 	switch(_move) {
 		case EMOTE_PP26:
 		case EMOTE_PP17:
@@ -243,9 +242,8 @@ function getDexChange(_move) {
 			return 100;
 		case EMOTE_PP49:
 			return 10000;
-		
-		return 0;
 	}
+	return 0;
 }
 
 function startDuel(_message) {
@@ -531,10 +529,10 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				FIGHTER2.playMove(attackFighter2);
 			}
 			else if (dexAttack1 > dexAttack2) {
-				FIGHTER1.playMove(attackFighter1);
+				FIGHTER1.playMove();
 			}
 			else {
-				FIGHTER2.playMove(attackFighter2);
+				FIGHTER2.playMove();
 			}
 			
 			newTurnDuel();
