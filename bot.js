@@ -585,9 +585,9 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			
 			if (dexAttack1 == dexAttack2) {
 				BATTLE_CHANNEL.send("Both opponents attack this turn !");
-				FIGHTER1.playMove(attackFighter1);
+				FIGHTER1.playMove();
 				BATTLE_CHANNEL.send("-----------------");
-				FIGHTER2.playMove(attackFighter2);
+				FIGHTER2.playMove();
 			}
 			else if (dexAttack1 > dexAttack2) {
 				FIGHTER1.playMove();
