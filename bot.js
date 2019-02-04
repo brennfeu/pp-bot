@@ -6,7 +6,7 @@ const DISCORD = require("discord.js");
 const CLIENT = new DISCORD.Client();
 
 const BETA_TEST = true;
-const PRIVATE_TEST = true;
+const PRIVATE_TEST = false;
 
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
 const EMOTE_PP2 = "535240768441548810"; // PunchingPPRealyHard
@@ -458,6 +458,7 @@ CLIENT.on("message", async _message => {
 	// Ignore si bot
 	if(_message.author.bot) return;
 	// Ignore si pas appelé
+	if (_message.mentions.users.array().length < 1) return;
 	if (_message.mentions.users.array()[_message.mentions.users.array().length-1].id != CLIENT.user.id) return;
 	// Ignore si test privé
 	if (PRIVATE_TEST && _message.author.username != "brennfeu") return _message.reply("I am currently unavailable, sorry :/");
