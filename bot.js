@@ -192,9 +192,9 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " get " + bonus + " STR !");
 			this.STRValue += bonus;			
 		}
-		else if (this.attack = EMOTE_PP5) {
+		else if (this.attack == EMOTE_PP5) {
 			// High Five
-			// Not here			
+			BATTLE_CHANNEL.send(this.user.username + " is feeling lonely... :(");			
 		}
 		else if (this.attack == EMOTE_PP6) {
 			// Kick
