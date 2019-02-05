@@ -115,6 +115,7 @@ class Fighter {
 		this.hasBurst = 0;
 		this.isCircumcised = false;
 		this.isOverCircumcised = false;
+		this.bleedDamage = 0;
 		
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -261,7 +262,7 @@ class Fighter {
 		}
 		else if (this.attack == EMOTE_PP11) {
 			// Steel
-			BATTLE_CHANNEL.send(this.user.username + " sets up a protection !");
+			BATTLE_CHANNEL.send(this.user.username + " sets up a protection for nothing...");
 		}
 		else if (this.attack == EMOTE_PP12) {
 			// Overcircumscise
@@ -274,6 +275,11 @@ class Fighter {
 				this.isOverCircumcised = true;
 				this.STRValue = this.STR/2;
 			}
+		}
+		else if (this.attack == EMOTE_PP13) {
+			// SawBlade
+			BATTLE_CHANNEL.send(this.user.username + " cuts " + getOpponentOf(this).user.username + "'s PP !");
+			getOpponentOf(this).bleedDamage += 5;
 		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
@@ -330,7 +336,14 @@ class Fighter {
 			
 			this.turkeyCountdown = -1;
 			this.hasBurst = 0;
+			this.bleedDamage = 0;
 			// TODO keep up to date
+		}
+		
+		// Bleed (SawBlade)
+		if (this.bleedDamage > 0) {
+			BATTLE_CHANNEL.send(this.user.username + " bleeds " + this.bleedDamage + " damages !");
+			this.damage(this.bleedDamage);
 		}
 
 	}
