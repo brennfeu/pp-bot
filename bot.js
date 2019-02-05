@@ -111,16 +111,9 @@ class Fighter {
 		this.DEXValue = 20;
 		
 		// Battle variables
-		this.turkeyCountdown = -1;
-		this.hasBurst = 0;
+		this.resetBattleVariables();
 		this.isCircumcised = false;
 		this.isOverCircumcised = false;
-		this.bleedDamage = 0;
-		this.hasExamined = 0;
-		this.isPossessed = 0;
-		this.isPigged = false;
-		this.doomReverse = 0;
-		this.acidArmor = 0;
 		
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -352,6 +345,17 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " sets up a DOOM-REVERSE(tm) !");
 			this.acidArmor = 5;
 		}
+		else if (this.attack == EMOTE_PP22) {
+			// Circumscise
+			BATTLE_CHANNEL.send(this.user.username + " circumcised himself !");
+			if (this.isCircumcised) {
+				BATTLE_CHANNEL.send("Wait he already was !");
+			}
+			else {
+				this.isCircumcised = true;
+				this.resetBattleVariables();
+			}
+		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
 		}
@@ -408,15 +412,7 @@ class Fighter {
 			this.isAlienPP = false;
 			this.hasExamined = 0;
 			
-			this.turkeyCountdown = -1;
-			this.hasBurst = 0;
-			this.bleedDamage = 0;
-			this.isPossessed = 0;
-			this.isProtected = false;
-			this.isPigged = false;
-			this.doomReverse = 0;
-			this.acidArmor = 0;
-			// TODO keep up to date
+			this.resetBattleVariables()
 		}
 		
 		// Turkey
@@ -458,6 +454,18 @@ class Fighter {
 		else {
 			addWinCounter(this, 1);
 		}
+	}
+	
+	resetBattleVariables() {
+		this.turkeyCountdown = -1;
+		this.hasBurst = 0;
+		this.bleedDamage = 0;
+		this.hasExamined = 0;
+		this.isPossessed = 0;
+		this.isPigged = false;
+		this.doomReverse = 0;
+		this.acidArmor = 0;
+		// TODO keep up to date
 	}
 }
 
