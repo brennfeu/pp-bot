@@ -298,11 +298,6 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " cuts " + getOpponentOf(this).user.username + "'s PP !");
 			getOpponentOf(this).bleedDamage += 5;
 		}
-		else if (this.attack == EMOTE_PP14) {
-			// SawBlade
-			BATTLE_CHANNEL.send(this.user.username + " possesses " + getOpponentOf(this).user.username + "'s PP !");
-			getOpponentOf(this).isPossessed = 2;
-		}
 		else if (this.attack == EMOTE_PP15) {
 			// Save
 			var test = getRandomPercent();
@@ -322,6 +317,11 @@ class Fighter {
 			else {
 				this.isDrunkPP = !this.isDrunkPP;
 			}
+		}
+		else if (this.attack == EMOTE_PP16) {
+			// Satan
+			BATTLE_CHANNEL.send(this.user.username + " possesses " + getOpponentOf(this).user.username + "'s PP !");
+			getOpponentOf(this).isPossessed = 2;
 		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
