@@ -116,6 +116,7 @@ class Fighter {
 		this.isCircumcised = false;
 		this.isOverCircumcised = false;
 		this.bleedDamage = 0;
+		this.hasExamined = 0;
 		
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -144,6 +145,10 @@ class Fighter {
 		// Burst
 		if (this.hasBurst == 1) {
 			return 0;
+		}
+		// Scout
+		if (this.hasExamined) {
+			dex += 30;
 		}
 		
 		if (this.isBigPP) {
@@ -277,6 +282,17 @@ class Fighter {
 			}
 		}
 		else if (this.attack == EMOTE_PP13) {
+			// Scout
+			BATTLE_CHANNEL.send(this.user.username + " examine the qualities of " + getOpponentOf(this).user.username + "'s PP !");
+			if (getRandomPercent() <= 33) {
+				BATTLE_CHANNEL.send("And he learns a lot !");
+				this.hasExamined = 2;
+			}
+			else {
+				BATTLE_CHANNEL.send("And he learns nothing...");
+			}
+		}
+		else if (this.attack == EMOTE_PP14) {
 			// SawBlade
 			BATTLE_CHANNEL.send(this.user.username + " cuts " + getOpponentOf(this).user.username + "'s PP !");
 			getOpponentOf(this).bleedDamage += 5;
@@ -323,8 +339,9 @@ class Fighter {
 			}
 		}
 		
-		// Trap Sign
+		// Trap Sign, Examine
 		this.hasBurst -= 1;
+		this.hasExamined -= 1;
 		
 		// Overcircumcised = immune to status effects
 		if (this.isOverCircumcised) {
@@ -333,6 +350,7 @@ class Fighter {
 			this.isDrunkPP = false;
 			this.isHockeyPuckPP = false;
 			this.isAlienPP = false;
+			this.hasExamined = 0;
 			
 			this.turkeyCountdown = -1;
 			this.hasBurst = 0;
