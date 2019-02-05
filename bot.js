@@ -634,7 +634,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				BATTLE_CHANNEL.send(getOpponentOf(winner).user.username + " is disqualified for being a dumb shit.");
 				BATTLE_CHANNEL.send(winner.user.username + " wins !");
 				
-				addWinCounter(winner, 1);
+				winner.win();
 				addWinCounter(getOpponentOf(winner), -1);
 				
 				stopDuel();
