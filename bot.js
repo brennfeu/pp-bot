@@ -117,6 +117,7 @@ class Fighter {
 		this.isOverCircumcised = false;
 		this.bleedDamage = 0;
 		this.hasExamined = 0;
+		this.isPossessed = 0;
 		
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -297,6 +298,11 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " cuts " + getOpponentOf(this).user.username + "'s PP !");
 			getOpponentOf(this).bleedDamage += 5;
 		}
+		else if (this.attack == EMOTE_PP14) {
+			// SawBlade
+			BATTLE_CHANNEL.send(this.user.username + " possesses " + getOpponentOf(this).user.username + "'s PP !");
+			getOpponentOf(this).isPossessed = 2;
+		}
 		else if (this.attack == EMOTE_PP15) {
 			// Save
 			var test = getRandomPercent();
@@ -359,6 +365,7 @@ class Fighter {
 			this.turkeyCountdown = -1;
 			this.hasBurst = 0;
 			this.bleedDamage = 0;
+			this.isPossessed = 0;
 			// TODO keep up to date
 		}
 		
@@ -374,9 +381,10 @@ class Fighter {
 			}
 		}
 		
-		// Trap Sign, Examine
+		// Trap Sign, Examine, SatanPossess
 		this.hasBurst -= 1;
 		this.hasExamined -= 1;
+		this.isPossessed -= 1;
 		
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
@@ -722,10 +730,22 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		if (_user.id == FIGHTER1.user.id) {
 			FIGHTER1.attack = _reaction.emoji.id;
 			BATTLE_CHANNEL.send(FIGHTER1.user.username + " : " + _reaction.emoji.name);
+			
+			// Possession
+			if (FIGHTER2.isPossessed == 1) {	
+				FIGHTER2.attack = _reaction.emoji.id;
+				BATTLE_CHANNEL.send(FIGHTER2.user.username + " : " + _reaction.emoji.name);
+			}
 		}
 		else if (_user.id == FIGHTER2.user.id) {
 			FIGHTER2.attack = _reaction.emoji.id;
 			BATTLE_CHANNEL.send(FIGHTER2.user.username + " : " + _reaction.emoji.name);
+			
+			// Possession
+			if (FIGHTER1.isPossessed == 1) {	
+				FIGHTER1.attack = _reaction.emoji.id;
+				BATTLE_CHANNEL.send(FIGHTER1.user.username + " : " + _reaction.emoji.name);
+			}
 		}
 		
 		// Deux attaques sont faites
