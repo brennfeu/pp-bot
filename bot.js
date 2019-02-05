@@ -367,6 +367,9 @@ function illegalGetCaught(_percentage) {
 }
 function getRisk(_move) {
 	console.log("risk of move : " + _move);
+	// tests
+	return 0;
+	// TOREMOVE
 	switch(_move) {
 		case EMOTE_PP6:
 			return 20;
@@ -417,6 +420,12 @@ function startDuel(_message) {
 	console.log("F2 " + _message.mentions.users.array()[0]);
 	FIGHTER1 = new Fighter(_message.author.id);
 	FIGHTER2 = new Fighter(_message.mentions.users.array()[0].id);
+	
+	if (FIGHTER1.user.id == FIGHTER2.user.id) {
+		BATTLE_CHANNEL.send("You can't battle yourself");
+		stopDuel()
+		return;
+	}
 	
 	ILLEGAL_BOMBING = false;
 	BATTLE_CHANNEL.send("TIME FOR A DUEL");
