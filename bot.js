@@ -119,6 +119,7 @@ class Fighter {
 		this.hasExamined = 0;
 		this.isPossessed = 0;
 		this.isPigged = false;
+		this.doomReverse = 0;
 		
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -340,6 +341,11 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " squeezes hog yeah yeah !");
 			this.isPigged = true;
 		}
+		else if (this.attack == EMOTE_PP20) {
+			// DoomReverse (MookGrenade)
+			BATTLE_CHANNEL.send(this.user.username + " sets up a DOOM-REVERSE(tm) !");
+			this.doomReverse = 4;
+		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
 		}
@@ -369,6 +375,12 @@ class Fighter {
 			this.STRValue -= _amount;
 			BATTLE_CHANNEL.send(this.user.username + " takes " + _amount + " damages !");
 		}
+		
+		// DoomReverse
+		if (this.STR <= 0 && this.doomReverse >= 1) {
+			BATTLE_CHANNEL.send(this.user.username + " uses DOOM-REVERSE(tm) !");
+			getOpponentOf(this).damage(50);
+		}
 	}
 	
 	turnChange() {
@@ -390,6 +402,7 @@ class Fighter {
 			this.isPossessed = 0;
 			this.isProtected = false;
 			this.isPigged = false;
+			this.doomReverse = 0;
 			// TODO keep up to date
 		}
 		
@@ -409,6 +422,7 @@ class Fighter {
 		this.hasBurst -= 1;
 		this.hasExamined -= 1;
 		this.isPossessed -= 1;
+		this.doomReverse -= 1;
 		
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
