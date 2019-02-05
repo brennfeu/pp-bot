@@ -297,6 +297,26 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " cuts " + getOpponentOf(this).user.username + "'s PP !");
 			getOpponentOf(this).bleedDamage += 5;
 		}
+		else if (this.attack == EMOTE_PP15) {
+			// Save
+			var test = getRandomPercent();
+			BATTLE_CHANNEL.send(this.user.username + " changes one of his roles !");
+			if (test <= 20) {
+				this.isFastPP = !this.isFastPP;
+			}
+			else if (test <= 40) {
+				this.isBigPP = !this.isBigPP;
+			}
+			else if (test <= 60) {
+				this.isAlienPP = !this.isAlienPP;
+			}
+			else if (test <= 80) {
+				this.isHockeyPuckPP = !this.isHockeyPuckPP;
+			}
+			else {
+				this.isDrunkPP = !this.isDrunkPP;
+			}
+		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
 		}
@@ -360,7 +380,7 @@ class Fighter {
 		
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
-			BATTLE_CHANNEL.send(this.user.username + " bleeds " + this.bleedDamage + " damages !");
+			BATTLE_CHANNEL.send(this.user.username + " bleeds !");
 			this.damage(this.bleedDamage);
 		}
 
