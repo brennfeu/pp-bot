@@ -512,7 +512,7 @@ function getRandomEmote(_canBeIllegal = true) {
 function addWinCounter(_fighter, _number) {
 	// TODO
 	// negative number of wins for cheaters
-	BATTLE_CHANNEL.send(_fighter.user.username + " wins : " + _number);
+	console.log(_fighter.user.username + " wins : " + _number);
 }
 
 
