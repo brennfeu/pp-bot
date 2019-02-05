@@ -489,7 +489,7 @@ function newTurnDuel() {
 			_message2.react(LIST_AVAILABLE_ATTACKS[i]);
 		}
 	}).catch(function(e) {
-		_battleChannel.send(e);
+		BATTLE_CHANNEL.send(e);
 	});
 }
 
