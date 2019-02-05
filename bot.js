@@ -111,6 +111,7 @@ class Fighter {
 		
 		// Battle variables
 		this.turkeyCountdown = -1;
+		this.hasBurst = 0;
 	}
 	
 	// fighter.STR
@@ -131,6 +132,11 @@ class Fighter {
 	// fighter.DEX
 	get DEX() {
 		var dex = this.DEXValue;
+		// Burst
+		if (this.hasBurst == 1) {
+			return 0;
+		}
+		
 		if (this.isBigPP) {
 			dex -= 5;
 		}
@@ -212,6 +218,12 @@ class Fighter {
 			getOpponentOf(this).STRValue += 100;
 			BATTLE_CHANNEL.send("They both gain 100 STR !");
 		}
+		else if (this.attack == EMOTE_PP7) {
+			// Trap SIgn
+			BATTLE_CHANNEL.send(this.user.username + " is ready to burst !");
+			BATTLE_CHANNEL.send("...");
+			BATTLE_CHANNEL.send("Well...");
+		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
 		}
@@ -242,6 +254,9 @@ class Fighter {
 				BATTLE_CHANNEL.send(this.user.username + " has " + this.turkeyCountdown + " turn(s) left !");
 			}
 		}
+		
+		// Trap Sign
+		this.hasBurst -= 1;
 
 	}
 }
@@ -619,14 +634,34 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			if (dexAttack1 == dexAttack2) {
 				BATTLE_CHANNEL.send("Both opponents attack this turn !");
 				FIGHTER1.playMove();
+				// Burst
+				if (FIGHTER2.attack == EMOTE_PP8) {
+					BATTLE_CHANNEL.send(FIGHTER2.user.username + " burst !");
+					FIGHTER1.hasBurst = 2;
+				}
 				BATTLE_CHANNEL.send("-----------------");
 				FIGHTER2.playMove();
+				// Burst
+				if (FIGHTER1.attack == EMOTE_PP8) {
+					BATTLE_CHANNEL.send(FIGHTER1.user.username + " burst !");
+					FIGHTER2.hasBurst = 2;
+				}
 			}
 			else if (dexAttack1 > dexAttack2) {
+				// Burst
 				FIGHTER1.playMove();
+				if (FIGHTER2.attack == EMOTE_PP8) {
+					BATTLE_CHANNEL.send(FIGHTER2.user.username + " burst !");
+					FIGHTER1.hasBurst = 2;
+				}
 			}
 			else {
 				FIGHTER2.playMove();
+				// Burst
+				if (FIGHTER1.attack == EMOTE_PP8) {
+					BATTLE_CHANNEL.send(FIGHTER1.user.username + " burst !");
+					FIGHTER2.hasBurst = 2;
+				}
 			}
 			
 			newTurnDuel();
