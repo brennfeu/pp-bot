@@ -1,3 +1,5 @@
+/!\  GO CHECK THE RELEASE TO GET A WORKING VERSION
+
 # PP Arbitrator
 
 Discord bot for the Broforce server. Link : https://discord.gg/DJ8zYxc
