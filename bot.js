@@ -380,7 +380,7 @@ function newTurnDuel() {
 	}
 	else if (FIGHTER1.STR <= 0) {
 		BATTLE_CHANNEL.send(FIGHTER2.user.username + " won ! Congrats !");
-		FIGHTER2.win()
+		FIGHTER2.win();
 		stopDuel();
 		return;
 	}
