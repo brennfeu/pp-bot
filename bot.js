@@ -9,7 +9,7 @@ const BETA_TEST = false;
 const PRIVATE_TEST = false;
 
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
-const EMOTE_PP2 = "535240768441548810"; // PunchingPPRealyHard
+const EMOTE_PP2 = "535240768441548810"; // PunchingPPReallyHard
 const EMOTE_PP3 = "358232421537284109"; // Hologram
 const EMOTE_PP4 = "358018762991075328"; // Flex
 const EMOTE_PP5 = "358018763020435456"; // High Five
@@ -105,8 +105,12 @@ class Fighter {
 			this.isAlienPP = true;
 		}
 		
+		// Natural values
 		this.STRValue = 50;
 		this.DEXValue = 20;
+		
+		// Battle variables
+		this.turkeyCountdown = -1;
 	}
 	
 	// fighter.STR
@@ -201,6 +205,13 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " kicks " + getOpponentOf(this).user.username + "'s PP !");
 			getOpponentOf(this).damage(Math.floor(20 + this.STR / 10)*3);
 		}
+		else if (this.attack == EMOTE_PP7) {
+			// Turkey
+			BATTLE_CHANNEL.send(this.user.username + " and " + getOpponentOf(this).user.username + " start a feast !");
+			this.STRValue += 100;
+			getOpponentOf(this).STRValue += 100;
+			BATTLE_CHANNEL.send("They both gain 100 STR !");
+		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
 		}
@@ -214,6 +225,21 @@ class Fighter {
 			this.STRValue -= _amount;
 			BATTLE_CHANNEL.send(this.user.username + " takes " + _amount + " damages !");
 		}
+	}
+	
+	turnChange() {
+		// Turkey
+		if (this.turkeyCountdown != -1) {
+			this.turkeyCountdown -= 1;
+			if (this.turkeyCountdown == 0) {
+				BATTLE_CHANNEL.send(this.user.username + " explodes !");
+				this.STRValue -= 1000;
+			}
+			else {
+				BATTLE_CHANNEL.send(this.user.username + " has " + this.turkeyCountdown + " turn(s) left !");
+			}
+		}
+
 	}
 }
 
@@ -320,6 +346,9 @@ function stopDuel() {
 function newTurnDuel() {
 	FIGHTER1.attack = "";
 	FIGHTER2.attack = "";
+	
+	FIGHTER1.turnChange();
+	FIGHTER2.turnChange();
 	
 	BATTLE_CHANNEL.send("\n\n===== NEW TURN =====");
 	BATTLE_CHANNEL.send(FIGHTER1.toString());
