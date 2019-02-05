@@ -120,6 +120,7 @@ class Fighter {
 		this.isPossessed = 0;
 		this.isPigged = false;
 		this.doomReverse = 0;
+		this.acidArmor = 0;
 		
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -346,12 +347,23 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " sets up a DOOM-REVERSE(tm) !");
 			this.doomReverse = 4;
 		}
+		else if (this.attack == EMOTE_PP21) {
+			// Acid
+			BATTLE_CHANNEL.send(this.user.username + " sets up a DOOM-REVERSE(tm) !");
+			this.acidArmor = 5;
+		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
 		}
 	}
 	
 	damage(_amount) {
+		// Acid
+		if (this.acidArmor >= 1) {
+			BATTLE_CHANNEL.send(this.user.username + " has an acid armor !");
+			getOpponentOf(this).damage(10);
+		}
+		
 		if (this.isDrunkPP && getRandomPercent() < 50) {
 			// Drunk PP
 			BATTLE_CHANNEL.send(this.user.username + " felt nothing because too drunk !");
@@ -403,6 +415,7 @@ class Fighter {
 			this.isProtected = false;
 			this.isPigged = false;
 			this.doomReverse = 0;
+			this.acidArmor = 0;
 			// TODO keep up to date
 		}
 		
@@ -423,6 +436,7 @@ class Fighter {
 		this.hasExamined -= 1;
 		this.isPossessed -= 1;
 		this.doomReverse -= 1;
+		this.acidArmor -= 1;
 		
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
