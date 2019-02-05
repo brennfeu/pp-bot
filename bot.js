@@ -328,6 +328,12 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " gets a shield !");
 			this.isProtected = true;
 		}
+		else if (this.attack == EMOTE_PP18) {
+			// Red Pill
+			BATTLE_CHANNEL.send(this.user.username + " gets a pill !");
+			this.STRValue += 5;
+			this.DEXValue += 3;
+		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
 		}
