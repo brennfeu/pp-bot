@@ -72,6 +72,7 @@ var FIGHTER2 = null;
 
 var ILLEGAL_BOMBING = false;
 var IS_ARBITRATORY_BLIND = false;
+var STEEL_PROTECTION = false;
 
 
 // CLASSES
@@ -262,6 +263,11 @@ class Fighter {
 			// Tank
 			BATTLE_CHANNEL.send(this.user.username + " felt nothing !");
 		}
+		else if (STEEL_PROTECTION) {
+			// Steel
+			this.STRValue -= Math.floor(_amount/10);
+			BATTLE_CHANNEL.send(this.user.username + " takes " + Math.floor(_amount/10) + " damages !");
+		}
 		else {
 			// Damage
 			this.STRValue -= _amount;
@@ -400,6 +406,8 @@ function stopDuel() {
 function newTurnDuel() {
 	FIGHTER1.turnChange();
 	FIGHTER2.turnChange();
+	
+	STEEL_PROTECTION = false;
 	
 	if (FIGHTER1.STR <= 0 && FIGHTER2.STR <= 0) {
 		BATTLE_CHANNEL.send("Both of you lost. No one won this time. You losers");
@@ -684,6 +692,11 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				BATTLE_CHANNEL.send("I love you all.");
 				stopDuel();
 				return;
+			}
+			
+			// Steel
+			if (FIGHTER1.attack == EMOTE_PP11 || FIGHTER2.attack == EMOTE_PP11) {
+				STEEL_PROTECTION = true;
 			}
 			
 			if (dexAttack1 == dexAttack2) {
