@@ -377,18 +377,18 @@ function newTurnDuel() {
 	FIGHTER2.turnChange();
 	
 	if (FIGHTER1.STR <= 0 && FIGHTER2.STR <= 0) {
-		BATTLE_CHANNELsend("Both of you lost. No one won this time. You losers");
+		BATTLE_CHANNEL.send("Both of you lost. No one won this time. You losers");
 		stopDuel();
 		return;
 	}
 	else if (FIGHTER1.STR <= 0) {
-		BATTLE_CHANNELsend(FIGHTER2.user.username + " won ! Congrats !");
+		BATTLE_CHANNEL.send(FIGHTER2.user.username + " won ! Congrats !");
 		FIGHTER2.win()
 		stopDuel();
 		return;
 	}
 	else if (FIGHTER2.STR <= 0) {
-		BATTLE_CHANNELsend(FIGHTER1.user.username + " won ! Congrats !");
+		BATTLE_CHANNEL.send(FIGHTER1.user.username + " won ! Congrats !");
 		FIGHTER1.win();
 		stopDuel();
 		return;
