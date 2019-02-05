@@ -114,6 +114,7 @@ class Fighter {
 		this.resetBattleVariables();
 		this.isCircumcised = false;
 		this.isOverCircumcised = false;
+		this.missedMoves = 0;
 		
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -199,6 +200,9 @@ class Fighter {
 	}
 	
 	playMove() {
+		// Also +1 in newTurn
+		this.missedMoves -= 1;
+		
 		if (this.attack == EMOTE_PP1) {
 			// Punching PP
 			BATTLE_CHANNEL.send(this.user.username + " punches " + getOpponentOf(this).user.username + "'s PP !");
@@ -356,6 +360,12 @@ class Fighter {
 				this.resetBattleVariables();
 			}
 		}
+		else if (this.attack == EMOTE_PP23) {
+			// LaughSoul
+			BATTLE_CHANNEL.send(this.user.username + " laughs at " + getOpponentOf(this).user.username + " !");
+			BATTLE_CHANNEL.send("He gets " + getOpponentOf(this).missedMoves*10 + " STR !");
+			this.STRValue += getOpponentOf(this).missedMoves*10;
+		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
 		}
@@ -403,6 +413,9 @@ class Fighter {
 		// Clear attaque
 		this.attack = "";
 		
+		// Also -1 in playMove
+		this.missedMoves += 1;
+		
 		// Overcircumcised = immune to status effects
 		if (this.isOverCircumcised) {
 			this.isBigPP = false;
@@ -440,11 +453,11 @@ class Fighter {
 			this.damage(this.bleedDamage);
 		}
 		
+		// Pig
 		if (this.isPigged) {
 			BATTLE_CHANNEL.send(this.user.username + " squeezes hog !");
 			this.STRValue += 2;
 		}
-
 	}
 	
 	win() {
