@@ -310,7 +310,7 @@ class Fighter {
 			this.turkeyCountdown -= 1;
 			if (this.turkeyCountdown == 0) {
 				BATTLE_CHANNEL.send(this.user.username + " explodes !");
-				this.STRValue -= 1000;
+				this.damage(1000);
 			}
 			else {
 				BATTLE_CHANNEL.send(this.user.username + " has " + this.turkeyCountdown + " turn(s) left !");
