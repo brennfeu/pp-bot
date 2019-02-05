@@ -147,7 +147,7 @@ class Fighter {
 			return 0;
 		}
 		// Scout
-		if (this.hasExamined) {
+		if (this.hasExamined == 1) {
 			dex += 30;
 		}
 		
