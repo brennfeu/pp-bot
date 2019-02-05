@@ -451,9 +451,6 @@ function illegalGetCaught(_percentage) {
 }
 function getRisk(_move) {
 	console.log("risk of move : " + _move);
-	// tests
-	return 0;
-	// TOREMOVE
 	switch(_move) {
 		case EMOTE_PP6:
 			return 20;
