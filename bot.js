@@ -159,7 +159,7 @@ class Fighter {
 			dex += 5;
 		}
 		if (this.isDrunkPP) {
-			dex -= 25;
+			dex -= 15;
 		}
 		if (this.isHockeyPuckPP) {
 			dex -= 45;
@@ -323,19 +323,29 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " possesses " + getOpponentOf(this).user.username + "'s PP !");
 			getOpponentOf(this).isPossessed = 2;
 		}
+		else if (this.attack == EMOTE_PP17) {
+			// RiotShield
+			BATTLE_CHANNEL.send(this.user.username + " gets a shield !");
+			this.isProtected = true;
+		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
 		}
 	}
 	
 	damage(_amount) {
-		if (this.isDrunkPP && getRandomPercent() < 80) {
+		if (this.isDrunkPP && getRandomPercent() < 50) {
 			// Drunk PP
 			BATTLE_CHANNEL.send(this.user.username + " felt nothing because too drunk !");
 		}
 		else if (this.attack == EMOTE_PP10) {
 			// Tank
 			BATTLE_CHANNEL.send(this.user.username + " felt nothing !");
+		}
+		else if (this.isProtected) {
+			// RiotShield
+			BATTLE_CHANNEL.send(this.user.username + " reflects the damages !");
+			getOpponentOf(this).damage(_damage);
 		}
 		else if (STEEL_PROTECTION) {
 			// Steel
@@ -366,6 +376,7 @@ class Fighter {
 			this.hasBurst = 0;
 			this.bleedDamage = 0;
 			this.isPossessed = 0;
+			this.isProtected = false;
 			// TODO keep up to date
 		}
 		
