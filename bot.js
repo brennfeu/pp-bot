@@ -112,6 +112,11 @@ class Fighter {
 		// Battle variables
 		this.turkeyCountdown = -1;
 		this.hasBurst = 0;
+		
+		// Check Bad Values
+		if (this.STR <= 0) {
+			this.STRValue += (0 - this.STR) + 1 
+		}
 	}
 	
 	// fighter.STR
