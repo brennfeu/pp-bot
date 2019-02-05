@@ -215,11 +215,13 @@ class Fighter {
 			// Turkey
 			BATTLE_CHANNEL.send(this.user.username + " and " + getOpponentOf(this).user.username + " start a feast !");
 			this.STRValue += 100;
+			this.turkeyCountdown = 11;
 			getOpponentOf(this).STRValue += 100;
+			getOpponentOf(this).turkeyCountdown = 11;
 			BATTLE_CHANNEL.send("They both gain 100 STR !");
 		}
 		else if (this.attack == EMOTE_PP8) {
-			// Trap SIgn
+			// Trap Sign
 			BATTLE_CHANNEL.send(this.user.username + " is ready to burst !");
 			BATTLE_CHANNEL.send("...");
 			BATTLE_CHANNEL.send("Well...");
