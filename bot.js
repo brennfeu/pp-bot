@@ -491,9 +491,13 @@ CLIENT.on("message", async _message => {
 		
 		return;
 	}
+	if (argsUser[1] == "style") {
+		// STYLE
+		return _message.reply("sorry, you can't change your roles for now");
+	}
 	if (argsUser[1] == "help") {
 		// HELP
-		return _message.reply("too lazy to make the doc for now\ncommands : rank, rank @someone, ranks, duel @someone, help");
+		return _message.reply("too lazy to make the doc for now\ncommands : rank, rank @someone, ranks, duel @someone, style, help");
 	}
 	
 	return _message.reply("I don't know this command, try using the help command !");
