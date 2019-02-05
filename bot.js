@@ -22,7 +22,7 @@ const EMOTE_PP11 = "358018763141939200"; // Steel
 const EMOTE_PP12 = "358018763792318466"; // Skeleton
 const EMOTE_PP13 = "358568671204999188"; // Scout
 const EMOTE_PP14 = "358018763037212673"; // SawBlade
-const EMOTE_PP15 = "358018762705731586"; // Save 
+const EMOTE_PP15 = "358018762701668353"; // Save 
 const EMOTE_PP16 = "358018763058053120"; // Satan 
 const EMOTE_PP17 = "358235326608703488"; // RiotShield
 const EMOTE_PP18 = "358018762999595018"; // RedPill
@@ -347,6 +347,21 @@ class Fighter {
 		// Clear attaque
 		this.attack = "";
 		
+		// Overcircumcised = immune to status effects
+		if (this.isOverCircumcised) {
+			this.isBigPP = false;
+			this.isFastPP = false;
+			this.isDrunkPP = false;
+			this.isHockeyPuckPP = false;
+			this.isAlienPP = false;
+			this.hasExamined = 0;
+			
+			this.turkeyCountdown = -1;
+			this.hasBurst = 0;
+			this.bleedDamage = 0;
+			// TODO keep up to date
+		}
+		
 		// Turkey
 		if (this.turkeyCountdown != -1) {
 			this.turkeyCountdown -= 1;
@@ -362,21 +377,6 @@ class Fighter {
 		// Trap Sign, Examine
 		this.hasBurst -= 1;
 		this.hasExamined -= 1;
-		
-		// Overcircumcised = immune to status effects
-		if (this.isOverCircumcised) {
-			this.isBigPP = false;
-			this.isFastPP = false;
-			this.isDrunkPP = false;
-			this.isHockeyPuckPP = false;
-			this.isAlienPP = false;
-			this.hasExamined = 0;
-			
-			this.turkeyCountdown = -1;
-			this.hasBurst = 0;
-			this.bleedDamage = 0;
-			// TODO keep up to date
-		}
 		
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
