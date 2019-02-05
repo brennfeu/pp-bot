@@ -228,6 +228,9 @@ class Fighter {
 	}
 	
 	turnChange() {
+		// Clear attaque
+		this.attack = "";
+		
 		// Turkey
 		if (this.turkeyCountdown != -1) {
 			this.turkeyCountdown -= 1;
@@ -344,9 +347,6 @@ function stopDuel() {
 	IS_BUSY = false;
 }
 function newTurnDuel() {
-	FIGHTER1.attack = "";
-	FIGHTER2.attack = "";
-	
 	FIGHTER1.turnChange();
 	FIGHTER2.turnChange();
 	
