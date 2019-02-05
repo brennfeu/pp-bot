@@ -261,6 +261,15 @@ class Fighter {
 		this.hasBurst -= 1;
 
 	}
+	
+	win() {
+		if (this.isHockeyPuckPP) {
+			addWinCounter(this, 4);
+		}
+		else {
+			addWinCounter(this, 1);
+		}
+	}
 }
 
 
@@ -366,6 +375,24 @@ function stopDuel() {
 function newTurnDuel() {
 	FIGHTER1.turnChange();
 	FIGHTER2.turnChange();
+	
+	if (FIGHTER1.STR <= 0 && FIGHTER2.STR <= 0) {
+		BATTLE_CHANNELsend("Both of you lost. No one won this time. You losers");
+		stopDuel();
+		return;
+	}
+	else if (FIGHTER1.STR <= 0) {
+		BATTLE_CHANNELsend(FIGHTER2.user.username + " won ! Congrats !");
+		FIGHTER2.win()
+		stopDuel();
+		return;
+	}
+	else if (FIGHTER2.STR <= 0) {
+		BATTLE_CHANNELsend(FIGHTER1.user.username + " won ! Congrats !");
+		FIGHTER1.win();
+		stopDuel();
+		return;
+	}
 	
 	BATTLE_CHANNEL.send("\n\n===== NEW TURN =====");
 	BATTLE_CHANNEL.send(FIGHTER1.toString());
@@ -483,6 +510,7 @@ function getRandomEmote(_canBeIllegal = true) {
 function addWinCounter(_fighter, _number) {
 	// TODO
 	// negative number of wins for cheaters
+	BATTLE_CHANNEL.send(_fighter.user.username + " wins : " + _number);
 }
 
 
