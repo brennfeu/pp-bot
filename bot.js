@@ -118,6 +118,7 @@ class Fighter {
 		this.bleedDamage = 0;
 		this.hasExamined = 0;
 		this.isPossessed = 0;
+		this.isPigged = false;
 		
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -334,6 +335,11 @@ class Fighter {
 			this.STRValue += 5;
 			this.DEXValue += 3;
 		}
+		else if (this.attack == EMOTE_PP19) {
+			// Pig
+			BATTLE_CHANNEL.send(this.user.username + " squeezes hog yeah yeah !");
+			this.isPigged = true;
+		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
 		}
@@ -383,6 +389,7 @@ class Fighter {
 			this.bleedDamage = 0;
 			this.isPossessed = 0;
 			this.isProtected = false;
+			this.isPigged = false;
 			// TODO keep up to date
 		}
 		
@@ -407,6 +414,11 @@ class Fighter {
 		if (this.bleedDamage > 0) {
 			BATTLE_CHANNEL.send(this.user.username + " bleeds !");
 			this.damage(this.bleedDamage);
+		}
+		
+		if (this.isPigged) {
+			BATTLE_CHANNEL.send(this.user.username + " squeezes hog !");
+			this.STRValue += 2;
 		}
 
 	}
