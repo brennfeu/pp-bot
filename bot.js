@@ -218,7 +218,7 @@ class Fighter {
 			getOpponentOf(this).STRValue += 100;
 			BATTLE_CHANNEL.send("They both gain 100 STR !");
 		}
-		else if (this.attack == EMOTE_PP7) {
+		else if (this.attack == EMOTE_PP8) {
 			// Trap SIgn
 			BATTLE_CHANNEL.send(this.user.username + " is ready to burst !");
 			BATTLE_CHANNEL.send("...");
@@ -648,8 +648,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				}
 			}
 			else if (dexAttack1 > dexAttack2) {
-				// Burst
 				FIGHTER1.playMove();
+				// Burst
 				if (FIGHTER2.attack == EMOTE_PP8) {
 					BATTLE_CHANNEL.send(FIGHTER2.user.username + " burst !");
 					FIGHTER1.hasBurst = 2;
