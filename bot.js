@@ -231,6 +231,23 @@ class Fighter {
 			BATTLE_CHANNEL.send("...");
 			BATTLE_CHANNEL.send("Well...");
 		}
+		else if (this.attack == EMOTE_PP9) {
+			// Time Kick
+			BATTLE_CHANNEL.send(this.user.username + " wants a hockey puck PP...");
+			if (this.isHockeyPuckPP) {
+				BATTLE_CHANNEL.send("...but he already had one !");
+			}
+			else {
+				this.isHockeyPuckPP = true;
+				BATTLE_CHANNEL.send("...and now he got it !");
+			}
+		}
+		else if (this.attack == EMOTE_PP10) {
+			// Tank
+			BATTLE_CHANNEL.send(this.user.username + " brings a tank !");
+			BATTLE_CHANNEL.send("FIRE !");
+			getOpponentOf(this).damage(1000);
+		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
 		}
@@ -238,9 +255,15 @@ class Fighter {
 	
 	damage(_amount) {
 		if (this.isDrunkPP && getRandomPercent() > 50) {
+			// Drunk PP
 			BATTLE_CHANNEL.send(this.user.username + " felt nothing because too drunk !");
 		}
+		else if (this.attack == EMOTE_PP10) {
+			// Tank
+			BATTLE_CHANNEL.send(this.user.username + " felt nothing !");
+		}
 		else {
+			// Damage
 			this.STRValue -= _amount;
 			BATTLE_CHANNEL.send(this.user.username + " takes " + _amount + " damages !");
 		}
