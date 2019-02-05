@@ -113,6 +113,8 @@ class Fighter {
 		// Battle variables
 		this.turkeyCountdown = -1;
 		this.hasBurst = 0;
+		this.isCircumcised = false;
+		this.isOverCircumcised = false;
 		
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -248,6 +250,29 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " brings a tank !");
 			BATTLE_CHANNEL.send("FIRE !");
 			getOpponentOf(this).damage(1000);
+		}
+		else if (this.attack == EMOTE_PP11) {
+			// Overcircumscise
+			BATTLE_CHANNEL.send(this.user.username + " over-circumcised himself !");
+			if (this.isOverCircumcised) {
+				BATTLE_CHANNEL.send("Wait he already was !");
+			}
+			else {
+				// Remove every status effect
+				this.isCircumcised = true;
+				this.isOverCircumcised = true;
+				this.isBigPP = false;
+				this.isFastPP = false;
+				this.isDrunkPP = false;
+				this.isHockeyPuckPP = false;
+				this.isAlienPP = false;
+				this.turkeyCountdown = -1;
+				this.hasBurst = 0;
+				// TODO keep up to date
+				// TODO every status change : make sure not overcircumcised
+				
+				this.STRValue = this.STR/2;
+			}
 		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
