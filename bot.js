@@ -289,9 +289,6 @@ function setBotActivity(_texte) {
 	}
 	return CLIENT.user.setActivity(_texte);
 }
-function clearBotActivity() {
-	return CLIENT.user.setActivity("");
-}
 
 function getOpponentOf(_fighter) {
 	if (FIGHTER1.user.id == _fighter.user.id) {
