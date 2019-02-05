@@ -303,7 +303,7 @@ class Fighter {
 	}
 	
 	damage(_amount) {
-		if (this.isDrunkPP && getRandomPercent() > 50) {
+		if (this.isDrunkPP && getRandomPercent() < 80) {
 			// Drunk PP
 			BATTLE_CHANNEL.send(this.user.username + " felt nothing because too drunk !");
 		}
@@ -448,8 +448,6 @@ function getDexChange(_move) {
 		case EMOTE_PP12:
 		case EMOTE_PP22:
 			return 20;
-		case EMOTE_PP13:
-			return 100;
 		case EMOTE_PP49:
 			return 10000;
 	}
@@ -783,6 +781,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			
 			if (dexAttack1 == dexAttack2) {
 				BATTLE_CHANNEL.send("Both opponents attack this turn !");
+				
 				FIGHTER1.playMove();
 				// Burst
 				if (FIGHTER2.attack == EMOTE_PP8) {
@@ -790,6 +789,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 					FIGHTER1.hasBurst = 2;
 				}
 				BATTLE_CHANNEL.send("-----------------");
+				
 				FIGHTER2.playMove();
 				// Burst
 				if (FIGHTER1.attack == EMOTE_PP8) {
@@ -804,6 +804,11 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 					BATTLE_CHANNEL.send(FIGHTER2.user.username + " burst !");
 					FIGHTER1.hasBurst = 2;
 				}
+				
+				// Scout
+				if (FIGHTER2.attack == EMOTE_PP13) {
+					FIGHTER2.playMove();
+				}
 			}
 			else {
 				FIGHTER2.playMove();
@@ -811,6 +816,11 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				if (FIGHTER1.attack == EMOTE_PP8) {
 					BATTLE_CHANNEL.send(FIGHTER1.user.username + " burst !");
 					FIGHTER2.hasBurst = 2;
+				}
+				
+				// Scout
+				if (FIGHTER1.attack == EMOTE_PP13) {
+					FIGHTER1.playMove();
 				}
 			}
 			
