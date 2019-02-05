@@ -182,6 +182,14 @@ class Fighter {
 			txt += " - Alien PP\n";
 		}
 		
+		if (this.isOverCircumcised) {
+			txt += "\nAlso is overcircumcised";
+		}
+		else if (this.isCircumcised) {
+			
+			txt += "\nAlso is circumcised";
+		}
+		
 		txt += "\n"
 		
 		return txt;
@@ -252,25 +260,18 @@ class Fighter {
 			getOpponentOf(this).damage(1000);
 		}
 		else if (this.attack == EMOTE_PP11) {
+			// Steel
+			BATTLE_CHANNEL.send(this.user.username + " sets up a protection !");
+		}
+		else if (this.attack == EMOTE_PP12) {
 			// Overcircumscise
 			BATTLE_CHANNEL.send(this.user.username + " over-circumcised himself !");
 			if (this.isOverCircumcised) {
 				BATTLE_CHANNEL.send("Wait he already was !");
 			}
 			else {
-				// Remove every status effect
 				this.isCircumcised = true;
 				this.isOverCircumcised = true;
-				this.isBigPP = false;
-				this.isFastPP = false;
-				this.isDrunkPP = false;
-				this.isHockeyPuckPP = false;
-				this.isAlienPP = false;
-				this.turkeyCountdown = -1;
-				this.hasBurst = 0;
-				// TODO keep up to date
-				// TODO every status change : make sure not overcircumcised
-				
 				this.STRValue = this.STR/2;
 			}
 		}
@@ -318,6 +319,19 @@ class Fighter {
 		
 		// Trap Sign
 		this.hasBurst -= 1;
+		
+		// Overcircumcised = immune to status effects
+		if (this.isOverCircumcised) {
+			this.isBigPP = false;
+			this.isFastPP = false;
+			this.isDrunkPP = false;
+			this.isHockeyPuckPP = false;
+			this.isAlienPP = false;
+			
+			this.turkeyCountdown = -1;
+			this.hasBurst = 0;
+			// TODO keep up to date
+		}
 
 	}
 	
