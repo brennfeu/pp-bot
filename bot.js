@@ -346,7 +346,7 @@ class Fighter {
 		}
 		else if (this.attack == EMOTE_PP21) {
 			// Acid
-			BATTLE_CHANNEL.send(this.user.username + " sets up a DOOM-REVERSE(tm) !");
+			BATTLE_CHANNEL.send(this.user.username + " gets an acid armor !");
 			this.acidArmor = 5;
 		}
 		else if (this.attack == EMOTE_PP22) {
