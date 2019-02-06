@@ -822,9 +822,6 @@ function startDuel(_message) {
 	BATTLE_CHANNEL.send("TIME FOR A DUEL");
 }
 function stopDuel() {
-	FIGHTER1 = null;
-	FIGHTER2 = null;
-	
 	ILLEGAL_BOMBING = false;
 	
 	setBotActivity("");
@@ -1255,23 +1252,23 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	
 	// CHANGE ROLE
 	if (IS_CHANGING_STYLE && STYLER == _user.id) {
-		if (_reaction.emoji.id == EMOTE_PP1) {
+		if (_reaction.emoji.id == EMOTE_PP38) {
 			// Fast PP
 			addRoleToStyler("Fast PP");
 		}
-		else if (_reaction.emoji.id == EMOTE_PP1) {
+		else if (_reaction.emoji.id == EMOTE_PP40) {
 			// Big PP
 			addRoleToStyler("Big PP");
 		}
-		else if (_reaction.emoji.id == EMOTE_PP1) {
+		else if (_reaction.emoji.id == EMOTE_PP41) {
 			// Drunk PP
 			addRoleToStyler("Drunk PP");
 		}
-		else if (_reaction.emoji.id == EMOTE_PP1) {
+		else if (_reaction.emoji.id == EMOTE_PP34) {
 			// Alien PP
 			addRoleToStyler("Alien PP");
 		}
-		else if (_reaction.emoji.id == EMOTE_PP1) {
+		else if (_reaction.emoji.id == EMOTE_PP9) {
 			// Hockey Puck PP
 			addRoleToStyler("Hockey Puck PP");
 		}
