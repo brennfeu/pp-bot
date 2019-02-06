@@ -80,6 +80,11 @@ var BARREL_DAMAGE = false;
 var SAVE_LIST = [];
 var STOPPED_MOVE_LIST = [];
 var INFINITE_DAMAGE = 0;
+var MOVE_COUNT = 0;
+
+var PP_ARMAGEDDON = false;
+var EVENT_PP_ENLIGHTENMENT = false;
+var EVENT_PP_PURGE = false;
 
 
 // CLASSES
@@ -215,6 +220,8 @@ class Fighter {
 		try {
 			// Also +1 in newTurn
 			this.missedMoves -= 1;
+			
+			MOVE_COUNT += 1;
 			
 			this.attack = _newMove;
 			
@@ -629,6 +636,7 @@ class Fighter {
 			// RiotShield
 			BATTLE_CHANNEL.send(this.user.username + " reflects the damages !");
 			getOpponentOf(this).damage(_amount);
+			this.isProtected = false;
 		}
 		else if (STEEL_PROTECTION) {
 			// Steel
@@ -708,6 +716,11 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " squeezes hog !");
 			this.STRValue += 2;
 		}
+		
+		// PP Armageddon
+		if (PP_ARMAGEDDON) {
+			this.STRValue -= 5000;
+		}
 	}
 	
 	win() {
@@ -769,7 +782,12 @@ function illegalGetCaught(_percentage) {
 }
 function getRisk(_move) {
 	console.log("risk of move : " + _move);
+	if (EVENT_PP_PURGE) {
+		return 0;
+	}
 	switch(_move) {
+		case EMOTE_PP46:
+			return 10;
 		case EMOTE_PP6:
 			return 20;
 		case EMOTE_PP10:
@@ -813,6 +831,7 @@ function startDuel(_message) {
 	IS_BUSY = true;
 	IS_DUELLING = true;
 	IS_CHANGING_STYLE = false;
+	MOVE_COUNT = 0;
 	
 	console.log("F1 " + _message.author.id);
 	console.log("F2 " + _message.mentions.users.array()[0]);
@@ -869,6 +888,8 @@ function newTurnDuel() {
 		stopDuel();
 		return;
 	}
+	
+	randomEvent();
 	
 	BATTLE_CHANNEL.send("\n\n===== NEW TURN =====");
 	BATTLE_CHANNEL.send(FIGHTER1.toString());
@@ -991,6 +1012,42 @@ function getRandomEmote(_canBeIllegal = true) {
 	}
 	
 	return goodList[Math.floor(Math.random()*goodList.length)];
+}
+
+function startRandomEvent() {
+	// Reset events
+	EVENT_PP_ENLIGHTENMENT = false;
+	EVENT_PP_PURGE = false;
+	
+	BATTLE_CHANNEL.send("===== EVENTS =====");
+	
+	// PP ARMAGEDDON
+	if (!PP_ARMAGEDDON && MOVE_COUNT >= 100) {
+		PP_ARMAGEDDON = true;
+		BATTLE_CHANNEL.send(" -- PP ARMAGEDDON --");
+		BATTLE_CHANNEL.send("PPs have ascended, the end is near !");
+		FIGHTER1.STRValue += 1000000;
+		FIGHTER1.DEXValue += 200;
+		FIGHTER2.STRValue += 1000000;
+		FIGHTER2.DEXValue += 200;
+	}
+	
+	var randomVar = getRandomPercent();
+	if (randomVar == 2) {
+		// PP Enlightenment
+		EVENT_PP_ENLIGHTENMENT = true;
+		BATTLE_CHANNEL.send(" -- PP ENLIGHTENMENT --");
+		BATTLE_CHANNEL.send("Your pp temporarily become enlightened. All moves can now be used for this turn. \nIllegal moves are still illegal.")
+	}
+	else if (randomVar == 3) {
+		// PP Purge
+		EVENT_PP_PURGE = true;
+		BATTLE_CHANNEL.send(" -- PP PURGE --");
+		BATTLE_CHANNEL.send("All pps grow a mohawk and start to roam the streets. \nIllegal moves can now be used freely but the judge will still see you if you use unavailable moves")
+	}
+	else {
+		BATTLE_CHANNEL.send("No event this turn...");
+	}
 }
 
 function addWinCounter(_fighter, _number) {
@@ -1136,10 +1193,10 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			var caught2 = illegalGetCaught(getRisk(FIGHTER2.attack));
 			
 			if (LIST_AVAILABLE_ATTACKS.indexOf(FIGHTER1.attack) < 0) {
-				caught1 = caught1 || illegalGetCaught(50);
+				caught1 = caught1 || (illegalGetCaught(50) && !EVENT_PP_ENLIGHTENMENT);
 			}
 			if (LIST_AVAILABLE_ATTACKS.indexOf(FIGHTER2.attack) < 0) {
-				caught2 = caught2 || illegalGetCaught(50);
+				caught2 = caught2 || (illegalGetCaught(50) && !EVENT_PP_ENLIGHTENMENT);
 			}
 			
 			var winner;
