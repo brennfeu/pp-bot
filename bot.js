@@ -482,6 +482,11 @@ class Fighter {
 				BATTLE_CHANNEL.send("...and now he got it !");
 			}
 		}
+		else if (this.attack == EMOTE_PP39) {
+			// Interrogation Point
+			BATTLE_CHANNEL.send(this.user.username + " summon a random move !");
+			this.playMove(getRandomEmote());
+		}
 		else if (this.attack == EMOTE_PP44) {
 			// Kamikaze
 			BATTLE_CHANNEL.send(this.user.username + " plans a suicide move !");
