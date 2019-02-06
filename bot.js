@@ -412,6 +412,12 @@ class Fighter {
 			getOpponentOf(this).DEXValue -= 20;
 			
 		}
+		else if (this.attack == EMOTE_PP28) {
+			// BigGuy
+			BATTLE_CHANNEL.send(this.user.username + " intimidates " + getOpponentOf(this).user.username + " !");
+			getOpponentOf(this).STRValue -= 5;
+			
+		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
 		}
