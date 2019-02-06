@@ -994,16 +994,14 @@ function addWinCounter(_fighter, _number) {
 function changeRoleToStyler(_nomRole) {
 	var role = GUILD.roles.find(r => r.name == _nomRole);
 	var user = GUILD.members.get(STYLER);
-	console.log(role);
-	console.log(user);
 	
 	if (user.roles.has(role.id)) {
 		user.removeRole(role).catch(console.error);
-		BATTLE_CHANNEL.send(user.username + " gets the role : " + _nomRole);
+		BATTLE_CHANNEL.send(user.user.username + " gets the role : " + _nomRole);
 	}
 	else {
 		user.addRole(role).catch(console.error);
-		BATTLE_CHANNEL.send(user.username + " removes the role : " + _nomRole);
+		BATTLE_CHANNEL.send(user.user.username + " removes the role : " + _nomRole);
 	}
 }
 
@@ -1273,7 +1271,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		}
 		else if (_reaction.emoji.id == EMOTE_PP41) {
 			// Drunk PP
-			changeRoleToStyler("Drunk PP");
+			changeRoleToStyler("Drunken PP");
 		}
 		else if (_reaction.emoji.id == EMOTE_PP34) {
 			// Alien PP
