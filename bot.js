@@ -441,6 +441,18 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " stops the time !");
 			STOPPED_MOVE_LIST = LIST_AVAILABLE_ATTACKS;
 		}
+		else if (this.attack == EMOTE_PP33) {
+			// Headless - Big Kidney Stone
+			BATTLE_CHANNEL.send(this.user.username + " shoots a big kidney stone !");
+			this.damage(100);
+			getOpponentOf(this).damage(100);
+		}
+		else if (this.attack == EMOTE_PP37) {
+			// Disembowled - Kidney Stone
+			BATTLE_CHANNEL.send(this.user.username + " shoots a kidney stone !");
+			this.damage(50);
+			getOpponentOf(this).damage(50);
+		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
 		}
