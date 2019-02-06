@@ -385,15 +385,32 @@ class Fighter {
 			// Big Satan
 			BATTLE_CHANNEL.send(this.user.username + " summon Satan chaotic powers !!!");
 			this.playMove(getRandomEmote(false));
+				BATTLE_CHANNEL.send("-----------------");
 			this.playMove(getRandomEmote(false));
+				BATTLE_CHANNEL.send("-----------------");
 			this.playMove(getRandomEmote(false));
+				BATTLE_CHANNEL.send("-----------------");
 			this.playMove(getRandomEmote());
+				BATTLE_CHANNEL.send("-----------------");
 			this.playMove(getRandomEmote());
+				BATTLE_CHANNEL.send("-----------------");
 			getOpponentOf(this).playMove(getRandomEmote(false));
+				BATTLE_CHANNEL.send("-----------------");
 			getOpponentOf(this).playMove(getRandomEmote(false));
+				BATTLE_CHANNEL.send("-----------------");
 			getOpponentOf(this).playMove(getRandomEmote(false));
+				BATTLE_CHANNEL.send("-----------------");
 			getOpponentOf(this).playMove(getRandomEmote());
+				BATTLE_CHANNEL.send("-----------------");
 			getOpponentOf(this).playMove(getRandomEmote());
+		}
+		else if (this.attack == EMOTE_PP27) {
+			// BigGuyBullet
+			BATTLE_CHANNEL.send(this.user.username + " uses his PP as a gun !");
+			getOpponentOf(this).damage(Math.floor(20 + this.STR / 10));
+			this.DEXValue -= 20;
+			getOpponentOf(this).DEXValue -= 20;
+			
 		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
