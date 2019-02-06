@@ -559,10 +559,10 @@ class Fighter {
 			// Brennfeu
 			BATTLE_CHANNEL.send(this.user.username + " messes everything !");
 			BATTLE_CHANNEL.send("As always !");
-			this.STRValue += Math.floor((getRandomPercent - 50)/2);
-			this.DEXValue += Math.floor((getRandomPercent - 50)/2);
-			getOpponentOf(this).STRValue += Math.floor((getRandomPercent - 50)/2);
-			getOpponentOf(this).DEXValue += Math.floor((getRandomPercent - 50)/2);
+			this.STRValue += Math.floor((getRandomPercent() - 50)/2);
+			this.DEXValue += Math.floor((getRandomPercent() - 50)/2);
+			getOpponentOf(this).STRValue += Math.floor((getRandomPercent() - 50)/2);
+			getOpponentOf(this).DEXValue += Math.floor((getRandomPercent() - 50)/2);
 		}
 		else if (this.attack == EMOTE_PP49) {
 			// Soup
