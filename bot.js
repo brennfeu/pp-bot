@@ -1086,7 +1086,7 @@ function startRandomEvent() {
 	
 	var randomVar = getRandomPercent();
 	//test
-	if (!EVENT_CONFUSION) {randomVar = 4;}
+	if (MOVE_COUNT <= 4 && !EVENT_BOSS) {randomVar = 5;}
 	
 	if (randomVar == 2) {
 		// PP Enlightenment
