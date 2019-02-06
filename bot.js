@@ -497,8 +497,8 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " takes " + Math.floor(_amount/10) + " damages !");
 		}
 		else if (BARREL_DAMAGE) {
-			// BARREL
-			this.STRValue -= Math.floor(_amount/10);
+			// Barrel
+			this.STRValue -= Math.floor(_amount*2);
 			BATTLE_CHANNEL.send(this.user.username + " takes " + Math.floor(_amount*2) + " damages !");
 		}
 		else {
