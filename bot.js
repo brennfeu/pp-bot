@@ -86,6 +86,8 @@ var PP_ARMAGEDDON = false;
 var EVENT_PP_ENLIGHTENMENT = false;
 var EVENT_PP_PURGE = false;
 var EVENT_CONFUSION = false;
+var EVENT_BOSS = false;
+var BOSS_HEALTH = 10000;
 
 
 // CLASSES
@@ -619,6 +621,12 @@ class Fighter {
 		}
 		INFINITE_DAMAGE += 1;
 		
+		if (EVENT_BOSS) {
+			BOSS_HEALTH -= _amount;
+			BATTLE_CHANNEL.send("Cthulhu takes " + _amount + " damages !");
+			return;
+		}
+		
 		// Acid
 		if (this.acidArmor >= 1) {
 			BATTLE_CHANNEL.send(this.user.username + " has an acid armor !");
@@ -890,7 +898,7 @@ function newTurnDuel() {
 		return;
 	}
 	
-	randomEvent();
+	startRandomEvent();
 	
 	BATTLE_CHANNEL.send("\n\n===== NEW TURN =====");
 	BATTLE_CHANNEL.send(FIGHTER1.toString());
@@ -1053,6 +1061,13 @@ function startRandomEvent() {
 		EVENT_CONFUSION = true;
 		BATTLE_CHANNEL.send(" -- SEXUAL CONFUSION --");
 		BATTLE_CHANNEL.send("Your PPs are confused for this turn");
+	}
+	else if (randomVar == 5) {
+		// Cthulhu
+		EVENT_BOSS = true;
+		BATTLE_CHANNEL.send(" -- CTHULHU AWAKENS --");
+		BATTLE_CHANNEL.send("You have to beat Cthulhu by punching his huge PP in order to save the world !");
+		BOSS_HEALTH = 10000;
 	}
 	else {
 		BATTLE_CHANNEL.send("No event this turn...");
