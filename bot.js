@@ -487,6 +487,28 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " summon a random move !");
 			this.playMove(getRandomEmote());
 		}
+		else if (this.attack == EMOTE_PP40) {
+			// ChestBurst
+			BATTLE_CHANNEL.send(this.user.username + " wants a big PP...");
+			if (this.isBigPP) {
+				BATTLE_CHANNEL.send("...but he already had one !");
+			}
+			else {
+				this.isBigPP = true;
+				BATTLE_CHANNEL.send("...and now he got it !");
+			}
+		}
+		else if (this.attack == EMOTE_PP41) {
+			// 007 Drunk
+			BATTLE_CHANNEL.send(this.user.username + " wants a drunk PP...");
+			if (this.isDrunkPP) {
+				BATTLE_CHANNEL.send("...but he already had one !");
+			}
+			else {
+				this.isDrunkPP = true;
+				BATTLE_CHANNEL.send("...and now he got it !");
+			}
+		}
 		else if (this.attack == EMOTE_PP44) {
 			// Kamikaze
 			BATTLE_CHANNEL.send(this.user.username + " plans a suicide move !");
