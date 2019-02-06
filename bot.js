@@ -899,10 +899,10 @@ function newTurnDuel() {
 	}
 	
 	// Cthulhu
-	if (BOSS_EVENT) {
+	if (EVENT_BOSS) {
 		if (BOSS_HEALTH > 0) {
 			BATTLE_CHANNEL.send("Cthulhu go back to sleep to heal his poor PP !");
-			BOSS_EVENT = false;
+			EVENT_BOSS = false;
 		}
 		else {
 			if (getRandomPercent() >= 50) {
@@ -919,7 +919,7 @@ function newTurnDuel() {
 	startRandomEvent();
 	
 	BATTLE_CHANNEL.send("\n\n===== NEW TURN =====");
-	if (!BOSS_EVENT) {
+	if (!EVENT_BOSS) {
 		BATTLE_CHANNEL.send(FIGHTER1.toString());
 		BATTLE_CHANNEL.send("===== /VS/ =====");
 		BATTLE_CHANNEL.send(FIGHTER2.toString());
