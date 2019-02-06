@@ -529,7 +529,51 @@ class Fighter {
 		}
 		else if (this.attack == EMOTE_PP45) {
 			// Boomerang
+			BATTLE_CHANNEL.send(this.user.username + " gets a nice boomerang");
 			this.hasBoomerang = 4;
+		}
+		else if (this.attack == EMOTE_PP46) {
+			// TruffleHistorian
+			BATTLE_CHANNEL.send(this.user.username + " calls the ancient fongus");
+			var chaosNumber = getRandomPercent();
+			if (getRandomPercent() >= 50) {
+				var winner = this;
+			}
+			else {
+				var winner = getOpponentOf(this);
+			}
+			BATTLE_CHANNEL.send("He will use " + chaosNumber + "% of his power in " + winner.user.username);
+			var i;
+			for (i = 0; i < chaosNumber; i++) {
+				BATTLE_CHANNEL.send("-----------------");
+				winner.playMove(getRandomEmote());
+			} 
+		}
+		else if (this.attack == EMOTE_PP47) {
+			// Pudding
+			BATTLE_CHANNEL.send(this.user.username + " abandons the battle !");
+			stopDuel();
+			return;
+		}
+		else if (this.attack == EMOTE_PP48) {
+			// Brennfeu
+			BATTLE_CHANNEL.send(this.user.username + " messes everything !");
+			BATTLE_CHANNEL.send("As always !");
+			this.STRValue += Math.floor((getRandomPercent - 50)/2);
+			this.DEXValue += Math.floor((getRandomPercent - 50)/2);
+			getOpponentOf(this).STRValue += Math.floor((getRandomPercent - 50)/2);
+			getOpponentOf(this).DEXValue += Math.floor((getRandomPercent - 50)/2);
+		}
+		else if (this.attack == EMOTE_PP49) {
+			// Soup
+			BATTLE_CHANNEL.send("Behold " + this.user.username + " the living God !");
+			this.STRValue += 10000;
+			this.DEXValue += 10000;
+		}
+		else if (this.attack == EMOTE_PP50) {
+			// Perhaps
+			BATTLE_CHANNEL.send(this.user.username + " thinks about life and the universe...");
+			BATTLE_CHANNEL.send("Wait he forgot about the battle");
 		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
