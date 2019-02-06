@@ -391,23 +391,23 @@ class Fighter {
 			// Big Satan
 			BATTLE_CHANNEL.send(this.user.username + " summon Satan chaotic powers !!!");
 			this.playMove(getRandomEmote(false));
-				BATTLE_CHANNEL.send("-----------------");
+			BATTLE_CHANNEL.send("-----------------");
 			this.playMove(getRandomEmote(false));
-				BATTLE_CHANNEL.send("-----------------");
+			BATTLE_CHANNEL.send("-----------------");
 			this.playMove(getRandomEmote(false));
-				BATTLE_CHANNEL.send("-----------------");
+			BATTLE_CHANNEL.send("-----------------");
 			this.playMove(getRandomEmote());
-				BATTLE_CHANNEL.send("-----------------");
+			BATTLE_CHANNEL.send("-----------------");
 			this.playMove(getRandomEmote());
-				BATTLE_CHANNEL.send("-----------------");
+			BATTLE_CHANNEL.send("-----------------");
 			getOpponentOf(this).playMove(getRandomEmote(false));
-				BATTLE_CHANNEL.send("-----------------");
+			BATTLE_CHANNEL.send("-----------------");
 			getOpponentOf(this).playMove(getRandomEmote(false));
-				BATTLE_CHANNEL.send("-----------------");
+			BATTLE_CHANNEL.send("-----------------");
 			getOpponentOf(this).playMove(getRandomEmote(false));
-				BATTLE_CHANNEL.send("-----------------");
+			BATTLE_CHANNEL.send("-----------------");
 			getOpponentOf(this).playMove(getRandomEmote());
-				BATTLE_CHANNEL.send("-----------------");
+			BATTLE_CHANNEL.send("-----------------");
 			getOpponentOf(this).playMove(getRandomEmote());
 		}
 		else if (this.attack == EMOTE_PP27) {
