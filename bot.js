@@ -447,6 +447,12 @@ class Fighter {
 			this.damage(100);
 			getOpponentOf(this).damage(100);
 		}
+		else if (this.attack == EMOTE_PP34) {
+			// Facehugger
+			BATTLE_CHANNEL.send(this.user.username + " impregnates " + getOpponentOf(this).user.username + " !");
+			getOpponentOf(this).isAlienPP = true;
+			getOpponentOf(this).damage(Math.floor(getOpponentOf(this).STR/2));
+		}
 		else if (this.attack == EMOTE_PP37) {
 			// Disembowled - Kidney Stone
 			BATTLE_CHANNEL.send(this.user.username + " shoots a kidney stone !");
