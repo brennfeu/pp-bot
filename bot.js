@@ -366,6 +366,13 @@ class Fighter {
 			BATTLE_CHANNEL.send("He gets " + getOpponentOf(this).missedMoves*10 + " STR !");
 			this.STRValue += getOpponentOf(this).missedMoves*10;
 		}
+		else if (this.attack == EMOTE_PP24) {
+			// KnockBack
+			BATTLE_CHANNEL.send(this.user.username + " swap the natural STR values !");
+			this.STRValue += getOpponentOf(this).STRValue;
+			getOpponentOf(this).STRValue = this.STRValue - getOpponentOf(this).STRValue;
+			this.STRValue -= getOpponentOf(this).STRValue;
+		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
 		}
