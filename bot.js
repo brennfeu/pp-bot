@@ -851,7 +851,7 @@ function getRandomEmote(_canBeIllegal = true) {
 	}
 	
 	if (ILLEGAL_BOMBING) {
-		goodList.push(EMOTE_36);
+		goodList.push(EMOTE_PP36);
 	}
 	
 	return goodList[Math.floor(Math.random()*goodList.length)];
