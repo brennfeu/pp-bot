@@ -85,6 +85,7 @@ var MOVE_COUNT = 0;
 var PP_ARMAGEDDON = false;
 var EVENT_PP_ENLIGHTENMENT = false;
 var EVENT_PP_PURGE = false;
+var EVENT_CONFUSION = false;
 
 
 // CLASSES
@@ -916,13 +917,14 @@ function newTurnDuel() {
 	});
 }
 
-function setRandomAttackList(_isBlind = false) {
+function setRandomAttackList() {
 	var listeAttaques = [];
 	var emote;
-	
-	if (_isBlind) {
+
+	if (EVENT_CONFUSION) {
 		return [EMOTE_39];
 	}
+	
 	// Attaque 1
 	if (getRandomPercent() > 20) {
 		emote = getRandomEmote();
@@ -1018,6 +1020,7 @@ function startRandomEvent() {
 	// Reset events
 	EVENT_PP_ENLIGHTENMENT = false;
 	EVENT_PP_PURGE = false;
+	EVENT_CONFUSION = false;
 	
 	BATTLE_CHANNEL.send("===== EVENTS =====");
 	
@@ -1037,13 +1040,19 @@ function startRandomEvent() {
 		// PP Enlightenment
 		EVENT_PP_ENLIGHTENMENT = true;
 		BATTLE_CHANNEL.send(" -- PP ENLIGHTENMENT --");
-		BATTLE_CHANNEL.send("Your pp temporarily become enlightened. All moves can now be used for this turn. \nIllegal moves are still illegal.")
+		BATTLE_CHANNEL.send("Your PP temporarily become enlightened. All moves can now be used for this turn. \nIllegal moves are still illegal.");
 	}
 	else if (randomVar == 3) {
 		// PP Purge
 		EVENT_PP_PURGE = true;
 		BATTLE_CHANNEL.send(" -- PP PURGE --");
-		BATTLE_CHANNEL.send("All pps grow a mohawk and start to roam the streets. \nIllegal moves can now be used freely but the judge will still see you if you use unavailable moves")
+		BATTLE_CHANNEL.send("All PPs grow a mohawk and start to roam the streets. \nIllegal moves can now be used freely but the judge will still see you if you use unavailable moves");
+	}
+	else if (randomVar == 4) {
+		// Sexually Confused
+		EVENT_CONFUSION = true;
+		BATTLE_CHANNEL.send(" -- SEXUAL CONFUSION --");
+		BATTLE_CHANNEL.send("Your PPs are confused for this turn");
 	}
 	else {
 		BATTLE_CHANNEL.send("No event this turn...");
