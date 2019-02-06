@@ -75,6 +75,7 @@ var IS_ARBITRATORY_BLIND = false;
 var STEEL_PROTECTION = false;
 var BARREL_DAMAGE = false;
 var SAVE_LIST = [];
+var STOPPED_MOVE_LIST = [];
 
 
 // CLASSES
@@ -435,6 +436,11 @@ class Fighter {
 			// Save Me Sign
 			BATTLE_CHANNEL.send(this.user.username + " wants to be saved !");
 		}
+		else if (this.attack == EMOTE_PP32) {
+			// High Five Emote
+			BATTLE_CHANNEL.send(this.user.username + " stops the time !");
+			STOPPED_MOVE_LIST = LIST_AVAILABLE_ATTACKS;
+		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
 		}
@@ -690,7 +696,17 @@ function newTurnDuel() {
 	BATTLE_CHANNEL.send(FIGHTER1.toString());
 	BATTLE_CHANNEL.send("===== /VS/ =====");
 	BATTLE_CHANNEL.send(FIGHTER2.toString());
-	setRandomAttackList();
+	
+	// HighFiveEmote - Stop move_list
+	if (STOPPED_MOVE_LIST.length >= 1) {
+		LIST_AVAILABLE_ATTACKS = STOPPED_MOVE_LIST;
+		STOPPED_MOVE_LIST = [];
+	}
+	else {
+		setRandomAttackList();
+	}
+	
+	
 	BATTLE_CHANNEL.send("\n\nAttack with a reaction !").then(function (_message2) {
 		for (var i in LIST_AVAILABLE_ATTACKS) {
 			console.log(LIST_AVAILABLE_ATTACKS[i]);
