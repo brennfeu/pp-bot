@@ -22,7 +22,7 @@ const EMOTE_PP11 = "358018763141939200"; // Steel
 const EMOTE_PP12 = "358018763792318466"; // Skeleton
 const EMOTE_PP13 = "358568671204999188"; // Scout
 const EMOTE_PP14 = "358018763037212673"; // SawBlade
-const EMOTE_PP15 = "358018762701668353"; // Save 
+const EMOTE_PP15 = "358018762701668353"; // Hobro 
 const EMOTE_PP16 = "358018763058053120"; // Satan 
 const EMOTE_PP17 = "358235326608703488"; // RiotShield
 const EMOTE_PP18 = "358018762999595018"; // RedPill
@@ -38,7 +38,7 @@ const EMOTE_PP27 = "358018762928160768"; // Bullet
 const EMOTE_PP28 = "358018762756063244"; // BigGuy
 const EMOTE_PP29 = "358018763330945027"; // Barrel
 const EMOTE_PP30 = "358018762999463946"; // AlertExclamationPoint
-const EMOTE_PP31 = "358018762701668353"; // HoBro
+const EMOTE_PP31 = "358018762705731586"; // SaveMeSign
 const EMOTE_PP32 = "358018763200790529"; // HighFiveEmote
 const EMOTE_PP33 = "358232421239619584"; // Headless
 const EMOTE_PP34 = "358547363138109440"; // Facehugger
@@ -74,6 +74,7 @@ var ILLEGAL_BOMBING = false;
 var IS_ARBITRATORY_BLIND = false;
 var STEEL_PROTECTION = false;
 var BARREL_DAMAGE = false;
+var SAVE_LIST = [];
 
 
 // CLASSES
@@ -430,6 +431,10 @@ class Fighter {
 			BATTLE_CHANNEL.send("This create a space-time distortion !");
 			this.playMove(getRandomEmote());
 		}
+		else if (this.attack == EMOTE_PP31) {
+			// Save Me Sign
+			BATTLE_CHANNEL.send(this.user.username + " wants to be saved !");
+		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
 		}
@@ -660,6 +665,8 @@ function newTurnDuel() {
 	FIGHTER2.turnChange();
 	
 	STEEL_PROTECTION = false;
+	BARREL_DAMAGE = false;
+	SAVE_LIST = [];
 	
 	if (FIGHTER1.STR <= 0 && FIGHTER2.STR <= 0) {
 		BATTLE_CHANNEL.send("Both of you lost. No one won this time. You losers");
@@ -867,6 +874,15 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	
 	// Ignore si bot
 	if (_user.bot) return;
+	
+	// Save Me Move
+	if (IS_DUELLING && _reaction == EMOTE_PP31 && SAVE_LIST.indexOf(_user.id) < 0) {
+		SAVE_LIST.push(_user.id);
+		BATTLE_CHANNEL.send(_user.username + " helps the fighters !");
+		FIGHTER1.STRValue += 50;
+		FIGHTER2.STRValue += 50;
+	}
+	
 	
 	// DUEL
 	if (IS_DUELLING) {
