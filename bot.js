@@ -999,9 +999,11 @@ function changeRoleToStyler(_nomRole) {
 	
 	if (user.roles.has(role.id)) {
 		user.removeRole(role).catch(console.error);
+		BATTLE_CHANNEL.send(user.username + " gets the role : " + _nomRole);
 	}
 	else {
 		user.addRole(role).catch(console.error);
+		BATTLE_CHANNEL.send(user.username + " removes the role : " + _nomRole);
 	}
 }
 
