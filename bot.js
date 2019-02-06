@@ -445,8 +445,8 @@ class Fighter {
 		else if (this.attack == EMOTE_PP33) {
 			// Headless - Big Kidney Stone
 			BATTLE_CHANNEL.send(this.user.username + " shoots a big kidney stone !");
-			this.damage(100);
-			getOpponentOf(this).damage(100);
+			this.damage(50);
+			getOpponentOf(this).damage(50);
 		}
 		else if (this.attack == EMOTE_PP34) {
 			// Facehugger
@@ -460,11 +460,21 @@ class Fighter {
 			IS_ARBITRATORY_BLIND = true;
 			BLIND_COUNTDOWN = 4;
 		}
+		else if (this.attack == EMOTE_PP36) {
+			// Explosion
+			BATTLE_CHANNEL.send(this.user.username + " plays the terrorist move !");
+			getOpponentOf(this).damage(1000);
+		}
 		else if (this.attack == EMOTE_PP37) {
 			// Disembowled - Kidney Stone
 			BATTLE_CHANNEL.send(this.user.username + " shoots a kidney stone !");
-			this.damage(50);
-			getOpponentOf(this).damage(50);
+			this.damage(25);
+			getOpponentOf(this).damage(25);
+		}
+		else if (this.attack == EMOTE_PP44) {
+			// Kamikaze
+			BATTLE_CHANNEL.send(this.user.username + " plans a suicide move !");
+			ILLEGAL_BOMBING = true;
 		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
@@ -924,7 +934,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	if (_user.bot) return;
 	
 	// Save Me Move
-	if (IS_DUELLING && _reaction == EMOTE_PP31 && SAVE_LIST.indexOf(_user.id) < 0) {
+	if (IS_DUELLING && _reaction.emoji.id == EMOTE_PP31 && SAVE_LIST.indexOf(_user.id) < 0) {
 		SAVE_LIST.push(_user.id);
 		BATTLE_CHANNEL.send(_user.username + " helps the fighters !");
 		FIGHTER1.STRValue += 50;
