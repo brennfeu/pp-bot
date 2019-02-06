@@ -125,7 +125,7 @@ class Fighter {
 		}
 		
 		// Natural values
-		this.STRValue = 50;
+		this.STRValue = 70;
 		this.DEXValue = 20;
 		
 		// Battle variables
@@ -599,8 +599,12 @@ class Fighter {
 				BATTLE_CHANNEL.send(this.user.username + " thinks about life and the universe...");
 				BATTLE_CHANNEL.send("Wait he forgot about the battle");
 			}
+			else if (this.attack == "IS_DEAD_LOL") {
+				// Dead (Cthulhu battle)
+				BATTLE_CHANNEL.send(this.user.username + " is dead so funny lol omg");
+			}
 			else {
-				BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
+				BATTLE_CHANNEL.send(this.user.username + " makes an unknown move ?");
 			}
 			
 			// Boomerang
@@ -917,24 +921,33 @@ function newTurnDuel() {
 				FIGHTER1.STRValue -= 50;
 			}
 		}
+		
+		// Check if loose
+		if (FIGHTER1.STR <= 0 && FIGHTER2.STR <= 0) {
+			BATTLE_CHANNEL.send("Both of you lost. No one won this time. You losers");
+			stopDuel();
+			return;
+		}
 	}
-	
-	if (FIGHTER1.STR <= 0 && FIGHTER2.STR <= 0) {
-		BATTLE_CHANNEL.send("Both of you lost. No one won this time. You losers");
-		stopDuel();
-		return;
-	}
-	else if (FIGHTER1.STR <= 0) {
-		BATTLE_CHANNEL.send(FIGHTER2.user.username + " won ! Congrats !");
-		FIGHTER2.win();
-		stopDuel();
-		return;
-	}
-	else if (FIGHTER2.STR <= 0) {
-		BATTLE_CHANNEL.send(FIGHTER1.user.username + " won ! Congrats !");
-		FIGHTER1.win();
-		stopDuel();
-		return;
+	else {
+		// Check if dead
+		if (FIGHTER1.STR <= 0 && FIGHTER2.STR <= 0) {
+			BATTLE_CHANNEL.send("Both of you lost. No one won this time. You losers");
+			stopDuel();
+			return;
+		}
+		else if (FIGHTER1.STR <= 0) {
+			BATTLE_CHANNEL.send(FIGHTER2.user.username + " won ! Congrats !");
+			FIGHTER2.win();
+			stopDuel();
+			return;
+		}
+		else if (FIGHTER2.STR <= 0) {
+			BATTLE_CHANNEL.send(FIGHTER1.user.username + " won ! Congrats !");
+			FIGHTER1.win();
+			stopDuel();
+			return;
+		}
 	}
 	
 	startRandomEvent();
@@ -970,6 +983,14 @@ function newTurnDuel() {
 	}).catch(function(e) {
 		BATTLE_CHANNEL.send(e);
 	});
+	
+	// Stop if dead (cthulhu battle)
+	if (FIGHTER1.STR <= 0) {
+		FIGHTER1.attack = "IS_DEAD_LOL";
+	}
+	if (FIGHTER2.STR <= 0) {
+		FIGHTER2.attack = "IS_DEAD_LOL";
+	}
 }
 
 function setRandomAttackList() {
