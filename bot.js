@@ -515,6 +515,13 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " builds up for his next attack...");
 			this.bonusDamage += 20;
 		}
+		else if (this.attack == EMOTE_PP43) {
+			// BrocketeerDive
+			BATTLE_CHANNEL.send(this.user.username + " punches " + getOpponentOf(this).user.username + "'s PP with his head !");
+			getOpponentOf(this).damage(Math.floor(10 + this.STR / 10));
+			getOpponentOf(this).hasBurst = 2;
+			
+		}
 		else if (this.attack == EMOTE_PP44) {
 			// Kamikaze
 			BATTLE_CHANNEL.send(this.user.username + " plans a suicide move !");
