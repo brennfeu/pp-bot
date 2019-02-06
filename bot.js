@@ -544,6 +544,7 @@ class Fighter {
 					var winner = getOpponentOf(this);
 				}
 				BATTLE_CHANNEL.send("He will use " + chaosNumber + "% of his power in " + winner.user.username);
+				chaosNumber = Math.floor(chaosNumber/4);
 				var i;
 				for (i = 0; i < chaosNumber; i++) {
 					BATTLE_CHANNEL.send("-----------------");
