@@ -916,7 +916,11 @@ function newTurnDuel() {
 	if (EVENT_BOSS) {
 		if (BOSS_HEALTH <= 0) {
 			BATTLE_CHANNEL.send("Cthulhu go back to sleep to heal his poor PP !");
+			BATTLE_CHANNEL.send("You both win !");
+			addWinCounter(FIGHTER1, 1);
+			addWinCounter(FIGHTER2, 1);
 			EVENT_BOSS = false;
+			return stopDuel();
 		}
 		else {
 			if (getRandomPercent() >= 50) {
