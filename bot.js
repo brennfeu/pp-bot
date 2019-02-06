@@ -840,7 +840,22 @@ function startDuel(_message) {
 	IS_BUSY = true;
 	IS_DUELLING = true;
 	IS_CHANGING_STYLE = false;
+	
+	ILLEGAL_BOMBING = false;
+	IS_ARBITRATORY_BLIND = false;
+	BLIND_COUNTDOWN = 0;
+	STEEL_PROTECTION = false;
+	BARREL_DAMAGE = false;
+	SAVE_LIST = [];
+	STOPPED_MOVE_LIST = [];
+	INFINITE_DAMAGE = 0;
 	MOVE_COUNT = 0;
+
+	PP_ARMAGEDDON = false;
+	EVENT_PP_ENLIGHTENMENT = false;
+	EVENT_PP_PURGE = false;
+	EVENT_CONFUSION = false;
+	EVENT_BOSS = false;
 	
 	console.log("F1 " + _message.author.id);
 	console.log("F2 " + _message.mentions.users.array()[0]);
@@ -1070,6 +1085,9 @@ function startRandomEvent() {
 	}
 	
 	var randomVar = getRandomPercent();
+	//test
+	randomVar = 2
+	
 	if (randomVar == 2) {
 		// PP Enlightenment
 		EVENT_PP_ENLIGHTENMENT = true;
