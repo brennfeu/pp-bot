@@ -379,6 +379,20 @@ class Fighter {
 			this.damage(1000);
 			getOpponentOf(this).damage(1000);
 		}
+		else if (this.attack == EMOTE_PP26) {
+			// Big Satan
+			BATTLE_CHANNEL.send(this.user.username + " summon Satan chaotic powers !!!");
+			this.playMove(getRandomEmote(false));
+			this.playMove(getRandomEmote(false));
+			this.playMove(getRandomEmote(false));
+			this.playMove(getRandomEmote());
+			this.playMove(getRandomEmote());
+			getOpponentOf(this).playMove(getRandomEmote(false));
+			getOpponentOf(this).playMove(getRandomEmote(false));
+			getOpponentOf(this).playMove(getRandomEmote(false));
+			getOpponentOf(this).playMove(getRandomEmote());
+			getOpponentOf(this).playMove(getRandomEmote());
+		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
 		}
