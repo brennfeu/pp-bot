@@ -199,9 +199,11 @@ class Fighter {
 		return txt;
 	}
 	
-	playMove() {
+	playMove(_newMove = this.attack) {
 		// Also +1 in newTurn
 		this.missedMoves -= 1;
+		
+		this.attack = _newMove;
 		
 		if (this.attack == EMOTE_PP1) {
 			// Punching PP
