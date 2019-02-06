@@ -72,6 +72,7 @@ var FIGHTER2 = null;
 
 var ILLEGAL_BOMBING = false;
 var IS_ARBITRATORY_BLIND = false;
+var BLIND_COUNTDOWN = 0;
 var STEEL_PROTECTION = false;
 var BARREL_DAMAGE = false;
 var SAVE_LIST = [];
@@ -453,6 +454,12 @@ class Fighter {
 			getOpponentOf(this).isAlienPP = true;
 			getOpponentOf(this).damage(Math.floor(getOpponentOf(this).STR/2));
 		}
+		else if (this.attack == EMOTE_PP35) {
+			// Facehugged
+			BATTLE_CHANNEL.send(this.user.username + " impregnates the arbitratory !");
+			IS_ARBITRATORY_BLIND = true;
+			BLIND_COUNTDOWN = 4;
+		}
 		else if (this.attack == EMOTE_PP37) {
 			// Disembowled - Kidney Stone
 			BATTLE_CHANNEL.send(this.user.username + " shoots a kidney stone !");
@@ -658,7 +665,6 @@ function getDexChange(_move) {
 function startDuel(_message) {
 	IS_BUSY = true;
 	IS_DUELLING = true;
-	setBotActivity("PP Punch Arena");
 	
 	console.log("F1 " + _message.author.id);
 	console.log("F2 " + _message.mentions.users.array()[0]);
@@ -691,6 +697,14 @@ function newTurnDuel() {
 	STEEL_PROTECTION = false;
 	BARREL_DAMAGE = false;
 	SAVE_LIST = [];
+	BLIND_COUNTDOWN -= 1;
+	
+	if (BLIND_COUNTDOWN >= 1) {
+		setBotActivity("WTF I'M FUCKING BLIND");
+	}
+	else {
+		setBotActivity("PP Punch Arena");
+	}
 	
 	if (FIGHTER1.STR <= 0 && FIGHTER2.STR <= 0) {
 		BATTLE_CHANNEL.send("Both of you lost. No one won this time. You losers");
