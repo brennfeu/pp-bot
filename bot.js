@@ -62,6 +62,7 @@ const EMOTE_PP50 = "342313262651670528"; // Perhaps
 // Variables
 var IS_BUSY = false;
 var IS_DUELLING = false;
+var IS_CHANGING_STYLE = false;
 
 var GUILD;
 var BATTLE_CHANNEL;
@@ -69,6 +70,7 @@ var LIST_AVAILABLE_ATTACKS = [];
 
 var FIGHTER1 = null;
 var FIGHTER2 = null;
+var STYLER = 0;
 
 var ILLEGAL_BOMBING = false;
 var IS_ARBITRATORY_BLIND = false;
@@ -784,6 +786,7 @@ function getDexChange(_move) {
 		case EMOTE_PP26:
 		case EMOTE_PP17:
 		case EMOTE_PP4:
+		case EMOTE_PP46:
 			return -20;
 		case EMOTE_PP2:
 		case EMOTE_PP6:
@@ -794,7 +797,7 @@ function getDexChange(_move) {
 		case EMOTE_PP22:
 			return 20;
 		case EMOTE_PP49:
-			return 10000;
+			return 1000;
 	}
 	return 0;
 }
@@ -802,6 +805,7 @@ function getDexChange(_move) {
 function startDuel(_message) {
 	IS_BUSY = true;
 	IS_DUELLING = true;
+	IS_CHANGING_STYLE = false;
 	
 	console.log("F1 " + _message.author.id);
 	console.log("F2 " + _message.mentions.users.array()[0]);
@@ -990,6 +994,11 @@ function addWinCounter(_fighter, _number) {
 	console.log(_fighter.user.username + " wins : " + _number);
 }
 
+function addRoleToStyler(_role) {
+	var role = GUILD.roles.find(r => r.name === _role);
+	GUILD.members.get(STYLER).addRole(role).catch(console.error);
+}
+
 
 CLIENT.on('ready', () => {
 	console.log(`Logged in as ${CLIENT.user.tag}!`);
@@ -1044,7 +1053,18 @@ CLIENT.on("message", async _message => {
 	}
 	if (argsUser[1] == "style") {
 		// STYLE
-		return _message.reply("sorry, you can't change your roles for now");
+		IS_CHANGING_STYLE = true;
+		STYLER = _message.author.id;
+		return _message.reply("Change your style with a reaction.").then(function (_message2) {
+			_message2.react(EMOTE_PP38); // Fast PP
+			_message2.react(EMOTE_PP40); // Big PP
+			_message2.react(EMOTE_PP9); // Hockey Puck PP
+			_message2.react(EMOTE_PP34); // Alien PP
+			_message2.react(EMOTE_PP41); // Drunk PP
+		}).catch(function(e) {
+			BATTLE_CHANNEL.send(e);
+		});
+	
 	}
 	if (argsUser[1] == "help") {
 		// HELP
@@ -1234,8 +1254,30 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	}
 	
 	// CHANGE ROLE
-	
-	
+	if (IS_CHANGING_STYLE && STYLER == _user.id) {
+		if (_reaction.emoji.id == EMOTE_PP1) {
+			// Fast PP
+			addRoleToStyler("Fast PP");
+		}
+		else if (_reaction.emoji.id == EMOTE_PP1) {
+			// Big PP
+			addRoleToStyler("Big PP");
+		}
+		else if (_reaction.emoji.id == EMOTE_PP1) {
+			// Drunk PP
+			addRoleToStyler("Drunk PP");
+		}
+		else if (_reaction.emoji.id == EMOTE_PP1) {
+			// Alien PP
+			addRoleToStyler("Alien PP");
+		}
+		else if (_reaction.emoji.id == EMOTE_PP1) {
+			// Hockey Puck PP
+			addRoleToStyler("Hockey Puck PP");
+		}
+		
+		return;
+	} 
 	
 	
 	return;
