@@ -527,9 +527,19 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " plans a suicide move !");
 			ILLEGAL_BOMBING = true;
 		}
+		else if (this.attack == EMOTE_PP45) {
+			// Boomerang
+			this.hasBoomerang = 4;
+		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
 		}
+		
+		// Boomerang
+		if (!this.isBoomerangUsed && this.hasBoomerang >= 1) {
+			this.isBoomerangUsed = true;
+			this.playMove();
+		} 
 	}
 	
 	damage(_amount) {
@@ -609,12 +619,14 @@ class Fighter {
 			}
 		}
 		
-		// Trap Sign, Examine, SatanPossess
+		// Trap Sign, Examine, SatanPossess etc..
 		this.hasBurst -= 1;
 		this.hasExamined -= 1;
 		this.isPossessed -= 1;
 		this.doomReverse -= 1;
 		this.acidArmor -= 1;
+		this.hasBoomerang -= 1;
+		this.isBoomerangUsed = false;
 		
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
@@ -647,6 +659,7 @@ class Fighter {
 		this.isPigged = false;
 		this.doomReverse = 0;
 		this.acidArmor = 0;
+		this.isBoomerangUsed = false;
 		// TODO keep up to date
 	}
 }
