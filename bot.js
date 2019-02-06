@@ -396,7 +396,7 @@ class Fighter {
 		else if (this.isProtected) {
 			// RiotShield
 			BATTLE_CHANNEL.send(this.user.username + " reflects the damages !");
-			getOpponentOf(this).damage(_damage);
+			getOpponentOf(this).damage(_amount);
 		}
 		else if (STEEL_PROTECTION) {
 			// Steel
