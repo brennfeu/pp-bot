@@ -120,6 +120,7 @@ class Fighter {
 		this.isCircumcised = false;
 		this.isOverCircumcised = false;
 		this.missedMoves = 0;
+		this.bonusDamage = 0;
 		
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -509,6 +510,11 @@ class Fighter {
 				BATTLE_CHANNEL.send("...and now he got it !");
 			}
 		}
+		else if (this.attack == EMOTE_PP42) {
+			// Bronan Slam
+			BATTLE_CHANNEL.send(this.user.username + " builds up for his next attack...");
+			this.bonusDamage += 20;
+		}
 		else if (this.attack == EMOTE_PP44) {
 			// Kamikaze
 			BATTLE_CHANNEL.send(this.user.username + " plans a suicide move !");
@@ -520,6 +526,9 @@ class Fighter {
 	}
 	
 	damage(_amount) {
+		_amount += getOpponentOf(this).bonusDamage;
+		getOpponentOf(this).bonusDamage = 0;
+		
 		// Acid
 		if (this.acidArmor >= 1) {
 			BATTLE_CHANNEL.send(this.user.username + " has an acid armor !");
