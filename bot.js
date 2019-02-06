@@ -79,6 +79,7 @@ var STEEL_PROTECTION = false;
 var BARREL_DAMAGE = false;
 var SAVE_LIST = [];
 var STOPPED_MOVE_LIST = [];
+var INFINITE_DAMAGE = 0;
 
 
 // CLASSES
@@ -604,6 +605,12 @@ class Fighter {
 		_amount += getOpponentOf(this).bonusDamage;
 		getOpponentOf(this).bonusDamage = 0;
 		
+		
+		if (INFINITE_DAMAGE >= 50) {
+			return BATTLE_CHANNEL.send("STOP");
+		}
+		INFINITE_DAMAGE += 1;
+		
 		// Acid
 		if (this.acidArmor >= 1) {
 			BATTLE_CHANNEL.send(this.user.username + " has an acid armor !");
@@ -836,6 +843,7 @@ function newTurnDuel() {
 	BARREL_DAMAGE = false;
 	SAVE_LIST = [];
 	BLIND_COUNTDOWN -= 1;
+	INFINITE_DAMAGE = 0;
 	
 	if (BLIND_COUNTDOWN >= 1) {
 		setBotActivity("WTF I'M FUCKING BLIND");
