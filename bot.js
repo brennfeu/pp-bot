@@ -373,6 +373,12 @@ class Fighter {
 			getOpponentOf(this).STRValue = this.STRValue - getOpponentOf(this).STRValue;
 			this.STRValue -= getOpponentOf(this).STRValue;
 		}
+		else if (this.attack == EMOTE_PP25) {
+			// Bombardment
+			BATTLE_CHANNEL.send(this.user.username + " call for a bombardment !!!");
+			this.damage(1000);
+			getOpponentOf(this).damage(1000);
+		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
 		}
@@ -901,7 +907,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				STEEL_PROTECTION = true;
 			}
 			
-			if (dexAttack1 == dexAttack2) {
+			if (dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) {
 				BATTLE_CHANNEL.send("Both opponents attack this turn !");
 				
 				FIGHTER1.playMove();
