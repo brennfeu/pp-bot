@@ -971,7 +971,7 @@ function setRandomAttackList() {
 	var emote;
 
 	if (EVENT_CONFUSION) {
-		return [EMOTE_PP39];
+		return LIST_AVAILABLE_ATTACKS = [EMOTE_PP39];
 	}
 	
 	// Attaque 1
