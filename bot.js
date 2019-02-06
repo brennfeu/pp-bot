@@ -156,6 +156,10 @@ class Fighter {
 		if (this.isAlienPP) {
 			str -= 10;
 		}
+		
+		if (EVENT_BOSS && str <= 0) {
+			return 0;
+		} 
 		return str;
 	}
 	
