@@ -898,12 +898,38 @@ function newTurnDuel() {
 		return;
 	}
 	
+	// Cthulhu
+	if (BOSS_EVENT) {
+		if (BOSS_HEALTH > 0) {
+			BATTLE_CHANNEL.send("Cthulhu go back to sleep to heal his poor PP !");
+			BOSS_EVENT = false;
+		}
+		else {
+			if (getRandomPercent() >= 50) {
+				BATTLE_CHANNEL.send(FIGHTER1.user.username + " gets attacked by Cthulhu !");
+				FIGHTER1.STRValue -= 50;
+			}
+			else {
+				BATTLE_CHANNEL.send(FIGHTER2.user.username + " gets attacked by Cthulhu !");
+				FIGHTER1.STRValue -= 50;
+			}
+		}
+	}
+	
 	startRandomEvent();
 	
 	BATTLE_CHANNEL.send("\n\n===== NEW TURN =====");
-	BATTLE_CHANNEL.send(FIGHTER1.toString());
-	BATTLE_CHANNEL.send("===== /VS/ =====");
-	BATTLE_CHANNEL.send(FIGHTER2.toString());
+	if (!BOSS_EVENT) {
+		BATTLE_CHANNEL.send(FIGHTER1.toString());
+		BATTLE_CHANNEL.send("===== /VS/ =====");
+		BATTLE_CHANNEL.send(FIGHTER2.toString());
+	}
+	else {
+		BATTLE_CHANNEL.send(FIGHTER1.toString());
+		BATTLE_CHANNEL.send(FIGHTER2.toString());
+		BATTLE_CHANNEL.send("===== /VS/ =====");
+		BATTLE_CHANNEL.send("Cthulhu\n\nSTR : " + BOSS_HEALTH);
+	}
 	
 	// HighFiveEmote - Stop move_list
 	if (STOPPED_MOVE_LIST.length >= 1) {
