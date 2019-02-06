@@ -5,7 +5,7 @@
 const DISCORD = require("discord.js");
 const CLIENT = new DISCORD.Client();
 
-const BETA_TEST = false;
+const BETA_TEST = true;
 const PRIVATE_TEST = false;
 
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
@@ -139,6 +139,9 @@ class Fighter {
 		}
 		if (this.isHockeyPuckPP) {
 			str -= 45;
+		}
+		if (this.isAlienPP) {
+			str -= 10;
 		}
 		return str;
 	}
@@ -638,6 +641,10 @@ class Fighter {
 		if (this.STR <= 0 && this.doomReverse >= 1) {
 			BATTLE_CHANNEL.send(this.user.username + " uses DOOM-REVERSE(tm) !");
 			getOpponentOf(this).damage(50);
+		}
+		// Alien PP
+		if (this.isAlienPP) {
+			getOpponentOf(this).bleedDamage += 1;
 		}
 	}
 	
