@@ -228,6 +228,10 @@ class Fighter {
 			
 			MOVE_COUNT += 1;
 			
+			if (EVENT_BOSS && this.STR <= 0) { 
+				this.attack = "IS_DEAD_LOL"
+			}
+			
 			this.attack = _newMove;
 			
 			if (this.attack == EMOTE_PP1) {
@@ -429,7 +433,6 @@ class Fighter {
 				getOpponentOf(this).playMove(getRandomEmote());
 				BATTLE_CHANNEL.send("-----------------");
 				getOpponentOf(this).playMove(getRandomEmote());
-				DISABLE_ABANDON = false;
 			}
 			else if (this.attack == EMOTE_PP27) {
 				// BigGuyBullet
@@ -571,7 +574,6 @@ class Fighter {
 					BATTLE_CHANNEL.send("-----------------");
 					winner.playMove(getRandomEmote());
 				} 
-				DISABLE_ABANDON = false;
 			}
 			else if (this.attack == EMOTE_PP47) {
 				// Pudding
@@ -897,6 +899,7 @@ function newTurnDuel() {
 	SAVE_LIST = [];
 	BLIND_COUNTDOWN -= 1;
 	INFINITE_DAMAGE = 0;
+	DISABLE_ABANDON = false;
 	
 	if (BLIND_COUNTDOWN >= 1) {
 		setBotActivity("WTF I'M FUCKING BLIND");
@@ -987,9 +990,11 @@ function newTurnDuel() {
 	// Stop if dead (cthulhu battle)
 	if (FIGHTER1.STR <= 0) {
 		FIGHTER1.attack = "IS_DEAD_LOL";
+		FIGHTER1.STRValue = -10;
 	}
 	if (FIGHTER2.STR <= 0) {
 		FIGHTER2.attack = "IS_DEAD_LOL";
+		FIGHTER2.STRValue = -10;
 	}
 }
 
@@ -1329,6 +1334,14 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				
 				stopDuel();
 				return;
+			}
+			
+			// Stop if dead (cthulhu battle)
+			if (FIGHTER1.STR <= 0) {
+				FIGHTER1.attack = "IS_DEAD_LOL";
+			}
+			if (FIGHTER2.STR <= 0) {
+				FIGHTER2.attack = "IS_DEAD_LOL";
 			}
 			
 			// ATTAQUES
