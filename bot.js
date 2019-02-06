@@ -471,6 +471,17 @@ class Fighter {
 			this.damage(25);
 			getOpponentOf(this).damage(25);
 		}
+		else if (this.attack == EMOTE_PP38) {
+			// DeadBro
+			BATTLE_CHANNEL.send(this.user.username + " wants a fast PP...");
+			if (this.isFastPP) {
+				BATTLE_CHANNEL.send("...but he already had one !");
+			}
+			else {
+				this.isFastPP = true;
+				BATTLE_CHANNEL.send("...and now he got it !");
+			}
+		}
 		else if (this.attack == EMOTE_PP44) {
 			// Kamikaze
 			BATTLE_CHANNEL.send(this.user.username + " plans a suicide move !");
