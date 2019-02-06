@@ -552,7 +552,7 @@ class Fighter {
 		else if (this.attack == EMOTE_PP47) {
 			// Pudding
 			BATTLE_CHANNEL.send(this.user.username + " abandons the battle !");
-			stopDuel();
+			this.STRValue = -999999999;
 			return;
 		}
 		else if (this.attack == EMOTE_PP48) {
