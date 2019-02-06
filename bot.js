@@ -915,7 +915,7 @@ function newTurnDuel() {
 	
 	// Cthulhu
 	if (EVENT_BOSS) {
-		if (BOSS_HEALTH > 0) {
+		if (BOSS_HEALTH <= 0) {
 			BATTLE_CHANNEL.send("Cthulhu go back to sleep to heal his poor PP !");
 			EVENT_BOSS = false;
 		}
