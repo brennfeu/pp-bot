@@ -742,7 +742,7 @@ function getRandomEmote(_canBeIllegal = true) {
 		goodList = illegalList;
 	}
 	else {
-		goodList = legaList;
+		goodList = legalList;
 	}
 	
 	if (ILLEGAL_BOMBING) {
