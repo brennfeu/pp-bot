@@ -206,384 +206,392 @@ class Fighter {
 	}
 	
 	playMove(_newMove = this.attack) {
-		// Also +1 in newTurn
-		this.missedMoves -= 1;
-		
-		this.attack = _newMove;
-		
-		if (this.attack == EMOTE_PP1) {
-			// Punching PP
-			BATTLE_CHANNEL.send(this.user.username + " punches " + getOpponentOf(this).user.username + "'s PP !");
-			getOpponentOf(this).damage(Math.floor(10 + this.STR / 10));
-		}
-		else if (this.attack == EMOTE_PP2) {
-			// Punching PP Really Hard
-			BATTLE_CHANNEL.send(this.user.username + " punches " + getOpponentOf(this).user.username + "'s PP really hard !");
-			getOpponentOf(this).damage(Math.floor(20 + this.STR / 10));
-		}
-		else if (this.attack == EMOTE_PP3) {
-			// Hologram
-			BATTLE_CHANNEL.send(this.user.username + " touches " + getOpponentOf(this).user.username + "'s PP vital point !");
-			getOpponentOf(this).damage(1000);
-		}
-		else if (this.attack == EMOTE_PP4) {
-			// Flex
-			BATTLE_CHANNEL.send(this.user.username + " flexes !");
-			var bonus = Math.floor(Math.random() * 30 + 1);
-			BATTLE_CHANNEL.send(this.user.username + " get " + bonus + " STR !");
-			this.STRValue += bonus;			
-		}
-		else if (this.attack == EMOTE_PP5) {
-			// High Five
-			BATTLE_CHANNEL.send(this.user.username + " is feeling lonely... :(");			
-		}
-		else if (this.attack == EMOTE_PP6) {
-			// Kick
-			BATTLE_CHANNEL.send(this.user.username + " kicks " + getOpponentOf(this).user.username + "'s PP !");
-			getOpponentOf(this).damage(Math.floor(20 + this.STR / 10)*3);
-		}
-		else if (this.attack == EMOTE_PP7) {
-			// Turkey
-			BATTLE_CHANNEL.send(this.user.username + " and " + getOpponentOf(this).user.username + " start a feast !");
-			this.STRValue += 100;
-			this.turkeyCountdown = 11;
-			getOpponentOf(this).STRValue += 100;
-			getOpponentOf(this).turkeyCountdown = 11;
-			BATTLE_CHANNEL.send("They both gain 100 STR !");
-		}
-		else if (this.attack == EMOTE_PP8) {
-			// Trap Sign
-			BATTLE_CHANNEL.send(this.user.username + " is ready to burst !");
-			BATTLE_CHANNEL.send("...");
-			BATTLE_CHANNEL.send("Well...");
-		}
-		else if (this.attack == EMOTE_PP9) {
-			// Time Kick
-			BATTLE_CHANNEL.send(this.user.username + " wants a hockey puck PP...");
-			if (this.isHockeyPuckPP) {
-				BATTLE_CHANNEL.send("...but he already had one !");
-			}
-			else {
-				this.isHockeyPuckPP = true;
-				BATTLE_CHANNEL.send("...and now he got it !");
-			}
-		}
-		else if (this.attack == EMOTE_PP10) {
-			// Tank
-			BATTLE_CHANNEL.send(this.user.username + " brings a tank !");
-			BATTLE_CHANNEL.send("FIRE !");
-			getOpponentOf(this).damage(1000);
-		}
-		else if (this.attack == EMOTE_PP11) {
-			// Steel
-			BATTLE_CHANNEL.send(this.user.username + " sets up a protection for nothing...");
-		}
-		else if (this.attack == EMOTE_PP12) {
-			// Overcircumscise
-			BATTLE_CHANNEL.send(this.user.username + " over-circumcised himself !");
-			if (this.isOverCircumcised) {
-				BATTLE_CHANNEL.send("Wait he already was !");
-			}
-			else {
-				this.isCircumcised = true;
-				this.isOverCircumcised = true;
-				this.STRValue = this.STR/2;
-			}
-		}
-		else if (this.attack == EMOTE_PP13) {
-			// Scout
-			BATTLE_CHANNEL.send(this.user.username + " examine the qualities of " + getOpponentOf(this).user.username + "'s PP !");
-			if (getRandomPercent() <= 33) {
-				BATTLE_CHANNEL.send("And he learns a lot !");
-				this.hasExamined = 2;
-			}
-			else {
-				BATTLE_CHANNEL.send("And he learns nothing...");
-			}
-		}
-		else if (this.attack == EMOTE_PP14) {
-			// SawBlade
-			BATTLE_CHANNEL.send(this.user.username + " cuts " + getOpponentOf(this).user.username + "'s PP !");
-			getOpponentOf(this).bleedDamage += 5;
-		}
-		else if (this.attack == EMOTE_PP15) {
-			// Save
-			var test = getRandomPercent();
-			BATTLE_CHANNEL.send(this.user.username + " changes one of his roles !");
-			if (test <= 20) {
-				this.isFastPP = !this.isFastPP;
-			}
-			else if (test <= 40) {
-				this.isBigPP = !this.isBigPP;
-			}
-			else if (test <= 60) {
-				this.isAlienPP = !this.isAlienPP;
-			}
-			else if (test <= 80) {
-				this.isHockeyPuckPP = !this.isHockeyPuckPP;
-			}
-			else {
-				this.isDrunkPP = !this.isDrunkPP;
-			}
-		}
-		else if (this.attack == EMOTE_PP16) {
-			// Satan
-			BATTLE_CHANNEL.send(this.user.username + " possesses " + getOpponentOf(this).user.username + "'s PP !");
-			getOpponentOf(this).isPossessed = 2;
-		}
-		else if (this.attack == EMOTE_PP17) {
-			// RiotShield
-			BATTLE_CHANNEL.send(this.user.username + " gets a shield !");
-			this.isProtected = true;
-		}
-		else if (this.attack == EMOTE_PP18) {
-			// Red Pill
-			BATTLE_CHANNEL.send(this.user.username + " gets a pill !");
-			this.STRValue += 5;
-			this.DEXValue += 3;
-		}
-		else if (this.attack == EMOTE_PP19) {
-			// Pig
-			BATTLE_CHANNEL.send(this.user.username + " squeezes hog yeah yeah !");
-			this.isPigged = true;
-		}
-		else if (this.attack == EMOTE_PP20) {
-			// DoomReverse (MookGrenade)
-			BATTLE_CHANNEL.send(this.user.username + " sets up a DOOM-REVERSE(tm) !");
-			this.doomReverse = 4;
-		}
-		else if (this.attack == EMOTE_PP21) {
-			// Acid
-			BATTLE_CHANNEL.send(this.user.username + " gets an acid armor !");
-			this.acidArmor = 5;
-		}
-		else if (this.attack == EMOTE_PP22) {
-			// Circumscise
-			BATTLE_CHANNEL.send(this.user.username + " circumcised himself !");
-			if (this.isCircumcised) {
-				BATTLE_CHANNEL.send("Wait he already was !");
-			}
-			else {
-				this.isCircumcised = true;
-				this.resetBattleVariables();
-			}
-		}
-		else if (this.attack == EMOTE_PP23) {
-			// LaughSoul
-			BATTLE_CHANNEL.send(this.user.username + " laughs at " + getOpponentOf(this).user.username + " !");
-			BATTLE_CHANNEL.send("He gets " + getOpponentOf(this).missedMoves*10 + " STR !");
-			this.STRValue += getOpponentOf(this).missedMoves*10;
-		}
-		else if (this.attack == EMOTE_PP24) {
-			// KnockBack
-			BATTLE_CHANNEL.send(this.user.username + " swap the natural STR values !");
-			this.STRValue += getOpponentOf(this).STRValue;
-			getOpponentOf(this).STRValue = this.STRValue - getOpponentOf(this).STRValue;
-			this.STRValue -= getOpponentOf(this).STRValue;
-		}
-		else if (this.attack == EMOTE_PP25) {
-			// Bombardment
-			BATTLE_CHANNEL.send(this.user.username + " call for a bombardment !!!");
-			this.damage(1000);
-			getOpponentOf(this).damage(1000);
-		}
-		else if (this.attack == EMOTE_PP26) {
-			// Big Satan
-			BATTLE_CHANNEL.send(this.user.username + " summon Satan chaotic powers !!!");
-			this.playMove(getRandomEmote(false));
-			BATTLE_CHANNEL.send("-----------------");
-			this.playMove(getRandomEmote(false));
-			BATTLE_CHANNEL.send("-----------------");
-			this.playMove(getRandomEmote(false));
-			BATTLE_CHANNEL.send("-----------------");
-			this.playMove(getRandomEmote());
-			BATTLE_CHANNEL.send("-----------------");
-			this.playMove(getRandomEmote());
-			BATTLE_CHANNEL.send("-----------------");
-			getOpponentOf(this).playMove(getRandomEmote(false));
-			BATTLE_CHANNEL.send("-----------------");
-			getOpponentOf(this).playMove(getRandomEmote(false));
-			BATTLE_CHANNEL.send("-----------------");
-			getOpponentOf(this).playMove(getRandomEmote(false));
-			BATTLE_CHANNEL.send("-----------------");
-			getOpponentOf(this).playMove(getRandomEmote());
-			BATTLE_CHANNEL.send("-----------------");
-			getOpponentOf(this).playMove(getRandomEmote());
-		}
-		else if (this.attack == EMOTE_PP27) {
-			// BigGuyBullet
-			BATTLE_CHANNEL.send(this.user.username + " uses his PP as a gun !");
-			getOpponentOf(this).damage(Math.floor(20 + this.STR / 10));
-			this.DEXValue -= 20;
-			getOpponentOf(this).DEXValue -= 20;
+		try {
+			// Also +1 in newTurn
+			this.missedMoves -= 1;
 			
-		}
-		else if (this.attack == EMOTE_PP28) {
-			// BigGuy
-			BATTLE_CHANNEL.send(this.user.username + " intimidates " + getOpponentOf(this).user.username + " !");
-			getOpponentOf(this).STRValue -= 5;
+			this.attack = _newMove;
 			
-		}
-		else if (this.attack == EMOTE_PP29) {
-			// Barrel
-			BATTLE_CHANNEL.send(this.user.username + " sets up a barrel for nothing...");
-		}
-		else if (this.attack == EMOTE_PP30) {
-			// ExclamationPoint
-			BATTLE_CHANNEL.send(this.user.username + " tries to go back too far in time !");
-			BATTLE_CHANNEL.send("This create a space-time distortion !");
-			this.playMove(getRandomEmote());
-		}
-		else if (this.attack == EMOTE_PP31) {
-			// Save Me Sign
-			BATTLE_CHANNEL.send(this.user.username + " wants to be saved !");
-		}
-		else if (this.attack == EMOTE_PP32) {
-			// High Five Emote
-			BATTLE_CHANNEL.send(this.user.username + " stops the time !");
-			STOPPED_MOVE_LIST = LIST_AVAILABLE_ATTACKS;
-		}
-		else if (this.attack == EMOTE_PP33) {
-			// Headless - Big Kidney Stone
-			BATTLE_CHANNEL.send(this.user.username + " shoots a big kidney stone !");
-			this.damage(50);
-			getOpponentOf(this).damage(50);
-		}
-		else if (this.attack == EMOTE_PP34) {
-			// Facehugger
-			BATTLE_CHANNEL.send(this.user.username + " impregnates " + getOpponentOf(this).user.username + " !");
-			getOpponentOf(this).isAlienPP = true;
-			getOpponentOf(this).damage(Math.floor(getOpponentOf(this).STR/2));
-		}
-		else if (this.attack == EMOTE_PP35) {
-			// Facehugged
-			BATTLE_CHANNEL.send(this.user.username + " impregnates the arbitratory !");
-			IS_ARBITRATORY_BLIND = true;
-			BLIND_COUNTDOWN = 4;
-		}
-		else if (this.attack == EMOTE_PP36) {
-			// Explosion
-			BATTLE_CHANNEL.send(this.user.username + " plays the terrorist move !");
-			getOpponentOf(this).damage(1000);
-		}
-		else if (this.attack == EMOTE_PP37) {
-			// Disembowled - Kidney Stone
-			BATTLE_CHANNEL.send(this.user.username + " shoots a kidney stone !");
-			this.damage(25);
-			getOpponentOf(this).damage(25);
-		}
-		else if (this.attack == EMOTE_PP38) {
-			// DeadBro
-			BATTLE_CHANNEL.send(this.user.username + " wants a fast PP...");
-			if (this.isFastPP) {
-				BATTLE_CHANNEL.send("...but he already had one !");
+			if (this.attack == EMOTE_PP1) {
+				// Punching PP
+				BATTLE_CHANNEL.send(this.user.username + " punches " + getOpponentOf(this).user.username + "'s PP !");
+				getOpponentOf(this).damage(Math.floor(10 + this.STR / 10));
 			}
-			else {
-				this.isFastPP = true;
-				BATTLE_CHANNEL.send("...and now he got it !");
+			else if (this.attack == EMOTE_PP2) {
+				// Punching PP Really Hard
+				BATTLE_CHANNEL.send(this.user.username + " punches " + getOpponentOf(this).user.username + "'s PP really hard !");
+				getOpponentOf(this).damage(Math.floor(20 + this.STR / 10));
 			}
-		}
-		else if (this.attack == EMOTE_PP39) {
-			// Interrogation Point
-			BATTLE_CHANNEL.send(this.user.username + " summon a random move !");
-			this.playMove(getRandomEmote());
-		}
-		else if (this.attack == EMOTE_PP40) {
-			// ChestBurst
-			BATTLE_CHANNEL.send(this.user.username + " wants a big PP...");
-			if (this.isBigPP) {
-				BATTLE_CHANNEL.send("...but he already had one !");
+			else if (this.attack == EMOTE_PP3) {
+				// Hologram
+				BATTLE_CHANNEL.send(this.user.username + " touches " + getOpponentOf(this).user.username + "'s PP vital point !");
+				getOpponentOf(this).damage(1000);
 			}
-			else {
-				this.isBigPP = true;
-				BATTLE_CHANNEL.send("...and now he got it !");
+			else if (this.attack == EMOTE_PP4) {
+				// Flex
+				BATTLE_CHANNEL.send(this.user.username + " flexes !");
+				var bonus = Math.floor(Math.random() * 30 + 1);
+				BATTLE_CHANNEL.send(this.user.username + " get " + bonus + " STR !");
+				this.STRValue += bonus;			
 			}
-		}
-		else if (this.attack == EMOTE_PP41) {
-			// 007 Drunk
-			BATTLE_CHANNEL.send(this.user.username + " wants a drunk PP...");
-			if (this.isDrunkPP) {
-				BATTLE_CHANNEL.send("...but he already had one !");
+			else if (this.attack == EMOTE_PP5) {
+				// High Five
+				BATTLE_CHANNEL.send(this.user.username + " is feeling lonely... :(");			
 			}
-			else {
-				this.isDrunkPP = true;
-				BATTLE_CHANNEL.send("...and now he got it !");
+			else if (this.attack == EMOTE_PP6) {
+				// Kick
+				BATTLE_CHANNEL.send(this.user.username + " kicks " + getOpponentOf(this).user.username + "'s PP !");
+				getOpponentOf(this).damage(Math.floor(20 + this.STR / 10)*3);
 			}
-		}
-		else if (this.attack == EMOTE_PP42) {
-			// Bronan Slam
-			BATTLE_CHANNEL.send(this.user.username + " builds up for his next attack...");
-			this.bonusDamage += 20;
-		}
-		else if (this.attack == EMOTE_PP43) {
-			// BrocketeerDive
-			BATTLE_CHANNEL.send(this.user.username + " punches " + getOpponentOf(this).user.username + "'s PP with his head !");
-			getOpponentOf(this).damage(Math.floor(10 + this.STR / 10));
-			getOpponentOf(this).hasBurst = 2;
-			
-		}
-		else if (this.attack == EMOTE_PP44) {
-			// Kamikaze
-			BATTLE_CHANNEL.send(this.user.username + " plans a suicide move !");
-			ILLEGAL_BOMBING = true;
-		}
-		else if (this.attack == EMOTE_PP45) {
-			// Boomerang
-			BATTLE_CHANNEL.send(this.user.username + " gets a nice boomerang");
-			this.hasBoomerang = 4;
-		}
-		else if (this.attack == EMOTE_PP46) {
-			// TruffleHistorian
-			BATTLE_CHANNEL.send(this.user.username + " calls the ancient fongus");
-			var chaosNumber = getRandomPercent();
-			if (getRandomPercent() >= 50) {
-				var winner = this;
+			else if (this.attack == EMOTE_PP7) {
+				// Turkey
+				BATTLE_CHANNEL.send(this.user.username + " and " + getOpponentOf(this).user.username + " start a feast !");
+				this.STRValue += 100;
+				this.turkeyCountdown = 11;
+				getOpponentOf(this).STRValue += 100;
+				getOpponentOf(this).turkeyCountdown = 11;
+				BATTLE_CHANNEL.send("They both gain 100 STR !");
 			}
-			else {
-				var winner = getOpponentOf(this);
+			else if (this.attack == EMOTE_PP8) {
+				// Trap Sign
+				BATTLE_CHANNEL.send(this.user.username + " is ready to burst !");
+				BATTLE_CHANNEL.send("...");
+				BATTLE_CHANNEL.send("Well...");
 			}
-			BATTLE_CHANNEL.send("He will use " + chaosNumber + "% of his power in " + winner.user.username);
-			var i;
-			for (i = 0; i < chaosNumber; i++) {
+			else if (this.attack == EMOTE_PP9) {
+				// Time Kick
+				BATTLE_CHANNEL.send(this.user.username + " wants a hockey puck PP...");
+				if (this.isHockeyPuckPP) {
+					BATTLE_CHANNEL.send("...but he already had one !");
+				}
+				else {
+					this.isHockeyPuckPP = true;
+					BATTLE_CHANNEL.send("...and now he got it !");
+				}
+			}
+			else if (this.attack == EMOTE_PP10) {
+				// Tank
+				BATTLE_CHANNEL.send(this.user.username + " brings a tank !");
+				BATTLE_CHANNEL.send("FIRE !");
+				getOpponentOf(this).damage(1000);
+			}
+			else if (this.attack == EMOTE_PP11) {
+				// Steel
+				BATTLE_CHANNEL.send(this.user.username + " sets up a protection for nothing...");
+			}
+			else if (this.attack == EMOTE_PP12) {
+				// Overcircumscise
+				BATTLE_CHANNEL.send(this.user.username + " over-circumcised himself !");
+				if (this.isOverCircumcised) {
+					BATTLE_CHANNEL.send("Wait he already was !");
+				}
+				else {
+					this.isCircumcised = true;
+					this.isOverCircumcised = true;
+					this.STRValue = this.STR/2;
+				}
+			}
+			else if (this.attack == EMOTE_PP13) {
+				// Scout
+				BATTLE_CHANNEL.send(this.user.username + " examine the qualities of " + getOpponentOf(this).user.username + "'s PP !");
+				if (getRandomPercent() <= 33) {
+					BATTLE_CHANNEL.send("And he learns a lot !");
+					this.hasExamined = 2;
+				}
+				else {
+					BATTLE_CHANNEL.send("And he learns nothing...");
+				}
+			}
+			else if (this.attack == EMOTE_PP14) {
+				// SawBlade
+				BATTLE_CHANNEL.send(this.user.username + " cuts " + getOpponentOf(this).user.username + "'s PP !");
+				getOpponentOf(this).bleedDamage += 5;
+			}
+			else if (this.attack == EMOTE_PP15) {
+				// Save
+				var test = getRandomPercent();
+				BATTLE_CHANNEL.send(this.user.username + " changes one of his roles !");
+				if (test <= 20) {
+					this.isFastPP = !this.isFastPP;
+				}
+				else if (test <= 40) {
+					this.isBigPP = !this.isBigPP;
+				}
+				else if (test <= 60) {
+					this.isAlienPP = !this.isAlienPP;
+				}
+				else if (test <= 80) {
+					this.isHockeyPuckPP = !this.isHockeyPuckPP;
+				}
+				else {
+					this.isDrunkPP = !this.isDrunkPP;
+				}
+			}
+			else if (this.attack == EMOTE_PP16) {
+				// Satan
+				BATTLE_CHANNEL.send(this.user.username + " possesses " + getOpponentOf(this).user.username + "'s PP !");
+				getOpponentOf(this).isPossessed = 2;
+			}
+			else if (this.attack == EMOTE_PP17) {
+				// RiotShield
+				BATTLE_CHANNEL.send(this.user.username + " gets a shield !");
+				this.isProtected = true;
+			}
+			else if (this.attack == EMOTE_PP18) {
+				// Red Pill
+				BATTLE_CHANNEL.send(this.user.username + " gets a pill !");
+				this.STRValue += 5;
+				this.DEXValue += 3;
+			}
+			else if (this.attack == EMOTE_PP19) {
+				// Pig
+				BATTLE_CHANNEL.send(this.user.username + " squeezes hog yeah yeah !");
+				this.isPigged = true;
+			}
+			else if (this.attack == EMOTE_PP20) {
+				// DoomReverse (MookGrenade)
+				BATTLE_CHANNEL.send(this.user.username + " sets up a DOOM-REVERSE(tm) !");
+				this.doomReverse = 4;
+			}
+			else if (this.attack == EMOTE_PP21) {
+				// Acid
+				BATTLE_CHANNEL.send(this.user.username + " gets an acid armor !");
+				this.acidArmor = 5;
+			}
+			else if (this.attack == EMOTE_PP22) {
+				// Circumscise
+				BATTLE_CHANNEL.send(this.user.username + " circumcised himself !");
+				if (this.isCircumcised) {
+					BATTLE_CHANNEL.send("Wait he already was !");
+				}
+				else {
+					this.isCircumcised = true;
+					this.resetBattleVariables();
+				}
+			}
+			else if (this.attack == EMOTE_PP23) {
+				// LaughSoul
+				BATTLE_CHANNEL.send(this.user.username + " laughs at " + getOpponentOf(this).user.username + " !");
+				BATTLE_CHANNEL.send("He gets " + getOpponentOf(this).missedMoves*10 + " STR !");
+				this.STRValue += getOpponentOf(this).missedMoves*10;
+			}
+			else if (this.attack == EMOTE_PP24) {
+				// KnockBack
+				BATTLE_CHANNEL.send(this.user.username + " swap the natural STR values !");
+				this.STRValue += getOpponentOf(this).STRValue;
+				getOpponentOf(this).STRValue = this.STRValue - getOpponentOf(this).STRValue;
+				this.STRValue -= getOpponentOf(this).STRValue;
+			}
+			else if (this.attack == EMOTE_PP25) {
+				// Bombardment
+				BATTLE_CHANNEL.send(this.user.username + " call for a bombardment !!!");
+				this.damage(1000);
+				getOpponentOf(this).damage(1000);
+			}
+			else if (this.attack == EMOTE_PP26) {
+				// Big Satan
+				BATTLE_CHANNEL.send(this.user.username + " summon Satan chaotic powers !!!");
+				this.playMove(getRandomEmote(false));
 				BATTLE_CHANNEL.send("-----------------");
-				winner.playMove(getRandomEmote());
+				this.playMove(getRandomEmote(false));
+				BATTLE_CHANNEL.send("-----------------");
+				this.playMove(getRandomEmote(false));
+				BATTLE_CHANNEL.send("-----------------");
+				this.playMove(getRandomEmote());
+				BATTLE_CHANNEL.send("-----------------");
+				this.playMove(getRandomEmote());
+				BATTLE_CHANNEL.send("-----------------");
+				getOpponentOf(this).playMove(getRandomEmote(false));
+				BATTLE_CHANNEL.send("-----------------");
+				getOpponentOf(this).playMove(getRandomEmote(false));
+				BATTLE_CHANNEL.send("-----------------");
+				getOpponentOf(this).playMove(getRandomEmote(false));
+				BATTLE_CHANNEL.send("-----------------");
+				getOpponentOf(this).playMove(getRandomEmote());
+				BATTLE_CHANNEL.send("-----------------");
+				getOpponentOf(this).playMove(getRandomEmote());
+			}
+			else if (this.attack == EMOTE_PP27) {
+				// BigGuyBullet
+				BATTLE_CHANNEL.send(this.user.username + " uses his PP as a gun !");
+				getOpponentOf(this).damage(Math.floor(20 + this.STR / 10));
+				this.DEXValue -= 20;
+				getOpponentOf(this).DEXValue -= 20;
+				
+			}
+			else if (this.attack == EMOTE_PP28) {
+				// BigGuy
+				BATTLE_CHANNEL.send(this.user.username + " intimidates " + getOpponentOf(this).user.username + " !");
+				getOpponentOf(this).STRValue -= 5;
+				
+			}
+			else if (this.attack == EMOTE_PP29) {
+				// Barrel
+				BATTLE_CHANNEL.send(this.user.username + " sets up a barrel for nothing...");
+			}
+			else if (this.attack == EMOTE_PP30) {
+				// ExclamationPoint
+				BATTLE_CHANNEL.send(this.user.username + " tries to go back too far in time !");
+				BATTLE_CHANNEL.send("This create a space-time distortion !");
+				this.playMove(getRandomEmote());
+			}
+			else if (this.attack == EMOTE_PP31) {
+				// Save Me Sign
+				BATTLE_CHANNEL.send(this.user.username + " wants to be saved !");
+			}
+			else if (this.attack == EMOTE_PP32) {
+				// High Five Emote
+				BATTLE_CHANNEL.send(this.user.username + " stops the time !");
+				STOPPED_MOVE_LIST = LIST_AVAILABLE_ATTACKS;
+			}
+			else if (this.attack == EMOTE_PP33) {
+				// Headless - Big Kidney Stone
+				BATTLE_CHANNEL.send(this.user.username + " shoots a big kidney stone !");
+				this.damage(50);
+				getOpponentOf(this).damage(50);
+			}
+			else if (this.attack == EMOTE_PP34) {
+				// Facehugger
+				BATTLE_CHANNEL.send(this.user.username + " impregnates " + getOpponentOf(this).user.username + " !");
+				getOpponentOf(this).isAlienPP = true;
+				getOpponentOf(this).damage(Math.floor(getOpponentOf(this).STR/2));
+			}
+			else if (this.attack == EMOTE_PP35) {
+				// Facehugged
+				BATTLE_CHANNEL.send(this.user.username + " impregnates the arbitratory !");
+				IS_ARBITRATORY_BLIND = true;
+				BLIND_COUNTDOWN = 4;
+			}
+			else if (this.attack == EMOTE_PP36) {
+				// Explosion
+				BATTLE_CHANNEL.send(this.user.username + " plays the terrorist move !");
+				getOpponentOf(this).damage(1000);
+			}
+			else if (this.attack == EMOTE_PP37) {
+				// Disembowled - Kidney Stone
+				BATTLE_CHANNEL.send(this.user.username + " shoots a kidney stone !");
+				this.damage(25);
+				getOpponentOf(this).damage(25);
+			}
+			else if (this.attack == EMOTE_PP38) {
+				// DeadBro
+				BATTLE_CHANNEL.send(this.user.username + " wants a fast PP...");
+				if (this.isFastPP) {
+					BATTLE_CHANNEL.send("...but he already had one !");
+				}
+				else {
+					this.isFastPP = true;
+					BATTLE_CHANNEL.send("...and now he got it !");
+				}
+			}
+			else if (this.attack == EMOTE_PP39) {
+				// Interrogation Point
+				BATTLE_CHANNEL.send(this.user.username + " summon a random move !");
+				this.playMove(getRandomEmote());
+			}
+			else if (this.attack == EMOTE_PP40) {
+				// ChestBurst
+				BATTLE_CHANNEL.send(this.user.username + " wants a big PP...");
+				if (this.isBigPP) {
+					BATTLE_CHANNEL.send("...but he already had one !");
+				}
+				else {
+					this.isBigPP = true;
+					BATTLE_CHANNEL.send("...and now he got it !");
+				}
+			}
+			else if (this.attack == EMOTE_PP41) {
+				// 007 Drunk
+				BATTLE_CHANNEL.send(this.user.username + " wants a drunk PP...");
+				if (this.isDrunkPP) {
+					BATTLE_CHANNEL.send("...but he already had one !");
+				}
+				else {
+					this.isDrunkPP = true;
+					BATTLE_CHANNEL.send("...and now he got it !");
+				}
+			}
+			else if (this.attack == EMOTE_PP42) {
+				// Bronan Slam
+				BATTLE_CHANNEL.send(this.user.username + " builds up for his next attack...");
+				this.bonusDamage += 20;
+			}
+			else if (this.attack == EMOTE_PP43) {
+				// BrocketeerDive
+				BATTLE_CHANNEL.send(this.user.username + " punches " + getOpponentOf(this).user.username + "'s PP with his head !");
+				getOpponentOf(this).damage(Math.floor(10 + this.STR / 10));
+				getOpponentOf(this).hasBurst = 2;
+				
+			}
+			else if (this.attack == EMOTE_PP44) {
+				// Kamikaze
+				BATTLE_CHANNEL.send(this.user.username + " plans a suicide move !");
+				ILLEGAL_BOMBING = true;
+			}
+			else if (this.attack == EMOTE_PP45) {
+				// Boomerang
+				BATTLE_CHANNEL.send(this.user.username + " gets a nice boomerang");
+				this.hasBoomerang = 4;
+			}
+			else if (this.attack == EMOTE_PP46) {
+				// TruffleHistorian
+				BATTLE_CHANNEL.send(this.user.username + " calls the ancient fongus");
+				var chaosNumber = getRandomPercent();
+				if (getRandomPercent() >= 50) {
+					var winner = this;
+				}
+				else {
+					var winner = getOpponentOf(this);
+				}
+				BATTLE_CHANNEL.send("He will use " + chaosNumber + "% of his power in " + winner.user.username);
+				var i;
+				for (i = 0; i < chaosNumber; i++) {
+					BATTLE_CHANNEL.send("-----------------");
+					winner.playMove(getRandomEmote());
+				} 
+			}
+			else if (this.attack == EMOTE_PP47) {
+				// Pudding
+				BATTLE_CHANNEL.send(this.user.username + " abandons the battle !");
+				this.STRValue = -999999999;
+				return;
+			}
+			else if (this.attack == EMOTE_PP48) {
+				// Brennfeu
+				BATTLE_CHANNEL.send(this.user.username + " messes everything !");
+				BATTLE_CHANNEL.send("As always !");
+				this.STRValue += Math.floor((getRandomPercent() - 50)/2);
+				this.DEXValue += Math.floor((getRandomPercent() - 50)/2);
+				getOpponentOf(this).STRValue += Math.floor((getRandomPercent() - 50)/2);
+				getOpponentOf(this).DEXValue += Math.floor((getRandomPercent() - 50)/2);
+			}
+			else if (this.attack == EMOTE_PP49) {
+				// Soup
+				BATTLE_CHANNEL.send("Behold " + this.user.username + " the living God !");
+				this.STRValue += 10000;
+				this.DEXValue += 10000;
+			}
+			else if (this.attack == EMOTE_PP50) {
+				// Perhaps
+				BATTLE_CHANNEL.send(this.user.username + " thinks about life and the universe...");
+				BATTLE_CHANNEL.send("Wait he forgot about the battle");
+			}
+			else {
+				BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
+			}
+			
+			// Boomerang
+			if (!this.isBoomerangUsed && this.hasBoomerang >= 1) {
+				this.isBoomerangUsed = true;
+				this.playMove();
 			} 
 		}
-		else if (this.attack == EMOTE_PP47) {
-			// Pudding
-			BATTLE_CHANNEL.send(this.user.username + " abandons the battle !");
-			this.STRValue = -999999999;
+		catch(e) {
+			BATTLE_CHANNEL.send(e);
+			BATTLE_CHANNEL.send("lol");
+			stopDuel();
 			return;
 		}
-		else if (this.attack == EMOTE_PP48) {
-			// Brennfeu
-			BATTLE_CHANNEL.send(this.user.username + " messes everything !");
-			BATTLE_CHANNEL.send("As always !");
-			this.STRValue += Math.floor((getRandomPercent() - 50)/2);
-			this.DEXValue += Math.floor((getRandomPercent() - 50)/2);
-			getOpponentOf(this).STRValue += Math.floor((getRandomPercent() - 50)/2);
-			getOpponentOf(this).DEXValue += Math.floor((getRandomPercent() - 50)/2);
-		}
-		else if (this.attack == EMOTE_PP49) {
-			// Soup
-			BATTLE_CHANNEL.send("Behold " + this.user.username + " the living God !");
-			this.STRValue += 10000;
-			this.DEXValue += 10000;
-		}
-		else if (this.attack == EMOTE_PP50) {
-			// Perhaps
-			BATTLE_CHANNEL.send(this.user.username + " thinks about life and the universe...");
-			BATTLE_CHANNEL.send("Wait he forgot about the battle");
-		}
-		else {
-			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
-		}
-		
-		// Boomerang
-		if (!this.isBoomerangUsed && this.hasBoomerang >= 1) {
-			this.isBoomerangUsed = true;
-			this.playMove();
-		} 
 	}
 	
 	damage(_amount) {
@@ -654,7 +662,7 @@ class Fighter {
 		// Turkey
 		if (this.turkeyCountdown != -1) {
 			this.turkeyCountdown -= 1;
-			if (this.turkeyCountdown == 0) {
+			if (this.turkeyCountdown <= 0) {
 				BATTLE_CHANNEL.send(this.user.username + " explodes !");
 				this.damage(1000);
 			}
