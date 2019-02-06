@@ -991,9 +991,18 @@ function addWinCounter(_fighter, _number) {
 	console.log(_fighter.user.username + " wins : " + _number);
 }
 
-function addRoleToStyler(_role) {
-	var role = GUILD.roles.find(r => r.name === _role);
-	GUILD.members.get(STYLER).addRole(role).catch(console.error);
+function changeRoleToStyler(_nomRole) {
+	var role = GUILD.roles.find(r => r.name == _nomRole);
+	var user = GUILD.members.get(STYLER);
+	console.log(role);
+	console.log(user);
+	
+	if (user.roles.has(role.id)) {
+		user.removeRole(role).catch(console.error);
+	}
+	else {
+		user.addRole(role).catch(console.error);
+	}
 }
 
 
@@ -1254,23 +1263,23 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	if (IS_CHANGING_STYLE && STYLER == _user.id) {
 		if (_reaction.emoji.id == EMOTE_PP38) {
 			// Fast PP
-			addRoleToStyler("Fast PP");
+			changeRoleToStyler("Fast PP");
 		}
 		else if (_reaction.emoji.id == EMOTE_PP40) {
 			// Big PP
-			addRoleToStyler("Big PP");
+			changeRoleToStyler("Big PP");
 		}
 		else if (_reaction.emoji.id == EMOTE_PP41) {
 			// Drunk PP
-			addRoleToStyler("Drunk PP");
+			changeRoleToStyler("Drunk PP");
 		}
 		else if (_reaction.emoji.id == EMOTE_PP34) {
 			// Alien PP
-			addRoleToStyler("Alien PP");
+			changeRoleToStyler("Alien PP");
 		}
 		else if (_reaction.emoji.id == EMOTE_PP9) {
 			// Hockey Puck PP
-			addRoleToStyler("Hockey Puck PP");
+			changeRoleToStyler("Hockey Puck PP");
 		}
 		
 		return;
