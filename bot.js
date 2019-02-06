@@ -1086,7 +1086,7 @@ function startRandomEvent() {
 	
 	var randomVar = getRandomPercent();
 	//test
-	if (!EVENT_PP_PURGE) {randomVar = 3;}
+	if (!EVENT_CONFUSION) {randomVar = 4;}
 	
 	if (randomVar == 2) {
 		// PP Enlightenment
