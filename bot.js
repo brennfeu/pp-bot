@@ -84,6 +84,7 @@ class Fighter {
 		this.guildUser = GUILD.members.get(_idUser);
 		this.user = this.guildUser.user;
 		this.attack = "";
+		this.oldAttack = "";
 		
 		// set roles
 		this.isBigPP = false;
@@ -420,8 +421,14 @@ class Fighter {
 			
 		}
 		else if (this.attack == EMOTE_PP29) {
-			// Steel
+			// Barrel
 			BATTLE_CHANNEL.send(this.user.username + " sets up a barrel for nothing...");
+		}
+		else if (this.attack == EMOTE_PP30) {
+			// ExclamationPoint
+			BATTLE_CHANNEL.send(this.user.username + " tries to go back too far in time !");
+			BATTLE_CHANNEL.send("This create a space-time distortion !");
+			this.playMove(getRandomEmote());
 		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
@@ -955,8 +962,23 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			if (FIGHTER1.attack == EMOTE_PP11 || FIGHTER2.attack == EMOTE_PP11) {
 				STEEL_PROTECTION = true;
 			}
+			// Barrel
 			if (FIGHTER1.attack == EMOTE_PP29 || FIGHTER2.attack == EMOTE_PP29) {
 				BARREL_DAMAGE = true;
+			}
+			
+			// ExclamationPoint
+			if (FIGHTER1.attack == EMOTE_PP30) {
+				FIGHTER1.attack = FIGHTER1.oldAttack;
+			}
+			else {
+				FIGHTER1.oldAttack = FIGHTER1.attack;
+			}
+			if (FIGHTER2.attack == EMOTE_PP30) {
+				FIGHTER2.attack = FIGHTER2.oldAttack;
+			}
+			else {
+				FIGHTER2.oldAttack = FIGHTER2.attack;
 			}
 			
 			if (dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) {
