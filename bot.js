@@ -82,6 +82,8 @@ var STOPPED_MOVE_LIST = [];
 var INFINITE_DAMAGE = 0;
 var MOVE_COUNT = 0;
 
+var DISABLE_ABANDON = false;
+
 var PP_ARMAGEDDON = false;
 var EVENT_PP_ENLIGHTENMENT = false;
 var EVENT_PP_PURGE = false;
@@ -406,6 +408,7 @@ class Fighter {
 			}
 			else if (this.attack == EMOTE_PP26) {
 				// Big Satan
+				DISABLE_ABANDON = true;
 				BATTLE_CHANNEL.send(this.user.username + " summon Satan chaotic powers !!!");
 				this.playMove(getRandomEmote(false));
 				BATTLE_CHANNEL.send("-----------------");
@@ -426,6 +429,7 @@ class Fighter {
 				getOpponentOf(this).playMove(getRandomEmote());
 				BATTLE_CHANNEL.send("-----------------");
 				getOpponentOf(this).playMove(getRandomEmote());
+				DISABLE_ABANDON = false;
 			}
 			else if (this.attack == EMOTE_PP27) {
 				// BigGuyBullet
@@ -551,6 +555,7 @@ class Fighter {
 			}
 			else if (this.attack == EMOTE_PP46) {
 				// TruffleHistorian
+				DISABLE_ABANDON = true;
 				BATTLE_CHANNEL.send(this.user.username + " calls the ancient fongus");
 				var chaosNumber = getRandomPercent();
 				if (getRandomPercent() >= 50) {
@@ -566,6 +571,7 @@ class Fighter {
 					BATTLE_CHANNEL.send("-----------------");
 					winner.playMove(getRandomEmote());
 				} 
+				DISABLE_ABANDON = false;
 			}
 			else if (this.attack == EMOTE_PP47) {
 				// Pudding
@@ -895,24 +901,6 @@ function newTurnDuel() {
 		setBotActivity("PP Punch Arena");
 	}
 	
-	if (FIGHTER1.STR <= 0 && FIGHTER2.STR <= 0) {
-		BATTLE_CHANNEL.send("Both of you lost. No one won this time. You losers");
-		stopDuel();
-		return;
-	}
-	else if (FIGHTER1.STR <= 0) {
-		BATTLE_CHANNEL.send(FIGHTER2.user.username + " won ! Congrats !");
-		FIGHTER2.win();
-		stopDuel();
-		return;
-	}
-	else if (FIGHTER2.STR <= 0) {
-		BATTLE_CHANNEL.send(FIGHTER1.user.username + " won ! Congrats !");
-		FIGHTER1.win();
-		stopDuel();
-		return;
-	}
-	
 	// Cthulhu
 	if (EVENT_BOSS) {
 		if (BOSS_HEALTH <= 0) {
@@ -929,6 +917,24 @@ function newTurnDuel() {
 				FIGHTER1.STRValue -= 50;
 			}
 		}
+	}
+	
+	if (FIGHTER1.STR <= 0 && FIGHTER2.STR <= 0) {
+		BATTLE_CHANNEL.send("Both of you lost. No one won this time. You losers");
+		stopDuel();
+		return;
+	}
+	else if (FIGHTER1.STR <= 0) {
+		BATTLE_CHANNEL.send(FIGHTER2.user.username + " won ! Congrats !");
+		FIGHTER2.win();
+		stopDuel();
+		return;
+	}
+	else if (FIGHTER2.STR <= 0) {
+		BATTLE_CHANNEL.send(FIGHTER1.user.username + " won ! Congrats !");
+		FIGHTER1.win();
+		stopDuel();
+		return;
 	}
 	
 	startRandomEvent();
@@ -1042,13 +1048,13 @@ function getRandomEmote(_canBeIllegal = true) {
 					EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20,
 					EMOTE_PP21, EMOTE_PP22, EMOTE_PP24, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30,
 					EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40,
-					EMOTE_PP41, EMOTE_PP42, EMOTE_PP45, EMOTE_PP46, EMOTE_PP47, EMOTE_PP48, EMOTE_PP50
+					EMOTE_PP41, EMOTE_PP42, EMOTE_PP45, EMOTE_PP47, EMOTE_PP48, EMOTE_PP50
 					];
 	var illegalList = [EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, EMOTE_PP10,
 					EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20,
 					EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30,
 					EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40,
-					EMOTE_PP41, EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP47, EMOTE_PP48, EMOTE_PP49, EMOTE_PP50
+					EMOTE_PP41, EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP47, EMOTE_PP48, EMOTE_PP49, EMOTE_PP50
 					];
 	var goodList
 	if (_canBeIllegal) {
@@ -1060,6 +1066,9 @@ function getRandomEmote(_canBeIllegal = true) {
 	
 	if (ILLEGAL_BOMBING) {
 		goodList.push(EMOTE_PP36);
+	}
+	if (!DISABLE_ABANDON) {
+		goodList.push(EMOTE_PP46);
 	}
 	
 	return goodList[Math.floor(Math.random()*goodList.length)];
