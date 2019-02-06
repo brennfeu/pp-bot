@@ -616,7 +616,7 @@ class Fighter {
 		getOpponentOf(this).bonusDamage = 0;
 		
 		
-		if (INFINITE_DAMAGE >= 50) {
+		if (INFINITE_DAMAGE >= 20) {
 			return BATTLE_CHANNEL.send("STOP");
 		}
 		INFINITE_DAMAGE += 1;
