@@ -73,6 +73,7 @@ var FIGHTER2 = null;
 var ILLEGAL_BOMBING = false;
 var IS_ARBITRATORY_BLIND = false;
 var STEEL_PROTECTION = false;
+var BARREL_DAMAGE = false;
 
 
 // CLASSES
@@ -418,6 +419,10 @@ class Fighter {
 			getOpponentOf(this).STRValue -= 5;
 			
 		}
+		else if (this.attack == EMOTE_PP29) {
+			// Steel
+			BATTLE_CHANNEL.send(this.user.username + " sets up a barrel for nothing...");
+		}
 		else {
 			BATTLE_CHANNEL.send(this.user.username + " MOVE NOT PROGRAMMED YET");
 		}
@@ -447,6 +452,11 @@ class Fighter {
 			// Steel
 			this.STRValue -= Math.floor(_amount/10);
 			BATTLE_CHANNEL.send(this.user.username + " takes " + Math.floor(_amount/10) + " damages !");
+		}
+		else if (BARREL_DAMAGE) {
+			// BARREL
+			this.STRValue -= Math.floor(_amount/10);
+			BATTLE_CHANNEL.send(this.user.username + " takes " + Math.floor(_amount*2) + " damages !");
 		}
 		else {
 			// Damage
@@ -944,6 +954,9 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			// Steel
 			if (FIGHTER1.attack == EMOTE_PP11 || FIGHTER2.attack == EMOTE_PP11) {
 				STEEL_PROTECTION = true;
+			}
+			if (FIGHTER1.attack == EMOTE_PP29 || FIGHTER2.attack == EMOTE_PP29) {
+				BARREL_DAMAGE = true;
 			}
 			
 			if (dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) {
