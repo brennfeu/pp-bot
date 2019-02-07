@@ -1160,7 +1160,7 @@ function startRandomEvent() {
 	var randomVar = getRandomPercent();
 	//test
 	//if (MOVE_COUNT <= 4 && !EVENT_BOSS) {randomVar = 5;}
-	randomVar = 6;
+	//randomVar = 6;
 	
 	// PP ARMAGEDDON
 	if (!PP_ARMAGEDDON && MOVE_COUNT >= 100) {
