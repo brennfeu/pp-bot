@@ -508,8 +508,13 @@ class Fighter {
 			}
 			else if (this.attack == EMOTE_PP36) {
 				// Explosion
-				BATTLE_CHANNEL.send(this.user.username + " plays the terrorist move !");
-				getOpponentOf(this).damage(1000);
+					BATTLE_CHANNEL.send(this.user.username + " plays the terrorist move !");
+				if (ILLEGAL_BOMBING) {
+					getOpponentOf(this).damage(1000);
+				}
+				else {
+					BATTLE_CHANNEL.send("But no terrorist move was planned !");
+				}
 			}
 			else if (this.attack == EMOTE_PP37) {
 				// Disembowled - Kidney Stone
@@ -904,7 +909,6 @@ function startDuel(_message) {
 		return;
 	}
 	
-	ILLEGAL_BOMBING = false;
 	BATTLE_CHANNEL.send("TIME FOR A DUEL");
 }
 function stopDuel() {
