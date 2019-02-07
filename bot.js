@@ -827,7 +827,7 @@ function getOpponentOf(_fighter) {
 }
 
 function illegalGetCaught(_percentage) {
-	if (BLIND_COUNTDOWN > 0) {
+	if (BLIND_COUNTDOWN >= 0) {
 		console.log("blind");
 		return false;
 	}
