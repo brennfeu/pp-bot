@@ -80,6 +80,7 @@ var SAVE_LIST = [];
 var STOPPED_MOVE_LIST = [];
 var INFINITE_DAMAGE = 0;
 var MOVE_COUNT = 0;
+var DAMAGE_COUNT = 0;
 
 var DISABLE_ABANDON = false;
 
@@ -252,6 +253,7 @@ class Fighter {
 		try {
 			this.attackedThisTurn = true;
 			MOVE_COUNT += 1;
+			INFINITE_DAMAGE = 0;
 			var attack = _newMove;
 			
 			if (EVENT_BOSS && this.STR <= 0) { 
@@ -659,7 +661,7 @@ class Fighter {
 		getOpponentOf(this).bonusDamage = 0;
 		
 		
-		if (INFINITE_DAMAGE >= 30) {
+		if (INFINITE_DAMAGE >= 10) {
 			BATTLE_CHANNEL.send("Damage cap achieved !");
 			return BATTLE_CHANNEL.send(_amount + " damages were canceled");
 		}
@@ -668,6 +670,7 @@ class Fighter {
 		if (EVENT_BOSS) {
 			BOSS_HEALTH -= _amount;
 			BATTLE_CHANNEL.send("Cthulhu takes " + _amount + " damages !");
+			DAMAGE_COUNT += _amount;
 			return;
 		}
 		
@@ -688,22 +691,25 @@ class Fighter {
 		else if (this.isProtected) {
 			// RiotShield
 			BATTLE_CHANNEL.send(this.user.username + " reflects the damages !");
-			getOpponentOf(this).damage(_amount);
 			this.isProtected = false;
+			getOpponentOf(this).damage(_amount);
 		}
 		else if (STEEL_PROTECTION) {
 			// Steel
 			this.STRValue -= Math.floor(_amount/10);
+			DAMAGE_COUNT += Math.floor(_amount/10);
 			BATTLE_CHANNEL.send(this.user.username + " takes " + Math.floor(_amount/10) + " damages !");
 		}
 		else if (BARREL_DAMAGE) {
 			// Barrel
 			this.STRValue -= Math.floor(_amount*2);
+			DAMAGE_COUNT += Math.floor(_amount*2);
 			BATTLE_CHANNEL.send(this.user.username + " takes " + Math.floor(_amount*2) + " damages !");
 		}
 		else {
 			// Damage
 			this.STRValue -= _amount;
+			DAMAGE_COUNT += _amount;
 			BATTLE_CHANNEL.send(this.user.username + " takes " + _amount + " damages !");
 		}
 		
@@ -895,6 +901,7 @@ function startDuel(_message) {
 	STOPPED_MOVE_LIST = [];
 	INFINITE_DAMAGE = 0;
 	MOVE_COUNT = 0;
+	DAMAGE_COUNT = 0;
 
 	PP_ARMAGEDDON = false;
 	EVENT_PP_ENLIGHTENMENT = false;
@@ -917,7 +924,13 @@ function startDuel(_message) {
 	BATTLE_CHANNEL.send("TIME FOR A DUEL");
 }
 function stopDuel() {
-	ILLEGAL_BOMBING = false;
+	BATTLE_CHANNEL.send("===== RECAP =====");
+	BATTLE_CHANNEL.send("FIGHTERS CURRENT STATE :");
+	BATTLE_CHANNEL.send(FIGHTER1.toString());
+	BATTLE_CHANNEL.send(FIGHTER2.toString());
+	BATTLE_CHANNEL.send("SOME STATS :");
+	BATTLE_CHANNEL.send(" - Number of moves : " + MOVE_COUNT);
+	BATTLE_CHANNEL.send(" - Number of damages inflicted : " + DAMAGE_COUNT);
 	
 	setBotActivity("");
 	IS_DUELLING = false;
