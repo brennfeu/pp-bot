@@ -1201,10 +1201,10 @@ function startRandomEvent() {
 		// Accidental Summoning
 		BATTLE_CHANNEL.send(" -- ACCIDENTAL SUMMONING --");
 		if (getRandomPercent() >= 50) {
-			var winner = this;
+			var winner = FIGHTER1;
 		}
 		else {
-			var winner = getOpponentOf(this);
+			var winner = FIGHTER2;
 		}
 		BATTLE_CHANNEL.send(winner.user.username + " accidentaly plays Psychedeous on their phone and it summons Satan and the Ancient Fongus !");
 		winner.playMove(EMOTE_PP26);
