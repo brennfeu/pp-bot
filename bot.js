@@ -933,6 +933,7 @@ function stopDuel() {
 	BATTLE_CHANNEL.send("===== RECAP =====");
 	BATTLE_CHANNEL.send("FIGHTERS CURRENT STATE :");
 	BATTLE_CHANNEL.send(FIGHTER1.toString());
+	BATTLE_CHANNEL.send("-----------------");
 	BATTLE_CHANNEL.send(FIGHTER2.toString());
 	BATTLE_CHANNEL.send("SOME STATS :");
 	BATTLE_CHANNEL.send(" - Number of moves : " + MOVE_COUNT);
