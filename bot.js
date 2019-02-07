@@ -448,7 +448,7 @@ class Fighter {
 			else if (this.attack == EMOTE_PP28) {
 				// BigGuy
 				BATTLE_CHANNEL.send(this.user.username + " intimidates " + getOpponentOf(this).user.username + " !");
-				getOpponentOf(this).STRValue -= 5;
+				getOpponentOf(this).hasBurst = 2;
 				
 			}
 			else if (this.attack == EMOTE_PP29) {
@@ -1115,6 +1115,9 @@ function startRandomEvent() {
 	EVENT_CONFUSION = false;
 	
 	BATTLE_CHANNEL.send("===== EVENTS =====");
+	var randomVar = getRandomPercent();
+	//test
+	//if (MOVE_COUNT <= 4 && !EVENT_BOSS) {randomVar = 5;}
 	
 	// PP ARMAGEDDON
 	if (!PP_ARMAGEDDON && MOVE_COUNT >= 100) {
@@ -1126,12 +1129,7 @@ function startRandomEvent() {
 		FIGHTER2.STRValue += 1000000;
 		FIGHTER2.DEXValue += 200;
 	}
-	
-	var randomVar = getRandomPercent();
-	//test
-	//if (MOVE_COUNT <= 4 && !EVENT_BOSS) {randomVar = 5;}
-	
-	if (randomVar == 2) {
+	else if (randomVar == 2) {
 		// PP Enlightenment
 		EVENT_PP_ENLIGHTENMENT = true;
 		BATTLE_CHANNEL.send(" -- PP ENLIGHTENMENT --");
