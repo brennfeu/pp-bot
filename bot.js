@@ -953,6 +953,8 @@ function newTurnDuel() {
 		}
 	}
 	
+	startRandomEvent();
+	
 	// Cthulhu
 	if (EVENT_BOSS) {
 		if (BOSS_HEALTH <= 0) {
@@ -1001,8 +1003,6 @@ function newTurnDuel() {
 			return;
 		}
 	}
-	
-	startRandomEvent();
 	
 	BATTLE_CHANNEL.send("\n\n===== NEW TURN =====");
 	if (!EVENT_BOSS) {
