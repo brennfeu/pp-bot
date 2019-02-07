@@ -89,6 +89,7 @@ var EVENT_PP_PURGE = false;
 var EVENT_CONFUSION = false;
 var EVENT_BOSS = false;
 var BOSS_HEALTH = 10000;
+var EVENT_BLOOD_MOON = false;
 
 
 // CLASSES
@@ -897,6 +898,7 @@ function startDuel(_message) {
 	EVENT_PP_PURGE = false;
 	EVENT_CONFUSION = false;
 	EVENT_BOSS = false;
+	EVENT_BLOOD_MOON = false;
 	
 	console.log("F1 " + _message.author.id);
 	console.log("F2 " + _message.mentions.users.array()[0]);
@@ -935,6 +937,20 @@ function newTurnDuel() {
 	}
 	else {
 		setBotActivity("PP Punch Arena");
+	}
+	
+	// Blood Moon Save
+	if (EVENT_BLOOD_MOON) {
+		if (FIGHTER1.STR <= 0) {
+			FIGHTER1.DEXValue -= (0-FIGHTER1.STR);
+			FIGHTER1.STRValue += (0-FIGHTER1.STR);
+			BATTLE_CHANNEL.send(FIGHTER1.user.username + " got saved thanks to the Blood Moon");
+		}
+		if (FIGHTER2.STR <= 0) {
+			FIGHTER2.DEXValue -= (0-FIGHTER2.STR);
+			FIGHTER2.STRValue += (0-FIGHTER2.STR);
+			BATTLE_CHANNEL.send(FIGHTER2.user.username + " got saved thanks to the Blood Moon");
+		}
 	}
 	
 	// Cthulhu
@@ -1138,11 +1154,13 @@ function startRandomEvent() {
 	EVENT_PP_ENLIGHTENMENT = false;
 	EVENT_PP_PURGE = false;
 	EVENT_CONFUSION = false;
+	EVENT_BLOOD_MOON = false;
 	
 	BATTLE_CHANNEL.send("===== EVENTS =====");
 	var randomVar = getRandomPercent();
 	//test
 	//if (MOVE_COUNT <= 4 && !EVENT_BOSS) {randomVar = 5;}
+	randomVar = 6;
 	
 	// PP ARMAGEDDON
 	if (!PP_ARMAGEDDON && MOVE_COUNT >= 100) {
@@ -1181,7 +1199,7 @@ function startRandomEvent() {
 	}
 	else if (randomVar == 6) {
 		// Accidental Summoning
-		BATTLE_CHANNEL.send(" -- Accidental Summoning --");
+		BATTLE_CHANNEL.send(" -- ACCIDENTAL SUMMONING --");
 		if (getRandomPercent() >= 50) {
 			var winner = this;
 		}
@@ -1191,6 +1209,12 @@ function startRandomEvent() {
 		BATTLE_CHANNEL.send(winner.user.username + " accidentaly plays Psychedeous on their phone and it summons Satan and the Ancient Fongus !");
 		winner.playMove(EMOTE_PP26);
 		winner.playMove(EMOTE_PP46);
+	}
+	else if (randomVar == 7) {
+		// Blood Moon
+		EVENT_BLOOD_MOON = true;
+		BATTLE_CHANNEL.send(" -- BLOOD MOON --");
+		BATTLE_CHANNEL.send("If someone dies this turn, STR automatically stays at 1 but get the remaining damages in the DEX");
 	}
 	else {
 		BATTLE_CHANNEL.send("No event this turn...");
