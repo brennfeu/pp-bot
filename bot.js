@@ -586,7 +586,7 @@ class Fighter {
 			else if (attack == EMOTE_PP46) {
 				// TruffleHistorian
 				DISABLE_ABANDON = true;
-				BATTLE_CHANNEL.send(this.user.username + " calls the ancient fongus");
+				BATTLE_CHANNEL.send(this.user.username + " calls the Ancient Fongus");
 				var chaosNumber = getRandomPercent();
 				if (getRandomPercent() >= 50) {
 					var winner = this;
@@ -1178,6 +1178,19 @@ function startRandomEvent() {
 		BATTLE_CHANNEL.send(" -- CTHULHU AWAKENS --");
 		BATTLE_CHANNEL.send("You have to beat Cthulhu by punching his huge PP in order to save the world !");
 		BOSS_HEALTH = 10000;
+	}
+	else if (randomVar == 6) {
+		// Accidental Summoning
+		BATTLE_CHANNEL.send(" -- Accidental Summoning --");
+		if (getRandomPercent() >= 50) {
+			var winner = this;
+		}
+		else {
+			var winner = getOpponentOf(this);
+		}
+		BATTLE_CHANNEL.send(winner.user.username + " accidentaly plays Psychedeous on their phone and it summons Satan and the Ancient Fongus !");
+		winner.playMove(EMOTE_PP26);
+		winner.playMove(EMOTE_PP46);
 	}
 	else {
 		BATTLE_CHANNEL.send("No event this turn...");
