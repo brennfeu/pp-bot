@@ -808,10 +808,10 @@ function getRandomPercent() {
 
 function setBotActivity(_texte) {
 	if (PRIVATE_TEST) {
-		return CLIENT.user.setActivity("[PRIVATE TEST] " + _texte);
+		return CLIENT.user.setActivity(_texte + " [PRIVATE TEST]");
 	}
 	if (BETA_TEST) {
-		return CLIENT.user.setActivity("[BETA TEST] " + _texte);
+		return CLIENT.user.setActivity(_texte + " [BETA TEST] ");
 	}
 	return CLIENT.user.setActivity(_texte);
 }
