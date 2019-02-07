@@ -506,7 +506,10 @@ class Fighter {
 			else if (attack == EMOTE_PP35) {
 				// Facehugged
 				BATTLE_CHANNEL.send(this.user.username + " impregnates the arbitratory !");
-				BLIND_COUNTDOWN = 4;
+				BLIND_COUNTDOWN = 2;
+				if (getRandomPercent() < 33) {
+					BLIND_COUNTDOWN = 9999999;
+				}
 			}
 			else if (attack == EMOTE_PP36) {
 				// Explosion
@@ -1214,7 +1217,7 @@ function startRandomEvent() {
 		// Blood Moon
 		EVENT_BLOOD_MOON = true;
 		BATTLE_CHANNEL.send(" -- BLOOD MOON --");
-		BATTLE_CHANNEL.send("If someone dies this turn, STR automatically stays at 1 but get the remaining damages in the DEX");
+		BATTLE_CHANNEL.send("If someone dies this turn, STR automatically stays at 1 but the remaining damages in the DEX");
 	}
 	else {
 		BATTLE_CHANNEL.send("No event this turn...");
