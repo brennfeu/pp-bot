@@ -11,7 +11,7 @@ const PRIVATE_TEST = false;
 const FAST_PP_ROLE = "Fast PP";
 const BIG_PP_ROLE = "Big PP";
 const ALIEN_PP_ROLE = "Alien PP";
-const HOCKEY_PUCK_PP = "Hockey Puck PP";
+const HOCKEY_PUCK_PP_ROLE = "Hockey Puck PP";
 const DRUNK_PP_ROLE = "Drunken PP";
 
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
