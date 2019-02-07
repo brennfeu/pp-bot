@@ -1420,6 +1420,11 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				if (FIGHTER2.attack == EMOTE_PP13) {
 					FIGHTER2.playMove();
 				}
+				
+				// Intimidates
+				if (FIGHTER2.attack == EMOTE_PP28 && getRandomPercent() <= 25) {
+					FIGHTER2.playMove();
+				}
 			}
 			else {
 				FIGHTER2.playMove();
@@ -1431,6 +1436,11 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				
 				// Scout
 				if (FIGHTER1.attack == EMOTE_PP13) {
+					FIGHTER1.playMove();
+				}
+				
+				// Intimidates
+				if (FIGHTER1.attack == EMOTE_PP28 && getRandomPercent() <= 25) {
 					FIGHTER1.playMove();
 				}
 			}
