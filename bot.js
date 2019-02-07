@@ -193,6 +193,10 @@ class Fighter {
 	
 	// fighter.toString
 	toString() {
+		if (this.STR && EVENT_BOSS) {
+			return "";
+		}
+		
 		var txt = this.user.username;
 		txt += "\nSTR : " + this.STR + "  //  DEX : " + this.DEX;
 		
