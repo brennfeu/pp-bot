@@ -73,7 +73,6 @@ var FIGHTER2 = null;
 var STYLER = 0;
 
 var ILLEGAL_BOMBING = false;
-var IS_ARBITRATORY_BLIND = false;
 var BLIND_COUNTDOWN = 0;
 var STEEL_PROTECTION = false;
 var BARREL_DAMAGE = false;
@@ -507,7 +506,6 @@ class Fighter {
 			else if (this.attack == EMOTE_PP35) {
 				// Facehugged
 				BATTLE_CHANNEL.send(this.user.username + " impregnates the arbitratory !");
-				IS_ARBITRATORY_BLIND = true;
 				BLIND_COUNTDOWN = 4;
 			}
 			else if (this.attack == EMOTE_PP36) {
@@ -826,7 +824,7 @@ function getOpponentOf(_fighter) {
 }
 
 function illegalGetCaught(_percentage) {
-	if (IS_ARBITRATORY_BLIND) {
+	if (BLIND_COUNTDOWN > 0) {
 		console.log("blind");
 		return false;
 	}
@@ -887,7 +885,6 @@ function startDuel(_message) {
 	IS_CHANGING_STYLE = false;
 	
 	ILLEGAL_BOMBING = false;
-	IS_ARBITRATORY_BLIND = false;
 	BLIND_COUNTDOWN = 0;
 	STEEL_PROTECTION = false;
 	BARREL_DAMAGE = false;
@@ -935,6 +932,7 @@ function newTurnDuel() {
 	
 	if (BLIND_COUNTDOWN >= 1) {
 		setBotActivity("WTF I'M FUCKING BLIND");
+		BLIND_COUNTDOWN -= 1;
 	}
 	else {
 		setBotActivity("PP Punch Arena");
