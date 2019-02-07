@@ -8,6 +8,12 @@ const CLIENT = new DISCORD.Client();
 const BETA_TEST = true;
 const PRIVATE_TEST = false;
 
+const FAST_PP_ROLE = "Fast PP";
+const BIG_PP_ROLE = "Big PP";
+const ALIEN_PP_ROLE = "Alien PP";
+const HOCKEY_PUCK_PP = "Hockey Puck PP";
+const DRUNK_PP_ROLE = "Drunken PP";
+
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
 const EMOTE_PP2 = "535240768441548810"; // PunchingPPReallyHard
 const EMOTE_PP3 = "358232421537284109"; // Hologram
@@ -109,19 +115,19 @@ class Fighter {
 		this.isDrunkPP = false;
 		this.isHockeyPuckPP = false;
 		this.isAlienPP = false;
-		if (this.guildUser.roles.find("name", "Big PP")) {
+		if (this.guildUser.roles.find("name", BIG_PP_ROLE)) {
 			this.isBigPP = true;
 		}
-		if (this.guildUser.roles.find("name", "Fast PP")) {
+		if (this.guildUser.roles.find("name", FAST_PP_ROLE)) {
 			this.isFastPP = true;
 		} 
-		if (this.guildUser.roles.find("name", "Drunken PP")) {
+		if (this.guildUser.roles.find("name", DRUNK_PP_ROLE)) {
 			this.isDrunkPP = true;
 		}
-		if (this.guildUser.roles.find("name", "Hockey Puck PP")) {
+		if (this.guildUser.roles.find("name", HOCKEY_PUCK_PP_ROLE)) {
 			this.isHockeyPuckPP = true;
 		}
-		if (this.guildUser.roles.find("name", "Alien PP")) {
+		if (this.guildUser.roles.find("name", ALIEN_PP_ROLE)) {
 			this.isAlienPP = true;
 		}
 		
@@ -1533,23 +1539,23 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	if (IS_CHANGING_STYLE && STYLER == _user.id) {
 		if (_reaction.emoji.id == EMOTE_PP38) {
 			// Fast PP
-			changeRoleToStyler("Fast PP");
+			changeRoleToStyler(FAST_PP_ROLE);
 		}
 		else if (_reaction.emoji.id == EMOTE_PP40) {
 			// Big PP
-			changeRoleToStyler("Big PP");
+			changeRoleToStyler(BIG_PP_ROLE);
 		}
 		else if (_reaction.emoji.id == EMOTE_PP41) {
 			// Drunk PP
-			changeRoleToStyler("Drunken PP");
+			changeRoleToStyler(DRUNK_PP_ROLE);
 		}
 		else if (_reaction.emoji.id == EMOTE_PP34) {
 			// Alien PP
-			changeRoleToStyler("Alien PP");
+			changeRoleToStyler(ALIEN_PP_ROLE);
 		}
 		else if (_reaction.emoji.id == EMOTE_PP9) {
 			// Hockey Puck PP
-			changeRoleToStyler("Hockey Puck PP");
+			changeRoleToStyler(HOCKEY_PUCK_PP_ROLE);
 		}
 		
 		return;
