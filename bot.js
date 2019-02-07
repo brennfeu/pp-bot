@@ -213,15 +213,33 @@ class Fighter {
 			txt += " - Alien PP\n";
 		}
 		
+		// Status
+		txt += "\nStatus :\n"
 		if (this.isOverCircumcised) {
-			txt += "\nAlso is overcircumcised";
+			txt += " - Overcircumcised\n";
 		}
 		else if (this.isCircumcised) {
 			
-			txt += "\nAlso is circumcised";
+			txt += " - Circumcised\n";
 		}
-		
-		txt += "\n"
+		if (this.bleedDamage > 0) {
+			txt += " - Hemoragy : " + this.bleedDamage + "\n";
+		}
+		if (this.isPossessed > 0) {
+			txt += " - Possessed by " + getOpponentOf(this).user.username + "\n"
+		}
+		if (this.isPigged) {
+			txt += " - Hog Squeezer\n"
+		}
+		if (this.doomReverse > 0) {
+			txt += " - DOOM-REVERSE(tm)\n"
+		}
+		if (this.acidArmor > 0) {
+			txt += " - Armored in acid\n"
+		}
+		if (this.hasBoomerang > 0) {
+			txt += " - With a Boomerang"
+		}
 		
 		return txt;
 	}
@@ -631,8 +649,9 @@ class Fighter {
 		getOpponentOf(this).bonusDamage = 0;
 		
 		
-		if (INFINITE_DAMAGE >= 20) {
-			return BATTLE_CHANNEL.send("STOP");
+		if (INFINITE_DAMAGE >= 30) {
+			BATTLE_CHANNEL.send("Damage cap achieved !");
+			return BATTLE_CHANNEL.send(_amount + " were canceled");
 		}
 		INFINITE_DAMAGE += 1;
 		
@@ -682,6 +701,7 @@ class Fighter {
 		if (this.STR <= 0 && this.doomReverse >= 1) {
 			BATTLE_CHANNEL.send(this.user.username + " uses DOOM-REVERSE(tm) !");
 			getOpponentOf(this).damage(50);
+			this.doomReverse = 0;
 		}
 		// Alien PP
 		if (this.isAlienPP) {
