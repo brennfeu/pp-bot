@@ -661,7 +661,7 @@ class Fighter {
 		
 		if (INFINITE_DAMAGE >= 30) {
 			BATTLE_CHANNEL.send("Damage cap achieved !");
-			return BATTLE_CHANNEL.send(_amount + " were canceled");
+			return BATTLE_CHANNEL.send(_amount + " damages were canceled");
 		}
 		INFINITE_DAMAGE += 1;
 		
