@@ -14,11 +14,11 @@ Discord bot for the Broforce server. Link : https://discord.gg/DJ8zYxc
 
 ## __FIGHTING STYLES :__
 
-@Big PP : +10 STR, -5 DEX  
-@Fast PP : +5 DEX, -10 STR  
-@Drunken PP : -15 DEX, 1/2 chance to be immune to pain and get no damage  
-@Hockey Puck PP : -45 STR, -45 DEX ah ah ah you asked for it  
-@Alien PP : -10 STR, +1 hemoragy on opponent when attacked  
+__@Big PP__ : +10 STR, -5 DEX  
+__@Fast PP__ : +5 DEX, -10 STR  
+__@Drunken PP__ : -15 DEX, 1/2 chance to be immune to pain and get no damage  
+__@Hockey Puck PP__ : -45 STR, -45 DEX ah ah ah you asked for it  
+__@Alien PP__ : -10 STR, +1 hemoragy on opponent when attacked  
 
 ## __RULES :__
 
@@ -50,10 +50,26 @@ __Trap Sign / Ready to burst__ : If the opponent uses his move this turn, he wil
 __Time Kick / Hockey Puck__ : Gives you a Hockey Puck PP for the battle.  
 __Tank__ : Cannot get damaged this turn (even if move failed), inflicts 1000 damage.  
 __Steel__ : All damages inflicts 10% of the original damages (even if move failed).  
-__Overcircumcised__ : Gets immune to all status effect, gets STR/2.  
+__Barrel__ : All damages inflicts 200% of the original damages (even if move failed).  
+__Circumcised__ : Removes any status effect. Cannot be circumcised after that.  
+__Overcircumcised__ : Gets immune to all status effect, gets STR/2. Cannot be overcircumcised or circumcised again after that.  
 __Scout__ : Has 33% chance of getting +20DEX next turn (even if move failed).  
 __SawBlade__ : +5 hemoragy on the opponent.  
 __Save / HoBro__ : Randomly changee one of your roles.  
+__Save Me Sign__ : Both players get 50 STR, can be used by non-fighters.  
 __Satan__ : Possess the enemy's PP, he will use the next attack as you in the next turn.  
-
+__Riot Shield__ : Gets a shield that will reflect the next damage on the opponent.  
+__Red Pill__ : Gets +5 STR and +3 DEX.  
+__Pig__ : Gives you the Hog Squeezer tag, which gives you +2 STR per turn.  
+__Doom Reverse / Mook Grenade__ : If you get below 0 STR in the next 3 turns, the opponent gets 50 damages.  
+__Acid__ : Gets an acid armor for 3 turns that damages the opponent (10 damages) every time you get damages.  
+__Laughing Soul__ : Gives you 10 STR per moves your opponent missed.  
+__Knockback / Swap__ : Reverse the natural STR values between you and your opponent.  
+__Bombardment__ : Inflicts 1000 damages to both fighters.  
+__Big Satan__ : Each player makes 5 random moves. (3 legal moves and 2 moves that can be legal or not). Cannot abandon randomly. 
+__Bullet__ : Inflicts 20 + this.STR / 10 damages, both fighters get -20 DEX. 
+__Big Guy__ : Intimidates your opponent, he gets 0 DEX next turn. Has 33% chance of working even if the move failed.  
+__Alert / Exclamation Point__ : Plays the same move you picked the turn before.  
+__High Five Emote__ : Hold the attack selection for the next turn.  
+__Headless / Big Kidney Stone__ : Both players get 50 damages.  
 
