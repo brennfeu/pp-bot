@@ -99,7 +99,7 @@ __PP Enlightenment__ : Your PP temporarily become enlightened. All moves can now
 __PP Purge__ : All PPs grow a mohawk and start to roam the streets. Illegal moves can now be used freely but the judge will still see you if you use unavailable moves.  
 __Sexual Confusion__ : PPs are now only able to use the confused move for this turn.  
 __Cthulhu Awakens__ : You have to beat Cthulhu by punching his huge PP in order to save the world. While cthulhu is alive, every damage goes to his PP and he attacks randomly one fighter per turn. You both win if you beat him.  
-__Blood Moon__: If someone dies this turn, STR automatically stays at 1 but the remaining damages in the DEX.
+__Blood Moon__: If someone dies this turn, STR automatically stays at 1 but the remaining damages in the DEX.  
 __Accidental Summoning__ : Someone accidentaly plays Psychedeous on their phone and it summons Satan and the Ancient Fongus.
 
 ## __COMMANDS :__
