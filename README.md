@@ -104,7 +104,7 @@ __Accidental Summoning__ : Someone accidentaly plays Psychedeous on their phone 
 
 ## __COMMANDS :__
 
-To use a command, send a message following the template : "<tag the bot> <command> <optionnal argument>".  
+To use a command, send a message following the template : "(tag_the_bot) (command) (optionnal_argument)".  
 Commands :  
 __duel @someone__ : start a duel against the tagged person.  
 __style__ : allows you to change your PP fighting style.  
