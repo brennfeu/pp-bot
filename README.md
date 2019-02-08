@@ -37,19 +37,20 @@ When a STR value is at 0 or below, it means you lost !
 
 ### __COMMON MOVES :__
 
-__Punching PP__ : Inflicts 10 + this.STR damages  
-__Punching PP Really Hard__ : Inflicts 20 + this.STR damages  
-__Hologram / Middle Finger__ : Inflicts 1000 damages  
-__Flex__ : Gives to the fighter between 1 and 30 STR;  
-__High Five__ : If both fighters use this move, they both win  
+__Punching PP__ : Inflicts 10 + this.STR damages.  
+__Punching PP Really Hard__ : Inflicts 20 + this.STR damages.  
+__Hologram / Middle Finger__ : Inflicts 1000 damages.  
+__Flex__ : Gives to the fighter between 1 and 30 STR.  
+__High Five__ : If both fighters use this move, they both win.  
 
 ### __OTHER MOVES :__
-__Kick__ : Does 3* the damages of "Punching PP Really Hard"  
+__Kick__ :   Inflicts (20 + this.STR)*3 damages.  
 __Turkey__ : Both players gets 100 STR, but they also explode in 10 turns. Eating again reset the clock.  
 __Trap Sign / Ready to burst__ : If the opponent uses his move this turn, he will have 0 DEX next turn.  
 __Time Kick / Hockey Puck__ : Gives you a Hockey Puck PP for the battle.  
 __Dead Bro__ : Gives you a Fast PP for the battle.  
 __Chest Burst__ : Gives you a Big PP for the battle.  
+__Drinking 007__ : Gives you a Drunken PP for the battle.  
 __Tank__ : Cannot get damaged this turn (even if move failed), inflicts 1000 damage.  
 __Steel__ : All damages inflicts 10% of the original damages (even if move failed).  
 __Barrel__ : All damages inflicts 200% of the original damages (even if move failed).  
@@ -78,4 +79,13 @@ __Disembowled / Kidney Stone__ : Both players get 25 damages.
 __Headless / Big Kidney Stone__ : Both players get 50 damages.  
 __Facehugger__ : Opponent gets STR/2, also gets Alien PP.  
 __Facehugged__ : Illegal moves can be used freely next turn. Has 33% chance to be permanent.  
-__Explosion__ : If a suicide move has been planned, the opponent gets 1000 damages.  
+__Suicide Mook__ : Plans a suicide bombing.  
+__Explosion__ : If a suicide bombing has been planned, the opponent gets 1000 damages.  
+__Bronan Slam__ : Builds up 20 damages bonus for the next attack.
+__Brocketeer Dive__ : Inflicts 10 + this.STR damages. Opponent gets 0 DEX next turn.  
+__Boomerang__ : During the next 3 turns, your attacks will happen twice.  
+__YES / Truffle Historian__ : A random fighter plays between 1 and 25 random moves.  
+__Root of Nuisance / Pudding__ : Abandons the fight.  
+__Brennijov / Brenn__ : Each stats of every players gets between +50 and -50.  
+__Living God / Soup Calhoun__ : Gets 10 000 STR and 10 000 DEX.  
+__Perhaps__ : Does nothing for this turn...
