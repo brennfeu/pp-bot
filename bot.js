@@ -200,8 +200,8 @@ class Fighter {
 	
 	// fighter.toString
 	toString() {
-		if (this.STR && EVENT_BOSS) {
-			return "";
+		if (this.STR <= 0 && EVENT_BOSS) {
+			return this.user.username; + "\n -> Is dead";
 		}
 		
 		var txt = this.user.username;
@@ -1276,10 +1276,7 @@ CLIENT.on('ready', () => {
 
 
 // This event will run on every single message received, from any channel or DM.
-CLIENT.on("message", async _message => {
-	BATTLE_CHANNEL = _message.channel;
-	GUILD = _message.guild;
-  
+CLIENT.on("message", async _message => {  
 	// Ignore si bot
 	if(_message.author.bot) return;
 	// Ignore si pas appelé
@@ -1289,6 +1286,9 @@ CLIENT.on("message", async _message => {
 	if (PRIVATE_TEST && _message.author.username != "brennfeu") return _message.reply("I am currently unavailable, sorry :/");
 	// Ignore si deja occupé
 	if (IS_BUSY) return;
+	
+	BATTLE_CHANNEL = _message.channel;
+	GUILD = _message.guild;
 	
 	// Recuperation commande
 	var argsUser = _message.content.trim().split(" ");
