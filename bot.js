@@ -142,6 +142,7 @@ class Fighter {
 		this.missedMoves = 0;
 		this.bonusDamage = 0;
 		this.attackedThisTurn = false;
+		this.isMuslim = false;
 		
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -522,7 +523,7 @@ class Fighter {
 			else if (attack == EMOTE_PP36) {
 				// Explosion
 					BATTLE_CHANNEL.send(this.user.username + " plays the terrorist move !");
-				if (ILLEGAL_BOMBING) {
+				if (this.isMuslim) {
 					getOpponentOf(this).damage(1000);
 				}
 				else {
@@ -589,6 +590,7 @@ class Fighter {
 				// Kamikaze
 				BATTLE_CHANNEL.send(this.user.username + " plans a suicide move !");
 				ILLEGAL_BOMBING = true;
+				this.isMuslim = true;
 			}
 			else if (attack == EMOTE_PP45) {
 				// Boomerang
