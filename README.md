@@ -101,3 +101,11 @@ __Sexual Confusion__ : PPs are now only able to use the confused move for this t
 __Cthulhu Awakens__ : You have to beat Cthulhu by punching his huge PP in order to save the world. While cthulhu is alive, every damage goes to his PP and he attacks randomly one fighter per turn. You both win if you beat him.  
 __Blood Moon__: If someone dies this turn, STR automatically stays at 1 but the remaining damages in the DEX.
 __Accidental Summoning__ : Someone accidentaly plays Psychedeous on their phone and it summons Satan and the Ancient Fongus.
+
+## __COMMANDS :__
+
+To use a command, send a message following the template : "<tag the bot> <command> <optionnal argument>".  
+Commands :  
+__duel @someone__ : start a duel against the tagged person.  
+__style__ : allows you to change your PP fighting style.  
+__help__ : gets help.  
