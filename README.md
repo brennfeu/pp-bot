@@ -34,6 +34,7 @@ When a STR value is at 0 or below, it means you lost !
 
 "_this.STR_" means the STR value of the fighter using the move.  
 "_opponent.STR_" means the STR value of the opponent of the fighter using the move.  
+"_Illegal(X%)_" means that the move is illegal and the judge has X% chance to disqualify you.
 
 ### __COMMON MOVES :__
 
@@ -44,48 +45,48 @@ __Flex__ : Gives to the fighter between 1 and 30 STR.
 __High Five__ : If both fighters use this move, they both win.  
 
 ### __OTHER MOVES :__
-__Kick__ :   Inflicts (20 + this.STR)*3 damages.  
-__Turkey__ : Both players gets 100 STR, but they also explode in 10 turns. Eating again reset the clock.  
-__Trap Sign / Ready to burst__ : If the opponent uses his move this turn, he will have 0 DEX next turn.  
+__Kick__ :   Inflicts (20 + this.STR)*3 damages. Illegal(20%).  
+__Brocketeer Dive__ : Inflicts 10 + this.STR damages. Opponent gets 0 DEX next turn. Illegal(15%).  
+__Bullet__ : Inflicts 20 + this.STR / 10 damages, both fighters get -20 DEX.  
+__Facehugger__ : Opponent gets STR/2, also gets Alien PP.  
 __Time Kick / Hockey Puck__ : Gives you a Hockey Puck PP for the battle.  
 __Dead Bro__ : Gives you a Fast PP for the battle.  
 __Chest Burst__ : Gives you a Big PP for the battle.  
 __Drinking 007__ : Gives you a Drunken PP for the battle.  
-__Tank__ : Cannot get damaged this turn (even if move failed), inflicts 1000 damage.  
-__Steel__ : All damages inflicts 10% of the original damages (even if move failed).  
-__Barrel__ : All damages inflicts 200% of the original damages (even if move failed).  
-__Circumcised__ : Removes any status effect. Cannot be circumcised after that.  
-__Overcircumcised__ : Gets immune to all status effect, gets STR/2. Cannot be overcircumcised or circumcised again after that.  
+__Save / HoBro__ : Randomly changes one of your roles.  
+__Trap Sign / Ready to burst__ : If the opponent uses his move this turn, he will have 0 DEX next turn.  
 __Scout__ : Has 33% chance of getting +20DEX next turn (even if move failed).  
-__SawBlade__ : +5 hemoragy on the opponent.  
-__Save / HoBro__ : Randomly changee one of your roles.  
-__Save Me Sign__ : Both players get 50 STR, can be used by non-fighters.  
-__Satan__ : Possess the enemy's PP, he will use the next attack as you in the next turn.  
-__Riot Shield__ : Gets a shield that will reflect the next damage on the opponent.  
-__Red Pill__ : Gets +5 STR and +3 DEX.  
-__Pig__ : Gives you the Hog Squeezer tag, which gives you +2 STR per turn.  
-__Doom Reverse / Mook Grenade__ : If you get below 0 STR in the next 3 turns, the opponent gets 50 damages.  
-__Acid__ : Gets an acid armor for 3 turns that damages the opponent (10 damages) every time you get damages.  
-__Laughing Soul__ : Gives you 10 STR per moves your opponent missed.  
-__Knockback / Swap__ : Reverse the natural STR values between you and your opponent.  
-__Bombardment__ : Inflicts 1000 damages to both fighters.  
-__Big Satan__ : Each player makes 5 random moves. (3 legal moves and 2 moves that can be legal or not). Cannot abandon randomly.  
-__Bullet__ : Inflicts 20 + this.STR / 10 damages, both fighters get -20 DEX.  
 __Big Guy__ : Intimidates your opponent, he gets 0 DEX next turn. Has 33% chance of working even if the move failed.  
 __Alert / Exclamation Point__ : Plays the same move you picked the turn before.  
 __Confused / Interrogation Point__ : Plays a random move.  
 __High Five Emote__ : Hold the attack selection for the next turn.  
+__Steel__ : All damages inflicts 10% of the original damages (even if move failed).  
+__Barrel__ : All damages inflicts 200% of the original damages (even if move failed).  
+__Circumcised__ : Removes any status effect. Cannot be circumcised after that.  
+__Overcircumcised__ : Gets immune to all status effect, gets STR/2. Cannot be overcircumcised or circumcised again after that.  
+__Turkey__ : Both players gets 100 STR, but they also explode in 10 turns. Eating again reset the clock.  
+__Save Me Sign__ : Both players get 50 STR, can be used by non-fighters.  
+__Laughing Soul__ : Gives you 10 STR per moves your opponent missed. Illegal(75%)  
+__Knockback / Swap__ : Reverse the natural STR values between you and your opponent.  
+__Red Pill__ : Gets +5 STR and +3 DEX.  
+__Bronan Slam__ : Builds up 20 damages bonus for the next attack.  
+__Riot Shield__ : Gets a shield that will reflect the next damage on the opponent.  
+__Boomerang__ : During the next 3 turns, your attacks will happen twice.  
+__Pig__ : Gives you the Hog Squeezer tag, which gives you +2 STR per turn.  
+__Doom Reverse / Mook Grenade__ : If you get below 0 STR in the next 3 turns, the opponent gets 50 damages.  
+__SawBlade__ : +5 hemoragy on the opponent.  
+__Acid__ : Gets an acid armor for 3 turns that damages the opponent (10 damages) every time you get damages.  
 __Disembowled / Kidney Stone__ : Both players get 25 damages.  
 __Headless / Big Kidney Stone__ : Both players get 50 damages.  
-__Facehugger__ : Opponent gets STR/2, also gets Alien PP.  
+__Bombardment__ : Inflicts 1000 damages to both fighters. Illegal(60%).  
+__Tank__ : Cannot get damaged this turn (even if move failed), inflicts 1000 damage. Illegal(90%).  
+__Satan__ : Possess the enemy's PP, he will use the next attack as you in the next turn.  
+__Big Satan__ : Each player makes 5 random moves. (3 legal moves and 2 moves that can be legal or not). Cannot abandon randomly.  
 __Facehugged__ : Illegal moves can be used freely next turn. Has 33% chance to be permanent.  
-__Suicide Mook__ : Plans a suicide bombing.  
+__Suicide Mook__ : Plans a suicide bombing. Illegal(40%).  
 __Explosion__ : If a suicide bombing has been planned, the opponent gets 1000 damages.  
-__Bronan Slam__ : Builds up 20 damages bonus for the next attack.
-__Brocketeer Dive__ : Inflicts 10 + this.STR damages. Opponent gets 0 DEX next turn.  
-__Boomerang__ : During the next 3 turns, your attacks will happen twice.  
 __YES / Truffle Historian__ : A random fighter plays between 1 and 25 random moves.  
 __Root of Nuisance / Pudding__ : Abandons the fight.  
 __Brennijov / Brenn__ : Each stats of every players gets between +50 and -50.  
-__Living God / Soup Calhoun__ : Gets 10 000 STR and 10 000 DEX.  
+__Living God / Soup Calhoun__ : Gets 10 000 STR and 10 000 DEX. Illegal(98%).  
 __Perhaps__ : Does nothing for this turn...
