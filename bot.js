@@ -978,6 +978,20 @@ function newTurnDuel() {
 	
 	startRandomEvent();
 	
+	// Blood Moon Save
+	if (EVENT_BLOOD_MOON) {
+		if (FIGHTER1.STR <= 0) {
+			FIGHTER1.DEXValue -= (0-FIGHTER1.STR);
+			FIGHTER1.STRValue += (0-FIGHTER1.STR);
+			BATTLE_CHANNEL.send(FIGHTER1.user.username + " got saved thanks to the Blood Moon");
+		}
+		if (FIGHTER2.STR <= 0) {
+			FIGHTER2.DEXValue -= (0-FIGHTER2.STR);
+			FIGHTER2.STRValue += (0-FIGHTER2.STR);
+			BATTLE_CHANNEL.send(FIGHTER2.user.username + " got saved thanks to the Blood Moon");
+		}
+	}
+	
 	// Cthulhu
 	if (EVENT_BOSS) {
 		if (BOSS_HEALTH <= 0) {
@@ -1339,7 +1353,7 @@ CLIENT.on("message", async _message => {
 	}
 	if (argsUser[1] == "help") {
 		// HELP
-		return _message.reply("too lazy to make the doc for now\ncommands : rank, rank @someone, ranks, duel @someone, style, help");
+		return _message.reply("Go read the PP Bible here : https://github.com/brennfeu/pp-bot/wiki/PP-Bible");
 	}
 	
 	return _message.reply("I don't know this command, try using the help command !");
