@@ -90,3 +90,17 @@ __Root of Nuisance / Pudding__ : Abandons the fight.
 __Brennijov / Brenn__ : Each stats of every players gets between +50 and -50.  
 __Living God / Soup Calhoun__ : Gets 10 000 STR and 10 000 DEX. Illegal(98%).  
 __Perhaps__ : Does nothing for this turn...
+
+
+## __EVENTS :__
+
+__PP Armageddon__ : Plays when 100 moves or more have been used. Each fighter gets 1 000 000 STR and 200 DEX. Each turn, they loose 5 000 STR.
+
+Other moves have 1% chance to play each turn. Only one event can occur per turn.
+
+__PP Enlightenment__ : Your PP temporarily become enlightened. All moves can now be used for this turn. Illegal moves are still illegal.  
+__PP Purge__ : All PPs grow a mohawk and start to roam the streets. Illegal moves can now be used freely but the judge will still see you if you use unavailable moves.  
+__Sexual Confusion__ : PPs are now only able to use the confused move for this turn.  
+__Cthulhu Awakens__ : You have to beat Cthulhu by punching his huge PP in order to save the world. While cthulhu is alive, every damage goes to his PP and he attacks randomly one fighter per turn. You both win if you beat him.  
+__Blood Moon__: If someone dies this turn, STR automatically stays at 1 but the remaining damages in the DEX.
+__Accidental Summoning__ : Someone accidentaly plays Psychedeous on their phone and it summons Satan and the Ancient Fongus.
