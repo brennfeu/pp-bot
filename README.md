@@ -48,6 +48,8 @@ __Kick__ : Does 3* the damages of "Punching PP Really Hard"
 __Turkey__ : Both players gets 100 STR, but they also explode in 10 turns. Eating again reset the clock.  
 __Trap Sign / Ready to burst__ : If the opponent uses his move this turn, he will have 0 DEX next turn.  
 __Time Kick / Hockey Puck__ : Gives you a Hockey Puck PP for the battle.  
+__Dead Bro__ : Gives you a Fast PP for the battle.  
+__Chest Burst__ : Gives you a Big PP for the battle.  
 __Tank__ : Cannot get damaged this turn (even if move failed), inflicts 1000 damage.  
 __Steel__ : All damages inflicts 10% of the original damages (even if move failed).  
 __Barrel__ : All damages inflicts 200% of the original damages (even if move failed).  
@@ -66,10 +68,14 @@ __Acid__ : Gets an acid armor for 3 turns that damages the opponent (10 damages)
 __Laughing Soul__ : Gives you 10 STR per moves your opponent missed.  
 __Knockback / Swap__ : Reverse the natural STR values between you and your opponent.  
 __Bombardment__ : Inflicts 1000 damages to both fighters.  
-__Big Satan__ : Each player makes 5 random moves. (3 legal moves and 2 moves that can be legal or not). Cannot abandon randomly. 
-__Bullet__ : Inflicts 20 + this.STR / 10 damages, both fighters get -20 DEX. 
+__Big Satan__ : Each player makes 5 random moves. (3 legal moves and 2 moves that can be legal or not). Cannot abandon randomly.  
+__Bullet__ : Inflicts 20 + this.STR / 10 damages, both fighters get -20 DEX.  
 __Big Guy__ : Intimidates your opponent, he gets 0 DEX next turn. Has 33% chance of working even if the move failed.  
 __Alert / Exclamation Point__ : Plays the same move you picked the turn before.  
+__Confused / Interrogation Point__ : Plays a random move.  
 __High Five Emote__ : Hold the attack selection for the next turn.  
+__Disembowled / Kidney Stone__ : Both players get 25 damages.  
 __Headless / Big Kidney Stone__ : Both players get 50 damages.  
-
+__Facehugger__ : Opponent gets STR/2, also gets Alien PP.  
+__Facehugged__ : Illegal moves can be used freely next turn. Has 33% chance to be permanent.  
+__Explosion__ : If a suicide move has been planned, the opponent gets 1000 damages.  
