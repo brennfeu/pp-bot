@@ -1291,7 +1291,7 @@ CLIENT.on("message", async _message => {
 	// Ignore si test privé
 	if (PRIVATE_TEST && _message.author.username != "brennfeu") return _message.reply("I am currently unavailable, sorry :/");
 	// Ignore si deja occupé
-	if (IS_BUSY) return message.reply("I'm busy right now, try again when I'll be available. You can check that on my activity.");
+	if (IS_BUSY) return _message.reply("I'm busy right now, try again when I'll be available. You can check that on my activity.");
 	
 	BATTLE_CHANNEL = _message.channel;
 	GUILD = _message.guild;
