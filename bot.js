@@ -5,7 +5,7 @@
 const DISCORD = require("discord.js");
 const CLIENT = new DISCORD.Client();
 
-const BETA_TEST = true;
+const BETA_TEST = false;
 const PRIVATE_TEST = false;
 
 const FAST_PP_ROLE = "Fast PP";
