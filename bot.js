@@ -724,7 +724,7 @@ class Fighter {
 		// DoomReverse
 		if (this.STR <= 0 && this.doomReverse >= 1) {
 			BATTLE_CHANNEL.send(this.user.username + " uses DOOM-REVERSE(tm) !");
-			getOpponentOf(this).damage(50);
+			this.STRValue += (0-this.STR)+1;
 			this.doomReverse = 0;
 		}
 		// Alien PP
@@ -967,13 +967,13 @@ function newTurnDuel() {
 	// Blood Moon Save
 	if (EVENT_BLOOD_MOON) {
 		if (FIGHTER1.STR <= 0) {
-			FIGHTER1.DEXValue -= (0-FIGHTER1.STR);
-			FIGHTER1.STRValue += (0-FIGHTER1.STR);
+			FIGHTER1.DEXValue -= (0-FIGHTER1.STR)+1;
+			FIGHTER1.STRValue += (0-FIGHTER1.STR)+1;
 			BATTLE_CHANNEL.send(FIGHTER1.user.username + " got saved thanks to the Blood Moon");
 		}
 		if (FIGHTER2.STR <= 0) {
-			FIGHTER2.DEXValue -= (0-FIGHTER2.STR);
-			FIGHTER2.STRValue += (0-FIGHTER2.STR);
+			FIGHTER2.DEXValue -= (0-FIGHTER2.STR)+1;
+			FIGHTER2.STRValue += (0-FIGHTER2.STR)+1;
 			BATTLE_CHANNEL.send(FIGHTER2.user.username + " got saved thanks to the Blood Moon");
 		}
 	}
@@ -983,13 +983,13 @@ function newTurnDuel() {
 	// Blood Moon Save
 	if (EVENT_BLOOD_MOON) {
 		if (FIGHTER1.STR <= 0) {
-			FIGHTER1.DEXValue -= (0-FIGHTER1.STR);
-			FIGHTER1.STRValue += (0-FIGHTER1.STR);
+			FIGHTER1.DEXValue -= (0-FIGHTER1.STR)+1;
+			FIGHTER1.STRValue += (0-FIGHTER1.STR)+1;
 			BATTLE_CHANNEL.send(FIGHTER1.user.username + " got saved thanks to the Blood Moon");
 		}
 		if (FIGHTER2.STR <= 0) {
-			FIGHTER2.DEXValue -= (0-FIGHTER2.STR);
-			FIGHTER2.STRValue += (0-FIGHTER2.STR);
+			FIGHTER2.DEXValue -= (0-FIGHTER2.STR)+1;
+			FIGHTER2.STRValue += (0-FIGHTER2.STR)+1;
 			BATTLE_CHANNEL.send(FIGHTER2.user.username + " got saved thanks to the Blood Moon");
 		}
 	}
