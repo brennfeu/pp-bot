@@ -877,6 +877,8 @@ function getRisk(_move) {
 function getDexChange(_move) {
 	console.log("move dex : " + _move);
 	switch(_move) {
+		case EMOTE_PP3:
+			return -30;
 		case EMOTE_PP26:
 		case EMOTE_PP17:
 		case EMOTE_PP4:
