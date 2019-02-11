@@ -1370,7 +1370,7 @@ CLIENT.on("message", async _message => {
 	}
 	if (argsUser[1] == "help") {
 		// HELP
-		return _message.reply("Go read the PP Bible here : https://github.com/brennfeu/pp-bot/wiki/PP-Bible");
+		return _message.reply("you should read the PP Bible here : https://github.com/brennfeu/pp-bot/wiki/PP-Bible");
 	}
 	
 	return _message.reply("I don't know this command, try using the help command !");
