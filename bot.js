@@ -1257,6 +1257,19 @@ function startRandomEvent() {
 		BATTLE_CHANNEL.send(" -- BLOOD MOON --");
 		BATTLE_CHANNEL.send("If someone dies this turn, STR automatically stays at 1 but the remaining damages in the DEX");
 	}
+	else if (randomVar == 8) {
+		// Ascension
+		BATTLE_CHANNEL.send(" -- ASCENSION --");
+		if (getRandomPercent() >= 50) {
+			var winner = FIGHTER1;
+		}
+		else {
+			var winner = FIGHTER2;
+		}
+		BATTLE_CHANNEL.send(winner.user.username + " accidentaly plays Ascend on their phone !");
+		FIGHTER1.playMove(EMOTE_PP49);
+		FIGHTER2.playMove(EMOTE_PP49);
+	}
 	else {
 		BATTLE_CHANNEL.send("No event this turn...");
 	}
