@@ -87,6 +87,7 @@ var STOPPED_MOVE_LIST = [];
 var INFINITE_DAMAGE = 0;
 var MOVE_COUNT = 0;
 var DAMAGE_COUNT = 0;
+var REVERSE_DAMAGE = 0;
 
 var DISABLE_ABANDON = false;
 
@@ -285,9 +286,8 @@ class Fighter {
 			else if (attack == EMOTE_PP4) {
 				// Flex
 				BATTLE_CHANNEL.send(this.user.username + " flexes !");
-				var bonus = Math.floor(Math.random() * 30 + 1);
-				BATTLE_CHANNEL.send(this.user.username + " get " + bonus + " STR !");
-				this.STRValue += bonus;			
+				this.heal(Math.floor(Math.random() * 30 + 1)=;
+				BATTLE_CHANNEL.send(this.user.username + " get " + bonus + " STR !");		
 			}
 			else if (attack == EMOTE_PP5) {
 				// High Five
@@ -301,9 +301,9 @@ class Fighter {
 			else if (attack == EMOTE_PP7) {
 				// Turkey
 				BATTLE_CHANNEL.send(this.user.username + " and " + getOpponentOf(this).user.username + " start a feast !");
-				this.STRValue += 100;
+				this.heal(100);
 				this.turkeyCountdown = 11;
-				getOpponentOf(this).STRValue += 100;
+				getOpponentOf(this).heal(100);
 				getOpponentOf(this).turkeyCountdown = 11;
 				BATTLE_CHANNEL.send("They both gain 100 STR !");
 			}
@@ -364,23 +364,8 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP15) {
 				// Save
-				var test = getRandomPercent();
-				BATTLE_CHANNEL.send(this.user.username + " changes one of his roles !");
-				if (test <= 20) {
-					this.isFastPP = !this.isFastPP;
-				}
-				else if (test <= 40) {
-					this.isBigPP = !this.isBigPP;
-				}
-				else if (test <= 60) {
-					this.isAlienPP = !this.isAlienPP;
-				}
-				else if (test <= 80) {
-					this.isHockeyPuckPP = !this.isHockeyPuckPP;
-				}
-				else {
-					this.isDrunkPP = !this.isDrunkPP;
-				}
+				BATTLE_CHANNEL.send(this.user.username + " reverses the damages and heals !");
+				REVERSE_DAMAGE = 2;
 			}
 			else if (attack == EMOTE_PP16) {
 				// Satan
@@ -664,6 +649,15 @@ class Fighter {
 		}
 	}
 	
+	heal(_amount) {
+		if (REVERSE_DAMAGE <= 0) {
+			this.STRValue += _amount;
+		}
+		else {
+			this.STRValue -= _amount;
+		}
+	}
+	
 	damage(_amount) {
 		_amount += getOpponentOf(this).bonusDamage;
 		getOpponentOf(this).bonusDamage = 0;
@@ -680,6 +674,11 @@ class Fighter {
 			BATTLE_CHANNEL.send("Cthulhu takes " + _amount + " damages !");
 			DAMAGE_COUNT += _amount;
 			return;
+		}
+		
+		if (REVERSE_DAMAGE <= 0) {
+			this.STRValue -= _amount;
+			return BATTLE_CHANNEL.send(this.user.username + " get heals by " + _amount);;
 		}
 		
 		// Acid
@@ -957,6 +956,7 @@ function newTurnDuel() {
 	BLIND_COUNTDOWN -= 1;
 	INFINITE_DAMAGE = 0;
 	DISABLE_ABANDON = false;
+	REVERSE_DAMAGE -= 1;
 	
 	if (BLIND_COUNTDOWN >= 1) {
 		setBotActivity("WTF I'M FUCKING BLIND");
@@ -1386,8 +1386,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	if (IS_DUELLING && _reaction.emoji.id == EMOTE_PP31 && SAVE_LIST.indexOf(_user.id) < 0) {
 		SAVE_LIST.push(_user.id);
 		BATTLE_CHANNEL.send(_user.username + " helps the fighters !");
-		FIGHTER1.STRValue += 50;
-		FIGHTER2.STRValue += 50;
+		FIGHTER1.heal(50);
+		FIGHTER2.heal(50);
 	}
 	
 	
@@ -1547,6 +1547,11 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				if (FIGHTER2.attack == EMOTE_PP28 && getRandomPercent() <= 25) {
 					FIGHTER2.playMove();
 				}
+				
+				// Save
+				if (FIGHTER2.attack == EMOTE_PP15) {
+					FIGHTER2.playMove();
+				}
 			}
 			else {
 				FIGHTER2.playMove();
@@ -1564,6 +1569,11 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				// Intimidates
 				if (FIGHTER1.attack == EMOTE_PP28 && getRandomPercent() <= 25) {
 					FIGHTER1.playMove();
+				}
+				
+				// Save
+				if (FIGHTER1.attack == EMOTE_PP15) {
+					FIGHTER2.playMove();
 				}
 			}
 			
