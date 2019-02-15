@@ -286,7 +286,7 @@ class Fighter {
 			else if (attack == EMOTE_PP4) {
 				// Flex
 				BATTLE_CHANNEL.send(this.user.username + " flexes !");
-				this.heal(Math.floor(Math.random() * 30 + 1);
+				this.heal(Math.floor(Math.random() * 30 + 1));
 				BATTLE_CHANNEL.send(this.user.username + " get " + bonus + " STR !");		
 			}
 			else if (attack == EMOTE_PP5) {
