@@ -1247,7 +1247,7 @@ function startRandomEvent() {
 		else {
 			var winner = FIGHTER2;
 		}
-		BATTLE_CHANNEL.send(winner.user.username + " accidentaly plays Psychedeous on their phone and it summons Satan and the Ancient Fongus !");
+		BATTLE_CHANNEL.send(winner.user.username + " accidentaly plays Psychedeous on his phone and it summons Satan and the Ancient Fongus !");
 		winner.playMove(EMOTE_PP26);
 		winner.playMove(EMOTE_PP46);
 	}
@@ -1266,7 +1266,7 @@ function startRandomEvent() {
 		else {
 			var winner = FIGHTER2;
 		}
-		BATTLE_CHANNEL.send(winner.user.username + " accidentaly plays Ascend on their phone !");
+		BATTLE_CHANNEL.send(winner.user.username + " accidentaly plays Ascend on his phone !");
 		FIGHTER1.playMove(EMOTE_PP49);
 		FIGHTER2.playMove(EMOTE_PP49);
 	}
