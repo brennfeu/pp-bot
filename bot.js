@@ -670,7 +670,7 @@ class Fighter {
 		}
 		
 		if (REVERSE_DAMAGE >= 0) {
-			this.STRValue -= _amount;
+			this.STRValue += _amount;
 			return BATTLE_CHANNEL.send(this.user.username + " get heals by " + _amount);;
 		}
 		
