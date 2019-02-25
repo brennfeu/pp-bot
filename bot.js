@@ -852,13 +852,13 @@ function getRisk(_move) {
 		case EMOTE_PP6:
 			return 20;
 		case EMOTE_PP10:
-			return 90;
+			return 70;
 		case EMOTE_PP43:
 			return 15;
 		case EMOTE_PP25:
 			return 60;
 		case EMOTE_PP23:
-			return 75;
+			return 20;
 		case EMOTE_PP44:
 			return 40;
 		case EMOTE_PP49:
