@@ -365,7 +365,12 @@ class Fighter {
 		else if (attack == EMOTE_PP15) {
 			// Save
 			BATTLE_CHANNEL.send(this.user.username + " reverses the damages and heals !");
-			REVERSE_DAMAGE = 2;
+			if (REVERSE_DAMAGE < 0) {
+				REVERSE_DAMAGE = 2;
+			}
+			else {
+				REVERSE_DAMAGE = -1;
+			}
 		}
 		else if (attack == EMOTE_PP16) {
 			// Satan
@@ -387,6 +392,7 @@ class Fighter {
 			// Pig
 			BATTLE_CHANNEL.send(this.user.username + " squeezes hog yeah yeah !");
 			this.isPigged = true;
+			this.pigHeal += 2;
 		}
 		else if (attack == EMOTE_PP20) {
 			// DoomReverse (MookGrenade)
@@ -775,7 +781,7 @@ class Fighter {
 		// Pig
 		if (this.isPigged) {
 			BATTLE_CHANNEL.send(this.user.username + " squeezes hog !");
-			this.STRValue += 2;
+			this.STRValue += this.pigHeal;
 		}
 		
 		// PP Armageddon
@@ -800,6 +806,7 @@ class Fighter {
 		this.hasExamined = 0;
 		this.isPossessed = 0;
 		this.isPigged = false;
+		this.pigHeal = 0;
 		this.doomReverse = 0;
 		this.acidArmor = 0;
 		this.isBoomerangUsed = false;
