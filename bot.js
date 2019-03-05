@@ -642,7 +642,12 @@ class Fighter {
 			else if (attack == EMOTE_PP50) {
 				// Perhaps
 				BATTLE_CHANNEL.send(this.user.username + " thinks about life and the universe...");
-				BATTLE_CHANNEL.send("Wait he forgot about the battle");
+				if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP && getRandomPercent() <= 33) {
+					this.playMove(EMOTE_PP49);
+				}
+				else {
+					BATTLE_CHANNEL.send("Wait he forgot about the battle");
+				}
 			}
 			else if (attack == "IS_DEAD_LOL") {
 				// Dead (Cthulhu battle)
