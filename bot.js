@@ -642,8 +642,10 @@ class Fighter {
 			else if (attack == EMOTE_PP50) {
 				// Perhaps
 				BATTLE_CHANNEL.send(this.user.username + " thinks about life and the universe...");
-				if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP && getRandomPercent() <= 33) {
-					this.playMove(EMOTE_PP49);
+				if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
+					var randomEvent = getRandomPercent();
+					// TODO
+					// Events, chance at becoming god, making everything proc twice, both players getting 0 dex.
 				}
 				else {
 					BATTLE_CHANNEL.send("Wait he forgot about the battle");
