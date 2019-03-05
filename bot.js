@@ -270,7 +270,7 @@ class Fighter {
 			var numberAttacks = 5;
 		}
 		else {
-			var numberAttacks = 5;
+			var numberAttacks = 1;
 		}
 		
 		if (EVENT_BOSS && this.STR <= 0) { 
