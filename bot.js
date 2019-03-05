@@ -266,8 +266,8 @@ class Fighter {
 		INFINITE_DAMAGE = 0;
 		var attack = _newMove;
 		
-		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
-			var numberAttacks = 5;
+		if (false) { // maybe someday
+			var numberAttacks = 3;
 		}
 		else {
 			var numberAttacks = 1;
