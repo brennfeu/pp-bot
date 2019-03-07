@@ -88,6 +88,7 @@ var INFINITE_DAMAGE = 0;
 var MOVE_COUNT = 0;
 var DAMAGE_COUNT = 0;
 var REVERSE_DAMAGE = 0;
+var FORCE_EVENT = false;
 
 var DISABLE_ABANDON = false;
 
@@ -644,8 +645,37 @@ class Fighter {
 				BATTLE_CHANNEL.send(this.user.username + " thinks about life and the universe...");
 				if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 					var randomEvent = getRandomPercent();
-					// TODO
 					// Events, chance at becoming god, making everything proc twice, both players getting 0 dex.
+					if (randomEvent <= 25) {
+						if (!FORCE_EVENT) {
+							BATTLE_CHANNEL.send("Events will now occur every turn !");
+						}
+						else {
+							BATTLE_CHANNEL.send("Events will stop occurring every turn !");
+						}
+						FORCE_EVENT = !FORCE_EVENT;
+					}
+					else if (randomEvent <= 50) {
+						if (getRandomPercent() <= 34) {
+							BATTLE_CHANNEL.send("His body and mind have now ascended !");
+							this.playMove(EMOTE_PP49);
+						}
+						else {
+							BATTLE_CHANNEL.send("But he isn't ready to become a Living God...");
+						}
+					}
+					else if (randomEvent <= 75) {
+						BATTLE_CHANNEL.send("Natural values have been doubled !");
+						this.STRvalue = this.STRValue*2;
+						this.DEXvalue = this.DEXValue*2;
+						getOpponentOf(this).STRValue = getOpponentOf(this).STRValue*2;
+						getOpponentOf(this).DEXValue = getOpponentOf(this).DEXValue*2;
+					}
+					else {
+						BATTLE_CHANNEL.send("Both fighers DEX has been changed to 0 !");
+						this.DEXvalue = 0;
+						getOpponentOf(this).DEXValue = 0;
+					}
 				}
 				else {
 					BATTLE_CHANNEL.send("Wait he forgot about the battle");
@@ -1219,9 +1249,12 @@ function startRandomEvent() {
 	
 	BATTLE_CHANNEL.send("===== EVENTS =====");
 	var randomVar = getRandomPercent();
-	//test
-	//if (MOVE_COUNT <= 4 && !EVENT_BOSS) {randomVar = 5;}
-	//randomVar = 6;
+	
+	if (FORCE_EVENT) {
+		while (!(randomVar <= 8 && randomVar >= 2)) {
+			randomVar = getRandomPercent();
+		}
+	}
 	
 	// PP ARMAGEDDON
 	if (!PP_ARMAGEDDON && MOVE_COUNT >= 100) {
