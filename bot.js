@@ -145,6 +145,7 @@ class Fighter {
 		this.bonusDamage = 0;
 		this.attackedThisTurn = false;
 		this.isMuslim = false;
+		this.hasBurst = 0;
 		
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -850,7 +851,6 @@ class Fighter {
 	
 	resetBattleVariables() {
 		this.turkeyCountdown = -1;
-		this.hasBurst = 0;
 		this.bleedDamage = 0;
 		this.hasExamined = 0;
 		this.isPossessed = 0;
