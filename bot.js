@@ -673,8 +673,8 @@ class Fighter {
 					}
 					else {
 						BATTLE_CHANNEL.send("Both fighers DEX has been changed to 0 !");
-						this.DEXvalue = 0;
-						getOpponentOf(this).DEXValue = 0;
+						this.DEXValue = 0 - (this.DEX - this.DEXValue);
+						getOpponentOf(this).DEXValue = 0 - (getOpponentOf(this).DEX - getOpponentOf(this).DEXValue);
 					}
 				}
 				else {
