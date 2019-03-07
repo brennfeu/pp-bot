@@ -960,6 +960,7 @@ function startDuel(_message) {
 	INFINITE_DAMAGE = 0;
 	MOVE_COUNT = 0;
 	DAMAGE_COUNT = 0;
+	FORCE_EVENT = false;
 
 	PP_ARMAGEDDON = false;
 	EVENT_PP_ENLIGHTENMENT = false;
