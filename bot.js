@@ -872,13 +872,19 @@ function getRandomPercent() {
 }
 
 function setBotActivity(_texte) {
+	if (REVERSE_DAMAGE >= 1) {
+		var texte = _texte.split("").reverse().join("");
+	}
+	else {
+		var texte = _texte;
+	}
 	if (PRIVATE_TEST) {
-		return CLIENT.user.setActivity(_texte + " [PRIVATE TEST]");
+		return CLIENT.user.setActivity(texte + " [PRIVATE TEST]");
 	}
 	if (BETA_TEST) {
-		return CLIENT.user.setActivity(_texte + " [BETA TEST] ");
+		return CLIENT.user.setActivity(texte + " [BETA TEST] ");
 	}
-	return CLIENT.user.setActivity(_texte);
+	return CLIENT.user.setActivity(texte);
 }
 
 function getOpponentOf(_fighter) {
