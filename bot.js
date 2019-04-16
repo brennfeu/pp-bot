@@ -1438,8 +1438,6 @@ CLIENT.on("message", async _message => {
 });
 
 CLIENT.on('messageReactionAdd', (_reaction, _user) => {
-	var _message = _reaction.message;
-	
 	// Ignore si bot
 	if (_user.bot) return;
 	
