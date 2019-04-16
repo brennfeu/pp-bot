@@ -205,7 +205,7 @@ class Fighter {
 	// fighter.toString
 	toString() {
 		if (this.STR <= 0 && EVENT_BOSS) {
-			return this.user.username; + "\n -> Is dead";
+			return this.user.username + "\n -> Is dead";
 		}
 		
 		var txt = this.user.username;
