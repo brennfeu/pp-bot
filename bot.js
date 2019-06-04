@@ -1,5 +1,3 @@
-// PP ARBITRATOR
-
 // VARIABLES
 // Constantes
 const DISCORD = require("discord.js");
