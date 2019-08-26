@@ -1213,7 +1213,7 @@ function setRandomAttackList() {
 	}
 	
 	LIST_AVAILABLE_ATTACKS = listeAttaques;
-	// LIST_AVAILABLE_ATTACKS.push("IS_DEAD_LOL");
+	LIST_AVAILABLE_ATTACKS.push("IS_DEAD_LOL");
 }
 function getRandomEmote(_canBeIllegal = true) {
 	var legalList = [EMOTE_PP7, EMOTE_PP8, EMOTE_PP9,
