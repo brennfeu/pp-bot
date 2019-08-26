@@ -1126,7 +1126,9 @@ function newTurnDuel() {
 	BATTLE_CHANNEL.send("\n\nAttack with a reaction !").then(function (_message2) {
 		for (var i in LIST_AVAILABLE_ATTACKS) {
 			console.log(LIST_AVAILABLE_ATTACKS[i]);
-			_message2.react(LIST_AVAILABLE_ATTACKS[i]);
+			if (LIST_AVAILABLE_ATTACKS[i] != "IS_DEAD_LOL") {
+				_message2.react(LIST_AVAILABLE_ATTACKS[i]);
+			}
 		}
 	}).catch(function(e) {
 		BATTLE_CHANNEL.send(e);
