@@ -1,3 +1,5 @@
+// PLEASE DON'T READ THIS, THIS CODE IS COMPLETE GARBAGE //
+
 // VARIABLES
 // Constantes
 const DISCORD = require("discord.js");
