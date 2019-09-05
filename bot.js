@@ -1370,7 +1370,10 @@ CLIENT.on('ready', () => {
 	
 	// annonce BETA_TEST
 	if (BETA_TEST || PRIVATE_TEST) {
-		setBotActivity("");
+		setBotActivity("Unavailable for now... :/");
+	}
+	else {
+		setBotActivity("")
 	}
 });
 
@@ -1420,7 +1423,7 @@ CLIENT.on("message", async _message => {
 		// STYLE
 		IS_CHANGING_STYLE = true;
 		STYLER = _message.author.id;
-		return _message.reply("Change your style with a reaction.").then(function (_message2) {
+		return _message.reply("change your style with a reaction.").then(function (_message2) {
 			_message2.react(EMOTE_PP38); // Fast PP
 			_message2.react(EMOTE_PP40); // Big PP
 			_message2.react(EMOTE_PP9); // Hockey Puck PP
