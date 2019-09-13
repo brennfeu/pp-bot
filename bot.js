@@ -776,7 +776,7 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP14_PRIEST) > -1) { // UREGonnaGETRaped
 					BATTLE_CHANNEL.send(this.user.username + " gives a boner punch to " + getOpponentOf(this).user.username + " !");
 					this.hasBoner = true;
-					getOpponentOf(this).damage((this.STR - this.DEX)/10);
+					getOpponentOf(this).damage(Math.floor((this.STR - this.DEX)/10));
 				}
 			}
 			else if (attack == EMOTE_PP52) {
@@ -828,7 +828,7 @@ class Fighter {
 					BATTLE_CHANNEL.send(this.user.username + " sensually touches " + getOpponentOf(this).user.username + "'s PP...");
 					this.hasBoner = true;
 					getOpponentOf(this).hasBoner = true;
-					getOpponentOf(this).damage(this.STR/5);
+					getOpponentOf(this).damage(Math.floor(this.STR/5));
 				}
 			}
 			else if (attack == "IS_DEAD_LOL") {
@@ -1721,16 +1721,16 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				caught2 = caught2 || (illegalGetCaught(50) && !EVENT_PP_ENLIGHTENMENT);
 			}
 			
-			if (FIGHTER1.attack == EMOTE_PP50 && FIGHTER1.regularCharges <= 0 && getRandomPercent() <= 50) {
+			if (FIGHTER1.attack == EMOTE_PP51 && FIGHTER1.regularCharges <= 0 && getRandomPercent() <= 50) {
 				caught1 = true
 			}
-			if (FIGHTER2.attack == EMOTE_PP50 && FIGHTER2.regularCharges <= 0 && getRandomPercent() <= 50) {
+			if (FIGHTER2.attack == EMOTE_PP51 && FIGHTER2.regularCharges <= 0 && getRandomPercent() <= 50) {
 				caught2 = true
 			}
-			if (FIGHTER1.attack == EMOTE_PP51 && FIGHTER1.specialCharges <= 0 && getRandomPercent() <= 80) {
+			if (FIGHTER1.attack == EMOTE_PP52 && FIGHTER1.specialCharges <= 0 && getRandomPercent() <= 80) {
 				caught1 = true
 			}
-			if (FIGHTER2.attack == EMOTE_PP51 && FIGHTER2.specialCharges <= 0 && getRandomPercent() <= 80) {
+			if (FIGHTER2.attack == EMOTE_PP52 && FIGHTER2.specialCharges <= 0 && getRandomPercent() <= 80) {
 				caught2 = true
 			}
 			
