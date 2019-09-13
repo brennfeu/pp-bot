@@ -197,6 +197,7 @@ class Fighter {
 		this.hasBurst = 0;
 		this.chimera = false;
 		this.badLuck = false;
+		this.tearDrinker = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -333,6 +334,9 @@ class Fighter {
 		}
 		if (this.chimera) {
 			txt += " - Furry PP\n"
+		}
+		if (this.tearDrinker > 0) {
+			txt += " - Tear Drinker\n"
 		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			txt += " - Ultimate PP\n";
@@ -793,6 +797,10 @@ class Fighter {
 					FIGHTER1.heal(50);
 					FIGHTER2.heal(50);
 				}
+				if (this.godList.indexOf(GOD_PP16_PRIEST) > -1) { // The Man Who Made a Monster
+					BATTLE_CHANNEL.send(this.user.username + " drinks " + getOpponentOf(this).user.username + "salty tears !");
+					this.tearDrinker += 3;
+				}
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
@@ -854,6 +862,9 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP15_PRIEST) > -1) { // STFU Isaac
 					BATTLE_CHANNEL.send(this.user.username + " curses " + getOpponentOf(this).user.username + " with bad luck !");
 					getOpponentOf(this).badLuck = true;
+				}
+				if (this.godList.indexOf(GOD_PP16_PRIEST) > -1) { // The Man Who Made a Monster
+					this.playMove(EMOTE_PP10);
 				}
 			}
 			else if (attack == "IS_DEAD_LOL") {
@@ -1008,7 +1019,12 @@ class Fighter {
 		// Pig
 		if (this.isPigged) {
 			BATTLE_CHANNEL.send(this.user.username + " squeezes hog !");
-			this.STRValue += this.pigHeal;
+			this.heal(this.pigHeal);
+		}
+		// The Man Wh Made a Monster reular move
+		if (this.tearDrinker > 0) {
+			BATTLE_CHANNEL.send(this.user.username + " drinks salty tears !");
+			this.heal(this.tearDrinker);
 		}
 		if (this.turnSkip > 0) {
 			this.attack = EMOTE_PP50
