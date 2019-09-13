@@ -218,7 +218,7 @@ class Fighter {
 			str -= 10;
 		}
 		if (this.hasBoner) {
-			str += 30
+			str += 20
 		}
 		
 		if (EVENT_BOSS && str <= 0) {
@@ -252,7 +252,7 @@ class Fighter {
 			dex -= 45;
 		}
 		if (this.hasBoner) {
-			dex -= 20;
+			dex -= 10;
 		}
 		return dex;
 	}
@@ -828,7 +828,7 @@ class Fighter {
 					BATTLE_CHANNEL.send(this.user.username + " sensually touches " + getOpponentOf(this).user.username + "'s PP...");
 					this.hasBoner = true;
 					getOpponentOf(this).hasBoner = true;
-					getOpponentOf(this).damage(this.STR*3);
+					getOpponentOf(this).damage(this.STR*2);
 				}
 			}
 			else if (attack == "IS_DEAD_LOL") {
