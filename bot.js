@@ -195,6 +195,7 @@ class Fighter {
 		this.attackedThisTurn = false;
 		this.isMuslim = false;
 		this.hasBurst = 0;
+		this.chimera = false;
 		
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -806,22 +807,28 @@ class Fighter {
 					}
 				}
 				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1) { // 700IQ
-					BATTLE_CHANNEL.send(this.user.username + " shares his furry genes with " + getOpponentOf(this).user.username + " UwU");
-					for (var i in getOpponentOf(this).godList) {
-						if (getOpponentOf(this).godList[i] != GOD_PP13_PRIEST) {
-							getOpponentOf(this).godList[i] = GOD_PP13_PRIEST;
-							break;
+					if (!this.chimera) {
+						BATTLE_CHANNEL.send(this.user.username + " shares his furry genes with " + getOpponentOf(this).user.username + " UwU");
+						getOpponentOf(this).chimera = true;
+						for (var i in getOpponentOf(this).godList) {
+							if (getOpponentOf(this).godList[i] != GOD_PP13_PRIEST) {
+								getOpponentOf(this).godList[i] = GOD_PP13_PRIEST;
+								break;
+							}
+						}
+						var fullChimera = true;
+						for (var i in getOpponentOf(this).godList) {
+							if (getOpponentOf(this).godList[i] != GOD_PP13_PRIEST) {
+								fullChimera = false
+							}
+						}
+						if (fullChimera) {
+							BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " is now fully a furry !");
+							getOpponentOf(this).playMove(EMOTE_PP47);
 						}
 					}
-					var fullChimera = true;
-					for (var i in getOpponentOf(this).godList) {
-						if (getOpponentOf(this).godList[i] != GOD_PP13_PRIEST) {
-							fullChimera = false
-						}
-					}
-					if (fullChimera) {
-						BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " is now a chimera !") 
-						getOpponentOf(this).playMove(EMOTE_PP47);
+					else {
+						BATTLE_CHANNEL.send(this.user.username + " barks like the retarded furry he is !");
 					}
 				}
 				if (this.godList.indexOf(GOD_PP14_PRIEST) > -1) { // UREGonnaGETRaped
