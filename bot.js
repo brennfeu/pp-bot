@@ -179,8 +179,8 @@ class Fighter {
 				this.godList.push(PRIEST_ROLES[i])
 			}
 		}
-		this.regularCharges = 100;
-		this.specialCharges = 100;
+		this.regularCharges = 3;
+		this.specialCharges = 1;
 		
 		// Natural values
 		this.STRValue = 70;
@@ -1714,10 +1714,10 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			var caught1 = illegalGetCaught(getRisk(FIGHTER1.attack));
 			var caught2 = illegalGetCaught(getRisk(FIGHTER2.attack));
 			
-			if (LIST_AVAILABLE_ATTACKS.indexOf(FIGHTER1.attack) < 0) {
+			if (LIST_AVAILABLE_ATTACKS.indexOf(FIGHTER1.attack) < 0 && FIGHTER1.attack != EMOTE_PP50) {
 				caught1 = caught1 || (illegalGetCaught(50) && !EVENT_PP_ENLIGHTENMENT);
 			}
-			if (LIST_AVAILABLE_ATTACKS.indexOf(FIGHTER2.attack) < 0) {
+			if (LIST_AVAILABLE_ATTACKS.indexOf(FIGHTER2.attack) < 0 && FIGHTER2.attack != EMOTE_PP50) {
 				caught2 = caught2 || (illegalGetCaught(50) && !EVENT_PP_ENLIGHTENMENT);
 			}
 			
