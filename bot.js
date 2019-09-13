@@ -218,7 +218,7 @@ class Fighter {
 			str -= 10;
 		}
 		if (this.hasBoner) {
-			str += 20
+			str += 50
 		}
 		
 		if (EVENT_BOSS && str <= 0) {
@@ -252,7 +252,7 @@ class Fighter {
 			dex -= 45;
 		}
 		if (this.hasBoner) {
-			dex -= 10;
+			dex -= 20;
 		}
 		return dex;
 	}
@@ -776,7 +776,7 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP14_PRIEST) > -1) { // UREGonnaGETRaped
 					BATTLE_CHANNEL.send(this.user.username + " gives a boner punch to " + getOpponentOf(this).user.username + " !");
 					this.hasBoner = true;
-					getOpponentOf(this).damage(this.STR - this.DEX);
+					getOpponentOf(this).damage((this.STR - this.DEX)/10);
 				}
 			}
 			else if (attack == EMOTE_PP52) {
@@ -828,7 +828,7 @@ class Fighter {
 					BATTLE_CHANNEL.send(this.user.username + " sensually touches " + getOpponentOf(this).user.username + "'s PP...");
 					this.hasBoner = true;
 					getOpponentOf(this).hasBoner = true;
-					getOpponentOf(this).damage(this.STR*2);
+					getOpponentOf(this).damage(this.STR/5);
 				}
 			}
 			else if (attack == "IS_DEAD_LOL") {
