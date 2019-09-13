@@ -138,6 +138,8 @@ var EVENT_BOSS = false;
 var BOSS_HEALTH = 10000;
 var EVENT_BLOOD_MOON = false;
 
+var FORCE_PERHAPS = false
+
 
 // CLASSES
 class Fighter {	
@@ -177,8 +179,8 @@ class Fighter {
 				this.godList.push(PRIEST_ROLES[i])
 			}
 		}
-		this.regularCharges = 0;
-		this.specialCharges = 0;
+		this.regularCharges = 100;
+		this.specialCharges = 100;
 		
 		// Natural values
 		this.STRValue = 70;
@@ -252,17 +254,20 @@ class Fighter {
 	// fighter.toString
 	toString() {
 		if (this.STR <= 0 && EVENT_BOSS) {
-			return this.user.username + "\n -> Is dead";
+			return this.user.username + "\n -> Dead :(";
 		}
 		
-		var txt = this.user.username;
-		txt += "\nSTR : " + this.STR + "  //  DEX : " + this.DEX;
+		var txt = "**" + this.user.username;
+		txt += "\nSTR :** " + this.STR + "  //  **DEX :** " + this.DEX;
 		
+		txt += "\n\n**Faith :**"
 		for (var i in this.godList) {
-			txt += "\n" + this.godList[i];
+			txt += "\n - " + this.godList[i];
 		}
+		txt += "\nRegular Charges : " + this.regularCharges;
+		txt += "\nSpecial Charges : " + this.specialCharges;
 		
-		txt += "\n\nFighting Styles :\n";
+		txt += "\n\n**Fighting Styles :**\n";
 		if (this.isBigPP) {
 			txt += " - Big PP\n";
 		}
@@ -280,7 +285,7 @@ class Fighter {
 		}
 		
 		// Status
-		txt += "\nStatus :\n"
+		txt += "\n**Status :**\n"
 		if (this.isOverCircumcised) {
 			txt += " - Overcircumcised\n";
 		}
@@ -736,15 +741,17 @@ class Fighter {
 			else if (attack == EMOTE_PP51) {
 				// Priest Regular Move
 				BATTLE_CHANNEL.send(this.user.username + " calls for his Gods to help him !");
-				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1) {
-					// TODO
+				if (this.godList.indexOf(GOD_PP2_PRIEST) > -1) { // Dr Phil
+					BATTLE_CHANNEL.send("Dr Phil makes you all wonder about life...")
+					FORCE_PERHAPS = true;
 				}
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
 				BATTLE_CHANNEL.send(this.user.username + " calls for his Gods to help him !");
-				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1) {
-					// TODO
+				if (this.godList.indexOf(GOD_PP2_PRIEST) > -1) { // Dr Phil
+					BATTLE_CHANNEL.send("Dr Phil sends " + getOpponontOf(this).user.username + "'s will to fight to the ranch for 1 turn...")
+					getOpponontOf(this).turnSkip = 2;
 				}
 			}
 			else if (attack == "IS_DEAD_LOL") {
@@ -848,7 +855,7 @@ class Fighter {
 	
 	turnChange() {
 		// Clear attaque
-		this.attack = "";
+		this.attack = "";		
 		if (!this.attackedThisTurn) {
 			this.missedMoves += 1;
 		}
@@ -886,6 +893,7 @@ class Fighter {
 		this.acidArmor -= 1;
 		this.hasBoomerang -= 1;
 		this.isBoomerangUsed = false;
+		this.turnSkip -= 1;
 		
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
@@ -897,6 +905,9 @@ class Fighter {
 		if (this.isPigged) {
 			BATTLE_CHANNEL.send(this.user.username + " squeezes hog !");
 			this.STRValue += this.pigHeal;
+		}
+		if (this.turnSkip > 0) {
+			this.attack = EMOTE_PP50
 		}
 		
 		// PP Armageddon
@@ -924,6 +935,7 @@ class Fighter {
 		this.doomReverse = 0;
 		this.acidArmor = 0;
 		this.isBoomerangUsed = false;
+		this.turnSkip = 0;
 		// TODO keep up to date
 	}
 }
@@ -1040,6 +1052,8 @@ function startDuel(_message) {
 	EVENT_CONFUSION = false;
 	EVENT_BOSS = false;
 	EVENT_BLOOD_MOON = false;
+	
+	FORCE_PERHAPS = false;
 	
 	console.log("F1 " + _message.author.id);
 	console.log("F2 " + _message.mentions.users.array()[0]);
@@ -1219,6 +1233,10 @@ function setRandomAttackList() {
 	if (EVENT_CONFUSION) {
 		return LIST_AVAILABLE_ATTACKS = [EMOTE_PP39];
 	}
+	if (FORCE_PERHAPS) {
+		LIST_AVAILABLE_ATTACKS = [EMOTE_PP50];
+		return FORCE_PERHAPS = false
+	}
 	
 	// Attaque 1
 	if (getRandomPercent() > 20) {
@@ -1281,10 +1299,10 @@ function setRandomAttackList() {
 		listeAttaques.push(EMOTE_PP5);
 	}
 	
-	if (getRandomPercent() > 80) {
+	if (FIGHTER1.regularCharges > 0 || FIGHTER2.regularCharges > 0) {
 		listeAttaques.push(EMOTE_PP51);
 	}
-	else {
+	if (FIGHTER1.specialCharges > 0 || FIGHTER2.specialCharges > 0) {
 		listeAttaques.push(EMOTE_PP52);
 	}
 	    
@@ -1333,7 +1351,7 @@ function startRandomEvent() {
 	var randomVar = getRandomPercent();
 	
 	if (FORCE_EVENT) {
-		while (!(randomVar <= 8 && randomVar >= 2)) {
+		while (!(randomVar <= 14 && randomVar >= 2)) {
 			randomVar = getRandomPercent();
 		}
 	}
@@ -1404,6 +1422,20 @@ function startRandomEvent() {
 		BATTLE_CHANNEL.send(winner.user.username + " accidentaly plays Ascend on his phone !");
 		FIGHTER1.playMove(EMOTE_PP49);
 		FIGHTER2.playMove(EMOTE_PP49);
+	}
+	else if (randomVar in [9, 10, 11, 12, 13]) {
+		// Charge
+		BATTLE_CHANNEL.send(" -- GODS BIRTHDAY GIFTS --");
+		BATTLE_CHANNEL.send("Gods decide to give you a regular charge each");
+		FIGHTER1.regularCharges++;
+		FIGHTER2.regularCharges++;
+	}
+	else if (randomVar == 14) {
+		// Charge
+		BATTLE_CHANNEL.send(" -- GODS CHRISTMAS GIFTS --");
+		BATTLE_CHANNEL.send("Gods decide to give you a special charge each");
+		FIGHTER1.specialCharges++;
+		FIGHTER2.specialCharges++;
 	}
 	else {
 		BATTLE_CHANNEL.send("No event this turn...");
