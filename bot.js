@@ -171,6 +171,13 @@ class Fighter {
 			this.isAlienPP = true;
 		}
 		
+		this.godList = [];
+		for (var i in PRIEST_ROLES) {
+			if (this.guildUser.roles.find("name", PRIEST_ROLES[i])) {
+				this.godList.push(PRIEST_ROLES[i])
+			}
+		}
+		
 		// Natural values
 		this.STRValue = 70;
 		this.DEXValue = 20;
@@ -248,6 +255,10 @@ class Fighter {
 		
 		var txt = this.user.username;
 		txt += "\nSTR : " + this.STR + "  //  DEX : " + this.DEX;
+		
+		for (var i in this.godList) {
+			txt += "\n" + this.godList[i];
+		}
 		
 		txt += "\n\nFighting Styles :\n";
 		if (this.isBigPP) {
@@ -718,6 +729,20 @@ class Fighter {
 				}
 				else {
 					BATTLE_CHANNEL.send("Wait he forgot about the battle");
+				}
+			}
+			else if (attack == EMOTE_PP51) {
+				// Priest Regular Move
+				BATTLE_CHANNEL.send(this.user.username + " calls for his Gods to help him !");
+				if (this.listGod.indexOf(GOD_PP1_PRIEST) > -1) {
+					// TODO
+				}
+			}
+			else if (attack == EMOTE_PP52) {
+				// Priest Special Move
+				BATTLE_CHANNEL.send(this.user.username + " calls for his Gods to help him !");
+				if (this.listGod.indexOf(GOD_PP1_PRIEST) > -1) {
+					// TODO
 				}
 			}
 			else if (attack == "IS_DEAD_LOL") {
@@ -1254,6 +1279,13 @@ function setRandomAttackList() {
 		listeAttaques.push(EMOTE_PP5);
 	}
 	
+	if (getRandomPercent() > 80) {
+		listeAttaques.push(EMOTE_PP51);
+	}
+	else {
+		listeAttaques.push(EMOTE_PP52);
+	}
+	    
 	LIST_AVAILABLE_ATTACKS = listeAttaques;
 	LIST_AVAILABLE_ATTACKS.push("IS_DEAD_LOL");
 }
