@@ -753,6 +753,10 @@ class Fighter {
 					BATTLE_CHANNEL.send(this.user.username + " plays a guitar solo that makes people's PP bleed !");
 					getOpponentOf(this).bleedDamage += 5;
 				}
+				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1) { // 700IQ
+					BATTLE_CHANNEL.send(this.user.username + " makes a scientific discovery !");
+					this.playMove(getRandomEmote());
+				}
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
@@ -777,6 +781,25 @@ class Fighter {
 							this[listeStats[i]] = getOpponentOf(this)[listeStats[i]];
 							getOpponentOf(this)[listeStats[i]] = a;
 						}
+					}
+				}
+				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1) { // 700IQ
+					BATTLE_CHANNEL.send(this.user.username + " shares his furry genes with " + getOpponentOf(this).user.username + " !");
+					for (var i in getOpponentOf(this).godList) {
+						if (getOpponentOf(this).godList[i] != GOD_PP13) {
+							getOpponentOf(this).godList[i] = GOD_PP13;
+							break;
+						}
+					}
+					var fullChimera = true;
+					for (var i in getOpponentOf(this).godList) {
+						if (getOpponentOf(this).godList[i] != GOD_PP13) {
+							fullChimera = false
+						}
+					}
+					if (fullChimera) {
+						BATTLE_CHANNEL.send(etOpponentOf(this) + " is now a chimera !") 
+						getOpponentOf(this).playMove(EMOTE_PP47);
 					}
 				}
 			}
