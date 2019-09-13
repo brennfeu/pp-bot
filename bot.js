@@ -179,6 +179,12 @@ class Fighter {
 				this.godList.push(PRIEST_ROLES[i])
 			}
 		}
+		while (this.godList.length < 3) {
+			var r = PRIEST_ROLES[Math.floor(Math.random()*PRIEST_ROLES.length)];
+			if (this.godList.indexOf(r) <= -1) {
+				this.godList.push();
+			}
+		}
 		this.regularCharges = 3;
 		this.specialCharges = 1;
 
@@ -798,7 +804,7 @@ class Fighter {
 					FIGHTER2.heal(50);
 				}
 				if (this.godList.indexOf(GOD_PP16_PRIEST) > -1) { // The Man Who Made a Monster
-					BATTLE_CHANNEL.send(this.user.username + " drinks " + getOpponentOf(this).user.username + "salty tears !");
+					BATTLE_CHANNEL.send(this.user.username + " drinks " + getOpponentOf(this).user.username + "'s salty tears !");
 					this.tearDrinker += 3;
 				}
 			}
