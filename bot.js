@@ -762,8 +762,8 @@ class Fighter {
 				// Priest Special Move
 				BATTLE_CHANNEL.send(this.user.username + " calls for his Gods to help him !");
 				if (this.godList.indexOf(GOD_PP2_PRIEST) > -1) { // Dr Phil
-					BATTLE_CHANNEL.send("Dr Phil sends " + getOpponontOf(this).user.username + "'s will to fight to the ranch for 1 turn...");
-					getOpponontOf(this).turnSkip = 2;
+					BATTLE_CHANNEL.send("Dr Phil sends " + getOpponentOf(this).user.username + "'s will to fight to the ranch for 1 turn...");
+					getOpponentOf(this).turnSkip = 2;
 				}
 				if (this.godList.indexOf(GOD_PP3_PRIEST) > -1) { // LeprePuds
 					BATTLE_CHANNEL.send(this.user.username + " is faster than ever !");
