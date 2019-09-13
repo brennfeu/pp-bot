@@ -46,8 +46,8 @@ const EMOTE_PP11 = "358018763141939200"; // Steel
 const EMOTE_PP12 = "358018763792318466"; // Skeleton
 const EMOTE_PP13 = "358568671204999188"; // Scout
 const EMOTE_PP14 = "358018763037212673"; // SawBlade
-const EMOTE_PP15 = "358018762701668353"; // Hobro 
-const EMOTE_PP16 = "358018763058053120"; // Satan 
+const EMOTE_PP15 = "358018762701668353"; // Hobro
+const EMOTE_PP16 = "358018763058053120"; // Satan
 const EMOTE_PP17 = "358235326608703488"; // RiotShield
 const EMOTE_PP18 = "358018762999595018"; // RedPill
 const EMOTE_PP19 = "358196010687922176"; // Pig
@@ -142,7 +142,7 @@ var FORCE_PERHAPS = false
 
 
 // CLASSES
-class Fighter {	
+class Fighter {
 	constructor(_idUser) {
 		// set variables
 		this.idUser = _idUser;
@@ -150,7 +150,7 @@ class Fighter {
 		this.user = this.guildUser.user;
 		this.attack = "";
 		this.oldAttack = "";
-		
+
 		// set roles
 		this.isBigPP = false;
 		this.isFastPP = false;
@@ -162,7 +162,7 @@ class Fighter {
 		}
 		if (this.guildUser.roles.find("name", FAST_PP_ROLE)) {
 			this.isFastPP = true;
-		} 
+		}
 		if (this.guildUser.roles.find("name", DRUNK_PP_ROLE)) {
 			this.isDrunkPP = true;
 		}
@@ -172,7 +172,7 @@ class Fighter {
 		if (this.guildUser.roles.find("name", ALIEN_PP_ROLE)) {
 			this.isAlienPP = true;
 		}
-		
+
 		this.godList = [];
 		for (var i in PRIEST_ROLES) {
 			if (this.guildUser.roles.find("name", PRIEST_ROLES[i])) {
@@ -181,11 +181,11 @@ class Fighter {
 		}
 		this.regularCharges = 3;
 		this.specialCharges = 1;
-		
+
 		// Natural values
 		this.STRValue = 70;
 		this.DEXValue = 20;
-		
+
 		// Battle variables
 		this.resetBattleVariables();
 		this.isCircumcised = false;
@@ -196,13 +196,14 @@ class Fighter {
 		this.isMuslim = false;
 		this.hasBurst = 0;
 		this.chimera = false;
-		
+		this.badLuck = false;
+
 		// Check Bad Values
 		if (this.STR <= 0) {
-			this.STRValue += (0 - this.STR) + 1 
+			this.STRValue += (0 - this.STR) + 1
 		}
 	}
-	
+
 	// fighter.STR
 	get STR() {
 		var str = this.STRValue;
@@ -221,13 +222,13 @@ class Fighter {
 		if (this.hasBoner) {
 			str += 50
 		}
-		
+
 		if (EVENT_BOSS && str <= 0) {
 			return 0;
-		} 
+		}
 		return str;
 	}
-	
+
 	// fighter.DEX
 	get DEX() {
 		var dex = this.DEXValue;
@@ -239,7 +240,7 @@ class Fighter {
 		if (this.hasExamined == 1) {
 			dex += 30;
 		}
-		
+
 		if (this.isBigPP) {
 			dex -= 5;
 		}
@@ -257,23 +258,23 @@ class Fighter {
 		}
 		return dex;
 	}
-	
+
 	// fighter.toString
 	toString() {
 		if (this.STR <= 0 && EVENT_BOSS) {
 			return this.user.username + "\n -> Dead :(";
 		}
-		
+
 		var txt = "**" + this.user.username;
 		txt += "\nSTR :** " + this.STR + "  //  **DEX :** " + this.DEX;
-		
+
 		txt += "\n\n**Faith :**"
 		for (var i in this.godList) {
 			txt += "\n - " + this.godList[i];
 		}
 		txt += "\nRegular Charges : " + this.regularCharges;
 		txt += "\nSpecial Charges : " + this.specialCharges;
-		
+
 		txt += "\n\n**Fighting Styles :**\n";
 		if (this.isBigPP) {
 			txt += " - Big PP\n";
@@ -290,14 +291,14 @@ class Fighter {
 		if (this.isAlienPP) {
 			txt += " - Alien PP\n";
 		}
-		
+
 		// Status
 		txt += "\n**Status :**\n"
 		if (this.isOverCircumcised) {
 			txt += " - Overcircumcised\n";
 		}
 		else if (this.isCircumcised) {
-			
+
 			txt += " - Circumcised\n";
 		}
 		if (this.bleedDamage > 0) {
@@ -324,6 +325,9 @@ class Fighter {
 		if (this.isLucky > 0) {
 			txt += " - Lucky\n"
 		}
+		if (this.badLuck) {
+			txt += " - Unlucky\n"
+		}
 		if (this.hasBoner) {
 			txt += " - Big Boner Mmmmmmh...\n"
 		}
@@ -333,27 +337,27 @@ class Fighter {
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			txt += " - Ultimate PP\n";
 		}
-		
+
 		return txt;
 	}
-	
+
 	playMove(_newMove = this.attack) {
 		this.attackedThisTurn = true;
 		MOVE_COUNT += 1;
 		INFINITE_DAMAGE = 0;
 		var attack = _newMove;
-		
+
 		if (false) { // maybe someday
 			var numberAttacks = 3;
 		}
 		else {
 			var numberAttacks = 1;
 		}
-		
-		if (EVENT_BOSS && this.STR <= 0) { 
+
+		if (EVENT_BOSS && this.STR <= 0) {
 			this.attack = "IS_DEAD_LOL"
 		}
-		
+
 		for (var sdsds = 0; sdsds < numberAttacks; sdsds++) {
 			if (attack == EMOTE_PP1) {
 				// Punching PP
@@ -375,11 +379,11 @@ class Fighter {
 				BATTLE_CHANNEL.send(this.user.username + " flexes !");
 				var bonus = Math.floor(Math.random() * 30 + 1)
 				this.heal(bonus);
-				BATTLE_CHANNEL.send(this.user.username + " get " + bonus + " STR !");		
+				BATTLE_CHANNEL.send(this.user.username + " get " + bonus + " STR !");
 			}
 			else if (attack == EMOTE_PP5) {
 				// High Five
-				BATTLE_CHANNEL.send(this.user.username + " is feeling lonely... :(");			
+				BATTLE_CHANNEL.send(this.user.username + " is feeling lonely... :(");
 			}
 			else if (attack == EMOTE_PP6) {
 				// Kick
@@ -693,7 +697,7 @@ class Fighter {
 				for (i = 0; i < chaosNumber; i++) {
 					BATTLE_CHANNEL.send("-----------------");
 					winner.playMove(getRandomEmote());
-				} 
+				}
 			}
 			else if (attack == EMOTE_PP47) {
 				// Pudding
@@ -768,6 +772,7 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP3_PRIEST) > -1) { // LeprePuds
 					BATTLE_CHANNEL.send(this.user.username + " feels lucky !");
 					this.isLucky = 2;
+					this.badLuck = false;
 				}
 				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) { // Brenn
 					BATTLE_CHANNEL.send(this.user.username + " plays a guitar solo that makes people's PP bleed !");
@@ -781,6 +786,12 @@ class Fighter {
 					BATTLE_CHANNEL.send(this.user.username + " gives a boner punch to " + getOpponentOf(this).user.username + " !");
 					this.hasBoner = true;
 					getOpponentOf(this).damage(Math.floor((this.STR - this.DEX)/10));
+				}
+				if (this.godList.indexOf(GOD_PP15_PRIEST) > -1) { // STFU Isaac
+					BATTLE_CHANNEL.send(this.user.username + " starts to cry !");
+					BATTLE_CHANNEL.send(BATTLE_CHANNEL.guild.members.random().user.username + " helps the fighters !");
+					FIGHTER1.heal(50);
+					FIGHTER2.heal(50);
 				}
 			}
 			else if (attack == EMOTE_PP52) {
@@ -840,6 +851,10 @@ class Fighter {
 					getOpponentOf(this).hasBoner = true;
 					getOpponentOf(this).damage(Math.floor(this.STR/2));
 				}
+				if (this.godList.indexOf(GOD_PP15_PRIEST) > -1) { // STFU Isaac
+					BATTLE_CHANNEL.send(this.user.username + " curses " + getOpponentOf(this).user.username + " with bad luck !");
+					getOpponentOf(this).badLuck = true;
+				}
 			}
 			else if (attack == "IS_DEAD_LOL") {
 				// Dead (Cthulhu battle)
@@ -857,7 +872,7 @@ class Fighter {
 			}
 		}
 	}
-	
+
 	heal(_amount) {
 		if (REVERSE_DAMAGE <= 0) {
 			this.STRValue += _amount;
@@ -866,36 +881,36 @@ class Fighter {
 			this.STRValue -= _amount;
 		}
 	}
-	
+
 	damage(_amount) {
 		_amount += getOpponentOf(this).bonusDamage;
 		getOpponentOf(this).bonusDamage = 0;
-		
-		
+
+
 		if (INFINITE_DAMAGE >= 10) {
 			BATTLE_CHANNEL.send("Damage cap achieved !");
 			return BATTLE_CHANNEL.send(_amount + " damages were canceled");
 		}
 		INFINITE_DAMAGE += 1;
-		
+
 		if (EVENT_BOSS) {
 			BOSS_HEALTH -= _amount;
 			BATTLE_CHANNEL.send("Cthulhu takes " + _amount + " damages !");
 			DAMAGE_COUNT += _amount;
 			return;
 		}
-		
+
 		if (REVERSE_DAMAGE >= 0) {
 			this.STRValue += _amount;
 			return BATTLE_CHANNEL.send(this.user.username + " get heals by " + _amount);;
 		}
-		
+
 		// Acid
 		if (this.acidArmor >= 1) {
 			BATTLE_CHANNEL.send(this.user.username + " has an acid armor !");
 			getOpponentOf(this).damage(10);
 		}
-		
+
 		if (this.isDrunkPP && getRandomPercent() < 50) {
 			// Drunk PP
 			BATTLE_CHANNEL.send(this.user.username + " felt nothing because too drunk !");
@@ -928,7 +943,7 @@ class Fighter {
 			DAMAGE_COUNT += _amount;
 			BATTLE_CHANNEL.send(this.user.username + " takes " + _amount + " damages !");
 		}
-		
+
 		// DoomReverse
 		if (this.STR <= 0 && this.doomReverse >= 1) {
 			BATTLE_CHANNEL.send(this.user.username + " uses DOOM-REVERSE(tm) !");
@@ -940,15 +955,15 @@ class Fighter {
 			getOpponentOf(this).bleedDamage += 1;
 		}
 	}
-	
+
 	turnChange() {
 		// Clear attaque
-		this.attack = "";		
+		this.attack = "";
 		if (!this.attackedThisTurn) {
 			this.missedMoves += 1;
 		}
 		this.attackedThisTurn = false;
-		
+
 		// Overcircumcised = immune to status effects
 		if (this.isOverCircumcised) {
 			this.isBigPP = false;
@@ -957,10 +972,10 @@ class Fighter {
 			this.isHockeyPuckPP = false;
 			this.isAlienPP = false;
 			this.hasExamined = 0;
-			
+
 			this.resetBattleVariables()
 		}
-		
+
 		// Turkey
 		if (this.turkeyCountdown != -1) {
 			this.turkeyCountdown -= 1;
@@ -972,7 +987,7 @@ class Fighter {
 				BATTLE_CHANNEL.send(this.user.username + " has " + this.turkeyCountdown + " turn(s) left !");
 			}
 		}
-		
+
 		// Trap Sign, Examine, SatanPossess etc..
 		this.hasBurst -= 1;
 		this.hasExamined -= 1;
@@ -983,13 +998,13 @@ class Fighter {
 		this.isBoomerangUsed = false;
 		this.turnSkip -= 1;
 		this.isLucky -= 1;
-		
+
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
 			BATTLE_CHANNEL.send(this.user.username + " bleeds !");
 			this.damage(this.bleedDamage);
 		}
-		
+
 		// Pig
 		if (this.isPigged) {
 			BATTLE_CHANNEL.send(this.user.username + " squeezes hog !");
@@ -998,13 +1013,13 @@ class Fighter {
 		if (this.turnSkip > 0) {
 			this.attack = EMOTE_PP50
 		}
-		
+
 		// PP Armageddon
 		if (PP_ARMAGEDDON) {
 			this.STRValue -= 5000;
 		}
 	}
-	
+
 	win() {
 		if (this.isHockeyPuckPP) {
 			addWinCounter(this, 4);
@@ -1013,7 +1028,7 @@ class Fighter {
 			addWinCounter(this, 1);
 		}
 	}
-	
+
 	resetBattleVariables() {
 		this.turkeyCountdown = -1;
 		this.bleedDamage = 0;
@@ -1124,7 +1139,7 @@ function startDuel(_message) {
 	IS_BUSY = true;
 	IS_DUELLING = true;
 	IS_CHANGING_STYLE = false;
-	
+
 	ILLEGAL_BOMBING = false;
 	BLIND_COUNTDOWN = 0;
 	STEEL_PROTECTION = false;
@@ -1143,20 +1158,20 @@ function startDuel(_message) {
 	EVENT_CONFUSION = false;
 	EVENT_BOSS = false;
 	EVENT_BLOOD_MOON = false;
-	
+
 	FORCE_PERHAPS = false;
-	
+
 	console.log("F1 " + _message.author.id);
 	console.log("F2 " + _message.mentions.users.array()[0]);
 	FIGHTER1 = new Fighter(_message.author.id);
 	FIGHTER2 = new Fighter(_message.mentions.users.array()[0].id);
-	
+
 	if (FIGHTER1.user.id == FIGHTER2.user.id) {
 		BATTLE_CHANNEL.send("You can't battle yourself");
 		stopDuel()
 		return;
 	}
-	
+
 	BATTLE_CHANNEL.send("TIME FOR A DUEL");
 }
 function stopDuel() {
@@ -1168,7 +1183,7 @@ function stopDuel() {
 	BATTLE_CHANNEL.send("SOME STATS :");
 	BATTLE_CHANNEL.send(" - Number of moves : " + MOVE_COUNT);
 	BATTLE_CHANNEL.send(" - Number of damages inflicted : " + DAMAGE_COUNT);
-	
+
 	setBotActivity("");
 	IS_DUELLING = false;
 	IS_BUSY = false;
@@ -1176,7 +1191,7 @@ function stopDuel() {
 function newTurnDuel() {
 	FIGHTER1.turnChange();
 	FIGHTER2.turnChange();
-	
+
 	STEEL_PROTECTION = false;
 	BARREL_DAMAGE = false;
 	SAVE_LIST = [];
@@ -1184,7 +1199,7 @@ function newTurnDuel() {
 	INFINITE_DAMAGE = 0;
 	DISABLE_ABANDON = false;
 	REVERSE_DAMAGE -= 1;
-	
+
 	if (BLIND_COUNTDOWN >= 1) {
 		setBotActivity("WTF I'M FUCKING BLIND");
 		BLIND_COUNTDOWN -= 1;
@@ -1192,7 +1207,7 @@ function newTurnDuel() {
 	else {
 		setBotActivity("PP Punch Arena");
 	}
-	
+
 	// Blood Moon Save
 	if (EVENT_BLOOD_MOON) {
 		if (FIGHTER1.STR <= 0) {
@@ -1206,9 +1221,9 @@ function newTurnDuel() {
 			BATTLE_CHANNEL.send(FIGHTER2.user.username + " got saved thanks to the Blood Moon");
 		}
 	}
-	
+
 	startRandomEvent();
-	
+
 	// Blood Moon Save
 	if (EVENT_BLOOD_MOON) {
 		if (FIGHTER1.STR <= 0) {
@@ -1222,7 +1237,7 @@ function newTurnDuel() {
 			BATTLE_CHANNEL.send(FIGHTER2.user.username + " got saved thanks to the Blood Moon");
 		}
 	}
-	
+
 	// Cthulhu
 	if (EVENT_BOSS) {
 		if (BOSS_HEALTH <= 0) {
@@ -1243,7 +1258,7 @@ function newTurnDuel() {
 				FIGHTER2.STRValue -= 50;
 			}
 		}
-		
+
 		// Check if loose
 		if (FIGHTER1.STR <= 0 && FIGHTER2.STR <= 0) {
 			BATTLE_CHANNEL.send("Both of you lost. No one won this time. You losers");
@@ -1271,7 +1286,7 @@ function newTurnDuel() {
 			return;
 		}
 	}
-	
+
 	BATTLE_CHANNEL.send("\n\n===== NEW TURN =====");
 	if (!EVENT_BOSS) {
 		BATTLE_CHANNEL.send(FIGHTER1.toString());
@@ -1284,7 +1299,7 @@ function newTurnDuel() {
 		BATTLE_CHANNEL.send("===== /VS/ =====");
 		BATTLE_CHANNEL.send("Cthulhu\n\nSTR : " + BOSS_HEALTH);
 	}
-	
+
 	// HighFiveEmote - Stop move_list
 	if (STOPPED_MOVE_LIST.length >= 1) {
 		LIST_AVAILABLE_ATTACKS = STOPPED_MOVE_LIST;
@@ -1293,8 +1308,8 @@ function newTurnDuel() {
 	else {
 		setRandomAttackList();
 	}
-	
-	
+
+
 	BATTLE_CHANNEL.send("\n\nAttack with a reaction !").then(function (_message2) {
 		for (var i in LIST_AVAILABLE_ATTACKS) {
 			console.log(LIST_AVAILABLE_ATTACKS[i]);
@@ -1305,7 +1320,7 @@ function newTurnDuel() {
 	}).catch(function(e) {
 		BATTLE_CHANNEL.send(e);
 	});
-	
+
 	// Stop if dead (cthulhu battle)
 	if (FIGHTER1.STR <= 0) {
 		FIGHTER1.attack = "IS_DEAD_LOL";
@@ -1315,7 +1330,7 @@ function newTurnDuel() {
 		FIGHTER2.attack = "IS_DEAD_LOL";
 		FIGHTER2.STRValue = -10;
 	}
-	
+
 	if (FIGHTER1.turnSkip > 0 && FIGHTER2.turnSkip > 0) {
 		newTurnDuel();
 	}
@@ -1332,7 +1347,7 @@ function setRandomAttackList() {
 		LIST_AVAILABLE_ATTACKS = [EMOTE_PP50];
 		return FORCE_PERHAPS = false
 	}
-	
+
 	// Attaque 1
 	if (getRandomPercent() > 20) {
 		emote = getRandomEmote();
@@ -1393,14 +1408,14 @@ function setRandomAttackList() {
 	else {
 		listeAttaques.push(EMOTE_PP5);
 	}
-	
+
 	if (FIGHTER1.regularCharges > 0 || FIGHTER2.regularCharges > 0) {
 		listeAttaques.push(EMOTE_PP51);
 	}
 	if (FIGHTER1.specialCharges > 0 || FIGHTER2.specialCharges > 0) {
 		listeAttaques.push(EMOTE_PP52);
 	}
-	    
+
 	LIST_AVAILABLE_ATTACKS = listeAttaques;
 	LIST_AVAILABLE_ATTACKS.push("IS_DEAD_LOL");
 }
@@ -1424,14 +1439,14 @@ function getRandomEmote(_canBeIllegal = true) {
 	else {
 		goodList = legalList;
 	}
-	
+
 	if (ILLEGAL_BOMBING) {
 		goodList.push(EMOTE_PP36);
 	}
 	if (!DISABLE_ABANDON) {
 		goodList.push(EMOTE_PP47);
 	}
-	
+
 	return goodList[Math.floor(Math.random()*goodList.length)];
 }
 
@@ -1441,16 +1456,16 @@ function startRandomEvent() {
 	EVENT_PP_PURGE = false;
 	EVENT_CONFUSION = false;
 	EVENT_BLOOD_MOON = false;
-	
+
 	BATTLE_CHANNEL.send("===== EVENTS =====");
 	var randomVar = getRandomPercent();
-	
+
 	if (FORCE_EVENT) {
 		while (!(randomVar <= 14 && randomVar >= 2)) {
 			randomVar = getRandomPercent();
 		}
 	}
-	
+
 	// PP ARMAGEDDON
 	if (!PP_ARMAGEDDON && MOVE_COUNT >= 100) {
 		PP_ARMAGEDDON = true;
@@ -1546,7 +1561,7 @@ function addWinCounter(_fighter, _number) {
 function changeRoleToStyler(_nomRole) {
 	var role = GUILD.roles.find(r => r.name == _nomRole);
 	var user = GUILD.members.get(STYLER);
-	
+
 	try {
 		if (user.roles.has(role.id)) {
 			user.removeRole(role).catch(console.error);
@@ -1565,7 +1580,6 @@ function changeRoleToStyler(_nomRole) {
 		BATTLE_CHANNEL.send("Looks like there is no " + _nomRole + " role here...");
 	}
 }
-
 function getNumberOfGods(_guildUser) {
 	var counter = 0;
 	for (var i in PRIEST_ROLES) {
@@ -1579,7 +1593,7 @@ function getNumberOfGods(_guildUser) {
 
 CLIENT.on('ready', () => {
 	console.log(`Logged in as ${CLIENT.user.tag}!`);
-	
+
 	// annonce BETA_TEST
 	if (BETA_TEST || PRIVATE_TEST) {
 		setBotActivity("Unavailable for now... :/");
@@ -1591,7 +1605,7 @@ CLIENT.on('ready', () => {
 
 
 // This event will run on every single message received, from any channel or DM.
-CLIENT.on("message", async _message => {  
+CLIENT.on("message", async _message => {
 	// Ignore si bot
 	if(_message.author.bot) return;
 	// Ignore si pas appelé
@@ -1601,13 +1615,13 @@ CLIENT.on("message", async _message => {
 	if (PRIVATE_TEST && _message.author.username != "brennfeu") return _message.reply("I am currently unavailable, sorry :/");
 	// Ignore si deja occupé
 	if (IS_BUSY) return _message.reply("I'm busy right now, try again when I'll be available. You can check that on my activity.");
-	
+
 	BATTLE_CHANNEL = _message.channel;
 	GUILD = _message.guild;
-	
+
 	// Recuperation commande
 	var argsUser = _message.content.trim().split(" ");
-	
+
 	if (argsUser[1] == "rank") {
 		if (_message.mentions.users.array().length > 1) {
 			// RANK @SOMEONE
@@ -1624,11 +1638,11 @@ CLIENT.on("message", async _message => {
 		if (_message.mentions.users.array().length <= 1) {
 			return _message.reply("you need to tag the person you want to duel in the command !\nSee the help command for more help !");
 		}
-		
+
 		// DUEL
 		startDuel(_message);
 		newTurnDuel();
-		
+
 		return;
 	}
 	if (argsUser[1] == "custom") {
@@ -1664,20 +1678,20 @@ CLIENT.on("message", async _message => {
 		}).catch(function(e) {
 			BATTLE_CHANNEL.send(e);
 		});
-	
+
 	}
 	if (argsUser[1] == "help") {
 		// HELP
 		return _message.reply("you should read the PP Bible here : https://github.com/brennfeu/pp-bot/wiki/PP-Bible");
 	}
-	
+
 	return _message.reply("I don't know this command, try using the help command !");
 });
 
 CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	// Ignore si bot
 	if (_user.bot) return;
-	
+
 	// Save Me Move
 	if (IS_DUELLING && _reaction.emoji.id == EMOTE_PP31 && SAVE_LIST.indexOf(_user.id) < 0) {
 		SAVE_LIST.push(_user.id);
@@ -1685,17 +1699,17 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		FIGHTER1.heal(50);
 		FIGHTER2.heal(50);
 	}
-	
-	
+
+
 	// DUEL
 	if (IS_DUELLING) {
 		// Assigne attaque
 		if (_user.id == FIGHTER1.user.id && FIGHTER1.turnSkip <= 0) {
 			FIGHTER1.attack = _reaction.emoji.id;
 			BATTLE_CHANNEL.send(FIGHTER1.user.username + " : " + _reaction.emoji.name);
-			
+
 			// Possession
-			if (FIGHTER2.isPossessed == 1) {	
+			if (FIGHTER2.isPossessed == 1) {
 				FIGHTER2.attack = _reaction.emoji.id;
 				BATTLE_CHANNEL.send(FIGHTER2.user.username + " : " + _reaction.emoji.name);
 			}
@@ -1703,14 +1717,14 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		else if (_user.id == FIGHTER2.user.id && FIGHTER2.turnSkip <= 0) {
 			FIGHTER2.attack = _reaction.emoji.id;
 			BATTLE_CHANNEL.send(FIGHTER2.user.username + " : " + _reaction.emoji.name);
-			
+
 			// Possession
-			if (FIGHTER1.isPossessed == 1) {	
+			if (FIGHTER1.isPossessed == 1) {
 				FIGHTER1.attack = _reaction.emoji.id;
 				BATTLE_CHANNEL.send(FIGHTER1.user.username + " : " + _reaction.emoji.name);
 			}
 		}
-		
+
 		// Deux attaques sont faites
 		if (FIGHTER1.attack != "" && FIGHTER2.attack != "") {
 			if (FIGHTER1.turnSkip > 0) {
@@ -1720,38 +1734,38 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				FIGHTER2.attack = EMOTE_PP50
 			}
 			console.log(FIGHTER1.attack + " / " + FIGHTER2.attack);
-			
+
 			// test illegal
-			var caught1 = illegalGetCaught(getRisk(FIGHTER1.attack));
-			var caught2 = illegalGetCaught(getRisk(FIGHTER2.attack));
-			
+			var caught1 = illegalGetCaught(getRisk(FIGHTER1.attack)) || (FIGHTER1.badLuck && getRisk(FIGHTER1.attack) > 0);
+			var caught2 = illegalGetCaught(getRisk(FIGHTER2.attack)) || (FIGHTER2.badLuck && getRisk(FIGHTER2.attack) > 0);
+
 			if (LIST_AVAILABLE_ATTACKS.indexOf(FIGHTER1.attack) < 0 && FIGHTER1.attack != EMOTE_PP50) {
-				caught1 = caught1 || (illegalGetCaught(50) && !EVENT_PP_ENLIGHTENMENT);
+				caught1 = caught1 || (illegalGetCaught(50) && !EVENT_PP_ENLIGHTENMENT) && !FIGHTER1.badLuck;
 			}
 			if (LIST_AVAILABLE_ATTACKS.indexOf(FIGHTER2.attack) < 0 && FIGHTER2.attack != EMOTE_PP50) {
-				caught2 = caught2 || (illegalGetCaught(50) && !EVENT_PP_ENLIGHTENMENT);
+				caught2 = caught2 || (illegalGetCaught(50) && !EVENT_PP_ENLIGHTENMENT) && !FIGHTER1.badLuck;
 			}
-			
-			if (FIGHTER1.attack == EMOTE_PP51 && FIGHTER1.regularCharges <= 0 && getRandomPercent() <= 50) {
+
+			if (FIGHTER1.attack == EMOTE_PP51 && FIGHTER1.regularCharges <= 0 && illegalGetCaught(50)) {
 				caught1 = true
 			}
-			if (FIGHTER2.attack == EMOTE_PP51 && FIGHTER2.regularCharges <= 0 && getRandomPercent() <= 50) {
+			if (FIGHTER2.attack == EMOTE_PP51 && FIGHTER2.regularCharges <= 0 && illegalGetCaught(50)) {
 				caught2 = true
 			}
-			if (FIGHTER1.attack == EMOTE_PP52 && FIGHTER1.specialCharges <= 0 && getRandomPercent() <= 80) {
+			if (FIGHTER1.attack == EMOTE_PP52 && FIGHTER1.specialCharges <= 0 && illegalGetCaught(80)) {
 				caught1 = true
 			}
-			if (FIGHTER2.attack == EMOTE_PP52 && FIGHTER2.specialCharges <= 0 && getRandomPercent() <= 80) {
+			if (FIGHTER2.attack == EMOTE_PP52 && FIGHTER2.specialCharges <= 0 && illegalGetCaught(80)) {
 				caught2 = true
 			}
-			
+
 			if (FIGHTER1.isLucky && getRandomPercent() <= 50) {
 				caught1 = false
 			}
 			if (FIGHTER2.isLucky && getRandomPercent() <= 50) {
 				caught2 = false
 			}
-			
+
 			var winner;
 			BATTLE_CHANNEL.send("\n\n===== ATTACKS =====");
 			if (caught1 && caught2) {
@@ -1759,10 +1773,10 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				BATTLE_CHANNEL.send("You both loose the fight !");
 				BATTLE_CHANNEL.send("You cheaters do not deserve to live !");
 				BATTLE_CHANNEL.send("You fucking suckers");
-				
+
 				addWinCounter(FIGHTER1, -1);
 				addWinCounter(FIGHTER2, -1);
-				
+
 				stopDuel();
 				return;
 			}
@@ -1772,19 +1786,19 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			else if (caught2) {
 				winner = FIGHTER1;
 			}
-			
+
 			if (caught1 || caught2) {
 				BATTLE_CHANNEL.send("WAIT " + getOpponentOf(winner).user.username.toUpperCase() + " IS DOING ILLEGAL STUFF RIGHT NOW !");
 				BATTLE_CHANNEL.send(getOpponentOf(winner).user.username + " is disqualified for being a dumb shit.");
 				BATTLE_CHANNEL.send(winner.user.username + " wins !");
-				
+
 				winner.win();
 				addWinCounter(getOpponentOf(winner), -1);
-				
+
 				stopDuel();
 				return;
 			}
-			
+
 			// Change attack if dead (cthulhu battle)
 			if (FIGHTER1.STR <= 0) {
 				FIGHTER1.attack = "IS_DEAD_LOL";
@@ -1792,12 +1806,12 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			if (FIGHTER2.STR <= 0) {
 				FIGHTER2.attack = "IS_DEAD_LOL";
 			}
-			
+
 			// ATTAQUES
 			var dexAttack1 = FIGHTER1.DEX + getDexChange(FIGHTER1.attack) + Math.floor(Math.random() * 50 + 1);
 			var dexAttack2 = FIGHTER2.DEX + getDexChange(FIGHTER2.attack) + Math.floor(Math.random() * 50 + 1);
 			BATTLE_CHANNEL.send(FIGHTER1.user.username + " : " + dexAttack1 + " /VS/ " + FIGHTER2.user.username + " : " + dexAttack2);
-			
+
 			if (FIGHTER1.attack == EMOTE_PP5 && FIGHTER2.attack == EMOTE_PP5) {
 				// HIGH FIVES :D
 				BATTLE_CHANNEL.send("Wow, look at those bros !");
@@ -1809,7 +1823,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				stopDuel();
 				return;
 			}
-			
+
 			// Steel
 			if (FIGHTER1.attack == EMOTE_PP11 || FIGHTER2.attack == EMOTE_PP11) {
 				STEEL_PROTECTION = true;
@@ -1818,7 +1832,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			if (FIGHTER1.attack == EMOTE_PP29 || FIGHTER2.attack == EMOTE_PP29) {
 				BARREL_DAMAGE = true;
 			}
-			
+
 			// ExclamationPoint
 			if (FIGHTER1.attack == EMOTE_PP30) {
 				FIGHTER1.attack = FIGHTER1.oldAttack;
@@ -1832,10 +1846,10 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			else {
 				FIGHTER2.oldAttack = FIGHTER2.attack;
 			}
-			
+
 			if (dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) {
 				BATTLE_CHANNEL.send("Both opponents attack this turn !");
-				
+
 				FIGHTER1.playMove();
 				// Burst
 				if (FIGHTER2.attack == EMOTE_PP8) {
@@ -1843,7 +1857,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 					FIGHTER1.hasBurst = 2;
 				}
 				BATTLE_CHANNEL.send("-----------------");
-				
+
 				FIGHTER2.playMove();
 				// Burst
 				if (FIGHTER1.attack == EMOTE_PP8) {
@@ -1858,17 +1872,17 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 					BATTLE_CHANNEL.send(FIGHTER2.user.username + " burst !");
 					FIGHTER1.hasBurst = 2;
 				}
-				
+
 				// Scout
 				if (FIGHTER2.attack == EMOTE_PP13) {
 					FIGHTER2.playMove();
 				}
-				
+
 				// Intimidates
 				if (FIGHTER2.attack == EMOTE_PP28 && getRandomPercent() <= 25) {
 					FIGHTER2.playMove();
 				}
-				
+
 				// Save
 				if (FIGHTER2.attack == EMOTE_PP15) {
 					FIGHTER2.playMove();
@@ -1881,29 +1895,29 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 					BATTLE_CHANNEL.send(FIGHTER1.user.username + " burst !");
 					FIGHTER2.hasBurst = 2;
 				}
-				
+
 				// Scout
 				if (FIGHTER1.attack == EMOTE_PP13) {
 					FIGHTER1.playMove();
 				}
-				
+
 				// Intimidates
 				if (FIGHTER1.attack == EMOTE_PP28 && getRandomPercent() <= 25) {
 					FIGHTER1.playMove();
 				}
-				
+
 				// Save
 				if (FIGHTER1.attack == EMOTE_PP15) {
 					FIGHTER2.playMove();
 				}
 			}
-			
+
 			newTurnDuel();
 		}
-		
+
 		return;
 	}
-	
+
 	// CHANGE ROLE
 	if (IS_CHANGING_STYLE && STYLER == _user.id) {
 		if (_reaction.emoji.id == EMOTE_PP38) {
@@ -1926,7 +1940,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			// Hockey Puck PP
 			changeRoleToStyler(HOCKEY_PUCK_PP_ROLE);
 		}
-		
+
 		else if (_reaction.emoji.id == GOD_PP1) {
 			changeRoleToStyler(GOD_PP1_PRIEST);
 		}
@@ -1975,15 +1989,14 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		else if (_reaction.emoji.id == GOD_PP16) {
 			changeRoleToStyler(GOD_PP16_PRIEST);
 		}
-		
-		
+
+
 		return;
-	} 
-	
-	
+	}
+
+
 	return;
-	
+
 });
 
 CLIENT.login(process.env.BOT_TOKEN);
-
