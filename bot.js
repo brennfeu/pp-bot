@@ -30,6 +30,7 @@ const GOD_PP13_PRIEST = "700IQ Priest";
 const GOD_PP14_PRIEST = "UREGonnaGetRAPED Priest";
 const GOD_PP15_PRIEST = "STFU Isaac Priest";
 const GOD_PP16_PRIEST = "The Man Who made a Monster Priest";
+const PRIEST_ROLES = [GOD_PP1_PRIEST, GOD_PP2_PRIEST, GOD_PP3_PRIEST, GOD_PP4_PRIEST, GOD_PP5_PRIEST, GOD_PP6_PRIEST, GOD_PP7_PRIEST, GOD_PP8_PRIEST, GOD_PP9_PRIEST, GOD_PP10_PRIEST, GOD_PP11_PRIEST, GOD_PP12_PRIEST, GOD_PP13_PRIEST, GOD_PP14_PRIEST, GOD_PP15_PRIEST, GOD_PP16_PRIEST];
 
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
 const EMOTE_PP2 = "535240768441548810"; // PunchingPPReallyHard
@@ -1391,6 +1392,9 @@ function changeRoleToStyler(_nomRole) {
 			BATTLE_CHANNEL.send(user.user.username + " removes the role : " + _nomRole);
 		}
 		else {
+			if (getNumberOfGods(user) >= 3 && PRIEST_ROLES.indexOf(_nomRole) > -1) {
+				return BATTLE_CHANNEL.send("You can't have more than 3 Gods");
+			}
 			user.addRole(role).catch(console.error);
 			BATTLE_CHANNEL.send(user.user.username + " gets the role : " + _nomRole);
 		}
@@ -1399,6 +1403,16 @@ function changeRoleToStyler(_nomRole) {
 		BATTLE_CHANNEL.send("I'm sorry I can't do that :(");
 		BATTLE_CHANNEL.send("Looks like there is no " + _nomRole + " role here...");
 	}
+}
+
+function getNumberOfGods(_guildUser) {
+	var counter = 0;
+	for i in PRIEST_ROLES {
+		if (_guildUser.roles.find("name", i)) {
+			counter++;
+		}
+	}
+	return counter;
 }
 
 
