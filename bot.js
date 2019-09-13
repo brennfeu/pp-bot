@@ -14,6 +14,23 @@ const ALIEN_PP_ROLE = "Alien PP";
 const HOCKEY_PUCK_PP_ROLE = "Hockey Puck PP";
 const DRUNK_PP_ROLE = "Drunken PP";
 
+const GOD_PP1_PRIEST = "Does not compute Priest";
+const GOD_PP2_PRIEST = "Dr Phil Priest";
+const GOD_PP3_PRIEST = "LeprePuds Priest";
+const GOD_PP4_PRIEST = "DickHead Pudding Priest";
+const GOD_PP5_PRIEST = "Hello There Puds Priest";
+const GOD_PP6_PRIEST = "DickDickSon666 Priest";
+const GOD_PP7_PRIEST = "FemPuds Priest";
+const GOD_PP8_PRIEST = "Fabulous Toast Man Priest";
+const GOD_PP9_PRIEST = "Brenn Priest";
+const GOD_PP10_PRIEST = "Fabio Priest";
+const GOD_PP11_PRIEST = "Country Music Brenn Priest";
+const GOD_PP12_PRIEST = "Espinoza Priest";
+const GOD_PP13_PRIEST = "700IQ Priest";
+const GOD_PP14_PRIEST = "UREGonnaGetRAPED Priest";
+const GOD_PP15_PRIEST = "STFU Isaac Priest";
+const GOD_PP16_PRIEST = "The Man Who made a Monster Priest";
+
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
 const EMOTE_PP2 = "535240768441548810"; // PunchingPPReallyHard
 const EMOTE_PP3 = "358232421537284109"; // Hologram
@@ -64,6 +81,26 @@ const EMOTE_PP47 = "338053599299108864"; // Pudding
 const EMOTE_PP48 = "340516123210547201"; // Brennfeu
 const EMOTE_PP49 = "358188173651607552"; // Soup
 const EMOTE_PP50 = "342313262651670528"; // Perhaps
+
+const EMOTE_PP51 = "615518949110448129" // Priest move
+const EMOTE_PP52 = "615516249912508419" // Special Priest Move
+
+const GOD_PP1 = "618526630838665216" // Does not compute
+const GOD_PP2 = "617686716479832064" // Dr Phil / WhatDAFuk
+const GOD_PP3 = "616332243337609257" // LeprePuds
+const GOD_PP4 = "614823752492122156" // DickHead Pudding
+const GOD_PP5 = "614823329731313670" // Hello There Puds
+const GOD_PP6 = "616877566396989451" // DickDickSon666
+const GOD_PP7 = "614824125491445760" // FemPuds ;) ;)
+const GOD_PP8 = "614823500951060481" // Fabulous Toast Man
+const GOD_PP9 = "615268884651442186" // That's me
+const GOD_PP10 = "618037444222255104" // Fabio
+const GOD_PP11 = "614825720962744344" // Country Music Brenn
+const GOD_PP12 = "615887132157804564" // Espinoza
+const GOD_PP13 = "617258233307987986" // 700IQ
+const GOD_PP14 = "615271176314290249" // UREGonnaGetRAPED
+const GOD_PP15 = "614822537800712213" // STFU Isaac
+const GOD_PP16 = "619795568230924291" // The Man Who made a Monster
 
 // Variables
 var IS_BUSY = false;
@@ -1419,16 +1456,36 @@ CLIENT.on("message", async _message => {
 		
 		return;
 	}
-	if (argsUser[1] == "style") {
+	if (argsUser[1] == "custom") {
 		// STYLE
 		IS_CHANGING_STYLE = true;
 		STYLER = _message.author.id;
-		return _message.reply("change your style with a reaction.").then(function (_message2) {
+		_message.reply("change your style with a reaction.").then(function (_message2) {
 			_message2.react(EMOTE_PP38); // Fast PP
 			_message2.react(EMOTE_PP40); // Big PP
 			_message2.react(EMOTE_PP9); // Hockey Puck PP
 			_message2.react(EMOTE_PP34); // Alien PP
 			_message2.react(EMOTE_PP41); // Drunk PP
+		}).catch(function(e) {
+			BATTLE_CHANNEL.send(e);
+		});
+		return _message.reply("change your God with a reaction.").then(function (_message2) {
+			_message2.react(GOD_PP1); // Does not compute
+			_message2.react(GOD_PP2); // Dr Phil / WhatDAFuk
+			_message2.react(GOD_PP3); // LeprePuds
+			_message2.react(GOD_PP4); // DickHead Pudding
+			_message2.react(GOD_PP5); // Hello There Puds
+			_message2.react(GOD_PP6); // DickDickSon666
+			_message2.react(GOD_PP7); // FemPuds ;) ;)
+			_message2.react(GOD_PP8); // Fabulous Toast Man
+			_message2.react(GOD_PP9); // That's me
+			_message2.react(GOD_PP10); // Fabio
+			_message2.react(GOD_PP11); // Country Music Brenn
+			_message2.react(GOD_PP12); // Espinoza
+			_message2.react(GOD_PP13); // 700IQ
+			_message2.react(GOD_PP14); // UREGonnaGetRAPED
+			_message2.react(GOD_PP15); // STFU Isaac
+			_message2.react(GOD_PP16); // The Man Who made a Monster
 		}).catch(function(e) {
 			BATTLE_CHANNEL.send(e);
 		});
@@ -1669,6 +1726,56 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			// Hockey Puck PP
 			changeRoleToStyler(HOCKEY_PUCK_PP_ROLE);
 		}
+		
+		else if (_reaction.emoji.id == GOD_PP1) {
+			changeRoleToStyler(GOD_PP1_PRIEST);
+		}
+		else if (_reaction.emoji.id == GOD_PP2) {
+			changeRoleToStyler(GOD_PP2_PRIEST);
+		}
+		else if (_reaction.emoji.id == GOD_PP3) {
+			changeRoleToStyler(GOD_PP3_PRIEST);
+		}
+		else if (_reaction.emoji.id == GOD_PP4) {
+			changeRoleToStyler(GOD_PP4_PRIEST);
+		}
+		else if (_reaction.emoji.id == GOD_PP5) {
+			changeRoleToStyler(GOD_PP5_PRIEST);
+		}
+		else if (_reaction.emoji.id == GOD_PP6) {
+			changeRoleToStyler(GOD_PP6_PRIEST);
+		}
+		else if (_reaction.emoji.id == GOD_PP7) {
+			changeRoleToStyler(GOD_PP7_PRIEST);
+		}
+		else if (_reaction.emoji.id == GOD_PP8) {
+			changeRoleToStyler(GOD_PP8_PRIEST);
+		}
+		else if (_reaction.emoji.id == GOD_PP9) {
+			changeRoleToStyler(GOD_PP9_PRIEST);
+		}
+		else if (_reaction.emoji.id == GOD_PP10) {
+			changeRoleToStyler(GOD_PP10_PRIEST);
+		}
+		else if (_reaction.emoji.id == GOD_PP11) {
+			changeRoleToStyler(GOD_PP11_PRIEST);
+		}
+		else if (_reaction.emoji.id == GOD_PP12) {
+			changeRoleToStyler(GOD_PP12_PRIEST);
+		}
+		else if (_reaction.emoji.id == GOD_PP13) {
+			changeRoleToStyler(GOD_PP13_PRIEST);
+		}
+		else if (_reaction.emoji.id == GOD_PP14) {
+			changeRoleToStyler(GOD_PP14_PRIEST);
+		}
+		else if (_reaction.emoji.id == GOD_PP15) {
+			changeRoleToStyler(GOD_PP15_PRIEST);
+		}
+		else if (_reaction.emoji.id == GOD_PP16) {
+			changeRoleToStyler(GOD_PP16_PRIEST);
+		}
+		
 		
 		return;
 	} 
