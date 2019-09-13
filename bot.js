@@ -742,27 +742,42 @@ class Fighter {
 				// Priest Regular Move
 				BATTLE_CHANNEL.send(this.user.username + " calls for his Gods to help him !");
 				if (this.godList.indexOf(GOD_PP2_PRIEST) > -1) { // Dr Phil
-					BATTLE_CHANNEL.send("You suddenly all wonder about life...")
+					BATTLE_CHANNEL.send("You suddenly all wonder about life...");
 					FORCE_PERHAPS = true;
 				}
 				if (this.godList.indexOf(GOD_PP3_PRIEST) > -1) { // LeprePuds
-					BATTLE_CHANNEL.send(this.user.username + " feels lucky !")
+					BATTLE_CHANNEL.send(this.user.username + " feels lucky !");
 					this.isLucky = 2;
+				}
+				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) { // Brenn
+					BATTLE_CHANNEL.send(this.user.username + " plays a guitar solo that makes people's PP bleed !");
+					getOpponentOf(this).bleedDamage += 5;
 				}
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
 				BATTLE_CHANNEL.send(this.user.username + " calls for his Gods to help him !");
 				if (this.godList.indexOf(GOD_PP2_PRIEST) > -1) { // Dr Phil
-					BATTLE_CHANNEL.send("Dr Phil sends " + getOpponontOf(this).user.username + "'s will to fight to the ranch for 1 turn...")
+					BATTLE_CHANNEL.send("Dr Phil sends " + getOpponontOf(this).user.username + "'s will to fight to the ranch for 1 turn...");
 					getOpponontOf(this).turnSkip = 2;
 				}
 				if (this.godList.indexOf(GOD_PP3_PRIEST) > -1) { // LeprePuds
-					BATTLE_CHANNEL.send(this.user.username + " is faster than ever !")
+					BATTLE_CHANNEL.send(this.user.username + " is faster than ever !");
 					if (this.DEX < 0) {
 						this.DEXValue -= this.DEX
 					}
 					this.DEXValue += 20
+				}
+				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) { // Brenn
+					BATTLE_CHANNEL.send("Brenn himself messes everything in the battle !");
+					var listeStats = ["STRValue", "DEXValue", "isBigPP", "isFastPP", "isDrunkPP", "isHockeyPuckPP", "isAlienPP", "turkeyCountdown", "bleedDamage", "hasExamined", "isPossessed", "isPigged", "pigHeal", "doomReverse", "acidArmor", "isBoomerangUsed", "turnSkip", "isLucky"];
+					for (var i in listeStats) {
+						if (getRandomPercent() <= 50) {
+							var a = this[listeStats[i]];
+							this[listeStats[i]] = getOpponentOf(this)[listeStats[i]];
+							getOpponentOf(this)[listeStats[i]] = a;
+						}
+					}
 				}
 			}
 			else if (attack == "IS_DEAD_LOL") {
