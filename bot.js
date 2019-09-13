@@ -784,21 +784,21 @@ class Fighter {
 					}
 				}
 				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1) { // 700IQ
-					BATTLE_CHANNEL.send(this.user.username + " shares his furry genes with " + getOpponentOf(this).user.username + " !");
+					BATTLE_CHANNEL.send(this.user.username + " shares his furry genes with " + getOpponentOf(this).user.username + " UwU");
 					for (var i in getOpponentOf(this).godList) {
-						if (getOpponentOf(this).godList[i] != GOD_PP13) {
-							getOpponentOf(this).godList[i] = GOD_PP13;
+						if (getOpponentOf(this).godList[i] != GOD_PP13_PRIEST) {
+							getOpponentOf(this).godList[i] = GOD_PP13_PRIEST;
 							break;
 						}
 					}
 					var fullChimera = true;
 					for (var i in getOpponentOf(this).godList) {
-						if (getOpponentOf(this).godList[i] != GOD_PP13) {
+						if (getOpponentOf(this).godList[i] != GOD_PP13_PRIEST) {
 							fullChimera = false
 						}
 					}
 					if (fullChimera) {
-						BATTLE_CHANNEL.send(etOpponentOf(this) + " is now a chimera !") 
+						BATTLE_CHANNEL.send(getOpponentOf(this) + " is now a chimera !") 
 						getOpponentOf(this).playMove(EMOTE_PP47);
 					}
 				}
