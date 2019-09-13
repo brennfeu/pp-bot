@@ -311,6 +311,12 @@ class Fighter {
 		if (this.hasBoomerang > 0) {
 			txt += " - With a Boomerang\n"
 		}
+		if (this.skipTurn > 0) {
+			txt += " - To the Ranch\n"
+		}
+		if (this.isLucky > 0) {
+			txt += " - Lucky\n"
+		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			txt += " - Ultimate PP\n";
 		}
@@ -1277,6 +1283,10 @@ function newTurnDuel() {
 		FIGHTER2.attack = "IS_DEAD_LOL";
 		FIGHTER2.STRValue = -10;
 	}
+	
+	if (FIGHTER1.turnSkip > 0 && FIGHTER2.turnSkip > 0) {
+		newTurnDuel();
+	}
 }
 
 function setRandomAttackList() {
@@ -1648,7 +1658,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	// DUEL
 	if (IS_DUELLING) {
 		// Assigne attaque
-		if (_user.id == FIGHTER1.user.id) {
+		if (_user.id == FIGHTER1.user.id && FIGHTER1.turnSkip <= 0) {
 			FIGHTER1.attack = _reaction.emoji.id;
 			BATTLE_CHANNEL.send(FIGHTER1.user.username + " : " + _reaction.emoji.name);
 			
@@ -1658,7 +1668,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				BATTLE_CHANNEL.send(FIGHTER2.user.username + " : " + _reaction.emoji.name);
 			}
 		}
-		else if (_user.id == FIGHTER2.user.id) {
+		else if (_user.id == FIGHTER2.user.id && FIGHTER2.turnSkip <= 0) {
 			FIGHTER2.attack = _reaction.emoji.id;
 			BATTLE_CHANNEL.send(FIGHTER2.user.username + " : " + _reaction.emoji.name);
 			
