@@ -741,6 +741,7 @@ class Fighter {
 			else if (attack == EMOTE_PP51) {
 				// Priest Regular Move
 				BATTLE_CHANNEL.send(this.user.username + " calls for his Gods to help him !");
+				this.regularCharges -= 1;
 				if (this.godList.indexOf(GOD_PP2_PRIEST) > -1) { // Dr Phil
 					BATTLE_CHANNEL.send("You suddenly all wonder about life...");
 					FORCE_PERHAPS = true;
@@ -761,6 +762,7 @@ class Fighter {
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
 				BATTLE_CHANNEL.send(this.user.username + " calls for his Gods to help him !");
+				this.specialCharges -= 1;
 				if (this.godList.indexOf(GOD_PP2_PRIEST) > -1) { // Dr Phil
 					BATTLE_CHANNEL.send("Dr Phil sends " + getOpponentOf(this).user.username + "'s will to fight to the ranch for 1 turn...");
 					getOpponentOf(this).turnSkip = 2;
@@ -1669,6 +1671,12 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		
 		// Deux attaques sont faites
 		if (FIGHTER1.attack != "" && FIGHTER2.attack != "") {
+			if (FIGHTER1.turnSkip > 0) {
+				FIGHTER1.attack = EMOTE_PP50
+			}
+			if (FIGHTER2.turnSkip > 0) {
+				FIGHTER2.attack = EMOTE_PP50
+			}
 			console.log(FIGHTER1.attack + " / " + FIGHTER2.attack);
 			
 			// test illegal
