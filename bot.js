@@ -828,7 +828,7 @@ class Fighter {
 					BATTLE_CHANNEL.send(this.user.username + " sensually touches " + getOpponentOf(this).user.username + "'s PP...");
 					this.hasBoner = true;
 					getOpponentOf(this).hasBoner = true;
-					getOpponentOf(this).damage(Math.floor(this.STR/5));
+					getOpponentOf(this).damage(Math.floor(this.STR/2));
 				}
 			}
 			else if (attack == "IS_DEAD_LOL") {
@@ -837,6 +837,7 @@ class Fighter {
 			}
 			else {
 				BATTLE_CHANNEL.send(this.user.username + " makes an unknown move ?");
+				console.log("UNKNOWN MOVE + " + attack)
 			}
 
 			// Boomerang
