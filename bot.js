@@ -1721,7 +1721,19 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				caught2 = caught2 || (illegalGetCaught(50) && !EVENT_PP_ENLIGHTENMENT);
 			}
 			
-			var winner;
+			if (FIGHTER1.attack == EMOTE_PP50 && FIGHTER1.regularCharges <= 0 && getRandomPercent() <= 50) {
+				caught1 = true
+			}
+			if (FIGHTER2.attack == EMOTE_PP50 && FIGHTER2.regularCharges <= 0 && getRandomPercent() <= 50) {
+				caught2 = true
+			}
+			if (FIGHTER1.attack == EMOTE_PP51 && FIGHTER1.specialCharges <= 0 && getRandomPercent() <= 80) {
+				caught1 = true
+			}
+			if (FIGHTER2.attack == EMOTE_PP51 && FIGHTER2.specialCharges <= 0 && getRandomPercent() <= 80) {
+				caught2 = true
+			}
+			
 			if (FIGHTER1.isLucky && getRandomPercent() <= 50) {
 				caught1 = false
 			}
@@ -1729,6 +1741,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				caught2 = false
 			}
 			
+			var winner;
 			BATTLE_CHANNEL.send("\n\n===== ATTACKS =====");
 			if (caught1 && caught2) {
 				BATTLE_CHANNEL.send("WAIT YOU ARE DOING ILLEGAL STUFF RIGHT NOW !");
