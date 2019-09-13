@@ -217,6 +217,9 @@ class Fighter {
 		if (this.isAlienPP) {
 			str -= 10;
 		}
+		if (this.hasBoner) {
+			str = str*2
+		}
 		
 		if (EVENT_BOSS && str <= 0) {
 			return 0;
@@ -247,6 +250,9 @@ class Fighter {
 		}
 		if (this.isHockeyPuckPP) {
 			dex -= 45;
+		}
+		if (this.hasBoner) {
+			dex -= 20;
 		}
 		return dex;
 	}
@@ -316,6 +322,9 @@ class Fighter {
 		}
 		if (this.isLucky > 0) {
 			txt += " - Lucky\n"
+		}
+		if (this.hasBoner) {
+			txt += " - Boner\n"
 		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			txt += " - Ultimate PP\n";
@@ -764,6 +773,11 @@ class Fighter {
 					BATTLE_CHANNEL.send(this.user.username + " makes a scientific discovery !");
 					this.playMove(getRandomEmote());
 				}
+				if (this.godList.indexOf(GOD_PP14_PRIEST) > -1) { // UREGonnaGETRaped
+					BATTLE_CHANNEL.send(this.user.username + " gives a boner punch to " + getOpponentOf(this).user.username + " !");
+					this.hasBoner = true;
+					getOpponentOf(this).damage(this.STR - this.DEX);
+				}
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
@@ -806,9 +820,15 @@ class Fighter {
 						}
 					}
 					if (fullChimera) {
-						BATTLE_CHANNEL.send(getOpponentOf(this) + " is now a chimera !") 
+						BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " is now a chimera !") 
 						getOpponentOf(this).playMove(EMOTE_PP47);
 					}
+				}
+				if (this.godList.indexOf(GOD_PP14_PRIEST) > -1) { // UREGonnaGETRaped
+					BATTLE_CHANNEL.send(this.user.username + " sensually touches " + getOpponentOf(this).user.username + "'s PP...");
+					this.hasBoner = true;
+					getOpponentOf(this).hasBoner = true;
+					getOpponentOf(this).damage(this.STR*3);
 				}
 			}
 			else if (attack == "IS_DEAD_LOL") {
@@ -995,6 +1015,7 @@ class Fighter {
 		this.isBoomerangUsed = false;
 		this.turnSkip = 0;
 		this.isLucky = 0;
+		this.hasBoner = false;
 		// TODO keep up to date
 	}
 }
