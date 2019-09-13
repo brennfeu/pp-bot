@@ -1412,6 +1412,7 @@ function getNumberOfGods(_guildUser) {
 			counter++;
 		}
 	}
+	console.log(counter)
 	return counter;
 }
 
