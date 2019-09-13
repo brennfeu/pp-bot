@@ -182,7 +182,7 @@ class Fighter {
 		while (this.godList.length < 3) {
 			var r = PRIEST_ROLES[Math.floor(Math.random()*PRIEST_ROLES.length)];
 			if (this.godList.indexOf(r) <= -1) {
-				this.godList.push();
+				this.godList.push(r);
 			}
 		}
 		this.regularCharges = 3;
