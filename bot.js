@@ -177,6 +177,8 @@ class Fighter {
 				this.godList.push(PRIEST_ROLES[i])
 			}
 		}
+		this.regularCharges = 0;
+		this.specialCharges = 0;
 		
 		// Natural values
 		this.STRValue = 70;
@@ -734,14 +736,14 @@ class Fighter {
 			else if (attack == EMOTE_PP51) {
 				// Priest Regular Move
 				BATTLE_CHANNEL.send(this.user.username + " calls for his Gods to help him !");
-				if (this.listGod.indexOf(GOD_PP1_PRIEST) > -1) {
+				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1) {
 					// TODO
 				}
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
 				BATTLE_CHANNEL.send(this.user.username + " calls for his Gods to help him !");
-				if (this.listGod.indexOf(GOD_PP1_PRIEST) > -1) {
+				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1) {
 					// TODO
 				}
 			}
