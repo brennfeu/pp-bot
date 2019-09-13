@@ -1407,7 +1407,7 @@ function changeRoleToStyler(_nomRole) {
 
 function getNumberOfGods(_guildUser) {
 	var counter = 0;
-	for var i in PRIEST_ROLES {
+	for (var i in PRIEST_ROLES) {
 		if (_guildUser.roles.find("name", i)) {
 			counter++;
 		}
