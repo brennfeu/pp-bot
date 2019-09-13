@@ -218,7 +218,7 @@ class Fighter {
 			str -= 10;
 		}
 		if (this.hasBoner) {
-			str = str*2
+			str += 30
 		}
 		
 		if (EVENT_BOSS && str <= 0) {
