@@ -325,7 +325,10 @@ class Fighter {
 			txt += " - Lucky\n"
 		}
 		if (this.hasBoner) {
-			txt += " - Boner\n"
+			txt += " - Big Boner Mmmmmmh...\n"
+		}
+		if (this.chimera) {
+			txt += " - Furry PP\n"
 		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			txt += " - Ultimate PP\n";
