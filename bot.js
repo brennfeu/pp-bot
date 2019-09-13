@@ -742,8 +742,12 @@ class Fighter {
 				// Priest Regular Move
 				BATTLE_CHANNEL.send(this.user.username + " calls for his Gods to help him !");
 				if (this.godList.indexOf(GOD_PP2_PRIEST) > -1) { // Dr Phil
-					BATTLE_CHANNEL.send("Dr Phil makes you all wonder about life...")
+					BATTLE_CHANNEL.send("You suddenly all wonder about life...")
 					FORCE_PERHAPS = true;
+				}
+				if (this.godList.indexOf(GOD_PP3_PRIEST) > -1) { // LeprePuds
+					BATTLE_CHANNEL.send(this.user.username + " feels lucky !")
+					this.isLucky = 2;
 				}
 			}
 			else if (attack == EMOTE_PP52) {
@@ -752,6 +756,13 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP2_PRIEST) > -1) { // Dr Phil
 					BATTLE_CHANNEL.send("Dr Phil sends " + getOpponontOf(this).user.username + "'s will to fight to the ranch for 1 turn...")
 					getOpponontOf(this).turnSkip = 2;
+				}
+				if (this.godList.indexOf(GOD_PP3_PRIEST) > -1) { // LeprePuds
+					BATTLE_CHANNEL.send(this.user.username + " is faster than ever !")
+					if (this.DEX < 0) {
+						this.DEXValue -= this.DEX
+					}
+					this.DEXValue += 20
 				}
 			}
 			else if (attack == "IS_DEAD_LOL") {
@@ -894,6 +905,7 @@ class Fighter {
 		this.hasBoomerang -= 1;
 		this.isBoomerangUsed = false;
 		this.turnSkip -= 1;
+		this.isLucky -= 1;
 		
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
@@ -936,6 +948,7 @@ class Fighter {
 		this.acidArmor = 0;
 		this.isBoomerangUsed = false;
 		this.turnSkip = 0;
+		this.isLucky = 0;
 		// TODO keep up to date
 	}
 }
@@ -1632,6 +1645,12 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			}
 			
 			var winner;
+			if (FIGHTER1.isLucky && getRandomPercent() <= 50) {
+				caught1 = false
+			}
+			if (FIGHTER2.isLucky && getRandomPercent() <= 50) {
+				caught2 = false
+			}
 			
 			BATTLE_CHANNEL.send("\n\n===== ATTACKS =====");
 			if (caught1 && caught2) {
