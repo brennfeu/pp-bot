@@ -1791,12 +1791,22 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		// GAY_TURNS
 		if (GAY_TURNS > 0) {
 			if (_user.id == FIGHTER1.user.id) {
-				FIGHTER2.attack = getAttackFromEmote(_reaction.emoji);
-				BATTLE_CHANNEL.send(FIGHTER2.user.username + " : " + _reaction.emoji.name);
+				if (LIST_AVAILABLE_ATTACKS.indexOf(getAttackFromEmote(_reaction.emoji)) < -1) {
+					return BATTLE_CHANNEL.send("Gay people can't cheat...");
+				}
+				else {
+					FIGHTER2.attack = getAttackFromEmote(_reaction.emoji);
+					BATTLE_CHANNEL.send(FIGHTER2.user.username + " : " + _reaction.emoji.name);
+				}
 			}
 			if (_user.id == FIGHTER2.user.id) {
-				FIGHTER1.attack = getAttackFromEmote(_reaction.emoji);
-				BATTLE_CHANNEL.send(FIGHTER1.user.username + " : " + _reaction.emoji.name);
+				if (LIST_AVAILABLE_ATTACKS.indexOf(getAttackFromEmote(_reaction.emoji)) < -1) {
+					return BATTLE_CHANNEL.send("Gay people can't cheat...");
+				}
+				else {
+					FIGHTER1.attack = getAttackFromEmote(_reaction.emoji);
+					BATTLE_CHANNEL.send(FIGHTER1.user.username + " : " + _reaction.emoji.name);
+				}
 			}
 		}
 
