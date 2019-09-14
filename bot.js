@@ -208,6 +208,7 @@ class Fighter {
 		this.tearDrinker = 0;
 		this.grabbedPP = 0;
 		this.summonTankCountdown = 0;
+		this.turnSkip = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -1799,7 +1800,6 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			}
 		}
 
-		console.log("TEST AAAAH");
 		// Assigne attaque
 		if (_user.id == FIGHTER1.user.id && !FIGHTER1.isPossessed && FIGHTER1.turnSkip <= 0 && FIGHTER1.grabbedPP <= 0 && FIGHTER1.summonTankCountdown <= 0) {
 			FIGHTER1.attack = getAttackFromEmote(_reaction.emoji);
