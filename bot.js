@@ -140,7 +140,8 @@ var EVENT_BOSS = false;
 var BOSS_HEALTH = 10000;
 var EVENT_BLOOD_MOON = false;
 
-var FORCE_PERHAPS = false
+var FORCE_PERHAPS = false;
+var FORCE_SATAN = false;
 
 
 // CLASSES
@@ -209,6 +210,7 @@ class Fighter {
 		this.grabbedPP = 0;
 		this.summonTankCountdown = 0;
 		this.turnSkip = 0;
+		this.eldritchFriend = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -716,6 +718,14 @@ class Fighter {
 				else {
 					var winner = getOpponentOf(this);
 				}
+				if (this.eldritchFriend && !getOpponentOf(this).eldritchFriend) {
+					chaosNumber = 100;
+					var winner = this;
+				}
+				else if (getOpponentOf(this).eldritchFriend && !this.eldritchFriend) {
+					chaosNumber = 100;
+					var winner = getOpponentOf(this);
+				}
 				BATTLE_CHANNEL.send("He will use " + chaosNumber + "% of his power in " + winner.user.username);
 				chaosNumber = Math.floor(chaosNumber/4);
 				var i;
@@ -801,6 +811,10 @@ class Fighter {
 					this.isLucky = 2;
 					this.badLuck = false;
 				}
+				if (this.godList.indexOf(GOD_PP6_PRIEST) > -1) { // Dickdickson666
+					BATTLE_CHANNEL.send(this.user.username + " gets an eldritch friend !");
+					this.eldritchFriend = true;
+				}
 				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) { // Brenn
 					BATTLE_CHANNEL.send(this.user.username + " plays a guitar solo that makes people's PP bleed !");
 					getOpponentOf(this).bleedDamage += 5;
@@ -846,9 +860,13 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP3_PRIEST) > -1) { // LeprePuds
 					BATTLE_CHANNEL.send(this.user.username + " is faster than ever !");
 					if (this.DEX < 0) {
-						this.DEXValue -= this.DEX
+						this.DEXValue -= this.DEX;
 					}
-					this.DEXValue += 20
+					this.DEXValue += 20;
+				}
+				if (this.godList.indexOf(GOD_PP6_PRIEST) > -1) { // Dickdickson666
+					BATTLE_CHANNEL.send(this.user.username + " releases Hell on earth !");
+					FORCE_SATAN = true;
 				}
 				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) { // Brenn
 					BATTLE_CHANNEL.send("Brenn himself messes everything in the battle !");
@@ -1227,6 +1245,7 @@ function startDuel(_message) {
 	EVENT_BLOOD_MOON = false;
 
 	FORCE_PERHAPS = false;
+	FORCE_SATAN = false;
 
 	console.log("F1 " + _message.author.id);
 	console.log("F2 " + _message.mentions.users.array()[0]);
@@ -1423,6 +1442,9 @@ function setRandomAttackList() {
 	if (FORCE_PERHAPS) {
 		LIST_AVAILABLE_ATTACKS = [EMOTE_PP50];
 		return FORCE_PERHAPS = false
+	}
+	if (FORCE_SATAN) {
+		LIST_AVAILABLE_ATTACKS = [EMOTE_PP26];
 	}
 
 	// Attaque 1
