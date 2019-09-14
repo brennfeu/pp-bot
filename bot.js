@@ -1801,7 +1801,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		}
 
 		// Assigne attaque
-		else if (_user.id == FIGHTER1.user.id) {
+		else if (_user.id == FIGHTER1.user.id && !FIGHTER1.isPossessed) {
 			FIGHTER1.attack = getAttackFromEmote(_reaction.emoji);
 			BATTLE_CHANNEL.send(FIGHTER1.user.username + " : " + _reaction.emoji.name);
 
