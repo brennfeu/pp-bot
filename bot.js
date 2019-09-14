@@ -501,6 +501,7 @@ class Fighter {
 				BATTLE_CHANNEL.send(this.user.username + " squeezes hog yeah yeah !");
 				this.isPigged = true;
 				this.pigHeal += 2;
+				this.hasBoner = false;
 			}
 			else if (attack == EMOTE_PP20) {
 				// DoomReverse (MookGrenade)
