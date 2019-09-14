@@ -1601,14 +1601,14 @@ function startRandomEvent() {
 		FIGHTER1.playMove(EMOTE_PP49);
 		FIGHTER2.playMove(EMOTE_PP49);
 	}
-	else if (randomVar in [9, 10, 11, 12, 13]) {
+	else if ([9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19].indexOf(randomVar) > -1) {
 		// Charge
 		BATTLE_CHANNEL.send(" -- GODS BIRTHDAY GIFTS --");
 		BATTLE_CHANNEL.send("Gods decide to give you a regular charge each");
 		FIGHTER1.regularCharges++;
 		FIGHTER2.regularCharges++;
 	}
-	else if (randomVar == 14) {
+	else if ([20, 21].indexOf(randomVar) > -1) {
 		// Charge
 		BATTLE_CHANNEL.send(" -- GODS CHRISTMAS GIFTS --");
 		BATTLE_CHANNEL.send("Gods decide to give you a special charge each");
@@ -1775,9 +1775,11 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		if (GAY_TURNS > 0) {
 			if (_user.id == FIGHTER1.user.id) {
 				FIGHTER2.attack = getAttackFromEmote(_reaction.emoji);
+				BATTLE_CHANNEL.send(FIGHTER2.user.username + " : " + _reaction.emoji.name);
 			}
 			if (_user.id == FIGHTER2.user.id) {
 				FIGHTER1.attack = getAttackFromEmote(_reaction.emoji);
+				BATTLE_CHANNEL.send(FIGHTER1.user.username + " : " + _reaction.emoji.name);
 			}
 		}
 
