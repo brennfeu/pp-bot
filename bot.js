@@ -85,6 +85,7 @@ const EMOTE_PP50 = "342313262651670528"; // Perhaps
 
 const EMOTE_PP51 = "615518949110448129" // Priest move
 const EMOTE_PP52 = "615516249912508419" // Special Priest Move
+const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20, EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30, EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP36, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40, EMOTE_PP41, EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP47, EMOTE_PP48, EMOTE_PP49, EMOTE_PP50, EMOTE_PP51, EMOTE_PP52]
 
 const GOD_PP1 = "618526630838665216" // Does not compute
 const GOD_PP2 = "617686716479832064" // Dr Phil / WhatDAFuk
@@ -774,7 +775,9 @@ class Fighter {
 			else if (attack == EMOTE_PP51) {
 				// Priest Regular Move
 				BATTLE_CHANNEL.send(this.user.username + " calls for his Gods to help him !");
-				this.regularCharges -= 1;
+				if (this.regularCharges > 0) {
+					this.regularCharges -= 1;
+				}
 				if (this.godList.indexOf(GOD_PP2_PRIEST) > -1) { // Dr Phil
 					BATTLE_CHANNEL.send("You suddenly all wonder about life...");
 					FORCE_PERHAPS = true;
@@ -811,7 +814,9 @@ class Fighter {
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
 				BATTLE_CHANNEL.send(this.user.username + " calls for his Gods to help him !");
-				this.specialCharges -= 1;
+				if (this.specialCharges > 0) {
+					this.specialCharges -= 1;
+				}
 				if (this.godList.indexOf(GOD_PP2_PRIEST) > -1) { // Dr Phil
 					BATTLE_CHANNEL.send("Dr Phil sends " + getOpponentOf(this).user.username + "'s will to fight to the ranch for 1 turn...");
 					getOpponentOf(this).turnSkip = 2;
@@ -879,7 +884,7 @@ class Fighter {
 			}
 			else {
 				BATTLE_CHANNEL.send(this.user.username + " makes an unknown move ?");
-				console.log("UNKNOWN MOVE + " + attack)
+				console.log("UNKNOWN MOVE : " + attack)
 			}
 
 			// Boomerang
@@ -1471,6 +1476,14 @@ function getRandomEmote(_canBeIllegal = true) {
 
 	return goodList[Math.floor(Math.random()*goodList.length)];
 }
+function getAttackFromEmote(_emote) {
+	for (var i in EMOTE_LIST) {
+		if (_emote.name = client.emojis.get(EMOTE_LIST[i]).name) {
+			return EMOTE_LIST[i];
+		}
+	}
+	return EMOTE_PP50;
+}
 
 function startRandomEvent() {
 	// Reset events
@@ -1715,7 +1728,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	if (_user.bot) return;
 
 	// Save Me Move
-	if (IS_DUELLING && _reaction.emoji.id == EMOTE_PP31 && SAVE_LIST.indexOf(_user.id) < 0) {
+	if (IS_DUELLING && getAttackFromEmote(_reaction.emoji) == EMOTE_PP31 && SAVE_LIST.indexOf(_user.id) < 0) {
 		SAVE_LIST.push(_user.id);
 		BATTLE_CHANNEL.send(_user.username + " helps the fighters !");
 		FIGHTER1.heal(50);
@@ -1727,22 +1740,22 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	if (IS_DUELLING) {
 		// Assigne attaque
 		if (_user.id == FIGHTER1.user.id && FIGHTER1.turnSkip <= 0) {
-			FIGHTER1.attack = _reaction.emoji.id;
+			FIGHTER1.attack = getAttackFromEmote(_reaction.emoji);
 			BATTLE_CHANNEL.send(FIGHTER1.user.username + " : " + _reaction.emoji.name);
 
 			// Possession
 			if (FIGHTER2.isPossessed == 1) {
-				FIGHTER2.attack = _reaction.emoji.id;
+				FIGHTER2.attack = getAttackFromEmote(_reaction.emoji);
 				BATTLE_CHANNEL.send(FIGHTER2.user.username + " : " + _reaction.emoji.name);
 			}
 		}
 		else if (_user.id == FIGHTER2.user.id && FIGHTER2.turnSkip <= 0) {
-			FIGHTER2.attack = _reaction.emoji.id;
+			FIGHTER2.attack = getAttackFromEmote(_reaction.emoji);
 			BATTLE_CHANNEL.send(FIGHTER2.user.username + " : " + _reaction.emoji.name);
 
 			// Possession
 			if (FIGHTER1.isPossessed == 1) {
-				FIGHTER1.attack = _reaction.emoji.id;
+				FIGHTER1.attack = getAttackFromEmote(_reaction.emoji);
 				BATTLE_CHANNEL.send(FIGHTER1.user.username + " : " + _reaction.emoji.name);
 			}
 		}
