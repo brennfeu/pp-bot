@@ -1478,7 +1478,7 @@ function getRandomEmote(_canBeIllegal = true) {
 }
 function getAttackFromEmote(_emote) {
 	for (var i in EMOTE_LIST) {
-		if (_emote.name = CLIENT.emojis.get(EMOTE_LIST[i]).name) {
+		if (_emote.name == CLIENT.emojis.get(EMOTE_LIST[i]).name) {
 			return EMOTE_LIST[i];
 		}
 	}
