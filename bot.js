@@ -321,6 +321,9 @@ class Fighter {
 		if (this.isPossessed > 0) {
 			txt += " - Possessed by " + getOpponentOf(this).user.username + "\n"
 		}
+		if (this.eldritchFriend) {
+			txt += " - Eldritch Friendly\n"
+		}
 		if (this.isPigged) {
 			txt += " - Hog Squeezer\n"
 		}
@@ -1444,7 +1447,7 @@ function setRandomAttackList() {
 		return FORCE_PERHAPS = false
 	}
 	if (FORCE_SATAN) {
-		LIST_AVAILABLE_ATTACKS = [EMOTE_PP26];
+		return LIST_AVAILABLE_ATTACKS = [EMOTE_PP26];
 	}
 
 	// Attaque 1
