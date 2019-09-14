@@ -205,7 +205,7 @@ class Fighter {
 		this.chimera = false;
 		this.badLuck = false;
 		this.tearDrinker = 0;
-		this.grabbedPP = false;
+		this.grabbedPP = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -328,8 +328,11 @@ class Fighter {
 		if (this.hasBoomerang > 0) {
 			txt += " - With a Boomerang\n"
 		}
-		if (this.skipTurn > 0) {
+		if (this.turnSkip > 0) {
 			txt += " - To the Ranch\n"
+		}
+		if (this.grabbedPP > 0) {
+			txt += " - Grabbed PP\n"
 		}
 		if (this.isLucky > 0) {
 			txt += " - Lucky\n"
@@ -835,7 +838,7 @@ class Fighter {
 				}
 				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) { // Brenn
 					BATTLE_CHANNEL.send("Brenn himself messes everything in the battle !");
-					var listeStats = ["STRValue", "DEXValue", "isBigPP", "isFastPP", "isDrunkPP", "isHockeyPuckPP", "isAlienPP", "turkeyCountdown", "bleedDamage", "hasExamined", "isPossessed", "isPigged", "pigHeal", "doomReverse", "acidArmor", "isBoomerangUsed", "turnSkip", "isLucky"];
+					var listeStats = ["STRValue", "DEXValue", "isBigPP", "isFastPP", "isDrunkPP", "isHockeyPuckPP", "isAlienPP", "turkeyCountdown", "bleedDamage", "hasExamined", "isPossessed", "isPigged", "pigHeal", "doomReverse", "acidArmor", "isBoomerangUsed", "turnSkip", "isLucky", "grabbedPP"];
 					for (var i in listeStats) {
 						if (getRandomPercent() <= 50) {
 							var a = this[listeStats[i]];
@@ -846,7 +849,7 @@ class Fighter {
 				}
 				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1) { // Espinoza
 					BATTLE_CHANNEL.send(this.user.username + " grabs " + getOpponentOf(this).user.username + "'s PP !");
-					getOpponentOf(this).grabbedPP = true;
+					getOpponentOf(this).grabbedPP = 2;
 				}
 				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1) { // 700IQ
 					if (!this.chimera) {
@@ -1028,6 +1031,7 @@ class Fighter {
 		this.hasBoomerang -= 1;
 		this.isBoomerangUsed = false;
 		this.turnSkip -= 1;
+		this.grabbedPP -= 1;
 		this.isLucky -= 1;
 
 		// Bleed (SawBlade)
@@ -1049,7 +1053,7 @@ class Fighter {
 		if (this.turnSkip > 0) {
 			this.attack = EMOTE_PP50;
 		}
-		if (this.grabbedPP) {
+		if (this.grabbedPP > 0) {
 			this.attack = EMOTE_PP39;
 		}
 
@@ -1079,6 +1083,7 @@ class Fighter {
 		this.acidArmor = 0;
 		this.isBoomerangUsed = false;
 		this.turnSkip = 0;
+		this.grabbedPP = 0;
 		this.isLucky = 0;
 		this.hasBoner = false;
 		// TODO keep up to date
@@ -1371,6 +1376,9 @@ function newTurnDuel() {
 	}
 
 	if (FIGHTER1.turnSkip > 0 && FIGHTER2.turnSkip > 0) {
+		newTurnDuel();
+	}
+	if (FIGHTER1.grabbedPP > 0 && FIGHTER2.grabbedPP > 0) {
 		newTurnDuel();
 	}
 }
@@ -1751,7 +1759,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	// DUEL
 	if (IS_DUELLING) {
 		// Assigne attaque
-		if (_user.id == FIGHTER1.user.id && FIGHTER1.turnSkip <= 0 && !FIGHTER1.grabbedPP) {
+		if (_user.id == FIGHTER1.user.id && FIGHTER1.turnSkip <= 0 && FIGHTER1.grabbedPP <= 0) {
 			FIGHTER1.attack = getAttackFromEmote(_reaction.emoji);
 			BATTLE_CHANNEL.send(FIGHTER1.user.username + " : " + _reaction.emoji.name);
 
@@ -1761,7 +1769,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				BATTLE_CHANNEL.send(FIGHTER2.user.username + " : " + _reaction.emoji.name);
 			}
 		}
-		else if (_user.id == FIGHTER2.user.id && FIGHTER2.turnSkip <= 0 && !FIGHTER2.grabbedPP) {
+		else if (_user.id == FIGHTER2.user.id && FIGHTER2.turnSkip <= 0 && FIGHTER2.grabbedPP <= 0) {
 			FIGHTER2.attack = getAttackFromEmote(_reaction.emoji);
 			BATTLE_CHANNEL.send(FIGHTER2.user.username + " : " + _reaction.emoji.name);
 
@@ -1779,6 +1787,12 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			}
 			if (FIGHTER2.turnSkip > 0) {
 				FIGHTER2.attack = EMOTE_PP50
+			}
+			if (FIGHTER1.grabbedPP > 0) {
+				FIGHTER1.attack = EMOTE_PP39
+			}
+			if (FIGHTER2.grabbedPP > 0) {
+				FIGHTER2.attack = EMOTE_PP39
 			}
 			console.log(FIGHTER1.attack + " / " + FIGHTER2.attack);
 
