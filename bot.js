@@ -794,7 +794,7 @@ class Fighter {
 				}
 				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1) { // Espinoza
 					BATTLE_CHANNEL.send(this.user.username + " sniffs " + getOpponentOf(this).user.username + "'s PP !");
-					this.DEX += 10;
+					this.DEXValue += 10;
 				}
 				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1) { // 700IQ
 					BATTLE_CHANNEL.send(this.user.username + " makes a scientific discovery !");
