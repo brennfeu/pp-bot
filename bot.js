@@ -205,6 +205,7 @@ class Fighter {
 		this.chimera = false;
 		this.badLuck = false;
 		this.tearDrinker = 0;
+		this.grabbedPP = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -540,7 +541,7 @@ class Fighter {
 			else if (attack == EMOTE_PP26) {
 				// Big Satan
 				DISABLE_ABANDON = true;
-				BATTLE_CHANNEL.send(this.user.username + " summon Satan chaotic powers !!!");
+				BATTLE_CHANNEL.send(this.user.username + " summons Satan chaotic powers !!!");
 				this.playMove(getRandomEmote(false));
 				BATTLE_CHANNEL.send("-----------------");
 				this.playMove(getRandomEmote(false));
@@ -643,7 +644,7 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP39) {
 				// Interrogation Point
-				BATTLE_CHANNEL.send(this.user.username + " summon a random move !");
+				BATTLE_CHANNEL.send(this.user.username + " summons a random move !");
 				this.playMove(getRandomEmote());
 			}
 			else if (attack == EMOTE_PP40) {
@@ -791,6 +792,10 @@ class Fighter {
 					BATTLE_CHANNEL.send(this.user.username + " plays a guitar solo that makes people's PP bleed !");
 					getOpponentOf(this).bleedDamage += 5;
 				}
+				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1) { // Espinoza
+					BATTLE_CHANNEL.send(this.user.username + " sniffs " + getOpponentOf(this).user.username + "'s PP !");
+					this.DEX += 10;
+				}
 				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1) { // 700IQ
 					BATTLE_CHANNEL.send(this.user.username + " makes a scientific discovery !");
 					this.playMove(getRandomEmote());
@@ -838,6 +843,10 @@ class Fighter {
 							getOpponentOf(this)[listeStats[i]] = a;
 						}
 					}
+				}
+				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1) { // Espinoza
+					BATTLE_CHANNEL.send(this.user.username + " grabs " + getOpponentOf(this).user.username + "'s PP !");
+					getOpponentOf(this).grabbedPP = true;
 				}
 				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1) { // 700IQ
 					if (!this.chimera) {
@@ -1038,7 +1047,10 @@ class Fighter {
 			this.heal(this.tearDrinker);
 		}
 		if (this.turnSkip > 0) {
-			this.attack = EMOTE_PP50
+			this.attack = EMOTE_PP50;
+		}
+		if (this.grabbedPP) {
+			this.attack = EMOTE_PP39;
 		}
 
 		// PP Armageddon
@@ -1739,7 +1751,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	// DUEL
 	if (IS_DUELLING) {
 		// Assigne attaque
-		if (_user.id == FIGHTER1.user.id && FIGHTER1.turnSkip <= 0) {
+		if (_user.id == FIGHTER1.user.id && FIGHTER1.turnSkip <= 0 && !FIGHTER1.grabbedPP) {
 			FIGHTER1.attack = getAttackFromEmote(_reaction.emoji);
 			BATTLE_CHANNEL.send(FIGHTER1.user.username + " : " + _reaction.emoji.name);
 
@@ -1749,7 +1761,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				BATTLE_CHANNEL.send(FIGHTER2.user.username + " : " + _reaction.emoji.name);
 			}
 		}
-		else if (_user.id == FIGHTER2.user.id && FIGHTER2.turnSkip <= 0) {
+		else if (_user.id == FIGHTER2.user.id && FIGHTER2.turnSkip <= 0 && !FIGHTER2.grabbedPP) {
 			FIGHTER2.attack = getAttackFromEmote(_reaction.emoji);
 			BATTLE_CHANNEL.send(FIGHTER2.user.username + " : " + _reaction.emoji.name);
 
