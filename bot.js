@@ -1825,11 +1825,11 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			var caught1 = illegalGetCaught(getRisk(FIGHTER1.attack)) || (FIGHTER1.badLuck && getRisk(FIGHTER1.attack) > 0);
 			var caught2 = illegalGetCaught(getRisk(FIGHTER2.attack)) || (FIGHTER2.badLuck && getRisk(FIGHTER2.attack) > 0);
 
-			if (LIST_AVAILABLE_ATTACKS.indexOf(FIGHTER1.attack) < 0 && FIGHTER1.attack != EMOTE_PP50) {
+			if (LIST_AVAILABLE_ATTACKS.indexOf(FIGHTER1.attack) < 0 && !(FIGHTER1.attack == EMOTE_PP50 && FIGHTER1.turnSkip) && !(FIGHTER1.attack == EMOTE_PP39 && FIGHTER1.grabbedPP)) {
 				caught1 = caught1 || (illegalGetCaught(50) && !EVENT_PP_ENLIGHTENMENT) && !FIGHTER1.badLuck;
 			}
-			if (LIST_AVAILABLE_ATTACKS.indexOf(FIGHTER2.attack) < 0 && FIGHTER2.attack != EMOTE_PP50) {
-				caught2 = caught2 || (illegalGetCaught(50) && !EVENT_PP_ENLIGHTENMENT) && !FIGHTER1.badLuck;
+			if (LIST_AVAILABLE_ATTACKS.indexOf(FIGHTER2.attack) < 0 && !(FIGHTER2.attack == EMOTE_PP50 && FIGHTER2.turnSkip) && !(FIGHTER2.attack == EMOTE_PP39 && FIGHTER2.grabbedPP)) {
+				caught2 = caught2 || (illegalGetCaught(50) && !EVENT_PP_ENLIGHTENMENT) && !FIGHTER2.badLuck;
 			}
 
 			if (FIGHTER1.attack == EMOTE_PP51 && FIGHTER1.regularCharges <= 0 && illegalGetCaught(50)) {
