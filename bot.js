@@ -798,7 +798,7 @@ class Fighter {
 				}
 				if (this.godList.indexOf(GOD_PP10_PRIEST) > -1) { // Fabio
 					BATTLE_CHANNEL.send(this.user.username + " let his hair flow in the wind !");
-					this.STR += 50*MOVE_COUNT;
+					this.heal(50*MOVE_COUNT);
 				}
 				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1) { // Espinoza
 					BATTLE_CHANNEL.send(this.user.username + " sniffs " + getOpponentOf(this).user.username + "'s PP !");
