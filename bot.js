@@ -207,6 +207,7 @@ class Fighter {
 		this.badLuck = false;
 		this.tearDrinker = 0;
 		this.grabbedPP = 0;
+		this.summonTankCountdown = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -349,6 +350,9 @@ class Fighter {
 		}
 		if (this.tearDrinker > 0) {
 			txt += " - Tear Drinker\n"
+		}
+		if (this.summonTankCountdown > 0) {
+			txt += " - Summoning the Monster..."
 		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			txt += " - Ultimate PP\n";
@@ -501,6 +505,9 @@ class Fighter {
 				BATTLE_CHANNEL.send(this.user.username + " squeezes hog yeah yeah !");
 				this.isPigged = true;
 				this.pigHeal += 2;
+				if (this.hasBoner) {
+					BATTLE_CHANNEL.send(this.user.username + " loses his boner !");
+				}
 				this.hasBoner = false;
 			}
 			else if (attack == EMOTE_PP20) {
@@ -897,7 +904,7 @@ class Fighter {
 					getOpponentOf(this).badLuck = true;
 				}
 				if (this.godList.indexOf(GOD_PP16_PRIEST) > -1) { // The Man Who Made a Monster
-					this.playMove(EMOTE_PP10);
+					this.summonTankCountdown = 2;
 				}
 			}
 			else if (attack == "IS_DEAD_LOL") {
@@ -1043,6 +1050,7 @@ class Fighter {
 		this.turnSkip -= 1;
 		this.grabbedPP -= 1;
 		this.isLucky -= 1;
+		this.summonTankCountdown -= 1;
 
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
@@ -1055,7 +1063,7 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " squeezes hog !");
 			this.heal(this.pigHeal);
 		}
-		// The Man Wh Made a Monster reular move
+		// The Man Wh Made a Monster regular move
 		if (this.tearDrinker > 0) {
 			BATTLE_CHANNEL.send(this.user.username + " drinks salty tears !");
 			this.heal(this.tearDrinker);
@@ -1065,6 +1073,9 @@ class Fighter {
 		}
 		if (this.grabbedPP > 0) {
 			this.attack = EMOTE_PP39;
+		}
+		if (this.summonTankCountdown > 0) {
+			this.attack = EMOTE_PP10;
 		}
 
 		// PP Armageddon
@@ -1393,6 +1404,9 @@ function newTurnDuel() {
 		newTurnDuel();
 	}
 	if (FIGHTER1.grabbedPP > 0 && FIGHTER2.grabbedPP > 0) {
+		newTurnDuel();
+	}
+	if (FIGHTER1.summonTankCountdown > 0 && FIGHTER2.summonTankCountdown > 0) {
 		newTurnDuel();
 	}
 }
@@ -1785,7 +1799,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		}
 
 		// Assigne attaque
-		else if (_user.id == FIGHTER1.user.id && FIGHTER1.turnSkip <= 0 && FIGHTER1.grabbedPP <= 0) {
+		else if (_user.id == FIGHTER1.user.id && !FIGHTER1.isPossessed && FIGHTER1.turnSkip <= 0 && FIGHTER1.grabbedPP <= 0 && FIGHTER1.summonTankCountdown <= 0) {
 			FIGHTER1.attack = getAttackFromEmote(_reaction.emoji);
 			BATTLE_CHANNEL.send(FIGHTER1.user.username + " : " + _reaction.emoji.name);
 
@@ -1795,7 +1809,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				BATTLE_CHANNEL.send(FIGHTER2.user.username + " : " + _reaction.emoji.name);
 			}
 		}
-		else if (_user.id == FIGHTER2.user.id && FIGHTER2.turnSkip <= 0 && FIGHTER2.grabbedPP <= 0) {
+		else if (_user.id == FIGHTER2.user.id && !FIGHTER2.isPossessed && FIGHTER2.turnSkip <= 0 && FIGHTER2.grabbedPP <= 0 && FIGHTER2.summonTankCountdown <= 0) {
 			FIGHTER2.attack = getAttackFromEmote(_reaction.emoji);
 			BATTLE_CHANNEL.send(FIGHTER2.user.username + " : " + _reaction.emoji.name);
 
@@ -1809,16 +1823,22 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		// Deux attaques sont faites
 		if (FIGHTER1.attack != "" && FIGHTER2.attack != "") {
 			if (FIGHTER1.turnSkip > 0) {
-				FIGHTER1.attack = EMOTE_PP50
+				FIGHTER1.attack = EMOTE_PP50;
 			}
 			if (FIGHTER2.turnSkip > 0) {
-				FIGHTER2.attack = EMOTE_PP50
+				FIGHTER2.attack = EMOTE_PP50;
 			}
 			if (FIGHTER1.grabbedPP > 0) {
-				FIGHTER1.attack = EMOTE_PP39
+				FIGHTER1.attack = EMOTE_PP39;
 			}
 			if (FIGHTER2.grabbedPP > 0) {
-				FIGHTER2.attack = EMOTE_PP39
+				FIGHTER2.attack = EMOTE_PP39;
+			}
+			if (FIGHTER1.summonTankCountdown > 0) {
+				FIGHTER1.attack = EMOTE_PP10;
+			}
+			if (FIGHTER2.summonTankCountdown > 0) {
+				FIGHTER2.attack = EMOTE_PP10;
 			}
 			console.log(FIGHTER1.attack + " / " + FIGHTER2.attack);
 
@@ -1826,10 +1846,10 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			var caught1 = illegalGetCaught(getRisk(FIGHTER1.attack)) || (FIGHTER1.badLuck && getRisk(FIGHTER1.attack) > 0);
 			var caught2 = illegalGetCaught(getRisk(FIGHTER2.attack)) || (FIGHTER2.badLuck && getRisk(FIGHTER2.attack) > 0);
 
-			if (LIST_AVAILABLE_ATTACKS.indexOf(FIGHTER1.attack) < 0 && !(FIGHTER1.attack == EMOTE_PP50 && FIGHTER1.turnSkip) && !(FIGHTER1.attack == EMOTE_PP39 && FIGHTER1.grabbedPP)) {
+			if (LIST_AVAILABLE_ATTACKS.indexOf(FIGHTER1.attack) < 0 && !(FIGHTER1.attack == EMOTE_PP50 && FIGHTER1.turnSkip) && !(FIGHTER1.attack == EMOTE_PP39 && FIGHTER1.grabbedPP) && !(FIGHTER1.attack == EMOTE_PP10 && FIGHTER1.summonTankCountdown) {
 				caught1 = caught1 || (illegalGetCaught(50) && !EVENT_PP_ENLIGHTENMENT) && !FIGHTER1.badLuck;
 			}
-			if (LIST_AVAILABLE_ATTACKS.indexOf(FIGHTER2.attack) < 0 && !(FIGHTER2.attack == EMOTE_PP50 && FIGHTER2.turnSkip) && !(FIGHTER2.attack == EMOTE_PP39 && FIGHTER2.grabbedPP)) {
+			if (LIST_AVAILABLE_ATTACKS.indexOf(FIGHTER2.attack) < 0 && !(FIGHTER2.attack == EMOTE_PP50 && FIGHTER2.turnSkip) && !(FIGHTER2.attack == EMOTE_PP39 && FIGHTER2.grabbedPP) && !(FIGHTER2.attack == EMOTE_PP10 && FIGHTER2.summonTankCountdown)) {
 				caught2 = caught2 || (illegalGetCaught(50) && !EVENT_PP_ENLIGHTENMENT) && !FIGHTER2.badLuck;
 			}
 
