@@ -128,6 +128,7 @@ var MOVE_COUNT = 0;
 var DAMAGE_COUNT = 0;
 var REVERSE_DAMAGE = 0;
 var FORCE_EVENT = false;
+var GAY_TURNS = 0;
 
 var DISABLE_ABANDON = false;
 
@@ -795,6 +796,10 @@ class Fighter {
 					BATTLE_CHANNEL.send(this.user.username + " plays a guitar solo that makes people's PP bleed !");
 					getOpponentOf(this).bleedDamage += 5;
 				}
+				if (this.godList.indexOf(GOD_PP10_PRIEST) > -1) { // Fabio
+					BATTLE_CHANNEL.send(this.user.username + " let his hair flow in the wind !");
+					this.STR += 50*MOVE_COUNT;
+				}
 				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1) { // Espinoza
 					BATTLE_CHANNEL.send(this.user.username + " sniffs " + getOpponentOf(this).user.username + "'s PP !");
 					this.DEXValue += 10;
@@ -846,6 +851,10 @@ class Fighter {
 							getOpponentOf(this)[listeStats[i]] = a;
 						}
 					}
+				}
+				if (this.godList.indexOf(GOD_PP10_PRIEST) > -1) { // Fabio
+					BATTLE_CHANNEL.send(this.user.username + " makes you all turn gay !");
+					GAY_TURNS = 5;
 				}
 				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1) { // Espinoza
 					BATTLE_CHANNEL.send(this.user.username + " grabs " + getOpponentOf(this).user.username + "'s PP !");
@@ -1243,6 +1252,7 @@ function newTurnDuel() {
 	INFINITE_DAMAGE = 0;
 	DISABLE_ABANDON = false;
 	REVERSE_DAMAGE -= 1;
+	GAY_TURNS -= 1;
 
 	if (BLIND_COUNTDOWN >= 1) {
 		setBotActivity("WTF I'M FUCKING BLIND");
@@ -1353,8 +1363,11 @@ function newTurnDuel() {
 		setRandomAttackList();
 	}
 
-
-	BATTLE_CHANNEL.send("\n\nAttack with a reaction !").then(function (_message2) {
+	var gay = ""
+	if (GAY_TURNS > 0) {
+		gay = "opponent's "
+	}
+	BATTLE_CHANNEL.send("\n\nChoose your " + gay + "attack with a reaction !").then(function (_message2) {
 		for (var i in LIST_AVAILABLE_ATTACKS) {
 			console.log(LIST_AVAILABLE_ATTACKS[i]);
 			if (LIST_AVAILABLE_ATTACKS[i] != "IS_DEAD_LOL") {
@@ -1758,6 +1771,16 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 
 	// DUEL
 	if (IS_DUELLING) {
+		// GAY_TURNS
+		if (GAY_TURNS > 0) {
+			if (_user.id == FIGHTER1.user.id) {
+				FIGHTER2.attack = getAttackFromEmote(_reaction.emoji);
+			}
+			if (_user.id == FIGHTER2.user.id) {
+				FIGHTER1.attack = getAttackFromEmote(_reaction.emoji);
+			}
+		}
+
 		// Assigne attaque
 		if (_user.id == FIGHTER1.user.id && FIGHTER1.turnSkip <= 0 && FIGHTER1.grabbedPP <= 0) {
 			FIGHTER1.attack = getAttackFromEmote(_reaction.emoji);
