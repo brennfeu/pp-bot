@@ -1215,7 +1215,8 @@ function startDuel(_message) {
 	MOVE_COUNT = 0;
 	DAMAGE_COUNT = 0;
 	FORCE_EVENT = false;
-	REVERSE_DAMAGE = 0
+	REVERSE_DAMAGE = 0;
+	GAY_TURNS = 0;
 
 	PP_ARMAGEDDON = false;
 	EVENT_PP_ENLIGHTENMENT = false;
