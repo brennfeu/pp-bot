@@ -1433,6 +1433,10 @@ function newTurnDuel() {
 	if (FIGHTER1.summonTankCountdown > 0 && FIGHTER2.summonTankCountdown > 0) {
 		newTurnDuel();
 	}
+	
+	if (getRandomPercent() <= 25) {
+		FORCE_SATAN = false;
+	}
 }
 
 function setRandomAttackList() {
