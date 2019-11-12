@@ -286,9 +286,14 @@ class Fighter {
 		for (var i in this.godList) {
 			txt += "\n - " + this.godList[i];
 		}
-		txt += "\nRegular Charges : " + this.regularCharges;
-		txt += "\nSpecial Charges : " + this.specialCharges;
-
+		
+		if (this.regularCharges > 0) {
+			txt += "\nRegular Charges : " + this.regularCharges;
+		}
+		if (this.specialCharges > 0) {
+			txt += "\nSpecial Charges : " + this.specialCharges;
+		}
+		    
 		txt += "\n\n**Fighting Styles :**\n";
 		if (this.isBigPP) {
 			txt += " - Big PP\n";
