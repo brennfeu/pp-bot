@@ -211,6 +211,7 @@ class Fighter {
 		this.summonTankCountdown = 0;
 		this.turnSkip = 0;
 		this.eldritchFriend = false;
+		this.isCowBoy = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -364,6 +365,9 @@ class Fighter {
 		}
 		if (this.summonTankCountdown > 0) {
 			txt += " - Summoning the Monster..."
+		}
+		if (this.isCowBoy) {
+			txt += " - Cowboy"
 		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			txt += " - Ultimate PP\n";
@@ -831,6 +835,11 @@ class Fighter {
 					BATTLE_CHANNEL.send(this.user.username + " let his hair flow in the wind !");
 					this.heal(50*MOVE_COUNT);
 				}
+				if (this.godList.indexOf(GOD_PP11_PRIEST) > -1) { // Country Music Brenn
+					BATTLE_CHANNEL.send(this.user.username + " plays some country !");
+					BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " gets an Hocky Puck PP !");
+					getOpponentOf(this).isHockeyPuckPP = true;
+				}
 				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1) { // Espinoza
 					BATTLE_CHANNEL.send(this.user.username + " sniffs " + getOpponentOf(this).user.username + "'s PP !");
 					this.DEXValue += 10;
@@ -890,6 +899,10 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP10_PRIEST) > -1) { // Fabio
 					BATTLE_CHANNEL.send(this.user.username + " makes you all turn gay !");
 					GAY_TURNS = 5;
+				}
+				if (this.godList.indexOf(GOD_PP11_PRIEST) > -1) { // Country Music Brenn
+					BATTLE_CHANNEL.send(this.user.username + " becomes a Cow-Boy !");
+					this.isCowBoy = true;
 				}
 				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1) { // Espinoza
 					BATTLE_CHANNEL.send(this.user.username + " grabs " + getOpponentOf(this).user.username + "'s PP !");
@@ -1087,8 +1100,14 @@ class Fighter {
 
 		// Pig
 		if (this.isPigged) {
-			BATTLE_CHANNEL.send(this.user.username + " squeezes hog !");
-			this.heal(this.pigHeal);
+			if (this.isCowBoy) {
+				BATTLE_CHANNEL.send(this.user.username + " squeezes hog YEEHAAAAAW !");
+				this.heal(this.pigHeal*50);
+			}
+			else {
+				BATTLE_CHANNEL.send(this.user.username + " squeezes hog !");
+				this.heal(this.pigHeal);
+			}
 		}
 		// The Man Wh Made a Monster regular move
 		if (this.tearDrinker > 0) {
@@ -1580,7 +1599,7 @@ function startRandomEvent() {
 	var randomVar = getRandomPercent();
 
 	if (FORCE_EVENT) {
-		while (!(randomVar <= 14 && randomVar >= 2)) {
+		while (!(randomVar <= 22 && randomVar >= 2)) {
 			randomVar = getRandomPercent();
 		}
 	}
@@ -1665,6 +1684,18 @@ function startRandomEvent() {
 		BATTLE_CHANNEL.send("Gods decide to give you a special charge each");
 		FIGHTER1.specialCharges++;
 		FIGHTER2.specialCharges++;
+	}
+	else if (randomVar == 22) {
+		// Huge Gay Night
+		BATTLE_CHANNEL.send(" -- HUGE GAY NIGHT --");
+		BATTLE_CHANNEL.send("You suddenly become gay");
+		if (GAY_TURNS > 0) {
+			GAY_TURNS += 10;
+		}
+		else {
+			GAY_TURNS = 1;
+		}
+		
 	}
 	else {
 		BATTLE_CHANNEL.send("No event this turn...");
