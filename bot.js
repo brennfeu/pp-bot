@@ -835,6 +835,11 @@ class Fighter {
 					BATTLE_CHANNEL.send(this.user.username + " gets an eldritch friend !");
 					this.eldritchFriend = true;
 				}
+				if (this.godList.indexOf(GOD_PP7_PRIEST) > -1) { // Jew
+					BATTLE_CHANNEL.send(this.user.username + " takes " + MOVE_COUNT*2 + " DEX from " + getOpponentOf(this).user.username + " as the emerald tax !");
+					this.DEXValue += MOVE_COUNT*2;
+					getOpponentOf(this).DEXValue -= MOVE_COUNT*2;
+				}
 				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) { // Brenn
 					BATTLE_CHANNEL.send(this.user.username + " plays a guitar solo that makes people's PP bleed !");
 					getOpponentOf(this).bleedDamage += 5;
@@ -897,6 +902,9 @@ class Fighter {
 					BATTLE_CHANNEL.send(this.user.username + " releases Hell on earth !");
 					FORCE_SATAN = true;
 				}
+				if (this.godList.indexOf(GOD_PP7_PRIEST) > -1) { // Jew
+					BATTLE_CHANNEL.send(this.user.username + " uses its long nose to get a new special charge !");
+					this.specialCharges += 1;
 				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) { // Brenn
 					BATTLE_CHANNEL.send("Brenn himself messes everything in the battle !");
 					var listeStats = ["STRValue", "DEXValue", "isBigPP", "isFastPP", "isDrunkPP", "isHockeyPuckPP", "isAlienPP", "turkeyCountdown", "bleedDamage", "hasExamined", "isPossessed", "isPigged", "pigHeal", "doomReverse", "acidArmor", "isBoomerangUsed", "turnSkip", "isLucky", "grabbedPP"];
