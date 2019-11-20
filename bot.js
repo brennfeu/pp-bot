@@ -20,7 +20,7 @@ const GOD_PP3_PRIEST = "LeprePuds Priest";
 const GOD_PP4_PRIEST = "DickHead Pudding Priest";
 const GOD_PP5_PRIEST = "Hello There Puds Priest";
 const GOD_PP6_PRIEST = "DickDickSon666 Priest";
-const GOD_PP7_PRIEST = "FemPuds Priest";
+const GOD_PP7_PRIEST = "Jew Priest";
 const GOD_PP8_PRIEST = "Fabulous Toast Man Priest";
 const GOD_PP9_PRIEST = "Brenn Priest";
 const GOD_PP10_PRIEST = "Fabio Priest";
@@ -93,7 +93,7 @@ const GOD_PP3 = "616332243337609257" // LeprePuds
 const GOD_PP4 = "614823752492122156" // DickHead Pudding
 const GOD_PP5 = "614823329731313670" // Hello There Puds
 const GOD_PP6 = "616877566396989451" // DickDickSon666
-const GOD_PP7 = "614824125491445760" // FemPuds ;) ;)
+const GOD_PP7 = "644621040093364283" // Jew
 const GOD_PP8 = "614823500951060481" // Fabulous Toast Man
 const GOD_PP9 = "615268884651442186" // That's me
 const GOD_PP10 = "618037444222255104" // Fabio
@@ -1827,7 +1827,7 @@ CLIENT.on("message", async _message => {
 			_message2.react(GOD_PP4); // DickHead Pudding
 			_message2.react(GOD_PP5); // Hello There Puds
 			_message2.react(GOD_PP6); // DickDickSon666
-			_message2.react(GOD_PP7); // FemPuds ;) ;)
+			_message2.react(GOD_PP7); // Jew
 			_message2.react(GOD_PP8); // Fabulous Toast Man
 			_message2.react(GOD_PP9); // That's me
 			_message2.react(GOD_PP10); // Fabio
