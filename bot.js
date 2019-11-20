@@ -14,7 +14,7 @@ const ALIEN_PP_ROLE = "Alien PP";
 const HOCKEY_PUCK_PP_ROLE = "Hockey Puck PP";
 const DRUNK_PP_ROLE = "Drunken PP";
 
-const GOD_PP1_PRIEST = "Does not compute Priest";
+const GOD_PP1_PRIEST = "Mongo Priest";
 const GOD_PP2_PRIEST = "Dr Phil Priest";
 const GOD_PP3_PRIEST = "LeprePuds Priest";
 const GOD_PP4_PRIEST = "DickHead Pudding Priest";
@@ -87,7 +87,7 @@ const EMOTE_PP51 = "615518949110448129" // Priest move
 const EMOTE_PP52 = "615516249912508419" // Special Priest Move
 const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20, EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30, EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP36, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40, EMOTE_PP41, EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP47, EMOTE_PP48, EMOTE_PP49, EMOTE_PP50, EMOTE_PP51, EMOTE_PP52]
 
-const GOD_PP1 = "618526630838665216" // Does not compute
+const GOD_PP1 = "644643782888783892" // Mongo
 const GOD_PP2 = "617686716479832064" // Dr Phil / WhatDAFuk
 const GOD_PP3 = "616332243337609257" // LeprePuds
 const GOD_PP4 = "614823752492122156" // DickHead Pudding
@@ -1809,7 +1809,7 @@ CLIENT.on("message", async _message => {
 			BATTLE_CHANNEL.send(e);
 		});
 		return _message.reply("change your God with a reaction.").then(function (_message2) {
-			_message2.react(GOD_PP1); // Does not compute
+			_message2.react(GOD_PP1); // Mongo
 			_message2.react(GOD_PP2); // Dr Phil / WhatDAFuk
 			_message2.react(GOD_PP3); // LeprePuds
 			_message2.react(GOD_PP4); // DickHead Pudding
