@@ -371,7 +371,7 @@ class Fighter {
 			txt += " - Cowboy\n"
 		}
 		if (this.trueBarbarian) {
-			txt += " - Barbarian from the North\n"
+			txt += " - Great Barbarian from the North Seeking New Lands for his Kingdom\n"
 		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			txt += " - Ultimate PP\n";
