@@ -212,6 +212,7 @@ class Fighter {
 		this.turnSkip = 0;
 		this.eldritchFriend = false;
 		this.isCowBoy = false;
+		this.trueBarbarian = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -368,6 +369,9 @@ class Fighter {
 		}
 		if (this.isCowBoy) {
 			txt += " - Cowboy"
+		}
+		if (this.trueBarbarian) {
+			txt += " - Barbarian from the North"
 		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			txt += " - Ultimate PP\n";
@@ -814,6 +818,10 @@ class Fighter {
 				if (this.regularCharges > 0) {
 					this.regularCharges -= 1;
 				}
+				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1) { // Mongo
+					BATTLE_CHANNEL.send(this.user.username + " gains some barbarian strength");
+					this.heal(50);
+				}
 				if (this.godList.indexOf(GOD_PP2_PRIEST) > -1) { // Dr Phil
 					BATTLE_CHANNEL.send("You suddenly all wonder about life...");
 					FORCE_PERHAPS = true;
@@ -869,6 +877,10 @@ class Fighter {
 				BATTLE_CHANNEL.send(this.user.username + " calls for his Gods to help him !");
 				if (this.specialCharges > 0) {
 					this.specialCharges -= 1;
+				}
+				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1) { // Mongo
+					BATTLE_CHANNEL.send(this.user.username + " becomes a true barbarian from the north !");
+					this.trueBarbarian = true;
 				}
 				if (this.godList.indexOf(GOD_PP2_PRIEST) > -1) { // Dr Phil
 					BATTLE_CHANNEL.send("Dr Phil sends " + getOpponentOf(this).user.username + "'s will to fight to the ranch for 1 turn...");
@@ -1855,7 +1867,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	if (IS_DUELLING) {
 		// GAY_TURNS
 		if (GAY_TURNS > 0) {
-			if (_user.id == FIGHTER1.user.id) {
+			if (_user.id == FIGHTER1.user.id && !FIGHTER2.trueBarbarian) {
 				if (LIST_AVAILABLE_ATTACKS.indexOf(getAttackFromEmote(_reaction.emoji)) < -1) {
 					return BATTLE_CHANNEL.send("Gay people can't cheat...");
 				}
@@ -1864,7 +1876,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 					BATTLE_CHANNEL.send(FIGHTER2.user.username + " : " + _reaction.emoji.name);
 				}
 			}
-			if (_user.id == FIGHTER2.user.id) {
+			if (_user.id == FIGHTER2.user.id && !FIGHTER1.trueBarbarian) {
 				if (LIST_AVAILABLE_ATTACKS.indexOf(getAttackFromEmote(_reaction.emoji)) < -1) {
 					return BATTLE_CHANNEL.send("Gay people can't cheat...");
 				}
@@ -1931,23 +1943,32 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			}
 
 			if (FIGHTER1.attack == EMOTE_PP51 && FIGHTER1.regularCharges <= 0 && illegalGetCaught(50)) {
-				caught1 = true
+				caught1 = true;
 			}
 			if (FIGHTER2.attack == EMOTE_PP51 && FIGHTER2.regularCharges <= 0 && illegalGetCaught(50)) {
-				caught2 = true
+				caught2 = true;
 			}
 			if (FIGHTER1.attack == EMOTE_PP52 && FIGHTER1.specialCharges <= 0 && illegalGetCaught(80)) {
-				caught1 = true
+				caught1 = true;
 			}
 			if (FIGHTER2.attack == EMOTE_PP52 && FIGHTER2.specialCharges <= 0 && illegalGetCaught(80)) {
-				caught2 = true
+				caught2 = true;
 			}
 
 			if (FIGHTER1.isLucky && getRandomPercent() <= 50) {
-				caught1 = false
+				caught1 = false;
 			}
 			if (FIGHTER2.isLucky && getRandomPercent() <= 50) {
-				caught2 = false
+				caught2 = false;
+			}
+			
+			if (FIGHTER1.trueBarbarian && FIGHTER1.STR >= 100 && caught1) {
+				caught1 = false;
+				BATTLE_CHANNEL.send(FIGHTER1.user.username + " strong. " + FIGHTER1.user.username + " punch arbitratory if arbitratory bad.");
+			}
+			if (FIGHTER2.trueBarbarian && FIGHTER2.STR >= 100 && caught2) {
+				caught2 = false;
+				BATTLE_CHANNEL.send(FIGHTER2.user.username + " strong. " + FIGHTER2.user.username + " punch arbitratory if arbitratory bad.");
 			}
 
 			var winner;
