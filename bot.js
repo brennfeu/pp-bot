@@ -365,13 +365,13 @@ class Fighter {
 			txt += " - Tear Drinker\n"
 		}
 		if (this.summonTankCountdown > 0) {
-			txt += " - Summoning the Monster..."
+			txt += " - Summoning the Monster...\n"
 		}
 		if (this.isCowBoy) {
-			txt += " - Cowboy"
+			txt += " - Cowboy\n"
 		}
 		if (this.trueBarbarian) {
-			txt += " - Barbarian from the North"
+			txt += " - Barbarian from the North\n"
 		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			txt += " - Ultimate PP\n";
