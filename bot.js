@@ -818,6 +818,14 @@ class Fighter {
 				if (this.regularCharges > 0) {
 					this.regularCharges -= 1;
 				}
+				if (this.godList.indexOf(GOD_PP8_PRIEST) > -1) { // Fabulous Toast Man
+					var randomGod = Math.floor(Math.random()*PRIEST_ROLES.length)
+					while (this.godList.indexOf(PRIEST_ROLES[randomGod]) > -1) {
+						randomGod = Math.floor(Math.random()*PRIEST_ROLES.length)
+					}
+					this.godList.add(PRIEST_ROLES[randomGod]);
+					BATTLE_CHANNEL.send(this.user.username + " becomes a " + PRIEST_ROLES[randomGod]);
+				}
 				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1) { // Mongo
 					BATTLE_CHANNEL.send(this.user.username + " gains some barbarian strength");
 					this.heal(50);
@@ -846,9 +854,7 @@ class Fighter {
 					this.DEXValue += MOVE_COUNT*2;
 					getOpponentOf(this).DEXValue -= MOVE_COUNT*2;
 				}
-				if (this.godList.indexOf(GOD_PP8_PRIEST) > -1) { // Fabulous Toast Man
-					// TODO
-				}
+				// GOD 8 IS FIRST
 				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) { // Brenn
 					BATTLE_CHANNEL.send(this.user.username + " plays a guitar solo that makes people's PP bleed !");
 					getOpponentOf(this).bleedDamage += 5;
