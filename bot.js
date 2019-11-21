@@ -826,7 +826,7 @@ class Fighter {
 						nbTries += 1;
 					}
 					this.godList.add(PRIEST_ROLES[randomGod]);
-					BATTLE_CHANNEL.send(this.user.username + " becomes a " + PRIEST_ROLES[randomGod]);
+					BATTLE_CHANNEL.send(this.user.username + " becomes a " + PRIEST_ROLES[randomGod] + " thanks to his charisma !");
 				}
 				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1) { // Mongo
 					BATTLE_CHANNEL.send(this.user.username + " gains some barbarian strength");
