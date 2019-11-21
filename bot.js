@@ -1174,6 +1174,11 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " drinks salty tears !");
 			this.heal(this.tearDrinker);
 		}
+		if (this.godList.indexOf(GOD_PP6_PRIEST) && this.godList.indexOf(GOD_PP6_PRIEST) && this.godList.indexOf(GOD_PP6_PRIEST)) {
+			BATTLE_CHANNEL.send(this.user.username + " gets healed by the Unholy Pudding Trinity !");
+			this.heal(10);
+		}
+		
 		if (this.turnSkip > 0) {
 			this.attack = EMOTE_PP50;
 		}
