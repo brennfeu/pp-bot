@@ -841,8 +841,14 @@ class Fighter {
 					this.isLucky = 2;
 					this.badLuck = false;
 				}
-				if (this.godList.indexOf(GOD_PP4_PRIEST) > -1) { // DickeHead Pudding
-					// TODO
+				if (this.godList.indexOf(GOD_PP4_PRIEST) > -1) { // DickHead Pudding
+					if (getRandomPercent() == 1) {
+						BATTLE_CHANNEL.send(this.user.username + " wins !");
+						getOpponentof(this).playMove(EMOTE_PP47);
+					} 
+					else {
+						BATTLE_CHANNEL.send(this.user.username + " fails to be a complete dickhead !");
+					}
 				}
 				if (this.godList.indexOf(GOD_PP5_PRIEST) > -1) { // Hello There Puds
 					// TODO
@@ -915,8 +921,14 @@ class Fighter {
 					}
 					this.DEXValue += 20;
 				}
-				if (this.godList.indexOf(GOD_PP4_PRIEST) > -1) { // DickeHead Pudding
-					// TODO
+				if (this.godList.indexOf(GOD_PP4_PRIEST) > -1) { // DickHead Pudding
+					if (getRandomPercent() <= 10) {
+						BATTLE_CHANNEL.send(this.user.username + " wins !");
+						getOpponentof(this).playMove(EMOTE_PP47);
+					} 
+					else {
+						BATTLE_CHANNEL.send(this.user.username + " fails to be a complete dickhead !");
+					}
 				}
 				if (this.godList.indexOf(GOD_PP5_PRIEST) > -1) { // Hello There Puds
 					// TODO
