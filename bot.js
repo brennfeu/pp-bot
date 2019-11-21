@@ -820,8 +820,10 @@ class Fighter {
 				}
 				if (this.godList.indexOf(GOD_PP8_PRIEST) > -1) { // Fabulous Toast Man
 					var randomGod = Math.floor(Math.random()*PRIEST_ROLES.length)
-					while (this.godList.indexOf(PRIEST_ROLES[randomGod]) > -1) {
+					var nbTries = 0;
+					while (this.godList.indexOf(PRIEST_ROLES[randomGod]) > -1 && nbTries < 100) {
 						randomGod = Math.floor(Math.random()*PRIEST_ROLES.length)
+						nbTries += 1;
 					}
 					this.godList.add(PRIEST_ROLES[randomGod]);
 					BATTLE_CHANNEL.send(this.user.username + " becomes a " + PRIEST_ROLES[randomGod]);
