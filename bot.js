@@ -188,8 +188,11 @@ class Fighter {
 				this.godList.push(r);
 			}
 		}
-		this.regularCharges = 69;
-		this.specialCharges = 69;
+		this.regularCharges = 1;
+		this.specialCharges = 0;
+		if (getRandomPercent() <= 25) {
+			this.specialCharges = 1;
+		}
 
 		// Natural values
 		this.STRValue = 70;
