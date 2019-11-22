@@ -1540,6 +1540,8 @@ function stopDuel() {
 function newTurnDuel() {
 	FIGHTER1.turnChange();
 	FIGHTER2.turnChange();
+	
+	BATTLE_CHANNEL.send("=== TURN CHANGE ===");
 
 	STEEL_PROTECTION = false;
 	BARREL_DAMAGE = false;
