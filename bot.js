@@ -966,7 +966,7 @@ class Fighter {
 				}
 				if (this.godList.indexOf(GOD_PP8_PRIEST) > -1) { // Fabulous Toast Man
 					BATTLE_CHANNEL.send(this.user.username + " calls for a bit of power from all his gods !");
-					getOppositeOf(this).damage(Math.floor(this.godList.length*this.STR/10));
+					getOpponentOf(this).damage(Math.floor(this.godList.length*this.STR/10));
 				}
 				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) { // Brenn
 					BATTLE_CHANNEL.send("Brenn himself messes everything in the battle !");
