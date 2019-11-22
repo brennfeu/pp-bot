@@ -30,7 +30,8 @@ const GOD_PP13_PRIEST = "700IQ Priest";
 const GOD_PP14_PRIEST = "UREGonnaGetRAPED Priest";
 const GOD_PP15_PRIEST = "STFU Isaac Priest";
 const GOD_PP16_PRIEST = "The Man Who made a Monster Priest";
-const PRIEST_ROLES = [GOD_PP1_PRIEST, GOD_PP2_PRIEST, GOD_PP3_PRIEST, GOD_PP4_PRIEST, GOD_PP5_PRIEST, GOD_PP6_PRIEST, GOD_PP7_PRIEST, GOD_PP8_PRIEST, GOD_PP9_PRIEST, GOD_PP10_PRIEST, GOD_PP11_PRIEST, GOD_PP12_PRIEST, GOD_PP13_PRIEST, GOD_PP14_PRIEST, GOD_PP15_PRIEST, GOD_PP16_PRIEST];
+const GOD_PP17_PRIEST = "Hitler Priest";
+const PRIEST_ROLES = [GOD_PP1_PRIEST, GOD_PP2_PRIEST, GOD_PP3_PRIEST, GOD_PP4_PRIEST, GOD_PP5_PRIEST, GOD_PP6_PRIEST, GOD_PP7_PRIEST, GOD_PP8_PRIEST, GOD_PP9_PRIEST, GOD_PP10_PRIEST, GOD_PP11_PRIEST, GOD_PP12_PRIEST, GOD_PP13_PRIEST, GOD_PP14_PRIEST, GOD_PP15_PRIEST, GOD_PP16_PRIEST, GOD_PP17_PRIEST];
 
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
 const EMOTE_PP2 = "535240768441548810"; // PunchingPPReallyHard
@@ -103,6 +104,7 @@ const GOD_PP13 = "617258233307987986" // 700IQ
 const GOD_PP14 = "615271176314290249" // UREGonnaGetRAPED
 const GOD_PP15 = "614822537800712213" // STFU Isaac
 const GOD_PP16 = "619795568230924291" // The Man Who made a Monster
+const GOD_PP17 = "622395294390157329" // Hitler
 
 // Variables
 var IS_BUSY = false;
@@ -908,6 +910,10 @@ class Fighter {
 					BATTLE_CHANNEL.send(this.user.username + " drinks " + getOpponentOf(this).user.username + "'s salty tears !");
 					this.tearDrinker += 3;
 				}
+				if (this.godList.indexOf(GOD_PP17_PRIEST) > -1) { // Hitler
+					BATTLE_CHANNEL.send(this.user.username + " makes jew priests illegal !");
+					ILLEGAL_JEWS = true;
+				}
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
@@ -1016,7 +1022,17 @@ class Fighter {
 					getOpponentOf(this).badLuck = true;
 				}
 				if (this.godList.indexOf(GOD_PP16_PRIEST) > -1) { // The Man Who Made a Monster
+					BATTLE_CHANNEL.send(this.user.username + " starts summoning the Monster !");
 					this.summonTankCountdown = 2;
+				}
+				if (this.godList.indexOf(GOD_PP17_PRIEST) > -1) { // Hitler
+					BATTLE_CHANNEL.send(this.user.username + " starts a new genocide !");
+					if (getOpponentOf(this).godList.indexOf(GOD_PP7_PRIEST) > -1) {
+						getOpponentOf(this).playMove(EMOTE_PP47);
+					}
+					else {
+						BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " is unaffected...");
+					}
 				}
 			}
 			else if (attack == "IS_DEAD_LOL") {
@@ -1340,6 +1356,7 @@ function startDuel(_message) {
 	FORCE_EVENT = false;
 	REVERSE_DAMAGE = 0;
 	GAY_TURNS = 0;
+	ILLEGAL_JEWS = false;
 
 	PP_ARMAGEDDON = false;
 	EVENT_PP_ENLIGHTENMENT = false;
@@ -2037,6 +2054,13 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			if (FIGHTER2.attack == EMOTE_PP52 && FIGHTER2.specialCharges <= 0 && illegalGetCaught(80)) {
 				caught2 = true;
 			}
+			
+			if (ILLEGAL_JEWS && FIGHTER1.godList.indexOf(GOD_PP7_PRIEST) > -1 && illegalGetCaught(1)) {
+				caught1 = true;
+			}
+			if (ILLEGAL_JEWS && FIGHTER2.godList.indexOf(GOD_PP7_PRIEST) > -1 && illegalGetCaught(1)) {
+				caught2 = true;
+			}
 
 			if (FIGHTER1.isLucky && getRandomPercent() <= 50) {
 				caught1 = false;
@@ -2276,6 +2300,9 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		}
 		else if (_reaction.emoji.id == GOD_PP16) {
 			changeRoleToStyler(GOD_PP16_PRIEST);
+		}
+		else if (_reaction.emoji.id == GOD_PP17) {
+			changeRoleToStyler(GOD_PP17_PRIEST);
 		}
 
 
