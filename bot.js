@@ -2026,12 +2026,12 @@ CLIENT.on("message", async _message => {
 		return;
 	}
 	if (argsUser[1] == "quit") {
-		if (_user.id == FIGHTER1.user.id) {
+		if (_message.author.id == FIGHTER1.user.id) {
 			FIGHTER1.playMove(EMOTE_PP47);
 			stopDuel();
 			return;
 		}
-		else if (_user.id == FIGHTER2.user.id) {
+		else if (_message.author.id == FIGHTER2.user.id) {
 			FIGHTER2.playMove(EMOTE_PP47);
 			stopDuel();
 			return;
