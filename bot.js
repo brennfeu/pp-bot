@@ -1972,7 +1972,7 @@ function getNumberOfGods(_guildUser) {
 
 
 CLIENT.on('ready', () => {
-	console.log(`Logged in as ${CLIENT.user.tag}!`);
+	console.log(`Logged in as ${CLIENT.user.tag} !`);
 
 	// annonce BETA_TEST
 	if (BETA_TEST || PRIVATE_TEST) {
@@ -1986,6 +1986,9 @@ CLIENT.on('ready', () => {
 
 // This event will run on every single message received, from any channel or DM.
 CLIENT.on("message", async _message => {
+	// Recuperation commande
+	var argsUser = _message.content.trim().split(" ");
+	
 	// Ignore si bot
 	if(_message.author.bot) return;
 	// Ignore si pas appelé
@@ -1994,13 +1997,10 @@ CLIENT.on("message", async _message => {
 	// Ignore si test privé
 	if (PRIVATE_TEST && _message.author.username != "brennfeu") return _message.reply("I am currently unavailable, sorry :/");
 	// Ignore si deja occupé
-	if (IS_BUSY) return _message.reply("I'm busy right now, try again when I'll be available. You can check that on my activity.");
+	if (IS_BUSY && argsUser[1] != "quit") return _message.reply("I'm busy right now, try again when I'll be available. You can check that on my activity.");
 
 	BATTLE_CHANNEL = _message.channel;
 	GUILD = _message.guild;
-
-	// Recuperation commande
-	var argsUser = _message.content.trim().split(" ");
 
 	if (argsUser[1] == "rank") {
 		if (_message.mentions.users.array().length > 1) {
@@ -2024,6 +2024,21 @@ CLIENT.on("message", async _message => {
 		newTurnDuel();
 
 		return;
+	}
+	if (argsUser[1] == "quit") {
+		if (_user.id == FIGHTER1.user.id) {
+			FIGHTER1.playMove(EMOTE_PP47);
+			stopDuel();
+			return;
+		}
+		else if (_user.id == FIGHTER2.user.id) {
+			FIGHTER2.playMove(EMOTE_PP47);
+			stopDuel();
+			return;
+		}
+		else {
+			return _message.reply("this fight is not yours.");
+		}
 	}
 	if (argsUser[1] == "custom") {
 		// STYLE
