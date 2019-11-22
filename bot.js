@@ -293,11 +293,12 @@ class Fighter {
 		var txt = "**" + this.user.username;
 		txt += "\nSTR :** " + this.STR + "  //  **DEX :** " + this.DEX;
 
-		txt += "\n\n**Faith :**"
-		for (var i in this.godList) {
-			txt += "\n - " + this.godList[i];
+		if (this.regularCharges > 0 || this.specialCharges > 0) {
+			txt += "\n\n**Faith :**"
+			for (var i in this.godList) {
+				txt += "\n - " + this.godList[i];
+			}
 		}
-		
 		if (this.regularCharges > 0) {
 			txt += "\nRegular Charges : " + this.regularCharges;
 		}
