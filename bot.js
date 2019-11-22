@@ -1332,7 +1332,7 @@ class Fighter {
 		if (this.grabbedPP > 0) {
 			this.attack = EMOTE_PP39;
 		}
-		if (this.summonTankCountdown > 0) {
+		if (this.summonTankCountdown == 1) {
 			this.attack = EMOTE_PP10;
 		}
 
@@ -2173,6 +2173,13 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			}
 			if (FIGHTER2.attack == EMOTE_PP52 && FIGHTER2.specialCharges <= 0 && illegalGetCaught(80)) {
 				caught2 = true;
+			}
+			
+			if (FIGHTER1.summonTankCountdown == 1) {
+				caught1 = false;
+			}
+			if (FIGHTER2.summonTankCountdown == 1) {
+				caught2 = false;
 			}
 			
 			if (ILLEGAL_JEWS && FIGHTER1.godList.indexOf(GOD_PP7_PRIEST) > -1 && illegalGetCaught(1)) {
