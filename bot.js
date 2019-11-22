@@ -1185,6 +1185,8 @@ class Fighter {
 	}
 
 	turnChange() {
+		BATTLE_CHANNEL.send("-----------------");
+		
 		// Clear attaque
 		this.attack = "";
 		if (!this.attackedThisTurn) {
@@ -1214,6 +1216,7 @@ class Fighter {
 			else {
 				BATTLE_CHANNEL.send(this.user.username + " has " + this.turkeyCountdown + " turn(s) left !");
 			}
+			BATTLE_CHANNEL.send("-----------------");
 		}
 
 		// Trap Sign, Examine, SatanPossess etc..
@@ -1239,6 +1242,7 @@ class Fighter {
 			else {
 				this.damage(this.bleedDamage);
 			}
+			BATTLE_CHANNEL.send("-----------------");
 		}
 
 		// Pig
@@ -1251,24 +1255,29 @@ class Fighter {
 				BATTLE_CHANNEL.send(this.user.username + " squeezes hog !");
 				this.heal(this.pigHeal);
 			}
+			BATTLE_CHANNEL.send("-----------------");
 		}
 		// The Man Wh Made a Monster regular move
 		if (this.tearDrinker > 0) {
 			BATTLE_CHANNEL.send(this.user.username + " drinks salty tears !");
 			this.heal(this.tearDrinker);
+			BATTLE_CHANNEL.send("-----------------");
 		}
 		if (this.godList.indexOf(GOD_PP5_PRIEST) > -1 && this.godList.indexOf(GOD_PP6_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
 			BATTLE_CHANNEL.send(this.user.username + " gets healed by the Unholy Pudding Trinity !");
 			this.heal(10);
+			BATTLE_CHANNEL.send("-----------------");
 		}
 		if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
 			BATTLE_CHANNEL.send(this.user.username + " remembers haunting memories...");
 			this.playMove(EMOTE_PP42);
+			BATTLE_CHANNEL.send("-----------------");
 		}
 		if (this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP9_PRIEST) > -1) {
 			BATTLE_CHANNEL.send(this.user.username + " plays garbage music");
 			BATTLE_CHANNEL.send(getOpponentOf(this).user.username + "'s ears starts bleeding");
 			getOpponentOf(this).bleedDamage++;
+			BATTLE_CHANNEL.send("-----------------");
 		}
 		if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
 			BATTLE_CHANNEL.send(this.user.username + " is too smart and too powerful !");
@@ -1276,10 +1285,12 @@ class Fighter {
 			this.DEXValue += getOpponentOf(this).DEXValue;
 			getOpponentOf(this).DEXValue = this.DEXValue - getOpponentOf(this).DEXValue;
 			this.DEXValue -= getOpponentOf(this).DEXValue;
+			BATTLE_CHANNEL.send("-----------------");
 		}
 		if (this.godList.indexOf(GOD_PP10_PRIEST) > -1 && this.godList.indexOf(GOD_PP8_PRIEST) > -1 && REVERSE_DAMAGE <= -1) {
 			BATTLE_CHANNEL.send(this.user.username + "'s Yaoi reverses damages and heals !");
 			REVERSE_DAMAGE = 1;
+			BATTLE_CHANNEL.send("-----------------");
 		}
 		
 		if (this.turnSkip > 0) {
