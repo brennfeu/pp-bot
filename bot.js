@@ -1218,8 +1218,6 @@ class Fighter {
 	}
 
 	turnChange() {
-		BATTLE_CHANNEL.send("-----------------");
-		
 		// Clear attaque
 		this.attack = "";
 		if (!this.attackedThisTurn) {
