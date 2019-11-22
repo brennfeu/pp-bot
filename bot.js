@@ -1671,7 +1671,7 @@ function startRandomEvent() {
 	var randomVar = getRandomPercent();
 
 	if (FORCE_EVENT) {
-		while (!(randomVar <= 22 && randomVar >= 2)) {
+		while (!(randomVar <= 23 && randomVar >= 2)) {
 			randomVar = getRandomPercent();
 		}
 	}
@@ -1767,6 +1767,29 @@ function startRandomEvent() {
 		else {
 			GAY_TURNS = 1;
 		}
+		
+	}
+	else if (randomVar == 23) {
+		// PP Blessing
+		BATTLE_CHANNEL.send(" -- PP BLESSING --");
+		BATTLE_CHANNEL.send("You suddenly feel more power in your PP !");
+		FIGHTER1.godList = [];
+		FIGHTER2.godList = [];
+		for (var i in PRIEST_ROLES) {
+			FIGHTER1.godList.push(i);
+			FIGHTER2.godList.push(i);
+		}
+		FIGHTER1.isBigPP = true;
+		FIGHTER1.isFastPP = true;
+		FIGHTER1.isDrunkPP = true;
+		FIGHTER1.isHockeyPuckPP = true;
+		FIGHTER1.isAlienPP = true;
+		
+		FIGHTER2.isBigPP = true;
+		FIGHTER2.isFastPP = true;
+		FIGHTER2.isDrunkPP = true;
+		FIGHTER2.isHockeyPuckPP = true;
+		FIGHTER2.isAlienPP = true;
 		
 	}
 	else {
