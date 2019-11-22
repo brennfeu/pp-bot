@@ -838,7 +838,7 @@ class Fighter {
 				}
 				if (this.godList.indexOf(GOD_PP3_PRIEST) > -1) { // LeprePuds
 					BATTLE_CHANNEL.send(this.user.username + " feels lucky !");
-					this.isLucky = 2;
+					this.isLucky = 4;
 					this.badLuck = false;
 				}
 				if (this.godList.indexOf(GOD_PP4_PRIEST) > -1) { // DickHead Pudding
@@ -851,7 +851,13 @@ class Fighter {
 					}
 				}
 				if (this.godList.indexOf(GOD_PP5_PRIEST) > -1) { // Hello There Puds
-					// TODO
+					BATTLE_CHANNEL.send(this.user.username + " tries to scare " + getOpponentOf(this).user.username + " !");
+					if (getRandomPercent() <= 50+this.STR-getOpponentOf(this).STR) {
+						getOpponentOf(this).damage(50);
+					}
+					else {
+						BATTLE_CHANNEL.send("But it fails !");
+					}
 				}
 				if (this.godList.indexOf(GOD_PP6_PRIEST) > -1) { // Dickdickson666
 					BATTLE_CHANNEL.send(this.user.username + " gets an eldritch friend !");
@@ -931,7 +937,10 @@ class Fighter {
 					}
 				}
 				if (this.godList.indexOf(GOD_PP5_PRIEST) > -1) { // Hello There Puds
-					// TODO
+					BATTLE_CHANNEL.send(this.user.username + " gets a sudden body change !");
+					this.DEXValue += this.STRValue;
+					this.STRValue = this.DEXValue - this.STRValue;
+					this.DEXValue -= this.STRValue;
 				}
 				if (this.godList.indexOf(GOD_PP6_PRIEST) > -1) { // Dickdickson666
 					BATTLE_CHANNEL.send(this.user.username + " releases Hell on earth !");
