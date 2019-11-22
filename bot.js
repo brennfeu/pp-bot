@@ -188,8 +188,8 @@ class Fighter {
 				this.godList.push(r);
 			}
 		}
-		this.regularCharges = 3;
-		this.specialCharges = 1;
+		this.regularCharges = 0;
+		this.specialCharges = 0;
 
 		// Natural values
 		this.STRValue = 70;
