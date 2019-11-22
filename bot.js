@@ -824,6 +824,7 @@ class Fighter {
 					this.regularCharges -= 1;
 				}
 				if (this.godList.indexOf(GOD_PP8_PRIEST) > -1) { // Fabulous Toast Man
+					BATTLE_CHANNEL.send("-----------------");
 					var randomGod = Math.floor(Math.random()*PRIEST_ROLES.length)
 					var nbTries = 0;
 					while (this.godList.indexOf(PRIEST_ROLES[randomGod]) > -1 && nbTries < 100) {
@@ -839,19 +840,23 @@ class Fighter {
 					}
 				}
 				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1) { // Mongo
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " gains some barbarian strength");
 					this.heal(50);
 				}
 				if (this.godList.indexOf(GOD_PP2_PRIEST) > -1) { // Dr Phil
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send("You suddenly all wonder about life...");
 					FORCE_PERHAPS = true;
 				}
 				if (this.godList.indexOf(GOD_PP3_PRIEST) > -1) { // LeprePuds
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " feels lucky !");
 					this.isLucky = 4;
 					this.badLuck = false;
 				}
 				if (this.godList.indexOf(GOD_PP4_PRIEST) > -1) { // DickHead Pudding
+					BATTLE_CHANNEL.send("-----------------");
 					if (getRandomPercent() == 1) {
 						BATTLE_CHANNEL.send(this.user.username + " wins !");
 						getOpponentOf(this).playMove(EMOTE_PP47);
@@ -861,6 +866,7 @@ class Fighter {
 					}
 				}
 				if (this.godList.indexOf(GOD_PP5_PRIEST) > -1) { // Hello There Puds
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " tries to scare " + getOpponentOf(this).user.username + " !");
 					if (getRandomPercent() <= 50+this.STR-getOpponentOf(this).STR) {
 						getOpponentOf(this).damage(50);
@@ -870,52 +876,63 @@ class Fighter {
 					}
 				}
 				if (this.godList.indexOf(GOD_PP6_PRIEST) > -1) { // Dickdickson666
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " gets an eldritch friend !");
 					this.eldritchFriend = true;
 				}
 				if (this.godList.indexOf(GOD_PP7_PRIEST) > -1) { // Jew
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " takes " + MOVE_COUNT*2 + " DEX from " + getOpponentOf(this).user.username + " as the emerald tax !");
 					this.DEXValue += MOVE_COUNT*2;
 					getOpponentOf(this).DEXValue -= MOVE_COUNT*2;
 				}
 				// GOD 8 IS FIRST
 				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) { // Brenn
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " plays a guitar solo that makes people's PP bleed !");
 					getOpponentOf(this).bleedDamage += 5;
 				}
 				if (this.godList.indexOf(GOD_PP10_PRIEST) > -1) { // Fabio
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " let his hair flow in the wind !");
 					this.heal(50*MOVE_COUNT);
 				}
 				if (this.godList.indexOf(GOD_PP11_PRIEST) > -1) { // Country Music Brenn
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " plays some country !");
 					BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " gets an Hocky Puck PP !");
 					getOpponentOf(this).isHockeyPuckPP = true;
 				}
 				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1) { // Espinoza
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " sniffs " + getOpponentOf(this).user.username + "'s PP !");
 					this.DEXValue += 10;
 				}
 				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1) { // 700IQ
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " makes a scientific discovery !");
 					this.playMove(getRandomEmote());
 				}
 				if (this.godList.indexOf(GOD_PP14_PRIEST) > -1) { // UREGonnaGETRaped
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " gives a boner punch to " + getOpponentOf(this).user.username + " !");
 					this.hasBoner = true;
 					getOpponentOf(this).damage(Math.floor((this.STR - this.DEX)/10));
 				}
 				if (this.godList.indexOf(GOD_PP15_PRIEST) > -1) { // STFU Isaac
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " starts to cry !");
 					BATTLE_CHANNEL.send(BATTLE_CHANNEL.guild.members.random().user.username + " helps the fighters !");
 					FIGHTER1.heal(50);
 					FIGHTER2.heal(50);
 				}
 				if (this.godList.indexOf(GOD_PP16_PRIEST) > -1) { // The Man Who Made a Monster
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " drinks " + getOpponentOf(this).user.username + "'s salty tears !");
 					this.tearDrinker += 3;
 				}
 				if (this.godList.indexOf(GOD_PP17_PRIEST) > -1) { // Hitler
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " makes jew priests illegal !");
 					ILLEGAL_JEWS = true;
 				}
@@ -927,14 +944,17 @@ class Fighter {
 					this.specialCharges -= 1;
 				}
 				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1) { // Mongo
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " becomes a true barbarian from the north !");
 					this.trueBarbarian = true;
 				}
 				if (this.godList.indexOf(GOD_PP2_PRIEST) > -1) { // Dr Phil
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send("Dr Phil sends " + getOpponentOf(this).user.username + "'s will to fight to the ranch for 1 turn...");
 					getOpponentOf(this).turnSkip = 2;
 				}
 				if (this.godList.indexOf(GOD_PP3_PRIEST) > -1) { // LeprePuds
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " is faster than ever !");
 					if (this.DEX < 0) {
 						this.DEXValue -= this.DEX;
@@ -942,6 +962,7 @@ class Fighter {
 					this.DEXValue += 20;
 				}
 				if (this.godList.indexOf(GOD_PP4_PRIEST) > -1) { // DickHead Pudding
+					BATTLE_CHANNEL.send("-----------------");
 					if (getRandomPercent() <= 10) {
 						BATTLE_CHANNEL.send(this.user.username + " wins !");
 						getOpponentOf(this).playMove(EMOTE_PP47);
@@ -951,24 +972,29 @@ class Fighter {
 					}
 				}
 				if (this.godList.indexOf(GOD_PP5_PRIEST) > -1) { // Hello There Puds
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " gets a sudden body change !");
 					this.DEXValue += this.STRValue;
 					this.STRValue = this.DEXValue - this.STRValue;
 					this.DEXValue -= this.STRValue;
 				}
 				if (this.godList.indexOf(GOD_PP6_PRIEST) > -1) { // Dickdickson666
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " releases Hell on earth !");
 					FORCE_SATAN = true;
 				}
 				if (this.godList.indexOf(GOD_PP7_PRIEST) > -1) { // Jew
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " uses his long nose to get a new special charge !");
 					this.specialCharges += 1;
 				}
 				if (this.godList.indexOf(GOD_PP8_PRIEST) > -1) { // Fabulous Toast Man
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " calls for a bit of power from all his gods !");
 					getOpponentOf(this).damage(Math.floor(this.godList.length*this.STR/10));
 				}
 				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) { // Brenn
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send("Brenn himself messes everything in the battle !");
 					var listeStats = ["STRValue", "DEXValue", "isBigPP", "isFastPP", "isDrunkPP", "isHockeyPuckPP", "isAlienPP", "turkeyCountdown", "bleedDamage", "hasExamined", "isPossessed", "isPigged", "pigHeal", "doomReverse", "acidArmor", "isBoomerangUsed", "turnSkip", "isLucky", "grabbedPP"];
 					for (var i in listeStats) {
@@ -980,18 +1006,22 @@ class Fighter {
 					}
 				}
 				if (this.godList.indexOf(GOD_PP10_PRIEST) > -1) { // Fabio
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " makes you all turn gay !");
 					GAY_TURNS = 5;
 				}
 				if (this.godList.indexOf(GOD_PP11_PRIEST) > -1) { // Country Music Brenn
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " becomes a Cow-Boy !");
 					this.isCowBoy = true;
 				}
 				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1) { // Espinoza
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " grabs " + getOpponentOf(this).user.username + "'s PP !");
 					getOpponentOf(this).grabbedPP = 2;
 				}
 				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1) { // 700IQ
+					BATTLE_CHANNEL.send("-----------------");
 					if (!this.chimera) {
 						BATTLE_CHANNEL.send(this.user.username + " shares his furry genes with " + getOpponentOf(this).user.username + " UwU");
 						getOpponentOf(this).chimera = true;
@@ -1017,20 +1047,24 @@ class Fighter {
 					}
 				}
 				if (this.godList.indexOf(GOD_PP14_PRIEST) > -1) { // UREGonnaGETRaped
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " sensually touches " + getOpponentOf(this).user.username + "'s PP...");
 					this.hasBoner = true;
 					getOpponentOf(this).hasBoner = true;
 					getOpponentOf(this).damage(Math.floor(this.STR/2));
 				}
 				if (this.godList.indexOf(GOD_PP15_PRIEST) > -1) { // STFU Isaac
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " curses " + getOpponentOf(this).user.username + " with bad luck !");
 					getOpponentOf(this).badLuck = true;
 				}
 				if (this.godList.indexOf(GOD_PP16_PRIEST) > -1) { // The Man Who Made a Monster
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " starts summoning the Monster !");
 					this.summonTankCountdown = 2;
 				}
 				if (this.godList.indexOf(GOD_PP17_PRIEST) > -1) { // Hitler
+					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(this.user.username + " starts a new genocide !");
 					if (getOpponentOf(this).godList.indexOf(GOD_PP7_PRIEST) > -1) {
 						getOpponentOf(this).playMove(EMOTE_PP47);
