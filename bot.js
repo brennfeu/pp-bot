@@ -336,52 +336,76 @@ class Fighter {
 			txt += " - Hemoragy : " + this.bleedDamage + "\n";
 		}
 		if (this.isPossessed > 0) {
-			txt += " - Possessed by " + getOpponentOf(this).user.username + "\n"
+			txt += " - Possessed by " + getOpponentOf(this).user.username + "\n";
 		}
 		if (this.eldritchFriend) {
-			txt += " - Eldritch Friendly\n"
+			txt += " - Eldritch Friendly\n";
 		}
 		if (this.isPigged) {
-			txt += " - Hog Squeezer\n"
+			txt += " - Hog Squeezer\n";
 		}
 		if (this.doomReverse > 0) {
-			txt += " - DOOM-REVERSE(tm)\n"
+			txt += " - DOOM-REVERSE(tm)\n";
 		}
 		if (this.acidArmor > 0) {
-			txt += " - Armored in acid\n"
+			txt += " - Armored in acid\n";
 		}
 		if (this.hasBoomerang > 0) {
-			txt += " - With a Boomerang\n"
+			txt += " - With a Boomerang\n";
 		}
 		if (this.turnSkip > 0) {
-			txt += " - To the Ranch\n"
+			txt += " - To the Ranch\n";
 		}
 		if (this.grabbedPP > 0) {
-			txt += " - Grabbed PP\n"
+			txt += " - Grabbed PP\n";
 		}
 		if (this.isLucky > 0) {
-			txt += " - Lucky\n"
+			txt += " - Lucky\n";
 		}
 		if (this.badLuck) {
-			txt += " - Unlucky\n"
+			txt += " - Unlucky\n";
 		}
 		if (this.hasBoner) {
-			txt += " - Big Boner Mmmmmmh...\n"
+			txt += " - Big Boner Mmmmmmh...\n";
 		}
 		if (this.chimera) {
-			txt += " - Furry PP\n"
+			txt += " - Furry PP\n";
 		}
 		if (this.tearDrinker > 0) {
-			txt += " - Tear Drinker\n"
+			txt += " - Tear Drinker\n";
 		}
 		if (this.summonTankCountdown > 0) {
-			txt += " - Summoning the Monster...\n"
+			txt += " - Summoning the Monster...\n";
 		}
 		if (this.isCowBoy) {
-			txt += " - Cowboy\n"
+			txt += " - Cowboy\n";
 		}
 		if (this.trueBarbarian) {
-			txt += " - Great Barbarian from the North Seeking New Lands for his Kingdom\n"
+			txt += " - Great Barbarian from the North Seeking New Lands for his Kingdom\n";
+		}
+		if (this.godList.indexOf(GOD_PP5_PRIEST) > -1 && this.godList.indexOf(GOD_PP6_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
+			txt += " - Unholy Pudding Trinity\n";
+		}
+		if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
+			txt += " - A Sad Witness\n";
+		}
+		if (this.godList.indexOf(GOD_PP7_PRIEST) > -1 && this.godList.indexOf(GOD_PP17_PRIEST) > -1) {
+			txt += " - Jew-Hitler Paradox\n";
+		}
+		if (this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP9_PRIEST) > -1) {
+			txt += " - Garbage Music Maker\n";
+		}
+		if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP5_PRIEST) > -1) {
+			txt += " - Getting therapy sessions\n";
+		}
+		if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
+			txt += " - Too smart and too powerful\n";
+		}
+		if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
+			txt += " - Super Predator\n";
+		}
+		if (this.godList.indexOf(GOD_PP10_PRIEST) > -1 && this.godList.indexOf(GOD_PP8_PRIEST) > -1 && REVERSE_DAMAGE <= -1) {
+			txt += " - Yaoi fan\n";
 		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			txt += " - Ultimate PP\n";
