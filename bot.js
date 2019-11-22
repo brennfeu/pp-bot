@@ -830,8 +830,13 @@ class Fighter {
 						randomGod = Math.floor(Math.random()*PRIEST_ROLES.length)
 						nbTries += 1;
 					}
-					this.godList.push(PRIEST_ROLES[randomGod]);
-					BATTLE_CHANNEL.send(this.user.username + " becomes a " + PRIEST_ROLES[randomGod] + " thanks to his charisma !");
+					if (nbTries < 100) {
+						this.godList.push(PRIEST_ROLES[randomGod]);
+						BATTLE_CHANNEL.send(this.user.username + " becomes a " + PRIEST_ROLES[randomGod] + " thanks to his charisma !");
+					}
+					else {
+						this.playMove(EMOTE_PP49)
+					}
 				}
 				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1) { // Mongo
 					BATTLE_CHANNEL.send(this.user.username + " gains some barbarian strength");
@@ -2061,9 +2066,11 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			}
 			
 			if (ILLEGAL_JEWS && FIGHTER1.godList.indexOf(GOD_PP7_PRIEST) > -1 && illegalGetCaught(1)) {
+				BATTLE_CHANNEL.send("Wait, I think " + FIGHTER1.user.username + " is a jew !");
 				caught1 = true;
 			}
 			if (ILLEGAL_JEWS && FIGHTER2.godList.indexOf(GOD_PP7_PRIEST) > -1 && illegalGetCaught(1)) {
+				BATTLE_CHANNEL.send("Wait, I think " + FIGHTER2.user.username + " is a jew !");
 				caught2 = true;
 			}
 
