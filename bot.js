@@ -2034,14 +2034,6 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			if (FIGHTER2.summonTankCountdown > 0) {
 				FIGHTER2.attack = EMOTE_PP10;
 			}
-			if (FIGHTER1.godList.indexOf(GOD_PP7_PRIEST) > -1 && FIGHTER1.godList.indexOf(GOD_PP17_PRIEST) > -1) {
-				BATTLE_CHANNEL.send(FIGHTER1.user.username + " gets the Jew-Hitler Paradox Effect !");
-				FIGHTER2.attack = getRandomEmote(false);
-			}
-			if (FIGHTER2.godList.indexOf(GOD_PP7_PRIEST) > -1 && FIGHTER2.godList.indexOf(GOD_PP17_PRIEST) > -1) {
-				BATTLE_CHANNEL.send(FIGHTER2.user.username + " gets the Jew-Hitler Paradox Effect !");
-				FIGHTER2.attack = getRandomEmote(false);
-			}
 			console.log(FIGHTER1.attack + " / " + FIGHTER2.attack);
 
 			// test illegal
@@ -2122,6 +2114,16 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 
 				stopDuel();
 				return;
+			}
+			
+			
+			if (FIGHTER1.godList.indexOf(GOD_PP7_PRIEST) > -1 && FIGHTER1.godList.indexOf(GOD_PP17_PRIEST) > -1 && getRandomPercent() <= 10) {
+				BATTLE_CHANNEL.send(FIGHTER1.user.username + " gets the Jew-Hitler Paradox Effect !");
+				FIGHTER2.attack = getRandomEmote(false);
+			}
+			if (FIGHTER2.godList.indexOf(GOD_PP7_PRIEST) > -1 && FIGHTER2.godList.indexOf(GOD_PP17_PRIEST) > -1 && getRandomPercent() <= 10) {
+				BATTLE_CHANNEL.send(FIGHTER2.user.username + " gets the Jew-Hitler Paradox Effect !");
+				FIGHTER2.attack = getRandomEmote(false);
 			}
 
 			// Change attack if dead (cthulhu battle)
