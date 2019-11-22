@@ -854,7 +854,7 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP4_PRIEST) > -1) { // DickHead Pudding
 					if (getRandomPercent() == 1) {
 						BATTLE_CHANNEL.send(this.user.username + " wins !");
-						getOpponentof(this).playMove(EMOTE_PP47);
+						getOpponentOf(this).playMove(EMOTE_PP47);
 					} 
 					else {
 						BATTLE_CHANNEL.send(this.user.username + " fails to be a complete dickhead !");
@@ -944,7 +944,7 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP4_PRIEST) > -1) { // DickHead Pudding
 					if (getRandomPercent() <= 10) {
 						BATTLE_CHANNEL.send(this.user.username + " wins !");
-						getOpponentof(this).playMove(EMOTE_PP47);
+						getOpponentOf(this).playMove(EMOTE_PP47);
 					} 
 					else {
 						BATTLE_CHANNEL.send(this.user.username + " fails to be a complete dickhead !");
