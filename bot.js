@@ -131,6 +131,7 @@ var DAMAGE_COUNT = 0;
 var REVERSE_DAMAGE = 0;
 var FORCE_EVENT = false;
 var GAY_TURNS = 0;
+var ILLEGAL_JEWS = false;
 
 var DISABLE_ABANDON = false;
 
@@ -276,6 +277,9 @@ class Fighter {
 		}
 		if (this.hasBoner) {
 			dex -= 20;
+		}
+		if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
+			dex += 10;
 		}
 		return dex;
 	}
@@ -1265,6 +1269,17 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " plays garbage music");
 			BATTLE_CHANNEL.send(getOpponentOf(this).user.username + "'s ears starts bleeding");
 			getOpponentOf(this).bleedDamage++;
+		}
+		if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
+			BATTLE_CHANNEL.send(this.user.username + " is too smart and too powerful !");
+			BATTLE_CHANNEL.send("DEX Values are reverted !");
+			this.DEXValue += getOpponentOf(this).DEXValue;
+			getOpponentOf(this).DEXValue = this.DEXValue - getOpponentOf(this).DEXValue;
+			this.DEXValue -= getOpponentOf(this).DEXValue;
+		}
+		if (this.godList.indexOf(GOD_PP10_PRIEST) > -1 && this.godList.indexOf(GOD_PP8_PRIEST) > -1 && REVERSE_DAMAGE <= -1) {
+			BATTLE_CHANNEL.send(this.user.username + "'s Yaoi reverses damages and heals !");
+			REVERSE_DAMAGE = 1;
 		}
 		
 		if (this.turnSkip > 0) {
