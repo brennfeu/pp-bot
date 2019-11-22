@@ -1206,6 +1206,10 @@ class Fighter {
 			BATTLE_CHANNEL.send(this.user.username + " gets healed by the Unholy Pudding Trinity !");
 			this.heal(10);
 		}
+		if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
+			BATTLE_CHANNEL.send(this.user.username + " remembers haunting memories...");
+			this.playMove(EMOTE_PP42);
+		}
 		
 		if (this.turnSkip > 0) {
 			this.attack = EMOTE_PP50;
@@ -1937,6 +1941,7 @@ CLIENT.on("message", async _message => {
 			_message2.react(GOD_PP14); // UREGonnaGetRAPED
 			_message2.react(GOD_PP15); // STFU Isaac
 			_message2.react(GOD_PP16); // The Man Who made a Monster
+			_message2.react(GOD_PP17); // Hitler
 		}).catch(function(e) {
 			BATTLE_CHANNEL.send(e);
 		});
@@ -2028,6 +2033,14 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			}
 			if (FIGHTER2.summonTankCountdown > 0) {
 				FIGHTER2.attack = EMOTE_PP10;
+			}
+			if (FIGHTER1.godList.indexOf(GOD_PP7_PRIEST) > -1 && FIGHTER1.godList.indexOf(GOD_PP17_PRIEST) > -1) {
+				BATTLE_CHANNEL.send(FIGHTER1.user.username + " gets the Jew-Hitler Paradox Effect !");
+				FIGHTER2.attack = getRandomEmote(false);
+			}
+			if (FIGHTER2.godList.indexOf(GOD_PP7_PRIEST) > -1 && FIGHTER2.godList.indexOf(GOD_PP17_PRIEST) > -1) {
+				BATTLE_CHANNEL.send(FIGHTER2.user.username + " gets the Jew-Hitler Paradox Effect !");
+				FIGHTER2.attack = getRandomEmote(false);
 			}
 			console.log(FIGHTER1.attack + " / " + FIGHTER2.attack);
 
