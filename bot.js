@@ -1126,7 +1126,13 @@ class Fighter {
 		// Acid
 		if (this.acidArmor >= 1) {
 			BATTLE_CHANNEL.send(this.user.username + " has an acid armor !");
-			getOpponentOf(this).damage(10);
+			if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP5_PRIEST) > -1) {
+				BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " therapy helps !");
+				getOpponentOf(this).heal(10);
+			}
+			else {
+				getOpponentOf(this).damage(10);
+			}
 		}
 
 		if (this.isDrunkPP && getRandomPercent() < 50) {
@@ -1222,7 +1228,13 @@ class Fighter {
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
 			BATTLE_CHANNEL.send(this.user.username + " bleeds !");
-			this.damage(this.bleedDamage);
+			if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP5_PRIEST) > -1) {
+				BATTLE_CHANNEL.send(this.user.username + " therapy helps !");
+				this.heals(this.bleedDamage);
+			}
+			else {
+				this.damage(this.bleedDamage);
+			}
 		}
 
 		// Pig
@@ -1248,6 +1260,11 @@ class Fighter {
 		if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
 			BATTLE_CHANNEL.send(this.user.username + " remembers haunting memories...");
 			this.playMove(EMOTE_PP42);
+		}
+		if (this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP9_PRIEST) > -1) {
+			BATTLE_CHANNEL.send(this.user.username + " plays garbage music");
+			BATTLE_CHANNEL.send(getOpponentOf(this).user.username + "'s ears starts bleeding");
+			getOpponentOf(this).bleedDamage++;
 		}
 		
 		if (this.turnSkip > 0) {
