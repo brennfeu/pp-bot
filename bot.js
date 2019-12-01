@@ -2120,6 +2120,7 @@ CLIENT.on("message", async _message => {
 			_message2.react(GOD_PP15); // STFU Isaac
 			_message2.react(GOD_PP16); // The Man Who made a Monster
 			_message2.react(GOD_PP17); // Hitler
+			_message2.react(GOD_PP18); // Salt King
 		}).catch(function(e) {
 			BATTLE_CHANNEL.send(e);
 		});
