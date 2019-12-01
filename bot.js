@@ -1937,8 +1937,8 @@ function startRandomEvent() {
 		FIGHTER1.godList = [];
 		FIGHTER2.godList = [];
 		for (var i in PRIEST_ROLES) {
-			FIGHTER1.godList.push(i);
-			FIGHTER2.godList.push(i);
+			FIGHTER1.godList.push(PRIEST_ROLES[i]);
+			FIGHTER2.godList.push(PRIEST_ROLES[i]);
 		}
 		FIGHTER1.isBigPP = true;
 		FIGHTER1.isFastPP = true;
