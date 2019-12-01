@@ -1149,7 +1149,7 @@ class Fighter {
 					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " is Salt King's best friend");
 					BATTLE_CHANNEL.send(this.user.username + " takes " + getOpponentOf(this).DEX/2 + " DEX from him.");
-					this.DEX += getOpponentOf(this).DEX/2;
+					this.DEXValue += getOpponentOf(this).DEX/2;
 					getOpponentOf(this).DEXValue -= getOpponentOf(this).DEX/2;
 				}
 			}
