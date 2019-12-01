@@ -31,7 +31,8 @@ const GOD_PP14_PRIEST = "UREGonnaGetRAPED Priest";
 const GOD_PP15_PRIEST = "STFU Isaac Priest";
 const GOD_PP16_PRIEST = "The Man Who made a Monster Priest";
 const GOD_PP17_PRIEST = "Hitler Priest";
-const PRIEST_ROLES = [GOD_PP1_PRIEST, GOD_PP2_PRIEST, GOD_PP3_PRIEST, GOD_PP4_PRIEST, GOD_PP5_PRIEST, GOD_PP6_PRIEST, GOD_PP7_PRIEST, GOD_PP8_PRIEST, GOD_PP9_PRIEST, GOD_PP10_PRIEST, GOD_PP11_PRIEST, GOD_PP12_PRIEST, GOD_PP13_PRIEST, GOD_PP14_PRIEST, GOD_PP15_PRIEST, GOD_PP16_PRIEST, GOD_PP17_PRIEST];
+const GOD_PP18_PRIEST = "Salt King Priest"
+const PRIEST_ROLES = [GOD_PP1_PRIEST, GOD_PP2_PRIEST, GOD_PP3_PRIEST, GOD_PP4_PRIEST, GOD_PP5_PRIEST, GOD_PP6_PRIEST, GOD_PP7_PRIEST, GOD_PP8_PRIEST, GOD_PP9_PRIEST, GOD_PP10_PRIEST, GOD_PP11_PRIEST, GOD_PP12_PRIEST, GOD_PP13_PRIEST, GOD_PP14_PRIEST, GOD_PP15_PRIEST, GOD_PP16_PRIEST, GOD_PP17_PRIEST, GOD_PP18_PRIEST];
 
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
 const EMOTE_PP2 = "535240768441548810"; // PunchingPPReallyHard
@@ -105,6 +106,7 @@ const GOD_PP14 = "615271176314290249" // UREGonnaGetRAPED
 const GOD_PP15 = "614822537800712213" // STFU Isaac
 const GOD_PP16 = "619795568230924291" // The Man Who made a Monster
 const GOD_PP17 = "622395294390157329" // Hitler
+const GOD_PP18 = "650830165751889935"; // Salt King
 
 // Variables
 var IS_BUSY = false;
@@ -216,6 +218,7 @@ class Fighter {
 		this.eldritchFriend = false;
 		this.isCowBoy = false;
 		this.trueBarbarian = false;
+		this.isSalty = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -376,6 +379,9 @@ class Fighter {
 		}
 		if (this.isCowBoy) {
 			txt += " - Cowboy\n";
+		}
+		if (this.isSalty) {
+			txt += " - Salty\n";
 		}
 		if (this.trueBarbarian) {
 			txt += " - Great Barbarian from the North Seeking New Lands for his Kingdom\n";
@@ -979,6 +985,12 @@ class Fighter {
 					BATTLE_CHANNEL.send(this.user.username + " makes jew priests illegal !");
 					ILLEGAL_JEWS = true;
 				}
+				if (this.godList.indexOf(GOD_PP18_PRIEST) > -1) { // Salt King
+					BATTLE_CHANNEL.send("-----------------");
+					BATTLE_CHANNEL.send("Makes his opponent's wounds salty !");
+					getOpponentOf(this).bleedDamage += 3;
+					getOpponentOf(this).isSalty = true;
+				}
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
@@ -1132,6 +1144,13 @@ class Fighter {
 					else {
 						BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " is unaffected...");
 					}
+				}
+				if (this.godList.indexOf(GOD_PP18_PRIEST) > -1) { // Salt King
+					BATTLE_CHANNEL.send("-----------------");
+					BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " is Salt King's best friend");
+					BATTLE_CHANNEL.send(this.user.username + " takes " + getOpponentOf(this).DEX/2 + " DEX from him.");
+					this.DEX += getOpponentOf(this).DEX/2;
+					getOpponentOf(this).DEXValue -= getOpponentOf(this).DEX/2;
 				}
 			}
 			else if (attack == "IS_DEAD_LOL") {
@@ -1296,7 +1315,12 @@ class Fighter {
 				this.heal(this.bleedDamage);
 			}
 			else {
-				this.damage(this.bleedDamage);
+				if (this.isSalty) {
+					this.damage(this.bleedDamage*10);
+				}
+				else {
+					this.damage(this.bleedDamage);
+				}
 			}
 			BATTLE_CHANNEL.send("-----------------");
 		}
@@ -1538,10 +1562,9 @@ function stopDuel() {
 	IS_BUSY = false;
 }
 function newTurnDuel() {
+	BATTLE_CHANNEL.send("=== TURN CHANGE ===");
 	FIGHTER1.turnChange();
 	FIGHTER2.turnChange();
-	
-	BATTLE_CHANNEL.send("=== TURN CHANGE ===");
 
 	STEEL_PROTECTION = false;
 	BARREL_DAMAGE = false;
@@ -2482,6 +2505,9 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		}
 		else if (_reaction.emoji.id == GOD_PP17) {
 			changeRoleToStyler(GOD_PP17_PRIEST);
+		}
+		else if (_reaction.emoji.id == GOD_PP18) {
+			changeRoleToStyler(GOD_PP18_PRIEST);
 		}
 
 
