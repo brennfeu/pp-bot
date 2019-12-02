@@ -1497,6 +1497,9 @@ function setBotActivity(_texte) {
 	else {
 		var texte = _texte;
 	}
+	if (ATTACK_MISS_COUNTDOWN >= 0) {
+		texte += " [90% MISS]"
+	}
 	if (PRIVATE_TEST) {
 		return CLIENT.user.setActivity(texte + " [PRIVATE TEST]");
 	}
