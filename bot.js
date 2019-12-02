@@ -1882,8 +1882,8 @@ function newTurnDuel() {
 		FIGHTER2.STRValue = -10;
 	}
 
-	if ((FIGHTER1.turnSkip > 0 || FIGHTER1.grabbedPP > 0 || FIGHTER1.summonTankCountdown > 0) && 
-	    (FIGHTER2.turnSkip > 0 || FIGHTER2.grabbedPP > 0 || FIGHTER2.summonTankCountdown > 0)) {
+	if ((FIGHTER1.turnSkip > 0 || FIGHTER1.grabbedPP > 0 || FIGHTER1.summonTankCountdown > 0 || FIGHTER1.isPossessed > 0) && 
+	    (FIGHTER2.turnSkip > 0 || FIGHTER2.grabbedPP > 0 || FIGHTER2.summonTankCountdown > 0 || FIGHTER2.isPossessed > 0)) {
 		newTurnDuel();
 	}
 	
