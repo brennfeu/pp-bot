@@ -233,6 +233,7 @@ class Fighter {
 		this.isLucky = 0;
 		this.doomReverse = 0;
 		this.hasExamined = 0;
+		this.extraLife = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -406,6 +407,9 @@ class Fighter {
 		}
 		if (this.trueBarbarian) {
 			txt += " - Great Barbarian from the North Seeking New Lands for his Kingdom\n";
+		}
+		if (this.extraLife > 0) {
+			txt += " - Extra lives : " + this.extraLife + "\n";
 		}
 		if (this.godList.indexOf(GOD_PP5_PRIEST) > -1 && this.godList.indexOf(GOD_PP6_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
 			txt += " - Unholy Pudding Trinity\n";
@@ -1522,6 +1526,16 @@ class Fighter {
 			REVERSE_DAMAGE = 1;
 			BATTLE_CHANNEL.send("-----------------");
 		}
+
+		// PP Armageddon
+		if (PP_ARMAGEDDON) {
+			this.STRValue -= 5000;
+		}
+		
+		if (this.STR <= 0 && this.extraLife > 0) {
+			BATTLE_CHANNEL.send(this.user.username + " uses an extra life !");
+			this = new Fighter(this.idUser); // ça va planter je suis sur :(
+		}
 		
 		if (this.turnSkip > 0) {
 			this.attack = EMOTE_PP50;
@@ -1531,11 +1545,6 @@ class Fighter {
 		}
 		if (this.summonTankCountdown == 1) {
 			this.attack = EMOTE_PP10;
-		}
-
-		// PP Armageddon
-		if (PP_ARMAGEDDON) {
-			this.STRValue -= 5000;
 		}
 	}
 
