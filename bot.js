@@ -142,6 +142,7 @@ var REVERSE_DAMAGE = 0;
 var FORCE_EVENT = false;
 var GAY_TURNS = 0;
 var ILLEGAL_JEWS = false;
+var ATTACK_MISS_COUNTDOWN = 0;
 
 var DISABLE_ABANDON = false;
 
@@ -1179,18 +1180,24 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP53) {
 				// Singular Explosion
+				MOVE_COUNT += 33;
 				BATTLE_CHANNEL.send("Singular Explosion TODO");
 			}
 			else if (attack == EMOTE_PP54) {
 				// Explosion Loop
-				BATTLE_CHANNEL.send("Explosion Loop TODO");
+				MOVE_COUNT += 33;
+				BATTLE_CHANNEL.send(this.user.username + " summons the Explosion Loop");
+				BATTLE_CHANNEL.send("All damages has 90% getting ignored for 7 turns");
+				ATTACK_MISS_COUNTDOWN = 8;
 			}
 			else if (attack == EMOTE_PP55) {
 				// Dual Explosion Loop
+				MOVE_COUNT += 33;
 				BATTLE_CHANNEL.send("Dual Explosion Loop TODO");
 			}
 			else if (attack == EMOTE_PP56) {
 				// SignPost
+				MOVE_COUNT += 33;
 				BATTLE_CHANNEL.send(this.user.username + " summons every moves !");
 				for (var i = 0; i < EMOTE_LIST.length-SPECIAL_EMOTE_LIST.length; i++) {
 				BATTLE_CHANNEL.send("-----------------");
@@ -1201,10 +1208,12 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP57) {
 				// Cage / Sacrifice
+				MOVE_COUNT += 33;
 				BATTLE_CHANNEL.send("Cage / Sacrifice TODO");
 			}
 			else if (attack == EMOTE_PP58) {
 				// Cageless
+				MOVE_COUNT += 33;
 				BATTLE_CHANNEL.send("Cageless TODO");
 			}
 			else if (attack == "IS_DEAD_LOL") {
@@ -1227,11 +1236,11 @@ class Fighter {
 	heal(_amount) {
 		if (REVERSE_DAMAGE <= 0) {
 			this.STRValue += _amount;
-			return BATTLE_CHANNEL.send(this.user.username + " takes " + _amount + " damages !");
+			return BATTLE_CHANNEL.send(this.user.username + " get healed by " + _amount + " HP");
 		}
 		else {
 			this.STRValue -= _amount;
-			return BATTLE_CHANNEL.send(this.user.username + " get healed by " + _amount + " HP");
+			return BATTLE_CHANNEL.send(this.user.username + " takes " + _amount + " damages !");
 		}
 	}
 
@@ -1245,6 +1254,10 @@ class Fighter {
 			return BATTLE_CHANNEL.send(_amount + " damages were canceled");
 		}
 		INFINITE_DAMAGE += 1;
+		
+		if (ATTACK_MISS_COUNTDOWN >= 0 && getRandomPercent() < 90) {
+			return BATTLE_CHANNEL.send(_amount + " damages were canceled");
+		}
 
 		if (EVENT_BOSS) {
 			BOSS_HEALTH -= _amount;
@@ -1576,6 +1589,7 @@ function startDuel(_message) {
 	REVERSE_DAMAGE = 0;
 	GAY_TURNS = 0;
 	ILLEGAL_JEWS = false;
+	ATTACK_MISS_COUNTDOWN = 0;
 
 	PP_ARMAGEDDON = false;
 	EVENT_PP_ENLIGHTENMENT = false;
@@ -1627,6 +1641,7 @@ function newTurnDuel() {
 	DISABLE_ABANDON = false;
 	REVERSE_DAMAGE -= 1;
 	GAY_TURNS -= 1;
+	ATTACK_MISS_COUNTDOWN -=1;
 
 	if (BLIND_COUNTDOWN >= 1) {
 		setBotActivity("WTF I'M FUCKING BLIND");
