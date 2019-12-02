@@ -143,6 +143,7 @@ var FORCE_EVENT = false;
 var GAY_TURNS = 0;
 var ILLEGAL_JEWS = false;
 var ATTACK_MISS_COUNTDOWN = 0;
+var AUTO_MOVES_COUNTDOWN = 0;
 
 var DISABLE_ABANDON = false;
 
@@ -1193,7 +1194,9 @@ class Fighter {
 			else if (attack == EMOTE_PP55) {
 				// Dual Explosion Loop
 				MOVE_COUNT += 33;
-				BATTLE_CHANNEL.send("Dual Explosion Loop TODO");
+				BATTLE_CHANNEL.send(this.user.username + " summons the Dual Explosion Loop");
+				BATTLE_CHANNEL.send("All moves will be used, no matter the DEX, for 7 turns");
+				AUTO_MOVES_COUNTDOWN = 8;
 			}
 			else if (attack == EMOTE_PP56) {
 				// SignPost
@@ -1498,7 +1501,10 @@ function setBotActivity(_texte) {
 		var texte = _texte;
 	}
 	if (ATTACK_MISS_COUNTDOWN > 0) {
-		texte += " [90% MISS]"
+		texte += " [90% MISS]";
+	}
+	if (AUTO_MOVES_COUNTDOWN > 0) {
+		texte += " [ALL MOVES]";
 	}
 	if (PRIVATE_TEST) {
 		return CLIENT.user.setActivity(texte + " [PRIVATE TEST]");
@@ -1593,6 +1599,7 @@ function startDuel(_message) {
 	GAY_TURNS = 0;
 	ILLEGAL_JEWS = false;
 	ATTACK_MISS_COUNTDOWN = 0;
+	AUTO_MOVES_COUNTDOWN = 0;
 
 	PP_ARMAGEDDON = false;
 	EVENT_PP_ENLIGHTENMENT = false;
@@ -1644,7 +1651,8 @@ function newTurnDuel() {
 	DISABLE_ABANDON = false;
 	REVERSE_DAMAGE -= 1;
 	GAY_TURNS -= 1;
-	ATTACK_MISS_COUNTDOWN -=1;
+	ATTACK_MISS_COUNTDOWN -= 1;
+	AUTO_MOVES_COUNTDOWN -= 1;
 
 	if (BLIND_COUNTDOWN >= 1) {
 		setBotActivity("WTF I'M FUCKING BLIND");
@@ -2436,7 +2444,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				FIGHTER2.oldAttack = FIGHTER2.attack;
 			}
 
-			if (dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) {
+			if ((dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) || AUTO_MOVES_COUNTDOWN > 0) {
 				BATTLE_CHANNEL.send("Both opponents attack this turn !");
 
 				FIGHTER1.playMove();
