@@ -2584,14 +2584,9 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		else if (_reaction.emoji.id == GOD_PP18) {
 			changeRoleToStyler(GOD_PP18_PRIEST);
 		}
-
-
 		return;
 	}
-
-
 	return;
-
 });
 
 CLIENT.login(process.env.BOT_TOKEN);
