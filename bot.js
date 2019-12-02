@@ -1192,7 +1192,7 @@ class Fighter {
 			else if (attack == EMOTE_PP56) {
 				// SignPost
 				BATTLE_CHANNEL.send(this.user.username + " summons every moves !");
-				for (var i = 0; i < EMOTE_LIST.length-EMOTE_SPECIAL_LIST.length; i++) {
+				for (var i = 0; i < EMOTE_LIST.length-SPECIAL_EMOTE_LIST.length; i++) {
 				BATTLE_CHANNEL.send("-----------------");
 					if (EMOTE_LIST[i] != EMOTE_PP47) {
 						this.playMove(EMOTE_LIST[i]);
@@ -1876,7 +1876,7 @@ function getRandomEmote(_canBeIllegal = true) {
 		goodList = illegalList;
 	}
 	else {
-		goodList = legalList;
+		goodList = legalList;F
 	}
 
 	if (ILLEGAL_BOMBING) {
