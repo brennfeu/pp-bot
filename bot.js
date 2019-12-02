@@ -407,8 +407,11 @@ class Fighter {
 		if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
 			txt += " - Super Predator\n";
 		}
-		if (this.godList.indexOf(GOD_PP10_PRIEST) > -1 && this.godList.indexOf(GOD_PP8_PRIEST) > -1 && REVERSE_DAMAGE <= -1) {
+		if (this.godList.indexOf(GOD_PP10_PRIEST) > -1 && this.godList.indexOf(GOD_PP8_PRIEST) > -1) {
 			txt += " - Yaoi fan\n";
+		}
+		if (this.godList.indexOf(GOD_PP16_PRIEST) > -1 && this.godList.indexOf(GOD_PP18_PRIEST) > -1) {
+			txt += " - Salt Master\n";
 		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			txt += " - Ultimate PP\n";
@@ -1341,6 +1344,9 @@ class Fighter {
 		if (this.tearDrinker > 0) {
 			BATTLE_CHANNEL.send(this.user.username + " drinks salty tears !");
 			this.heal(this.tearDrinker);
+			if (this.godList.indexOf(GOD_PP16_PRIEST) > -1 && this.godList.indexOf(GOD_PP18_PRIEST) > -1) {
+				getOpponentOf(this).damage(this.tearDrinker);
+			}
 			BATTLE_CHANNEL.send("-----------------");
 		}
 		if (this.godList.indexOf(GOD_PP5_PRIEST) > -1 && this.godList.indexOf(GOD_PP6_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
