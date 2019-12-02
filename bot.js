@@ -1228,7 +1228,7 @@ class Fighter {
 					}
 					if (nbTries < 100) {
 						this.godList.push(PRIEST_ROLES[randomGod]);
-						BATTLE_CHANNEL.send(this.user.username + " becomes a temporary " + PRIEST_ROLES[randomGod] + " thanks to his charisma !");
+						BATTLE_CHANNEL.send(this.user.username + " becomes a temporary " + PRIEST_ROLES[randomGod] + " !");
 					}
 					else {
 						BATTLE_CHANNEL.send(this.user.username + " has no more god to worship !");
