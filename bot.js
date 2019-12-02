@@ -1533,11 +1533,6 @@ class Fighter {
 			this.STRValue -= 5000;
 		}
 		
-		if (this.STR <= 0 && this.extraLife > 0) {
-			BATTLE_CHANNEL.send(this.user.username + " uses an extra life !");
-			this = new Fighter(this.idUser); // ça va planter je suis sur :(
-		}
-		
 		if (this.turnSkip > 0) {
 			this.attack = EMOTE_PP50;
 		}
@@ -1729,6 +1724,15 @@ function newTurnDuel() {
 	BATTLE_CHANNEL.send("===== TURN CHANGE =====");
 	FIGHTER1.turnChange();
 	FIGHTER2.turnChange();
+	
+	if (FIGHTER1.STR <= 0 && FIGHTER1.extraLife > 0) {
+		BATTLE_CHANNEL.send(FIGHTER1.user.username + " uses an extra life !");
+		FIGHTER1 = new Fighter(FIGHTER1.idUser);
+	}
+	if (FIGHTER2.STR <= 0 && FIGHTER2.extraLife > 0) {
+		BATTLE_CHANNEL.send(FIGHTER2.user.username + " uses an extra life !");
+		FIGHTER2 = new Fighter(FIGHTER2.idUser);
+	}
 
 	STEEL_PROTECTION = false;
 	BARREL_DAMAGE = false;
