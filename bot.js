@@ -1257,13 +1257,13 @@ class Fighter {
 						break;
 					}
 				}
-				var fullSalt = true;
+				var nbSalt = 0;
 				for (var i in this.godList) {
 					if (this.godList[i] != GOD_PP18_PRIEST) {
-						fullSalt = false;
+						nbSalt += 1;
 					}
 				}
-				if (fullSalt) {
+				if (nbSalt >= 3) {
 					BATTLE_CHANNEL.send(this.user.username + " is now touched by Saltus Maximus Retardus !");
 					for (var i = 0; i < 30; i++) {
 						if (getRandomPercent() < 10) {
