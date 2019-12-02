@@ -1188,7 +1188,9 @@ class Fighter {
 			else if (attack == EMOTE_PP53) {
 				// Singular Explosion
 				MOVE_COUNT += 33;
-				BATTLE_CHANNEL.send("Singular Explosion TODO");
+				BATTLE_CHANNEL.send(this.user.username + " summons the Singular Explosion");
+				this.damage(this.STR-10);
+				getOpponentOf(this).damage(getOpponentOf(this).STR-10);
 			}
 			else if (attack == EMOTE_PP54) {
 				// Explosion Loop
@@ -1217,6 +1219,7 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP57) {
 				// Cage / Sacrifice
+				MOVE_COUNT += 33;
 				var godListMemory = this.godList.slice();
 				this.godList = [];
 				for (var i = 0; i < 5; i++) {
