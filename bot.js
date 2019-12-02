@@ -2415,6 +2415,13 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				caught2 = true;
 			}
 			
+			if (SPECIAL_EMOTE_LIST.indexOf(FIGHTER1.attack) > -1 && LIST_AVAILABLE_ATTACKS.indexOf(FIGHTER1.attack) < 0) {
+				caught1 = true;
+			}
+			if (SPECIAL_EMOTE_LIST.indexOf(FIGHTER2.attack) > -1 && LIST_AVAILABLE_ATTACKS.indexOf(FIGHTER2.attack) < 0) {
+				caught2 = true;
+			}
+			
 			if (FIGHTER1.summonTankCountdown == 1) {
 				caught1 = false;
 			}
@@ -2422,11 +2429,11 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				caught2 = false;
 			}
 			
-			if (ILLEGAL_JEWS && FIGHTER1.godList.indexOf(GOD_PP7_PRIEST) > -1 && illegalGetCaught(1)) {
+			if (ILLEGAL_JEWS && FIGHTER1.godList.indexOf(GOD_PP7_PRIEST) > -1 && illegalGetCaught(5)) {
 				BATTLE_CHANNEL.send("Wait, I think " + FIGHTER1.user.username + " is a jew !");
 				caught1 = true;
 			}
-			if (ILLEGAL_JEWS && FIGHTER2.godList.indexOf(GOD_PP7_PRIEST) > -1 && illegalGetCaught(1)) {
+			if (ILLEGAL_JEWS && FIGHTER2.godList.indexOf(GOD_PP7_PRIEST) > -1 && illegalGetCaught(5)) {
 				BATTLE_CHANNEL.send("Wait, I think " + FIGHTER2.user.username + " is a jew !");
 				caught2 = true;
 			}
