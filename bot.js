@@ -1255,7 +1255,7 @@ class Fighter {
 		}
 		INFINITE_DAMAGE += 1;
 		
-		if (ATTACK_MISS_COUNTDOWN >= 0 && getRandomPercent() < 90) {
+		if (ATTACK_MISS_COUNTDOWN > 0 && getRandomPercent() < 90) {
 			return BATTLE_CHANNEL.send(_amount + " damages were canceled");
 		}
 
@@ -1497,7 +1497,7 @@ function setBotActivity(_texte) {
 	else {
 		var texte = _texte;
 	}
-	if (ATTACK_MISS_COUNTDOWN >= 0) {
+	if (ATTACK_MISS_COUNTDOWN > 0) {
 		texte += " [90% MISS]"
 	}
 	if (PRIVATE_TEST) {
