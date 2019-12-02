@@ -94,8 +94,9 @@ const EMOTE_PP55 = "644880197123833856"; // Dual Explosion Loop
 const EMOTE_PP56 = "644880194209054721"; // SignPost
 const EMOTE_PP57 = "644881328592125980"; // Cage / Sacrifice
 const EMOTE_PP58 = "644880195341254656"; // Cageless
-const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20, EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30, EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP36, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40, EMOTE_PP41, EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP47, EMOTE_PP48, EMOTE_PP49, EMOTE_PP50, EMOTE_PP51, EMOTE_PP52, EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58];
-const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58];
+const EMOTE_PP59 = "650987017571926016"; // Triggered Pépin2Pom
+const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20, EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30, EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP36, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40, EMOTE_PP41, EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP47, EMOTE_PP48, EMOTE_PP49, EMOTE_PP50, EMOTE_PP51, EMOTE_PP52, EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58, EMOTE_PP59];
+const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58, EMOTE_PP59];
 
 const GOD_PP1 = "644643782888783892" // Mongo
 const GOD_PP2 = "617686716479832064" // Dr Phil / WhatDAFuk
@@ -1218,6 +1219,60 @@ class Fighter {
 				// Cageless
 				MOVE_COUNT += 33;
 				BATTLE_CHANNEL.send("Cageless TODO");
+			}
+			else if (attack == EMOTE_PP59) {
+				// Triggered Pépin2Pom
+				MOVE_COUNT += 33;
+				for (var i in this.godList) {
+					if (this.godList[i] != GOD_PP18_PRIEST) {
+						BATTLE_CHANNEL.send(this.user.username + " gets closer to the Salt King !");
+						this.godList[i] = GOD_PP18_PRIEST;
+						break;
+					}
+				}
+				var fullSalt = true;
+				for (var i in this.godList) {
+					if (this.godList[i] != GOD_PP18_PRIEST) {
+						fullSalt = false;
+					}
+				}
+				if (fullSalt) {
+					BATTLE_CHANNEL.send(this.user.username + " is now touched by Saltus Maximus Retardus !");
+					for (var i = 0; i < 30; i++) {
+						if (getRandomPercent() < 10) {
+							BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " sucks !");
+						}
+						else if (getRandomPercent() < 20) {
+							BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " has the big gay !");
+						}
+						else if (getRandomPercent() < 30) {
+							BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " has a smoll pp !");
+						}
+						else if (getRandomPercent() < 40) {
+							BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " is ugly AF !");
+						}
+						else if (getRandomPercent() < 50) {
+							BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " has 3 nipples !");
+						}
+						else if (getRandomPercent() < 60) {
+							BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " is a weakling !");
+						}
+						else if (getRandomPercent() < 70) {
+							BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " can't even fight properly !");
+						}
+						else if (getRandomPercent() < 80) {
+							BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " is a loser !");
+						}
+						else if (getRandomPercent() < 90) {
+							BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " has 0.0026 IQ !");
+						}
+						else {
+							BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " is a big nerd !");
+						}
+					}
+					BATTLE_CHANNEL.send("You loose now lol !");
+					getOpponentOf(this).playMove(EMOTE_PP47);
+				}
 			}
 			else if (attack == "IS_DEAD_LOL") {
 				// Dead (Cthulhu battle)
