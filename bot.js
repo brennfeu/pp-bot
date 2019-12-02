@@ -1244,7 +1244,8 @@ class Fighter {
 			else if (attack == EMOTE_PP58) {
 				// Cageless
 				MOVE_COUNT += 33;
-				BATTLE_CHANNEL.send("Cageless TODO");
+				BATTLE_CHANNEL.send(this.user.username + " gets a new life !");
+				this.extraLife += 1;
 			}
 			else if (attack == EMOTE_PP59) {
 				// Triggered Pépin2Pom
