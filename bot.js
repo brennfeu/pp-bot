@@ -85,9 +85,17 @@ const EMOTE_PP48 = "340516123210547201"; // Brennfeu
 const EMOTE_PP49 = "358188173651607552"; // Soup
 const EMOTE_PP50 = "342313262651670528"; // Perhaps
 
-const EMOTE_PP51 = "615518949110448129" // Priest move
-const EMOTE_PP52 = "615516249912508419" // Special Priest Move
-const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20, EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30, EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP36, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40, EMOTE_PP41, EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP47, EMOTE_PP48, EMOTE_PP49, EMOTE_PP50, EMOTE_PP51, EMOTE_PP52]
+const EMOTE_PP51 = "615518949110448129"; // Priest move
+const EMOTE_PP52 = "615516249912508419"; // Special Priest Move
+
+const EMOTE_PP53 = ""; // Singular Explosion
+const EMOTE_PP54 = ""; // Explosion Loop
+const EMOTE_PP55 = ""; // Dual Explosion Loop
+const EMOTE_PP56 = ""; // SignPost
+const EMOTE_PP57 = "644881328592125980"; // Cage / Sacrifice
+const EMOTE_PP58 = ""; // Cageless
+const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20, EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30, EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP36, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40, EMOTE_PP41, EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP47, EMOTE_PP48, EMOTE_PP49, EMOTE_PP50, EMOTE_PP51, EMOTE_PP52, EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58];
+const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58];
 
 const GOD_PP1 = "644643782888783892" // Mongo
 const GOD_PP2 = "617686716479832064" // Dr Phil / WhatDAFuk
@@ -1164,10 +1172,40 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP18_PRIEST) > -1) { // Salt King
 					BATTLE_CHANNEL.send("-----------------");
 					BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " is Salt King's best friend");
-					BATTLE_CHANNEL.send(this.user.username + " takes " + getOpponentOf(this).DEX/2 + " DEX from him.");
-					this.DEXValue += getOpponentOf(this).DEX/2;
-					getOpponentOf(this).DEXValue -= getOpponentOf(this).DEX/2;
+					BATTLE_CHANNEL.send(this.user.username + " takes " + Math.floor(getOpponentOf(this).DEX/2) + " DEX from him.");
+					this.DEXValue += Math.floor(getOpponentOf(this).DEX/2);
+					getOpponentOf(this).DEXValue -= Math.floor(getOpponentOf(this).DEX/2);
 				}
+			}
+			else if (attack == EMOTE_PP53) {
+				// Singular Explosion
+				BATTLE_CHANNEL.send("Singular Explosion TODO");
+			}
+			else if (attack == EMOTE_PP54) {
+				// Explosion Loop
+				BATTLE_CHANNEL.send("Explosion Loop TODO");
+			}
+			else if (attack == EMOTE_PP55) {
+				// Dual Explosion Loop
+				BATTLE_CHANNEL.send("Dual Explosion Loop TODO");
+			}
+			else if (attack == EMOTE_PP56) {
+				// SignPost
+				BATTLE_CHANNEL.send(this.user.username + " summons every moves !");
+				for (var i = 0, i <= EMOTE_LIST.length, i++) {
+				BATTLE_CHANNEL.send("-----------------");
+					if (EMOTE_LIST[i] != EMOTE_PP47) {
+						this.playMove(EMOTE_LIST[i]);
+					}
+				}
+			}
+			else if (attack == EMOTE_PP57) {
+				// Cage / Sacrifice
+				BATTLE_CHANNEL.send("Cage / Sacrifice TODO");
+			}
+			else if (attack == EMOTE_PP58) {
+				// Cageless
+				BATTLE_CHANNEL.send("Cageless TODO");
 			}
 			else if (attack == "IS_DEAD_LOL") {
 				// Dead (Cthulhu battle)
@@ -1833,7 +1871,7 @@ function getRandomEmote(_canBeIllegal = true) {
 					EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40,
 					EMOTE_PP41, EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP48, EMOTE_PP49, EMOTE_PP50
 					];
-	var goodList
+	var goodList;
 	if (_canBeIllegal) {
 		goodList = illegalList;
 	}
@@ -1846,6 +1884,9 @@ function getRandomEmote(_canBeIllegal = true) {
 	}
 	if (!DISABLE_ABANDON) {
 		goodList.push(EMOTE_PP47);
+	}
+	if (PP_ARMAGEDDON || getRandomPercent() <= 3) {
+		goodList = goodList.concat(SPECIAL_EMOTE_LIST);
 	}
 
 	return goodList[Math.floor(Math.random()*goodList.length)];
