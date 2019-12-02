@@ -896,6 +896,7 @@ class Fighter {
 						BATTLE_CHANNEL.send(this.user.username + " becomes a " + PRIEST_ROLES[randomGod] + " thanks to his charisma !");
 					}
 					else {
+						BATTLE_CHANNEL.send(this.user.username + " has no more god to worship !");
 						this.playMove(EMOTE_PP49)
 					}
 				}
@@ -1212,8 +1213,29 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP57) {
 				// Cage / Sacrifice
-				MOVE_COUNT += 33;
-				BATTLE_CHANNEL.send("Cage / Sacrifice TODO");
+				var godListMemory = this.godList.slice();
+				this.godList = [];
+				for (var i = 0; i < 5; i++) {
+					var randomGod = Math.floor(Math.random()*PRIEST_ROLES.length)
+					var nbTries = 0;
+					while (this.godList.indexOf(PRIEST_ROLES[randomGod]) > -1 && nbTries < 100) {
+						randomGod = Math.floor(Math.random()*PRIEST_ROLES.length);
+						nbTries += 1;
+					}
+					if (nbTries < 100) {
+						this.godList.push(PRIEST_ROLES[randomGod]);
+						BATTLE_CHANNEL.send(this.user.username + " becomes a temporary " + PRIEST_ROLES[randomGod] + " thanks to his charisma !");
+					}
+					else {
+						BATTLE_CHANNEL.send(this.user.username + " has no more god to worship !");
+						this.playMove(EMOTE_PP49);
+					}
+					BATTLE_CHANNEL.send("-----------------");
+				}
+				this.playMove(EMOTE_PP51);
+				BATTLE_CHANNEL.send("-----------------");
+				this.playMove(EMOTE_PP52);
+				this.godList = godListMemory.slice();
 			}
 			else if (attack == EMOTE_PP58) {
 				// Cageless
