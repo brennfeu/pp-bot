@@ -210,15 +210,18 @@ class Fighter {
 		this.isMuslim = false;
 		this.hasBurst = 0;
 		this.chimera = false;
-		this.badLuck = false;
 		this.tearDrinker = 0;
-		this.grabbedPP = 0;
 		this.summonTankCountdown = 0;
 		this.turnSkip = 0;
 		this.eldritchFriend = false;
 		this.isCowBoy = false;
 		this.trueBarbarian = false;
 		this.isSalty = false;
+		this.isPigged = false;
+		this.pigHeal = 0;
+		this.isLucky = 0;
+		this.doomReverse = 0;
+		this.hasExamined = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -1417,18 +1420,14 @@ class Fighter {
 	resetBattleVariables() {
 		this.turkeyCountdown = -1;
 		this.bleedDamage = 0;
-		this.hasExamined = 0;
 		this.isPossessed = 0;
-		this.isPigged = false;
-		this.pigHeal = 0;
-		this.doomReverse = 0;
 		this.acidArmor = 0;
 		this.isBoomerangUsed = false;
 		this.turnSkip = 0;
 		this.grabbedPP = 0;
-		this.isLucky = 0;
 		this.hasBoner = false;
-		// TODO keep up to date
+		this.badLuck = false;
+		// TODO keep up to date --> negative effects only
 	}
 }
 
