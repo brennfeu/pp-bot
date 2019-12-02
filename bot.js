@@ -1578,7 +1578,7 @@ function stopDuel() {
 	IS_BUSY = false;
 }
 function newTurnDuel() {
-	BATTLE_CHANNEL.send("=== TURN CHANGE ===");
+	BATTLE_CHANNEL.send("===== TURN CHANGE =====");
 	FIGHTER1.turnChange();
 	FIGHTER2.turnChange();
 
