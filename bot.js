@@ -423,7 +423,7 @@ class Fighter {
 		if (this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP9_PRIEST) > -1) {
 			txt += " - Garbage Music Maker\n";
 		}
-		if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP5_PRIEST) > -1) {
+		if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) {
 			txt += " - Getting therapy sessions\n";
 		}
 		if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
@@ -1362,7 +1362,7 @@ class Fighter {
 		// Acid
 		if (this.acidArmor >= 1) {
 			BATTLE_CHANNEL.send(this.user.username + " has an acid armor !");
-			if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP5_PRIEST) > -1) {
+			if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) {
 				BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " therapy helps !");
 				getOpponentOf(this).heal(10);
 			}
