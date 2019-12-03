@@ -1641,7 +1641,7 @@ function sendMessages() {
 	}
 	
 	if (counter > 0) {
-		LIST_MESSAGES = [counter + " messages were cut !"].concat(LIST_MESSAGES);
+		LIST_MESSAGES = ["\n**-----------------" + counter + " messages were cut !\n-----------------**"].concat(LIST_MESSAGES);
 	}
 	for (var i in LIST_MESSAGES) {
 		BATTLE_CHANNEL.send(LIST_MESSAGES[i]);
