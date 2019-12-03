@@ -1799,12 +1799,12 @@ function newTurnDuel() {
 	// Blood Moon Save
 	if (EVENT_BLOOD_MOON) {
 		if (FIGHTER1.STR <= 0) {
-			FIGHTER1.DEXValue -= (0-FIGHTER1.STR)+1;
+			FIGHTER1.DEXValue += (0-FIGHTER1.STR)+1;
 			FIGHTER1.STRValue += (0-FIGHTER1.STR)+1;
 			addMessage(FIGHTER1.user.username + " got saved thanks to the Blood Moon");
 		}
 		if (FIGHTER2.STR <= 0) {
-			FIGHTER2.DEXValue -= (0-FIGHTER2.STR)+1;
+			FIGHTER2.DEXValue += (0-FIGHTER2.STR)+1;
 			FIGHTER2.STRValue += (0-FIGHTER2.STR)+1;
 			addMessage(FIGHTER2.user.username + " got saved thanks to the Blood Moon");
 		}
@@ -1815,12 +1815,12 @@ function newTurnDuel() {
 	// Blood Moon Save
 	if (EVENT_BLOOD_MOON) {
 		if (FIGHTER1.STR <= 0) {
-			FIGHTER1.DEXValue -= (0-FIGHTER1.STR)+1;
+			FIGHTER1.DEXValue += (0-FIGHTER1.STR)+1;
 			FIGHTER1.STRValue += (0-FIGHTER1.STR)+1;
 			addMessage(FIGHTER1.user.username + " got saved thanks to the Blood Moon");
 		}
 		if (FIGHTER2.STR <= 0) {
-			FIGHTER2.DEXValue -= (0-FIGHTER2.STR)+1;
+			FIGHTER2.DEXValue += (0-FIGHTER2.STR)+1;
 			FIGHTER2.STRValue += (0-FIGHTER2.STR)+1;
 			addMessage(FIGHTER2.user.username + " got saved thanks to the Blood Moon");
 		}
