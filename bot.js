@@ -2499,16 +2499,16 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			}
 			
 			if (caught1 && (getRandomPercent() >= 33 || FIGHTER1.godList.indexOf(GOD_PP12_PRIEST) > -1 && FIGHTER1.godList.indexOf(GOD_PP13_PRIEST) > -1)) {
-				addMessage(FIGHTER1.user.username + " is doing illegal stuff ! He loses 10 DEX and 10 STR.");
+				addMessage(FIGHTER1.user.username + " is doing illegal stuff ! He loses 20 DEX and 10 STR.");
 				FIGHTER1.user.username.STRValue -= 10;
-				FIGHTER1.user.username.DEXValue -= 10;
+				FIGHTER1.user.username.DEXValue -= 20;
 				FIGHTER1.attack = EMOTE_PP50;
 				caught1 = false;
 			}
 			if (caught2 && (getRandomPercent() >= 33 || FIGHTER2.godList.indexOf(GOD_PP12_PRIEST) > -1 && FIGHTER2.godList.indexOf(GOD_PP13_PRIEST) > -1)) {
-				addMessage(FIGHTER2.user.username + " is doing illegal stuff ! He loses 10 DEX and 10 STR.");
+				addMessage(FIGHTER2.user.username + " is doing illegal stuff ! He loses 20 DEX and 10 STR.");
 				FIGHTER2.user.username.STRValue -= 10;
-				FIGHTER2.user.username.DEXValue -= 10;
+				FIGHTER2.user.username.DEXValue -= 20;
 				FIGHTER2.attack = EMOTE_PP50;
 				caught2 = false;
 			}
