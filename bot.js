@@ -513,17 +513,21 @@ class Fighter {
 				getOpponentOf(this).heal(100);
 				getOpponentOf(this).turkeyCountdown = 11;
 				if (this.isOverCircumcised) {
+					addMessage(this.user.username + "'s circumcision gets a bit healed !");
 					this.isOverCircumcised = false;
 					this.isCircumcised = true;
 				}
 				else if (this.isCircumcised) {
+					addMessage(this.user.username + " is no longer circumcised !");
 					this.isCircumcised = false;
 				}
 				if (getOpponentOf(this).isOverCircumcised) {
+					addMessage(getOpponentOf(this).user.username + "'s circumcision gets a bit healed !");
 					getOpponentOf(this).isOverCircumcised = false;
 					getOpponentOf(this).isCircumcised = true;
 				}
 				else if (getOpponentOf(this).isCircumcised) {
+					addMessage(getOpponentOf(this).user.username + " is no longer circumcised !");
 					getOpponentOf(this).isCircumcised = false;
 				}
 			}
