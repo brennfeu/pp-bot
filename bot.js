@@ -2533,7 +2533,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			
 			if (FIGHTER1.godList.indexOf(GOD_PP7_PRIEST) > -1 && FIGHTER1.godList.indexOf(GOD_PP17_PRIEST) > -1 && getRandomPercent() <= 10) {
 				BATTLE_CHANNEL.send(FIGHTER1.user.username + " gets the Jew-Hitler Paradox Effect !");
-				FIGHTER2.attack = getRandomEmote(false);
+				FIGHTER1.attack = getRandomEmote(false);
 			}
 			if (FIGHTER2.godList.indexOf(GOD_PP7_PRIEST) > -1 && FIGHTER2.godList.indexOf(GOD_PP17_PRIEST) > -1 && getRandomPercent() <= 10) {
 				BATTLE_CHANNEL.send(FIGHTER2.user.username + " gets the Jew-Hitler Paradox Effect !");
