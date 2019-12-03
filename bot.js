@@ -12,6 +12,7 @@ const FAST_PP_ROLE = "Fast PP";
 const BIG_PP_ROLE = "Big PP";
 const ALIEN_PP_ROLE = "Alien PP";
 const DRUNK_PP_ROLE = "Drunken PP";
+const HOCKEY_PUCK_PP_ROLE = "Hockey Puck PP";
 
 const GOD_PP1_PRIEST = "Mongo Priest";
 const GOD_PP2_PRIEST = "Dr Phil Priest";
