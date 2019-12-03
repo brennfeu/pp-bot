@@ -1758,6 +1758,8 @@ function stopDuel() {
 	addMessage(" - Number of damages inflicted : " + DAMAGE_COUNT);
 
 	setBotActivity("");
+	sendMessages();
+	
 	IS_DUELLING = false;
 	IS_BUSY = false;
 }
@@ -2369,7 +2371,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		if (GAY_TURNS > 0) {
 			if (_user.id == FIGHTER1.user.id) {
 				if (LIST_AVAILABLE_ATTACKS.indexOf(getAttackFromEmote(_reaction.emoji)) < 0) {
-					return addMessage("Gay people can't cheat...");
+					addMessage("Gay people can't cheat...");
+					return sendMessages();
 				}
 				else {
 					FIGHTER2.attack = getAttackFromEmote(_reaction.emoji);
@@ -2378,7 +2381,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			}
 			if (_user.id == FIGHTER2.user.id) {
 				if (LIST_AVAILABLE_ATTACKS.indexOf(getAttackFromEmote(_reaction.emoji)) < 0) {
-					return addMessage("Gay people can't cheat...");
+					addMessage("Gay people can't cheat...");
+					return sendMessages();
 				}
 				else {
 					FIGHTER1.attack = getAttackFromEmote(_reaction.emoji);
@@ -2667,7 +2671,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 
 			newTurnDuel();
 		}
-
+		
+		sendMessages();
 		return;
 	}
 
