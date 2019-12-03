@@ -33,7 +33,7 @@ const GOD_PP16_PRIEST = "The Man Who made a Monster Priest";
 const GOD_PP17_PRIEST = "Hitler Priest";
 const GOD_PP18_PRIEST = "Salt King Priest";
 const GOD_PP19_PRIEST = ""; // TO ADD TO PRIEST_ROLES
-const GOD_PP21_PRIEST = "D.I.C.K. Priest"; // Special God
+const GOD_PP21_PRIEST = "D.I.C.K. Priest";
 const PRIEST_ROLES = [GOD_PP1_PRIEST, GOD_PP2_PRIEST, GOD_PP3_PRIEST, GOD_PP4_PRIEST, GOD_PP5_PRIEST, GOD_PP6_PRIEST, GOD_PP7_PRIEST, GOD_PP8_PRIEST, GOD_PP9_PRIEST, GOD_PP10_PRIEST, GOD_PP11_PRIEST, GOD_PP12_PRIEST, GOD_PP13_PRIEST, GOD_PP14_PRIEST, GOD_PP15_PRIEST, GOD_PP16_PRIEST, GOD_PP17_PRIEST, GOD_PP18_PRIEST];
 
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
@@ -434,6 +434,8 @@ class Fighter {
 		if (this.extraLife > 0) {
 			txt += " - Extra lives : " + this.extraLife + "\n";
 		}
+		
+		txt += "\n**Synergies :**\n"
 		if (this.godList.indexOf(GOD_PP5_PRIEST) > -1 && this.godList.indexOf(GOD_PP6_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
 			txt += " - Unholy Pudding Trinity\n";
 		}
