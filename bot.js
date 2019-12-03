@@ -2578,7 +2578,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				FIGHTER2.oldAttack = FIGHTER2.attack;
 			}
 
-			if ((dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) || AUTO_MOVES_COUNTDOWN > 0) {
+			if ((dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) || AUTO_MOVES_COUNTDOWN > 0 || EVENT_BOSS) {
 				BATTLE_CHANNEL.send("Both opponents attack this turn !");
 
 				FIGHTER1.playMove();
