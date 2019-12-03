@@ -121,6 +121,11 @@ const GOD_PP18 = "650830165751889935"; // Salt King
 const GOD_PP19 = "" // TO ADD TO MESSAGE REACTS
 const GOD_PP20 = "644617343456247829";
 
+// BOSSES
+const BOSS_PP1 = "Cthulhu";
+const BOSS_PP2 = "Free Lives HQ";
+const BOSS_PP3 = "The Moon Lord";
+
 // Variables
 var IS_BUSY = false;
 var IS_DUELLING = false;
@@ -159,6 +164,7 @@ var EVENT_PP_PURGE = false;
 var EVENT_CONFUSION = false;
 var EVENT_BOSS = false;
 var BOSS_HEALTH = 10000;
+var CURRENT_BOSS = "";
 var EVENT_BLOOD_MOON = false;
 
 var FORCE_PERHAPS = false;
@@ -1392,7 +1398,7 @@ class Fighter {
 
 		if (EVENT_BOSS) {
 			BOSS_HEALTH -= _amount;
-			addMessage("Cthulhu takes " + _amount + " damages !");
+			addMessage(CURRENT_BOSS + " takes " + _amount + " damages !");
 			DAMAGE_COUNT += _amount;
 			return;
 		}
@@ -1764,7 +1770,7 @@ function startDuel(_message) {
 	addMessage("TIME FOR A DUEL");
 }
 function stopDuel() {
-	addMessage("===== RECAP =====");
+	addMessage("**===== RECAP =====**");
 	addMessage("FIGHTERS CURRENT STATE :");
 	addMessage(FIGHTER1.toString());
 	addMessage("-----------------");
@@ -1780,7 +1786,7 @@ function stopDuel() {
 	IS_BUSY = false;
 }
 function newTurnDuel() {
-	addMessage("===== TURN CHANGE =====");
+	addMessage("**===== TURN CHANGE =====**");
 	FIGHTER1.turnChange();
 	FIGHTER2.turnChange();
 	
@@ -1845,7 +1851,7 @@ function newTurnDuel() {
 	// Cthulhu
 	if (EVENT_BOSS) {
 		if (BOSS_HEALTH <= 0) {
-			addMessage("Cthulhu go back to sleep to heal his poor PP !");
+			addMessage(CURRENT_BOSS + " go back to sleep to heal his poor PP !");
 			addMessage("You both win !");
 			addWinCounter(FIGHTER1, 1);
 			addWinCounter(FIGHTER2, 1);
@@ -1854,11 +1860,11 @@ function newTurnDuel() {
 		}
 		else {
 			if (getRandomPercent() >= 50) {
-				addMessage(FIGHTER1.user.username + " gets attacked by Cthulhu !");
+				addMessage(FIGHTER1.user.username + " gets attacked by " + CURRENT_BOSS + " !");
 				FIGHTER1.STRValue -= 50;
 			}
 			else {
-				addMessage(FIGHTER2.user.username + " gets attacked by Cthulhu !");
+				addMessage(FIGHTER2.user.username + " gets attacked by " + CURRENT_BOSS + " !");
 				FIGHTER2.STRValue -= 50;
 			}
 		}
@@ -1891,7 +1897,7 @@ function newTurnDuel() {
 		}
 	}
 
-	addMessage("\n\n===== NEW TURN =====");
+	addMessage("\n\n**===== NEW TURN =====**");
 	if (!EVENT_BOSS) {
 		addMessage(FIGHTER1.toString());
 		addMessage("===== /VS/ =====");
@@ -1901,7 +1907,7 @@ function newTurnDuel() {
 		addMessage(FIGHTER1.toString());
 		addMessage(FIGHTER2.toString());
 		addMessage("===== /VS/ =====");
-		addMessage("Cthulhu\n\nSTR : " + BOSS_HEALTH);
+		addMessage(CURRENT_BOSS + "\n\nSTR : " + BOSS_HEALTH);
 	}
 
 	// HighFiveEmote - Stop move_list
@@ -2085,7 +2091,7 @@ function startRandomEvent() {
 	EVENT_CONFUSION = false;
 	EVENT_BLOOD_MOON = false;
 
-	addMessage("===== EVENTS =====");
+	addMessage("**===== EVENTS =====**");
 	var randomVar = getRandomPercent();
 
 	if (FORCE_EVENT) {
@@ -2128,6 +2134,7 @@ function startRandomEvent() {
 		addMessage(" -- CTHULHU AWAKENS --");
 		addMessage("You have to beat Cthulhu by punching his huge PP in order to save the world !");
 		BOSS_HEALTH = 10000;
+		CURRENT_BOSS = BOSS_PP1;
 	}
 	else if (randomVar == 6) {
 		// Accidental Summoning
@@ -2531,7 +2538,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			}
 
 			var winner;
-			addMessage("\n\n===== ATTACKS =====");
+			addMessage("\n\n**===== ATTACKS =====**");
 			if (caught1 && caught2) {
 				addMessage("WAIT YOU ARE DOING ILLEGAL STUFF RIGHT NOW !");
 				addMessage("You both loose the fight !");
