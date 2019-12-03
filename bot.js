@@ -1415,7 +1415,7 @@ class Fighter {
 		INFINITE_DAMAGE += 1;
 		
 		if (ATTACK_MISS_COUNTDOWN > 0 && getRandomPercent() < 90) {
-			return addMessage(_amount + " damages were canceled");
+			_amount += _amount;
 		}
 
 		if (EVENT_BOSS) {
@@ -1649,7 +1649,7 @@ function setBotActivity(_texte) {
 		var texte = _texte;
 	}
 	if (ATTACK_MISS_COUNTDOWN > 0) {
-		texte += " [90% MISS]";
+		texte += " [DAMAGE++]";
 	}
 	if (AUTO_MOVES_COUNTDOWN > 0) {
 		texte += " [ALL MOVES]";
