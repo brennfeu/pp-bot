@@ -364,6 +364,9 @@ class Fighter {
 		if (this.isAlienPP) {
 			txt += " - Alien PP\n";
 		}
+		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
+			txt += " - *Ultimate PP*\n";
+		}
 
 		// Status
 		txt += "\n**Status :**\n"
@@ -460,9 +463,6 @@ class Fighter {
 		}
 		if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP18_PRIEST) > -1) {
 			txt += " - Chad Team Member\n";
-		}
-		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
-			txt += " - Ultimate PP\n";
 		}
 
 		return txt;
