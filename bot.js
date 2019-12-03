@@ -1653,6 +1653,7 @@ function getDexChange(_move) {
 			return -20;
 		case EMOTE_PP2:
 		case EMOTE_PP6:
+		case EMOTE_PP16:
 			return -10;
 		case EMOTE_PP28:
 			return -5;
