@@ -2499,16 +2499,16 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				caught2 = caught2 || (illegalGetCaught(50) && !EVENT_PP_ENLIGHTENMENT) && !FIGHTER2.badLuck;
 			}
 
-			if (FIGHTER1.attack == EMOTE_PP51 && FIGHTER1.regularCharges <= 0 && illegalGetCaught(50)) {
+			if (FIGHTER1.attack == EMOTE_PP51 && FIGHTER1.regularCharges <= 0 && illegalGetCaught(80)) {
 				caught1 = true;
 			}
-			if (FIGHTER2.attack == EMOTE_PP51 && FIGHTER2.regularCharges <= 0 && illegalGetCaught(50)) {
+			if (FIGHTER2.attack == EMOTE_PP51 && FIGHTER2.regularCharges <= 0 && illegalGetCaught(80)) {
 				caught2 = true;
 			}
-			if (FIGHTER1.attack == EMOTE_PP52 && FIGHTER1.specialCharges <= 0 && illegalGetCaught(80)) {
+			if (FIGHTER1.attack == EMOTE_PP52 && FIGHTER1.specialCharges <= 0 && illegalGetCaught(95)) {
 				caught1 = true;
 			}
-			if (FIGHTER2.attack == EMOTE_PP52 && FIGHTER2.specialCharges <= 0 && illegalGetCaught(80)) {
+			if (FIGHTER2.attack == EMOTE_PP52 && FIGHTER2.specialCharges <= 0 && illegalGetCaught(95)) {
 				caught2 = true;
 			}
 			
