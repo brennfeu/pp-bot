@@ -385,6 +385,9 @@ class Fighter {
 		if (this.isPossessed > 0) {
 			txt += " - Possessed by " + getOpponentOf(this).user.username + "\n";
 		}
+		if (this.turkeyCountdown > 0) {
+			txt += " - Turkey countdown : " + this.turkeyCountdown + " turns\n";
+		}
 		if (this.eldritchFriend) {
 			txt += " - Eldritch Friendly\n";
 		}
