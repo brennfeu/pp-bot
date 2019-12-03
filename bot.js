@@ -638,6 +638,11 @@ class Fighter {
 				// DoomReverse (MookGrenade)
 				addMessage(this.user.username + " sets up a DOOM-REVERSE(tm) !");
 				this.doomReverse = 4;
+				if (this.STR <= 0) {
+					addMessage(this.user.username + " uses DOOM-REVERSE(tm) !");
+					this.STRValue += (0-this.STR)+1;
+					this.doomReverse = 0;
+				}
 			}
 			else if (attack == EMOTE_PP21) {
 				// Acid
@@ -1145,14 +1150,7 @@ class Fighter {
 					addMessage("-----------------");
 					addMessage("Brenn answers his calls !");
 					addMessage("Brenn himself messes everything in the battle !");
-					var listeStats = ["STRValue", "DEXValue", "isBigPP", "isFastPP", "isDrunkPP", "isHockeyPuckPP", "isAlienPP", "turkeyCountdown", "bleedDamage", "hasExamined", "isPossessed", "isPigged", "pigHeal", "doomReverse", "acidArmor", "isBoomerangUsed", "turnSkip", "isLucky", "grabbedPP"];
-					for (var i in listeStats) {
-						if (getRandomPercent() <= 50) {
-							var a = this[listeStats[i]];
-							this[listeStats[i]] = getOpponentOf(this)[listeStats[i]];
-							getOpponentOf(this)[listeStats[i]] = a;
-						}
-					}
+					
 				}
 				if (this.godList.indexOf(GOD_PP10_PRIEST) > -1) { // Fabio
 					addMessage("-----------------");
@@ -2556,7 +2554,6 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			}
 
 			var winner;
-			addMessage("\n\n**===== ATTACKS =====**");
 			if (caught1 && caught2) {
 				addMessage("WAIT YOU ARE DOING ILLEGAL STUFF RIGHT NOW !");
 				addMessage("You both loose the fight !");
@@ -2588,6 +2585,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				return;
 			}
 			
+			addMessage("\n\n**===== ATTACKS =====**");
 			
 			if (FIGHTER1.godList.indexOf(GOD_PP7_PRIEST) > -1 && FIGHTER1.godList.indexOf(GOD_PP17_PRIEST) > -1 && getRandomPercent() <= 10) {
 				addMessage(FIGHTER1.user.username + " gets the Jew-Hitler Paradox Effect !");
