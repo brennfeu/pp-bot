@@ -1552,14 +1552,6 @@ class Fighter {
 			getOpponentOf(this).bleedDamage++;
 			BATTLE_CHANNEL.send("-----------------");
 		}
-		if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
-			BATTLE_CHANNEL.send(this.user.username + " is too smart and too powerful !");
-			BATTLE_CHANNEL.send("DEX Values are reverted !");
-			this.DEXValue += getOpponentOf(this).DEXValue;
-			getOpponentOf(this).DEXValue = this.DEXValue - getOpponentOf(this).DEXValue;
-			this.DEXValue -= getOpponentOf(this).DEXValue;
-			BATTLE_CHANNEL.send("-----------------");
-		}
 		if (this.godList.indexOf(GOD_PP10_PRIEST) > -1 && this.godList.indexOf(GOD_PP8_PRIEST) > -1 && getRandomPercent() <= 10) {
 			BATTLE_CHANNEL.send(this.user.username + "'s Yaoi starts !");
 			GAY_TURNS = 2;
@@ -2490,14 +2482,14 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				BATTLE_CHANNEL.send(FIGHTER2.user.username + " strong. " + FIGHTER2.user.username + " punch arbitratory if arbitratory bad.");
 			}
 			
-			if (caught1 && getRandomPercent() >= 33) {
+			if (caught1 && (getRandomPercent() >= 33 || FIGHTER1.godList.indexOf(GOD_PP12_PRIEST) > -1 && FIGHTER1.godList.indexOf(GOD_PP13_PRIEST) > -1)) {
 				BATTLE_CHANNEL.send(FIGHTER1.user.username + " is doing illegal stuff ! He loses 10 DEX and 10 STR.");
 				FIGHTER1.user.username.STRValue -= 10;
 				FIGHTER1.user.username.DEXValue -= 10;
 				FIGHTER1.attack = EMOTE_PP50;
 				caught1 = false;
 			}
-			if (caught2 && getRandomPercent() >= 33) {
+			if (caught2 && (getRandomPercent() >= 33 || FIGHTER2.godList.indexOf(GOD_PP12_PRIEST) > -1 && FIGHTER2.godList.indexOf(GOD_PP13_PRIEST) > -1)) {
 				BATTLE_CHANNEL.send(FIGHTER2.user.username + " is doing illegal stuff ! He loses 10 DEX and 10 STR.");
 				FIGHTER2.user.username.STRValue -= 10;
 				FIGHTER2.user.username.DEXValue -= 10;
