@@ -1890,12 +1890,14 @@ function newTurnDuel() {
 			
 			var role = GUILD.roles.find(r => r.name == GOD_PP21_PRIEST);
 			try {
-				if (!FIGHTER1.guildUser.roles.has(role.id)) {
-					FIGHTER1.guildUser.addRole(role).catch(console.error);
+				FIGHTER1.guildUser.addRole(role).catch(console.error);
+				FIGHTER2.guildUser.addRole(role).catch(console.error);
+				for (var i in PRIEST_ROLES) {
+					var role = GUILD.roles.find(r => r.name == PRIEST_ROLES[i]);
+					FIGHTER1.guildUser.removeRole(role).catch(console.error);
+					FIGHTER2.guildUser.removeRole(role).catch(console.error);
 				}
-				if (!FIGHTER2.guildUser.roles.has(role.id)) {
-					FIGHTER2.guildUser.addRole(role).catch(console.error);
-				}
+				
 				addMessage("**D.I.C.K. is proud of you. He grants you his powers.**");
 				addMessage("**If you don't want to be a D.I.C.K. Priest, use the custom command to automatically remove this role.**");
 			}
