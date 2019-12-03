@@ -129,6 +129,7 @@ var IS_CHANGING_STYLE = false;
 var GUILD;
 var BATTLE_CHANNEL;
 var LIST_AVAILABLE_ATTACKS = [];
+var LIST_MESSAGES = [];
 
 var FIGHTER1 = null;
 var FIGHTER2 = null;
@@ -472,38 +473,38 @@ class Fighter {
 		for (var sdsds = 0; sdsds < numberAttacks; sdsds++) {
 			if (attack == EMOTE_PP1) {
 				// Punching PP
-				sendMessage(this.user.username + " punches " + getOpponentOf(this).user.username + "'s PP !");
+				addMessage(this.user.username + " punches " + getOpponentOf(this).user.username + "'s PP !");
 				getOpponentOf(this).damage(Math.floor(10 + this.STR / 10));
 			}
 			else if (attack == EMOTE_PP2) {
 				// Punching PP Really Hard
-				sendMessage(this.user.username + " punches " + getOpponentOf(this).user.username + "'s PP really hard !");
+				addMessage(this.user.username + " punches " + getOpponentOf(this).user.username + "'s PP really hard !");
 				getOpponentOf(this).damage(Math.floor(20 + this.STR / 10));
 			}
 			else if (attack == EMOTE_PP3) {
 				// Hologram
-				sendMessage(this.user.username + " touches " + getOpponentOf(this).user.username + "'s PP vital point !");
+				addMessage(this.user.username + " touches " + getOpponentOf(this).user.username + "'s PP vital point !");
 				getOpponentOf(this).damage(1000);
 			}
 			else if (attack == EMOTE_PP4) {
 				// Flex
-				sendMessage(this.user.username + " flexes !");
+				addMessage(this.user.username + " flexes !");
 				var bonus = Math.floor(Math.random() * 30 + 1)
 				this.heal(bonus);
-				sendMessage(this.user.username + " get " + bonus + " STR !");
+				addMessage(this.user.username + " get " + bonus + " STR !");
 			}
 			else if (attack == EMOTE_PP5) {
 				// High Five
-				sendMessage(this.user.username + " is feeling lonely... :(");
+				addMessage(this.user.username + " is feeling lonely... :(");
 			}
 			else if (attack == EMOTE_PP6) {
 				// Kick
-				sendMessage(this.user.username + " kicks " + getOpponentOf(this).user.username + "'s PP !");
+				addMessage(this.user.username + " kicks " + getOpponentOf(this).user.username + "'s PP !");
 				getOpponentOf(this).damage(Math.floor(20 + this.STR / 10)*3);
 			}
 			else if (attack == EMOTE_PP7) {
 				// Turkey
-				sendMessage(this.user.username + " and " + getOpponentOf(this).user.username + " start a feast !");
+				addMessage(this.user.username + " and " + getOpponentOf(this).user.username + " start a feast !");
 				this.heal(100);
 				this.turkeyCountdown = 11;
 				getOpponentOf(this).heal(100);
@@ -525,36 +526,36 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP8) {
 				// Trap Sign
-				sendMessage(this.user.username + " is ready to burst !");
-				sendMessage("...");
-				sendMessage("Well...");
+				addMessage(this.user.username + " is ready to burst !");
+				addMessage("...");
+				addMessage("Well...");
 			}
 			else if (attack == EMOTE_PP9) {
 				// Time Kick
-				sendMessage(this.user.username + " wants a hockey puck PP...");
+				addMessage(this.user.username + " wants a hockey puck PP...");
 				if (this.isHockeyPuckPP) {
-					sendMessage("...but he already had one !");
+					addMessage("...but he already had one !");
 				}
 				else {
 					this.isHockeyPuckPP = true;
-					sendMessage("...and now he got it !");
+					addMessage("...and now he got it !");
 				}
 			}
 			else if (attack == EMOTE_PP10) {
 				// Tank
-				sendMessage(this.user.username + " brings a tank !");
-				sendMessage("FIRE !");
+				addMessage(this.user.username + " brings a tank !");
+				addMessage("FIRE !");
 				getOpponentOf(this).damage(1000);
 			}
 			else if (attack == EMOTE_PP11) {
 				// Steel
-				sendMessage(this.user.username + " sets up a protection for nothing...");
+				addMessage(this.user.username + " sets up a protection for nothing...");
 			}
 			else if (attack == EMOTE_PP12) {
 				// Overcircumscise
-				sendMessage(this.user.username + " over-circumcised himself !");
+				addMessage(this.user.username + " over-circumcised himself !");
 				if (this.isOverCircumcised) {
-					sendMessage("Wait he already was !");
+					addMessage("Wait he already was !");
 				}
 				else {
 					this.isCircumcised = true;
@@ -564,23 +565,23 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP13) {
 				// Scout
-				sendMessage(this.user.username + " examine the qualities of " + getOpponentOf(this).user.username + "'s PP !");
+				addMessage(this.user.username + " examine the qualities of " + getOpponentOf(this).user.username + "'s PP !");
 				if (getRandomPercent() <= 33) {
-					sendMessage("And he learns a lot !");
+					addMessage("And he learns a lot !");
 					this.hasExamined = 2;
 				}
 				else {
-					sendMessage("And he learns nothing...");
+					addMessage("And he learns nothing...");
 				}
 			}
 			else if (attack == EMOTE_PP14) {
 				// SawBlade
-				sendMessage(this.user.username + " cuts " + getOpponentOf(this).user.username + "'s PP !");
+				addMessage(this.user.username + " cuts " + getOpponentOf(this).user.username + "'s PP !");
 				getOpponentOf(this).bleedDamage += 5;
 			}
 			else if (attack == EMOTE_PP15) {
 				// Save
-				sendMessage(this.user.username + " reverses the damages and heals !");
+				addMessage(this.user.username + " reverses the damages and heals !");
 				if (REVERSE_DAMAGE < 0) {
 					REVERSE_DAMAGE = 2;
 				}
@@ -590,45 +591,45 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP16) {
 				// Satan
-				sendMessage(this.user.username + " possesses " + getOpponentOf(this).user.username + "'s PP !");
+				addMessage(this.user.username + " possesses " + getOpponentOf(this).user.username + "'s PP !");
 				getOpponentOf(this).isPossessed = 2;
 			}
 			else if (attack == EMOTE_PP17) {
 				// RiotShield
-				sendMessage(this.user.username + " gets a shield !");
+				addMessage(this.user.username + " gets a shield !");
 				this.isProtected = true;
 			}
 			else if (attack == EMOTE_PP18) {
 				// Red Pill
-				sendMessage(this.user.username + " gets a pill !");
+				addMessage(this.user.username + " gets a pill !");
 				this.STRValue += 5;
 				this.DEXValue += 3;
 			}
 			else if (attack == EMOTE_PP19) {
 				// Pig
-				sendMessage(this.user.username + " squeezes hog yeah yeah !");
+				addMessage(this.user.username + " squeezes hog yeah yeah !");
 				this.isPigged = true;
 				this.pigHeal += 2;
 				if (this.hasBoner) {
-					sendMessage(this.user.username + " loses his boner !");
+					addMessage(this.user.username + " loses his boner !");
 				}
 				this.hasBoner = false;
 			}
 			else if (attack == EMOTE_PP20) {
 				// DoomReverse (MookGrenade)
-				sendMessage(this.user.username + " sets up a DOOM-REVERSE(tm) !");
+				addMessage(this.user.username + " sets up a DOOM-REVERSE(tm) !");
 				this.doomReverse = 4;
 			}
 			else if (attack == EMOTE_PP21) {
 				// Acid
-				sendMessage(this.user.username + " gets an acid armor !");
+				addMessage(this.user.username + " gets an acid armor !");
 				this.acidArmor = 5;
 			}
 			else if (attack == EMOTE_PP22) {
 				// Circumscise
-				sendMessage(this.user.username + " circumcised himself !");
+				addMessage(this.user.username + " circumcised himself !");
 				if (this.isCircumcised) {
-					sendMessage("Wait he already was !");
+					addMessage("Wait he already was !");
 				}
 				else {
 					this.isCircumcised = true;
@@ -637,50 +638,50 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP23) {
 				// LaughSoul
-				sendMessage(this.user.username + " laughs at " + getOpponentOf(this).user.username + " !");
-				sendMessage("He gets " + getOpponentOf(this).missedMoves*10 + " STR !");
+				addMessage(this.user.username + " laughs at " + getOpponentOf(this).user.username + " !");
+				addMessage("He gets " + getOpponentOf(this).missedMoves*10 + " STR !");
 				this.STRValue += getOpponentOf(this).missedMoves*10;
 			}
 			else if (attack == EMOTE_PP24) {
 				// KnockBack
-				sendMessage(this.user.username + " swap the natural STR values !");
+				addMessage(this.user.username + " swap the natural STR values !");
 				this.STRValue += getOpponentOf(this).STRValue;
 				getOpponentOf(this).STRValue = this.STRValue - getOpponentOf(this).STRValue;
 				this.STRValue -= getOpponentOf(this).STRValue;
 			}
 			else if (attack == EMOTE_PP25) {
 				// Bombardment
-				sendMessage(this.user.username + " call for a bombardment !!!");
+				addMessage(this.user.username + " call for a bombardment !!!");
 				this.damage(1000);
 				getOpponentOf(this).damage(1000);
 			}
 			else if (attack == EMOTE_PP26) {
 				// Big Satan
 				DISABLE_ABANDON = true;
-				sendMessage(this.user.username + " summons Satan chaotic powers !!!");
+				addMessage(this.user.username + " summons Satan chaotic powers !!!");
 				this.playMove(getRandomEmote(false));
-				sendMessage("-----------------");
+				addMessage("-----------------");
 				this.playMove(getRandomEmote(false));
-				sendMessage("-----------------");
+				addMessage("-----------------");
 				this.playMove(getRandomEmote(false));
-				sendMessage("-----------------");
+				addMessage("-----------------");
 				this.playMove(getRandomEmote());
-				sendMessage("-----------------");
+				addMessage("-----------------");
 				this.playMove(getRandomEmote());
-				sendMessage("-----------------");
+				addMessage("-----------------");
 				getOpponentOf(this).playMove(getRandomEmote(false));
-				sendMessage("-----------------");
+				addMessage("-----------------");
 				getOpponentOf(this).playMove(getRandomEmote(false));
-				sendMessage("-----------------");
+				addMessage("-----------------");
 				getOpponentOf(this).playMove(getRandomEmote(false));
-				sendMessage("-----------------");
+				addMessage("-----------------");
 				getOpponentOf(this).playMove(getRandomEmote());
-				sendMessage("-----------------");
+				addMessage("-----------------");
 				getOpponentOf(this).playMove(getRandomEmote());
 			}
 			else if (attack == EMOTE_PP27) {
 				// BigGuyBullet
-				sendMessage(this.user.username + " uses his PP as a gun !");
+				addMessage(this.user.username + " uses his PP as a gun !");
 				getOpponentOf(this).damage(Math.floor(20 + this.STR / 10));
 				this.DEXValue -= 20;
 				getOpponentOf(this).DEXValue -= 20;
@@ -688,44 +689,44 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP28) {
 				// BigGuy
-				sendMessage(this.user.username + " intimidates " + getOpponentOf(this).user.username + " !");
+				addMessage(this.user.username + " intimidates " + getOpponentOf(this).user.username + " !");
 				getOpponentOf(this).hasBurst = 2;
 
 			}
 			else if (attack == EMOTE_PP29) {
 				// Barrel
-				sendMessage(this.user.username + " sets up a barrel for nothing...");
+				addMessage(this.user.username + " sets up a barrel for nothing...");
 			}
 			else if (attack == EMOTE_PP30) {
 				// ExclamationPoint
-				sendMessage(this.user.username + " tries to go back too far in time !");
-				sendMessage("This create a space-time distortion !");
+				addMessage(this.user.username + " tries to go back too far in time !");
+				addMessage("This create a space-time distortion !");
 				this.playMove(getRandomEmote());
 			}
 			else if (attack == EMOTE_PP31) {
 				// Save Me Sign
-				sendMessage(this.user.username + " wants to be saved !");
+				addMessage(this.user.username + " wants to be saved !");
 			}
 			else if (attack == EMOTE_PP32) {
 				// High Five Emote
-				sendMessage(this.user.username + " stops the time !");
+				addMessage(this.user.username + " stops the time !");
 				STOPPED_MOVE_LIST = LIST_AVAILABLE_ATTACKS;
 			}
 			else if (attack == EMOTE_PP33) {
 				// Headless - Big Kidney Stone
-				sendMessage(this.user.username + " shoots a big kidney stone !");
+				addMessage(this.user.username + " shoots a big kidney stone !");
 				this.damage(50);
 				getOpponentOf(this).damage(50);
 			}
 			else if (attack == EMOTE_PP34) {
 				// Facehugger
-				sendMessage(this.user.username + " impregnates " + getOpponentOf(this).user.username + " !");
+				addMessage(this.user.username + " impregnates " + getOpponentOf(this).user.username + " !");
 				getOpponentOf(this).isAlienPP = true;
 				getOpponentOf(this).damage(Math.floor(getOpponentOf(this).STR/2));
 			}
 			else if (attack == EMOTE_PP35) {
 				// Facehugged
-				sendMessage(this.user.username + " impregnates the arbitratory !");
+				addMessage(this.user.username + " impregnates the arbitratory !");
 				BLIND_COUNTDOWN = 2;
 				if (getRandomPercent() < 33) {
 					BLIND_COUNTDOWN = 9999999;
@@ -733,85 +734,85 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP36) {
 				// Explosion
-					sendMessage(this.user.username + " plays the terrorist move !");
+					addMessage(this.user.username + " plays the terrorist move !");
 				if (this.isMuslim) {
 					getOpponentOf(this).damage(1000);
 				}
 				else {
-					sendMessage("But no terrorist move was planned !");
+					addMessage("But no terrorist move was planned !");
 				}
 			}
 			else if (attack == EMOTE_PP37) {
 				// Disembowled - Kidney Stone
-				sendMessage(this.user.username + " shoots a kidney stone !");
+				addMessage(this.user.username + " shoots a kidney stone !");
 				this.damage(25);
 				getOpponentOf(this).damage(25);
 			}
 			else if (attack == EMOTE_PP38) {
 				// DeadBro
-				sendMessage(this.user.username + " wants a fast PP...");
+				addMessage(this.user.username + " wants a fast PP...");
 				if (this.isFastPP) {
-					sendMessage("...but he already had one !");
+					addMessage("...but he already had one !");
 				}
 				else {
 					this.isFastPP = true;
-					sendMessage("...and now he got it !");
+					addMessage("...and now he got it !");
 				}
 			}
 			else if (attack == EMOTE_PP39) {
 				// Interrogation Point
-				sendMessage(this.user.username + " summons a random move !");
+				addMessage(this.user.username + " summons a random move !");
 				this.playMove(getRandomEmote());
 			}
 			else if (attack == EMOTE_PP40) {
 				// ChestBurst
-				sendMessage(this.user.username + " wants a big PP...");
+				addMessage(this.user.username + " wants a big PP...");
 				if (this.isBigPP) {
-					sendMessage("...but he already had one !");
+					addMessage("...but he already had one !");
 				}
 				else {
 					this.isBigPP = true;
-					sendMessage("...and now he got it !");
+					addMessage("...and now he got it !");
 				}
 			}
 			else if (attack == EMOTE_PP41) {
 				// 007 Drunk
-				sendMessage(this.user.username + " wants a drunk PP...");
+				addMessage(this.user.username + " wants a drunk PP...");
 				if (this.isDrunkPP) {
-					sendMessage("...but he already had one !");
+					addMessage("...but he already had one !");
 				}
 				else {
 					this.isDrunkPP = true;
-					sendMessage("...and now he got it !");
+					addMessage("...and now he got it !");
 				}
 			}
 			else if (attack == EMOTE_PP42) {
 				// Bronan Slam
-				sendMessage(this.user.username + " builds up for his next attack...");
+				addMessage(this.user.username + " builds up for his next attack...");
 				this.bonusDamage += 20;
 			}
 			else if (attack == EMOTE_PP43) {
 				// BrocketeerDive
-				sendMessage(this.user.username + " punches " + getOpponentOf(this).user.username + "'s PP with his head !");
+				addMessage(this.user.username + " punches " + getOpponentOf(this).user.username + "'s PP with his head !");
 				getOpponentOf(this).damage(Math.floor(10 + this.STR / 10));
 				getOpponentOf(this).hasBurst = 2;
 
 			}
 			else if (attack == EMOTE_PP44) {
 				// Kamikaze
-				sendMessage(this.user.username + " plans a suicide move !");
+				addMessage(this.user.username + " plans a suicide move !");
 				ILLEGAL_BOMBING = true;
 				this.isMuslim = true;
 			}
 			else if (attack == EMOTE_PP45) {
 				// Boomerang
-				sendMessage(this.user.username + " gets a nice boomerang");
+				addMessage(this.user.username + " gets a nice boomerang");
 				this.hasBoomerang = 4;
 			}
 			else if (attack == EMOTE_PP46) {
 				// TruffleHistorian
 				DISABLE_ABANDON = true;
-				sendMessage(this.user.username + " calls the Ancient Fongus");
+				addMessage(this.user.username + " calls the Ancient Fongus");
 				var chaosNumber = getRandomPercent();
 				if (getRandomPercent() >= 50) {
 					var winner = this;
@@ -827,24 +828,24 @@ class Fighter {
 					chaosNumber = 100;
 					var winner = getOpponentOf(this);
 				}
-				sendMessage("He will use " + chaosNumber + "% of his power in " + winner.user.username);
+				addMessage("He will use " + chaosNumber + "% of his power in " + winner.user.username);
 				chaosNumber = Math.floor(chaosNumber/4);
 				var i;
 				for (i = 0; i < chaosNumber; i++) {
-					sendMessage("-----------------");
+					addMessage("-----------------");
 					winner.playMove(getRandomEmote());
 				}
 			}
 			else if (attack == EMOTE_PP47) {
 				// Pudding
-				sendMessage(this.user.username + " abandons the battle !");
+				addMessage(this.user.username + " abandons the battle !");
 				this.STRValue = -999999999;
 				return;
 			}
 			else if (attack == EMOTE_PP48) {
 				// Brennfeu
-				sendMessage(this.user.username + " messes everything !");
-				sendMessage("As always !");
+				addMessage(this.user.username + " messes everything !");
+				addMessage("As always !");
 				this.STRValue += Math.floor((getRandomPercent() - 50)/2);
 				this.DEXValue += Math.floor((getRandomPercent() - 50)/2);
 				getOpponentOf(this).STRValue += Math.floor((getRandomPercent() - 50)/2);
@@ -852,60 +853,60 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP49) {
 				// Soup
-				sendMessage("Behold " + this.user.username + " the living God !");
+				addMessage("Behold " + this.user.username + " the living God !");
 				this.STRValue += 10000;
 				this.DEXValue += 10000;
 			}
 			else if (attack == EMOTE_PP50) {
 				// Perhaps
-				sendMessage(this.user.username + " thinks about life and the universe...");
+				addMessage(this.user.username + " thinks about life and the universe...");
 				if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 					var randomEvent = getRandomPercent();
 					// Events, chance at becoming god, making everything proc twice, both players getting 0 dex.
 					if (randomEvent <= 25) {
 						if (!FORCE_EVENT) {
-							sendMessage("Events will now occur every turn !");
+							addMessage("Events will now occur every turn !");
 						}
 						else {
-							sendMessage("Events will stop occurring every turn !");
+							addMessage("Events will stop occurring every turn !");
 						}
 						FORCE_EVENT = !FORCE_EVENT;
 					}
 					else if (randomEvent <= 50) {
 						if (getRandomPercent() <= 34) {
-							sendMessage("His body and mind have now ascended !");
+							addMessage("His body and mind have now ascended !");
 							this.playMove(EMOTE_PP49);
 						}
 						else {
-							sendMessage("But he isn't ready to become a Living God...");
+							addMessage("But he isn't ready to become a Living God...");
 						}
 					}
 					else if (randomEvent <= 75) {
-						sendMessage("Natural values have been doubled !");
+						addMessage("Natural values have been doubled !");
 						this.STRvalue = this.STRValue*2;
 						this.DEXvalue = this.DEXValue*2;
 						getOpponentOf(this).STRValue = getOpponentOf(this).STRValue*2;
 						getOpponentOf(this).DEXValue = getOpponentOf(this).DEXValue*2;
 					}
 					else {
-						sendMessage("Both fighers DEX has been changed to 0 !");
+						addMessage("Both fighers DEX has been changed to 0 !");
 						this.DEXValue = 0 - (this.DEX - this.DEXValue);
 						getOpponentOf(this).DEXValue = 0 - (getOpponentOf(this).DEX - getOpponentOf(this).DEXValue);
 					}
 				}
 				else {
-					sendMessage("Wait he forgot about the battle");
+					addMessage("Wait he forgot about the battle");
 				}
 			}
 			else if (attack == EMOTE_PP51) {
 				// Priest Regular Move
-				sendMessage(this.user.username + " calls for his Gods to help him !");
+				addMessage(this.user.username + " calls for his Gods to help him !");
 				if (this.regularCharges > 0) {
 					this.regularCharges -= 1;
 				}
 				if (this.godList.indexOf(GOD_PP8_PRIEST) > -1) { // Fabulous Toast Man
-					sendMessage("-----------------");
-					sendMessage("Fabulous Toast Man answers his calls !");
+					addMessage("-----------------");
+					addMessage("Fabulous Toast Man answers his calls !");
 					var randomGod = Math.floor(Math.random()*PRIEST_ROLES.length)
 					var nbTries = 0;
 					while (this.godList.indexOf(PRIEST_ROLES[randomGod]) > -1 && nbTries < 100) {
@@ -914,217 +915,217 @@ class Fighter {
 					}
 					if (nbTries < 100) {
 						this.godList.push(PRIEST_ROLES[randomGod]);
-						sendMessage(this.user.username + " becomes a " + PRIEST_ROLES[randomGod] + " thanks to his charisma !");
+						addMessage(this.user.username + " becomes a " + PRIEST_ROLES[randomGod] + " thanks to his charisma !");
 					}
 					else {
-						sendMessage(this.user.username + " has no more god to worship !");
+						addMessage(this.user.username + " has no more god to worship !");
 						this.playMove(EMOTE_PP49)
 					}
 				}
 				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1) { // Mongo
-					sendMessage("-----------------");
-					sendMessage("Mongo answers his calls !");
-					sendMessage(this.user.username + " gains some barbarian strength");
+					addMessage("-----------------");
+					addMessage("Mongo answers his calls !");
+					addMessage(this.user.username + " gains some barbarian strength");
 					this.heal(50);
 				}
 				if (this.godList.indexOf(GOD_PP2_PRIEST) > -1) { // Dr Phil
-					sendMessage("-----------------");
-					sendMessage("Dr. Phil answers his calls !");
-					sendMessage("You suddenly all wonder about life...");
+					addMessage("-----------------");
+					addMessage("Dr. Phil answers his calls !");
+					addMessage("You suddenly all wonder about life...");
 					FORCE_PERHAPS = true;
 				}
 				if (this.godList.indexOf(GOD_PP3_PRIEST) > -1) { // LeprePuds
-					sendMessage("-----------------");
-					sendMessage("LeprePuds answers his calls !");
-					sendMessage(this.user.username + " feels lucky !");
+					addMessage("-----------------");
+					addMessage("LeprePuds answers his calls !");
+					addMessage(this.user.username + " feels lucky !");
 					this.isLucky = 4;
 					this.badLuck = false;
 				}
 				if (this.godList.indexOf(GOD_PP4_PRIEST) > -1) { // DickHead Pudding
-					sendMessage("-----------------");
-					sendMessage("DickHead Pudding answers his calls !");
+					addMessage("-----------------");
+					addMessage("DickHead Pudding answers his calls !");
 					if (getRandomPercent() == 1) {
-						sendMessage(this.user.username + " wins !");
+						addMessage(this.user.username + " wins !");
 						getOpponentOf(this).playMove(EMOTE_PP47);
 					} 
 					else {
-						sendMessage(this.user.username + " fails to be a complete dickhead !");
+						addMessage(this.user.username + " fails to be a complete dickhead !");
 					}
 				}
 				if (this.godList.indexOf(GOD_PP5_PRIEST) > -1) { // Hello There Puds
-					sendMessage("-----------------");
-					sendMessage("Hello There Puds answers his calls !");
-					sendMessage(this.user.username + " tries to scare " + getOpponentOf(this).user.username + " !");
+					addMessage("-----------------");
+					addMessage("Hello There Puds answers his calls !");
+					addMessage(this.user.username + " tries to scare " + getOpponentOf(this).user.username + " !");
 					if (getRandomPercent() <= 50+this.STR-getOpponentOf(this).STR) {
 						getOpponentOf(this).damage(50);
 					}
 					else {
-						sendMessage("But it fails !");
+						addMessage("But it fails !");
 					}
 				}
 				if (this.godList.indexOf(GOD_PP6_PRIEST) > -1) { // Dickdickson666
-					sendMessage("-----------------");
-					sendMessage("DickDickSon666 answers his calls !");
-					sendMessage(this.user.username + " gets an eldritch friend !");
+					addMessage("-----------------");
+					addMessage("DickDickSon666 answers his calls !");
+					addMessage(this.user.username + " gets an eldritch friend !");
 					this.eldritchFriend = true;
 				}
 				if (this.godList.indexOf(GOD_PP7_PRIEST) > -1) { // Jew
-					sendMessage("-----------------");
-					sendMessage("The Jew Lord answers his calls !");
-					sendMessage(this.user.username + " takes " + MOVE_COUNT*2 + " DEX from " + getOpponentOf(this).user.username + " as the emerald tax !");
+					addMessage("-----------------");
+					addMessage("The Jew Lord answers his calls !");
+					addMessage(this.user.username + " takes " + MOVE_COUNT*2 + " DEX from " + getOpponentOf(this).user.username + " as the emerald tax !");
 					this.DEXValue += MOVE_COUNT*2;
 					getOpponentOf(this).DEXValue -= MOVE_COUNT*2;
 				}
 				// GOD 8 IS FIRST
 				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) { // Brenn
-					sendMessage("-----------------");
-					sendMessage("Brenn answers his calls !");
-					sendMessage(this.user.username + " plays a guitar solo that makes people's PP bleed !");
+					addMessage("-----------------");
+					addMessage("Brenn answers his calls !");
+					addMessage(this.user.username + " plays a guitar solo that makes people's PP bleed !");
 					getOpponentOf(this).bleedDamage += 5;
 				}
 				if (this.godList.indexOf(GOD_PP10_PRIEST) > -1) { // Fabio
-					sendMessage("-----------------");
-					sendMessage("Fabio answers his calls !");
-					sendMessage(this.user.username + " let his hair flow in the wind !");
+					addMessage("-----------------");
+					addMessage("Fabio answers his calls !");
+					addMessage(this.user.username + " let his hair flow in the wind !");
 					this.heal(50*MOVE_COUNT);
 				}
 				if (this.godList.indexOf(GOD_PP11_PRIEST) > -1) { // Country Music Brenn
-					sendMessage("-----------------");
-					sendMessage("Country Music Brenn answers his calls !");
-					sendMessage(this.user.username + " plays some country !");
-					sendMessage(getOpponentOf(this).user.username + " gets an Hocky Puck PP !");
+					addMessage("-----------------");
+					addMessage("Country Music Brenn answers his calls !");
+					addMessage(this.user.username + " plays some country !");
+					addMessage(getOpponentOf(this).user.username + " gets an Hocky Puck PP !");
 					getOpponentOf(this).isHockeyPuckPP = true;
 				}
 				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1) { // Espinoza
-					sendMessage("-----------------");
-					sendMessage("Espinoza answers his calls !");
-					sendMessage(this.user.username + " sniffs " + getOpponentOf(this).user.username + "'s PP !");
+					addMessage("-----------------");
+					addMessage("Espinoza answers his calls !");
+					addMessage(this.user.username + " sniffs " + getOpponentOf(this).user.username + "'s PP !");
 					this.DEXValue += 10;
 				}
 				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1) { // 700IQ
-					sendMessage("-----------------");
-					sendMessage("The Mutantoid Lycanthrope answers his calls !");
-					sendMessage(this.user.username + " makes a scientific discovery !");
+					addMessage("-----------------");
+					addMessage("The Mutantoid Lycanthrope answers his calls !");
+					addMessage(this.user.username + " makes a scientific discovery !");
 					this.playMove(getRandomEmote());
 				}
 				if (this.godList.indexOf(GOD_PP14_PRIEST) > -1) { // UREGonnaGETRaped
-					sendMessage("-----------------");
-					sendMessage("Rapist Pudding answers his calls !");
-					sendMessage(this.user.username + " gives a boner punch to " + getOpponentOf(this).user.username + " !");
+					addMessage("-----------------");
+					addMessage("Rapist Pudding answers his calls !");
+					addMessage(this.user.username + " gives a boner punch to " + getOpponentOf(this).user.username + " !");
 					this.hasBoner = true;
 					getOpponentOf(this).damage(Math.floor((this.STR - this.DEX)/10));
 				}
 				if (this.godList.indexOf(GOD_PP15_PRIEST) > -1) { // STFU Isaac
-					sendMessage("-----------------");
-					sendMessage("Isaac answers his calls !");
-					sendMessage(this.user.username + " starts to cry !");
-					sendMessage(BATTLE_CHANNEL.guild.members.random().user.username + " helps the fighters !");
+					addMessage("-----------------");
+					addMessage("Isaac answers his calls !");
+					addMessage(this.user.username + " starts to cry !");
+					addMessage(BATTLE_CHANNEL.guild.members.random().user.username + " helps the fighters !");
 					FIGHTER1.heal(50);
 					FIGHTER2.heal(50);
 				}
 				if (this.godList.indexOf(GOD_PP16_PRIEST) > -1) { // The Man Who Made a Monster
-					sendMessage("-----------------");
-					sendMessage("The Man who Made a Monster answers his calls !");
-					sendMessage(this.user.username + " drinks " + getOpponentOf(this).user.username + "'s salty tears !");
+					addMessage("-----------------");
+					addMessage("The Man who Made a Monster answers his calls !");
+					addMessage(this.user.username + " drinks " + getOpponentOf(this).user.username + "'s salty tears !");
 					this.tearDrinker += 3;
 				}
 				if (this.godList.indexOf(GOD_PP17_PRIEST) > -1) { // Hitler
-					sendMessage("-----------------");
-					sendMessage("Literally Hitler answers his calls !");
-					sendMessage(this.user.username + " makes jew priests illegal !");
+					addMessage("-----------------");
+					addMessage("Literally Hitler answers his calls !");
+					addMessage(this.user.username + " makes jew priests illegal !");
 					ILLEGAL_JEWS = true;
 				}
 				if (this.godList.indexOf(GOD_PP18_PRIEST) > -1) { // Salt King
-					sendMessage("-----------------");
-					sendMessage("The Salt King answers his calls !");
-					sendMessage(this.user.username + " makes his opponent's wounds salty !");
+					addMessage("-----------------");
+					addMessage("The Salt King answers his calls !");
+					addMessage(this.user.username + " makes his opponent's wounds salty !");
 					getOpponentOf(this).bleedDamage += 3;
 					getOpponentOf(this).isSalty = true;
 				}
 				if (this.godList.indexOf(GOD_PP20_PRIEST) > -1) { // D.I.C.K.
-					sendMessage("-----------------");
-					sendMessage("D.I.C.K. answers his calls !");
-					sendMessage(this.user.username + " gets a special charge !");
+					addMessage("-----------------");
+					addMessage("D.I.C.K. answers his calls !");
+					addMessage(this.user.username + " gets a special charge !");
 					this.specialCharges += 1;
 				}
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
-				sendMessage(this.user.username + " calls for his Gods to help him !");
+				addMessage(this.user.username + " calls for his Gods to help him !");
 				if (this.specialCharges > 0) {
 					this.specialCharges -= 1;
 				}
 				if (this.godList.indexOf(GOD_PP20_PRIEST) > -1) { // D.I.C.K.
-					sendMessage("-----------------");
-					sendMessage("D.I.C.K. answers his calls !");
-					sendMessage("Calls every other god to join him !");
+					addMessage("-----------------");
+					addMessage("D.I.C.K. answers his calls !");
+					addMessage("Calls every other god to join him !");
 					this.godList = [GOD_PP20_PRIEST];
 					for (var i in PRIEST_ROLES) {
 						this.godList.push(PRIEST_ROLES[i]);
 					}
 				}
 				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1) { // Mongo
-					sendMessage("-----------------");
-					sendMessage("Mongo answers his calls !");
-					sendMessage(this.user.username + " becomes a true barbarian from the north !");
+					addMessage("-----------------");
+					addMessage("Mongo answers his calls !");
+					addMessage(this.user.username + " becomes a true barbarian from the north !");
 					this.trueBarbarian = true;
 				}
 				if (this.godList.indexOf(GOD_PP2_PRIEST) > -1) { // Dr Phil
-					sendMessage("-----------------");
-					sendMessage("Dr. Phil answers his calls !");
-					sendMessage("Dr Phil sends " + getOpponentOf(this).user.username + "'s will to fight to the ranch for 1 turn...");
+					addMessage("-----------------");
+					addMessage("Dr. Phil answers his calls !");
+					addMessage("Dr Phil sends " + getOpponentOf(this).user.username + "'s will to fight to the ranch for 1 turn...");
 					getOpponentOf(this).turnSkip = 2;
 				}
 				if (this.godList.indexOf(GOD_PP3_PRIEST) > -1) { // LeprePuds
-					sendMessage("-----------------");
-					sendMessage("LeprePuds answers his calls !");
-					sendMessage(this.user.username + " is faster than ever !");
+					addMessage("-----------------");
+					addMessage("LeprePuds answers his calls !");
+					addMessage(this.user.username + " is faster than ever !");
 					if (this.DEX < 0) {
 						this.DEXValue -= this.DEX;
 					}
 					this.DEXValue += 20;
 				}
 				if (this.godList.indexOf(GOD_PP4_PRIEST) > -1) { // DickHead Pudding
-					sendMessage("-----------------");
-					sendMessage("DickHead Pudding answers his calls !");
+					addMessage("-----------------");
+					addMessage("DickHead Pudding answers his calls !");
 					if (getRandomPercent() <= 10) {
-						sendMessage(this.user.username + " wins !");
+						addMessage(this.user.username + " wins !");
 						getOpponentOf(this).playMove(EMOTE_PP47);
 					} 
 					else {
-						sendMessage(this.user.username + " fails to be a complete dickhead !");
+						addMessage(this.user.username + " fails to be a complete dickhead !");
 					}
 				}
 				if (this.godList.indexOf(GOD_PP5_PRIEST) > -1) { // Hello There Puds
-					sendMessage("-----------------");
-					sendMessage("Hello There Puds answers his calls !");
-					sendMessage(this.user.username + " gets a sudden body change !");
+					addMessage("-----------------");
+					addMessage("Hello There Puds answers his calls !");
+					addMessage(this.user.username + " gets a sudden body change !");
 					this.DEXValue += this.STRValue;
 					this.STRValue = this.DEXValue - this.STRValue;
 					this.DEXValue -= this.STRValue;
 				}
 				if (this.godList.indexOf(GOD_PP6_PRIEST) > -1) { // Dickdickson666
-					sendMessage("-----------------");
-					sendMessage("DickDickSon666 answers his calls !");
-					sendMessage(this.user.username + " releases Hell on earth !");
+					addMessage("-----------------");
+					addMessage("DickDickSon666 answers his calls !");
+					addMessage(this.user.username + " releases Hell on earth !");
 					FORCE_SATAN = true;
 				}
 				if (this.godList.indexOf(GOD_PP7_PRIEST) > -1) { // Jew
-					sendMessage("-----------------");
-					sendMessage("The Jew Lord answers his calls !");
-					sendMessage(this.user.username + " uses his long nose to get a new special charge !");
+					addMessage("-----------------");
+					addMessage("The Jew Lord answers his calls !");
+					addMessage(this.user.username + " uses his long nose to get a new special charge !");
 					this.specialCharges += 1;
 				}
 				if (this.godList.indexOf(GOD_PP8_PRIEST) > -1) { // Fabulous Toast Man
-					sendMessage("-----------------");
-					sendMessage("Fabulous Toast Man answers his calls !");
-					sendMessage(this.user.username + " calls for a bit of power from all his gods !");
+					addMessage("-----------------");
+					addMessage("Fabulous Toast Man answers his calls !");
+					addMessage(this.user.username + " calls for a bit of power from all his gods !");
 					getOpponentOf(this).damage(Math.floor(this.godList.length*this.STR/10));
 				}
 				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) { // Brenn
-					sendMessage("-----------------");
-					sendMessage("Brenn answers his calls !");
-					sendMessage("Brenn himself messes everything in the battle !");
+					addMessage("-----------------");
+					addMessage("Brenn answers his calls !");
+					addMessage("Brenn himself messes everything in the battle !");
 					var listeStats = ["STRValue", "DEXValue", "isBigPP", "isFastPP", "isDrunkPP", "isHockeyPuckPP", "isAlienPP", "turkeyCountdown", "bleedDamage", "hasExamined", "isPossessed", "isPigged", "pigHeal", "doomReverse", "acidArmor", "isBoomerangUsed", "turnSkip", "isLucky", "grabbedPP"];
 					for (var i in listeStats) {
 						if (getRandomPercent() <= 50) {
@@ -1135,28 +1136,28 @@ class Fighter {
 					}
 				}
 				if (this.godList.indexOf(GOD_PP10_PRIEST) > -1) { // Fabio
-					sendMessage("-----------------");
-					sendMessage("Fabio answers his calls !");
-					sendMessage(this.user.username + " makes you all turn gay !");
+					addMessage("-----------------");
+					addMessage("Fabio answers his calls !");
+					addMessage(this.user.username + " makes you all turn gay !");
 					GAY_TURNS = 5;
 				}
 				if (this.godList.indexOf(GOD_PP11_PRIEST) > -1) { // Country Music Brenn
-					sendMessage("-----------------");
-					sendMessage("Country Music Brenn answers his calls !");
-					sendMessage(this.user.username + " becomes a Cow-Boy !");
+					addMessage("-----------------");
+					addMessage("Country Music Brenn answers his calls !");
+					addMessage(this.user.username + " becomes a Cow-Boy !");
 					this.isCowBoy = true;
 				}
 				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1) { // Espinoza
-					sendMessage("-----------------");
-					sendMessage("Espinoza answers his calls !");
-					sendMessage(this.user.username + " grabs " + getOpponentOf(this).user.username + "'s PP !");
+					addMessage("-----------------");
+					addMessage("Espinoza answers his calls !");
+					addMessage(this.user.username + " grabs " + getOpponentOf(this).user.username + "'s PP !");
 					getOpponentOf(this).grabbedPP = 2;
 				}
 				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1) { // 700IQ
-					sendMessage("-----------------");
-					sendMessage("The Mutantoid Lycanthrope answers his calls !");
+					addMessage("-----------------");
+					addMessage("The Mutantoid Lycanthrope answers his calls !");
 					if (!this.chimera) {
-						sendMessage(this.user.username + " shares his furry genes with " + getOpponentOf(this).user.username + " UwU");
+						addMessage(this.user.username + " shares his furry genes with " + getOpponentOf(this).user.username + " UwU");
 						getOpponentOf(this).chimera = true;
 						for (var i in getOpponentOf(this).godList) {
 							if (getOpponentOf(this).godList[i] != GOD_PP13_PRIEST) {
@@ -1171,50 +1172,50 @@ class Fighter {
 							}
 						}
 						if (fullChimera) {
-							sendMessage(getOpponentOf(this).user.username + " is now fully a furry !");
+							addMessage(getOpponentOf(this).user.username + " is now fully a furry !");
 							getOpponentOf(this).playMove(EMOTE_PP47);
 						}
 					}
 					else {
-						sendMessage(this.user.username + " barks like the retarded furry he is !");
+						addMessage(this.user.username + " barks like the retarded furry he is !");
 					}
 				}
 				if (this.godList.indexOf(GOD_PP14_PRIEST) > -1) { // UREGonnaGETRaped
-					sendMessage("-----------------");
-					sendMessage("Rapist Pudding answers his calls !");
-					sendMessage(this.user.username + " sensually touches " + getOpponentOf(this).user.username + "'s PP...");
+					addMessage("-----------------");
+					addMessage("Rapist Pudding answers his calls !");
+					addMessage(this.user.username + " sensually touches " + getOpponentOf(this).user.username + "'s PP...");
 					this.hasBoner = true;
 					getOpponentOf(this).hasBoner = true;
 					getOpponentOf(this).damage(Math.floor(this.STR/2));
 				}
 				if (this.godList.indexOf(GOD_PP15_PRIEST) > -1) { // STFU Isaac
-					sendMessage("-----------------");
-					sendMessage("Isaac answers his calls !");
-					sendMessage(this.user.username + " curses " + getOpponentOf(this).user.username + " with bad luck !");
+					addMessage("-----------------");
+					addMessage("Isaac answers his calls !");
+					addMessage(this.user.username + " curses " + getOpponentOf(this).user.username + " with bad luck !");
 					getOpponentOf(this).badLuck = true;
 				}
 				if (this.godList.indexOf(GOD_PP16_PRIEST) > -1) { // The Man Who Made a Monster
-					sendMessage("-----------------");
-					sendMessage("The Man who Made a Monster answers his calls !");
-					sendMessage(this.user.username + " starts summoning the Monster !");
+					addMessage("-----------------");
+					addMessage("The Man who Made a Monster answers his calls !");
+					addMessage(this.user.username + " starts summoning the Monster !");
 					this.summonTankCountdown = 2;
 				}
 				if (this.godList.indexOf(GOD_PP17_PRIEST) > -1) { // Hitler
-					sendMessage("-----------------");
-					sendMessage("Literally Hitler answers his calls !");
-					sendMessage(this.user.username + " starts a new genocide !");
+					addMessage("-----------------");
+					addMessage("Literally Hitler answers his calls !");
+					addMessage(this.user.username + " starts a new genocide !");
 					if (getOpponentOf(this).godList.indexOf(GOD_PP7_PRIEST) > -1) {
 						getOpponentOf(this).playMove(EMOTE_PP47);
 					}
 					else {
-						sendMessage(getOpponentOf(this).user.username + " is unaffected...");
+						addMessage(getOpponentOf(this).user.username + " is unaffected...");
 					}
 				}
 				if (this.godList.indexOf(GOD_PP18_PRIEST) > -1) { // Salt King
-					sendMessage("-----------------");
-					sendMessage("The Salt King answers his calls !");
-					sendMessage(getOpponentOf(this).user.username + " is Salt King's best friend");
-					sendMessage(this.user.username + " takes " + Math.floor(getOpponentOf(this).DEX/2) + " DEX from him.");
+					addMessage("-----------------");
+					addMessage("The Salt King answers his calls !");
+					addMessage(getOpponentOf(this).user.username + " is Salt King's best friend");
+					addMessage(this.user.username + " takes " + Math.floor(getOpponentOf(this).DEX/2) + " DEX from him.");
 					this.DEXValue += Math.floor(getOpponentOf(this).DEX/2);
 					getOpponentOf(this).DEXValue -= Math.floor(getOpponentOf(this).DEX/2);
 				}
@@ -1223,30 +1224,30 @@ class Fighter {
 			else if (attack == EMOTE_PP53) {
 				// Singular Explosion
 				MOVE_COUNT += 33;
-				sendMessage(this.user.username + " summons the Singular Explosion");
+				addMessage(this.user.username + " summons the Singular Explosion");
 				this.damage(this.STR-10);
 				getOpponentOf(this).damage(getOpponentOf(this).STR-10);
 			}
 			else if (attack == EMOTE_PP54) {
 				// Explosion Loop
 				MOVE_COUNT += 33;
-				sendMessage(this.user.username + " summons the Explosion Loop");
-				sendMessage("All damages has 90% getting ignored for 7 turns");
+				addMessage(this.user.username + " summons the Explosion Loop");
+				addMessage("All damages has 90% getting ignored for 7 turns");
 				ATTACK_MISS_COUNTDOWN = 8;
 			}
 			else if (attack == EMOTE_PP55) {
 				// Dual Explosion Loop
 				MOVE_COUNT += 33;
-				sendMessage(this.user.username + " summons the Dual Explosion Loop");
-				sendMessage("All moves will be used, no matter the DEX, for 7 turns");
+				addMessage(this.user.username + " summons the Dual Explosion Loop");
+				addMessage("All moves will be used, no matter the DEX, for 7 turns");
 				AUTO_MOVES_COUNTDOWN = 8;
 			}
 			else if (attack == EMOTE_PP56) {
 				// SignPost
 				MOVE_COUNT += 33;
-				sendMessage(this.user.username + " summons every moves !");
+				addMessage(this.user.username + " summons every moves !");
 				for (var i = 0; i < EMOTE_LIST.length-SPECIAL_EMOTE_LIST.length; i++) {
-				sendMessage("-----------------");
+				addMessage("-----------------");
 					if (EMOTE_LIST[i] != EMOTE_PP47) {
 						this.playMove(EMOTE_LIST[i]);
 					}
@@ -1266,23 +1267,23 @@ class Fighter {
 					}
 					if (nbTries < 100) {
 						this.godList.push(PRIEST_ROLES[randomGod]);
-						sendMessage(this.user.username + " becomes a temporary " + PRIEST_ROLES[randomGod] + " !");
+						addMessage(this.user.username + " becomes a temporary " + PRIEST_ROLES[randomGod] + " !");
 					}
 					else {
-						sendMessage(this.user.username + " has no more god to worship !");
+						addMessage(this.user.username + " has no more god to worship !");
 						this.playMove(EMOTE_PP49);
 					}
-					sendMessage("-----------------");
+					addMessage("-----------------");
 				}
 				this.playMove(EMOTE_PP51);
-				sendMessage("-----------------");
+				addMessage("-----------------");
 				this.playMove(EMOTE_PP52);
 				this.godList = godListMemory.slice();
 			}
 			else if (attack == EMOTE_PP58) {
 				// Cageless
 				MOVE_COUNT += 33;
-				sendMessage(this.user.username + " gets a new life !");
+				addMessage(this.user.username + " gets a new life !");
 				this.extraLife += 1;
 			}
 			else if (attack == EMOTE_PP59) {
@@ -1290,7 +1291,7 @@ class Fighter {
 				MOVE_COUNT += 33;
 				for (var i in this.godList) {
 					if (this.godList[i] != GOD_PP18_PRIEST) {
-						sendMessage(this.user.username + " gets closer to the Salt King !");
+						addMessage(this.user.username + " gets closer to the Salt King !");
 						this.godList[i] = GOD_PP18_PRIEST;
 						break;
 					}
@@ -1302,49 +1303,49 @@ class Fighter {
 					}
 				}
 				if (nbSalt >= 3) {
-					sendMessage(this.user.username + " is now touched by Saltus Maximus Retardus !");
+					addMessage(this.user.username + " is now touched by Saltus Maximus Retardus !");
 					for (var i = 0; i < 30; i++) {
 						if (getRandomPercent() < 10) {
-							sendMessage(getOpponentOf(this).user.username + " sucks !");
+							addMessage(getOpponentOf(this).user.username + " sucks !");
 						}
 						else if (getRandomPercent() < 20) {
-							sendMessage(getOpponentOf(this).user.username + " has the big gay !");
+							addMessage(getOpponentOf(this).user.username + " has the big gay !");
 						}
 						else if (getRandomPercent() < 30) {
-							sendMessage(getOpponentOf(this).user.username + " has a smoll pp !");
+							addMessage(getOpponentOf(this).user.username + " has a smoll pp !");
 						}
 						else if (getRandomPercent() < 40) {
-							sendMessage(getOpponentOf(this).user.username + " is ugly AF !");
+							addMessage(getOpponentOf(this).user.username + " is ugly AF !");
 						}
 						else if (getRandomPercent() < 50) {
-							sendMessage(getOpponentOf(this).user.username + " has 3 nipples !");
+							addMessage(getOpponentOf(this).user.username + " has 3 nipples !");
 						}
 						else if (getRandomPercent() < 60) {
-							sendMessage(getOpponentOf(this).user.username + " is a weakling !");
+							addMessage(getOpponentOf(this).user.username + " is a weakling !");
 						}
 						else if (getRandomPercent() < 70) {
-							sendMessage(getOpponentOf(this).user.username + " can't even fight properly !");
+							addMessage(getOpponentOf(this).user.username + " can't even fight properly !");
 						}
 						else if (getRandomPercent() < 80) {
-							sendMessage(getOpponentOf(this).user.username + " is a loser !");
+							addMessage(getOpponentOf(this).user.username + " is a loser !");
 						}
 						else if (getRandomPercent() < 90) {
-							sendMessage(getOpponentOf(this).user.username + " has 0.0026 IQ !");
+							addMessage(getOpponentOf(this).user.username + " has 0.0026 IQ !");
 						}
 						else {
-							sendMessage(getOpponentOf(this).user.username + " is a big nerd !");
+							addMessage(getOpponentOf(this).user.username + " is a big nerd !");
 						}
 					}
-					sendMessage("You loose now lol !");
+					addMessage("You loose now lol !");
 					getOpponentOf(this).playMove(EMOTE_PP47);
 				}
 			}
 			else if (attack == "IS_DEAD_LOL") {
 				// Dead (Cthulhu battle)
-				sendMessage(this.user.username + " is dead so funny lol omg");
+				addMessage(this.user.username + " is dead so funny lol omg");
 			}
 			else {
-				sendMessage(this.user.username + " makes an unknown move ?");
+				addMessage(this.user.username + " makes an unknown move ?");
 				console.log("UNKNOWN MOVE : " + attack)
 			}
 
@@ -1359,11 +1360,11 @@ class Fighter {
 	heal(_amount) {
 		if (REVERSE_DAMAGE <= 0) {
 			this.STRValue += _amount;
-			return sendMessage(this.user.username + " get healed by " + _amount + " HP");
+			return addMessage(this.user.username + " get healed by " + _amount + " HP");
 		}
 		else {
 			this.STRValue -= _amount;
-			return sendMessage(this.user.username + " takes " + _amount + " damages !");
+			return addMessage(this.user.username + " takes " + _amount + " damages !");
 		}
 	}
 
@@ -1373,32 +1374,32 @@ class Fighter {
 
 
 		if (INFINITE_DAMAGE >= 10) {
-			sendMessage("Damage cap achieved !");
-			return sendMessage(_amount + " damages were canceled");
+			addMessage("Damage cap achieved !");
+			return addMessage(_amount + " damages were canceled");
 		}
 		INFINITE_DAMAGE += 1;
 		
 		if (ATTACK_MISS_COUNTDOWN > 0 && getRandomPercent() < 90) {
-			return sendMessage(_amount + " damages were canceled");
+			return addMessage(_amount + " damages were canceled");
 		}
 
 		if (EVENT_BOSS) {
 			BOSS_HEALTH -= _amount;
-			sendMessage("Cthulhu takes " + _amount + " damages !");
+			addMessage("Cthulhu takes " + _amount + " damages !");
 			DAMAGE_COUNT += _amount;
 			return;
 		}
 
 		if (REVERSE_DAMAGE >= 0) {
 			this.STRValue += _amount;
-			return sendMessage(this.user.username + " get healed by " + _amount + " HP");
+			return addMessage(this.user.username + " get healed by " + _amount + " HP");
 		}
 
 		// Acid
 		if (this.acidArmor >= 1) {
-			sendMessage(this.user.username + " has an acid armor !");
+			addMessage(this.user.username + " has an acid armor !");
 			if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) {
-				sendMessage(getOpponentOf(this).user.username + " therapy helps !");
+				addMessage(getOpponentOf(this).user.username + " therapy helps !");
 				getOpponentOf(this).heal(10);
 			}
 			else {
@@ -1408,15 +1409,15 @@ class Fighter {
 
 		if (this.isDrunkPP && getRandomPercent() < 50) {
 			// Drunk PP
-			sendMessage(this.user.username + " felt nothing because too drunk !");
+			addMessage(this.user.username + " felt nothing because too drunk !");
 		}
 		else if (this.attack == EMOTE_PP10) {
 			// Tank
-			sendMessage(this.user.username + " felt nothing !");
+			addMessage(this.user.username + " felt nothing !");
 		}
 		else if (this.isProtected) {
 			// RiotShield
-			sendMessage(this.user.username + " reflects the damages !");
+			addMessage(this.user.username + " reflects the damages !");
 			this.isProtected = false;
 			getOpponentOf(this).damage(_amount);
 		}
@@ -1424,24 +1425,24 @@ class Fighter {
 			// Steel
 			this.STRValue -= Math.floor(_amount/10);
 			DAMAGE_COUNT += Math.floor(_amount/10);
-			sendMessage(this.user.username + " takes " + Math.floor(_amount/10) + " damages !");
+			addMessage(this.user.username + " takes " + Math.floor(_amount/10) + " damages !");
 		}
 		else if (BARREL_DAMAGE) {
 			// Barrel
 			this.STRValue -= Math.floor(_amount*2);
 			DAMAGE_COUNT += Math.floor(_amount*2);
-			sendMessage(this.user.username + " takes " + Math.floor(_amount*2) + " damages !");
+			addMessage(this.user.username + " takes " + Math.floor(_amount*2) + " damages !");
 		}
 		else {
 			// Damage
 			this.STRValue -= _amount;
 			DAMAGE_COUNT += _amount;
-			sendMessage(this.user.username + " takes " + _amount + " damages !");
+			addMessage(this.user.username + " takes " + _amount + " damages !");
 		}
 
 		// DoomReverse
 		if (this.STR <= 0 && this.doomReverse >= 1) {
-			sendMessage(this.user.username + " uses DOOM-REVERSE(tm) !");
+			addMessage(this.user.username + " uses DOOM-REVERSE(tm) !");
 			this.STRValue += (0-this.STR)+1;
 			this.doomReverse = 0;
 		}
@@ -1475,13 +1476,13 @@ class Fighter {
 		if (this.turkeyCountdown != -1) {
 			this.turkeyCountdown -= 1;
 			if (this.turkeyCountdown <= 0) {
-				sendMessage(this.user.username + " explodes !");
+				addMessage(this.user.username + " explodes !");
 				this.damage(1000);
 			}
 			else {
-				sendMessage(this.user.username + " has " + this.turkeyCountdown + " turn(s) left !");
+				addMessage(this.user.username + " has " + this.turkeyCountdown + " turn(s) left !");
 			}
-			sendMessage("-----------------");
+			addMessage("-----------------");
 		}
 
 		// Trap Sign, Examine, SatanPossess etc..
@@ -1499,9 +1500,9 @@ class Fighter {
 
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
-			sendMessage(this.user.username + " bleeds !");
+			addMessage(this.user.username + " bleeds !");
 			if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) {
-				sendMessage(this.user.username + " therapy helps !");
+				addMessage(this.user.username + " therapy helps !");
 				this.heal(this.bleedDamage);
 			}
 			else {
@@ -1512,50 +1513,50 @@ class Fighter {
 					this.damage(this.bleedDamage);
 				}
 			}
-			sendMessage("-----------------");
+			addMessage("-----------------");
 		}
 
 		// Pig
 		if (this.isPigged) {
 			if (this.isCowBoy) {
-				sendMessage(this.user.username + " squeezes hog YEEHAAAAAW !");
+				addMessage(this.user.username + " squeezes hog YEEHAAAAAW !");
 				this.heal(this.pigHeal*50);
 			}
 			else {
-				sendMessage(this.user.username + " squeezes hog !");
+				addMessage(this.user.username + " squeezes hog !");
 				this.heal(this.pigHeal);
 			}
-			sendMessage("-----------------");
+			addMessage("-----------------");
 		}
 		// The Man Wh Made a Monster regular move
 		if (this.tearDrinker > 0) {
-			sendMessage(this.user.username + " drinks salty tears !");
+			addMessage(this.user.username + " drinks salty tears !");
 			this.heal(this.tearDrinker);
 			if (this.godList.indexOf(GOD_PP16_PRIEST) > -1 && this.godList.indexOf(GOD_PP18_PRIEST) > -1) {
 				getOpponentOf(this).damage(this.tearDrinker);
 			}
-			sendMessage("-----------------");
+			addMessage("-----------------");
 		}
 		if (this.godList.indexOf(GOD_PP5_PRIEST) > -1 && this.godList.indexOf(GOD_PP6_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
-			sendMessage(this.user.username + " gets healed by the Unholy Pudding Trinity !");
+			addMessage(this.user.username + " gets healed by the Unholy Pudding Trinity !");
 			this.heal(10);
-			sendMessage("-----------------");
+			addMessage("-----------------");
 		}
 		if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
-			sendMessage(this.user.username + " remembers haunting memories...");
+			addMessage(this.user.username + " remembers haunting memories...");
 			this.playMove(EMOTE_PP42);
-			sendMessage("-----------------");
+			addMessage("-----------------");
 		}
 		if (this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP9_PRIEST) > -1) {
-			sendMessage(this.user.username + " plays garbage music");
-			sendMessage(getOpponentOf(this).user.username + "'s ears starts bleeding");
+			addMessage(this.user.username + " plays garbage music");
+			addMessage(getOpponentOf(this).user.username + "'s ears starts bleeding");
 			getOpponentOf(this).bleedDamage++;
-			sendMessage("-----------------");
+			addMessage("-----------------");
 		}
 		if (this.godList.indexOf(GOD_PP10_PRIEST) > -1 && this.godList.indexOf(GOD_PP8_PRIEST) > -1 && getRandomPercent() <= 10) {
-			sendMessage(this.user.username + "'s Yaoi starts !");
+			addMessage(this.user.username + "'s Yaoi starts !");
 			GAY_TURNS = 2;
-			sendMessage("-----------------");
+			addMessage("-----------------");
 		}
 
 		// PP Armageddon
@@ -1626,8 +1627,14 @@ function setBotActivity(_texte) {
 	}
 	return CLIENT.user.setActivity(texte);
 }
-function sendMessage(_texte) {
-	BATTLE_CHANNEL.send(_texte);
+function addMessage(_texte) {
+	LIST_MESSAGES = LIST_MESSAGES.push(_texte);
+}
+function sendMessages() {
+	for (var i in LIST_MESSAGES) {
+		BATTLE_CHANNEL.send(LIST_MESSAGES[i]);
+	}
+	LIST_MESSAGES = [];
 }
 
 function getOpponentOf(_fighter) {
@@ -1733,38 +1740,38 @@ function startDuel(_message) {
 	FIGHTER2 = new Fighter(_message.mentions.users.array()[0].id);
 
 	if (FIGHTER1.user.id == FIGHTER2.user.id) {
-		sendMessage("You can't battle yourself");
+		addMessage("You can't battle yourself");
 		stopDuel()
 		return;
 	}
 
-	sendMessage("TIME FOR A DUEL");
+	addMessage("TIME FOR A DUEL");
 }
 function stopDuel() {
-	sendMessage("===== RECAP =====");
-	sendMessage("FIGHTERS CURRENT STATE :");
-	sendMessage(FIGHTER1.toString());
-	sendMessage("-----------------");
-	sendMessage(FIGHTER2.toString());
-	sendMessage("SOME STATS :");
-	sendMessage(" - Number of moves : " + MOVE_COUNT);
-	sendMessage(" - Number of damages inflicted : " + DAMAGE_COUNT);
+	addMessage("===== RECAP =====");
+	addMessage("FIGHTERS CURRENT STATE :");
+	addMessage(FIGHTER1.toString());
+	addMessage("-----------------");
+	addMessage(FIGHTER2.toString());
+	addMessage("SOME STATS :");
+	addMessage(" - Number of moves : " + MOVE_COUNT);
+	addMessage(" - Number of damages inflicted : " + DAMAGE_COUNT);
 
 	setBotActivity("");
 	IS_DUELLING = false;
 	IS_BUSY = false;
 }
 function newTurnDuel() {
-	sendMessage("===== TURN CHANGE =====");
+	addMessage("===== TURN CHANGE =====");
 	FIGHTER1.turnChange();
 	FIGHTER2.turnChange();
 	
 	if (FIGHTER1.STR <= 0 && FIGHTER1.extraLife > 0) {
-		sendMessage(FIGHTER1.user.username + " uses an extra life !");
+		addMessage(FIGHTER1.user.username + " uses an extra life !");
 		FIGHTER1 = new Fighter(FIGHTER1.idUser);
 	}
 	if (FIGHTER2.STR <= 0 && FIGHTER2.extraLife > 0) {
-		sendMessage(FIGHTER2.user.username + " uses an extra life !");
+		addMessage(FIGHTER2.user.username + " uses an extra life !");
 		FIGHTER2 = new Fighter(FIGHTER2.idUser);
 	}
 
@@ -1792,12 +1799,12 @@ function newTurnDuel() {
 		if (FIGHTER1.STR <= 0) {
 			FIGHTER1.DEXValue -= (0-FIGHTER1.STR)+1;
 			FIGHTER1.STRValue += (0-FIGHTER1.STR)+1;
-			sendMessage(FIGHTER1.user.username + " got saved thanks to the Blood Moon");
+			addMessage(FIGHTER1.user.username + " got saved thanks to the Blood Moon");
 		}
 		if (FIGHTER2.STR <= 0) {
 			FIGHTER2.DEXValue -= (0-FIGHTER2.STR)+1;
 			FIGHTER2.STRValue += (0-FIGHTER2.STR)+1;
-			sendMessage(FIGHTER2.user.username + " got saved thanks to the Blood Moon");
+			addMessage(FIGHTER2.user.username + " got saved thanks to the Blood Moon");
 		}
 	}
 
@@ -1808,20 +1815,20 @@ function newTurnDuel() {
 		if (FIGHTER1.STR <= 0) {
 			FIGHTER1.DEXValue -= (0-FIGHTER1.STR)+1;
 			FIGHTER1.STRValue += (0-FIGHTER1.STR)+1;
-			sendMessage(FIGHTER1.user.username + " got saved thanks to the Blood Moon");
+			addMessage(FIGHTER1.user.username + " got saved thanks to the Blood Moon");
 		}
 		if (FIGHTER2.STR <= 0) {
 			FIGHTER2.DEXValue -= (0-FIGHTER2.STR)+1;
 			FIGHTER2.STRValue += (0-FIGHTER2.STR)+1;
-			sendMessage(FIGHTER2.user.username + " got saved thanks to the Blood Moon");
+			addMessage(FIGHTER2.user.username + " got saved thanks to the Blood Moon");
 		}
 	}
 
 	// Cthulhu
 	if (EVENT_BOSS) {
 		if (BOSS_HEALTH <= 0) {
-			sendMessage("Cthulhu go back to sleep to heal his poor PP !");
-			sendMessage("You both win !");
+			addMessage("Cthulhu go back to sleep to heal his poor PP !");
+			addMessage("You both win !");
 			addWinCounter(FIGHTER1, 1);
 			addWinCounter(FIGHTER2, 1);
 			EVENT_BOSS = false;
@@ -1829,18 +1836,18 @@ function newTurnDuel() {
 		}
 		else {
 			if (getRandomPercent() >= 50) {
-				sendMessage(FIGHTER1.user.username + " gets attacked by Cthulhu !");
+				addMessage(FIGHTER1.user.username + " gets attacked by Cthulhu !");
 				FIGHTER1.STRValue -= 50;
 			}
 			else {
-				sendMessage(FIGHTER2.user.username + " gets attacked by Cthulhu !");
+				addMessage(FIGHTER2.user.username + " gets attacked by Cthulhu !");
 				FIGHTER2.STRValue -= 50;
 			}
 		}
 
 		// Check if loose
 		if (FIGHTER1.STR <= 0 && FIGHTER2.STR <= 0) {
-			sendMessage("Both of you lost. No one won this time. You losers");
+			addMessage("Both of you lost. No one won this time. You losers");
 			stopDuel();
 			return;
 		}
@@ -1848,35 +1855,35 @@ function newTurnDuel() {
 	else {
 		// Check if dead
 		if (FIGHTER1.STR <= 0 && FIGHTER2.STR <= 0) {
-			sendMessage("Both of you lost. No one won this time. You losers");
+			addMessage("Both of you lost. No one won this time. You losers");
 			stopDuel();
 			return;
 		}
 		else if (FIGHTER1.STR <= 0) {
-			sendMessage(FIGHTER2.user.username + " won ! Congrats !");
+			addMessage(FIGHTER2.user.username + " won ! Congrats !");
 			FIGHTER2.win();
 			stopDuel();
 			return;
 		}
 		else if (FIGHTER2.STR <= 0) {
-			sendMessage(FIGHTER1.user.username + " won ! Congrats !");
+			addMessage(FIGHTER1.user.username + " won ! Congrats !");
 			FIGHTER1.win();
 			stopDuel();
 			return;
 		}
 	}
 
-	sendMessage("\n\n===== NEW TURN =====");
+	addMessage("\n\n===== NEW TURN =====");
 	if (!EVENT_BOSS) {
-		sendMessage(FIGHTER1.toString());
-		sendMessage("===== /VS/ =====");
-		sendMessage(FIGHTER2.toString());
+		addMessage(FIGHTER1.toString());
+		addMessage("===== /VS/ =====");
+		addMessage(FIGHTER2.toString());
 	}
 	else {
-		sendMessage(FIGHTER1.toString());
-		sendMessage(FIGHTER2.toString());
-		sendMessage("===== /VS/ =====");
-		sendMessage("Cthulhu\n\nSTR : " + BOSS_HEALTH);
+		addMessage(FIGHTER1.toString());
+		addMessage(FIGHTER2.toString());
+		addMessage("===== /VS/ =====");
+		addMessage("Cthulhu\n\nSTR : " + BOSS_HEALTH);
 	}
 
 	// HighFiveEmote - Stop move_list
@@ -1892,7 +1899,7 @@ function newTurnDuel() {
 	if (GAY_TURNS > 0) {
 		gay = "opponent's "
 	}
-	sendMessage("\n\nChoose your " + gay + "attack with a reaction !").then(function (_message2) {
+	addMessage("\n\nChoose your " + gay + "attack with a reaction !").then(function (_message2) {
 		for (var i in LIST_AVAILABLE_ATTACKS) {
 			console.log(LIST_AVAILABLE_ATTACKS[i]);
 			if (LIST_AVAILABLE_ATTACKS[i] != "IS_DEAD_LOL") {
@@ -1900,7 +1907,7 @@ function newTurnDuel() {
 			}
 		}
 	}).catch(function(e) {
-		sendMessage(e);
+		addMessage(e);
 	});
 
 	// Stop if dead (cthulhu battle)
@@ -2058,7 +2065,7 @@ function startRandomEvent() {
 	EVENT_CONFUSION = false;
 	EVENT_BLOOD_MOON = false;
 
-	sendMessage("===== EVENTS =====");
+	addMessage("===== EVENTS =====");
 	var randomVar = getRandomPercent();
 
 	if (FORCE_EVENT) {
@@ -2070,8 +2077,8 @@ function startRandomEvent() {
 	// PP ARMAGEDDON
 	if (!PP_ARMAGEDDON && MOVE_COUNT >= 100) {
 		PP_ARMAGEDDON = true;
-		sendMessage(" -- PP ARMAGEDDON --");
-		sendMessage("PPs have ascended, the end is near !");
+		addMessage(" -- PP ARMAGEDDON --");
+		addMessage("PPs have ascended, the end is near !");
 		FIGHTER1.STRValue += 1000000;
 		FIGHTER1.DEXValue += 200;
 		FIGHTER2.STRValue += 1000000;
@@ -2080,78 +2087,78 @@ function startRandomEvent() {
 	else if (randomVar == 2) {
 		// PP Enlightenment
 		EVENT_PP_ENLIGHTENMENT = true;
-		sendMessage(" -- PP ENLIGHTENMENT --");
-		sendMessage("Your PP temporarily become enlightened. All moves can now be used for this turn. \nIllegal moves are still illegal.");
+		addMessage(" -- PP ENLIGHTENMENT --");
+		addMessage("Your PP temporarily become enlightened. All moves can now be used for this turn. \nIllegal moves are still illegal.");
 	}
 	else if (randomVar == 3) {
 		// PP Purge
 		EVENT_PP_PURGE = true;
-		sendMessage(" -- PP PURGE --");
-		sendMessage("All PPs grow a mohawk and start to roam the streets. \nIllegal moves can now be used freely but the judge will still see you if you use unavailable moves");
+		addMessage(" -- PP PURGE --");
+		addMessage("All PPs grow a mohawk and start to roam the streets. \nIllegal moves can now be used freely but the judge will still see you if you use unavailable moves");
 	}
 	else if (randomVar == 4) {
 		// Sexually Confused
 		EVENT_CONFUSION = true;
-		sendMessage(" -- SEXUAL CONFUSION --");
-		sendMessage("Your PPs are confused for this turn");
+		addMessage(" -- SEXUAL CONFUSION --");
+		addMessage("Your PPs are confused for this turn");
 	}
 	else if (randomVar == 5) {
 		// Cthulhu
 		EVENT_BOSS = true;
-		sendMessage(" -- CTHULHU AWAKENS --");
-		sendMessage("You have to beat Cthulhu by punching his huge PP in order to save the world !");
+		addMessage(" -- CTHULHU AWAKENS --");
+		addMessage("You have to beat Cthulhu by punching his huge PP in order to save the world !");
 		BOSS_HEALTH = 10000;
 	}
 	else if (randomVar == 6) {
 		// Accidental Summoning
-		sendMessage(" -- ACCIDENTAL SUMMONING --");
+		addMessage(" -- ACCIDENTAL SUMMONING --");
 		if (getRandomPercent() >= 50) {
 			var winner = FIGHTER1;
 		}
 		else {
 			var winner = FIGHTER2;
 		}
-		sendMessage(winner.user.username + " accidentaly plays Psychodiös on his phone and it summons Satan and the Ancient Fongus !");
+		addMessage(winner.user.username + " accidentaly plays Psychodiös on his phone and it summons Satan and the Ancient Fongus !");
 		winner.playMove(EMOTE_PP26);
 		winner.playMove(EMOTE_PP46);
 	}
 	else if (randomVar == 7) {
 		// Blood Moon
 		EVENT_BLOOD_MOON = true;
-		sendMessage(" -- BLOOD MOON --");
-		sendMessage("If someone dies this turn, STR automatically stays at 1 but the remaining damages in the DEX");
+		addMessage(" -- BLOOD MOON --");
+		addMessage("If someone dies this turn, STR automatically stays at 1 but the remaining damages in the DEX");
 	}
 	else if (randomVar == 8) {
 		// Ascension
-		sendMessage(" -- ASCENSION --");
+		addMessage(" -- ASCENSION --");
 		if (getRandomPercent() >= 50) {
 			var winner = FIGHTER1;
 		}
 		else {
 			var winner = FIGHTER2;
 		}
-		sendMessage(winner.user.username + " accidentaly plays Ascend on his phone !");
+		addMessage(winner.user.username + " accidentaly plays Ascend on his phone !");
 		FIGHTER1.playMove(EMOTE_PP49);
 		FIGHTER2.playMove(EMOTE_PP49);
 	}
 	else if ([9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19].indexOf(randomVar) > -1) {
 		// Charge
-		sendMessage(" -- GODS BIRTHDAY GIFTS --");
-		sendMessage("Gods decide to give you a regular charge each");
+		addMessage(" -- GODS BIRTHDAY GIFTS --");
+		addMessage("Gods decide to give you a regular charge each");
 		FIGHTER1.regularCharges++;
 		FIGHTER2.regularCharges++;
 	}
 	else if ([20, 21].indexOf(randomVar) > -1) {
 		// Charge
-		sendMessage(" -- GODS CHRISTMAS GIFTS --");
-		sendMessage("Gods decide to give you a special charge each");
+		addMessage(" -- GODS CHRISTMAS GIFTS --");
+		addMessage("Gods decide to give you a special charge each");
 		FIGHTER1.specialCharges++;
 		FIGHTER2.specialCharges++;
 	}
 	else if (randomVar == 22) {
 		// Huge Gay Night
-		sendMessage(" -- HUGE GAY NIGHT --");
-		sendMessage("You suddenly become gay");
+		addMessage(" -- HUGE GAY NIGHT --");
+		addMessage("You suddenly become gay");
 		if (GAY_TURNS > 0) {
 			GAY_TURNS += 10;
 		}
@@ -2162,8 +2169,8 @@ function startRandomEvent() {
 	}
 	else if (randomVar == 23) {
 		// PP Blessing
-		sendMessage(" -- PP BLESSING --");
-		sendMessage("You suddenly feel more power in your PP !");
+		addMessage(" -- PP BLESSING --");
+		addMessage("You suddenly feel more power in your PP !");
 		FIGHTER1.godList = [];
 		FIGHTER2.godList = [];
 		for (var i in PRIEST_ROLES) {
@@ -2184,7 +2191,7 @@ function startRandomEvent() {
 		
 	}
 	else {
-		sendMessage("No event this turn...");
+		addMessage("No event this turn...");
 	}
 }
 
@@ -2201,19 +2208,19 @@ function changeRoleToStyler(_nomRole) {
 	try {
 		if (user.roles.has(role.id)) {
 			user.removeRole(role).catch(console.error);
-			sendMessage(user.user.username + " removes the role : " + _nomRole);
+			addMessage(user.user.username + " removes the role : " + _nomRole);
 		}
 		else {
 			if (getNumberOfGods(user) >= 3 && PRIEST_ROLES.indexOf(_nomRole) > -1 && _nomRole != GOD_PP20_PRIEST) {
-				return sendMessage("You can't have more than 3 Gods");
+				return addMessage("You can't have more than 3 Gods");
 			}
 			user.addRole(role).catch(console.error);
-			sendMessage(user.user.username + " gets the role : " + _nomRole);
+			addMessage(user.user.username + " gets the role : " + _nomRole);
 		}
 	}
 	catch(e) {
-		sendMessage("I'm sorry I can't do that :(");
-		sendMessage("Looks like there is no " + _nomRole + " role here...");
+		addMessage("I'm sorry I can't do that :(");
+		addMessage("Looks like there is no " + _nomRole + " role here...");
 	}
 }
 function getNumberOfGods(_guildUser) {
@@ -2307,7 +2314,7 @@ CLIENT.on("message", async _message => {
 			_message2.react(EMOTE_PP34); // Alien PP
 			_message2.react(EMOTE_PP41); // Drunk PP
 		}).catch(function(e) {
-			sendMessage(e);
+			addMessage(e);
 		});
 		return _message.reply("change your God with a reaction.").then(function (_message2) {
 			_message2.react(GOD_PP1); // Mongo
@@ -2329,7 +2336,7 @@ CLIENT.on("message", async _message => {
 			_message2.react(GOD_PP17); // Hitler
 			_message2.react(GOD_PP18); // Salt King
 		}).catch(function(e) {
-			sendMessage(e);
+			addMessage(e);
 		});
 
 	}
@@ -2348,7 +2355,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	// Save Me Move
 	if (IS_DUELLING && getAttackFromEmote(_reaction.emoji) == EMOTE_PP31 && SAVE_LIST.indexOf(_user.id) < 0) {
 		SAVE_LIST.push(_user.id);
-		sendMessage(_user.username + " helps the fighters !");
+		addMessage(_user.username + " helps the fighters !");
 		FIGHTER1.heal(50);
 		FIGHTER2.heal(50);
 	}
@@ -2360,20 +2367,20 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		if (GAY_TURNS > 0) {
 			if (_user.id == FIGHTER1.user.id) {
 				if (LIST_AVAILABLE_ATTACKS.indexOf(getAttackFromEmote(_reaction.emoji)) < 0) {
-					return sendMessage("Gay people can't cheat...");
+					return addMessage("Gay people can't cheat...");
 				}
 				else {
 					FIGHTER2.attack = getAttackFromEmote(_reaction.emoji);
-					sendMessage(FIGHTER2.user.username + " : " + _reaction.emoji.name);
+					addMessage(FIGHTER2.user.username + " : " + _reaction.emoji.name);
 				}
 			}
 			if (_user.id == FIGHTER2.user.id) {
 				if (LIST_AVAILABLE_ATTACKS.indexOf(getAttackFromEmote(_reaction.emoji)) < 0) {
-					return sendMessage("Gay people can't cheat...");
+					return addMessage("Gay people can't cheat...");
 				}
 				else {
 					FIGHTER1.attack = getAttackFromEmote(_reaction.emoji);
-					sendMessage(FIGHTER1.user.username + " : " + _reaction.emoji.name);
+					addMessage(FIGHTER1.user.username + " : " + _reaction.emoji.name);
 				}
 			}
 		}
@@ -2381,22 +2388,22 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		// Assigne attaque
 		else if (_user.id == FIGHTER1.user.id && FIGHTER1.isPossessed <= 0 && FIGHTER1.turnSkip <= 0 && FIGHTER1.grabbedPP <= 0 && FIGHTER1.summonTankCountdown <= 0) {
 			FIGHTER1.attack = getAttackFromEmote(_reaction.emoji);
-			sendMessage(FIGHTER1.user.username + " : " + _reaction.emoji.name);
+			addMessage(FIGHTER1.user.username + " : " + _reaction.emoji.name);
 
 			// Possession
 			if (FIGHTER2.isPossessed >= 1) {
 				FIGHTER2.attack = getAttackFromEmote(_reaction.emoji);
-				sendMessage(FIGHTER2.user.username + " : " + _reaction.emoji.name);
+				addMessage(FIGHTER2.user.username + " : " + _reaction.emoji.name);
 			}
 		}
 		else if (_user.id == FIGHTER2.user.id && FIGHTER2.isPossessed <= 0 && FIGHTER2.turnSkip <= 0 && FIGHTER2.grabbedPP <= 0 && FIGHTER2.summonTankCountdown <= 0) {
 			FIGHTER2.attack = getAttackFromEmote(_reaction.emoji);
-			sendMessage(FIGHTER2.user.username + " : " + _reaction.emoji.name);
+			addMessage(FIGHTER2.user.username + " : " + _reaction.emoji.name);
 
 			// Possession
 			if (FIGHTER1.isPossessed >= 1) {
 				FIGHTER1.attack = getAttackFromEmote(_reaction.emoji);
-				sendMessage(FIGHTER1.user.username + " : " + _reaction.emoji.name);
+				addMessage(FIGHTER1.user.username + " : " + _reaction.emoji.name);
 			}
 		}
 
@@ -2461,11 +2468,11 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			}
 			
 			if (ILLEGAL_JEWS && FIGHTER1.godList.indexOf(GOD_PP7_PRIEST) > -1 && illegalGetCaught(5)) {
-				sendMessage("Wait, I think " + FIGHTER1.user.username + " is a jew !");
+				addMessage("Wait, I think " + FIGHTER1.user.username + " is a jew !");
 				caught1 = true;
 			}
 			if (ILLEGAL_JEWS && FIGHTER2.godList.indexOf(GOD_PP7_PRIEST) > -1 && illegalGetCaught(5)) {
-				sendMessage("Wait, I think " + FIGHTER2.user.username + " is a jew !");
+				addMessage("Wait, I think " + FIGHTER2.user.username + " is a jew !");
 				caught2 = true;
 			}
 
@@ -2478,22 +2485,22 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			
 			if (FIGHTER1.trueBarbarian && FIGHTER1.STR >= 100 && caught1) {
 				caught1 = false;
-				sendMessage(FIGHTER1.user.username + " strong. " + FIGHTER1.user.username + " punch arbitratory if arbitratory bad.");
+				addMessage(FIGHTER1.user.username + " strong. " + FIGHTER1.user.username + " punch arbitratory if arbitratory bad.");
 			}
 			if (FIGHTER2.trueBarbarian && FIGHTER2.STR >= 100 && caught2) {
 				caught2 = false;
-				sendMessage(FIGHTER2.user.username + " strong. " + FIGHTER2.user.username + " punch arbitratory if arbitratory bad.");
+				addMessage(FIGHTER2.user.username + " strong. " + FIGHTER2.user.username + " punch arbitratory if arbitratory bad.");
 			}
 			
 			if (caught1 && (getRandomPercent() >= 33 || FIGHTER1.godList.indexOf(GOD_PP12_PRIEST) > -1 && FIGHTER1.godList.indexOf(GOD_PP13_PRIEST) > -1)) {
-				sendMessage(FIGHTER1.user.username + " is doing illegal stuff ! He loses 10 DEX and 10 STR.");
+				addMessage(FIGHTER1.user.username + " is doing illegal stuff ! He loses 10 DEX and 10 STR.");
 				FIGHTER1.user.username.STRValue -= 10;
 				FIGHTER1.user.username.DEXValue -= 10;
 				FIGHTER1.attack = EMOTE_PP50;
 				caught1 = false;
 			}
 			if (caught2 && (getRandomPercent() >= 33 || FIGHTER2.godList.indexOf(GOD_PP12_PRIEST) > -1 && FIGHTER2.godList.indexOf(GOD_PP13_PRIEST) > -1)) {
-				sendMessage(FIGHTER2.user.username + " is doing illegal stuff ! He loses 10 DEX and 10 STR.");
+				addMessage(FIGHTER2.user.username + " is doing illegal stuff ! He loses 10 DEX and 10 STR.");
 				FIGHTER2.user.username.STRValue -= 10;
 				FIGHTER2.user.username.DEXValue -= 10;
 				FIGHTER2.attack = EMOTE_PP50;
@@ -2501,12 +2508,12 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			}
 
 			var winner;
-			sendMessage("\n\n===== ATTACKS =====");
+			addMessage("\n\n===== ATTACKS =====");
 			if (caught1 && caught2) {
-				sendMessage("WAIT YOU ARE DOING ILLEGAL STUFF RIGHT NOW !");
-				sendMessage("You both loose the fight !");
-				sendMessage("You cheaters do not deserve to live !");
-				sendMessage("You fucking suckers");
+				addMessage("WAIT YOU ARE DOING ILLEGAL STUFF RIGHT NOW !");
+				addMessage("You both loose the fight !");
+				addMessage("You cheaters do not deserve to live !");
+				addMessage("You fucking suckers");
 
 				addWinCounter(FIGHTER1, -1);
 				addWinCounter(FIGHTER2, -1);
@@ -2522,9 +2529,9 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			}
 
 			if (caught1 || caught2) {
-				sendMessage("WAIT " + getOpponentOf(winner).user.username.toUpperCase() + " IS DOING ILLEGAL STUFF RIGHT NOW !");
-				sendMessage(getOpponentOf(winner).user.username + " is disqualified for being a dumb shit.");
-				sendMessage(winner.user.username + " wins !");
+				addMessage("WAIT " + getOpponentOf(winner).user.username.toUpperCase() + " IS DOING ILLEGAL STUFF RIGHT NOW !");
+				addMessage(getOpponentOf(winner).user.username + " is disqualified for being a dumb shit.");
+				addMessage(winner.user.username + " wins !");
 
 				winner.win();
 				addWinCounter(getOpponentOf(winner), -1);
@@ -2535,11 +2542,11 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			
 			
 			if (FIGHTER1.godList.indexOf(GOD_PP7_PRIEST) > -1 && FIGHTER1.godList.indexOf(GOD_PP17_PRIEST) > -1 && getRandomPercent() <= 10) {
-				sendMessage(FIGHTER1.user.username + " gets the Jew-Hitler Paradox Effect !");
+				addMessage(FIGHTER1.user.username + " gets the Jew-Hitler Paradox Effect !");
 				FIGHTER1.attack = getRandomEmote(false);
 			}
 			if (FIGHTER2.godList.indexOf(GOD_PP7_PRIEST) > -1 && FIGHTER2.godList.indexOf(GOD_PP17_PRIEST) > -1 && getRandomPercent() <= 10) {
-				sendMessage(FIGHTER2.user.username + " gets the Jew-Hitler Paradox Effect !");
+				addMessage(FIGHTER2.user.username + " gets the Jew-Hitler Paradox Effect !");
 				FIGHTER2.attack = getRandomEmote(false);
 			}
 
@@ -2554,16 +2561,16 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			// ATTAQUES
 			var dexAttack1 = FIGHTER1.DEX + getDexChange(FIGHTER1.attack) + Math.floor(Math.random() * 50 + 1);
 			var dexAttack2 = FIGHTER2.DEX + getDexChange(FIGHTER2.attack) + Math.floor(Math.random() * 50 + 1);
-			sendMessage(FIGHTER1.user.username + " : " + dexAttack1 + " /VS/ " + FIGHTER2.user.username + " : " + dexAttack2);
+			addMessage(FIGHTER1.user.username + " : " + dexAttack1 + " /VS/ " + FIGHTER2.user.username + " : " + dexAttack2);
 
 			if (FIGHTER1.attack == EMOTE_PP5 && FIGHTER2.attack == EMOTE_PP5) {
 				// HIGH FIVES :D
-				sendMessage("Wow, look at those bros !");
-				sendMessage("That was some good high five.");
-				sendMessage("Okay, the fight ends now !");
-				sendMessage("I'm literally shaking and crying right now.");
-				sendMessage("This is so beautiful...");
-				sendMessage("I love you all.");
+				addMessage("Wow, look at those bros !");
+				addMessage("That was some good high five.");
+				addMessage("Okay, the fight ends now !");
+				addMessage("I'm literally shaking and crying right now.");
+				addMessage("This is so beautiful...");
+				addMessage("I love you all.");
 				stopDuel();
 				return;
 			}
@@ -2592,20 +2599,20 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			}
 
 			if ((dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) || AUTO_MOVES_COUNTDOWN > 0 || EVENT_BOSS) {
-				sendMessage("Both opponents attack this turn !");
+				addMessage("Both opponents attack this turn !");
 
 				FIGHTER1.playMove();
 				// Burst
 				if (FIGHTER2.attack == EMOTE_PP8) {
-					sendMessage(FIGHTER2.user.username + " burst !");
+					addMessage(FIGHTER2.user.username + " burst !");
 					FIGHTER1.hasBurst = 2;
 				}
-				sendMessage("-----------------");
+				addMessage("-----------------");
 
 				FIGHTER2.playMove();
 				// Burst
 				if (FIGHTER1.attack == EMOTE_PP8) {
-					sendMessage(FIGHTER1.user.username + " burst !");
+					addMessage(FIGHTER1.user.username + " burst !");
 					FIGHTER2.hasBurst = 2;
 				}
 			}
@@ -2613,7 +2620,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				FIGHTER1.playMove();
 				// Burst
 				if (FIGHTER2.attack == EMOTE_PP8) {
-					sendMessage(FIGHTER2.user.username + " burst !");
+					addMessage(FIGHTER2.user.username + " burst !");
 					FIGHTER1.hasBurst = 2;
 				}
 
@@ -2636,7 +2643,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				FIGHTER2.playMove();
 				// Burst
 				if (FIGHTER1.attack == EMOTE_PP8) {
-					sendMessage(FIGHTER1.user.username + " burst !");
+					addMessage(FIGHTER1.user.username + " burst !");
 					FIGHTER2.hasBurst = 2;
 				}
 
