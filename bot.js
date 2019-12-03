@@ -33,7 +33,7 @@ const GOD_PP16_PRIEST = "The Man Who made a Monster Priest";
 const GOD_PP17_PRIEST = "Hitler Priest";
 const GOD_PP18_PRIEST = "Salt King Priest";
 const GOD_PP19_PRIEST = ""; // TO ADD TO PRIEST_ROLES
-const GOD_PP20_PRIEST = "D.I.C.K. Priest"; // Special God
+const GOD_PP21_PRIEST = "D.I.C.K. Priest"; // Special God
 const PRIEST_ROLES = [GOD_PP1_PRIEST, GOD_PP2_PRIEST, GOD_PP3_PRIEST, GOD_PP4_PRIEST, GOD_PP5_PRIEST, GOD_PP6_PRIEST, GOD_PP7_PRIEST, GOD_PP8_PRIEST, GOD_PP9_PRIEST, GOD_PP10_PRIEST, GOD_PP11_PRIEST, GOD_PP12_PRIEST, GOD_PP13_PRIEST, GOD_PP14_PRIEST, GOD_PP15_PRIEST, GOD_PP16_PRIEST, GOD_PP17_PRIEST, GOD_PP18_PRIEST];
 
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
@@ -119,7 +119,7 @@ const GOD_PP16 = "619795568230924291" // The Man Who made a Monster
 const GOD_PP17 = "622395294390157329" // Hitler
 const GOD_PP18 = "650830165751889935"; // Salt King
 const GOD_PP19 = "" // TO ADD TO MESSAGE REACTS
-const GOD_PP20 = "644617343456247829";
+const GOD_PP21 = "644617343456247829";
 
 // BOSSES
 const BOSS_PP1 = "Cthulhu";
@@ -209,8 +209,8 @@ class Fighter {
 				this.godList.push(PRIEST_ROLES[i])
 			}
 		}
-		if (this.guildUser.roles.find("name", GOD_PP20_PRIEST)) {
-			this.godList.push(GOD_PP20_PRIEST); // D.I.C.K.
+		if (this.guildUser.roles.find("name", GOD_PP21_PRIEST)) {
+			this.godList.push(GOD_PP21_PRIEST); // D.I.C.K.
 		}
 		while (this.godList.length < 3) {
 			var r = PRIEST_ROLES[Math.floor(Math.random()*PRIEST_ROLES.length)];
@@ -1066,7 +1066,7 @@ class Fighter {
 					getOpponentOf(this).bleedDamage += 3;
 					getOpponentOf(this).isSalty = true;
 				}
-				if (this.godList.indexOf(GOD_PP20_PRIEST) > -1) { // D.I.C.K.
+				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
 					addMessage("-----------------");
 					addMessage("D.I.C.K. answers his calls !");
 					addMessage(this.user.username + " gets a special charge !");
@@ -1079,11 +1079,11 @@ class Fighter {
 				if (this.specialCharges > 0) {
 					this.specialCharges -= 1;
 				}
-				if (this.godList.indexOf(GOD_PP20_PRIEST) > -1) { // D.I.C.K.
+				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
 					addMessage("-----------------");
 					addMessage("D.I.C.K. answers his calls !");
 					addMessage("Calls every other god to join him !");
-					this.godList = [GOD_PP20_PRIEST];
+					this.godList = [GOD_PP21_PRIEST];
 					for (var i in PRIEST_ROLES) {
 						this.godList.push(PRIEST_ROLES[i]);
 					}
@@ -1149,8 +1149,12 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) { // Brenn
 					addMessage("-----------------");
 					addMessage("Brenn answers his calls !");
-					addMessage("Brenn himself messes everything in the battle !");
-					
+					addMessage("Brenn's massive dong falls in the battlefield !");
+					this.damage(100);
+					getOpponentOf(this).damage(100);
+					addMessage("Its healing properties grants an extra life to both fighters !");
+					this.extraLife += 1;
+					getOpponentOf(this).extraLife += 1;
 				}
 				if (this.godList.indexOf(GOD_PP10_PRIEST) > -1) { // Fabio
 					addMessage("-----------------");
@@ -1236,7 +1240,7 @@ class Fighter {
 					this.DEXValue += Math.floor(getOpponentOf(this).DEX/2);
 					getOpponentOf(this).DEXValue -= Math.floor(getOpponentOf(this).DEX/2);
 				}
-				// GOD_PP20_PRIEST = D.I.C.K. --> en 1er
+				// GOD_PP21_PRIEST = D.I.C.K. --> en 1er
 			}
 			else if (attack == EMOTE_PP53) {
 				// Singular Explosion
@@ -2255,7 +2259,7 @@ function changeRoleToStyler(_nomRole) {
 			addMessage(user.user.username + " removes the role : " + _nomRole);
 		}
 		else {
-			if (getNumberOfGods(user) >= 3 && PRIEST_ROLES.indexOf(_nomRole) > -1 && _nomRole != GOD_PP20_PRIEST) {
+			if (getNumberOfGods(user) >= 3 && PRIEST_ROLES.indexOf(_nomRole) > -1 && _nomRole != GOD_PP21_PRIEST) {
 				return addMessage("You can't have more than 3 Gods");
 			}
 			user.addRole(role).catch(console.error);
@@ -2796,8 +2800,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		else if (_reaction.emoji.id == GOD_PP19) {
 			changeRoleToStyler(GOD_PP19_PRIEST);
 		}
-		else if (_reaction.emoji.id == GOD_PP20) {
-			changeRoleToStyler(GOD_PP20_PRIEST);
+		else if (_reaction.emoji.id == GOD_PP21) {
+			changeRoleToStyler(GOD_PP21_PRIEST);
 		}
 		return;
 	}
