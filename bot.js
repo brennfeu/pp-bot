@@ -273,6 +273,9 @@ class Fighter {
 		if (this.hasBoner) {
 			str += 50
 		}
+		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
+			str += 50;
+		}
 
 		if (EVENT_BOSS && str <= 0) {
 			return 0;
@@ -309,6 +312,9 @@ class Fighter {
 		}
 		if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
 			dex += 10;
+		}
+		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
+			dex += 50;
 		}
 		if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP18_PRIEST) > -1 && dex <= 0) {
 			dex = 0;
@@ -1858,6 +1864,10 @@ function newTurnDuel() {
 			EVENT_BOSS = false;
 			return stopDuel();
 		}
+		if (BOSS_HEALTH <= 0 && CURRENT_BOSS == BOSS_PP2) {
+			addMessage(CURRENT_BOSS + " will now stop making updates for some time !");
+			EVENT_BOSS = false;
+		}
 		else {
 			if (getRandomPercent() >= 50) {
 				addMessage(FIGHTER1.user.username + " gets attacked by " + CURRENT_BOSS + " !");
@@ -2217,6 +2227,14 @@ function startRandomEvent() {
 		FIGHTER2.isHockeyPuckPP = true;
 		FIGHTER2.isAlienPP = true;
 		
+	}
+	else if (randomVar == [24, 25].indexOf(randomVar) > -1) {
+		// Free Lives
+		EVENT_BOSS = true;
+		addMessage(" -- FREE LIVES RIOT --");
+		addMessage("Let's riot Free Lives HQ just for fun !");
+		BOSS_HEALTH = 1000;
+		CURRENT_BOSS = BOSS_PP2;
 	}
 	else {
 		addMessage("No event this turn...");
