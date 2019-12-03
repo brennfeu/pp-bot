@@ -2178,12 +2178,13 @@ function startRandomEvent() {
 	else if (randomVar == 22) {
 		// Huge Gay Night
 		addMessage(" -- HUGE GAY NIGHT --");
-		addMessage("You suddenly become gay");
 		if (GAY_TURNS > 0) {
 			GAY_TURNS += 10;
+			addMessage("Your gayness increase by 10 turns !");
 		}
 		else {
 			GAY_TURNS = 1;
+			addMessage("You suddenly become gay for this turn !");
 		}
 		
 	}
