@@ -2290,6 +2290,7 @@ function changeRoleToStyler(_nomRole) {
 	
 	try {
 		user.removeRole(GUILD.roles.find(r => r.name == GOD_PP21_PRIEST)).catch(console.error);
+		addMessage("D.I.C.K Priest was removed from your roles.");
 	}
 	catch(e) {}
 
