@@ -1850,7 +1850,7 @@ function newTurnDuel() {
 
 	// Cthulhu
 	if (EVENT_BOSS) {
-		if (BOSS_HEALTH <= 0) {
+		if (BOSS_HEALTH <= 0 && CURRENT_BOSS == BOSS_PP1) {
 			addMessage(CURRENT_BOSS + " go back to sleep to heal his poor PP !");
 			addMessage("You both win !");
 			addWinCounter(FIGHTER1, 1);
