@@ -510,7 +510,7 @@ class Fighter {
 				addMessage(this.user.username + " flexes !");
 				var bonus = Math.floor(Math.random() * 30 + 1)
 				this.heal(bonus);
-				addMessage(this.user.username + " get " + bonus + " STR !");
+				addMessage(this.user.username + " gets " + bonus + " STR !");
 			}
 			else if (attack == EMOTE_PP5) {
 				// High Five
@@ -576,7 +576,7 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP12) {
 				// Overcircumscise
-				addMessage(this.user.username + " over-circumcised himself !");
+				addMessage(this.user.username + " over-circumcises himself !");
 				if (this.isOverCircumcised) {
 					addMessage("Wait he already was !");
 				}
@@ -588,7 +588,7 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP13) {
 				// Scout
-				addMessage(this.user.username + " examine the qualities of " + getOpponentOf(this).user.username + "'s PP !");
+				addMessage(this.user.username + " examines the qualities of " + getOpponentOf(this).user.username + "'s PP !");
 				if (getRandomPercent() <= 33) {
 					addMessage("And he learns a lot !");
 					this.hasExamined = 2;
@@ -655,7 +655,7 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP22) {
 				// Circumscise
-				addMessage(this.user.username + " circumcised himself !");
+				addMessage(this.user.username + " circumcises himself !");
 				if (this.isCircumcised) {
 					addMessage("Wait he already was !");
 				}
@@ -672,14 +672,14 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP24) {
 				// KnockBack
-				addMessage(this.user.username + " swap the natural STR values !");
+				addMessage(this.user.username + " swaps the natural STR values !");
 				this.STRValue += getOpponentOf(this).STRValue;
 				getOpponentOf(this).STRValue = this.STRValue - getOpponentOf(this).STRValue;
 				this.STRValue -= getOpponentOf(this).STRValue;
 			}
 			else if (attack == EMOTE_PP25) {
 				// Bombardment
-				addMessage(this.user.username + " call for a bombardment !!!");
+				addMessage(this.user.username + " calls for a bombardment !!!");
 				this.damage(1000);
 				getOpponentOf(this).damage(1000);
 			}
@@ -1664,7 +1664,7 @@ function addMessage(_texte) {
 }
 function sendMessages() {
 	var counter = 0;
-	while (LIST_MESSAGES.length > 50) {
+	while (LIST_MESSAGES.length > 30) {
 		LIST_MESSAGES.splice(0, 1);
 		counter += 1;
 	}
@@ -2246,8 +2246,8 @@ function startRandomEvent() {
 		// PP Blessing
 		addMessage(" -- PP BLESSING --");
 		addMessage("You suddenly feel more power in your PP !");
-		FIGHTER1.godList = [];
-		FIGHTER2.godList = [];
+		FIGHTER1.godList = [GOD_PP21_PRIEST];
+		FIGHTER2.godList = [GOD_PP21_PRIEST];
 		for (var i in PRIEST_ROLES) {
 			FIGHTER1.godList.push(PRIEST_ROLES[i]);
 			FIGHTER2.godList.push(PRIEST_ROLES[i]);
