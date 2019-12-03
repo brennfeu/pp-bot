@@ -1631,6 +1631,15 @@ function addMessage(_texte) {
 	LIST_MESSAGES.push(_texte);
 }
 function sendMessages() {
+	var counter = 0;
+	while (LIST_MESSAGES.length > 30) {
+		LIST_MESSAGES.splice(0, 1);
+		counter += 1;
+	}
+	
+	if (counter > 0) {
+		addMessage(counter + " messages were cut !");
+	}
 	for (var i in LIST_MESSAGES) {
 		BATTLE_CHANNEL.send(LIST_MESSAGES[i]);
 	}
