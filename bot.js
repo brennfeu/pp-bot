@@ -2371,7 +2371,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			BATTLE_CHANNEL.send(FIGHTER1.user.username + " : " + _reaction.emoji.name);
 
 			// Possession
-			if (FIGHTER2.isPossessed == 1) {
+			if (FIGHTER2.isPossessed >= 1) {
 				FIGHTER2.attack = getAttackFromEmote(_reaction.emoji);
 				BATTLE_CHANNEL.send(FIGHTER2.user.username + " : " + _reaction.emoji.name);
 			}
@@ -2381,7 +2381,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			BATTLE_CHANNEL.send(FIGHTER2.user.username + " : " + _reaction.emoji.name);
 
 			// Possession
-			if (FIGHTER1.isPossessed == 1) {
+			if (FIGHTER1.isPossessed >= 1) {
 				FIGHTER1.attack = getAttackFromEmote(_reaction.emoji);
 				BATTLE_CHANNEL.send(FIGHTER1.user.username + " : " + _reaction.emoji.name);
 			}
@@ -2470,6 +2470,21 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			if (FIGHTER2.trueBarbarian && FIGHTER2.STR >= 100 && caught2) {
 				caught2 = false;
 				BATTLE_CHANNEL.send(FIGHTER2.user.username + " strong. " + FIGHTER2.user.username + " punch arbitratory if arbitratory bad.");
+			}
+			
+			if (caught1 && getRandomPercent() >= 33) {
+				BATTLE_CHANNEL.send(FIGHTER1.user.username + " is doing illegal stuff ! He loses 10 DEX and 10 STR.");
+				FIGHTER1.user.username.STRValue -= 10;
+				FIGHTER1.user.username.DEXValue -= 10;
+				FIGHTER1.attack = EMOTE_PP50;
+				caught1 = false;
+			}
+			if (caught2 && getRandomPercent() >= 33) {
+				BATTLE_CHANNEL.send(FIGHTER2.user.username + " is doing illegal stuff ! He loses 10 DEX and 10 STR.");
+				FIGHTER2.user.username.STRValue -= 10;
+				FIGHTER2.user.username.DEXValue -= 10;
+				FIGHTER2.attack = EMOTE_PP50;
+				caught2 = false;
 			}
 
 			var winner;
