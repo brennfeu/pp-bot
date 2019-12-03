@@ -33,7 +33,7 @@ const GOD_PP16_PRIEST = "The Man Who made a Monster Priest";
 const GOD_PP17_PRIEST = "Hitler Priest";
 const GOD_PP18_PRIEST = "Salt King Priest";
 const GOD_PP19_PRIEST = ""; // TO ADD TO PRIEST_ROLES
-const GOD_PP20_PRIEST = ""; // TO ADD TO PRIEST_ROLES
+const GOD_PP20_PRIEST = "D.I.C.K. Priest"; // Special God
 const PRIEST_ROLES = [GOD_PP1_PRIEST, GOD_PP2_PRIEST, GOD_PP3_PRIEST, GOD_PP4_PRIEST, GOD_PP5_PRIEST, GOD_PP6_PRIEST, GOD_PP7_PRIEST, GOD_PP8_PRIEST, GOD_PP9_PRIEST, GOD_PP10_PRIEST, GOD_PP11_PRIEST, GOD_PP12_PRIEST, GOD_PP13_PRIEST, GOD_PP14_PRIEST, GOD_PP15_PRIEST, GOD_PP16_PRIEST, GOD_PP17_PRIEST, GOD_PP18_PRIEST];
 
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
@@ -119,7 +119,7 @@ const GOD_PP16 = "619795568230924291" // The Man Who made a Monster
 const GOD_PP17 = "622395294390157329" // Hitler
 const GOD_PP18 = "650830165751889935"; // Salt King
 const GOD_PP19 = "" // TO ADD TO MESSAGE REACTS
-const GOD_PP20 = ""; // TO ADD TO MESSAGE REACTS
+const GOD_PP20 = "644617343456247829";
 
 // Variables
 var IS_BUSY = false;
@@ -1036,9 +1036,16 @@ class Fighter {
 				}
 				if (this.godList.indexOf(GOD_PP18_PRIEST) > -1) { // Salt King
 					BATTLE_CHANNEL.send("-----------------");
-					BATTLE_CHANNEL.send("Makes his opponent's wounds salty !");
+					BATTLE_CHANNEL.send("The Salt King answers his calls !");
+					BATTLE_CHANNEL.send(this.user.username + " makes his opponent's wounds salty !");
 					getOpponentOf(this).bleedDamage += 3;
 					getOpponentOf(this).isSalty = true;
+				}
+				if (this.godList.indexOf(GOD_PP20_PRIEST) > -1) { // D.I.C.K.
+					BATTLE_CHANNEL.send("-----------------");
+					BATTLE_CHANNEL.send("D.I.C.K. answers his calls !");
+					BATTLE_CHANNEL.send(this.user.username + " gets a special charge !");
+					this.specialCharges += 1;
 				}
 			}
 			else if (attack == EMOTE_PP52) {
@@ -1046,6 +1053,15 @@ class Fighter {
 				BATTLE_CHANNEL.send(this.user.username + " calls for his Gods to help him !");
 				if (this.specialCharges > 0) {
 					this.specialCharges -= 1;
+				}
+				if (this.godList.indexOf(GOD_PP20_PRIEST) > -1) { // D.I.C.K.
+					BATTLE_CHANNEL.send("-----------------");
+					BATTLE_CHANNEL.send("D.I.C.K. answers his calls !");
+					BATTLE_CHANNEL.send("Calls every other god to join him !");
+					this.godList = [GOD_PP20_PRIEST];
+					for (var i in PRIEST_ROLES) {
+						this.godList.push(PRIEST_ROLES[i]);
+					}
 				}
 				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1) { // Mongo
 					BATTLE_CHANNEL.send("-----------------");
@@ -1196,11 +1212,13 @@ class Fighter {
 				}
 				if (this.godList.indexOf(GOD_PP18_PRIEST) > -1) { // Salt King
 					BATTLE_CHANNEL.send("-----------------");
+					BATTLE_CHANNEL.send("The Salt King answers his calls !");
 					BATTLE_CHANNEL.send(getOpponentOf(this).user.username + " is Salt King's best friend");
 					BATTLE_CHANNEL.send(this.user.username + " takes " + Math.floor(getOpponentOf(this).DEX/2) + " DEX from him.");
 					this.DEXValue += Math.floor(getOpponentOf(this).DEX/2);
 					getOpponentOf(this).DEXValue -= Math.floor(getOpponentOf(this).DEX/2);
 				}
+				// GOD_PP20_PRIEST = D.I.C.K. --> en 1er
 			}
 			else if (attack == EMOTE_PP53) {
 				// Singular Explosion
@@ -2191,7 +2209,7 @@ function changeRoleToStyler(_nomRole) {
 			BATTLE_CHANNEL.send(user.user.username + " removes the role : " + _nomRole);
 		}
 		else {
-			if (getNumberOfGods(user) >= 3 && PRIEST_ROLES.indexOf(_nomRole) > -1) {
+			if (getNumberOfGods(user) >= 3 && PRIEST_ROLES.indexOf(_nomRole) > -1 && _nomRole != GOD_PP20_PRIEST) {
 				return BATTLE_CHANNEL.send("You can't have more than 3 Gods");
 			}
 			user.addRole(role).catch(console.error);
