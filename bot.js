@@ -1537,7 +1537,7 @@ class Fighter {
 			}
 			else {
 				if (this.isSalty) {
-					this.damage(this.bleedDamage*10);
+					this.damage(this.bleedDamage*5);
 				}
 				else {
 					this.damage(this.bleedDamage);
@@ -1888,8 +1888,12 @@ function newTurnDuel() {
 			
 			var role = GUILD.roles.find(r => r.name == GOD_PP21_PRIEST);
 			try {
-				FIGHTER1.addRole(role).catch(console.error);
-				FIGHTER2.addRole(role).catch(console.error);
+				if (!FIGHTER1.guildUser.roles.has(role.id)) {
+					FIGHTER1.guildUser.addRole(role).catch(console.error);
+				}
+				if (!FIGHTER2.guildUser.roles.has(role.id)) {
+					FIGHTER2.guildUser.addRole(role).catch(console.error);
+				}
 				addMessage("**D.I.C.K. is proud of you. He grants you his powers.**");
 			}
 			catch(e) {
