@@ -603,7 +603,7 @@ class Fighter {
 				// Save
 				addMessage(this.user.username + " reverses the damages and heals !");
 				if (REVERSE_DAMAGE < 0) {
-					REVERSE_DAMAGE = 2;
+					REVERSE_DAMAGE = 1;
 				}
 				else {
 					REVERSE_DAMAGE = -1;
