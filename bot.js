@@ -1899,6 +1899,8 @@ function newTurnDuel() {
 	if (GAY_TURNS > 0) {
 		gay = "opponent's "
 	}
+	
+	sendMessages();
 	BATTLE_CHANNEL.send("\n\nChoose your " + gay + "attack with a reaction !").then(function (_message2) {
 		for (var i in LIST_AVAILABLE_ATTACKS) {
 			console.log(LIST_AVAILABLE_ATTACKS[i]);
@@ -1928,8 +1930,6 @@ function newTurnDuel() {
 	if (getRandomPercent() <= 25) {
 		FORCE_SATAN = false;
 	}
-	
-	sendMessages();
 }
 
 function setRandomAttackList() {
