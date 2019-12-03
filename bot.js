@@ -1890,7 +1890,7 @@ function newTurnDuel() {
 			try {
 				FIGHTER1.addRole(role).catch(console.error);
 				FIGHTER2.addRole(role).catch(console.error);
-				addMessage("D.I.C.K. is proud of you. He grants you his powers.");
+				addMessage("**D.I.C.K. is proud of you. He grants you his powers.**");
 			}
 			catch(e) {
 				addMessage("D.I.C.K. is proud of you. However, he can't grant you his powers on this server.");
