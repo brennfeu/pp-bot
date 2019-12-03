@@ -504,7 +504,20 @@ class Fighter {
 				this.turkeyCountdown = 11;
 				getOpponentOf(this).heal(100);
 				getOpponentOf(this).turkeyCountdown = 11;
-				BATTLE_CHANNEL.send("They both gain 100 STR !");
+				if (this.isOverCircumcised) {
+					this.isOverCircumcised = false;
+					this.isCircumcised = true;
+				}
+				else if (this.isCircumcised) {
+					this.isCircumcised = false;
+				}
+				if (getOpponentOf(this).isOverCircumcised) {
+					getOpponentOf(this).isOverCircumcised = false;
+					getOpponentOf(this).isCircumcised = true;
+				}
+				else if (getOpponentOf(this).isCircumcised) {
+					getOpponentOf(this).isCircumcised = false;
+				}
 			}
 			else if (attack == EMOTE_PP8) {
 				// Trap Sign
