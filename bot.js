@@ -1868,16 +1868,35 @@ function newTurnDuel() {
 	// Cthulhu
 	if (EVENT_BOSS) {
 		if (BOSS_HEALTH <= 0 && CURRENT_BOSS == BOSS_PP1) {
-			addMessage(CURRENT_BOSS + " go back to sleep to heal his poor PP !");
+			addMessage(CURRENT_BOSS + " goes back to sleep to heal his poor PP !");
 			addMessage("You both win !");
 			addWinCounter(FIGHTER1, 1);
 			addWinCounter(FIGHTER2, 1);
 			EVENT_BOSS = false;
 			return stopDuel();
 		}
-		if (BOSS_HEALTH <= 0 && CURRENT_BOSS == BOSS_PP2) {
+		else if (BOSS_HEALTH <= 0 && CURRENT_BOSS == BOSS_PP2) {
 			addMessage(CURRENT_BOSS + " will now stop making updates for some time !");
 			EVENT_BOSS = false;
+		}
+		else if (BOSS_HEALTH <= 0 && CURRENT_BOSS == BOSS_PP3) {
+			addMessage(CURRENT_BOSS + " goes back to sleep to heal his poor PP !");
+			addMessage("You both win !");
+			addWinCounter(FIGHTER1, 1);
+			addWinCounter(FIGHTER2, 1);
+			EVENT_BOSS = false;
+			
+			var role = GUILD.roles.find(r => r.name == GOD_PP21_PRIEST);
+			try {
+				FIGHTER1.addRole(role).catch(console.error);
+				FIGHTER2.addRole(role).catch(console.error);
+				addMessage("D.I.C.K. is proud of you. He grants you his powers.");
+			}
+			catch(e) {
+				addMessage("D.I.C.K. is proud of you. However, he can't grant you his powers on this server.");
+			}
+			
+			return stopDuel();
 		}
 		else {
 			if (getRandomPercent() >= 50) {
