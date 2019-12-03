@@ -197,7 +197,7 @@ class Fighter {
 		}
 
 		this.godList = [];
-		for (var i in PRIEST_ROLES) {
+		for (var i in PRIEST_ROLES.splice().push(GOD_PP20_PRIEST)) {
 			if (this.guildUser.roles.find("name", PRIEST_ROLES[i])) {
 				this.godList.push(PRIEST_ROLES[i])
 			}
