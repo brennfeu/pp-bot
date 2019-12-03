@@ -1899,7 +1899,7 @@ function newTurnDuel() {
 	if (GAY_TURNS > 0) {
 		gay = "opponent's "
 	}
-	addMessage("\n\nChoose your " + gay + "attack with a reaction !").then(function (_message2) {
+	BATTLE_CHANNEL.send("\n\nChoose your " + gay + "attack with a reaction !").then(function (_message2) {
 		for (var i in LIST_AVAILABLE_ATTACKS) {
 			console.log(LIST_AVAILABLE_ATTACKS[i]);
 			if (LIST_AVAILABLE_ATTACKS[i] != "IS_DEAD_LOL") {
@@ -1928,6 +1928,8 @@ function newTurnDuel() {
 	if (getRandomPercent() <= 25) {
 		FORCE_SATAN = false;
 	}
+	
+	sendMessages();
 }
 
 function setRandomAttackList() {
