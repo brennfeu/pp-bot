@@ -1628,7 +1628,7 @@ function setBotActivity(_texte) {
 	return CLIENT.user.setActivity(texte);
 }
 function addMessage(_texte) {
-	LIST_MESSAGES = LIST_MESSAGES.push(_texte);
+	LIST_MESSAGES.push(_texte);
 }
 function sendMessages() {
 	for (var i in LIST_MESSAGES) {
