@@ -2311,6 +2311,7 @@ function changeRoleToStyler(_nomRole) {
 		addMessage("I'm sorry I can't do that :(");
 		addMessage("Looks like there is no " + _nomRole + " role here...");
 	}
+	sendMessages();
 }
 function getNumberOfGods(_guildUser) {
 	var counter = 0;
