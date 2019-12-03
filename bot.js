@@ -198,10 +198,13 @@ class Fighter {
 		}
 
 		this.godList = [];
-		for (var i in PRIEST_ROLES.splice().push(GOD_PP20_PRIEST)) {
+		for (var i in PRIEST_ROLES) {
 			if (this.guildUser.roles.find("name", PRIEST_ROLES[i])) {
 				this.godList.push(PRIEST_ROLES[i])
 			}
+		}
+		if (this.guildUser.roles.find("name", GOD_PP20_PRIEST)) {
+			this.godList.push(GOD_PP20_PRIEST); // D.I.C.K.
 		}
 		while (this.godList.length < 3) {
 			var r = PRIEST_ROLES[Math.floor(Math.random()*PRIEST_ROLES.length)];
@@ -1638,7 +1641,7 @@ function sendMessages() {
 	}
 	
 	if (counter > 0) {
-		addMessage(counter + " messages were cut !");
+		LIST_MESSAGES = [counter + " messages were cut !"].concat(LIST_MESSAGES);
 	}
 	for (var i in LIST_MESSAGES) {
 		BATTLE_CHANNEL.send(LIST_MESSAGES[i]);
