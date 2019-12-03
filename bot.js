@@ -930,6 +930,11 @@ class Fighter {
 				if (this.regularCharges > 0) {
 					this.regularCharges -= 1;
 				}
+				else if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
+					addMessage("-----------------");
+					addMessage("D.I.C.K. is disappointed in " + this.user.username + " !");
+					this.playMove(EMOTE_PP47);
+				}
 				if (this.godList.indexOf(GOD_PP8_PRIEST) > -1) { // Fabulous Toast Man
 					addMessage("-----------------");
 					addMessage("Fabulous Toast Man answers his calls !");
@@ -1080,6 +1085,11 @@ class Fighter {
 				addMessage(this.user.username + " calls for his Gods to help him !");
 				if (this.specialCharges > 0) {
 					this.specialCharges -= 1;
+				}
+				else if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
+					addMessage("-----------------");
+					addMessage("D.I.C.K. is disappointed in " + this.user.username + " !");
+					this.playMove(EMOTE_PP47);
 				}
 				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1 || this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // Mongo
 					addMessage("-----------------");
