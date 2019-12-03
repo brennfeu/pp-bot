@@ -2287,12 +2287,6 @@ function addWinCounter(_fighter, _number) {
 function changeRoleToStyler(_nomRole) {
 	var role = GUILD.roles.find(r => r.name == _nomRole);
 	var user = GUILD.members.get(STYLER);
-	
-	try {
-		user.removeRole(GUILD.roles.find(r => r.name == GOD_PP21_PRIEST)).catch(console.error);
-		addMessage("D.I.C.K Priest was removed from your roles.");
-	}
-	catch(e) {}
 
 	try {
 		if (user.roles.has(role.id)) {
@@ -2397,6 +2391,13 @@ CLIENT.on("message", async _message => {
 		// STYLE
 		IS_CHANGING_STYLE = true;
 		STYLER = _message.author.id;
+		
+		var user = GUILD.members.get(STYLER);
+		if (user.roles.has(role.id)) {
+			user.removeRole(GUILD.roles.find(r => r.name == GOD_PP21_PRIEST)).catch(console.error);
+			addMessage("D.I.C.K Priest was removed from your roles.");
+		}
+		
 		_message.reply("change your style with a reaction.").then(function (_message2) {
 			_message2.react(EMOTE_PP38); // Fast PP
 			_message2.react(EMOTE_PP40); // Big PP
