@@ -208,15 +208,17 @@ class Fighter {
 				this.godList.push(PRIEST_ROLES[i])
 			}
 		}
-		if (this.guildUser.roles.find("name", GOD_PP21_PRIEST)) {
-			this.godList.push(GOD_PP21_PRIEST); // D.I.C.K.
-		}
 		while (this.godList.length < 3) {
 			var r = PRIEST_ROLES[Math.floor(Math.random()*PRIEST_ROLES.length)];
 			if (this.godList.indexOf(r) <= -1) {
 				this.godList.push(r);
 			}
 		}
+		
+		if (this.guildUser.roles.find("name", GOD_PP21_PRIEST)) {
+			this.godList = [GOD_PP21_PRIEST]; // D.I.C.K.
+		}
+		
 		this.regularCharges = 0;
 		this.specialCharges = 0;
 
@@ -1894,6 +1896,7 @@ function newTurnDuel() {
 					FIGHTER2.guildUser.addRole(role).catch(console.error);
 				}
 				addMessage("**D.I.C.K. is proud of you. He grants you his powers.**");
+				addMessage("**If you don't want to be a D.I.C.K. Priest, use the custom command to automatically remove this role.**");
 			}
 			catch(e) {
 				addMessage("D.I.C.K. is proud of you. However, he can't grant you his powers on this server.");
@@ -2283,6 +2286,11 @@ function addWinCounter(_fighter, _number) {
 function changeRoleToStyler(_nomRole) {
 	var role = GUILD.roles.find(r => r.name == _nomRole);
 	var user = GUILD.members.get(STYLER);
+	
+	try {
+		user.removeRole(GUILD.roles.find(r => r.name == GOD_PP21_PRIEST)).catch(console.error);
+	}
+	catch(e) {}
 
 	try {
 		if (user.roles.has(role.id)) {
@@ -2290,7 +2298,7 @@ function changeRoleToStyler(_nomRole) {
 			addMessage(user.user.username + " removes the role : " + _nomRole);
 		}
 		else {
-			if (getNumberOfGods(user) >= 3 && PRIEST_ROLES.indexOf(_nomRole) > -1 && _nomRole != GOD_PP21_PRIEST) {
+			if (getNumberOfGods(user) >= 3 && PRIEST_ROLES.indexOf(_nomRole) > -1) {
 				return addMessage("You can't have more than 3 Gods");
 			}
 			user.addRole(role).catch(console.error);
