@@ -11,7 +11,6 @@ const PRIVATE_TEST = false;
 const FAST_PP_ROLE = "Fast PP";
 const BIG_PP_ROLE = "Big PP";
 const ALIEN_PP_ROLE = "Alien PP";
-const HOCKEY_PUCK_PP_ROLE = "Hockey Puck PP";
 const DRUNK_PP_ROLE = "Drunken PP";
 
 const GOD_PP1_PRIEST = "Mongo Priest";
@@ -1662,7 +1661,7 @@ function addMessage(_texte) {
 }
 function sendMessages() {
 	var counter = 0;
-	while (LIST_MESSAGES.length > 30) {
+	while (LIST_MESSAGES.length > 50) {
 		LIST_MESSAGES.splice(0, 1);
 		counter += 1;
 	}
@@ -2699,6 +2698,11 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				}
 			}
 			else if (dexAttack1 > dexAttack2) {
+				// Save
+				if (FIGHTER2.attack == EMOTE_PP15) {
+					FIGHTER2.playMove();
+				}
+				
 				FIGHTER1.playMove();
 				// Burst
 				if (FIGHTER2.attack == EMOTE_PP8) {
@@ -2715,13 +2719,18 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				if (FIGHTER2.attack == EMOTE_PP28 && getRandomPercent() <= 25) {
 					FIGHTER2.playMove();
 				}
-
-				// Save
-				if (FIGHTER2.attack == EMOTE_PP15) {
+				
+				// Dual Loop
+				if (FIGHTER2.attack == EMOTE_PP55) {
 					FIGHTER2.playMove();
 				}
 			}
 			else {
+				// Save
+				if (FIGHTER1.attack == EMOTE_PP15) {
+					FIGHTER1.playMove();
+				}
+				
 				FIGHTER2.playMove();
 				// Burst
 				if (FIGHTER1.attack == EMOTE_PP8) {
@@ -2738,10 +2747,10 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				if (FIGHTER1.attack == EMOTE_PP28 && getRandomPercent() <= 25) {
 					FIGHTER1.playMove();
 				}
-
-				// Save
-				if (FIGHTER1.attack == EMOTE_PP15) {
-					FIGHTER2.playMove();
+				
+				// Dual Loop
+				if (FIGHTER1.attack == EMOTE_PP55) {
+					FIGHTER1.playMove();
 				}
 			}
 
