@@ -2393,6 +2393,7 @@ CLIENT.on("message", async _message => {
 		STYLER = _message.author.id;
 		
 		var user = GUILD.members.get(STYLER);
+		var role = GUILD.roles.find(r => r.name == GOD_PP21_PRIEST);
 		if (user.roles.has(role.id)) {
 			user.removeRole(GUILD.roles.find(r => r.name == GOD_PP21_PRIEST)).catch(console.error);
 			addMessage("D.I.C.K Priest was removed from your roles.");
