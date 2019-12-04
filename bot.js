@@ -1014,7 +1014,7 @@ class Fighter {
 					getOpponentOf(this).DEXValue -= MOVE_COUNT*2;
 				}
 				// GOD 8 IS FIRST
-				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) > -1) { // Brenn
+				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) { // Brenn
 					addMessage("-----------------");
 					addMessage("Brenn answers his calls !");
 					addMessage(this.user.username + " plays a guitar solo that makes people's PP bleed !");
