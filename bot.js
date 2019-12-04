@@ -1806,6 +1806,8 @@ function stopDuel() {
 	
 	IS_DUELLING = false;
 	IS_BUSY = false;
+	ATTACK_MISS_COUNTDOWN = 0;
+	AUTO_MOVES_COUNTDOWN = 0;
 }
 function newTurnDuel() {
 	addMessage("**===== TURN CHANGE =====**");
