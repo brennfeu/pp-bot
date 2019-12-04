@@ -959,7 +959,7 @@ class Fighter {
 						this.playMove(EMOTE_PP49)
 					}
 				}
-				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1 || this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // Mongo
+				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1) { // Mongo
 					addMessage("-----------------");
 					addMessage("Mongo answers his calls !");
 					addMessage(this.user.username + " gains some barbarian strength");
@@ -1014,13 +1014,13 @@ class Fighter {
 					getOpponentOf(this).DEXValue -= MOVE_COUNT*2;
 				}
 				// GOD 8 IS FIRST
-				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 || this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // Brenn
+				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) > -1) { // Brenn
 					addMessage("-----------------");
 					addMessage("Brenn answers his calls !");
 					addMessage(this.user.username + " plays a guitar solo that makes people's PP bleed !");
 					getOpponentOf(this).bleedDamage += 5;
 				}
-				if (this.godList.indexOf(GOD_PP10_PRIEST) > -1 || this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // Fabio
+				if (this.godList.indexOf(GOD_PP10_PRIEST) > -1) { // Fabio
 					addMessage("-----------------");
 					addMessage("Fabio answers his calls !");
 					addMessage(this.user.username + " let his hair flow in the wind !");
@@ -1033,7 +1033,7 @@ class Fighter {
 					addMessage(getOpponentOf(this).user.username + " gets an Hocky Puck PP !");
 					getOpponentOf(this).isHockeyPuckPP = true;
 				}
-				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 || this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // Espinoza
+				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1) { // Espinoza
 					addMessage("-----------------");
 					addMessage("Espinoza answers his calls !");
 					addMessage(this.user.username + " sniffs " + getOpponentOf(this).user.username + "'s PP !");
@@ -1060,7 +1060,7 @@ class Fighter {
 					FIGHTER1.heal(50);
 					FIGHTER2.heal(50);
 				}
-				if (this.godList.indexOf(GOD_PP16_PRIEST) > -1 || this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // The Man Who Made a Monster
+				if (this.godList.indexOf(GOD_PP16_PRIEST) > -1) { // The Man Who Made a Monster
 					addMessage("-----------------");
 					addMessage("The Man who Made a Monster answers his calls !");
 					addMessage(this.user.username + " drinks " + getOpponentOf(this).user.username + "'s salty tears !");
@@ -1072,7 +1072,7 @@ class Fighter {
 					addMessage(this.user.username + " makes jew priests illegal !");
 					ILLEGAL_JEWS = true;
 				}
-				if (this.godList.indexOf(GOD_PP18_PRIEST) > -1 || this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // Salt King
+				if (this.godList.indexOf(GOD_PP18_PRIEST) > -1) { // Salt King
 					addMessage("-----------------");
 					addMessage("The Salt King answers his calls !");
 					addMessage(this.user.username + " makes his opponent's wounds salty !");
@@ -1097,7 +1097,7 @@ class Fighter {
 					addMessage("D.I.C.K. is disappointed in " + this.user.username + " !");
 					this.playMove(EMOTE_PP47);
 				}
-				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1 || this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // Mongo
+				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1) { // Mongo
 					addMessage("-----------------");
 					addMessage("Mongo answers his calls !");
 					addMessage(this.user.username + " becomes a true barbarian from the north !");
@@ -1109,7 +1109,7 @@ class Fighter {
 					addMessage("Dr Phil sends " + getOpponentOf(this).user.username + "'s will to fight to the ranch for 1 turn...");
 					getOpponentOf(this).turnSkip = 2;
 				}
-				if (this.godList.indexOf(GOD_PP3_PRIEST) > -1 || this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // LeprePuds
+				if (this.godList.indexOf(GOD_PP3_PRIEST) > -1) { // LeprePuds
 					addMessage("-----------------");
 					addMessage("LeprePuds answers his calls !");
 					addMessage(this.user.username + " is faster than ever !");
@@ -1171,13 +1171,13 @@ class Fighter {
 					addMessage(this.user.username + " makes you all turn gay !");
 					GAY_TURNS = 5;
 				}
-				if (this.godList.indexOf(GOD_PP11_PRIEST) > -1 || this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // Country Music Brenn
+				if (this.godList.indexOf(GOD_PP11_PRIEST) > -1) { // Country Music Brenn
 					addMessage("-----------------");
 					addMessage("Country Music Brenn answers his calls !");
 					addMessage(this.user.username + " becomes a Cow-Boy !");
 					this.isCowBoy = true;
 				}
-				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 || this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // Espinoza
+				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1) { // Espinoza
 					addMessage("-----------------");
 					addMessage("Espinoza answers his calls !");
 					addMessage(this.user.username + " grabs " + getOpponentOf(this).user.username + "'s PP !");
@@ -1241,7 +1241,7 @@ class Fighter {
 						addMessage(getOpponentOf(this).user.username + " is unaffected...");
 					}
 				}
-				if (this.godList.indexOf(GOD_PP18_PRIEST) > -1 || this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // Salt King
+				if (this.godList.indexOf(GOD_PP18_PRIEST) > -1) { // Salt King
 					addMessage("-----------------");
 					addMessage("The Salt King answers his calls !");
 					addMessage(getOpponentOf(this).user.username + " is Salt King's best friend");
@@ -2465,6 +2465,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	if (IS_DUELLING && getAttackFromEmote(_reaction.emoji) == EMOTE_PP31 && SAVE_LIST.indexOf(_user.id) < 0) {
 		SAVE_LIST.push(_user.id);
 		addMessage(_user.username + " helps the fighters !");
+		sendMessages();
 		FIGHTER1.heal(50);
 		FIGHTER2.heal(50);
 	}
@@ -2482,6 +2483,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				else {
 					FIGHTER2.attack = getAttackFromEmote(_reaction.emoji);
 					addMessage(FIGHTER2.user.username + " : " + _reaction.emoji.name);
+					sendMessages();
 				}
 			}
 			if (_user.id == FIGHTER2.user.id) {
@@ -2492,6 +2494,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				else {
 					FIGHTER1.attack = getAttackFromEmote(_reaction.emoji);
 					addMessage(FIGHTER1.user.username + " : " + _reaction.emoji.name);
+					sendMessages();
 				}
 			}
 		}
@@ -2500,21 +2503,25 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		else if (_user.id == FIGHTER1.user.id && FIGHTER1.isPossessed <= 0 && FIGHTER1.turnSkip <= 0 && FIGHTER1.grabbedPP <= 0 && FIGHTER1.summonTankCountdown <= 0) {
 			FIGHTER1.attack = getAttackFromEmote(_reaction.emoji);
 			addMessage(FIGHTER1.user.username + " : " + _reaction.emoji.name);
+			sendMessages();
 
 			// Possession
 			if (FIGHTER2.isPossessed >= 1) {
 				FIGHTER2.attack = getAttackFromEmote(_reaction.emoji);
 				addMessage(FIGHTER2.user.username + " : " + _reaction.emoji.name);
+				sendMessages();
 			}
 		}
 		else if (_user.id == FIGHTER2.user.id && FIGHTER2.isPossessed <= 0 && FIGHTER2.turnSkip <= 0 && FIGHTER2.grabbedPP <= 0 && FIGHTER2.summonTankCountdown <= 0) {
 			FIGHTER2.attack = getAttackFromEmote(_reaction.emoji);
 			addMessage(FIGHTER2.user.username + " : " + _reaction.emoji.name);
+			sendMessages();
 
 			// Possession
 			if (FIGHTER1.isPossessed >= 1) {
 				FIGHTER1.attack = getAttackFromEmote(_reaction.emoji);
 				addMessage(FIGHTER1.user.username + " : " + _reaction.emoji.name);
+				sendMessages();
 			}
 		}
 
@@ -2784,6 +2791,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				}
 			}
 
+			sendMessages();
 			newTurnDuel();
 		}
 		
