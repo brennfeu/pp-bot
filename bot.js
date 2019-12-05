@@ -2216,7 +2216,7 @@ function startRandomEvent() {
 		// Blood Moon
 		EVENT_BLOOD_MOON = true;
 		addMessage(" -- BLOOD MOON --");
-		addMessage("If someone dies this turn, STR automatically stays at 1 but the remaining damages in the DEX");
+		addMessage("If someone dies this turn, STR automatically stays at 1 but the remaining damages goes negative in the DEX.");
 	}
 	else if (randomVar == 8) {
 		// Ascension
