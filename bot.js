@@ -2158,7 +2158,7 @@ function startRandomEvent() {
 	var randomVar = getRandomPercent();
 
 	if (FORCE_EVENT) {
-		while (!(randomVar <= 23 && randomVar >= 2)) {
+		while (!(randomVar <= 25 && randomVar >= 2)) {
 			randomVar = getRandomPercent();
 		}
 	}
@@ -2281,7 +2281,7 @@ function startRandomEvent() {
 		FIGHTER2.isAlienPP = true;
 		
 	}
-	else if (randomVar == [24, 25].indexOf(randomVar) > -1) {
+	else if ([24, 25].indexOf(randomVar) > -1) {
 		// Free Lives
 		EVENT_BOSS = true;
 		addMessage(" -- FREE LIVES RIOT --");
