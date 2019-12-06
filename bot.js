@@ -380,7 +380,7 @@ class Fighter {
 			txt += " - Circumcised\n";
 		}
 		if (this.bleedDamage > 0) {
-			txt += " - Hemoragy : " + this.bleedDamage + "\n";
+			txt += " - Haemorrhage : " + this.bleedDamage + "\n";
 		}
 		if (this.isPossessed > 0) {
 			txt += " - Possessed by " + getOpponentOf(this).user.username + "\n";
