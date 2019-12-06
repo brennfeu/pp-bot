@@ -156,6 +156,7 @@ var GAY_TURNS = 0;
 var ILLEGAL_JEWS = false;
 var ATTACK_MISS_COUNTDOWN = 0;
 var AUTO_MOVES_COUNTDOWN = 0;
+var NUCLEAR_BOMB = 0;
 
 var DISABLE_ABANDON = false;
 
@@ -1259,8 +1260,14 @@ class Fighter {
 				// Singular Explosion
 				MOVE_COUNT += 33;
 				addMessage(this.user.username + " summons the Singular Explosion");
-				this.damage(this.STR-10);
-				getOpponentOf(this).damage(getOpponentOf(this).STR-10);
+				if (NUCLEAR_BOMB <= 0) {
+					addMessage("A new Nuclear Bomb is launched !");
+				}
+				else {
+					addMessage("The Nuclear Bomb timer has been reset !");
+				}
+				addMessage("The Nuclear Bomb will explode in 5 turns !");
+				NUCLEAR_BOMB = 6;
 			}
 			else if (attack == EMOTE_PP54) {
 				// Explosion Loop
@@ -1376,11 +1383,12 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP60) {
 				// PP Duel
+				MOVE_COUNT += 33;
 				addMessage(this.user.username + " asks for a PP Duel !");
-				this.STRValue -= this.STR-1;
-				this.DEXValue -= this.DEX-1;
-				getOpponentOf(this).STRValue -= getOpponentOf(this).STR-1;
-				getOpponentOf(this).DEXValue -= getOpponentOf(this).DEX-1;
+				this.STRValue -= this.STR-10;
+				this.DEXValue -= this.DEX-10;
+				getOpponentOf(this).STRValue -= getOpponentOf(this).STR-10;
+				getOpponentOf(this).DEXValue -= getOpponentOf(this).DEX-10;
 				this.bleedDamage = 0;
 				getOpponentOf(this).bleedDamage = 0;
 			}
@@ -1776,6 +1784,7 @@ function startDuel(_message) {
 	ILLEGAL_JEWS = false;
 	ATTACK_MISS_COUNTDOWN = 0;
 	AUTO_MOVES_COUNTDOWN = 0;
+	NUCLEAR_BOMB = 0;
 
 	PP_ARMAGEDDON = false;
 	EVENT_PP_ENLIGHTENMENT = false;
@@ -1842,6 +1851,7 @@ function newTurnDuel() {
 	GAY_TURNS -= 1;
 	ATTACK_MISS_COUNTDOWN -= 1;
 	AUTO_MOVES_COUNTDOWN -= 1;
+	NUCLEAR_BOMB -= 1;
 
 	if (BLIND_COUNTDOWN >= 1) {
 		setBotActivity("WTF I'M FUCKING BLIND");
@@ -1850,7 +1860,16 @@ function newTurnDuel() {
 	else {
 		setBotActivity("PP Punch Arena");
 	}
-
+	
+	if (NUCLEAR_BOMB > 0) {
+		addMessage("The Nuclear Bomb will explode in " + NUCLEAR_BOMB + " turns !");
+	}
+	if (NUCLEAR_BOMB == 0) {
+		addMessage("The Nuclear Bomb explodes now !");
+		FIGHTER1.damage(1000000000);
+		FIGHTER2.damage(1000000000);
+	}
+	
 	// Blood Moon Save
 	if (EVENT_BLOOD_MOON) {
 		if (FIGHTER1.STR <= 0) {
