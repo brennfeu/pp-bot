@@ -235,7 +235,7 @@ class Fighter {
 		this.missedMoves = 0;
 		this.bonusDamage = 0;
 		this.attackedThisTurn = false;
-		this.isMuslim = false;
+		this.isTerrorist = false;
 		this.hasBurst = 0;
 		this.chimera = false;
 		this.tearDrinker = 0;
@@ -245,7 +245,6 @@ class Fighter {
 		this.isCowBoy = false;
 		this.trueBarbarian = false;
 		this.isSalty = false;
-		this.isPigged = false;
 		this.pigHeal = 0;
 		this.isLucky = 0;
 		this.doomReverse = 0;
@@ -392,7 +391,7 @@ class Fighter {
 		if (this.eldritchFriend) {
 			txt += " - Eldritch Friendly\n";
 		}
-		if (this.isPigged) {
+		if (this.pigHeal > 0) {
 			txt += " - Hog Squeezer\n";
 		}
 		if (this.doomReverse > 0) {
@@ -635,7 +634,6 @@ class Fighter {
 			else if (attack == EMOTE_PP19) {
 				// Pig
 				addMessage(this.user.username + " squeezes hog yeah yeah !");
-				this.isPigged = true;
 				this.pigHeal += 2;
 				if (this.hasBoner) {
 					addMessage(this.user.username + " loses his boner !");
@@ -766,9 +764,9 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP36) {
 				// Explosion
-					addMessage(this.user.username + " plays the terrorist move !");
-				if (this.isMuslim) {
-					getOpponentOf(this).damage(1000);
+				addMessage(this.user.username + " plays the terrorist move !");
+				if (this.isTerrorist) {
+					getOpponentOf(this).damage(5000);
 				}
 				else {
 					addMessage("But no terrorist move was planned !");
@@ -834,7 +832,7 @@ class Fighter {
 				// Kamikaze
 				addMessage(this.user.username + " plans a suicide move !");
 				ILLEGAL_BOMBING = true;
-				this.isMuslim = true;
+				this.isTerrorist = true;
 			}
 			else if (attack == EMOTE_PP45) {
 				// Boomerang
@@ -1563,7 +1561,7 @@ class Fighter {
 		}
 
 		// Pig
-		if (this.isPigged) {
+		if (this.pigHeal > 0) {
 			if (this.isCowBoy) {
 				addMessage(this.user.username + " squeezes hog YEEHAAAAAW !");
 				this.heal(this.pigHeal*50);
