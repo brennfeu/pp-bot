@@ -1383,6 +1383,8 @@ class Fighter {
 				this.DEXValue -= this.DEX-1;
 				getOpponentOf(this).STRValue -= getOpponentOf(this).STR-1;
 				getOpponentOf(this).DEXValue -= getOpponentOf(this).DEX-1;
+				this.bleedDamage = 0;
+				getOpponentOf(this).bleedDamage = 0;
 			}
 			else if (attack == "IS_DEAD_LOL") {
 				// Dead (Cthulhu battle)
