@@ -403,12 +403,6 @@ class Fighter {
 		if (this.hasBoomerang > 0) {
 			txt += " - With a Boomerang\n";
 		}
-		if (this.turnSkip > 0) {
-			txt += " - To the Ranch\n";
-		}
-		if (this.grabbedPP > 0) {
-			txt += " - Grabbed PP\n";
-		}
 		if (this.isLucky > 0) {
 			txt += " - Lucky\n";
 		}
@@ -424,9 +418,6 @@ class Fighter {
 		if (this.tearDrinker > 0) {
 			txt += " - Tear Drinker\n";
 		}
-		if (this.summonTankCountdown > 0) {
-			txt += " - Summoning the Monster...\n";
-		}
 		if (this.isCowBoy) {
 			txt += " - Cowboy\n";
 		}
@@ -436,8 +427,17 @@ class Fighter {
 		if (this.trueBarbarian) {
 			txt += " - Great Barbarian from the North Seeking New Lands for his Kingdom\n";
 		}
+		if (this.turnSkip > 0) {
+			txt += " - **To the Ranch**\n";
+		}
+		if (this.grabbedPP > 0) {
+			txt += " - **Grabbed PP**\n";
+		}
+		if (this.summonTankCountdown > 0) {
+			txt += " - **Summoning the Monster...**\n";
+		}
 		if (this.extraLife > 0) {
-			txt += " - Extra lives : " + this.extraLife + "\n";
+			txt += " - **Extra lives : " + this.extraLife + "**\n";
 		}
 		
 		txt += "\n**Synergies :**\n"
