@@ -2426,9 +2426,24 @@ CLIENT.on("message", async _message => {
 			addMessage(e);
 		});
 		return _message.reply("change your God with a reaction.").then(function (_message2) {
-			for (var i in PRIEST_ROLES) {
-				_message2.react(PRIEST_ROLES[i]);
-			}
+			_message2.react(GOD_PP1); // Mongo
+			_message2.react(GOD_PP2); // Dr Phil / WhatDAFuk
+			_message2.react(GOD_PP3); // LeprePuds
+			_message2.react(GOD_PP4); // DickHead Pudding
+			_message2.react(GOD_PP5); // Hello There Puds
+			_message2.react(GOD_PP6); // DickDickSon666
+			_message2.react(GOD_PP7); // Jew
+			_message2.react(GOD_PP8); // Fabulous Toast Man
+			_message2.react(GOD_PP9); // That's me
+			_message2.react(GOD_PP10); // Fabio
+			_message2.react(GOD_PP11); // Country Music Brenn
+			_message2.react(GOD_PP12); // Espinoza
+			_message2.react(GOD_PP13); // 700IQ
+			_message2.react(GOD_PP14); // UREGonnaGetRAPED
+			_message2.react(GOD_PP15); // STFU Isaac
+			_message2.react(GOD_PP16); // The Man Who made a Monster
+			_message2.react(GOD_PP17); // Hitler
+			_message2.react(GOD_PP18); // Salt King
 		}).catch(function(e) {
 			addMessage(e);
 		});
