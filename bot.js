@@ -1548,13 +1548,6 @@ class Fighter {
 
 		// Overcircumcised = immune to status effects
 		if (this.isOverCircumcised) {
-			this.isBigPP = false;
-			this.isFastPP = false;
-			this.isDrunkPP = false;
-			this.isHockeyPuckPP = false;
-			this.isAlienPP = false;
-			this.hasExamined = 0;
-
 			this.resetBattleVariables()
 		}
 
