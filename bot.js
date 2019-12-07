@@ -329,7 +329,7 @@ class Fighter {
 		if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP18_PRIEST) > -1 && dex <= 0) {
 			return 0;
 		}
-		if (EVENT_BOSS && str <= 0) {
+		if (EVENT_BOSS && this.STR <= 0) {
 			return -999999999;
 		}
 		return dex;
