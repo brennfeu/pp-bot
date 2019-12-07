@@ -1837,7 +1837,8 @@ function startDuel(_message) {
 
 	if (FIGHTER1.user.id == FIGHTER2.user.id) {
 		addMessage("You can't battle yourself");
-		stopDuel()
+		IS_DUELLING = false;
+		IS_BUSY = false;
 		return;
 	}
 
