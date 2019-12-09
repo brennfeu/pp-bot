@@ -1700,7 +1700,7 @@ class Duel {
 	addMessage(_texte) {
 		this.LIST_MESSAGES.push(_texte);
 	}
-	sendMessages(_max = 10) {
+	sendMessages(_max = 20) {
 		var counter = 0;
 		while (this.LIST_MESSAGES.length > _max) {
 			this.LIST_MESSAGES.splice(0, 1);
@@ -1776,8 +1776,8 @@ class Duel {
 			if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP1) {
 				this.addMessage(this.CURRENT_BOSS + " goes back to sleep to heal his poor PP !");
 				this.addMessage("You both win !");
-				this.addWinCounter(this.FIGHTER1, 1);
-				this.addWinCounter(this.FIGHTER2, 1);
+				addWinCounter(this.FIGHTER1, 1);
+				addWinCounter(this.FIGHTER2, 1);
 				this.EVENT_BOSS = false;
 				return this.stopDuel();
 			}
@@ -1788,8 +1788,8 @@ class Duel {
 			else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP3) {
 				this.addMessage(this.CURRENT_BOSS + " goes back to sleep to heal his poor PP !");
 				this.addMessage("You both win !");
-				this.addWinCounter(this.FIGHTER1, 1);
-				this.addWinCounter(this.FIGHTER2, 1);
+				addWinCounter(this.FIGHTER1, 1);
+				addWinCounter(this.FIGHTER2, 1);
 				this.EVENT_BOSS = false;
 
 				var role = this.GUILD.roles.find(r => r.name == GOD_PP21_PRIEST);
@@ -2203,10 +2203,10 @@ class Duel {
 		}
 
 		if (this.FIGHTER1.regularCharges > 0 || this.FIGHTER2.regularCharges > 0) {
-			listeAttaques.push(this.EMOTE_PP51);
+			listeAttaques.push(EMOTE_PP51);
 		}
 		if (this.FIGHTER1.specialCharges > 0 || this.FIGHTER2.specialCharges > 0) {
-			listeAttaques.push(this.EMOTE_PP52);
+			listeAttaques.push(EMOTE_PP52);
 		}
 
 		this.LIST_AVAILABLE_ATTACKS = listeAttaques;
@@ -2707,7 +2707,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				duel.addMessage(winner.user.username + " wins !");
 
 				winner.win();
-				duel.addWinCounter(duel.getOpponentOf(winner), -1);
+				addWinCounter(duel.getOpponentOf(winner), -1);
 
 				duel.stopDuel();
 				return;
