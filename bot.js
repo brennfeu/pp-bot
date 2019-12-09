@@ -217,9 +217,8 @@ class Fighter {
 				this.godList.push(r);
 			}
 		}
-		
 		if (this.guildUser.roles.find("name", GOD_PP21_PRIEST)) {
-			this.godList = [GOD_PP21_PRIEST]; // D.I.C.K.
+			this.godList.push(GOD_PP21_PRIEST); // D.I.C.K.
 		}
 		
 		this.regularCharges = 0;
@@ -1110,8 +1109,10 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
 					addMessage("-----------------");
 					addMessage("D.I.C.K. answers his calls !");
-					addMessage(this.user.username + " gets a special charge !");
+					addMessage(this.user.username + " gets a special charge, overcircumcised and more DEX !");
 					this.specialCharges += 1;
+					this.overCircumcised = true;
+					this.DEXValue += 10;
 				}
 			}
 			else if (attack == EMOTE_PP52) {
@@ -1917,12 +1918,6 @@ function newTurnDuel() {
 			try {
 				FIGHTER1.guildUser.addRole(role).catch(console.error);
 				FIGHTER2.guildUser.addRole(role).catch(console.error);
-				for (var i in PRIEST_ROLES) {
-					var role = GUILD.roles.find(r => r.name == PRIEST_ROLES[i]);
-					FIGHTER1.guildUser.removeRole(role).catch(console.error);
-					FIGHTER2.guildUser.removeRole(role).catch(console.error);
-				}
-				
 				addMessage("**D.I.C.K. is proud of you. He grants you his powers.**");
 				addMessage("**If you don't want to be a D.I.C.K. Priest, use the custom command to automatically remove this role.**");
 			}
