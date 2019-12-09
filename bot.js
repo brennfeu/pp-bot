@@ -1639,6 +1639,7 @@ class Fighter {
 
 class Duel {
 	constructor() {
+		this.DEAD_DUEL = false;
 		this.LIST_MESSAGES = [];
 		this.INFINITE_DAMAGE = 0;
 		
@@ -1695,9 +1696,9 @@ class Duel {
 		this.addMessage("SOME STATS :");
 		this.addMessage(" - Number of moves : " + this.MOVE_COUNT);
 		this.addMessage(" - Number of damages inflicted : " + this.DAMAGE_COUNT);
-
-		setBotActivity("");
 		this.sendMessages();
+		
+		this.DEAD_DUEL = true;
 	}
 	
 	addMessage(_texte) {
@@ -2334,6 +2335,18 @@ function getDuel(_id) {
 	}
 	return null;
 }
+function killDeadDuels() {
+	for (var i in DUEL_LIST) {
+		if (DUEL_LIST[i].DEAD_DUEL) {
+			return DUEL_LIST[i];
+		}
+	}
+	for (var i = DUEL_LIST.length - 1; i >= 0; i--) {
+		if (DUEL_LIST[i].DEAD_DUEL) {
+			DUEL_LIST.splice(i, 1);
+		}
+	}
+}
 
 function setBotActivity(_texte) {
 	return CLIENT.user.setActivity(_texte);
@@ -2394,8 +2407,6 @@ CLIENT.on("message", async _message => {
 	// Ignore si pas appelé
 	if (_message.mentions.users.array().length < 1) return;
 	if (_message.mentions.users.array()[_message.mentions.users.array().length-1].id != CLIENT.user.id) return;
-	// Ignore si deja occupé
-	//if (getDuel(_message.channel.id) == null && argsUser[1] != "quit") return _message.reply("there's a battle going on here...");
 	console.log(argsUser);
 	
 	if (argsUser[1] == "rank") {
@@ -2411,6 +2422,10 @@ CLIENT.on("message", async _message => {
 		return _message.reply("sorry, global ranks are not availables atm :/");
 	}
 	if (argsUser[1] == "duel") {
+		if (getDuel(_message.channel.id) != null) {
+			return _message.reply("there's a battle going on here...");
+		}
+		
 		if (_message.mentions.users.array().length <= 1) {
 			return _message.reply("you need to tag the person you want to duel in the command !\nSee the help command for more help !");
 		}
