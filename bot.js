@@ -2742,7 +2742,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			var dexAttack1 = duel.FIGHTER1.DEX + duel.getDexChange(duel.FIGHTER1.attack) + Math.floor(Math.random() * 50 + 1);
 			var dexAttack2 = duel.FIGHTER2.DEX + duel.getDexChange(duel.FIGHTER2.attack) + Math.floor(Math.random() * 50 + 1);
 			duel.addMessage(duel.FIGHTER1.user.username + " : " + dexAttack1 + " /VS/ " + duel.FIGHTER2.user.username + " : " + dexAttack2);
-
+			duel.sendMessages();
+			
 			if (duel.FIGHTER1.attack == EMOTE_PP5 && duel.FIGHTER2.attack == EMOTE_PP5) {
 				// HIGH FIVES :D
 				duel.addMessage("Wow, look at those bros !");
