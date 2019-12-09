@@ -391,11 +391,8 @@ class Fighter {
 		if (this.bleedDamage > 0) {
 			txt += " - Haemorrhage : " + this.bleedDamage + "\n";
 		}
-		if (this.isPossessed > 0) {
-			txt += " - Possessed by " + getOpponentOf(this).user.username + "\n";
-		}
 		if (this.turkeyCountdown > 0) {
-			txt += " - Turkey countdown : " + this.turkeyCountdown + " turns\n";
+			txt += " - Turkey Countdown : " + this.turkeyCountdown + " turns\n";
 		}
 		if (this.eldritchFriend) {
 			txt += " - Eldritch Friendly\n";
@@ -404,16 +401,16 @@ class Fighter {
 			txt += " - Hog Squeezer\n";
 		}
 		if (this.doomReverse > 0) {
-			txt += " - DOOM-REVERSE(tm)\n";
+			txt += " - DOOM-REVERSE(tm) (for " + this.doomReverse + " turns)\n";
 		}
 		if (this.acidArmor > 0) {
-			txt += " - Armored in acid\n";
+			txt += " - Armored in acid (for " + this.acidArmor + " turns)\n";
 		}
 		if (this.hasBoomerang > 0) {
-			txt += " - With a Boomerang\n";
+			txt += " - With a Boomerang (for " + this.hasBoomerang + " turns)\n";
 		}
 		if (this.isLucky > 0) {
-			txt += " - Lucky\n";
+			txt += " - Lucky (for " + this.isLucky + " turns)\n";
 		}
 		if (this.badLuck) {
 			txt += " - Unlucky\n";
@@ -435,6 +432,9 @@ class Fighter {
 		}
 		if (this.trueBarbarian) {
 			txt += " - Great Barbarian from the North Seeking New Lands for his Kingdom\n";
+		}
+		if (this.isPossessed > 0) {
+			txt += " - **Possessed by " + getOpponentOf(this).user.username + "**\n";
 		}
 		if (this.turnSkip > 0) {
 			txt += " - **To the Ranch**\n";
