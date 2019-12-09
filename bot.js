@@ -2513,12 +2513,14 @@ CLIENT.on("message", async _message => {
 CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	setBotActivity();
 	
+	console.log("test1");
+	
 	// Ignore si bot
 	if (_user.bot) return;
 
 	// DUEL
 	if (getDuel(_reaction.message.channel.id) != null) {
-		console.log("test");
+		console.log("test2");
 		
 		var duel = getDuel(_reaction.message.channel.id)
 		
