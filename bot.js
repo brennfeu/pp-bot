@@ -2346,6 +2346,7 @@ function addWinCounter(_fighter, _number) {
 }
 
 function changeRoleToStyler(_nomRole) {
+	return; // TOFIX
 	var role = GUILD.roles.find(r => r.name == _nomRole);
 	var user = GUILD.members.get(STYLER);
 
@@ -2503,12 +2504,12 @@ CLIENT.on("message", async _message => {
 CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	// Ignore si bot
 	if (_user.bot) return;
-	if (getDuel(_reaction.message.channel.id) == null) return console.log("emote nop");
+	if (getDuel(_reaction.message.channel.id) == null) return;
 	
 	var duel = getDuel(_reaction.message.channel.id)
 
 	// Save Me Move
-	if (duel.IS_DUELLING && duel.getAttackFromEmote(_reaction.emoji) == duel.EMOTE_PP31 && duel.SAVE_LIST.indexOf(_user.id) < 0) {
+	if (duel.IS_DUELLING && duel.getAttackFromEmote(_reaction.emoji) == EMOTE_PP31 && duel.SAVE_LIST.indexOf(_user.id) < 0) {
 		duel.SAVE_LIST.push(_user.id);
 		duel.addMessage(_user.username + " helps the fighters !");
 		duel.sendMessages();
@@ -2535,7 +2536,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			if (_user.id == duel.FIGHTER2.user.id) {
 				if (duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.getAttackFromEmote(_reaction.emoji)) < 0) {
 					duel.addMessage("Gay people can't cheat...");
-					return sduel.endMessages();
+					return duel.endMessages();
 				}
 				else {
 					duel.FIGHTER1.attack = duel.getAttackFromEmote(_reaction.emoji);
