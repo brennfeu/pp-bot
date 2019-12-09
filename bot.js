@@ -2616,10 +2616,10 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				caught2 = true;
 			}
 			
-			if (duel.SPECIAL_EMOTE_LIST.indexOf(duel.FIGHTER1.attack) > -1 && duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.FIGHTER1.attack) < 0) {
+			if (SPECIAL_EMOTE_LIST.indexOf(duel.FIGHTER1.attack) > -1 && duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.FIGHTER1.attack) < 0) {
 				caught1 = true;
 			}
-			if (duel.SPECIAL_EMOTE_LIST.indexOf(duel.FIGHTER2.attack) > -1 && duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.FIGHTER2.attack) < 0) {
+			if (SPECIAL_EMOTE_LIST.indexOf(duel.FIGHTER2.attack) > -1 && duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.FIGHTER2.attack) < 0) {
 				caught2 = true;
 			}
 			
