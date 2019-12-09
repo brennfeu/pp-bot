@@ -1995,6 +1995,184 @@ class Duel {
 			this.FORCE_SATAN = false;
 		}
 	}
+	startRandomEvent() {
+		// Reset events
+		this.EVENT_PP_ENLIGHTENMENT = false;
+		this.EVENT_PP_PURGE = false;
+		this.EVENT_CONFUSION = false;
+		this.EVENT_BLOOD_MOON = false;
+
+		this.addMessage("**===== EVENTS =====**");
+		var randomVar = getRandomPercent();
+
+		if (this.FORCE_EVENT) {
+			while (!(randomVar <= 25 && randomVar >= 2)) {
+				randomVar = getRandomPercent();
+			}
+		}
+
+		// PP ARMAGEDDON
+		if (!this.PP_ARMAGEDDON && this.MOVE_COUNT >= 100) {
+			this.PP_ARMAGEDDON = true;
+			this.addMessage(" -- PP ARMAGEDDON --");
+			this.addMessage("PPs have ascended, the end is near !");
+		}
+		else if (randomVar == 2) {
+			// PP Enlightenment
+			this.EVENT_PP_ENLIGHTENMENT = true;
+			this.addMessage(" -- PP ENLIGHTENMENT --");
+			this.addMessage("Your PP temporarily become enlightened. All moves can now be used for this turn. \nIllegal moves are still illegal.");
+		}
+		else if (randomVar == 3) {
+			// PP Purge
+			this.EVENT_PP_PURGE = true;
+			this.addMessage(" -- PP PURGE --");
+			this.addMessage("All PPs grow a mohawk and start to roam the streets. \nIllegal moves can now be used freely but the judge will still see you if you use unavailable moves");
+		}
+		else if (randomVar == 4) {
+			// Sexually Confused
+			this.EVENT_CONFUSION = true;
+			this.addMessage(" -- SEXUAL CONFUSION --");
+			this.addMessage("Your PPs are confused for this turn");
+		}
+		else if (randomVar == 5) {
+			// Cthulhu
+			if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP1) {
+				this.addMessage(" -- MOON LORD AWAKENS --");
+				this.addMessage("Cthulhu evolves to be the Moon Lord !");
+				this.CURRENT_BOSS = BOSS_PP3;
+				this.BOSS_HEALTH = 500000;
+				this.BOSS_DAMAGE = 200;
+			}
+			else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP3) {
+				this.addMessage(" -- MOON LORD REGENERATION --");
+				this.addMessage("The Moon Lord gets 500 000 more health !");
+				this.BOSS_HEALTH += 500000;
+			}
+			else if (this.EVENT_BOSS) {
+				this.addMessage(" -- CTHULHU SLEEPS --");
+				this.addMessage("And nothing happens at all...");
+			}
+			else {
+				this.addMessage(" -- CTHULHU AWAKENS --");
+				this.EVENT_BOSS = true;
+				this.addMessage("You have to beat Cthulhu by punching his huge PP in order to save the world !");
+				this.BOSS_HEALTH = 10000;
+				this.BOSS_DAMAGE = 50;
+				this.CURRENT_BOSS = BOSS_PP1;
+			}
+		}
+		else if (randomVar == 6) {
+			// Accidental Summoning
+			this.addMessage(" -- ACCIDENTAL SUMMONING --");
+			if (getRandomPercent() >= 50) {
+				var winner = this.FIGHTER1;
+			}
+			else {
+				var winner = this.FIGHTER2;
+			}
+			this.addMessage(winner.user.username + " accidentaly plays Psychodiös on his phone and it summons Satan and the Ancient Fongus !");
+			winner.playMove(EMOTE_PP26);
+			winner.playMove(EMOTE_PP46);
+		}
+		else if (randomVar == 7) {
+			// Blood Moon
+			this.EVENT_BLOOD_MOON = true;
+			this.addMessage(" -- BLOOD MOON --");
+			this.addMessage("If someone dies this turn, STR automatically stays at 1 but the remaining damages goes negative in the DEX.");
+			if (this.FIGHTER1.STR <= 0) {
+				this.FIGHTER1.DEXValue += (0-this.FIGHTER1.STR)+1;
+				this.FIGHTER1.STRValue += (0-this.FIGHTER1.STR)+1;
+				athis.ddMessage(this.FIGHTER1.user.username + " got saved thanks to the Blood Moon");
+			}
+			if (this.FIGHTER2.STR <= 0) {
+				this.FIGHTER2.DEXValue += (0-this.FIGHTER2.STR)+1;
+				this.FIGHTER2.STRValue += (0-this.FIGHTER2.STR)+1;
+				this.addMessage(this.FIGHTER2.user.username + " got saved thanks to the Blood Moon");
+			}
+		}
+		else if (randomVar == 8) {
+			// Ascension
+			this.addMessage(" -- ASCENSION --");
+			this.addMessage(winner.user.username + " accidentaly plays Ascend on his phone !");
+			this.FIGHTER1.playMove(EMOTE_PP49);
+			this.FIGHTER2.playMove(EMOTE_PP49);
+		}
+		else if ([9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19].indexOf(randomVar) > -1) {
+			// Charge
+			this.addMessage(" -- GODS BIRTHDAY GIFTS --");
+			this.addMessage("Gods decide to give you a regular charge each");
+			this.FIGHTER1.regularCharges++;
+			this.FIGHTER2.regularCharges++;
+		}
+		else if ([20, 21].indexOf(randomVar) > -1) {
+			// Charge
+			this.addMessage(" -- GODS CHRISTMAS GIFTS --");
+			this.addMessage("Gods decide to give you a special charge each");
+			this.FIGHTER1.specialCharges++;
+			this.FIGHTER2.specialCharges++;
+		}
+		else if (randomVar == 22) {
+			// Huge Gay Night
+			this.addMessage(" -- HUGE GAY NIGHT --");
+			if (this.GAY_TURNS > 0) {
+				this.GAY_TURNS += 10;
+				this.addMessage("Your gayness increase by 10 turns !");
+			}
+			else {
+				this.GAY_TURNS = 1;
+				this.addMessage("You suddenly become gay for this turn !");
+			}
+
+		}
+		else if (randomVar == 23) {
+			// PP Blessing
+			this.addMessage(" -- PP BLESSING --");
+			this.addMessage("You suddenly feel new powers in your PP !");
+			this.FIGHTER1.godList = [GOD_PP21_PRIEST];
+			this.FIGHTER2.godList = [GOD_PP21_PRIEST];
+			for (var i in PRIEST_ROLES) {
+				this.FIGHTER1.godList.push(PRIEST_ROLES[i]);
+				this.FIGHTER2.godList.push(PRIEST_ROLES[i]);
+			}
+			this.FIGHTER1.isBigPP = true;
+			this.FIGHTER1.isFastPP = true;
+			this.FIGHTER1.isDrunkPP = true;
+			this.FIGHTER1.isHockeyPuckPP = true;
+			this.FIGHTER1.isAlienPP = true;
+
+			this.FIGHTER2.isBigPP = true;
+			this.FIGHTER2.isFastPP = true;
+			this.FIGHTER2.isDrunkPP = true;
+			this.FIGHTER2.isHockeyPuckPP = true;
+			this.FIGHTER2.isAlienPP = true;
+
+		}
+		else if ([24, 25].indexOf(randomVar) > -1) {
+			// Free Lives
+			if (this.EVENT_BOSS) {
+				this.addMessage(" -- FREE LIVES GOOD UPDATES --");
+				this.addMessage("Let's NOT riot Free Lives HQ.");
+				if (this.CURRENT_BOSS == BOSS_PP2) {
+					this.EVENT_BOSS = false;
+					this.BOSS_HEALTH = 0;
+					this.BOSS_DAMAGE = 0;
+				}
+			}
+			else {
+				this.EVENT_BOSS = true;
+				this.addMessage(" -- FREE LIVES RIOT --");
+				this.addMessage("Let's riot Free Lives HQ just for fun !");
+				this.BOSS_HEALTH = 1000;
+				this.BOSS_DAMAGE = 20;
+				this.CURRENT_BOSS = BOSS_PP2;
+			}
+		}
+		else {
+			this.addMessage("No event this turn...");
+		}
+		this.sendMessages()
+	}
 	
 	setRandomAttackList() {
 		var listeAttaques = [];
@@ -2190,191 +2368,6 @@ function getRandomPercent() {
 
 function setBotActivity(_texte) {
 	return CLIENT.user.setActivity(_texte);
-}
-
-function startRandomEvent() {
-	// Reset events
-	EVENT_PP_ENLIGHTENMENT = false;
-	EVENT_PP_PURGE = false;
-	EVENT_CONFUSION = false;
-	EVENT_BLOOD_MOON = false;
-
-	addMessage("**===== EVENTS =====**");
-	var randomVar = getRandomPercent();
-
-	if (FORCE_EVENT) {
-		while (!(randomVar <= 25 && randomVar >= 2)) {
-			randomVar = getRandomPercent();
-		}
-	}
-
-	// PP ARMAGEDDON
-	if (!PP_ARMAGEDDON && MOVE_COUNT >= 100) {
-		PP_ARMAGEDDON = true;
-		addMessage(" -- PP ARMAGEDDON --");
-		addMessage("PPs have ascended, the end is near !");
-	}
-	else if (randomVar == 2) {
-		// PP Enlightenment
-		EVENT_PP_ENLIGHTENMENT = true;
-		addMessage(" -- PP ENLIGHTENMENT --");
-		addMessage("Your PP temporarily become enlightened. All moves can now be used for this turn. \nIllegal moves are still illegal.");
-	}
-	else if (randomVar == 3) {
-		// PP Purge
-		EVENT_PP_PURGE = true;
-		addMessage(" -- PP PURGE --");
-		addMessage("All PPs grow a mohawk and start to roam the streets. \nIllegal moves can now be used freely but the judge will still see you if you use unavailable moves");
-	}
-	else if (randomVar == 4) {
-		// Sexually Confused
-		EVENT_CONFUSION = true;
-		addMessage(" -- SEXUAL CONFUSION --");
-		addMessage("Your PPs are confused for this turn");
-	}
-	else if (randomVar == 5) {
-		// Cthulhu
-		if (EVENT_BOSS && CURRENT_BOSS == BOSS_PP1) {
-			addMessage(" -- MOON LORD AWAKENS --");
-			addMessage("Cthulhu evolves to be the Moon Lord !");
-			CURRENT_BOSS = BOSS_PP3;
-			BOSS_HEALTH = 500000;
-			BOSS_DAMAGE = 200;
-		}
-		else if (EVENT_BOSS && CURRENT_BOSS == BOSS_PP3) {
-			addMessage(" -- MOON LORD REGENERATION --");
-			addMessage("The Moon Lord gets 500 000 more health !");
-			BOSS_HEALTH += 500000;
-		}
-		else if (EVENT_BOSS) {
-			addMessage(" -- CTHULHU SLEEPS --");
-			addMessage("And nothing happens at all...");
-		}
-		else {
-			addMessage(" -- CTHULHU AWAKENS --");
-			EVENT_BOSS = true;
-			addMessage("You have to beat Cthulhu by punching his huge PP in order to save the world !");
-			BOSS_HEALTH = 10000;
-			BOSS_DAMAGE = 50;
-			CURRENT_BOSS = BOSS_PP1;
-		}
-	}
-	else if (randomVar == 6) {
-		// Accidental Summoning
-		addMessage(" -- ACCIDENTAL SUMMONING --");
-		if (getRandomPercent() >= 50) {
-			var winner = FIGHTER1;
-		}
-		else {
-			var winner = FIGHTER2;
-		}
-		addMessage(winner.user.username + " accidentaly plays Psychodiös on his phone and it summons Satan and the Ancient Fongus !");
-		winner.playMove(EMOTE_PP26);
-		winner.playMove(EMOTE_PP46);
-	}
-	else if (randomVar == 7) {
-		// Blood Moon
-		EVENT_BLOOD_MOON = true;
-		addMessage(" -- BLOOD MOON --");
-		addMessage("If someone dies this turn, STR automatically stays at 1 but the remaining damages goes negative in the DEX.");
-		if (FIGHTER1.STR <= 0) {
-			FIGHTER1.DEXValue += (0-FIGHTER1.STR)+1;
-			FIGHTER1.STRValue += (0-FIGHTER1.STR)+1;
-			addMessage(FIGHTER1.user.username + " got saved thanks to the Blood Moon");
-		}
-		if (FIGHTER2.STR <= 0) {
-			FIGHTER2.DEXValue += (0-FIGHTER2.STR)+1;
-			FIGHTER2.STRValue += (0-FIGHTER2.STR)+1;
-			addMessage(FIGHTER2.user.username + " got saved thanks to the Blood Moon");
-		}
-	}
-	else if (randomVar == 8) {
-		// Ascension
-		addMessage(" -- ASCENSION --");
-		if (getRandomPercent() >= 50) {
-			var winner = FIGHTER1;
-		}
-		else {
-			var winner = FIGHTER2;
-		}
-		addMessage(winner.user.username + " accidentaly plays Ascend on his phone !");
-		FIGHTER1.playMove(EMOTE_PP49);
-		FIGHTER2.playMove(EMOTE_PP49);
-	}
-	else if ([9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19].indexOf(randomVar) > -1) {
-		// Charge
-		addMessage(" -- GODS BIRTHDAY GIFTS --");
-		addMessage("Gods decide to give you a regular charge each");
-		FIGHTER1.regularCharges++;
-		FIGHTER2.regularCharges++;
-	}
-	else if ([20, 21].indexOf(randomVar) > -1) {
-		// Charge
-		addMessage(" -- GODS CHRISTMAS GIFTS --");
-		addMessage("Gods decide to give you a special charge each");
-		FIGHTER1.specialCharges++;
-		FIGHTER2.specialCharges++;
-	}
-	else if (randomVar == 22) {
-		// Huge Gay Night
-		addMessage(" -- HUGE GAY NIGHT --");
-		if (GAY_TURNS > 0) {
-			GAY_TURNS += 10;
-			addMessage("Your gayness increase by 10 turns !");
-		}
-		else {
-			GAY_TURNS = 1;
-			addMessage("You suddenly become gay for this turn !");
-		}
-		
-	}
-	else if (randomVar == 23) {
-		// PP Blessing
-		addMessage(" -- PP BLESSING --");
-		addMessage("You suddenly feel new powers in your PP !");
-		FIGHTER1.godList = [GOD_PP21_PRIEST];
-		FIGHTER2.godList = [GOD_PP21_PRIEST];
-		for (var i in PRIEST_ROLES) {
-			FIGHTER1.godList.push(PRIEST_ROLES[i]);
-			FIGHTER2.godList.push(PRIEST_ROLES[i]);
-		}
-		FIGHTER1.isBigPP = true;
-		FIGHTER1.isFastPP = true;
-		FIGHTER1.isDrunkPP = true;
-		FIGHTER1.isHockeyPuckPP = true;
-		FIGHTER1.isAlienPP = true;
-		
-		FIGHTER2.isBigPP = true;
-		FIGHTER2.isFastPP = true;
-		FIGHTER2.isDrunkPP = true;
-		FIGHTER2.isHockeyPuckPP = true;
-		FIGHTER2.isAlienPP = true;
-		
-	}
-	else if ([24, 25].indexOf(randomVar) > -1) {
-		// Free Lives
-		if (EVENT_BOSS) {
-			addMessage(" -- FREE LIVES GOOD UPDATES --");
-			addMessage("Let's NOT riot Free Lives HQ.");
-			if (CURRENT_BOSS == BOSS_PP2) {
-				EVENT_BOSS = false;
-				BOSS_HEALTH = 0;
-				BOSS_DAMAGE = 0;
-			}
-		}
-		else {
-			EVENT_BOSS = true;
-			addMessage(" -- FREE LIVES RIOT --");
-			addMessage("Let's riot Free Lives HQ just for fun !");
-			BOSS_HEALTH = 1000;
-			BOSS_DAMAGE = 20;
-			CURRENT_BOSS = BOSS_PP2;
-		}
-	}
-	else {
-		addMessage("No event this turn...");
-	}
-	sendMessages()
 }
 
 function addWinCounter(_fighter, _number) {
