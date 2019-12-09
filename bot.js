@@ -546,7 +546,7 @@ class Fighter {
 				else {
 					this.isCircumcised = true;
 					this.isOverCircumcised = true;
-					this.STRValue = this.STR/2;
+					this.STRValue = Math.floor(this.STR/2);
 				}
 			}
 			else if (attack == EMOTE_PP13) {
@@ -649,7 +649,7 @@ class Fighter {
 				// Big Satan
 				this.duel.DISABLE_ABANDON = true;
 				this.duel.addMessage(this.user.username + " summons Satan chaotic powers !!!");
-				this.duel.sendMessages();
+				this.duel.sendMessages(1);
 				this.playMove(this.duel.getRandomEmote(false));
 				this.duel.addMessage("-----------------");
 				this.playMove(this.duel.getRandomEmote(false));
@@ -823,7 +823,7 @@ class Fighter {
 					var winner = this.duel.getOpponentOf(this);
 				}
 				this.duel.addMessage("He will use " + chaosNumber + "% of his power in " + winner.user.username + " !");
-				this.duel.sendMessages();
+				this.duel.sendMessages(2);
 				chaosNumber = Math.floor(chaosNumber/4);
 				var i;
 				for (i = 0; i < chaosNumber; i++) {
@@ -882,10 +882,10 @@ class Fighter {
 						this.STRvalue = this.STRValue*2;
 						this.DEXvalue = this.DEXValue*2;
 						this.duel.getOpponentOf(this).STRValue = this.duel.getOpponentOf(this).STRValue*2;
-						this.duel.getOpponentOf(this).DEXValue =this.duel. getOpponentOf(this).DEXValue*2;
+						this.duel.getOpponentOf(this).DEXValue = this.duel.getOpponentOf(this).DEXValue*2;
 					}
 					else {
-						this.duel.addMessage("Both fighers DEX has been changed to 0 !");
+						this.duel.addMessage("Both fighters DEX has been changed to 0 !");
 						this.DEXValue = 0 - (this.DEX - this.DEXValue);
 						this.duel.getOpponentOf(this).DEXValue = 0 - (this.duel.getOpponentOf(this).DEX - this.duel.getOpponentOf(this).DEXValue);
 					}
@@ -1700,9 +1700,9 @@ class Duel {
 	addMessage(_texte) {
 		this.LIST_MESSAGES.push(_texte);
 	}
-	sendMessages() {
+	sendMessages(_max = 10) {
 		var counter = 0;
-		while (this.LIST_MESSAGES.length > 10) {
+		while (this.LIST_MESSAGES.length > _max) {
 			this.LIST_MESSAGES.splice(0, 1);
 			counter += 1;
 		}
@@ -1866,7 +1866,7 @@ class Duel {
 		}
 
 		this.addMessage("**=== GLOBAL STATUS ===**");
-		if (this.BLIND_COUNTDOWN > 0) {
+		if (this.BLIND_COUNTDOWN >= 0) {
 			this.addMessage(" - WTF I'M FUCKING BLIND !");
 			if (this.BLIND_COUNTDOWN < 100) {
 				this.addMessage("(I'll be healed in " + this.BLIND_COUNTDOWN + " turns...)");
@@ -2339,8 +2339,13 @@ function killDeadDuels() {
 	}
 }
 
-function setBotActivity(_texte) {
-	return CLIENT.user.setActivity(_texte);
+function setBotActivity() {
+	if (DUEL_LIST.length > 0) {
+		return CLIENT.user.setActivity("PP Punch Arena");
+	}
+	else {
+		return CLIENT.user.setActivity("");
+	}
 }
 
 function addWinCounter(_fighter, _number) {
@@ -2384,12 +2389,14 @@ function getNumberOfGods(_guildUser) {
 
 CLIENT.on('ready', () => {
 	console.log(`Logged in as ${CLIENT.user.tag} !`);
-	setBotActivity("");
+	setBotActivity();
 });
 
 
 // This event will run on every single message received, from any channel or DM.
-CLIENT.on("message", async _message => {	
+CLIENT.on("message", async _message => {
+	setBotActivity();
+	
 	// Recuperation commande
 	var argsUser = _message.content.trim().split(" ");
 	
@@ -2510,6 +2517,8 @@ CLIENT.on("message", async _message => {
 });
 
 CLIENT.on('messageReactionAdd', (_reaction, _user) => {
+	setBotActivity();
+	
 	// Ignore si bot
 	if (_user.bot) return;
 
