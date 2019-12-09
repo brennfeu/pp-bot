@@ -2395,7 +2395,7 @@ CLIENT.on("message", async _message => {
 	if (_message.mentions.users.array().length < 1) return;
 	if (_message.mentions.users.array()[_message.mentions.users.array().length-1].id != CLIENT.user.id) return;
 	// Ignore si deja occupé
-	if (getDuel(_message.channel.id) == null && argsUser[1] != "quit") return _message.reply("there's a battle going on here...");
+	//if (getDuel(_message.channel.id) == null && argsUser[1] != "quit") return _message.reply("there's a battle going on here...");
 
 	if (argsUser[1] == "rank") {
 		if (_message.mentions.users.array().length > 1) {
