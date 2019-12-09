@@ -552,7 +552,7 @@ class Fighter {
 			else if (attack == EMOTE_PP13) {
 				// Scout
 				this.duel.addMessage(this.user.username + " examines the qualities of " + this.duel.getOpponentOf(this).user.username + "'s PP !");
-				if (this.duel.getRandomPercent() <= 33) {
+				if (getRandomPercent() <= 33) {
 					this.duel.addMessage("And he learns a lot !");
 					this.hasExamined = 2;
 				}
@@ -1115,7 +1115,7 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP4_PRIEST) > -1) { // DickHead Pudding
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("DickHead Pudding answers his calls !");
-					if (this.duel.getRandomPercent() <= 10) {
+					if (getRandomPercent() <= 10) {
 						this.duel.addMessage(this.user.username + " wins !");
 						this.duel.getOpponentOf(this).playMove(EMOTE_PP47);
 						return;
@@ -2663,14 +2663,14 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				duel.addMessage(duel.FIGHTER2.user.username + " strong. " + duel.FIGHTER2.user.username + " punch arbitratory if arbitratory bad.");
 			}
 			
-			if (caught1 && (duel.getRandomPercent() >= 33 || duel.FIGHTER1.godList.indexOf(GOD_PP12_PRIEST) > -1 && duel.FIGHTER1.godList.indexOf(GOD_PP13_PRIEST) > -1)) {
+			if (caught1 && (getRandomPercent() >= 33 || duel.FIGHTER1.godList.indexOf(GOD_PP12_PRIEST) > -1 && duel.FIGHTER1.godList.indexOf(GOD_PP13_PRIEST) > -1)) {
 				duel.addMessage(duel.FIGHTER1.user.username + " is doing illegal stuff ! He loses 20 DEX and 10 STR.");
 				duel.FIGHTER1.user.username.STRValue -= 10;
 				duel.FIGHTER1.user.username.DEXValue -= 20;
 				duel.FIGHTER1.attack = EMOTE_PP50;
 				caught1 = false;
 			}
-			if (caught2 && (duel.getRandomPercent() >= 33 || duel.FIGHTER2.godList.indexOf(GOD_PP12_PRIEST) > -1 && duel.FIGHTER2.godList.indexOf(GOD_PP13_PRIEST) > -1)) {
+			if (caught2 && (getRandomPercent() >= 33 || duel.FIGHTER2.godList.indexOf(GOD_PP12_PRIEST) > -1 && duel.FIGHTER2.godList.indexOf(GOD_PP13_PRIEST) > -1)) {
 				duel.addMessage(duel.FIGHTER2.user.username + " is doing illegal stuff ! He loses 20 DEX and 10 STR.");
 				duel.FIGHTER2.user.username.STRValue -= 10;
 				duel.FIGHTER2.user.username.DEXValue -= 20;
@@ -2712,11 +2712,11 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			
 			duel.addMessage("\n\n**===== ATTACKS =====**");
 			
-			if (duel.FIGHTER1.godList.indexOf(GOD_PP7_PRIEST) > -1 && duel.FIGHTER1.godList.indexOf(GOD_PP17_PRIEST) > -1 && duel.getRandomPercent() <= 10) {
+			if (duel.FIGHTER1.godList.indexOf(GOD_PP7_PRIEST) > -1 && duel.FIGHTER1.godList.indexOf(GOD_PP17_PRIEST) > -1 && getRandomPercent() <= 10) {
 				duel.addMessage(duel.FIGHTER1.user.username + " gets the Jew-Hitler Paradox Effect !");
 				duel.FIGHTER1.attack = duel.getRandomEmote(false);
 			}
-			if (duel.FIGHTER2.godList.indexOf(GOD_PP7_PRIEST) > -1 && duel.FIGHTER2.godList.indexOf(GOD_PP17_PRIEST) > -1 && duel.getRandomPercent() <= 10) {
+			if (duel.FIGHTER2.godList.indexOf(GOD_PP7_PRIEST) > -1 && duel.FIGHTER2.godList.indexOf(GOD_PP17_PRIEST) > -1 && getRandomPercent() <= 10) {
 				duel.addMessage(duel.FIGHTER2.user.username + " gets the Jew-Hitler Paradox Effect !");
 				duel.FIGHTER2.attack = duel.getRandomEmote(false);
 			}
