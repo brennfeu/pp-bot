@@ -2639,10 +2639,10 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				caught2 = true;
 			}
 
-			if (duel.FIGHTER1.isLucky && duel.getRandomPercent() <= 50) {
+			if (duel.FIGHTER1.isLucky && getRandomPercent() <= 50) {
 				caught1 = false;
 			}
-			if (duel.FIGHTER2.isLucky && duel.getRandomPercent() <= 50) {
+			if (duel.FIGHTER2.isLucky && getRandomPercent() <= 50) {
 				caught2 = false;
 			}
 			
