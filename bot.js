@@ -33,6 +33,7 @@ const GOD_PP16_PRIEST = "The Man Who made a Monster Priest";
 const GOD_PP17_PRIEST = "Hitler Priest";
 const GOD_PP18_PRIEST = "Salt King Priest";
 const GOD_PP19_PRIEST = ""; // TO ADD TO PRIEST_ROLES
+const GOD_PP20_PRIEST = ""; // TO ADD TO PRIEST_ROLES
 const GOD_PP21_PRIEST = "D.I.C.K. Priest";
 const PRIEST_ROLES = [GOD_PP1_PRIEST, GOD_PP2_PRIEST, GOD_PP3_PRIEST, GOD_PP4_PRIEST, GOD_PP5_PRIEST, GOD_PP6_PRIEST, GOD_PP7_PRIEST, GOD_PP8_PRIEST, GOD_PP9_PRIEST, GOD_PP10_PRIEST, GOD_PP11_PRIEST, GOD_PP12_PRIEST, GOD_PP13_PRIEST, GOD_PP14_PRIEST, GOD_PP15_PRIEST, GOD_PP16_PRIEST, GOD_PP17_PRIEST, GOD_PP18_PRIEST];
 
@@ -120,7 +121,8 @@ const GOD_PP16 = "619795568230924291" // The Man Who made a Monster
 const GOD_PP17 = "622395294390157329" // Hitler
 const GOD_PP18 = "650830165751889935"; // Salt King
 const GOD_PP19 = "" // TO ADD TO MESSAGE REACTS
-const GOD_PP21 = "644617343456247829";
+const GOD_PP20 = "" // TO ADD TO MESSAGE REACTS
+const GOD_PP21 = "644617343456247829"; // D.I.C.K.
 
 // BOSSES
 const BOSS_PP1 = "Cthulhu";
@@ -694,6 +696,7 @@ class Fighter {
 				// Big Satan
 				DISABLE_ABANDON = true;
 				addMessage(this.user.username + " summons Satan chaotic powers !!!");
+				sendMessages();
 				this.playMove(getRandomEmote(false));
 				addMessage("-----------------");
 				this.playMove(getRandomEmote(false));
@@ -867,6 +870,7 @@ class Fighter {
 					var winner = getOpponentOf(this);
 				}
 				addMessage("He will use " + chaosNumber + "% of his power in " + winner.user.username + " !");
+				sendMessages();
 				chaosNumber = Math.floor(chaosNumber/4);
 				var i;
 				for (i = 0; i < chaosNumber; i++) {
@@ -1373,7 +1377,7 @@ class Fighter {
 				}
 				var nbSalt = 0;
 				for (var i in this.godList) {
-					if (this.godList[i] != GOD_PP18_PRIEST) {
+					if (this.godList[i] == GOD_PP18_PRIEST) {
 						nbSalt += 1;
 					}
 				}
@@ -1410,6 +1414,7 @@ class Fighter {
 						else {
 							addMessage(getOpponentOf(this).user.username + " is a big nerd !");
 						}
+						sendMessages();
 					}
 					addMessage("You loose now lol !");
 					getOpponentOf(this).playMove(EMOTE_PP47);
@@ -1711,7 +1716,7 @@ function addMessage(_texte) {
 }
 function sendMessages() {
 	var counter = 0;
-	while (LIST_MESSAGES.length > 30) {
+	while (LIST_MESSAGES.length > 20) {
 		LIST_MESSAGES.splice(0, 1);
 		counter += 1;
 	}
