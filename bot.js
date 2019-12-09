@@ -1730,15 +1730,6 @@ class Duel {
 		this.addMessage("**===== TURN CHANGE =====**");
 		this.sendMessages();
 
-		if (this.FIGHTER1.STR <= 0 && this.FIGHTER1.extraLife > 0) {
-			this.addMessage(this.FIGHTER1.user.username + " uses an extra life !");
-			this.FIGHTER1 = new Fighter(this.FIGHTER1.idUser);
-		}
-		if (this.FIGHTER2.STR <= 0 && this.FIGHTER2.extraLife > 0) {
-			this.addMessage(this.FIGHTER2.user.username + " uses an extra life !");
-			this.FIGHTER2 = new Fighter(this.FIGHTER2.idUser);
-		}
-
 		this.STEEL_PROTECTION = false;
 		this.BARREL_DAMAGE = false;
 		this.SAVE_LIST = [];
@@ -1821,6 +1812,15 @@ class Duel {
 		
 		this.FIGHTER1.turnChange();
 		this.FIGHTER2.turnChange();
+		
+		if (this.FIGHTER1.STR <= 0 && this.FIGHTER1.extraLife > 0) {
+			this.addMessage(this.FIGHTER1.user.username + " uses an extra life !");
+			this.FIGHTER1 = new Fighter(this.FIGHTER1.idUser);
+		}
+		if (this.FIGHTER2.STR <= 0 && this.FIGHTER2.extraLife > 0) {
+			this.addMessage(this.FIGHTER2.user.username + " uses an extra life !");
+			this.FIGHTER2 = new Fighter(this.FIGHTER2.idUser);
+		}
 		
 		if (this.FIGHTER1.STR <= 0 && this.FIGHTER2.STR <= 0) {
 			this.addMessage("Both of you lost. No one won this time. You losers");
@@ -2774,6 +2774,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 
 			if ((dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) || duel.AUTO_MOVES_COUNTDOWN > 0 || duel.EVENT_BOSS) {
 				duel.addMessage("Both opponents attack this turn !");
+				duel.sendMessages();
 
 				duel.FIGHTER1.playMove();
 				// Burst
