@@ -2522,7 +2522,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		var duel = getDuel(_reaction.message.channel.id)
 		
 		// Save Me Move
-		if (duel.IS_DUELLING && duel.getAttackFromEmote(_reaction.emoji) == EMOTE_PP31 && duel.SAVE_LIST.indexOf(_user.id) < 0) {
+		if (duel.getAttackFromEmote(_reaction.emoji) == EMOTE_PP31 && duel.SAVE_LIST.indexOf(_user.id) < 0) {
 			duel.SAVE_LIST.push(_user.id);
 			duel.addMessage(_user.username + " helps the fighters !");
 			duel.sendMessages();
