@@ -165,6 +165,7 @@ var EVENT_PP_PURGE = false;
 var EVENT_CONFUSION = false;
 var EVENT_BOSS = false;
 var BOSS_HEALTH = 10000;
+var BOSS_DAMAGE = 0;
 var CURRENT_BOSS = "";
 var EVENT_BLOOD_MOON = false;
 
@@ -1934,12 +1935,13 @@ function newTurnDuel() {
 		else {
 			if (getRandomPercent() >= 50) {
 				addMessage(FIGHTER1.user.username + " gets attacked by " + CURRENT_BOSS + " !");
-				FIGHTER1.STRValue -= 50;
+				FIGHTER1.STRValue -= BOSS_DAMAGE;
 			}
 			else {
 				addMessage(FIGHTER2.user.username + " gets attacked by " + CURRENT_BOSS + " !");
-				FIGHTER2.STRValue -= 50;
+				FIGHTER2.STRValue -= BOSS_DAMAGE;
 			}
+			addMessage("He takes" + BOSS_DAMAGE + " damages !");
 		}
 
 		// Check if loose
@@ -2251,6 +2253,7 @@ function startRandomEvent() {
 			addMessage("Cthulhu evolves to be the Moon Lord !");
 			CURRENT_BOSS = BOSS_PP3;
 			BOSS_HEALTH = 500000;
+			BOSS_DAMAGE = 200;
 		}
 		else if (EVENT_BOSS && CURRENT_BOSS == BOSS_PP3) {
 			addMessage(" -- MOON LORD REGENERATION --");
@@ -2266,6 +2269,7 @@ function startRandomEvent() {
 			EVENT_BOSS = true;
 			addMessage("You have to beat Cthulhu by punching his huge PP in order to save the world !");
 			BOSS_HEALTH = 10000;
+			BOSS_DAMAGE = 50;
 			CURRENT_BOSS = BOSS_PP1;
 		}
 	}
@@ -2369,6 +2373,7 @@ function startRandomEvent() {
 			if (CURRENT_BOSS == BOSS_PP2) {
 				EVENT_BOSS = false;
 				BOSS_HEALTH = 0;
+				BOSS_DAMAGE = 0;
 			}
 		}
 		else {
@@ -2376,6 +2381,7 @@ function startRandomEvent() {
 			addMessage(" -- FREE LIVES RIOT --");
 			addMessage("Let's riot Free Lives HQ just for fun !");
 			BOSS_HEALTH = 1000;
+			BOSS_DAMAGE = 20;
 			CURRENT_BOSS = BOSS_PP2;
 		}
 	}
