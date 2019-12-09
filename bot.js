@@ -2336,11 +2336,6 @@ function getDuel(_id) {
 	return null;
 }
 function killDeadDuels() {
-	for (var i in DUEL_LIST) {
-		if (DUEL_LIST[i].DEAD_DUEL) {
-			return DUEL_LIST[i];
-		}
-	}
 	for (var i = DUEL_LIST.length - 1; i >= 0; i--) {
 		if (DUEL_LIST[i].DEAD_DUEL) {
 			DUEL_LIST.splice(i, 1);
