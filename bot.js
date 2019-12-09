@@ -1821,6 +1821,7 @@ function startDuel(_message) {
 	addMessage("TIME FOR A DUEL");
 }
 function stopDuel() {
+	sendMessages();
 	addMessage("**===== RECAP =====**");
 	addMessage("FIGHTERS CURRENT STATE :");
 	addMessage(FIGHTER1.toString());
