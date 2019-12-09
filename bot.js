@@ -1688,19 +1688,7 @@ function getRandomPercent() {
 }
 
 function setBotActivity(_texte) {
-	if (REVERSE_DAMAGE >= 1) {
-		var texte = _texte.split("").reverse().join("");
-	}
-	else {
-		var texte = _texte;
-	}
-	if (ATTACK_MISS_COUNTDOWN > 0) {
-		texte += " [DAMAGE++]";
-	}
-	if (AUTO_MOVES_COUNTDOWN > 0) {
-		texte += " [ALL MOVES]";
-	}
-	return CLIENT.user.setActivity(texte);
+	return CLIENT.user.setActivity(_texte);
 }
 function addMessage(_texte) {
 	LIST_MESSAGES.push(_texte);
@@ -1885,9 +1873,6 @@ function newTurnDuel() {
 		setBotActivity("PP Punch Arena");
 	}
 	
-	if (NUCLEAR_BOMB > 0) {
-		addMessage("The Nuclear Bomb will explode in " + NUCLEAR_BOMB + " turns !");
-	}
 	if (NUCLEAR_BOMB == 0) {
 		addMessage("The Nuclear Bomb explodes now !");
 		FIGHTER1.damage(1000000000);
@@ -2004,15 +1989,53 @@ function newTurnDuel() {
 	}
 
 	addMessage("\n\n**===== NEW TURN =====**");
+	
+	addMessage("**=== GLOBAL STATUS ===**");
+	if (BLIND_COUNTDOWN > 0) {
+		addMessage(" - WTF I'M FUCKING BLIND !");
+		if (BLIND_COUNTDOWN < 100) {
+			addMessage("(I'll be healed in " + BLIND_COUNTDOWN + " turns...)");
+		}
+	}
+	if (REVERSE_DAMAGE > 0) {
+		addMessage(" - Damages and heals are reversed for " + REVERSE_DAMAGE + " turns !");
+	}
+	if (GAY_TURNS > 0) {
+		addMessage(" - You are both gay for " + GAY_TURNS + " turns !");
+	}
+	if (ATTACK_MISS_COUNTDOWN > 0) {
+		addMessage(" - Attacks are twice as powerful for " + ATTACK_MISS_COUNTDOWN + " turns !");
+	}
+	if (AUTO_MOVES_COUNTDOWN > 0) {
+		addMessage(" - Both fighters always play for " + AUTO_MOVES_COUNTDOWN + " turns !");
+	}
+	if (NUCLEAR_BOMB > 0) {
+		addMessage(" - The Nuclear Bomb will explode in " + NUCLEAR_BOMB + " turns !");
+	}
+	if (FORCE_EVENT) {
+		addMessage(" - Events will occur every turns !");
+	}
+	if (ILLEGAL_JEWS) {
+		addMessage(" - Jew Priests are illegal !");
+	}
+	if (EVENT_BLOOD_MOON) {
+		addMessage(" - The Blood Moon is up in the sky !");
+	}
+	if (PP_ARMAGEDDON) {
+		addMessage(" - **PP ARMAGEDDON**");
+	}
+	
+	addMessage("**=== FIGHTERS ===**");
 	if (!EVENT_BOSS) {
 		addMessage(FIGHTER1.toString());
-		addMessage("===== /VS/ =====");
+		addMessage("**===== /VS/ =====**");
 		addMessage(FIGHTER2.toString());
 	}
 	else {
 		addMessage(FIGHTER1.toString());
+		addMessage("-----------------");
 		addMessage(FIGHTER2.toString());
-		addMessage("===== /VS/ =====");
+		addMessage("**===== /VS/ =====**");
 		addMessage(CURRENT_BOSS + "\n\nSTR : " + BOSS_HEALTH);
 	}
 
