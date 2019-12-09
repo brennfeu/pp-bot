@@ -2511,6 +2511,8 @@ CLIENT.on("message", async _message => {
 });
 
 CLIENT.on('messageReactionAdd', (_reaction, _user) => {
+	console.log("test0");
+	
 	setBotActivity();
 	
 	console.log("test1");
