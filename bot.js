@@ -1672,6 +1672,7 @@ class Duel {
 	}
 	startDuel(_message) {
 		this.BATTLE_CHANNEL = _message.channel;
+		this.GUILD = this.BATTLE_CHANNEL.guild;
 		
 		console.log("F1 " + _message.author.id);
 		console.log("F2 " + _message.mentions.users.array()[0]);
@@ -2328,7 +2329,6 @@ function getRandomPercent() {
 function getDuel(_id) {
 	for (var i in DUEL_LIST) {
 		if (DUEL_LIST[i].BATTLE_CHANNEL.id == _id) {
-			console.log("DUEL FOUND" + DUEL_LIST[i])
 			return DUEL_LIST[i];
 		}
 	}
