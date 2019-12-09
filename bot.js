@@ -721,8 +721,8 @@ class Fighter {
 			else if (attack == EMOTE_PP35) {
 				// Facehugged
 				this.duel.addMessage(this.user.username + " impregnates the arbitratory !");
-				this.duel.BLIND_COUNTDOWN = 2;
-				if (this.duel.getRandomPercent() < 33) {
+				this.duel.BLIND_COUNTDOWN += 2;
+				if (getRandomPercent() < 33) {
 					this.duel.BLIND_COUNTDOWN = 9999999;
 					this.duel.addMessage("It looks like permanent damage !");
 				}
@@ -1820,7 +1820,7 @@ class Duel {
 					this.addMessage(this.FIGHTER2.user.username + " gets attacked by " + this.CURRENT_BOSS + " !");
 					this.FIGHTER2.STRValue -= this.BOSS_DAMAGE;
 				}
-				this.addMessage("He takes" + this.BOSS_DAMAGE + " damages !");
+				this.addMessage("He takes " + this.BOSS_DAMAGE + " damages !");
 			}
 
 			// Check if loose
@@ -1866,7 +1866,7 @@ class Duel {
 			this.addMessage("-----------------");
 			this.addMessage(this.FIGHTER2.toString());
 			this.addMessage("**===== /VS/ =====**");
-			this.addMessage("**" + this.CURRENT_BOSS + "\nSTR : " + this.BOSS_HEALTH);
+			this.addMessage("**" + this.CURRENT_BOSS + "**\n**STR :** " + this.BOSS_HEALTH);
 		}
 
 		this.addMessage("**=== GLOBAL STATUS ===**");
