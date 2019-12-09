@@ -1414,35 +1414,43 @@ class Fighter {
 		}
 	}
 
-	damage(_amount) {
-		_amount += this.duel.getOpponentOf(this).bonusDamage;
-		this.duel.getOpponentOf(this).bonusDamage = 0;
-
-
+	damage(_amount, _punch = true) {
+		if (_punch) {
+			_amount += this.duel.getOpponentOf(this).bonusDamage;
+			this.duel.getOpponentOf(this).bonusDamage = 0;
+		}
+		if (this.duel.STEEL_PROTECTION) {
+			// Steel
+			_amount -= Math.floor(_amount/10);
+		}
+		if (this.duel.BARREL_DAMAGE) {
+			// Barrel
+			_amount -= _amount*2;
+		}
+		if (this.duel.ATTACK_MISS_COUNTDOWN > 0 && getRandomPercent() < 90) {
+			_amount += _amount;
+		}
+		
 		if (this.duel.INFINITE_DAMAGE >= 10) {
 			this.duel.addMessage("Damage cap achieved !");
 			return this.duel.addMessage(_amount + " damages were canceled");
 		}
 		this.duel.INFINITE_DAMAGE += 1;
-		
-		if (this.duel.ATTACK_MISS_COUNTDOWN > 0 && getRandomPercent() < 90) {
-			_amount += _amount;
-		}
 
-		if (this.duel.EVENT_BOSS) {
+		if (this.duel.EVENT_BOSS && _punch) {
 			this.duel.BOSS_HEALTH -= _amount;
 			this.duel.addMessage(this.duel.CURRENT_BOSS + " takes " + _amount + " damages !");
 			this.duel.DAMAGE_COUNT += _amount;
 			return;
 		}
 
-		if (this.duel.REVERSE_DAMAGE >= 0) {
+		if (this.duel.REVERSE_DAMAGE >= 0 && _punch) {
 			this.STRValue += _amount;
 			return this.duel.addMessage(this.user.username + " get healed by " + _amount + " HP");
 		}
 
 		// Acid
-		if (this.acidArmor >= 1) {
+		if (this.acidArmor >= 1 && _punch) {
 			this.duel.addMessage(this.user.username + " has an acid armor !");
 			if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) {
 				this.duel.addMessage(this.duel.getOpponentOf(this).user.username + " therapy helps !");
@@ -1457,27 +1465,15 @@ class Fighter {
 			// Drunk PP
 			this.duel.addMessage(this.user.username + " felt nothing because too drunk !");
 		}
-		else if (this.attack == EMOTE_PP10) {
+		else if (this.attack == EMOTE_PP10 && _punch) {
 			// Tank
 			this.duel.addMessage(this.user.username + " felt nothing !");
 		}
-		else if (this.isProtected) {
+		else if (this.isProtected && _punch) {
 			// RiotShield
 			this.duel.addMessage(this.user.username + " reflects the damages !");
 			this.isProtected = false;
 			this.duel.getOpponentOf(this).damage(_amount);
-		}
-		else if (this.duel.STEEL_PROTECTION) {
-			// Steel
-			this.STRValue -= Math.floor(_amount/10);
-			this.duel.DAMAGE_COUNT += Math.floor(_amount/10);
-			this.duel.addMessage(this.user.username + " takes " + Math.floor(_amount/10) + " damages !");
-		}
-		else if (this.duel.BARREL_DAMAGE) {
-			// Barrel
-			this.STRValue -= Math.floor(_amount*2);
-			this.duel.DAMAGE_COUNT += Math.floor(_amount*2);
-			this.duel.addMessage(this.user.username + " takes " + Math.floor(_amount*2) + " damages !");
 		}
 		else {
 			// Damage
@@ -1493,7 +1489,7 @@ class Fighter {
 			this.doomReverse = 0;
 		}
 		// Alien PP
-		if (this.isAlienPP) {
+		if (this.isAlienPP && _punch) {
 			this.duel.getOpponentOf(this).bleedDamage += 1;
 		}
 	}
@@ -1516,7 +1512,7 @@ class Fighter {
 			this.turkeyCountdown -= 1;
 			if (this.turkeyCountdown <= 0) {
 				this.duel.addMessage(this.user.username + " explodes !");
-				this.damage(1000);
+				this.damage(1000, false);
 			}
 			else {
 				this.duel.addMessage(this.user.username + " has " + this.turkeyCountdown + " turn(s) left !");
@@ -1546,10 +1542,10 @@ class Fighter {
 			}
 			else {
 				if (this.isSalty) {
-					this.damage(this.bleedDamage*5);
+					this.damage(this.bleedDamage*5, false);
 				}
 				else {
-					this.damage(this.bleedDamage);
+					this.damage(this.bleedDamage, false);
 				}
 			}
 			this.duel.addMessage("-----------------");
