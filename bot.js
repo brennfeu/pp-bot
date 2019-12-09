@@ -2345,10 +2345,10 @@ function addWinCounter(_fighter, _number) {
 	console.log(_fighter.user.username + " wins : " + _number);
 }
 
-function changeRoleToStyler(_nomRole) {
+function changeRoleToStyler(_nomRole, _styler, _guild) {
 	return; // TOFIX
-	var role = GUILD.roles.find(r => r.name == _nomRole);
-	var user = GUILD.members.get(STYLER);
+	var role = _guild.roles.find(r => r.name == _nomRole);
+	var user = _guild.members.get(_styler);
 
 	try {
 		if (user.roles.has(role.id)) {
@@ -2452,6 +2452,7 @@ CLIENT.on("message", async _message => {
 		}
 	}
 	if (argsUser[1] == "custom") {
+		if (getDuel(_message.channel.id) != null) return _message.reply("let's try somewhere else...");
 		// STYLE
 		var guild = _message.channel.guild;
 		var user = guild.members.get(_message.author.id);
@@ -2848,7 +2849,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	// CHANGE ROLE
 	if (_reaction.emoji.id == EMOTE_PP38) {
 		// Fast PP
-		changeRoleToStyler(FAST_PP_ROLE);
+		changeRoleToStyler(FAST_PP_ROLE, _reaction.author.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == EMOTE_PP40) {
 		// Big PP
