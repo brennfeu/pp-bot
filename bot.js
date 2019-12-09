@@ -2503,9 +2503,9 @@ CLIENT.on("message", async _message => {
 CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	// Ignore si bot
 	if (_user.bot) return;
-	if (getDuel(_message.channel.id) == null) return;
+	if (getDuel(_reaction.message.channel.id) == null) return;
 	
-	var duel = getDuel(_message.channel.id)
+	var duel = getDuel(_reaction.message.channel.id)
 
 	// Save Me Move
 	if (duel.IS_DUELLING && duel.getAttackFromEmote(_reaction.emoji) == duel.EMOTE_PP31 && duel.SAVE_LIST.indexOf(_user.id) < 0) {
