@@ -1926,14 +1926,15 @@ class Duel {
 		this.addMessage("**=== MOVE SELECT ===**");
 		this.sendMessages();
 		this.BATTLE_CHANNEL.send("\n\nChoose your " + gay + "attack with a reaction !").then(function (_message2) {
-			for (var i in LIST_AVAILABLE_ATTACKS) {
-				console.log(LIST_AVAILABLE_ATTACKS[i]);
-				if (LIST_AVAILABLE_ATTACKS[i] != "IS_DEAD_LOL") {
-					_message2.react(LIST_AVAILABLE_ATTACKS[i]);
+			var duel = getDuel(_message2.channel.id);
+			for (var i in duel.LIST_AVAILABLE_ATTACKS) {
+				console.log(duel.LIST_AVAILABLE_ATTACKS[i]);
+				if (duel.LIST_AVAILABLE_ATTACKS[i] != "IS_DEAD_LOL") {
+					_message2.react(duel.LIST_AVAILABLE_ATTACKS[i]);
 				}
 			}
 		}).catch(function(e) {
-			addMessage(e);
+			console.log(e);
 		});
 
 		// Stop if dead (cthulhu battle)
