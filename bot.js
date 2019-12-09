@@ -1638,9 +1638,7 @@ class Fighter {
 }
 
 class Duel {
-	constructor(_message) {
-		this.BATTLE_CHANNEL = _message.channel;
-		
+	constructor() {
 		this.IS_BUSY = true;
 		this.IS_DUELLING = true;
 		this.IS_CHANGING_STYLE = false;
@@ -1672,7 +1670,9 @@ class Duel {
 		this.FORCE_PERHAPS = false;
 		this.FORCE_SATAN = false;
 	}
-	startDuel() {
+	startDuel(_message) {
+		this.BATTLE_CHANNEL = _message.channel;
+		
 		console.log("F1 " + _message.author.id);
 		console.log("F2 " + _message.mentions.users.array()[0]);
 		this.FIGHTER1 = new Fighter(_message.author.id, this.BATTLE_CHANNEL.id);
@@ -2421,10 +2421,10 @@ CLIENT.on("message", async _message => {
 			return;
 		}
 
-		var duel = new Duel(_message);
+		var duel = new Duel();
 		DUEL_LIST.push(duel);
 		
-		duel.startDuel();
+		duel.startDuel(_message);
 		duel.newTurnDuel();
 
 		return;
