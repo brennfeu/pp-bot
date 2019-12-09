@@ -1671,7 +1671,8 @@ class Duel {
 
 		this.FORCE_PERHAPS = false;
 		this.FORCE_SATAN = false;
-
+	}
+	startDuel() {
 		console.log("F1 " + _message.author.id);
 		console.log("F2 " + _message.mentions.users.array()[0]);
 		this.FIGHTER1 = new Fighter(_message.author.id, this.BATTLE_CHANNEL.id);
@@ -2420,10 +2421,10 @@ CLIENT.on("message", async _message => {
 			return;
 		}
 
-		var duel = "";
+		var duel = new Duel(_message);
 		DUEL_LIST.push(duel);
 		
-		duel = new Duel(_message);
+		duel.startDuel();
 		duel.newTurnDuel();
 
 		return;
