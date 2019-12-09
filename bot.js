@@ -2246,11 +2246,28 @@ function startRandomEvent() {
 	}
 	else if (randomVar == 5) {
 		// Cthulhu
-		EVENT_BOSS = true;
-		addMessage(" -- CTHULHU AWAKENS --");
-		addMessage("You have to beat Cthulhu by punching his huge PP in order to save the world !");
-		BOSS_HEALTH = 10000;
-		CURRENT_BOSS = BOSS_PP1;
+		if (EVENT_BOSS && CURRENT_BOSS == BOSS_PP1) {
+			addMessage(" -- MOON LORD AWAKENS --");
+			addMessage("Cthulhu evolves to be the Moon Lord !");
+			CURRENT_BOSS = BOSS_PP3;
+			BOSS_HEALTH = 500000;
+		}
+		else if (EVENT_BOSS && CURRENT_BOSS == BOSS_PP3) {
+			addMessage(" -- MOON LORD REGENERATION --");
+			addMessage("The Moon Lord gets 500 000 more health !");
+			BOSS_HEALTH += 500000;
+		}
+		else if (EVENT_BOSS) {
+			addMessage(" -- CTHULHU SLEEPS --");
+			addMessage("And nothing happens at all...");
+		}
+		else {
+			addMessage(" -- CTHULHU AWAKENS --");
+			EVENT_BOSS = true;
+			addMessage("You have to beat Cthulhu by punching his huge PP in order to save the world !");
+			BOSS_HEALTH = 10000;
+			CURRENT_BOSS = BOSS_PP1;
+		}
 	}
 	else if (randomVar == 6) {
 		// Accidental Summoning
@@ -2324,7 +2341,7 @@ function startRandomEvent() {
 	else if (randomVar == 23) {
 		// PP Blessing
 		addMessage(" -- PP BLESSING --");
-		addMessage("You suddenly feel more power in your PP !");
+		addMessage("You suddenly feel new powers in your PP !");
 		FIGHTER1.godList = [GOD_PP21_PRIEST];
 		FIGHTER2.godList = [GOD_PP21_PRIEST];
 		for (var i in PRIEST_ROLES) {
@@ -2346,11 +2363,21 @@ function startRandomEvent() {
 	}
 	else if ([24, 25].indexOf(randomVar) > -1) {
 		// Free Lives
-		EVENT_BOSS = true;
-		addMessage(" -- FREE LIVES RIOT --");
-		addMessage("Let's riot Free Lives HQ just for fun !");
-		BOSS_HEALTH = 1000;
-		CURRENT_BOSS = BOSS_PP2;
+		if (EVENT_BOSS) {
+			addMessage(" -- FREE LIVES GOOD UPDATES --");
+			addMessage("Let's NOT riot Free Lives HQ.");
+			if (CURRENT_BOSS == BOSS_PP2) {
+				EVENT_BOSS = false;
+				BOSS_HEALTH = 0;
+			}
+		}
+		else {
+			EVENT_BOSS = true;
+			addMessage(" -- FREE LIVES RIOT --");
+			addMessage("Let's riot Free Lives HQ just for fun !");
+			BOSS_HEALTH = 1000;
+			CURRENT_BOSS = BOSS_PP2;
+		}
 	}
 	else {
 		addMessage("No event this turn...");
