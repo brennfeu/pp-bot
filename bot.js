@@ -1711,7 +1711,7 @@ class Duel {
 		}
 
 		if (counter > 0) {
-			this.LIST_MESSAGES = ["**-----------------\n" + counter + " messages were cancelled !\n-----------------**"].concat(LIST_MESSAGES);
+			this.LIST_MESSAGES = ["**-----------------\n" + counter + " messages were cancelled !\n-----------------**"].concat(this.LIST_MESSAGES);
 		}
 		for (var i in this.LIST_MESSAGES) {
 			this.BATTLE_CHANNEL.send(this.LIST_MESSAGES[i]);
