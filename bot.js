@@ -131,10 +131,10 @@ var DUEL_LIST = [];
 
 // CLASSES
 class Fighter {
-	constructor(_idUser) {
+	constructor(_idUser, _idDuel) {
 		// set variables
 		this.idUser = _idUser;
-		this.guildUser = GUILD.members.get(_idUser);
+		this.guildUser = getDuel(_idDuel).GUILD.members.get(_idUser);
 		this.user = this.guildUser.user;
 		this.attack = "";
 		this.oldAttack = "";
@@ -1671,15 +1671,15 @@ class Duel {
 
 		console.log("F1 " + _message.author.id);
 		console.log("F2 " + _message.mentions.users.array()[0]);
-		this.FIGHTER1 = new Fighter(_message.author.id);
-		this.FIGHTER2 = new Fighter(_message.mentions.users.array()[0].id);
+		this.FIGHTER1 = new Fighter(_message.author.id, this.BATTLE_CHANNEL.id);
+		this.FIGHTER2 = new Fighter(_message.mentions.users.array()[0].id, this.BATTLE_CHANNEL.id);
 
-		if (this.FIGHTER1.user.id == this.FIGHTER2.user.id) {
-			this.addMessage("You can't battle yourself");
-			return;
+		if (getRandomPercent() < 10) {
+			this.addMessage("**TIME FOR A D-D-D-D-D-D-DUEL**");
 		}
-
-		this.addMessage("TIME FOR A DUEL");
+		else {
+			this.addMessage("**TIME FOR A DUEL**");
+		}
 	}
 	stopDuel() {
 		this.sendMessages();
@@ -2323,7 +2323,7 @@ function getRandomPercent() {
 }
 function getDuel(_id) {
 	for (var i in DUEL_LIST) {
-		if (DUEL_LIST[i] == _id) {
+		if (DUEL_LIST[i].BATTLE_CHANNEL.id == _id) {
 			return DUEL_LIST[i];
 		}
 	}
@@ -2408,6 +2408,11 @@ CLIENT.on("message", async _message => {
 	if (argsUser[1] == "duel") {
 		if (_message.mentions.users.array().length <= 1) {
 			return _message.reply("you need to tag the person you want to duel in the command !\nSee the help command for more help !");
+		}
+		
+		if (_message.author.id == _message.mentions.users.array()[0].id) {
+			this.addMessage("You can't battle yourself");
+			return;
 		}
 
 		var duel = new Duel(_message);
