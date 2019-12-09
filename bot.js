@@ -5,9 +5,6 @@
 const DISCORD = require("discord.js");
 const CLIENT = new DISCORD.Client();
 
-const BETA_TEST = false;
-const PRIVATE_TEST = false;
-
 const FAST_PP_ROLE = "Fast PP";
 const BIG_PP_ROLE = "Big PP";
 const ALIEN_PP_ROLE = "Alien PP";
@@ -1703,12 +1700,6 @@ function setBotActivity(_texte) {
 	if (AUTO_MOVES_COUNTDOWN > 0) {
 		texte += " [ALL MOVES]";
 	}
-	if (PRIVATE_TEST) {
-		return CLIENT.user.setActivity(texte + " [PRIVATE TEST]");
-	}
-	if (BETA_TEST) {
-		return CLIENT.user.setActivity(texte + " [BETA TEST] ");
-	}
 	return CLIENT.user.setActivity(texte);
 }
 function addMessage(_texte) {
@@ -2384,14 +2375,7 @@ function getNumberOfGods(_guildUser) {
 
 CLIENT.on('ready', () => {
 	console.log(`Logged in as ${CLIENT.user.tag} !`);
-
-	// annonce BETA_TEST
-	if (BETA_TEST || PRIVATE_TEST) {
-		setBotActivity("Unavailable for now... :/");
-	}
-	else {
-		setBotActivity("")
-	}
+	setBotActivity("");
 });
 
 
@@ -2405,8 +2389,6 @@ CLIENT.on("message", async _message => {
 	// Ignore si pas appelé
 	if (_message.mentions.users.array().length < 1) return;
 	if (_message.mentions.users.array()[_message.mentions.users.array().length-1].id != CLIENT.user.id) return;
-	// Ignore si test privé
-	if (PRIVATE_TEST && _message.author.username != "brennfeu") return _message.reply("I am currently unavailable, sorry :/");
 	// Ignore si deja occupé
 	if (IS_BUSY && argsUser[1] != "quit") return _message.reply("I'm busy right now, try again when I'll be available. You can check that on my activity.");
 
