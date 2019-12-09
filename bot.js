@@ -1457,7 +1457,7 @@ class Fighter {
 				this.duel.getOpponentOf(this).heal(10);
 			}
 			else {
-				this.duel.getOpponentOf(this).damage(10);
+				this.duel.getOpponentOf(this).damage(10, false);
 			}
 		}
 
@@ -2334,8 +2334,8 @@ function killDeadDuels() {
 }
 
 function setBotActivity() {
-	if (DUEL_LIST.length > 0) {
-		return CLIENT.user.setActivity("PP Punch Arena");
+	if (DUEL_LIST.size > 0) {
+		return CLIENT.user.setActivity("PP Punch Arena (" + DUEL_LIST.size + " duels)");
 	}
 	else {
 		return CLIENT.user.setActivity("");
