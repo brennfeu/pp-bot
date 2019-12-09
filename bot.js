@@ -1467,13 +1467,13 @@ class Fighter {
 			this.isProtected = false;
 			this.duel.getOpponentOf(this).damage(_amount);
 		}
-		else if (STEEL_PROTECTION) {
+		else if (this.duel.STEEL_PROTECTION) {
 			// Steel
 			this.STRValue -= Math.floor(_amount/10);
 			this.duel.DAMAGE_COUNT += Math.floor(_amount/10);
 			this.duel.addMessage(this.user.username + " takes " + Math.floor(_amount/10) + " damages !");
 		}
-		else if (BARREL_DAMAGE) {
+		else if (this.duel.BARREL_DAMAGE) {
 			// Barrel
 			this.STRValue -= Math.floor(_amount*2);
 			this.duel.DAMAGE_COUNT += Math.floor(_amount*2);
