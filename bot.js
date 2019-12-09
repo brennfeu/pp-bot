@@ -2327,6 +2327,7 @@ function getRandomPercent() {
 function getDuel(_id) {
 	for (var i in DUEL_LIST) {
 		if (DUEL_LIST[i].BATTLE_CHANNEL.id == _id) {
+			console.log("DUEL FOUND" + DUEL_LIST[i])
 			return DUEL_LIST[i];
 		}
 	}
@@ -2420,6 +2421,8 @@ CLIENT.on("message", async _message => {
 
 		var duel = new Duel(_message);
 		duel.newTurnDuel();
+		
+		DUEL_LIST.push(duel);
 
 		return;
 	}
