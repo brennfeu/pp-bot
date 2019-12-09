@@ -2849,7 +2849,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	// CHANGE ROLE
 	if (_reaction.emoji.id == EMOTE_PP38) {
 		// Fast PP
-		changeRoleToStyler(FAST_PP_ROLE, _reaction.author.id, _reaction.message.channel.guild);
+		changeRoleToStyler(FAST_PP_ROLE, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == EMOTE_PP40) {
 		// Big PP
