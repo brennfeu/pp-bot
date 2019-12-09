@@ -1729,8 +1729,6 @@ class Duel {
 	newTurnDuel() {
 		this.addMessage("**===== TURN CHANGE =====**");
 		this.sendMessages();
-		this.FIGHTER1.turnChange();
-		this.FIGHTER2.turnChange();
 
 		if (this.FIGHTER1.STR <= 0 && this.FIGHTER1.extraLife > 0) {
 			this.addMessage(this.FIGHTER1.user.username + " uses an extra life !");
@@ -1819,37 +1817,32 @@ class Duel {
 				this.addMessage("He takes " + this.BOSS_DAMAGE + " damages !");
 			}
 
-			// Check if loose
-			if (this.FIGHTER1.STR <= 0 && this.FIGHTER2.STR <= 0) {
-				this.addMessage("Both of you lost. No one won this time. You losers");
-				this.stopDuel();
-				return;
-			}
 		}
-		else {
-			// Check if dead
-			if (this.FIGHTER1.STR <= 0 && this.FIGHTER2.STR <= 0) {
-				this.addMessage("Both of you lost. No one won this time. You losers");
-				this.stopDuel();
-				return;
-			}
-			else if (this.FIGHTER1.STR <= 0) {
-				this.addMessage(this.FIGHTER2.user.username + " won ! Congrats !");
-				this.FIGHTER2.win();
-				this.stopDuel();
-				return;
-			}
-			else if (this.FIGHTER2.STR <= 0) {
-				this.addMessage(this.FIGHTER1.user.username + " won ! Congrats !");
-				this.FIGHTER1.win();
-				this.stopDuel();
-				return;
-			}
+		
+		this.FIGHTER1.turnChange();
+		this.FIGHTER2.turnChange();
+		
+		if (this.FIGHTER1.STR <= 0 && this.FIGHTER2.STR <= 0) {
+			this.addMessage("Both of you lost. No one won this time. You losers");
+			this.stopDuel();
+			return;
+		}
+		else if (this.FIGHTER1.STR <= 0 && !this.EVENT_BOSS) {
+			this.addMessage(this.FIGHTER2.user.username + " won ! Congrats !");
+			this.FIGHTER2.win();
+			this.stopDuel();
+			return;
+		}
+		else if (this.FIGHTER2.STR <= 0 && !this.EVENT_BOSS) {
+			this.addMessage(this.FIGHTER1.user.username + " won ! Congrats !");
+			this.FIGHTER1.win();
+			this.stopDuel();
+			return;
 		}
 
 		this.startRandomEvent();
-
 		this.addMessage("\n\n**===== NEW TURN =====**");
+		this.sendMessages();
 
 		this.addMessage("**=== FIGHTERS ===**");
 		if (!this.EVENT_BOSS) {
@@ -1961,6 +1954,7 @@ class Duel {
 		this.EVENT_BLOOD_MOON = false;
 
 		this.addMessage("**===== EVENTS =====**");
+		this.sendMessages();
 		var randomVar = getRandomPercent();
 
 		if (this.FORCE_EVENT) {
