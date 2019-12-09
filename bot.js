@@ -2851,83 +2851,83 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	}
 	else if (_reaction.emoji.id == EMOTE_PP40) {
 		// Big PP
-		changeRoleToStyler(BIG_PP_ROLE);
+		changeRoleToStyler(BIG_PP_ROLE, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == EMOTE_PP41) {
 		// Drunk PP
-		changeRoleToStyler(DRUNK_PP_ROLE);
+		changeRoleToStyler(DRUNK_PP_ROLE, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == EMOTE_PP34) {
 		// Alien PP
-		changeRoleToStyler(ALIEN_PP_ROLE);
+		changeRoleToStyler(ALIEN_PP_ROLE, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == EMOTE_PP9) {
 		// Hockey Puck PP
-		changeRoleToStyler(HOCKEY_PUCK_PP_ROLE);
+		changeRoleToStyler(HOCKEY_PUCK_PP_ROLE, _user.id, _reaction.message.channel.guild);
 	}
 	
 	else if (_reaction.emoji.id == GOD_PP1) {
-		changeRoleToStyler(GOD_PP1_PRIEST);
+		changeRoleToStyler(GOD_PP1_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == GOD_PP2) {
-		changeRoleToStyler(GOD_PP2_PRIEST);
+		changeRoleToStyler(GOD_PP2_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == GOD_PP3) {
-		changeRoleToStyler(GOD_PP3_PRIEST);
+		changeRoleToStyler(GOD_PP3_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == GOD_PP4) {
-		changeRoleToStyler(GOD_PP4_PRIEST);
+		changeRoleToStyler(GOD_PP4_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == GOD_PP5) {
-		changeRoleToStyler(GOD_PP5_PRIEST);
+		changeRoleToStyler(GOD_PP5_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == GOD_PP6) {
-		changeRoleToStyler(GOD_PP6_PRIEST);
+		changeRoleToStyler(GOD_PP6_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == GOD_PP7) {
-		changeRoleToStyler(GOD_PP7_PRIEST);
+		changeRoleToStyler(GOD_PP7_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == GOD_PP8) {
-		changeRoleToStyler(GOD_PP8_PRIEST);
+		changeRoleToStyler(GOD_PP8_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == GOD_PP9) {
-		changeRoleToStyler(GOD_PP9_PRIEST);
+		changeRoleToStyler(GOD_PP9_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == GOD_PP10) {
-		changeRoleToStyler(GOD_PP10_PRIEST);
+		changeRoleToStyler(GOD_PP10_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == GOD_PP11) {
-		changeRoleToStyler(GOD_PP11_PRIEST);
+		changeRoleToStyler(GOD_PP11_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == GOD_PP12) {
-		changeRoleToStyler(GOD_PP12_PRIEST);
+		changeRoleToStyler(GOD_PP12_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == GOD_PP13) {
-		changeRoleToStyler(GOD_PP13_PRIEST);
+		changeRoleToStyler(GOD_PP13_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == GOD_PP14) {
-		changeRoleToStyler(GOD_PP14_PRIEST);
+		changeRoleToStyler(GOD_PP14_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == GOD_PP15) {
-		changeRoleToStyler(GOD_PP15_PRIEST);
+		changeRoleToStyler(GOD_PP15_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == GOD_PP16) {
-		changeRoleToStyler(GOD_PP16_PRIEST);
+		changeRoleToStyler(GOD_PP16_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == GOD_PP17) {
-		changeRoleToStyler(GOD_PP17_PRIEST);
+		changeRoleToStyler(GOD_PP17_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == GOD_PP18) {
-		changeRoleToStyler(GOD_PP18_PRIEST);
+		changeRoleToStyler(GOD_PP18_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == GOD_PP19) {
-		changeRoleToStyler(GOD_PP19_PRIEST);
+		changeRoleToStyler(GOD_PP19_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == GOD_PP20) {
-		changeRoleToStyler(GOD_PP20_PRIEST);
+		changeRoleToStyler(GOD_PP20_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == GOD_PP21) {
-		changeRoleToStyler(GOD_PP21_PRIEST);
+		changeRoleToStyler(GOD_PP21_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
 	return;
 });
