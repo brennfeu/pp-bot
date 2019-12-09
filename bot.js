@@ -1815,11 +1815,11 @@ class Duel {
 		
 		if (this.FIGHTER1.STR <= 0 && this.FIGHTER1.extraLife > 0) {
 			this.addMessage(this.FIGHTER1.user.username + " uses an extra life !");
-			this.FIGHTER1 = new Fighter(this.FIGHTER1.idUser);
+			this.FIGHTER1 = new Fighter(this.FIGHTER1.idUser, this.BATTLE_CHANNEL.id);
 		}
 		if (this.FIGHTER2.STR <= 0 && this.FIGHTER2.extraLife > 0) {
 			this.addMessage(this.FIGHTER2.user.username + " uses an extra life !");
-			this.FIGHTER2 = new Fighter(this.FIGHTER2.idUser);
+			this.FIGHTER2 = new Fighter(this.FIGHTER2.idUser, this.BATTLE_CHANNEL.id);
 		}
 		
 		if (this.FIGHTER1.STR <= 0 && this.FIGHTER2.STR <= 0) {
