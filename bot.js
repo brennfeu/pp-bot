@@ -2398,7 +2398,7 @@ CLIENT.on('ready', () => {
 
 
 // This event will run on every single message received, from any channel or DM.
-CLIENT.on("message", async _message => {
+CLIENT.on("message", async _message => {	
 	// Recuperation commande
 	var argsUser = _message.content.trim().split(" ");
 	
@@ -2408,6 +2408,8 @@ CLIENT.on("message", async _message => {
 	if (_message.mentions.users.array().length < 1) return;
 	if (_message.mentions.users.array()[_message.mentions.users.array().length-1].id != CLIENT.user.id) return;
 	console.log(argsUser);
+	
+	killDeadDuels();
 	
 	if (argsUser[1] == "rank") {
 		if (_message.mentions.users.array().length > 1) {
