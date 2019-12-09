@@ -2352,21 +2352,20 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 	try {
 		if (user.roles.has(role.id)) {
 			user.removeRole(role).catch(console.error);
-			addMessage(user.user.username + " removes the role : " + _nomRole);
+			user.send("Role removed : " + _nomRole);
 		}
 		else {
 			if (getNumberOfGods(user) >= 3 && PRIEST_ROLES.indexOf(_nomRole) > -1) {
-				return addMessage("You can't have more than 3 Gods");
+				return user.send("You can't have more than 3 Gods");
 			}
 			user.addRole(role).catch(console.error);
-			addMessage(user.user.username + " gets the role : " + _nomRole);
+			user.send("Role added : " + _nomRole);
 		}
 	}
 	catch(e) {
-		addMessage("I'm sorry I can't do that :(");
-		addMessage("Looks like there is no " + _nomRole + " role here...");
+		user.send("I'm sorry I can't do that :(");
+		user.send("Looks like there is no " + _nomRole + " role there...");
 	}
-	sendMessages();
 }
 function getNumberOfGods(_guildUser) {
 	var counter = 0;
