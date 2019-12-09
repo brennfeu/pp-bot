@@ -1639,9 +1639,11 @@ class Fighter {
 
 class Duel {
 	constructor() {
-		this.IS_BUSY = true;
-		this.IS_DUELLING = true;
-		this.IS_CHANGING_STYLE = false;
+		this.LIST_MESSAGES = [];
+		this.INFINITE_DAMAGE = 0;
+		
+		this.MOVE_COUNT = 0;
+		this.DAMAGE_COUNT = 0;
 
 		this.ILLEGAL_BOMBING = false;
 		this.BLIND_COUNTDOWN = 0;
@@ -1649,9 +1651,6 @@ class Duel {
 		this.BARREL_DAMAGE = false;
 		this.SAVE_LIST = [];
 		this.STOPPED_MOVE_LIST = [];
-		this.INFINITE_DAMAGE = 0;
-		this.MOVE_COUNT = 0;
-		this.DAMAGE_COUNT = 0;
 		this.FORCE_EVENT = false;
 		this.REVERSE_DAMAGE = 0;
 		this.GAY_TURNS = 0;
