@@ -2504,22 +2504,20 @@ CLIENT.on("message", async _message => {
 CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	// Ignore si bot
 	if (_user.bot) return;
-	if (getDuel(_reaction.message.channel.id) == null) return;
-	
-	var duel = getDuel(_reaction.message.channel.id)
-
-	// Save Me Move
-	if (duel.IS_DUELLING && duel.getAttackFromEmote(_reaction.emoji) == EMOTE_PP31 && duel.SAVE_LIST.indexOf(_user.id) < 0) {
-		duel.SAVE_LIST.push(_user.id);
-		duel.addMessage(_user.username + " helps the fighters !");
-		duel.sendMessages();
-		duel.FIGHTER1.heal(50);
-		duel.FIGHTER2.heal(50);
-	}
-
 
 	// DUEL
-	if (duel.IS_DUELLING) {
+	if (getDuel(_reaction.message.channel.id) != null) {
+		var duel = getDuel(_reaction.message.channel.id)
+		
+		// Save Me Move
+		if (duel.IS_DUELLING && duel.getAttackFromEmote(_reaction.emoji) == EMOTE_PP31 && duel.SAVE_LIST.indexOf(_user.id) < 0) {
+			duel.SAVE_LIST.push(_user.id);
+			duel.addMessage(_user.username + " helps the fighters !");
+			duel.sendMessages();
+			duel.FIGHTER1.heal(50);
+			duel.FIGHTER2.heal(50);
+		}
+		
 		// GAY_TURNS
 		if (duel.GAY_TURNS > 0) {
 			if (_user.id == duel.FIGHTER1.user.id) {
