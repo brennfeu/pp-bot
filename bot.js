@@ -2346,7 +2346,6 @@ function addWinCounter(_fighter, _number) {
 }
 
 function changeRoleToStyler(_nomRole, _styler, _guild) {
-	return; // TOFIX
 	var role = _guild.roles.find(r => r.name == _nomRole);
 	var user = _guild.members.get(_styler);
 
