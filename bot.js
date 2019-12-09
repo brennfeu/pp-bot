@@ -328,9 +328,6 @@ class Fighter {
 		if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP18_PRIEST) > -1 && dex <= 0) {
 			return 0;
 		}
-		if (EVENT_BOSS && this.STR <= 0) {
-			return -999999999;
-		}
 		return dex;
 	}
 
@@ -1695,7 +1692,7 @@ function addMessage(_texte) {
 }
 function sendMessages() {
 	var counter = 0;
-	while (LIST_MESSAGES.length > 20) {
+	while (LIST_MESSAGES.length > 10) {
 		LIST_MESSAGES.splice(0, 1);
 		counter += 1;
 	}
@@ -1841,6 +1838,7 @@ function stopDuel() {
 }
 function newTurnDuel() {
 	addMessage("**===== TURN CHANGE =====**");
+	sendMessages();
 	FIGHTER1.turnChange();
 	FIGHTER2.turnChange();
 	
@@ -1879,22 +1877,6 @@ function newTurnDuel() {
 		FIGHTER2.damage(1000000000);
 	}
 	
-	// Blood Moon Save
-	if (EVENT_BLOOD_MOON) {
-		if (FIGHTER1.STR <= 0) {
-			FIGHTER1.DEXValue += (0-FIGHTER1.STR)+1;
-			FIGHTER1.STRValue += (0-FIGHTER1.STR)+1;
-			addMessage(FIGHTER1.user.username + " got saved thanks to the Blood Moon");
-		}
-		if (FIGHTER2.STR <= 0) {
-			FIGHTER2.DEXValue += (0-FIGHTER2.STR)+1;
-			FIGHTER2.STRValue += (0-FIGHTER2.STR)+1;
-			addMessage(FIGHTER2.user.username + " got saved thanks to the Blood Moon");
-		}
-	}
-
-	startRandomEvent();
-
 	// Blood Moon Save
 	if (EVENT_BLOOD_MOON) {
 		if (FIGHTER1.STR <= 0) {
@@ -1987,8 +1969,24 @@ function newTurnDuel() {
 			return;
 		}
 	}
-
+	
+	startRandomEvent();
+	
 	addMessage("\n\n**===== NEW TURN =====**");
+	
+	addMessage("**=== FIGHTERS ===**");
+	if (!EVENT_BOSS) {
+		addMessage(FIGHTER1.toString());
+		addMessage("**===== /VS/ =====**");
+		addMessage(FIGHTER2.toString());
+	}
+	else {
+		addMessage(FIGHTER1.toString());
+		addMessage("-----------------");
+		addMessage(FIGHTER2.toString());
+		addMessage("**===== /VS/ =====**");
+		addMessage("**" + CURRENT_BOSS + "\nSTR : " + BOSS_HEALTH);
+	}
 	
 	addMessage("**=== GLOBAL STATUS ===**");
 	if (BLIND_COUNTDOWN > 0) {
@@ -2021,22 +2019,14 @@ function newTurnDuel() {
 	if (EVENT_BLOOD_MOON) {
 		addMessage(" - The Blood Moon is up in the sky !");
 	}
+	if (EVENT_PP_ENLIGHTENMENT) {
+		addMessage(" - You can use moves that aren't in this turn's movepool !");
+	}
+	if (EVENT_PP_PURGE) {
+		addMessage(" - Illegal moves are legal for this turn !");
+	}
 	if (PP_ARMAGEDDON) {
 		addMessage(" - **PP ARMAGEDDON**");
-	}
-	
-	addMessage("**=== FIGHTERS ===**");
-	if (!EVENT_BOSS) {
-		addMessage(FIGHTER1.toString());
-		addMessage("**===== /VS/ =====**");
-		addMessage(FIGHTER2.toString());
-	}
-	else {
-		addMessage(FIGHTER1.toString());
-		addMessage("-----------------");
-		addMessage(FIGHTER2.toString());
-		addMessage("**===== /VS/ =====**");
-		addMessage(CURRENT_BOSS + "\n\nSTR : " + BOSS_HEALTH);
 	}
 
 	// HighFiveEmote - Stop move_list
@@ -2053,6 +2043,7 @@ function newTurnDuel() {
 		gay = "opponent's "
 	}
 	
+	addMessage("**=== MOVE SELECT ===**");
 	sendMessages();
 	BATTLE_CHANNEL.send("\n\nChoose your " + gay + "attack with a reaction !").then(function (_message2) {
 		for (var i in LIST_AVAILABLE_ATTACKS) {
@@ -2279,6 +2270,16 @@ function startRandomEvent() {
 		EVENT_BLOOD_MOON = true;
 		addMessage(" -- BLOOD MOON --");
 		addMessage("If someone dies this turn, STR automatically stays at 1 but the remaining damages goes negative in the DEX.");
+		if (FIGHTER1.STR <= 0) {
+			FIGHTER1.DEXValue += (0-FIGHTER1.STR)+1;
+			FIGHTER1.STRValue += (0-FIGHTER1.STR)+1;
+			addMessage(FIGHTER1.user.username + " got saved thanks to the Blood Moon");
+		}
+		if (FIGHTER2.STR <= 0) {
+			FIGHTER2.DEXValue += (0-FIGHTER2.STR)+1;
+			FIGHTER2.STRValue += (0-FIGHTER2.STR)+1;
+			addMessage(FIGHTER2.user.username + " got saved thanks to the Blood Moon");
+		}
 	}
 	else if (randomVar == 8) {
 		// Ascension
@@ -2354,6 +2355,7 @@ function startRandomEvent() {
 	else {
 		addMessage("No event this turn...");
 	}
+	sendMessages()
 }
 
 function addWinCounter(_fighter, _number) {
