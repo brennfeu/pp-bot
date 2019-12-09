@@ -2859,6 +2859,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	// CHANGE ROLE
 	if (_reaction.emoji.id == EMOTE_PP38) {
 		// Fast PP
+		console.log("test");
 		changeRoleToStyler(FAST_PP_ROLE, _user.id, _reaction.message.channel.guild);
 	}
 	else if (_reaction.emoji.id == EMOTE_PP40) {
