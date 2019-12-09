@@ -2518,6 +2518,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 
 	// DUEL
 	if (getDuel(_reaction.message.channel.id) != null) {
+		console.log("test");
+		
 		var duel = getDuel(_reaction.message.channel.id)
 		
 		// Save Me Move
@@ -2856,7 +2858,6 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		return;
 	}
 
-	console.log("test");
 	// CHANGE ROLE
 	if (_reaction.emoji.id == EMOTE_PP38) {
 		// Fast PP
