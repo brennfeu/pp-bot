@@ -1678,6 +1678,380 @@ class Fighter {
 	}
 }
 
+class Duel {
+	constructor(_message) {
+		this.BATTLE_CHANNEL = _message.channel;
+		
+		this.IS_BUSY = true;
+		this.IS_DUELLING = true;
+		this.IS_CHANGING_STYLE = false;
+
+		this.ILLEGAL_BOMBING = false;
+		this.BLIND_COUNTDOWN = 0;
+		this.STEEL_PROTECTION = false;
+		this.BARREL_DAMAGE = false;
+		this.SAVE_LIST = [];
+		this.STOPPED_MOVE_LIST = [];
+		this.INFINITE_DAMAGE = 0;
+		this.MOVE_COUNT = 0;
+		this.DAMAGE_COUNT = 0;
+		this.FORCE_EVENT = false;
+		this.REVERSE_DAMAGE = 0;
+		this.GAY_TURNS = 0;
+		this.ILLEGAL_JEWS = false;
+		this.ATTACK_MISS_COUNTDOWN = 0;
+		this.AUTO_MOVES_COUNTDOWN = 0;
+		this.NUCLEAR_BOMB = 0;
+
+		this.PP_ARMAGEDDON = false;
+		this.EVENT_PP_ENLIGHTENMENT = false;
+		this.EVENT_PP_PURGE = false;
+		this.EVENT_CONFUSION = false;
+		this.EVENT_BOSS = false;
+		this.EVENT_BLOOD_MOON = false;
+
+		this.FORCE_PERHAPS = false;
+		this.FORCE_SATAN = false;
+
+		console.log("F1 " + _message.author.id);
+		console.log("F2 " + _message.mentions.users.array()[0]);
+		this.FIGHTER1 = new Fighter(_message.author.id);
+		this.FIGHTER2 = new Fighter(_message.mentions.users.array()[0].id);
+
+		if (this.FIGHTER1.user.id == this.FIGHTER2.user.id) {
+			this.addMessage("You can't battle yourself");
+			return;
+		}
+
+		this.addMessage("TIME FOR A DUEL");
+	}
+	function stopDuel() {
+		this.sendMessages();
+		this.addMessage("**===== RECAP =====**");
+		this.addMessage("FIGHTERS CURRENT STATE :");
+		this.addMessage(this.FIGHTER1.toString());
+		this.addMessage("-----------------");
+		this.addMessage(this.FIGHTER2.toString());
+		this.addMessage("SOME STATS :");
+		this.addMessage(" - Number of moves : " + this.MOVE_COUNT);
+		this.addMessage(" - Number of damages inflicted : " + this.DAMAGE_COUNT);
+
+		setBotActivity("");
+		this.sendMessages();
+	}
+	
+	function addMessage(_texte) {
+		this.LIST_MESSAGES.push(_texte);
+	}
+	function sendMessages() {
+		var counter = 0;
+		while (this.LIST_MESSAGES.length > 10) {
+			this.LIST_MESSAGES.splice(0, 1);
+			counter += 1;
+		}
+
+		if (counter > 0) {
+			this.LIST_MESSAGES = ["**-----------------\n" + counter + " messages were cancelled !\n-----------------**"].concat(LIST_MESSAGES);
+		}
+		for (var i in this.LIST_MESSAGES) {
+			this.BATTLE_CHANNEL.send(this.LIST_MESSAGES[i]);
+		}
+		this.LIST_MESSAGES = [];
+	}
+	
+	getOpponentOf(_fighter) {
+		if (this.FIGHTER1.user.id == _fighter.user.id) {
+			return this.FIGHTER2;
+		}
+		return this.FIGHTER1;
+	}
+	getOppOf(_fighter) {
+		return this.getOpponentOf(_fighter);
+	}
+	
+	function newTurnDuel() {
+		this.addMessage("**===== TURN CHANGE =====**");
+		this.sendMessages();
+		this.FIGHTER1.turnChange();
+		this.FIGHTER2.turnChange();
+
+		if (this.FIGHTER1.STR <= 0 && this.FIGHTER1.extraLife > 0) {
+			this.addMessage(this.FIGHTER1.user.username + " uses an extra life !");
+			this.FIGHTER1 = new Fighter(this.FIGHTER1.idUser);
+		}
+		if (this.FIGHTER2.STR <= 0 && this.FIGHTER2.extraLife > 0) {
+			this.addMessage(this.FIGHTER2.user.username + " uses an extra life !");
+			this.FIGHTER2 = new Fighter(this.FIGHTER2.idUser);
+		}
+
+		this.STEEL_PROTECTION = false;
+		this.BARREL_DAMAGE = false;
+		this.SAVE_LIST = [];
+		this.BLIND_COUNTDOWN -= 1;
+		this.INFINITE_DAMAGE = 0;
+		this.DISABLE_ABANDON = false;
+		this.REVERSE_DAMAGE -= 1;
+		this.GAY_TURNS -= 1;
+		this.ATTACK_MISS_COUNTDOWN -= 1;
+		this.AUTO_MOVES_COUNTDOWN -= 1;
+		this.NUCLEAR_BOMB -= 1;
+
+		if (this.NUCLEAR_BOMB == 0) {
+			this.addMessage("The Nuclear Bomb explodes now !");
+			this.FIGHTER1.damage(1000000000);
+			this.FIGHTER2.damage(1000000000);
+		}
+
+		// Blood Moon Save
+		if (this.EVENT_BLOOD_MOON) {
+			if (this.FIGHTER1.STR <= 0) {
+				this.FIGHTER1.DEXValue += (0-this.FIGHTER1.STR)+1;
+				this.FIGHTER1.STRValue += (0-this.FIGHTER1.STR)+1;
+				this.addMessage(this.FIGHTER1.user.username + " got saved thanks to the Blood Moon");
+			}
+			if (this.FIGHTER2.STR <= 0) {
+				this.FIGHTER2.DEXValue += (0-this.FIGHTER2.STR)+1;
+				this.FIGHTER2.STRValue += (0-this.FIGHTER2.STR)+1;
+				this.addMessage(this.FIGHTER2.user.username + " got saved thanks to the Blood Moon");
+			}
+		}
+
+		// Cthulhu
+		if (this.EVENT_BOSS) {
+			if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP1) {
+				this.addMessage(this.CURRENT_BOSS + " goes back to sleep to heal his poor PP !");
+				this.addMessage("You both win !");
+				this.addWinCounter(this.FIGHTER1, 1);
+				this.addWinCounter(this.FIGHTER2, 1);
+				this.EVENT_BOSS = false;
+				return this.stopDuel();
+			}
+			else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP2) {
+				this.addMessage(this.CURRENT_BOSS + " will now stop making updates for some time !");
+				this.EVENT_BOSS = false;
+			}
+			else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP3) {
+				this.addMessage(this.CURRENT_BOSS + " goes back to sleep to heal his poor PP !");
+				this.addMessage("You both win !");
+				this.addWinCounter(this.FIGHTER1, 1);
+				this.addWinCounter(this.FIGHTER2, 1);
+				this.EVENT_BOSS = false;
+
+				var role = this.GUILD.roles.find(r => r.name == GOD_PP21_PRIEST);
+				try {
+					this.FIGHTER1.guildUser.addRole(role).catch(console.error);
+					this.FIGHTER2.guildUser.addRole(role).catch(console.error);
+					this.addMessage("**D.I.C.K. is proud of you. He grants you his powers.**");
+					this.addMessage("**If you don't want to be a D.I.C.K. Priest, use the custom command to automatically remove this role.**");
+				}
+				catch(e) {
+					this.addMessage("D.I.C.K. is proud of you. However, he can't grant you his powers on this server.");
+				}
+
+				return this.stopDuel();
+			}
+			else {
+				if (getRandomPercent() >= 50) {
+					this.addMessage(this.FIGHTER1.user.username + " gets attacked by " + this.CURRENT_BOSS + " !");
+					this.FIGHTER1.STRValue -= this.BOSS_DAMAGE;
+				}
+				else {
+					this.addMessage(this.FIGHTER2.user.username + " gets attacked by " + this.CURRENT_BOSS + " !");
+					this.FIGHTER2.STRValue -= this.BOSS_DAMAGE;
+				}
+				this.addMessage("He takes" + this.BOSS_DAMAGE + " damages !");
+			}
+
+			// Check if loose
+			if (this.FIGHTER1.STR <= 0 && this.FIGHTER2.STR <= 0) {
+				this.addMessage("Both of you lost. No one won this time. You losers");
+				this.stopDuel();
+				return;
+			}
+		}
+		else {
+			// Check if dead
+			if (this.FIGHTER1.STR <= 0 && this.FIGHTER2.STR <= 0) {
+				this.addMessage("Both of you lost. No one won this time. You losers");
+				this.stopDuel();
+				return;
+			}
+			else if (this.FIGHTER1.STR <= 0) {
+				this.addMessage(this.FIGHTER2.user.username + " won ! Congrats !");
+				this.FIGHTER2.win();
+				this.stopDuel();
+				return;
+			}
+			else if (this.FIGHTER2.STR <= 0) {
+				this.addMessage(this.FIGHTER1.user.username + " won ! Congrats !");
+				this.FIGHTER1.win();
+				this.stopDuel();
+				return;
+			}
+		}
+
+		this.startRandomEvent();
+
+		this.addMessage("\n\n**===== NEW TURN =====**");
+
+		this.addMessage("**=== FIGHTERS ===**");
+		if (!this.EVENT_BOSS) {
+			this.addMessage(this.FIGHTER1.toString());
+			this.addMessage("**===== /VS/ =====**");
+			this.addMessage(this.FIGHTER2.toString());
+		}
+		else {
+			this.addMessage(this.FIGHTER1.toString());
+			this.addMessage("-----------------");
+			this.addMessage(this.FIGHTER2.toString());
+			this.addMessage("**===== /VS/ =====**");
+			this.addMessage("**" + this.CURRENT_BOSS + "\nSTR : " + this.BOSS_HEALTH);
+		}
+
+		this.addMessage("**=== GLOBAL STATUS ===**");
+		if (this.BLIND_COUNTDOWN > 0) {
+			this.addMessage(" - WTF I'M FUCKING BLIND !");
+			if (this.BLIND_COUNTDOWN < 100) {
+				this.addMessage("(I'll be healed in " + this.BLIND_COUNTDOWN + " turns...)");
+			}
+		}
+		if (this.REVERSE_DAMAGE > 0) {
+			this.addMessage(" - Damages and heals are reversed for " + this.REVERSE_DAMAGE + " turns !");
+		}
+		if (this.GAY_TURNS > 0) {
+			this.addMessage(" - You are both gay for " + this.GAY_TURNS + " turns !");
+		}
+		if (this.ATTACK_MISS_COUNTDOWN > 0) {
+			this.addMessage(" - Attacks are twice as powerful for " + this.ATTACK_MISS_COUNTDOWN + " turns !");
+		}
+		if (this.AUTO_MOVES_COUNTDOWN > 0) {
+			this.addMessage(" - Both fighters always play for " + this.AUTO_MOVES_COUNTDOWN + " turns !");
+		}
+		if (this.NUCLEAR_BOMB > 0) {
+			this.addMessage(" - The Nuclear Bomb will explode in " + this.NUCLEAR_BOMB + " turns !");
+		}
+		if (this.FORCE_EVENT) {
+			this.addMessage(" - Events will occur every turns !");
+		}
+		if (this.ILLEGAL_JEWS) {
+			this.addMessage(" - Jew Priests are illegal !");
+		}
+		if (this.EVENT_BLOOD_MOON) {
+			this.addMessage(" - The Blood Moon is up in the sky !");
+		}
+		if (this.EVENT_PP_ENLIGHTENMENT) {
+			this.addMessage(" - You can use moves that aren't in this turn's movepool !");
+		}
+		if (this.EVENT_PP_PURGE) {
+			this.addMessage(" - Illegal moves are legal for this turn !");
+		}
+		if (this.PP_ARMAGEDDON) {
+			this.addMessage(" - **PP ARMAGEDDON**");
+		}
+
+		// HighFiveEmote - Stop move_list
+		if (this.STOPPED_MOVE_LIST.length >= 1) {
+			this.LIST_AVAILABLE_ATTACKS = this.STOPPED_MOVE_LIST;
+			this.STOPPED_MOVE_LIST = [];
+		}
+		else {
+			this.setRandomAttackList();
+		}
+
+		var gay = ""
+		if (this.GAY_TURNS > 0) {
+			gay = "opponent's "
+		}
+
+		this.addMessage("**=== MOVE SELECT ===**");
+		this.sendMessages();
+		this.BATTLE_CHANNEL.send("\n\nChoose your " + gay + "attack with a reaction !").then(function (_message2) {
+			for (var i in LIST_AVAILABLE_ATTACKS) {
+				console.log(LIST_AVAILABLE_ATTACKS[i]);
+				if (LIST_AVAILABLE_ATTACKS[i] != "IS_DEAD_LOL") {
+					_message2.react(LIST_AVAILABLE_ATTACKS[i]);
+				}
+			}
+		}).catch(function(e) {
+			addMessage(e);
+		});
+
+		// Stop if dead (cthulhu battle)
+		if (this.FIGHTER1.STR <= 0) {
+			this.FIGHTER1.attack = "IS_DEAD_LOL";
+			this.FIGHTER1.STRValue = -10;
+		}
+		if (this.FIGHTER2.STR <= 0) {
+			this.FIGHTER2.attack = "IS_DEAD_LOL";
+			this.FIGHTER2.STRValue = -10;
+		}
+
+		if ((this.FIGHTER1.turnSkip > 0 || this.FIGHTER1.grabbedPP > 0 || this.FIGHTER1.summonTankCountdown > 0 || this.FIGHTER1.isPossessed > 0) && 
+		    (this.FIGHTER2.turnSkip > 0 || this.FIGHTER2.grabbedPP > 0 || this.FIGHTER2.summonTankCountdown > 0 || this.FIGHTER2.isPossessed > 0)) {
+			this.newTurnDuel();
+		}
+
+		if (getRandomPercent() <= 25) {
+			this.FORCE_SATAN = false;
+		}
+	}
+	
+	illegalGetCaught(_percentage) {
+		if (this.BLIND_COUNTDOWN >= 0) {
+			return false;
+		}
+		var result = (getRandomPercent() < _percentage);
+		return result;
+	}
+	getRisk(_move) {
+		if (this.EVENT_PP_PURGE) {
+			return 0;
+		}
+		switch(_move) {
+			case EMOTE_PP46:
+				return 10;
+			case EMOTE_PP6:
+				return 20;
+			case EMOTE_PP10:
+				return 70;
+			case EMOTE_PP43:
+				return 15;
+			case EMOTE_PP25:
+				return 60;
+			case EMOTE_PP23:
+				return 20;
+			case EMOTE_PP44:
+				return 40;
+			case EMOTE_PP49:
+				return 98;
+		}
+		return 0;
+	}
+	getDexChange(_move) {
+		switch(_move) {
+			case EMOTE_PP3:
+				return -30;
+			case EMOTE_PP26:
+			case EMOTE_PP17:
+			case EMOTE_PP4:
+			case EMOTE_PP46:
+				return -20;
+			case EMOTE_PP2:
+			case EMOTE_PP6:
+			case EMOTE_PP16:
+				return -10;
+			case EMOTE_PP28:
+				return -5;
+			case EMOTE_PP12:
+			case EMOTE_PP22:
+				return 20;
+			case EMOTE_PP49:
+				return 1000;
+		}
+		return 0;
+	}
+}
+
 
 // FONCTIONS
 function getRandomPercent() {
@@ -1689,390 +2063,7 @@ function getRandomPercent() {
 function setBotActivity(_texte) {
 	return CLIENT.user.setActivity(_texte);
 }
-function addMessage(_texte) {
-	LIST_MESSAGES.push(_texte);
-}
-function sendMessages() {
-	var counter = 0;
-	while (LIST_MESSAGES.length > 10) {
-		LIST_MESSAGES.splice(0, 1);
-		counter += 1;
-	}
-	
-	if (counter > 0) {
-		LIST_MESSAGES = ["**-----------------\n" + counter + " messages were cancelled !\n-----------------**"].concat(LIST_MESSAGES);
-	}
-	for (var i in LIST_MESSAGES) {
-		BATTLE_CHANNEL.send(LIST_MESSAGES[i]);
-	}
-	LIST_MESSAGES = [];
-}
 
-function getOpponentOf(_fighter) {
-	if (FIGHTER1.user.id == _fighter.user.id) {
-		return FIGHTER2;
-	}
-	return FIGHTER1;
-}
-
-function illegalGetCaught(_percentage) {
-	if (BLIND_COUNTDOWN >= 0) {
-		console.log("blind");
-		return false;
-	}
-	var result = (getRandomPercent() < _percentage);
-	console.log("Illegal percentage : " + _percentage);
-	return result;
-}
-function getRisk(_move) {
-	console.log("risk of move : " + _move);
-	if (EVENT_PP_PURGE) {
-		return 0;
-	}
-	switch(_move) {
-		case EMOTE_PP46:
-			return 10;
-		case EMOTE_PP6:
-			return 20;
-		case EMOTE_PP10:
-			return 70;
-		case EMOTE_PP43:
-			return 15;
-		case EMOTE_PP25:
-			return 60;
-		case EMOTE_PP23:
-			return 20;
-		case EMOTE_PP44:
-			return 40;
-		case EMOTE_PP49:
-			return 98;
-	}
-	return 0;
-}
-function getDexChange(_move) {
-	console.log("move dex : " + _move);
-	switch(_move) {
-		case EMOTE_PP3:
-			return -30;
-		case EMOTE_PP26:
-		case EMOTE_PP17:
-		case EMOTE_PP4:
-		case EMOTE_PP46:
-			return -20;
-		case EMOTE_PP2:
-		case EMOTE_PP6:
-		case EMOTE_PP16:
-			return -10;
-		case EMOTE_PP28:
-			return -5;
-		case EMOTE_PP12:
-		case EMOTE_PP22:
-			return 20;
-		case EMOTE_PP49:
-			return 1000;
-	}
-	return 0;
-}
-
-function startDuel(_message) {
-	IS_BUSY = true;
-	IS_DUELLING = true;
-	IS_CHANGING_STYLE = false;
-
-	ILLEGAL_BOMBING = false;
-	BLIND_COUNTDOWN = 0;
-	STEEL_PROTECTION = false;
-	BARREL_DAMAGE = false;
-	SAVE_LIST = [];
-	STOPPED_MOVE_LIST = [];
-	INFINITE_DAMAGE = 0;
-	MOVE_COUNT = 0;
-	DAMAGE_COUNT = 0;
-	FORCE_EVENT = false;
-	REVERSE_DAMAGE = 0;
-	GAY_TURNS = 0;
-	ILLEGAL_JEWS = false;
-	ATTACK_MISS_COUNTDOWN = 0;
-	AUTO_MOVES_COUNTDOWN = 0;
-	NUCLEAR_BOMB = 0;
-
-	PP_ARMAGEDDON = false;
-	EVENT_PP_ENLIGHTENMENT = false;
-	EVENT_PP_PURGE = false;
-	EVENT_CONFUSION = false;
-	EVENT_BOSS = false;
-	EVENT_BLOOD_MOON = false;
-
-	FORCE_PERHAPS = false;
-	FORCE_SATAN = false;
-
-	console.log("F1 " + _message.author.id);
-	console.log("F2 " + _message.mentions.users.array()[0]);
-	FIGHTER1 = new Fighter(_message.author.id);
-	FIGHTER2 = new Fighter(_message.mentions.users.array()[0].id);
-
-	if (FIGHTER1.user.id == FIGHTER2.user.id) {
-		addMessage("You can't battle yourself");
-		IS_DUELLING = false;
-		IS_BUSY = false;
-		return;
-	}
-
-	addMessage("TIME FOR A DUEL");
-}
-function stopDuel() {
-	sendMessages();
-	addMessage("**===== RECAP =====**");
-	addMessage("FIGHTERS CURRENT STATE :");
-	addMessage(FIGHTER1.toString());
-	addMessage("-----------------");
-	addMessage(FIGHTER2.toString());
-	addMessage("SOME STATS :");
-	addMessage(" - Number of moves : " + MOVE_COUNT);
-	addMessage(" - Number of damages inflicted : " + DAMAGE_COUNT);
-
-	setBotActivity("");
-	sendMessages();
-	
-	IS_DUELLING = false;
-	IS_BUSY = false;
-	ATTACK_MISS_COUNTDOWN = 0;
-	AUTO_MOVES_COUNTDOWN = 0;
-}
-function newTurnDuel() {
-	addMessage("**===== TURN CHANGE =====**");
-	sendMessages();
-	FIGHTER1.turnChange();
-	FIGHTER2.turnChange();
-	
-	if (FIGHTER1.STR <= 0 && FIGHTER1.extraLife > 0) {
-		addMessage(FIGHTER1.user.username + " uses an extra life !");
-		FIGHTER1 = new Fighter(FIGHTER1.idUser);
-	}
-	if (FIGHTER2.STR <= 0 && FIGHTER2.extraLife > 0) {
-		addMessage(FIGHTER2.user.username + " uses an extra life !");
-		FIGHTER2 = new Fighter(FIGHTER2.idUser);
-	}
-
-	STEEL_PROTECTION = false;
-	BARREL_DAMAGE = false;
-	SAVE_LIST = [];
-	BLIND_COUNTDOWN -= 1;
-	INFINITE_DAMAGE = 0;
-	DISABLE_ABANDON = false;
-	REVERSE_DAMAGE -= 1;
-	GAY_TURNS -= 1;
-	ATTACK_MISS_COUNTDOWN -= 1;
-	AUTO_MOVES_COUNTDOWN -= 1;
-	NUCLEAR_BOMB -= 1;
-
-	if (BLIND_COUNTDOWN >= 1) {
-		setBotActivity("WTF I'M FUCKING BLIND");
-		BLIND_COUNTDOWN -= 1;
-	}
-	else {
-		setBotActivity("PP Punch Arena");
-	}
-	
-	if (NUCLEAR_BOMB == 0) {
-		addMessage("The Nuclear Bomb explodes now !");
-		FIGHTER1.damage(1000000000);
-		FIGHTER2.damage(1000000000);
-	}
-	
-	// Blood Moon Save
-	if (EVENT_BLOOD_MOON) {
-		if (FIGHTER1.STR <= 0) {
-			FIGHTER1.DEXValue += (0-FIGHTER1.STR)+1;
-			FIGHTER1.STRValue += (0-FIGHTER1.STR)+1;
-			addMessage(FIGHTER1.user.username + " got saved thanks to the Blood Moon");
-		}
-		if (FIGHTER2.STR <= 0) {
-			FIGHTER2.DEXValue += (0-FIGHTER2.STR)+1;
-			FIGHTER2.STRValue += (0-FIGHTER2.STR)+1;
-			addMessage(FIGHTER2.user.username + " got saved thanks to the Blood Moon");
-		}
-	}
-
-	// Cthulhu
-	if (EVENT_BOSS) {
-		if (BOSS_HEALTH <= 0 && CURRENT_BOSS == BOSS_PP1) {
-			addMessage(CURRENT_BOSS + " goes back to sleep to heal his poor PP !");
-			addMessage("You both win !");
-			addWinCounter(FIGHTER1, 1);
-			addWinCounter(FIGHTER2, 1);
-			EVENT_BOSS = false;
-			return stopDuel();
-		}
-		else if (BOSS_HEALTH <= 0 && CURRENT_BOSS == BOSS_PP2) {
-			addMessage(CURRENT_BOSS + " will now stop making updates for some time !");
-			EVENT_BOSS = false;
-		}
-		else if (BOSS_HEALTH <= 0 && CURRENT_BOSS == BOSS_PP3) {
-			addMessage(CURRENT_BOSS + " goes back to sleep to heal his poor PP !");
-			addMessage("You both win !");
-			addWinCounter(FIGHTER1, 1);
-			addWinCounter(FIGHTER2, 1);
-			EVENT_BOSS = false;
-			
-			var role = GUILD.roles.find(r => r.name == GOD_PP21_PRIEST);
-			try {
-				FIGHTER1.guildUser.addRole(role).catch(console.error);
-				FIGHTER2.guildUser.addRole(role).catch(console.error);
-				addMessage("**D.I.C.K. is proud of you. He grants you his powers.**");
-				addMessage("**If you don't want to be a D.I.C.K. Priest, use the custom command to automatically remove this role.**");
-			}
-			catch(e) {
-				addMessage("D.I.C.K. is proud of you. However, he can't grant you his powers on this server.");
-			}
-			
-			return stopDuel();
-		}
-		else {
-			if (getRandomPercent() >= 50) {
-				addMessage(FIGHTER1.user.username + " gets attacked by " + CURRENT_BOSS + " !");
-				FIGHTER1.STRValue -= BOSS_DAMAGE;
-			}
-			else {
-				addMessage(FIGHTER2.user.username + " gets attacked by " + CURRENT_BOSS + " !");
-				FIGHTER2.STRValue -= BOSS_DAMAGE;
-			}
-			addMessage("He takes" + BOSS_DAMAGE + " damages !");
-		}
-
-		// Check if loose
-		if (FIGHTER1.STR <= 0 && FIGHTER2.STR <= 0) {
-			addMessage("Both of you lost. No one won this time. You losers");
-			stopDuel();
-			return;
-		}
-	}
-	else {
-		// Check if dead
-		if (FIGHTER1.STR <= 0 && FIGHTER2.STR <= 0) {
-			addMessage("Both of you lost. No one won this time. You losers");
-			stopDuel();
-			return;
-		}
-		else if (FIGHTER1.STR <= 0) {
-			addMessage(FIGHTER2.user.username + " won ! Congrats !");
-			FIGHTER2.win();
-			stopDuel();
-			return;
-		}
-		else if (FIGHTER2.STR <= 0) {
-			addMessage(FIGHTER1.user.username + " won ! Congrats !");
-			FIGHTER1.win();
-			stopDuel();
-			return;
-		}
-	}
-	
-	startRandomEvent();
-	
-	addMessage("\n\n**===== NEW TURN =====**");
-	
-	addMessage("**=== FIGHTERS ===**");
-	if (!EVENT_BOSS) {
-		addMessage(FIGHTER1.toString());
-		addMessage("**===== /VS/ =====**");
-		addMessage(FIGHTER2.toString());
-	}
-	else {
-		addMessage(FIGHTER1.toString());
-		addMessage("-----------------");
-		addMessage(FIGHTER2.toString());
-		addMessage("**===== /VS/ =====**");
-		addMessage("**" + CURRENT_BOSS + "\nSTR : " + BOSS_HEALTH);
-	}
-	
-	addMessage("**=== GLOBAL STATUS ===**");
-	if (BLIND_COUNTDOWN > 0) {
-		addMessage(" - WTF I'M FUCKING BLIND !");
-		if (BLIND_COUNTDOWN < 100) {
-			addMessage("(I'll be healed in " + BLIND_COUNTDOWN + " turns...)");
-		}
-	}
-	if (REVERSE_DAMAGE > 0) {
-		addMessage(" - Damages and heals are reversed for " + REVERSE_DAMAGE + " turns !");
-	}
-	if (GAY_TURNS > 0) {
-		addMessage(" - You are both gay for " + GAY_TURNS + " turns !");
-	}
-	if (ATTACK_MISS_COUNTDOWN > 0) {
-		addMessage(" - Attacks are twice as powerful for " + ATTACK_MISS_COUNTDOWN + " turns !");
-	}
-	if (AUTO_MOVES_COUNTDOWN > 0) {
-		addMessage(" - Both fighters always play for " + AUTO_MOVES_COUNTDOWN + " turns !");
-	}
-	if (NUCLEAR_BOMB > 0) {
-		addMessage(" - The Nuclear Bomb will explode in " + NUCLEAR_BOMB + " turns !");
-	}
-	if (FORCE_EVENT) {
-		addMessage(" - Events will occur every turns !");
-	}
-	if (ILLEGAL_JEWS) {
-		addMessage(" - Jew Priests are illegal !");
-	}
-	if (EVENT_BLOOD_MOON) {
-		addMessage(" - The Blood Moon is up in the sky !");
-	}
-	if (EVENT_PP_ENLIGHTENMENT) {
-		addMessage(" - You can use moves that aren't in this turn's movepool !");
-	}
-	if (EVENT_PP_PURGE) {
-		addMessage(" - Illegal moves are legal for this turn !");
-	}
-	if (PP_ARMAGEDDON) {
-		addMessage(" - **PP ARMAGEDDON**");
-	}
-
-	// HighFiveEmote - Stop move_list
-	if (STOPPED_MOVE_LIST.length >= 1) {
-		LIST_AVAILABLE_ATTACKS = STOPPED_MOVE_LIST;
-		STOPPED_MOVE_LIST = [];
-	}
-	else {
-		setRandomAttackList();
-	}
-
-	var gay = ""
-	if (GAY_TURNS > 0) {
-		gay = "opponent's "
-	}
-	
-	addMessage("**=== MOVE SELECT ===**");
-	sendMessages();
-	BATTLE_CHANNEL.send("\n\nChoose your " + gay + "attack with a reaction !").then(function (_message2) {
-		for (var i in LIST_AVAILABLE_ATTACKS) {
-			console.log(LIST_AVAILABLE_ATTACKS[i]);
-			if (LIST_AVAILABLE_ATTACKS[i] != "IS_DEAD_LOL") {
-				_message2.react(LIST_AVAILABLE_ATTACKS[i]);
-			}
-		}
-	}).catch(function(e) {
-		addMessage(e);
-	});
-
-	// Stop if dead (cthulhu battle)
-	if (FIGHTER1.STR <= 0) {
-		FIGHTER1.attack = "IS_DEAD_LOL";
-		FIGHTER1.STRValue = -10;
-	}
-	if (FIGHTER2.STR <= 0) {
-		FIGHTER2.attack = "IS_DEAD_LOL";
-		FIGHTER2.STRValue = -10;
-	}
-
-	if ((FIGHTER1.turnSkip > 0 || FIGHTER1.grabbedPP > 0 || FIGHTER1.summonTankCountdown > 0 || FIGHTER1.isPossessed > 0) && 
-	    (FIGHTER2.turnSkip > 0 || FIGHTER2.grabbedPP > 0 || FIGHTER2.summonTankCountdown > 0 || FIGHTER2.isPossessed > 0)) {
-		newTurnDuel();
-	}
-	
-	if (getRandomPercent() <= 25) {
-		FORCE_SATAN = false;
-	}
-}
 
 function setRandomAttackList() {
 	var listeAttaques = [];
