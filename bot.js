@@ -2047,6 +2047,12 @@ class Duel {
 			// Ascension
 			this.addMessage(" -- ASCENSION --");
 			this.addMessage(winner.user.username + " accidentaly plays Ascend on his phone !");
+			if (getRandomPercent() >= 50) {
+				var winner = FIGHTER1;
+			}
+			else {
+				var winner = FIGHTER2;
+			}
 			this.FIGHTER1.playMove(EMOTE_PP49);
 			this.FIGHTER2.playMove(EMOTE_PP49);
 		}
