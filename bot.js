@@ -2453,10 +2453,11 @@ CLIENT.on("message", async _message => {
 	}
 	if (argsUser[1] == "custom") {
 		// STYLE
-		var user = GUILD.members.get(_message.author.id);
-		var role = GUILD.roles.find(r => r.name == GOD_PP21_PRIEST);
+		var guild = _message.channel.guild;
+		var user = guild.members.get(_message.author.id);
+		var role = guild.roles.find(r => r.name == GOD_PP21_PRIEST);
 		if (user.roles.has(role.id)) {
-			user.removeRole(GUILD.roles.find(r => r.name == GOD_PP21_PRIEST)).catch(console.error);
+			user.removeRole(guild.roles.find(r => r.name == GOD_PP21_PRIEST)).catch(console.error);
 			_message.channel.send("D.I.C.K Priest was removed from your roles.");
 		}
 		
@@ -2467,7 +2468,7 @@ CLIENT.on("message", async _message => {
 			_message2.react(EMOTE_PP34); // Alien PP
 			_message2.react(EMOTE_PP41); // Drunk PP
 		}).catch(function(e) {
-			addMessage(e);
+			console.log(e);
 		});
 		return _message.reply("change your God with a reaction.").then(function (_message2) {
 			_message2.react(GOD_PP1); // Mongo
