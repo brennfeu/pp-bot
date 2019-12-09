@@ -2419,10 +2419,11 @@ CLIENT.on("message", async _message => {
 			return;
 		}
 
-		var duel = new Duel(_message);
-		duel.newTurnDuel();
-		
+		var duel = "";
 		DUEL_LIST.push(duel);
+		
+		duel = new Duel(_message);
+		duel.newTurnDuel();
 
 		return;
 	}
