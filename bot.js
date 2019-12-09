@@ -2335,10 +2335,10 @@ function killDeadDuels() {
 
 function setBotActivity() {
 	if (DUEL_LIST.size > 0) {
-		return CLIENT.user.setActivity("PP Punch Arena (" + DUEL_LIST.size + " duels)");
+		CLIENT.user.setActivity("PP Punch Arena (" + DUEL_LIST.size + " duels)");
 	}
 	else {
-		return CLIENT.user.setActivity("");
+		CLIENT.user.setActivity("");
 	}
 }
 
@@ -2439,7 +2439,7 @@ CLIENT.on("message", async _message => {
 	}
 	if (argsUser[1] == "quit") {
 		if (getDuel(_message.channel.id) != null) {
-			var duel = getDuel(_message.channel.id)
+			var duel = getDuel(_message.channel.id);
 			if (_message.author.id == duel.FIGHTER1.user.id) {
 				duel.FIGHTER1.playMove(EMOTE_PP47);
 				duel.stopDuel();
@@ -2511,19 +2511,13 @@ CLIENT.on("message", async _message => {
 });
 
 CLIENT.on('messageReactionAdd', (_reaction, _user) => {
-	console.log("test0");
-	
 	setBotActivity();
-	
-	console.log("test1");
 	
 	// Ignore si bot
 	if (_user.bot) return;
 
 	// DUEL
 	if (getDuel(_reaction.message.channel.id) != null) {
-		console.log("test2");
-		
 		var duel = getDuel(_reaction.message.channel.id)
 		
 		// Save Me Move
