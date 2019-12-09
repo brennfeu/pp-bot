@@ -1725,7 +1725,7 @@ class Duel {
 
 		this.addMessage("TIME FOR A DUEL");
 	}
-	function stopDuel() {
+	stopDuel() {
 		this.sendMessages();
 		this.addMessage("**===== RECAP =====**");
 		this.addMessage("FIGHTERS CURRENT STATE :");
@@ -1740,10 +1740,10 @@ class Duel {
 		this.sendMessages();
 	}
 	
-	function addMessage(_texte) {
+	addMessage(_texte) {
 		this.LIST_MESSAGES.push(_texte);
 	}
-	function sendMessages() {
+	sendMessages() {
 		var counter = 0;
 		while (this.LIST_MESSAGES.length > 10) {
 			this.LIST_MESSAGES.splice(0, 1);
@@ -1769,7 +1769,7 @@ class Duel {
 		return this.getOpponentOf(_fighter);
 	}
 	
-	function newTurnDuel() {
+	newTurnDuel() {
 		this.addMessage("**===== TURN CHANGE =====**");
 		this.sendMessages();
 		this.FIGHTER1.turnChange();
@@ -1996,6 +1996,134 @@ class Duel {
 		}
 	}
 	
+	setRandomAttackList() {
+		var listeAttaques = [];
+		var emote;
+
+		if (this.EVENT_CONFUSION) {
+			return this.LIST_AVAILABLE_ATTACKS = [EMOTE_PP39];
+		}
+		if (this.FORCE_PERHAPS) {
+			this.LIST_AVAILABLE_ATTACKS = [EMOTE_PP50];
+			return this.FORCE_PERHAPS = false
+		}
+		if (this.FORCE_SATAN) {
+			return this.LIST_AVAILABLE_ATTACKS = [EMOTE_PP26];
+		}
+
+		// Attaque 1
+		if (getRandomPercent() > 20) {
+			emote = this.getRandomEmote();
+			listeAttaques.push(emote);
+		}
+		else {
+			listeAttaques.push(EMOTE_PP1);
+		}
+		// Attaque 2
+		if (getRandomPercent() > 20) {
+			emote = this.getRandomEmote();
+			if (listeAttaques.indexOf(emote) < 0) {
+				listeAttaques.push(emote);
+			}
+			else {
+				listeAttaques.push(EMOTE_PP2);
+			}
+		}
+		else {
+			listeAttaques.push(EMOTE_PP2);
+		}
+		// Attaque 3
+		if (getRandomPercent() > 20) {
+			emote = this.getRandomEmote();
+			if (listeAttaques.indexOf(emote) < 0) {
+				listeAttaques.push(emote);
+			}
+			else {
+				listeAttaques.push(EMOTE_PP3);
+			}
+		}
+		else {
+			listeAttaques.push(EMOTE_PP3);
+		}
+		// Attaque 4
+		if (getRandomPercent() > 20) {
+			emote = this.getRandomEmote();
+			if (listeAttaques.indexOf(emote) < 0) {
+				listeAttaques.push(emote);
+			}
+			else {
+				listeAttaques.push(EMOTE_PP4);
+			}
+		}
+		else {
+			listeAttaques.push(EMOTE_PP4);
+		}
+		// Attaque 5
+		if (getRandomPercent() > 20) {
+			emote = this.getRandomEmote();
+			if (listeAttaques.indexOf(emote) < 0) {
+				listeAttaques.push(emote);
+			}
+			else {
+				listeAttaques.push(EMOTE_PP5);
+			}
+		}
+		else {
+			listeAttaques.push(EMOTE_PP5);
+		}
+
+		if (this.FIGHTER1.regularCharges > 0 || this.FIGHTER2.regularCharges > 0) {
+			listeAttaques.push(this.EMOTE_PP51);
+		}
+		if (this.FIGHTER1.specialCharges > 0 || this.FIGHTER2.specialCharges > 0) {
+			listeAttaques.push(this.EMOTE_PP52);
+		}
+
+		this.LIST_AVAILABLE_ATTACKS = listeAttaques;
+		this.LIST_AVAILABLE_ATTACKS.push("IS_DEAD_LOL");
+	}
+	getRandomEmote(_canBeIllegal = true) {
+		var legalList = [EMOTE_PP7, EMOTE_PP8, EMOTE_PP9,
+						EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20,
+						EMOTE_PP21, EMOTE_PP22, EMOTE_PP24, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30,
+						EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40,
+						EMOTE_PP41, EMOTE_PP42, EMOTE_PP45, EMOTE_PP46, EMOTE_PP48, EMOTE_PP50
+						];
+		var illegalList = [EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, EMOTE_PP10,
+						EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20,
+						EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30,
+						EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40,
+						EMOTE_PP41, EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP48, EMOTE_PP49, EMOTE_PP50
+						];
+		var goodList;
+		if (_canBeIllegal) {
+			goodList = illegalList;
+		}
+		else {
+			goodList = legalList;
+		}
+
+		if (this.ILLEGAL_BOMBING) {
+			goodList.push(EMOTE_PP36);
+		}
+		if (!this.DISABLE_ABANDON) {
+			goodList.push(EMOTE_PP47);
+		}
+		if (this.PP_ARMAGEDDON || getRandomPercent() <= 3) {
+			goodList = goodList.concat(SPECIAL_EMOTE_LIST);
+		}
+
+		return goodList[Math.floor(Math.random()*goodList.length)];
+	}
+	getAttackFromEmote(_emote) {
+		for (var i in EMOTE_LIST) {
+			if (_emote.name == CLIENT.emojis.get(EMOTE_LIST[i]).name) {
+				return EMOTE_LIST[i];
+			}
+		}
+		return EMOTE_PP50;
+	}
+	
 	illegalGetCaught(_percentage) {
 		if (this.BLIND_COUNTDOWN >= 0) {
 			return false;
@@ -2062,135 +2190,6 @@ function getRandomPercent() {
 
 function setBotActivity(_texte) {
 	return CLIENT.user.setActivity(_texte);
-}
-
-
-function setRandomAttackList() {
-	var listeAttaques = [];
-	var emote;
-
-	if (EVENT_CONFUSION) {
-		return LIST_AVAILABLE_ATTACKS = [EMOTE_PP39];
-	}
-	if (FORCE_PERHAPS) {
-		LIST_AVAILABLE_ATTACKS = [EMOTE_PP50];
-		return FORCE_PERHAPS = false
-	}
-	if (FORCE_SATAN) {
-		return LIST_AVAILABLE_ATTACKS = [EMOTE_PP26];
-	}
-
-	// Attaque 1
-	if (getRandomPercent() > 20) {
-		emote = getRandomEmote();
-		listeAttaques.push(emote);
-	}
-	else {
-		listeAttaques.push(EMOTE_PP1);
-	}
-	// Attaque 2
-	if (getRandomPercent() > 20) {
-		emote = getRandomEmote();
-		if (listeAttaques.indexOf(emote) < 0) {
-			listeAttaques.push(emote);
-		}
-		else {
-			listeAttaques.push(EMOTE_PP2);
-		}
-	}
-	else {
-		listeAttaques.push(EMOTE_PP2);
-	}
-	// Attaque 3
-	if (getRandomPercent() > 20) {
-		emote = getRandomEmote();
-		if (listeAttaques.indexOf(emote) < 0) {
-			listeAttaques.push(emote);
-		}
-		else {
-			listeAttaques.push(EMOTE_PP3);
-		}
-	}
-	else {
-		listeAttaques.push(EMOTE_PP3);
-	}
-	// Attaque 4
-	if (getRandomPercent() > 20) {
-		emote = getRandomEmote();
-		if (listeAttaques.indexOf(emote) < 0) {
-			listeAttaques.push(emote);
-		}
-		else {
-			listeAttaques.push(EMOTE_PP4);
-		}
-	}
-	else {
-		listeAttaques.push(EMOTE_PP4);
-	}
-	// Attaque 5
-	if (getRandomPercent() > 20) {
-		emote = getRandomEmote();
-		if (listeAttaques.indexOf(emote) < 0) {
-			listeAttaques.push(emote);
-		}
-		else {
-			listeAttaques.push(EMOTE_PP5);
-		}
-	}
-	else {
-		listeAttaques.push(EMOTE_PP5);
-	}
-
-	if (FIGHTER1.regularCharges > 0 || FIGHTER2.regularCharges > 0) {
-		listeAttaques.push(EMOTE_PP51);
-	}
-	if (FIGHTER1.specialCharges > 0 || FIGHTER2.specialCharges > 0) {
-		listeAttaques.push(EMOTE_PP52);
-	}
-
-	LIST_AVAILABLE_ATTACKS = listeAttaques;
-	LIST_AVAILABLE_ATTACKS.push("IS_DEAD_LOL");
-}
-function getRandomEmote(_canBeIllegal = true) {
-	var legalList = [EMOTE_PP7, EMOTE_PP8, EMOTE_PP9,
-					EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20,
-					EMOTE_PP21, EMOTE_PP22, EMOTE_PP24, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30,
-					EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40,
-					EMOTE_PP41, EMOTE_PP42, EMOTE_PP45, EMOTE_PP46, EMOTE_PP48, EMOTE_PP50
-					];
-	var illegalList = [EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, EMOTE_PP10,
-					EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20,
-					EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30,
-					EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40,
-					EMOTE_PP41, EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP48, EMOTE_PP49, EMOTE_PP50
-					];
-	var goodList;
-	if (_canBeIllegal) {
-		goodList = illegalList;
-	}
-	else {
-		goodList = legalList;
-	}
-
-	if (ILLEGAL_BOMBING) {
-		goodList.push(EMOTE_PP36);
-	}
-	if (!DISABLE_ABANDON) {
-		goodList.push(EMOTE_PP47);
-	}
-	if (PP_ARMAGEDDON || getRandomPercent() <= 3) {
-		goodList = goodList.concat(SPECIAL_EMOTE_LIST);
-	}
-
-	return goodList[Math.floor(Math.random()*goodList.length)];
-}
-function getAttackFromEmote(_emote) {
-	for (var i in EMOTE_LIST) {
-		if (_emote.name == CLIENT.emojis.get(EMOTE_LIST[i]).name) {
-			return EMOTE_LIST[i];
-		}
-	}
-	return EMOTE_PP50;
 }
 
 function startRandomEvent() {
