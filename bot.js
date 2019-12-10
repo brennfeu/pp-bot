@@ -2324,7 +2324,6 @@ function killDeadDuels() {
 function setBotActivity() {
 	if (DUEL_LIST.length > 0) {
 		CLIENT.user.setActivity(DUEL_LIST.length + " duel(s) of PP Punching");
-		console.log(DUEL_LIST);
 	}
 	else {
 		CLIENT.user.setActivity("alone with my PP...");
