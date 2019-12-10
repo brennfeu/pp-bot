@@ -655,15 +655,15 @@ class Fighter {
 				this.duel.sendMessages(1);
 				this.duel.bothFightersAction(function(_fighter) {
 					_fighter.duel.addMessage("-----------------");
-					_fighter.playMove(this.duel.getRandomEmote(false));
+					_fighter.playMove(_fighter.duel.getRandomEmote(false));
 					_fighter.duel.addMessage("-----------------");
-					_fighter.playMove(this.duel.getRandomEmote(false));
+					_fighter.playMove(_fighter.duel.getRandomEmote(false));
 					_fighter.duel.addMessage("-----------------");
-					_fighter.playMove(this.duel.getRandomEmote(false));
+					_fighter.playMove(_fighter.duel.getRandomEmote(false));
 					_fighter.duel.addMessage("-----------------");
-					_fighter.playMove(this.duel.getRandomEmote());
+					_fighter.playMove(_fighter.duel.getRandomEmote());
 					_fighter.duel.addMessage("-----------------");
-					_fighter.playMove(this.duel.getRandomEmote());
+					_fighter.playMove(_fighter.duel.getRandomEmote());
 				});
 			}
 			else if (attack == EMOTE_PP27) {
