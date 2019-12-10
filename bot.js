@@ -808,20 +808,13 @@ class Fighter {
 				this.duel.DISABLE_ABANDON = true;
 				this.duel.addMessage(this.user.username + " calls the Ancient Fongus !");
 				var chaosNumber = getRandomPercent();
-				if (getRandomPercent() >= 50) {
-					var winner = this;
-				}
-				else {
-					var winner = this.duel.getOppOf(this);
-				}
-				if (this.eldritchFriend && !this.duel.getOppOf(this).eldritchFriend) {
-					chaosNumber = 100;
-					var winner = this;
-				}
-				else if (this.duel.getOppOf(this).eldritchFriend && !this.eldritchFriend) {
-					chaosNumber = 100;
-					var winner = this.duel.getOppOf(this);
-				}
+				var winner = this.duel.getRandomFighter();
+				this.duel.bothFightersAction(function(_fighter) {
+					if (_fighter.eldritchFriend && !_fighter.duel.getOppOf(_fighter).eldritchFriend) {
+						chaosNumber = 100;
+						var winner = _fighter;
+					}
+				}, this.duel.getOppOf(this));
 				this.duel.addMessage("He will use " + chaosNumber + "% of his power in " + winner.user.username + " !");
 				this.duel.sendMessages(2);
 				chaosNumber = Math.floor(chaosNumber/4);
