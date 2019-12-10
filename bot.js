@@ -411,7 +411,7 @@ class Fighter {
 			txt += " - **Grabbed PP**\n";
 		}
 		if (this.summonTankCountdown > 0) {
-			txt += " - **Summoning the Monster...**\n";
+			txt += " - **Summoning the Monster (" + 3-this.summonTankCountdown + "/3)**\n";
 		}
 		if (this.extraLife > 0) {
 			txt += " - **Extra lives : " + this.extraLife + "**\n";
@@ -547,7 +547,12 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP10) {
 				// Tank
-				this.duel.addMessage(this.user.username + " brings a tank !");
+				if (this.summonTankCountdown == 1) {
+					this.duel.addMessage(this.user.username + " summons **The Monster** !");
+				}
+				else {
+					this.duel.addMessage(this.user.username + " brings a tank !");
+				}
 				this.duel.addMessage("FIRE !");
 				this.duel.getOppOf(this).damage(1000);
 			}
@@ -2636,7 +2641,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				if (duel.LIST_AVAILABLE_ATTACKS.indexOf(_fighter.attack) < 0 && 
 				    !(_fighter.attack == duel.EMOTE_PP50 && _fighter.turnSkip) && 
 				    !(_fighter.attack == duel.EMOTE_PP39 && _fighter.grabbedPP) && 
-				    !(_fighter.attack == duel.EMOTE_PP10 && _fighter.summonTankCountdown)) {
+				    !(_fighter.attack == duel.EMOTE_PP10 && _fighter.summonTankCountdown == 1)) {
 					caught1 = caught1 || (duel.illegalGetCaught(50) && !duel.EVENT_PP_ENLIGHTENMENT) && !_fighter.badLuck;
 				}
 				
