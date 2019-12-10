@@ -2434,7 +2434,7 @@ CLIENT.on("message", async _message => {
 				duel.stopDuel();
 				return;
 			}
-			else if (_message.author.id == FIGHTER2.user.id) {
+			else if (_message.author.id == duel.FIGHTER2.user.id) {
 				duel.FIGHTER2.playMove(EMOTE_PP47);
 				duel.stopDuel();
 				return;
@@ -2507,7 +2507,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 
 	// DUEL
 	if (getDuel(_reaction.message.channel.id) != null) {
-		var duel = getDuel(_reaction.message.channel.id)
+		var duel = getDuel(_reaction.message.channel.id);
 		
 		// Save Me Move
 		if (duel.getAttackFromEmote(_reaction.emoji) == EMOTE_PP31 && duel.SAVE_LIST.indexOf(_user.id) < 0) {
@@ -2518,10 +2518,11 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				_fighter.heal(50);
 			});
 		}
-		
-		// GAY_TURNS
-		if (duel.GAY_TURNS > 0) {
-			duel.bothFightersAction(function(_fighter) {
+
+		// Assigne attaque
+		duel.bothFightersAction(function(_fighter) {
+			// GAY_TURNS
+			if (duel.GAY_TURNS > 0) {
 				if (_user.id == _fighter.user.id) {
 					if (duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.getAttackFromEmote(_reaction.emoji)) < 0) {
 						duel.addMessage("Gay people can't cheat...");
@@ -2533,12 +2534,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 						duel.sendMessages();
 					}
 				}
-			});
-		}
-
-		// Assigne attaque
-		duel.bothFightersAction(function(_fighter) {
-			if (_user.id == _fighter.user.id && _fighter.isPossessed <= 0 && _fighter.turnSkip <= 0 && _fighter.grabbedPP <= 0 && _fighter.summonTankCountdown <= 0) {
+			}
+			else if (_user.id == _fighter.user.id && _fighter.isPossessed <= 0 && _fighter.turnSkip <= 0 && _fighter.grabbedPP <= 0 && _fighter.summonTankCountdown <= 0) {
 				_fighter.attack = duel.getAttackFromEmote(_reaction.emoji);
 				duel.addMessage(_fighter.user.username + " : " + _reaction.emoji.name);
 				duel.sendMessages();
@@ -2556,13 +2553,13 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		if (duel.FIGHTER1.attack != "" && duel.FIGHTER2.attack != "") {
 			duel.bothFightersAction(function(_fighter) {
 				if (_fighter.turnSkip > 0) {
-					duel.FIGHTER1.attack = EMOTE_PP50;
+					_fighter.attack = EMOTE_PP50;
 				}
 				if (_fighter.grabbedPP > 0) {
-					duel.FIGHTER1.attack = EMOTE_PP39;
+					_fighter.attack = EMOTE_PP39;
 				}
 				if (_fighter.summonTankCountdown > 0) {
-					duel.FIGHTER1.attack = EMOTE_PP10;
+					_fighter.attack = EMOTE_PP10;
 				}
 			});
 
@@ -2678,14 +2675,12 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			
 			duel.addMessage("\n\n**===== ATTACKS =====**");
 			
-			if (duel.FIGHTER1.godList.indexOf(GOD_PP7_PRIEST) > -1 && duel.FIGHTER1.godList.indexOf(GOD_PP17_PRIEST) > -1 && getRandomPercent() <= 10) {
-				duel.addMessage(duel.FIGHTER1.user.username + " gets the Jew-Hitler Paradox Effect !");
-				duel.FIGHTER1.attack = duel.getRandomEmote(false);
-			}
-			if (duel.FIGHTER2.godList.indexOf(GOD_PP7_PRIEST) > -1 && duel.FIGHTER2.godList.indexOf(GOD_PP17_PRIEST) > -1 && getRandomPercent() <= 10) {
-				duel.addMessage(duel.FIGHTER2.user.username + " gets the Jew-Hitler Paradox Effect !");
-				duel.FIGHTER2.attack = duel.getRandomEmote(false);
-			}
+			this.duel.bothFightersAction(function(_fighter) {
+				if (_fighter.godList.indexOf(GOD_PP7_PRIEST) > -1 && _fighter.godList.indexOf(GOD_PP17_PRIEST) > -1 && getRandomPercent() <= 10) {
+					_fighter.duel.addMessage(_fighter.user.username + " gets the Jew-Hitler Paradox Effect !");
+					_fighter.attack = duel.getRandomEmote(false);
+				}
+			});
 
 			// Change attack if dead (cthulhu battle)
 			if (duel.FIGHTER1.STR <= 0) {
