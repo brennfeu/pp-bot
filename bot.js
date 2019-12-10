@@ -2588,6 +2588,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				// Illegal Jews (Hitler regular move)
 				if (duel.ILLEGAL_JEWS && _fighter.godList.indexOf(duel.GOD_PP7_PRIEST) > -1 && duel.illegalGetCaught(5)) {
 					duel.addMessage("Wait, I think " + _fighter.user.username + " is a jew !");
+					duel.sendMessages();
 					caught1 = true;
 				}
 				
@@ -2600,11 +2601,13 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				if (_fighter.trueBarbarian && _fighter.STR >= 100 && caught1) {
 					caught1 = false;
 					duel.addMessage(_fighter.user.username + " strong. " + _fighter.user.username + " punch arbitratory if arbitratory bad.");
+					duel.sendMessages();
 				}
 				
 				// Caught cheating --> test si malus dex
 				if (caught1 && (getRandomPercent() >= 33 || _fighter.godList.indexOf(GOD_PP16_PRIEST) > -1 && _fighter.godList.indexOf(GOD_PP13_PRIEST) > -1)) {
 					duel.addMessage(_fighter.user.username + " is doing illegal stuff ! He loses 20 DEX and 10 STR.");
+					duel.sendMessages();
 					_fighter.user.username.STRValue -= 10;
 					_fighter.user.username.DEXValue -= 20;
 					_fighter.attack = EMOTE_PP50;
@@ -2614,6 +2617,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 					duel.addMessage("WAIT " + _fighter.user.username.toUpperCase() + " IS DOING ILLEGAL STUFF RIGHT NOW !");
 					duel.addMessage(_fighter.user.username + " is disqualified for being a dumb shit.");
 					duel.addMessage(duel.getOppOf(_fighter).user.username + " wins !");
+					duel.sendMessages();
 
 					duel.getOppOf(_fighter).win();
 					addWinCounter(_fighter, -1);
@@ -2628,7 +2632,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			duel.bothFightersAction(function(_fighter) {
 				// Jew Hitler Paradox
 				if (_fighter.godList.indexOf(GOD_PP7_PRIEST) > -1 && _fighter.godList.indexOf(GOD_PP17_PRIEST) > -1 && getRandomPercent() <= 10) {
-					_fighter.duel.addMessage(_fighter.user.username + " gets the Jew-Hitler Paradox Effect !");
+					duel.addMessage(_fighter.user.username + " gets the Jew-Hitler Paradox Effect !");
+					duel.sendMessages();
 					_fighter.attack = duel.getRandomEmote(false);
 				}
 				
@@ -2652,6 +2657,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				duel.addMessage("I'm literally shaking and crying right now.");
 				duel.addMessage("This is so beautiful...");
 				duel.addMessage("I love you all.");
+				duel.sendMessages();
 				duel.stopDuel();
 				return;
 			}
@@ -2693,7 +2699,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 					}
 				}, winner);
 			}
-			else {				
+			else {
 				// Save
 				if (duel.getOppOf(winner).attack == EMOTE_PP15) {
 					duel.getOppOf(winner).playMove();
