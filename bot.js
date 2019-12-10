@@ -1396,6 +1396,14 @@ class Fighter {
 					this.duel.addMessage(this.duel.getOppOf(this).user.username + " is a big nerd !");
 					this.duel.addMessage(this.duel.getOppOf(this).user.username + " better abandons now !");
 					this.duel.getOppOf(this).playMove(EMOTE_PP47);
+					this.duel.addMessage("Haha just kidding !");
+					this.duel.addMessage("Unless I wasn't ?");
+					this.duel.addMessage("Nah it was a joke !");
+					this.duel.addMessage("Unless...?");
+					this.duel.getOppOf(this).playMove(EMOTE_PP47);
+					this.duel.getOppOf(this).playMove(EMOTE_PP47);
+					this.duel.getOppOf(this).playMove(EMOTE_PP47);
+					this.duel.addMessage("hehe");
 					this.duel.sendMessages();
 				}
 				else {
