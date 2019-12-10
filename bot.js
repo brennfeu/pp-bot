@@ -2697,8 +2697,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				duel.addMessage("You cheaters do not deserve to live !");
 				duel.addMessage("You fucking suckers");
 
-				addWinCounter(FIGHTER1, -1);
-				addWinCounter(FIGHTER2, -1);
+				addWinCounter(duel.FIGHTER1, -1);
+				addWinCounter(duel.FIGHTER2, -1);
 
 				duel.stopDuel();
 				return;
