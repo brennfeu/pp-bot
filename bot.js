@@ -411,7 +411,7 @@ class Fighter {
 			txt += " - **Grabbed PP**\n";
 		}
 		if (this.summonTankCountdown > 0) {
-			txt += " - **Summoning the Monster (" + (3-this.summonTankCountdown) + "/3)**\n";
+			txt += " - **Summoning the Monster (" + (2-this.summonTankCountdown) + "/3)**\n";
 		}
 		if (this.extraLife > 0) {
 			txt += " - **Extra lives : " + this.extraLife + "**\n";
@@ -1962,6 +1962,14 @@ class Duel {
 		
 		if ((this.FIGHTER1.turnSkip > 0 || this.FIGHTER1.grabbedPP > 0 || this.FIGHTER1.summonTankCountdown == 1 || this.FIGHTER1.isPossessed > 0) && 
 		    (this.FIGHTER2.turnSkip > 0 || this.FIGHTER2.grabbedPP > 0 || this.FIGHTER2.summonTankCountdown == 1 || this.FIGHTER2.isPossessed > 0)) {
+			this.bothFightersAction(function(_fighter) {
+				if (_fighter.summonTankCountdown == 1) {
+					_fighter.playMove(EMOTE_PP10);
+				}
+				if (_fighter.grabbedPP == 1) {
+					_fighter.playMove(EMOTE_PP39);
+				}
+			});
 			this.newTurnDuel();
 		}
 
