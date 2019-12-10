@@ -363,13 +363,13 @@ class Fighter {
 			txt += " - Turkey Countdown : " + this.turkeyCountdown + " turns\n";
 		}
 		if (this.tearDrinker > 0) {
-			txt += " - Tear Drinker (" + this.tearDrinker + ")\n";
+			txt += " - Tear Drinker : " + this.tearDrinker + "\n";
 		}
 		if (this.pigHeal > 0) {
-			txt += " - Hog Squeezer (" + this.pigHeal + ")\n";
+			txt += " - Hog Squeezer : " + this.pigHeal + "\n";
 		}
 		if (this.bleedDamage > 0) {
-			txt += " - Haemorrhage (" + this.bleedDamage + ")\n";
+			txt += " - Haemorrhage : " + this.bleedDamage + "\n";
 		}
 		if (this.isOverCircumcised) {
 			txt += " - Overcircumcised\n";
