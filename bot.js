@@ -411,7 +411,7 @@ class Fighter {
 			txt += " - **Grabbed PP**\n";
 		}
 		if (this.summonTankCountdown > 0) {
-			txt += " - **Summoning the Monster (" + (2-this.summonTankCountdown) + "/3)**\n";
+			txt += " - **Summoning the Monster (" + (4-this.summonTankCountdown) + "/3)**\n";
 		}
 		if (this.extraLife > 0) {
 			txt += " - **Extra lives : " + this.extraLife + "**\n";
@@ -1725,6 +1725,7 @@ class Duel {
 		this.addMessage(" - Number of damages inflicted : " + this.DAMAGE_COUNT);
 		this.sendMessages();
 		
+		this.EVENT_BOSS = false;
 		this.DEAD_DUEL = true;
 	}
 	
