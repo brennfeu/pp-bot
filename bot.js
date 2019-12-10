@@ -2627,6 +2627,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 
 		// Deux attaques sont faites
 		if (duel.FIGHTER1.attack != "" && duel.FIGHTER2.attack != "") {
+			duel.addMessage("\n\n**===== ATTACKS =====**");
+			
 			duel.bothFightersAction(function(_fighter) {
 				if (_fighter.turnSkip > 0) {
 					_fighter.attack = EMOTE_PP50;
@@ -2704,10 +2706,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 					duel.stopDuel();
 				}
 			});
-			
 			if (duel.DEAD_DUEL) return;
 			
-			duel.addMessage("\n\n**===== ATTACKS =====**");
 			duel.bothFightersAction(function(_fighter) {
 				// Jew Hitler Paradox
 				if (_fighter.godList.indexOf(GOD_PP7_PRIEST) > -1 && _fighter.godList.indexOf(GOD_PP17_PRIEST) > -1 && getRandomPercent() <= 10) {
