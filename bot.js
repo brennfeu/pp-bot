@@ -1751,7 +1751,7 @@ class Duel {
 				if (_fighter.STR <= 0) {
 					_fighter.DEXValue += (0-_fighter.STR)+1;
 					_fighter.STRValue += (0-_fighter.STR)+1;
-					this.addMessage(_fighter.user.username + " got saved thanks to the Blood Moon");
+					_fighter.duel.addMessage(_fighter.user.username + " got saved thanks to the Blood Moon");
 				}
 			});
 		}
@@ -1807,8 +1807,8 @@ class Duel {
 		});
 		this.bothFightersAction(function(_fighter) {
 			if (_fighter.STR <= 0 && _fighter.extraLife > 0) {
-				this.addMessage(_fighter.user.username + " uses an extra life !");
-				_fighter = new Fighter(_fighter.idUser, this.BATTLE_CHANNEL.id);
+				_fighter.duel.addMessage(_fighter.user.username + " uses an extra life !");
+				_fighter = new Fighter(_fighter.idUser, _fighter.duel.BATTLE_CHANNEL.id);
 			}
 		});
 		
@@ -1819,10 +1819,10 @@ class Duel {
 		}
 		
 		this.bothFightersAction(function(_fighter) {
-			if (_fighter.STR <= 0 && !this.EVENT_BOSS) {
-				this.addMessage(this.getOppOf(_fighter).user.username + " won ! Congrats !");
-				this.getOppOf(_fighter).win();
-				this.stopDuel();
+			if (_fighter.STR <= 0 && !_fighter.duel.EVENT_BOSS) {
+				_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).user.username + " won ! Congrats !");
+				_fighter.duel.getOppOf(_fighter).win();
+				_fighter.duel.stopDuel();
 				return;
 			};
 		});
@@ -2016,7 +2016,7 @@ class Duel {
 				if (_fighter.STR <= 0) {
 					_fighter.DEXValue += (0-_fighter.STR)+1;
 					_fighter.STRValue += (0-_fighter.STR)+1;
-					this.addMessage(_fighter.user.username + " got saved thanks to the Blood Moon");
+					_fighter.duel.addMessage(_fighter.user.username + " got saved thanks to the Blood Moon");
 				}
 			});
 		}
@@ -2025,8 +2025,9 @@ class Duel {
 			this.addMessage(" -- ASCENSION --");
 			this.addMessage(winner.user.username + " accidentaly plays Ascend on his phone !");
 			var winner = this.getRandomFighter();
-			this.FIGHTER1.playMove(EMOTE_PP49);
-			this.FIGHTER2.playMove(EMOTE_PP49);
+			this.bothFightersAction(function(_fighter) {
+				_fighter.playMove(EMOTE_PP49);
+			});
 		}
 		else if ([9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19].indexOf(randomVar) > -1) {
 			// Charge
