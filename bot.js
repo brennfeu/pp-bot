@@ -2611,7 +2611,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 
 			// test illegal
 			var caught1 = duel.illegalGetCaught(duel.getRisk(duel.FIGHTER1.attack)) || (duel.FIGHTER1.badLuck && duel.getRisk(duel.FIGHTER1.attack) > 0);
-			var caught2 =duel. illegalGetCaught(duel.getRisk(duel.FIGHTER2.attack)) || (duel.FIGHTER2.badLuck && duel.getRisk(duel.FIGHTER2.attack) > 0);
+			var caught2 = duel.illegalGetCaught(duel.getRisk(duel.FIGHTER2.attack)) || (duel.FIGHTER2.badLuck && duel.getRisk(duel.FIGHTER2.attack) > 0);
 
 			if (duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.FIGHTER1.attack) < 0 && !(duel.FIGHTER1.attack == duel.EMOTE_PP50 && duel.FIGHTER1.turnSkip) && !(duel.FIGHTER1.attack == duel.EMOTE_PP39 && duel.FIGHTER1.grabbedPP) && !(duel.FIGHTER1.attack == duel.EMOTE_PP10 && duel.FIGHTER1.summonTankCountdown)) {
 				caught1 = caught1 || (duel.illegalGetCaught(50) && !duel.EVENT_PP_ENLIGHTENMENT) && !duel.FIGHTER1.badLuck;
@@ -2634,10 +2634,10 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			}
 			
 			if (SPECIAL_EMOTE_LIST.indexOf(duel.FIGHTER1.attack) > -1 && duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.FIGHTER1.attack) < 0) {
-				caught1 = true;
+				caught1 = duel.illegalGetCaught(100);
 			}
 			if (SPECIAL_EMOTE_LIST.indexOf(duel.FIGHTER2.attack) > -1 && duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.FIGHTER2.attack) < 0) {
-				caught2 = true;
+				caught2 = duel.illegalGetCaught(100);
 			}
 			
 			if (duel.FIGHTER1.summonTankCountdown == 1) {
