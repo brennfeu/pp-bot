@@ -759,7 +759,7 @@ class Fighter {
 			else if (attack == EMOTE_PP39) {
 				// Interrogation Point
 				this.duel.addMessage(this.user.username + " summons a random move !");
-				this.duel.sendMessage();
+				this.duel.sendMessages();
 				this.playMove(this.duel.getRandomEmote());
 			}
 			else if (attack == EMOTE_PP40) {
@@ -2004,6 +2004,7 @@ class Duel {
 			this.addMessage(" -- ACCIDENTAL SUMMONING --");
 			var winner = this.getRandomFighter();
 			this.addMessage(winner.user.username + " accidentaly plays Psychodiös on his phone and it summons Satan and the Ancient Fongus !");
+			this.sendMessages();
 			winner.playMove(EMOTE_PP26);
 			winner.playMove(EMOTE_PP46);
 		}
@@ -2562,7 +2563,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			});
 
 			// test illegal
-			duel.bothFightersAction(function(_fighter) {
+			duel.bothFightersAction(function(_fighter) {				
 				// Illegalité
 				var caught1 = duel.illegalGetCaught(duel.getRisk(_fighter.attack)) || (_fighter.badLuck && duel.getRisk(_fighter.attack) > 0);
 				
@@ -2618,19 +2619,17 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				else if (caught1) {
 					duel.addMessage("WAIT " + _fighter.user.username.toUpperCase() + " IS DOING ILLEGAL STUFF RIGHT NOW !");
 					duel.addMessage(_fighter.user.username + " is disqualified for being a dumb shit.");
-					duel.addMessage(duel.getOppOf(_fighter).user.username + " wins !");
+					_fighter.playMove(EMOTE_PP47);
 					duel.sendMessages();
-
-					duel.getOppOf(_fighter).win();
+					
 					addWinCounter(_fighter, -1);
-
 					duel.stopDuel();
-					return;
 				}
 			});
 			
-			duel.addMessage("\n\n**===== ATTACKS =====**");
+			if (duel.DEAD_DUEL) return;
 			
+			duel.addMessage("\n\n**===== ATTACKS =====**");
 			duel.bothFightersAction(function(_fighter) {
 				// Jew Hitler Paradox
 				if (_fighter.godList.indexOf(GOD_PP7_PRIEST) > -1 && _fighter.godList.indexOf(GOD_PP17_PRIEST) > -1 && getRandomPercent() <= 10) {
