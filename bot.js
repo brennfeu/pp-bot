@@ -721,6 +721,9 @@ class Fighter {
 			else if (attack == EMOTE_PP35) {
 				// Facehugged
 				this.duel.addMessage(this.user.username + " impregnates the arbitratory !");
+				if (this.duel.BLIND_COUNTDOWN < 0) {
+					this.duel.BLIND_COUNTDOWN = 0;
+				}
 				this.duel.BLIND_COUNTDOWN += 2;
 				if (getRandomPercent() < 33) {
 					this.duel.BLIND_COUNTDOWN = 9999999;
