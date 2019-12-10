@@ -642,36 +642,27 @@ class Fighter {
 			else if (attack == EMOTE_PP25) {
 				// Bombardment
 				this.duel.addMessage(this.user.username + " calls for a bombardment !!!");
-				this.duel.bothFightersAction(
-					function(_fighter) {
-						_fighter.damage(1000)
-					}, this
-				);
+				this.duel.bothFightersAction(function(_fighter) {
+					_fighter.damage(1000)
+				});
 			}
 			else if (attack == EMOTE_PP26) {
 				// Big Satan
 				this.duel.DISABLE_ABANDON = true;
 				this.duel.addMessage(this.user.username + " summons Satan chaotic powers !!!");
 				this.duel.sendMessages(1);
-				this.playMove(this.duel.getRandomEmote(false));
-				this.duel.addMessage("-----------------");
-				this.playMove(this.duel.getRandomEmote(false));
-				this.duel.addMessage("-----------------");
-				this.playMove(this.duel.getRandomEmote(false));
-				this.duel.addMessage("-----------------");
-				this.playMove(this.duel.getRandomEmote());
-				this.duel.addMessage("-----------------");
-				this.playMove(this.duel.getRandomEmote());
-				this.duel.addMessage("-----------------");
-				this.duel.getOppOf(this).playMove(this.duel.getRandomEmote(false));
-				this.duel.addMessage("-----------------");
-				this.duel.getOppOf(this).playMove(this.duel.getRandomEmote(false));
-				this.duel.addMessage("-----------------");
-				this.duel.getOppOf(this).playMove(this.duel.getRandomEmote(false));
-				this.duel.addMessage("-----------------");
-				this.duel.getOppOf(this).playMove(this.duel.getRandomEmote());
-				this.duel.addMessage("-----------------");
-				this.duel.getOppOf(this).playMove(this.duel.getRandomEmote());
+				this.duel.bothFightersAction(function(_fighter) {
+					_fighter.duel.addMessage("-----------------");
+					_fighter.playMove(this.duel.getRandomEmote(false));
+					_fighter.duel.addMessage("-----------------");
+					_fighter.playMove(this.duel.getRandomEmote(false));
+					_fighter.duel.addMessage("-----------------");
+					_fighter.playMove(this.duel.getRandomEmote(false));
+					_fighter.duel.addMessage("-----------------");
+					_fighter.playMove(this.duel.getRandomEmote());
+					_fighter.duel.addMessage("-----------------");
+					_fighter.playMove(this.duel.getRandomEmote());
+				});
 			}
 			else if (attack == EMOTE_PP27) {
 				// BigGuyBullet
@@ -709,8 +700,9 @@ class Fighter {
 			else if (attack == EMOTE_PP33) {
 				// Headless - Big Kidney Stone
 				this.duel.addMessage(this.user.username + " shoots a big kidney stone !");
-				this.damage(50);
-				this.duel.getOppOf(this).damage(50);
+				this.duel.bothFightersAction(	function(_fighter) {
+					_fighter.damage(50);
+				});
 			}
 			else if (attack == EMOTE_PP34) {
 				// Facehugger
@@ -746,8 +738,10 @@ class Fighter {
 			else if (attack == EMOTE_PP37) {
 				// Disembowled - Kidney Stone
 				this.duel.addMessage(this.user.username + " shoots a kidney stone !");
-				this.damage(25);
-				this.duel.getOppOf(this).damage(25);
+				this.duel.bothFightersAction(
+				function(_fighter) {
+					_fighter.damage(25);
+				});
 			}
 			else if (attack == EMOTE_PP38) {
 				// DeadBro
@@ -847,10 +841,10 @@ class Fighter {
 				// Brennfeu
 				this.duel.addMessage(this.user.username + " messes everything !");
 				this.duel.addMessage("As always !");
-				this.STRValue += Math.floor((getRandomPercent() - 50)/2);
-				this.DEXValue += Math.floor((getRandomPercent() - 50)/2);
-				this.duel.getOppOf(this).STRValue += Math.floor((getRandomPercent() - 50)/2);
-				this.duel.getOppOf(this).DEXValue += Math.floor((getRandomPercent() - 50)/2);
+				this.duel.bothFightersAction(function(_fighter) {
+					_fighter.STRValue += Math.floor((getRandomPercent() - 50)/2);
+					_fighter.DEXValue += Math.floor((getRandomPercent() - 50)/2);
+				});
 			}
 			else if (attack == EMOTE_PP49) {
 				// Soup
@@ -1160,11 +1154,11 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Brenn answers his calls !");
 					this.duel.addMessage("Brenn's massive dong falls in the battlefield !");
-					this.damage(100);
-					this.duel.getOppOf(this).damage(100);
+					this.duel.bothFightersAction(function(_fighter) {
+						_fighter.damage(100);
+						_fighter.extraLife += 1;
+					});
 					this.duel.addMessage("Its healing properties grants an extra life to both fighters !");
-					this.extraLife += 1;
-					this.duel.getOppOf(this).extraLife += 1;
 				}
 				if (this.godList.indexOf(GOD_PP10_PRIEST) > -1) { // Fabio
 					this.duel.addMessage("-----------------");
@@ -1220,8 +1214,9 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Rapist Pudding answers his calls !");
 					this.duel.addMessage(this.user.username + " sensually touches " + this.duel.getOppOf(this).user.username + "'s PP...");
-					this.hasBoner = true;
-					this.duel.getOppOf(this).hasBoner = true;
+					this.duel.bothFightersAction(function(_fighter) {
+						_fighter.hasBoner = true;
+					});
 					this.duel.getOppOf(this).damage(Math.floor(this.STR/2));
 				}
 				if (this.godList.indexOf(GOD_PP15_PRIEST) > -1) { // STFU Isaac
@@ -1280,7 +1275,7 @@ class Fighter {
 				// Explosion Loop
 				this.duel.MOVE_COUNT += 33;
 				this.duel.addMessage(this.user.username + " summons the Explosion Loop");
-				this.duel.addMessage("All damages has 90% getting ignored for 7 turns");
+				this.duel.addMessage("All damages are doubled for 7 turns");
 				this.duel.ATTACK_MISS_COUNTDOWN = 8;
 			}
 			else if (attack == EMOTE_PP55) {
@@ -1377,7 +1372,7 @@ class Fighter {
 						}
 						this.duel.sendMessages();
 					}
-					this.duel.addMessage("You loose now lol !");
+					this.duel.addMessage(this.duel.getOppOf(this).user.username + " loose now lol !");
 					this.duel.getOppOf(this).playMove(EMOTE_PP47);
 				}
 			}
@@ -1385,16 +1380,15 @@ class Fighter {
 				// PP Duel
 				this.duel.MOVE_COUNT += 33;
 				this.duel.addMessage(this.user.username + " asks for a PP Duel !");
-				this.STRValue -= this.STR-10;
-				this.DEXValue -= this.DEX-10;
-				this.duel.getOppOf(this).STRValue -= this.duel.getOppOf(this).STR-10;
-				this.duel.getOppOf(this).DEXValue -= this.duel.getOppOf(this).DEX-10;
-				this.bleedDamage = 0;
-				this.duel.getOppOf(this).bleedDamage = 0;
+				this.duel.bothFightersAction(function(_fighter) {
+					_fighter.STRValue -= _fighter.STR-10;
+					_fighter.DEXValue -= _fighter.DEX-10;
+					_fighter.bleedDamage = 0;
+				});
 			}
 			else if (attack == "IS_DEAD_LOL") {
 				// Dead (Cthulhu battle)
-				this.duel.addMessage(this.user.username + " is dead so funny lol omg");
+				this.duel.addMessage(this.user.username + " is dead...");
 			}
 			else {
 				this.duel.addMessage(this.user.username + " makes an unknown move ?");
@@ -1750,22 +1744,20 @@ class Duel {
 
 		if (this.NUCLEAR_BOMB == 0) {
 			this.addMessage("The Nuclear Bomb explodes now !");
-			this.FIGHTER1.damage(1000000000);
-			this.FIGHTER2.damage(1000000000);
+			this.duel.bothFightersAction(function(_fighter) {
+				_fighter.damage(1000000000);
+			});
 		}
 
 		// Blood Moon Save
 		if (this.EVENT_BLOOD_MOON) {
-			if (this.FIGHTER1.STR <= 0) {
-				this.FIGHTER1.DEXValue += (0-this.FIGHTER1.STR)+1;
-				this.FIGHTER1.STRValue += (0-this.FIGHTER1.STR)+1;
-				this.addMessage(this.FIGHTER1.user.username + " got saved thanks to the Blood Moon");
-			}
-			if (this.FIGHTER2.STR <= 0) {
-				this.FIGHTER2.DEXValue += (0-this.FIGHTER2.STR)+1;
-				this.FIGHTER2.STRValue += (0-this.FIGHTER2.STR)+1;
-				this.addMessage(this.FIGHTER2.user.username + " got saved thanks to the Blood Moon");
-			}
+			this.duel.bothFightersAction(function(_fighter) {
+				if (_fighter.STR <= 0) {
+					_fighter.DEXValue += (0-_fighter.STR)+1;
+					_fighter.STRValue += (0-_fighter.STR)+1;
+					this.addMessage(_fighter.user.username + " got saved thanks to the Blood Moon");
+				}
+			});
 		}
 
 		// Cthulhu
@@ -1773,8 +1765,9 @@ class Duel {
 			if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP1) {
 				this.addMessage(this.CURRENT_BOSS + " goes back to sleep to heal his poor PP !");
 				this.addMessage("You both win !");
-				addWinCounter(this.FIGHTER1, 1);
-				addWinCounter(this.FIGHTER2, 1);
+				this.duel.bothFightersAction(function(_fighter) {
+					addWinCounter(_fighter, 1);
+				});
 				this.EVENT_BOSS = false;
 				return this.stopDuel();
 			}
@@ -1783,16 +1776,18 @@ class Duel {
 				this.EVENT_BOSS = false;
 			}
 			else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP3) {
-				this.addMessage(this.CURRENT_BOSS + " goes back to sleep to heal his poor PP !");
+				this.addMessage(this.CURRENT_BOSS + " goes back hiding behind the moon !");
 				this.addMessage("You both win !");
-				addWinCounter(this.FIGHTER1, 1);
-				addWinCounter(this.FIGHTER2, 1);
+				this.duel.bothFightersAction(function(_fighter) {
+					addWinCounter(_fighter, 1);
+				});
 				this.EVENT_BOSS = false;
 
 				var role = this.GUILD.roles.find(r => r.name == GOD_PP21_PRIEST);
 				try {
-					this.FIGHTER1.guildUser.addRole(role).catch(console.error);
-					this.FIGHTER2.guildUser.addRole(role).catch(console.error);
+					this.duel.bothFightersAction(function(_fighter) {
+						_fighter.guildUser.addRole(role).catch(console.error);
+					});
 					this.addMessage("**D.I.C.K. is proud of you. He grants you his powers.**");
 					this.addMessage("**If you don't want to be a D.I.C.K. Priest, use the custom command to automatically remove this role.**");
 				}
@@ -1803,48 +1798,38 @@ class Duel {
 				return this.stopDuel();
 			}
 			else {
-				if (getRandomPercent() >= 50) {
-					this.addMessage(this.FIGHTER1.user.username + " gets attacked by " + this.CURRENT_BOSS + " !");
-					this.FIGHTER1.STRValue -= this.BOSS_DAMAGE;
-				}
-				else {
-					this.addMessage(this.FIGHTER2.user.username + " gets attacked by " + this.CURRENT_BOSS + " !");
-					this.FIGHTER2.STRValue -= this.BOSS_DAMAGE;
-				}
+				var fighter = this.getRandomFighter();
+				this.addMessage(fighter.user.username + " gets attacked by " + this.CURRENT_BOSS + " !");
+				fighter.STRValue -= this.BOSS_DAMAGE;
 				this.addMessage("He takes " + this.BOSS_DAMAGE + " damages !");
 			}
 
 		}
 		
-		this.FIGHTER1.turnChange();
-		this.FIGHTER2.turnChange();
-		
-		if (this.FIGHTER1.STR <= 0 && this.FIGHTER1.extraLife > 0) {
-			this.addMessage(this.FIGHTER1.user.username + " uses an extra life !");
-			this.FIGHTER1 = new Fighter(this.FIGHTER1.idUser, this.BATTLE_CHANNEL.id);
-		}
-		if (this.FIGHTER2.STR <= 0 && this.FIGHTER2.extraLife > 0) {
-			this.addMessage(this.FIGHTER2.user.username + " uses an extra life !");
-			this.FIGHTER2 = new Fighter(this.FIGHTER2.idUser, this.BATTLE_CHANNEL.id);
-		}
+		this.duel.bothFightersAction(function(_fighter) {
+			_fighter.turnChange();
+		});
+		this.duel.bothFightersAction(function(_fighter) {
+			if (_fighter.STR <= 0 && _fighter.extraLife > 0) {
+				this.addMessage(_fighter.user.username + " uses an extra life !");
+				_fighter = new Fighter(_fighter.idUser, this.BATTLE_CHANNEL.id);
+			}
+		});
 		
 		if (this.FIGHTER1.STR <= 0 && this.FIGHTER2.STR <= 0) {
 			this.addMessage("Both of you lost. No one won this time. You losers");
 			this.stopDuel();
 			return;
 		}
-		else if (this.FIGHTER1.STR <= 0 && !this.EVENT_BOSS) {
-			this.addMessage(this.FIGHTER2.user.username + " won ! Congrats !");
-			this.FIGHTER2.win();
-			this.stopDuel();
-			return;
-		}
-		else if (this.FIGHTER2.STR <= 0 && !this.EVENT_BOSS) {
-			this.addMessage(this.FIGHTER1.user.username + " won ! Congrats !");
-			this.FIGHTER1.win();
-			this.stopDuel();
-			return;
-		}
+		
+		this.duel.bothFightersAction(function(_fighter) {
+			if (_fighter.STR <= 0 && !this.EVENT_BOSS) {
+				this.addMessage(this.getOppOf(_fighter).user.username + " won ! Congrats !");
+				this.getOppOf(_fighter).win();
+				this.stopDuel();
+				return;
+			};
+		});
 
 		this.startRandomEvent();
 		this.addMessage("\n\n**===== NEW TURN =====**");
@@ -1934,15 +1919,13 @@ class Duel {
 		});
 
 		// Stop if dead (cthulhu battle)
-		if (this.FIGHTER1.STR <= 0) {
-			this.FIGHTER1.attack = "IS_DEAD_LOL";
-			this.FIGHTER1.STRValue = -10;
-		}
-		if (this.FIGHTER2.STR <= 0) {
-			this.FIGHTER2.attack = "IS_DEAD_LOL";
-			this.FIGHTER2.STRValue = -10;
-		}
-
+		this.duel.bothFightersAction(function(_fighter) {
+			if (_fighter.STR <= 0) {
+				_fighter.attack = "IS_DEAD_LOL";
+				_fighter.STRValue = -10;
+			}
+		});
+		
 		if ((this.FIGHTER1.turnSkip > 0 || this.FIGHTER1.grabbedPP > 0 || this.FIGHTER1.summonTankCountdown > 0 || this.FIGHTER1.isPossessed > 0) && 
 		    (this.FIGHTER2.turnSkip > 0 || this.FIGHTER2.grabbedPP > 0 || this.FIGHTER2.summonTankCountdown > 0 || this.FIGHTER2.isPossessed > 0)) {
 			this.newTurnDuel();
@@ -2023,12 +2006,7 @@ class Duel {
 		else if (randomVar == 6) {
 			// Accidental Summoning
 			this.addMessage(" -- ACCIDENTAL SUMMONING --");
-			if (getRandomPercent() >= 50) {
-				var winner = this.FIGHTER1;
-			}
-			else {
-				var winner = this.FIGHTER2;
-			}
+			var winner = this.getRandomFighter();
 			this.addMessage(winner.user.username + " accidentaly plays Psychodiös on his phone and it summons Satan and the Ancient Fongus !");
 			winner.playMove(EMOTE_PP26);
 			winner.playMove(EMOTE_PP46);
@@ -2038,27 +2016,19 @@ class Duel {
 			this.EVENT_BLOOD_MOON = true;
 			this.addMessage(" -- BLOOD MOON --");
 			this.addMessage("If someone dies this turn, STR automatically stays at 1 but the remaining damages goes negative in the DEX.");
-			if (this.FIGHTER1.STR <= 0) {
-				this.FIGHTER1.DEXValue += (0-this.FIGHTER1.STR)+1;
-				this.FIGHTER1.STRValue += (0-this.FIGHTER1.STR)+1;
-				athis.ddMessage(this.FIGHTER1.user.username + " got saved thanks to the Blood Moon");
-			}
-			if (this.FIGHTER2.STR <= 0) {
-				this.FIGHTER2.DEXValue += (0-this.FIGHTER2.STR)+1;
-				this.FIGHTER2.STRValue += (0-this.FIGHTER2.STR)+1;
-				this.addMessage(this.FIGHTER2.user.username + " got saved thanks to the Blood Moon");
-			}
+			this.duel.bothFightersAction(function(_fighter) {
+				if (_fighter.STR <= 0) {
+					_fighter.DEXValue += (0-_fighter.STR)+1;
+					_fighter.STRValue += (0-_fighter.STR)+1;
+					this.addMessage(_fighter.user.username + " got saved thanks to the Blood Moon");
+				}
+			});
 		}
 		else if (randomVar == 8) {
 			// Ascension
 			this.addMessage(" -- ASCENSION --");
 			this.addMessage(winner.user.username + " accidentaly plays Ascend on his phone !");
-			if (getRandomPercent() >= 50) {
-				var winner = FIGHTER1;
-			}
-			else {
-				var winner = FIGHTER2;
-			}
+			var winner = this.getRandomFighter();
 			this.FIGHTER1.playMove(EMOTE_PP49);
 			this.FIGHTER2.playMove(EMOTE_PP49);
 		}
@@ -2066,15 +2036,17 @@ class Duel {
 			// Charge
 			this.addMessage(" -- GODS BIRTHDAY GIFTS --");
 			this.addMessage("Gods decide to give you a regular charge each");
-			this.FIGHTER1.regularCharges++;
-			this.FIGHTER2.regularCharges++;
+			this.duel.bothFightersAction(function(_fighter) {
+				_fighter.regularCharges++;
+			});
 		}
 		else if ([20, 21].indexOf(randomVar) > -1) {
 			// Charge
 			this.addMessage(" -- GODS CHRISTMAS GIFTS --");
 			this.addMessage("Gods decide to give you a special charge each");
-			this.FIGHTER1.specialCharges++;
-			this.FIGHTER2.specialCharges++;
+			this.duel.bothFightersAction(function(_fighter) {
+				_fighter.specialCharges++;
+			});
 		}
 		else if (randomVar == 22) {
 			// Huge Gay Night
@@ -2093,24 +2065,18 @@ class Duel {
 			// PP Blessing
 			this.addMessage(" -- PP BLESSING --");
 			this.addMessage("You suddenly feel new powers in your PP !");
-			this.FIGHTER1.godList = [GOD_PP21_PRIEST];
-			this.FIGHTER2.godList = [GOD_PP21_PRIEST];
-			for (var i in PRIEST_ROLES) {
-				this.FIGHTER1.godList.push(PRIEST_ROLES[i]);
-				this.FIGHTER2.godList.push(PRIEST_ROLES[i]);
-			}
-			this.FIGHTER1.isBigPP = true;
-			this.FIGHTER1.isFastPP = true;
-			this.FIGHTER1.isDrunkPP = true;
-			this.FIGHTER1.isHockeyPuckPP = true;
-			this.FIGHTER1.isAlienPP = true;
-
-			this.FIGHTER2.isBigPP = true;
-			this.FIGHTER2.isFastPP = true;
-			this.FIGHTER2.isDrunkPP = true;
-			this.FIGHTER2.isHockeyPuckPP = true;
-			this.FIGHTER2.isAlienPP = true;
-
+			this.duel.bothFightersAction(function(_fighter) {
+				_fighter.godList = [GOD_PP21_PRIEST];
+				for (var i in PRIEST_ROLES) {
+					_fighter.godList.push(PRIEST_ROLES[i]);
+				}
+				
+				_fighter.isBigPP = true;
+				_fighter.isFastPP = true;
+				_fighter.isDrunkPP = true;
+				_fighter.isHockeyPuckPP = true;
+				_fighter.isAlienPP = true;
+			});
 		}
 		else if ([24, 25].indexOf(randomVar) > -1) {
 			// Free Lives
@@ -2321,9 +2287,15 @@ class Duel {
 		return 0;
 	}
 	
-	bothFightersAction(_function, _firstFighter = this.FIGHTER1) {
+	bothFightersAction(_function, _firstFighter = this.chooseRandomFighter()) {
 		_function(_firstFighter);
 		_function(this.getOppOf(_firstFighter));
+	}
+	chooseRandomFighter() {
+		if (getRandomPercent <= 50) {
+			return this.FIGHTER1;
+		}
+		return this.FIGHTER2;
 	}
 }
 
