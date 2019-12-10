@@ -387,7 +387,7 @@ class Fighter {
 			txt += " - Great Barbarian from the North Seeking New Lands for his Kingdom\n";
 		}
 		if (this.isPossessed > 0) {
-			txt += " - **Possessed by " + this.duel.getOpponentOf(this).user.username + "**\n";
+			txt += " - **Possessed by " + this.duel.getOppOf(this).user.username + "**\n";
 		}
 		if (this.turnSkip > 0) {
 			txt += " - **To the Ranch**\n";
@@ -457,18 +457,18 @@ class Fighter {
 		for (var sdsds = 0; sdsds < numberAttacks; sdsds++) {
 			if (attack == EMOTE_PP1) {
 				// Punching PP
-				this.duel.addMessage(this.user.username + " punches " + this.duel.getOpponentOf(this).user.username + "'s PP !");
-				this.duel.getOpponentOf(this).damage(Math.floor(10 + this.STR / 10));
+				this.duel.addMessage(this.user.username + " punches " + this.duel.getOppOf(this).user.username + "'s PP !");
+				this.duel.getOppOf(this).damage(Math.floor(10 + this.STR / 10));
 			}
 			else if (attack == EMOTE_PP2) {
 				// Punching PP Really Hard
-				this.duel.addMessage(this.user.username + " punches " + this.duel.getOpponentOf(this).user.username + "'s PP really hard !");
-				this.duel.getOpponentOf(this).damage(Math.floor(20 + this.STR / 10));
+				this.duel.addMessage(this.user.username + " punches " + this.duel.getOppOf(this).user.username + "'s PP really hard !");
+				this.duel.getOppOf(this).damage(Math.floor(20 + this.STR / 10));
 			}
 			else if (attack == EMOTE_PP3) {
 				// Hologram
-				this.duel.addMessage(this.user.username + " touches " + this.duel.getOpponentOf(this).user.username + "'s PP vital point !");
-				this.duel.getOpponentOf(this).damage(1000);
+				this.duel.addMessage(this.user.username + " touches " + this.duel.getOppOf(this).user.username + "'s PP vital point !");
+				this.duel.getOppOf(this).damage(1000);
 			}
 			else if (attack == EMOTE_PP4) {
 				// Flex
@@ -481,16 +481,16 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP6) {
 				// Kick
-				this.duel.addMessage(this.user.username + " kicks " + this.duel.getOpponentOf(this).user.username + "'s PP !");
-				this.duel.getOpponentOf(this).damage(Math.floor(20 + this.STR / 10)*3);
+				this.duel.addMessage(this.user.username + " kicks " + this.duel.getOppOf(this).user.username + "'s PP !");
+				this.duel.getOppOf(this).damage(Math.floor(20 + this.STR / 10)*3);
 			}
 			else if (attack == EMOTE_PP7) {
 				// Turkey
-				this.duel.addMessage(this.user.username + " and " + this.duel.getOpponentOf(this).user.username + " start a feast !");
+				this.duel.addMessage(this.user.username + " and " + this.duel.getOppOf(this).user.username + " start a feast !");
 				this.heal(100);
 				this.turkeyCountdown = 11;
-				this.duel.getOpponentOf(this).heal(100);
-				this.duel.getOpponentOf(this).turkeyCountdown = 11;
+				this.duel.getOppOf(this).heal(100);
+				this.duel.getOppOf(this).turkeyCountdown = 11;
 				if (this.isOverCircumcised) {
 					this.duel.addMessage(this.user.username + "'s circumcision gets a bit healed !");
 					this.isOverCircumcised = false;
@@ -500,14 +500,14 @@ class Fighter {
 					this.duel.addMessage(this.user.username + " is no longer circumcised !");
 					this.isCircumcised = false;
 				}
-				if (this.duel.getOpponentOf(this).isOverCircumcised) {
-					this.duel.addMessage(this.duel.getOpponentOf(this).user.username + "'s circumcision gets a bit healed !");
-					this.duel.getOpponentOf(this).isOverCircumcised = false;
-					this.duel.getOpponentOf(this).isCircumcised = true;
+				if (this.duel.getOppOf(this).isOverCircumcised) {
+					this.duel.addMessage(this.duel.getOppOf(this).user.username + "'s circumcision gets a bit healed !");
+					this.duel.getOppOf(this).isOverCircumcised = false;
+					this.duel.getOppOf(this).isCircumcised = true;
 				}
-				else if (this.duel.getOpponentOf(this).isCircumcised) {
-					this.duel.addMessage(this.duel.getOpponentOf(this).user.username + " is no longer circumcised !");
-					this.duel.getOpponentOf(this).isCircumcised = false;
+				else if (this.duel.getOppOf(this).isCircumcised) {
+					this.duel.addMessage(this.duel.getOppOf(this).user.username + " is no longer circumcised !");
+					this.duel.getOppOf(this).isCircumcised = false;
 				}
 			}
 			else if (attack == EMOTE_PP8) {
@@ -531,7 +531,7 @@ class Fighter {
 				// Tank
 				this.duel.addMessage(this.user.username + " brings a tank !");
 				this.duel.addMessage("FIRE !");
-				this.duel.getOpponentOf(this).damage(1000);
+				this.duel.getOppOf(this).damage(1000);
 			}
 			else if (attack == EMOTE_PP11) {
 				// Steel
@@ -551,7 +551,7 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP13) {
 				// Scout
-				this.duel.addMessage(this.user.username + " examines the qualities of " + this.duel.getOpponentOf(this).user.username + "'s PP !");
+				this.duel.addMessage(this.user.username + " examines the qualities of " + this.duel.getOppOf(this).user.username + "'s PP !");
 				if (getRandomPercent() <= 33) {
 					this.duel.addMessage("And he learns a lot !");
 					this.hasExamined = 2;
@@ -562,8 +562,8 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP14) {
 				// SawBlade
-				this.duel.addMessage(this.user.username + " cuts " + this.duel.getOpponentOf(this).user.username + "'s PP !");
-				this.duel.getOpponentOf(this).bleedDamage += 5;
+				this.duel.addMessage(this.user.username + " cuts " + this.duel.getOppOf(this).user.username + "'s PP !");
+				this.duel.getOppOf(this).bleedDamage += 5;
 			}
 			else if (attack == EMOTE_PP15) {
 				// Save
@@ -577,8 +577,8 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP16) {
 				// Satan
-				this.duel.addMessage(this.user.username + " possesses " + this.duel.getOpponentOf(this).user.username + "'s PP !");
-				this.duel.getOpponentOf(this).isPossessed = 2;
+				this.duel.addMessage(this.user.username + " possesses " + this.duel.getOppOf(this).user.username + "'s PP !");
+				this.duel.getOppOf(this).isPossessed = 2;
 			}
 			else if (attack == EMOTE_PP17) {
 				// RiotShield
@@ -628,22 +628,22 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP23) {
 				// LaughSoul
-				this.duel.addMessage(this.user.username + " laughs at " + this.duel.getOpponentOf(this).user.username + " !");
-				this.duel.addMessage("He gets " + this.duel.getOpponentOf(this).missedMoves*50 + " STR !");
-				this.STRValue += this.duel.getOpponentOf(this).missedMoves*50;
+				this.duel.addMessage(this.user.username + " laughs at " + this.duel.getOppOf(this).user.username + " !");
+				this.duel.addMessage("He gets " + this.duel.getOppOf(this).missedMoves*50 + " STR !");
+				this.STRValue += this.duel.getOppOf(this).missedMoves*50;
 			}
 			else if (attack == EMOTE_PP24) {
 				// KnockBack
 				this.duel.addMessage(this.user.username + " swaps the natural STR values !");
-				this.STRValue += this.duel.getOpponentOf(this).STRValue;
-				this.duel.getOpponentOf(this).STRValue = this.STRValue - this.duel.getOpponentOf(this).STRValue;
-				this.STRValue -= this.duel.getOpponentOf(this).STRValue;
+				this.STRValue += this.duel.getOppOf(this).STRValue;
+				this.duel.getOppOf(this).STRValue = this.STRValue - this.duel.getOppOf(this).STRValue;
+				this.STRValue -= this.duel.getOppOf(this).STRValue;
 			}
 			else if (attack == EMOTE_PP25) {
 				// Bombardment
 				this.duel.addMessage(this.user.username + " calls for a bombardment !!!");
 				this.damage(1000);
-				this.duel.getOpponentOf(this).damage(1000);
+				this.duel.getOppOf(this).damage(1000);
 			}
 			else if (attack == EMOTE_PP26) {
 				// Big Satan
@@ -660,28 +660,28 @@ class Fighter {
 				this.duel.addMessage("-----------------");
 				this.playMove(this.duel.getRandomEmote());
 				this.duel.addMessage("-----------------");
-				this.duel.getOpponentOf(this).playMove(this.duel.getRandomEmote(false));
+				this.duel.getOppOf(this).playMove(this.duel.getRandomEmote(false));
 				this.duel.addMessage("-----------------");
-				this.duel.getOpponentOf(this).playMove(this.duel.getRandomEmote(false));
+				this.duel.getOppOf(this).playMove(this.duel.getRandomEmote(false));
 				this.duel.addMessage("-----------------");
-				this.duel.getOpponentOf(this).playMove(this.duel.getRandomEmote(false));
+				this.duel.getOppOf(this).playMove(this.duel.getRandomEmote(false));
 				this.duel.addMessage("-----------------");
-				this.duel.getOpponentOf(this).playMove(this.duel.getRandomEmote());
+				this.duel.getOppOf(this).playMove(this.duel.getRandomEmote());
 				this.duel.addMessage("-----------------");
-				this.duel.getOpponentOf(this).playMove(this.duel.getRandomEmote());
+				this.duel.getOppOf(this).playMove(this.duel.getRandomEmote());
 			}
 			else if (attack == EMOTE_PP27) {
 				// BigGuyBullet
 				this.duel.addMessage(this.user.username + " uses his PP as a gun !");
-				this.duel.getOpponentOf(this).damage(Math.floor(20 + this.STR / 10));
+				this.duel.getOppOf(this).damage(Math.floor(20 + this.STR / 10));
 				this.DEXValue -= 20;
-				this.duel.getOpponentOf(this).DEXValue -= 20;
+				this.duel.getOppOf(this).DEXValue -= 20;
 
 			}
 			else if (attack == EMOTE_PP28) {
 				// BigGuy
-				this.duel.addMessage(this.user.username + " intimidates " + this.duel.getOpponentOf(this).user.username + " !");
-				this.duel.getOpponentOf(this).hasBurst = 2;
+				this.duel.addMessage(this.user.username + " intimidates " + this.duel.getOppOf(this).user.username + " !");
+				this.duel.getOppOf(this).hasBurst = 2;
 
 			}
 			else if (attack == EMOTE_PP29) {
@@ -707,16 +707,16 @@ class Fighter {
 				// Headless - Big Kidney Stone
 				this.duel.addMessage(this.user.username + " shoots a big kidney stone !");
 				this.damage(50);
-				this.duel.getOpponentOf(this).damage(50);
+				this.duel.getOppOf(this).damage(50);
 			}
 			else if (attack == EMOTE_PP34) {
 				// Facehugger
-				this.duel.addMessage(this.user.username + " impregnates " + this.duel.getOpponentOf(this).user.username + " !");
-				if (!this.duel.getOpponentOf(this).isAlienPP) {
-					this.duel.addMessage(this.duel.getOpponentOf(this).user.username + " gets an alien PP !");
+				this.duel.addMessage(this.user.username + " impregnates " + this.duel.getOppOf(this).user.username + " !");
+				if (!this.duel.getOppOf(this).isAlienPP) {
+					this.duel.addMessage(this.duel.getOppOf(this).user.username + " gets an alien PP !");
 				}
-				this.duel.getOpponentOf(this).isAlienPP = true;
-				this.duel.getOpponentOf(this).damage(Math.floor(this.duel.getOpponentOf(this).STR/2));
+				this.duel.getOppOf(this).isAlienPP = true;
+				this.duel.getOppOf(this).damage(Math.floor(this.duel.getOppOf(this).STR/2));
 			}
 			else if (attack == EMOTE_PP35) {
 				// Facehugged
@@ -734,7 +734,7 @@ class Fighter {
 				// Explosion
 				this.duel.addMessage(this.user.username + " plays the terrorist move !");
 				if (this.isTerrorist) {
-					this.duel.getOpponentOf(this).damage(5000);
+					this.duel.getOppOf(this).damage(5000);
 				}
 				else {
 					this.duel.addMessage("But no terrorist move was planned !");
@@ -744,7 +744,7 @@ class Fighter {
 				// Disembowled - Kidney Stone
 				this.duel.addMessage(this.user.username + " shoots a kidney stone !");
 				this.damage(25);
-				this.duel.getOpponentOf(this).damage(25);
+				this.duel.getOppOf(this).damage(25);
 			}
 			else if (attack == EMOTE_PP38) {
 				// DeadBro
@@ -791,9 +791,9 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP43) {
 				// BrocketeerDive
-				this.duel.addMessage(this.user.username + " punches " + this.duel.getOpponentOf(this).user.username + "'s PP with his head !");
-				this.duel.getOpponentOf(this).damage(Math.floor(10 + this.STR / 10));
-				this.duel.getOpponentOf(this).hasBurst = 2;
+				this.duel.addMessage(this.user.username + " punches " + this.duel.getOppOf(this).user.username + "'s PP with his head !");
+				this.duel.getOppOf(this).damage(Math.floor(10 + this.STR / 10));
+				this.duel.getOppOf(this).hasBurst = 2;
 			}
 			else if (attack == EMOTE_PP44) {
 				// Kamikaze
@@ -815,15 +815,15 @@ class Fighter {
 					var winner = this;
 				}
 				else {
-					var winner = this.duel.getOpponentOf(this);
+					var winner = this.duel.getOppOf(this);
 				}
-				if (this.eldritchFriend && !this.duel.getOpponentOf(this).eldritchFriend) {
+				if (this.eldritchFriend && !this.duel.getOppOf(this).eldritchFriend) {
 					chaosNumber = 100;
 					var winner = this;
 				}
-				else if (this.duel.getOpponentOf(this).eldritchFriend && !this.eldritchFriend) {
+				else if (this.duel.getOppOf(this).eldritchFriend && !this.eldritchFriend) {
 					chaosNumber = 100;
-					var winner = this.duel.getOpponentOf(this);
+					var winner = this.duel.getOppOf(this);
 				}
 				this.duel.addMessage("He will use " + chaosNumber + "% of his power in " + winner.user.username + " !");
 				this.duel.sendMessages(2);
@@ -846,8 +846,8 @@ class Fighter {
 				this.duel.addMessage("As always !");
 				this.STRValue += Math.floor((getRandomPercent() - 50)/2);
 				this.DEXValue += Math.floor((getRandomPercent() - 50)/2);
-				this.duel.getOpponentOf(this).STRValue += Math.floor((getRandomPercent() - 50)/2);
-				this.duel.getOpponentOf(this).DEXValue += Math.floor((getRandomPercent() - 50)/2);
+				this.duel.getOppOf(this).STRValue += Math.floor((getRandomPercent() - 50)/2);
+				this.duel.getOppOf(this).DEXValue += Math.floor((getRandomPercent() - 50)/2);
 			}
 			else if (attack == EMOTE_PP49) {
 				// Soup
@@ -884,13 +884,13 @@ class Fighter {
 						this.duel.addMessage("Natural values have been doubled !");
 						this.STRvalue = this.STRValue*2;
 						this.DEXvalue = this.DEXValue*2;
-						this.duel.getOpponentOf(this).STRValue = this.duel.getOpponentOf(this).STRValue*2;
-						this.duel.getOpponentOf(this).DEXValue = this.duel.getOpponentOf(this).DEXValue*2;
+						this.duel.getOppOf(this).STRValue = this.duel.getOppOf(this).STRValue*2;
+						this.duel.getOppOf(this).DEXValue = this.duel.getOppOf(this).DEXValue*2;
 					}
 					else {
 						this.duel.addMessage("Both fighters DEX has been changed to 0 !");
 						this.DEXValue = 0 - (this.DEX - this.DEXValue);
-						this.duel.getOpponentOf(this).DEXValue = 0 - (this.duel.getOpponentOf(this).DEX - this.duel.getOpponentOf(this).DEXValue);
+						this.duel.getOppOf(this).DEXValue = 0 - (this.duel.getOppOf(this).DEX - this.duel.getOppOf(this).DEXValue);
 					}
 				}
 				else {
@@ -951,7 +951,7 @@ class Fighter {
 					this.duel.addMessage("DickHead Pudding answers his calls !");
 					if (getRandomPercent() == 1) {
 						this.duel.addMessage(this.user.username + " wins !");
-						this.duel.getOpponentOf(this).playMove(EMOTE_PP47);
+						this.duel.getOppOf(this).playMove(EMOTE_PP47);
 						return;
 					} 
 					else {
@@ -961,9 +961,9 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP5_PRIEST) > -1) { // Hello There Puds
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Hello There Puds answers his calls !");
-					this.duel.addMessage(this.user.username + " tries to scare " + this.duel.getOpponentOf(this).user.username + " !");
-					if (getRandomPercent() <= 50+this.STR-this.duel.getOpponentOf(this).STR) {
-						this.duel.getOpponentOf(this).damage(50);
+					this.duel.addMessage(this.user.username + " tries to scare " + this.duel.getOppOf(this).user.username + " !");
+					if (getRandomPercent() <= 50+this.STR-this.duel.getOppOf(this).STR) {
+						this.duel.getOppOf(this).damage(50);
 					}
 					else {
 						this.duel.addMessage("But it fails !");
@@ -983,16 +983,16 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP7_PRIEST) > -1) { // Jew
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Jew Lord answers his calls !");
-					this.duel.addMessage(this.user.username + " takes " + this.duel.MOVE_COUNT*2 + " DEX from " + this.duel.getOpponentOf(this).user.username + " as the emerald tax !");
+					this.duel.addMessage(this.user.username + " takes " + this.duel.MOVE_COUNT*2 + " DEX from " + this.duel.getOppOf(this).user.username + " as the emerald tax !");
 					this.DEXValue += this.duel.MOVE_COUNT*2;
-					this.duel.getOpponentOf(this).DEXValue -= this.duel.MOVE_COUNT*2;
+					this.duel.getOppOf(this).DEXValue -= this.duel.MOVE_COUNT*2;
 				}
 				// GOD 8 IS FIRST
 				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) { // Brenn
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Brenn answers his calls !");
-					this.duel.addMessage(this.user.username + " plays a guitar solo that makes " + this.duel.getOpponentOf(this).user.username + "'s PP bleed !");
-					this.duel.getOpponentOf(this).bleedDamage += 5;
+					this.duel.addMessage(this.user.username + " plays a guitar solo that makes " + this.duel.getOppOf(this).user.username + "'s PP bleed !");
+					this.duel.getOppOf(this).bleedDamage += 5;
 				}
 				if (this.godList.indexOf(GOD_PP10_PRIEST) > -1) { // Fabio
 					this.duel.addMessage("-----------------");
@@ -1004,18 +1004,18 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Country Music Brenn answers his calls !");
 					this.duel.addMessage(this.user.username + " plays some country !");
-					if (this.duel.getOpponentOf(this).isHockeyPuckPP) {
+					if (this.duel.getOppOf(this).isHockeyPuckPP) {
 						this.duel.addMessage("But his opponent doesn't care.");
 					}
 					else {
-						this.duel.addMessage(this.duel.getOpponentOf(this).user.username + " gets an Hocky Puck PP !");
-						this.duel.getOpponentOf(this).isHockeyPuckPP = true;
+						this.duel.addMessage(this.duel.getOppOf(this).user.username + " gets an Hocky Puck PP !");
+						this.duel.getOppOf(this).isHockeyPuckPP = true;
 					}
 				}
 				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1) { // Espinoza
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Espinoza answers his calls !");
-					this.duel.addMessage(this.user.username + " sniffs " + this.duel.getOpponentOf(this).user.username + "'s PP and becomes faster !");
+					this.duel.addMessage(this.user.username + " sniffs " + this.duel.getOppOf(this).user.username + "'s PP and becomes faster !");
 					this.DEXValue += 10;
 				}
 				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1) { // 700IQ
@@ -1027,9 +1027,9 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP14_PRIEST) > -1) { // UREGonnaGETRaped
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Rapist Pudding answers his calls !");
-					this.duel.addMessage(this.user.username + " gives a boner punch to " + this.duel.getOpponentOf(this).user.username + " !");
+					this.duel.addMessage(this.user.username + " gives a boner punch to " + this.duel.getOppOf(this).user.username + " !");
 					this.hasBoner = true;
-					this.duel.getOpponentOf(this).damage(Math.floor((this.STR - this.DEX)/10));
+					this.duel.getOppOf(this).damage(Math.floor((this.STR - this.DEX)/10));
 				}
 				if (this.godList.indexOf(GOD_PP15_PRIEST) > -1) { // STFU Isaac
 					this.duel.addMessage("-----------------");
@@ -1042,7 +1042,7 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP16_PRIEST) > -1) { // The Man Who Made a Monster
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Man who Made a Monster answers his calls !");
-					this.duel.addMessage(this.user.username + " drinks " + this.duel.getOpponentOf(this).user.username + "'s salty tears !");
+					this.duel.addMessage(this.user.username + " drinks " + this.duel.getOppOf(this).user.username + "'s salty tears !");
 					this.tearDrinker += 3;
 				}
 				if (this.godList.indexOf(GOD_PP17_PRIEST) > -1) { // Hitler
@@ -1059,13 +1059,13 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP18_PRIEST) > -1) { // Salt King
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Salt King answers his calls !");
-					if (this.duel.getOpponentOf(this).isSalty) {
-						this.duel.addMessage("But " + this.duel.getOpponentOf(this).user.username + " is already salty...");
+					if (this.duel.getOppOf(this).isSalty) {
+						this.duel.addMessage("But " + this.duel.getOppOf(this).user.username + " is already salty...");
 					}
 					else {
 						this.duel.addMessage(this.user.username + " makes his opponent's wounds salty !");
-						this.duel.getOpponentOf(this).bleedDamage += 3;
-						this.duel.getOpponentOf(this).isSalty = true;
+						this.duel.getOppOf(this).bleedDamage += 3;
+						this.duel.getOppOf(this).isSalty = true;
 					}
 				}
 				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
@@ -1103,8 +1103,8 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP2_PRIEST) > -1) { // Dr Phil
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Dr. Phil answers his calls !");
-					this.duel.addMessage("Dr Phil sends " + this.duel.getOpponentOf(this).user.username + "'s will to fight to the ranch for 1 turn...");
-					this.duel.getOpponentOf(this).turnSkip = 2;
+					this.duel.addMessage("Dr Phil sends " + this.duel.getOppOf(this).user.username + "'s will to fight to the ranch for 1 turn...");
+					this.duel.getOppOf(this).turnSkip = 2;
 				}
 				if (this.godList.indexOf(GOD_PP3_PRIEST) > -1) { // LeprePuds
 					this.duel.addMessage("-----------------");
@@ -1120,7 +1120,7 @@ class Fighter {
 					this.duel.addMessage("DickHead Pudding answers his calls !");
 					if (getRandomPercent() <= 10) {
 						this.duel.addMessage(this.user.username + " wins !");
-						this.duel.getOpponentOf(this).playMove(EMOTE_PP47);
+						this.duel.getOppOf(this).playMove(EMOTE_PP47);
 						return;
 					} 
 					else {
@@ -1151,17 +1151,17 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Fabulous Toast Man answers his calls !");
 					this.duel.addMessage(this.user.username + " calls for a bit of power from all his gods !");
-					this.duel.getOpponentOf(this).damage(Math.floor(this.godList.length*this.STR/10));
+					this.duel.getOppOf(this).damage(Math.floor(this.godList.length*this.STR/10));
 				}
 				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) { // Brenn
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Brenn answers his calls !");
 					this.duel.addMessage("Brenn's massive dong falls in the battlefield !");
 					this.damage(100);
-					this.duel.getOpponentOf(this).damage(100);
+					this.duel.getOppOf(this).damage(100);
 					this.duel.addMessage("Its healing properties grants an extra life to both fighters !");
 					this.extraLife += 1;
-					this.duel.getOpponentOf(this).extraLife += 1;
+					this.duel.getOppOf(this).extraLife += 1;
 				}
 				if (this.godList.indexOf(GOD_PP10_PRIEST) > -1) { // Fabio
 					this.duel.addMessage("-----------------");
@@ -1183,30 +1183,30 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1) { // Espinoza
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Espinoza answers his calls !");
-					this.duel.addMessage(this.user.username + " grabs " + this.duel.getOpponentOf(this).user.username + "'s PP !");
-					this.duel.getOpponentOf(this).grabbedPP = 2;
+					this.duel.addMessage(this.user.username + " grabs " + this.duel.getOppOf(this).user.username + "'s PP !");
+					this.duel.getOppOf(this).grabbedPP = 2;
 				}
 				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1) { // 700IQ
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Mutantoid Lycanthrope answers his calls !");
 					if (!this.chimera) {
-						this.duel.addMessage(this.user.username + " shares his furry genes with " + this.duel.getOpponentOf(this).user.username + " UwU");
-						this.duel.getOpponentOf(this).chimera = true;
-						for (var i in this.duel.getOpponentOf(this).godList) {
-							if (this.duel.getOpponentOf(this).godList[i] != GOD_PP13_PRIEST) {
-								this.duel.getOpponentOf(this).godList[i] = GOD_PP13_PRIEST;
+						this.duel.addMessage(this.user.username + " shares his furry genes with " + this.duel.getOppOf(this).user.username + " UwU");
+						this.duel.getOppOf(this).chimera = true;
+						for (var i in this.duel.getOppOf(this).godList) {
+							if (this.duel.getOppOf(this).godList[i] != GOD_PP13_PRIEST) {
+								this.duel.getOppOf(this).godList[i] = GOD_PP13_PRIEST;
 								break;
 							}
 						}
 						var fullChimera = true;
-						for (var i in this.duel.getOpponentOf(this).godList) {
-							if (this.duel.getOpponentOf(this).godList[i] != GOD_PP13_PRIEST) {
+						for (var i in this.duel.getOppOf(this).godList) {
+							if (this.duel.getOppOf(this).godList[i] != GOD_PP13_PRIEST) {
 								fullChimera = false
 							}
 						}
 						if (fullChimera) {
-							this.duel.addMessage(this.duel.getOpponentOf(this).user.username + " is now fully a furry !");
-							this.duel.getOpponentOf(this).playMove(EMOTE_PP47);
+							this.duel.addMessage(this.duel.getOppOf(this).user.username + " is now fully a furry !");
+							this.duel.getOppOf(this).playMove(EMOTE_PP47);
 						}
 					}
 					else {
@@ -1216,16 +1216,16 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP14_PRIEST) > -1) { // UREGonnaGETRaped
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Rapist Pudding answers his calls !");
-					this.duel.addMessage(this.user.username + " sensually touches " + this.duel.getOpponentOf(this).user.username + "'s PP...");
+					this.duel.addMessage(this.user.username + " sensually touches " + this.duel.getOppOf(this).user.username + "'s PP...");
 					this.hasBoner = true;
-					this.duel.getOpponentOf(this).hasBoner = true;
-					this.duel.getOpponentOf(this).damage(Math.floor(this.STR/2));
+					this.duel.getOppOf(this).hasBoner = true;
+					this.duel.getOppOf(this).damage(Math.floor(this.STR/2));
 				}
 				if (this.godList.indexOf(GOD_PP15_PRIEST) > -1) { // STFU Isaac
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Isaac answers his calls !");
-					this.duel.addMessage(this.user.username + " curses " + this.duel.getOpponentOf(this).user.username + " with bad luck !");
-					this.duel.getOpponentOf(this).badLuck = true;
+					this.duel.addMessage(this.user.username + " curses " + this.duel.getOppOf(this).user.username + " with bad luck !");
+					this.duel.getOppOf(this).badLuck = true;
 				}
 				if (this.godList.indexOf(GOD_PP16_PRIEST) > -1) { // The Man Who Made a Monster
 					this.duel.addMessage("-----------------");
@@ -1237,20 +1237,20 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Literally Hitler answers his calls !");
 					this.duel.addMessage(this.user.username + " starts a new genocide !");
-					if (this.duel.getOpponentOf(this).godList.indexOf(GOD_PP7_PRIEST) > -1) {
-						this.duel.getOpponentOf(this).playMove(EMOTE_PP47);
+					if (this.duel.getOppOf(this).godList.indexOf(GOD_PP7_PRIEST) > -1) {
+						this.duel.getOppOf(this).playMove(EMOTE_PP47);
 					}
 					else {
-						this.duel.addMessage(this.duel.getOpponentOf(this).user.username + " is unaffected...");
+						this.duel.addMessage(this.duel.getOppOf(this).user.username + " is unaffected...");
 					}
 				}
 				if (this.godList.indexOf(GOD_PP18_PRIEST) > -1) { // Salt King
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Salt King answers his calls !");
-					this.duel.addMessage(this.duel.getOpponentOf(this).user.username + " is Salt King's best friend");
-					this.duel.addMessage(this.user.username + " takes " + Math.floor(this.duel.getOpponentOf(this).DEX/2) + " DEX from him.");
-					this.DEXValue += Math.floor(this.duel.getOpponentOf(this).DEX/2);
-					this.duel.getOpponentOf(this).DEXValue -= Math.floor(this.duel.getOpponentOf(this).DEX/2);
+					this.duel.addMessage(this.duel.getOppOf(this).user.username + " is Salt King's best friend");
+					this.duel.addMessage(this.user.username + " takes " + Math.floor(this.duel.getOppOf(this).DEX/2) + " DEX from him.");
+					this.DEXValue += Math.floor(this.duel.getOppOf(this).DEX/2);
+					this.duel.getOppOf(this).DEXValue -= Math.floor(this.duel.getOppOf(this).DEX/2);
 				}
 				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
 					this.duel.addMessage("-----------------");
@@ -1343,39 +1343,39 @@ class Fighter {
 					this.duel.addMessage(this.user.username + " is now touched by Saltus Maximus Retardus !");
 					for (var i = 0; i < 30; i++) {
 						if (getRandomPercent() < 10) {
-							this.duel.addMessage(this.duel.getOpponentOf(this).user.username + " sucks !");
+							this.duel.addMessage(this.duel.getOppOf(this).user.username + " sucks !");
 						}
 						else if (getRandomPercent() < 20) {
-							this.duel.addMessage(this.duel.getOpponentOf(this).user.username + " has the big gay !");
+							this.duel.addMessage(this.duel.getOppOf(this).user.username + " has the big gay !");
 						}
 						else if (getRandomPercent() < 30) {
-							this.duel.addMessage(this.duel.getOpponentOf(this).user.username + " has a smoll pp !");
+							this.duel.addMessage(this.duel.getOppOf(this).user.username + " has a smoll pp !");
 						}
 						else if (getRandomPercent() < 40) {
-							this.duel.addMessage(this.duel.getOpponentOf(this).user.username + " is ugly AF !");
+							this.duel.addMessage(this.duel.getOppOf(this).user.username + " is ugly AF !");
 						}
 						else if (getRandomPercent() < 50) {
-							this.duel.addMessage(this.duel.getOpponentOf(this).user.username + " has 3 nipples !");
+							this.duel.addMessage(this.duel.getOppOf(this).user.username + " has 3 nipples !");
 						}
 						else if (getRandomPercent() < 60) {
-							this.duel.addMessage(this.duel.getOpponentOf(this).user.username + " is a weakling !");
+							this.duel.addMessage(this.duel.getOppOf(this).user.username + " is a weakling !");
 						}
 						else if (getRandomPercent() < 70) {
-							this.duel.addMessage(this.duel.getOpponentOf(this).user.username + " can't even fight properly !");
+							this.duel.addMessage(this.duel.getOppOf(this).user.username + " can't even fight properly !");
 						}
 						else if (getRandomPercent() < 80) {
-							this.duel.addMessage(this.duel.getOpponentOf(this).user.username + " is a loser !");
+							this.duel.addMessage(this.duel.getOppOf(this).user.username + " is a loser !");
 						}
 						else if (getRandomPercent() < 90) {
-							this.duel.addMessage(this.duel.getOpponentOf(this).user.username + " has 0.0026 IQ !");
+							this.duel.addMessage(this.duel.getOppOf(this).user.username + " has 0.0026 IQ !");
 						}
 						else {
-							this.duel.addMessage(this.duel.getOpponentOf(this).user.username + " is a big nerd !");
+							this.duel.addMessage(this.duel.getOppOf(this).user.username + " is a big nerd !");
 						}
 						this.duel.sendMessages();
 					}
 					this.duel.addMessage("You loose now lol !");
-					this.duel.getOpponentOf(this).playMove(EMOTE_PP47);
+					this.duel.getOppOf(this).playMove(EMOTE_PP47);
 				}
 			}
 			else if (attack == EMOTE_PP60) {
@@ -1384,10 +1384,10 @@ class Fighter {
 				this.duel.addMessage(this.user.username + " asks for a PP Duel !");
 				this.STRValue -= this.STR-10;
 				this.DEXValue -= this.DEX-10;
-				this.duel.getOpponentOf(this).STRValue -= this.duel.getOpponentOf(this).STR-10;
-				this.duel.getOpponentOf(this).DEXValue -= this.duel.getOpponentOf(this).DEX-10;
+				this.duel.getOppOf(this).STRValue -= this.duel.getOppOf(this).STR-10;
+				this.duel.getOppOf(this).DEXValue -= this.duel.getOppOf(this).DEX-10;
 				this.bleedDamage = 0;
-				this.duel.getOpponentOf(this).bleedDamage = 0;
+				this.duel.getOppOf(this).bleedDamage = 0;
 			}
 			else if (attack == "IS_DEAD_LOL") {
 				// Dead (Cthulhu battle)
@@ -1419,8 +1419,8 @@ class Fighter {
 
 	damage(_amount, _punch = true) {
 		if (_punch) {
-			_amount += this.duel.getOpponentOf(this).bonusDamage;
-			this.duel.getOpponentOf(this).bonusDamage = 0;
+			_amount += this.duel.getOppOf(this).bonusDamage;
+			this.duel.getOppOf(this).bonusDamage = 0;
 		}
 		if (this.duel.STEEL_PROTECTION) {
 			// Steel
@@ -1456,11 +1456,11 @@ class Fighter {
 		if (this.acidArmor >= 1 && _punch) {
 			this.duel.addMessage(this.user.username + " has an acid armor !");
 			if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) {
-				this.duel.addMessage(this.duel.getOpponentOf(this).user.username + " therapy helps !");
-				this.duel.getOpponentOf(this).heal(10);
+				this.duel.addMessage(this.duel.getOppOf(this).user.username + " therapy helps !");
+				this.duel.getOppOf(this).heal(10);
 			}
 			else {
-				this.duel.getOpponentOf(this).damage(10, false);
+				this.duel.getOppOf(this).damage(10, false);
 			}
 		}
 
@@ -1476,7 +1476,7 @@ class Fighter {
 			// RiotShield
 			this.duel.addMessage(this.user.username + " reflects the damages !");
 			this.isProtected = false;
-			this.duel.getOpponentOf(this).damage(_amount);
+			this.duel.getOppOf(this).damage(_amount);
 		}
 		else {
 			// Damage
@@ -1493,7 +1493,7 @@ class Fighter {
 		}
 		// Alien PP
 		if (this.isAlienPP && _punch) {
-			this.duel.getOpponentOf(this).bleedDamage += 1;
+			this.duel.getOppOf(this).bleedDamage += 1;
 		}
 	}
 
@@ -1571,7 +1571,7 @@ class Fighter {
 			this.duel.addMessage(this.user.username + " drinks salty tears !");
 			this.heal(this.tearDrinker);
 			if (this.godList.indexOf(GOD_PP16_PRIEST) > -1 && this.godList.indexOf(GOD_PP18_PRIEST) > -1) {
-				this.duel.getOpponentOf(this).damage(this.tearDrinker);
+				this.duel.getOppOf(this).damage(this.tearDrinker);
 			}
 			this.duel.addMessage("-----------------");
 		}
@@ -1587,8 +1587,8 @@ class Fighter {
 		}
 		if (this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP9_PRIEST) > -1) {
 			this.duel.addMessage(this.user.username + " plays garbage music");
-			this.duel.addMessage(this.duel.getOpponentOf(this).user.username + "'s ears starts bleeding");
-			this.duel.getOpponentOf(this).bleedDamage++;
+			this.duel.addMessage(this.duel.getOppOf(this).user.username + "'s ears starts bleeding");
+			this.duel.getOppOf(this).bleedDamage++;
 			this.duel.addMessage("-----------------");
 		}
 		if (this.godList.indexOf(GOD_PP10_PRIEST) > -1 && this.godList.indexOf(GOD_PP8_PRIEST) > -1 && getRandomPercent() <= 10) {
@@ -2317,6 +2317,11 @@ class Duel {
 		}
 		return 0;
 	}
+	
+	bothPlayersAction(_function, _firstFighter = this.FIGHTER1) {
+		_function(_firstFighter);
+		_function(this.getOppOf(_firstFighter));
+	}
 }
 
 
@@ -2711,12 +2716,12 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			}
 
 			if (caught1 || caught2) {
-				duel.addMessage("WAIT " + duel.getOpponentOf(winner).user.username.toUpperCase() + " IS DOING ILLEGAL STUFF RIGHT NOW !");
-				duel.addMessage(duel.getOpponentOf(winner).user.username + " is disqualified for being a dumb shit.");
+				duel.addMessage("WAIT " + duel.getOppOf(winner).user.username.toUpperCase() + " IS DOING ILLEGAL STUFF RIGHT NOW !");
+				duel.addMessage(duel.getOppOf(winner).user.username + " is disqualified for being a dumb shit.");
 				duel.addMessage(winner.user.username + " wins !");
 
 				winner.win();
-				addWinCounter(duel.getOpponentOf(winner), -1);
+				addWinCounter(duel.getOppOf(winner), -1);
 
 				duel.stopDuel();
 				return;
