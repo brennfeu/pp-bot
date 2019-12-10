@@ -411,7 +411,7 @@ class Fighter {
 			txt += " - **Grabbed PP**\n";
 		}
 		if (this.summonTankCountdown > 0) {
-			txt += " - **Summoning the Monster (" + 3-this.summonTankCountdown + "/3)**\n";
+			txt += " - **Summoning the Monster (" + (3-this.summonTankCountdown) + "/3)**\n";
 		}
 		if (this.extraLife > 0) {
 			txt += " - **Extra lives : " + this.extraLife + "**\n";
