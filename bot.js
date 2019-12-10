@@ -313,25 +313,27 @@ class Fighter {
 		}
 		    
 		txt += "\n\n**Fighting Styles :**\n";
-		if (this.isBigPP) {
-			txt += " - Big PP\n";
-		}
-		if (this.isFastPP) {
-			txt += " - Fast PP\n";
-		}
-		if (this.isDrunkPP) {
-			txt += " - Drunken PP\n";
-		}
-		if (this.isHockeyPuckPP) {
-			txt += " - Hockey Puck PP\n";
-		}
-		if (this.isAlienPP) {
-			txt += " - Alien PP\n";
-		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			txt += " - *Ultimate PP*\n";
 		}
-
+		else {
+			if (this.isBigPP) {
+				txt += " - Big PP\n";
+			}
+			if (this.isFastPP) {
+				txt += " - Fast PP\n";
+			}
+			if (this.isDrunkPP) {
+				txt += " - Drunken PP\n";
+			}
+			if (this.isHockeyPuckPP) {
+				txt += " - Hockey Puck PP\n";
+			}
+			if (this.isAlienPP) {
+				txt += " - Alien PP\n";
+			}
+		}
+		
 		// Status
 		txt += "\n**Status :**\n"
 		if (this.isOverCircumcised) {
@@ -2316,8 +2318,8 @@ function killDeadDuels() {
 }
 
 function setBotActivity() {
-	if (DUEL_LIST.size > 0) {
-		CLIENT.user.setActivity("PP Punch Arena (" + DUEL_LIST.size + " duels)");
+	if (DUEL_LIST.length > 0) {
+		CLIENT.user.setActivity("PP Punch Arena (" + DUEL_LIST.length + " duels)");
 	}
 	else {
 		CLIENT.user.setActivity("");
