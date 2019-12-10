@@ -643,7 +643,7 @@ class Fighter {
 				// Bombardment
 				this.duel.addMessage(this.user.username + " calls for a bombardment !!!");
 				this.duel.bothFightersAction(
-					function(_fighter, this) {
+					function(_fighter, this.idUser) {
 						_fighter.damage(1000)
 					}
 				);
@@ -2321,9 +2321,13 @@ class Duel {
 		return 0;
 	}
 	
-	bothFightersAction(_function, _firstFighter = this.FIGHTER1) {
-		_function(_firstFighter);
-		_function(this.getOppOf(_firstFighter));
+	bothFightersAction(_function, _firstFighterId = this.FIGHTER1.id) {
+		var fighter = this.FIGHTER2;
+		if (_firstFighterId == this.FIGHTER1.id) {
+			fighter = this.FIGHTER1;
+		}
+		_function(fighter);
+		_function(this.getOppOf(fighter));
 	}
 }
 
