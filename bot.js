@@ -2677,7 +2677,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				duel.addMessage("Both opponents attack this turn !");
 				duel.sendMessages();
 
-				this.duel.bothFightersAction(function(_fighter) {
+				duel.bothFightersAction(function(_fighter) {
 					duel.addMessage("-----------------");
 					_fighter.playMove();
 					// Burst
