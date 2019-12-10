@@ -1285,14 +1285,14 @@ class Fighter {
 						this.STRValue -= this.STR-this.duel.getOppOf(this).STR; 
 					}
 					else {
-						this.duel.addMessage(this.user.username + " is the strongest !");
+						this.duel.addMessage(this.user.username + " is already the strongest !");
 					}
 					if (this.DEX < this.duel.getOppOf(this).DEX) {
 						this.duel.addMessage(this.user.username + " gets as much DEX as " + this.duel.getOppOf(this).user.username);
 						this.DEXValue -= this.STR-this.duel.getOppOf(this).DEX; 
 					}
 					else {
-						this.duel.addMessage(this.user.username + " is the fastest !");
+						this.duel.addMessage(this.user.username + " is already the fastest !");
 					}
 				}
 				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
