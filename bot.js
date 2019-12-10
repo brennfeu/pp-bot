@@ -759,6 +759,7 @@ class Fighter {
 			else if (attack == EMOTE_PP39) {
 				// Interrogation Point
 				this.duel.addMessage(this.user.username + " summons a random move !");
+				this.duel.sendMessage();
 				this.playMove(this.duel.getRandomEmote());
 			}
 			else if (attack == EMOTE_PP40) {
@@ -2692,9 +2693,11 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				duel.bothFightersAction(function(_fighter) {
 					duel.addMessage("-----------------");
 					_fighter.playMove();
+					this.duel.sendMessage();
 					// Burst
 					if (duel.getOppOf(_fighter).attack == EMOTE_PP8) {
 						duel.addMessage(duel.getOppOf(_fighter).user.username + " burst !");
+						this.duel.sendMessage();
 						_fighter.hasBurst = 2;
 					}
 				}, winner);
