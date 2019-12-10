@@ -760,7 +760,7 @@ class Fighter {
 				// Interrogation Point
 				this.duel.addMessage(this.user.username + " summons a random move !");
 				var emote = this.duel.getRandomEmote();
-				if (emote == EMOTE_PP26 || emote = EMOTE_PP46) {
+				if (emote == EMOTE_PP26 || emote == EMOTE_PP46) {
 					this.duel.sendMessages(1);
 				}
 				this.playMove(emote);
