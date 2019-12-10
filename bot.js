@@ -1998,13 +1998,13 @@ class Duel {
 		var randomVar = getRandomPercent();
 
 		if (this.FORCE_EVENT) {
-			while (!(randomVar <= 25 && randomVar >= 2)) {
+			while (!(randomVar <= 26 && randomVar >= 2)) {
 				randomVar = getRandomPercent();
 			}
 		}
 
-		// PP ARMAGEDDON
 		if (!this.PP_ARMAGEDDON && this.MOVE_COUNT >= 100) {
+			// PP ARMAGEDDON
 			this.PP_ARMAGEDDON = true;
 			this.addMessage(" -- PP ARMAGEDDON --");
 			this.addMessage("PPs have ascended, the end is near !");
@@ -2067,7 +2067,7 @@ class Duel {
 			// Blood Moon
 			this.EVENT_BLOOD_MOON = true;
 			this.addMessage(" -- BLOOD MOON --");
-			this.addMessage("If someone dies this turn, STR automatically stays at 1 but the remaining damages goes negative in the DEX.");
+			this.addMessage("If someone dies this turn, STR automatically stays at 1 but the remaining damages goes positive in the DEX.");
 			this.bothFightersAction(function(_fighter) {
 				if (_fighter.STR <= 0) {
 					_fighter.DEXValue += (0-_fighter.STR)+1;
@@ -2146,7 +2146,7 @@ class Duel {
 				this.EVENT_BOSS = true;
 				this.addMessage(" -- FREE LIVES RIOT --");
 				this.addMessage("Let's riot Free Lives HQ just for fun !");
-				this.BOSS_HEALTH = 1000;
+				this.BOSS_HEALTH = 500;
 				this.BOSS_DAMAGE = 20;
 				this.CURRENT_BOSS = BOSS_PP2;
 			}
@@ -2160,7 +2160,7 @@ class Duel {
 			this.addMessage("where were u wen club penguin die");
 			this.addMessage(winner.user.username + " was at house eating dorito when phone ring");
 			this.addMessage(this.getOppOf(winner).user.username + ' : "Club penguin is kil"');
-			this.addMessage(winner.user.username + ' : "no"');
+			this.addMessage(winner.user.username + ' : "*no*"');
 			
 			this.bothFightersAction(function(_fighter) {
 				_fighter.isPossessed = 2;
