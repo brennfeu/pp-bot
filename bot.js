@@ -353,7 +353,7 @@ class Fighter {
 			txt += " - Eldritch Friendly\n";
 		}
 		if (this.pigHeal > 0) {
-			txt += " - Hog Squeezer\n";
+			txt += " - Hog Squeezer (" + this.pigHeal + ")\n";
 		}
 		if (this.doomReverse > 0) {
 			txt += " - DOOM-REVERSE(tm) (for " + this.doomReverse + " turns)\n";
@@ -377,7 +377,7 @@ class Fighter {
 			txt += " - Furry PP\n";
 		}
 		if (this.tearDrinker > 0) {
-			txt += " - Tear Drinker\n";
+			txt += " - Tear Drinker (" + this.tearDrinker + ")\n";
 		}
 		if (this.isCowBoy) {
 			txt += " - Cowboy\n";
@@ -1424,7 +1424,7 @@ class Fighter {
 		}
 		if (this.duel.BARREL_DAMAGE) {
 			// Barrel
-			_amount -= _amount*2;
+			_amount = _amount*2;
 		}
 		if (this.duel.ATTACK_MISS_COUNTDOWN > 0 && getRandomPercent() < 90) {
 			_amount += _amount;
@@ -2324,6 +2324,7 @@ function killDeadDuels() {
 function setBotActivity() {
 	if (DUEL_LIST.length > 0) {
 		CLIENT.user.setActivity(DUEL_LIST.length + " duel(s) of PP Punching");
+		console.log("DUEL LIST : " + DUEL_LIST);
 	}
 	else {
 		CLIENT.user.setActivity("alone with my PP...");
