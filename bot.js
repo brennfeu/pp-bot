@@ -2324,7 +2324,7 @@ function killDeadDuels() {
 function setBotActivity() {
 	if (DUEL_LIST.length > 0) {
 		CLIENT.user.setActivity(DUEL_LIST.length + " duel(s) of PP Punching");
-		console.log("DUEL LIST : " + DUEL_LIST);
+		console.log(DUEL_LIST);
 	}
 	else {
 		CLIENT.user.setActivity("alone with my PP...");
@@ -2378,6 +2378,7 @@ CLIENT.on('ready', () => {
 
 // This event will run on every single message received, from any channel or DM.
 CLIENT.on("message", async _message => {
+	killDeadDuels()
 	setBotActivity();
 	
 	// Recuperation commande
@@ -2500,6 +2501,7 @@ CLIENT.on("message", async _message => {
 });
 
 CLIENT.on('messageReactionAdd', (_reaction, _user) => {
+	killDeadDuels()
 	setBotActivity();
 	
 	// Ignore si bot
