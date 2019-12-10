@@ -2282,11 +2282,11 @@ class Duel {
 		return 0;
 	}
 	
-	bothFightersAction(_function, _firstFighter = this.chooseRandomFighter()) {
+	bothFightersAction(_function, _firstFighter = this.getRandomFighter()) {
 		_function(_firstFighter);
 		_function(this.getOppOf(_firstFighter));
 	}
-	chooseRandomFighter() {
+	getRandomFighter() {
 		if (getRandomPercent <= 50) {
 			return this.FIGHTER1;
 		}
