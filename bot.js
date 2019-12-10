@@ -2151,6 +2151,21 @@ class Duel {
 				this.CURRENT_BOSS = BOSS_PP2;
 			}
 		}
+		else if (randomVar == 26) {
+			// Tragedy
+			this.addMessage(" -- TRAGEDY --");
+			var winner = this.getRandomFighter();
+			
+			this.addMessage("apolgy for bad english");
+			this.addMessage("where were u wen club penguin die");
+			this.addMessage(winner.user.username + " was at house eating dorito when phone ring");
+			this.addMessage(this.getOppOf(winner).user.username + ' : "Club penguin is kil"');
+			this.addMessage(winner.user.username + ' : "no"');
+			
+			this.bothFightersAction(function(_fighter) {
+				_fighter.isPossessed = 2;
+			});
+		}
 		else {
 			this.addMessage("No event this turn...");
 		}
