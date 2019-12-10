@@ -1389,41 +1389,17 @@ class Fighter {
 				}
 				if (nbSalt >= 3) {
 					this.duel.addMessage(this.user.username + " is now touched by Saltus Maximus Retardus !");
-					for (var i = 0; i < 30; i++) {
-						if (getRandomPercent() < 10) {
-							this.duel.addMessage(this.duel.getOppOf(this).user.username + " sucks !");
-						}
-						else if (getRandomPercent() < 20) {
-							this.duel.addMessage(this.duel.getOppOf(this).user.username + " has the big gay !");
-						}
-						else if (getRandomPercent() < 30) {
-							this.duel.addMessage(this.duel.getOppOf(this).user.username + " has a smoll pp !");
-						}
-						else if (getRandomPercent() < 40) {
-							this.duel.addMessage(this.duel.getOppOf(this).user.username + " is ugly AF !");
-						}
-						else if (getRandomPercent() < 50) {
-							this.duel.addMessage(this.duel.getOppOf(this).user.username + " has 3 nipples !");
-						}
-						else if (getRandomPercent() < 60) {
-							this.duel.addMessage(this.duel.getOppOf(this).user.username + " is a weakling !");
-						}
-						else if (getRandomPercent() < 70) {
-							this.duel.addMessage(this.duel.getOppOf(this).user.username + " can't even fight properly !");
-						}
-						else if (getRandomPercent() < 80) {
-							this.duel.addMessage(this.duel.getOppOf(this).user.username + " is a loser !");
-						}
-						else if (getRandomPercent() < 90) {
-							this.duel.addMessage(this.duel.getOppOf(this).user.username + " has 0.0026 IQ !");
-						}
-						else {
-							this.duel.addMessage(this.duel.getOppOf(this).user.username + " is a big nerd !");
-						}
-						this.duel.sendMessages();
-					}
-					this.duel.addMessage(this.duel.getOppOf(this).user.username + " loose now lol !");
+					this.duel.addMessage(this.duel.getOppOf(this).user.username + " sucks !");
+					this.duel.addMessage(this.duel.getOppOf(this).user.username + " has the big gay !");
+					this.duel.addMessage(this.duel.getOppOf(this).user.username + " has a smoll pp !");
+					this.duel.addMessage(this.duel.getOppOf(this).user.username + " is a loser !");
+					this.duel.addMessage(this.duel.getOppOf(this).user.username + " is a big nerd !");
+					this.duel.addMessage(this.duel.getOppOf(this).user.username + " better abandons now !");
 					this.duel.getOppOf(this).playMove(EMOTE_PP47);
+					this.duel.sendMessages();
+				}
+				else {
+					this.duel.addMessage(this.user.username + " needs to get even closer !");
 				}
 			}
 			else if (attack == EMOTE_PP60) {
