@@ -370,6 +370,9 @@ class Fighter {
 		}
 		if (this.bleedDamage > 0) {
 			txt += " - Haemorrhage : " + this.bleedDamage + "\n";
+			if (this.isSalty) {
+				txt += "   - Salty Wounds\n";
+			}
 		}
 		if (this.isOverCircumcised) {
 			txt += " - Overcircumcised\n";
@@ -385,9 +388,6 @@ class Fighter {
 		}
 		if (this.isCowBoy) {
 			txt += " - Cowboy\n";
-		}
-		if (this.isSalty) {
-			txt += " - Salty\n";
 		}
 		if (this.legAimer) {
 			txt += " - Leg Aimer\n";
@@ -2379,10 +2379,15 @@ function killDeadDuels() {
 
 function setBotActivity() {
 	if (DUEL_LIST.length > 0) {
-		CLIENT.user.setActivity(DUEL_LIST.length + " duel(s) of PP Punching");
+		if (DUEL_LIST.length == 1) {
+			CLIENT.user.setActivity(DUEL_LIST.length + " duel of PP Punching");
+		}
+		else {
+			CLIENT.user.setActivity(DUEL_LIST.length + " duels of PP Punching");
+		}
 	}
 	else {
-		CLIENT.user.setActivity("alone with my PP...");
+		CLIENT.user.setActivity("Lonely PP :(");
 	}
 }
 
