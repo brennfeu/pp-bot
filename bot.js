@@ -1919,7 +1919,7 @@ class Duel {
 		});
 
 		// Stop if dead (cthulhu battle)
-		duel.bothFightersAction(function(_fighter) {
+		this.bothFightersAction(function(_fighter) {
 			if (_fighter.STR <= 0) {
 				_fighter.attack = "IS_DEAD_LOL";
 				_fighter.STRValue = -10;
