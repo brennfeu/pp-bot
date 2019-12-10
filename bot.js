@@ -2561,134 +2561,87 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				if (_fighter.summonTankCountdown > 0) {
 					_fighter.attack = EMOTE_PP10;
 				}
+				// Si ajout, ne pas oublier d'autoriser dans tests illegaux
 			});
 
 			// test illegal
-			var caught1 = duel.illegalGetCaught(duel.getRisk(duel.FIGHTER1.attack)) || (duel.FIGHTER1.badLuck && duel.getRisk(duel.FIGHTER1.attack) > 0);
-			var caught2 = duel.illegalGetCaught(duel.getRisk(duel.FIGHTER2.attack)) || (duel.FIGHTER2.badLuck && duel.getRisk(duel.FIGHTER2.attack) > 0);
+			duel.bothFightersAction(function(_fighter) {
+				// Illegalité
+				var caught1 = duel.illegalGetCaught(duel.getRisk(_fighter.attack)) || (_fighter.badLuck && duel.getRisk(_fighter.attack) > 0);
+				
+				// Move non autorisé (movepool)
+				if (duel.LIST_AVAILABLE_ATTACKS.indexOf(_fighter.attack) < 0 && 
+				    !(_fighter.attack == duel.EMOTE_PP50 && _fighter.turnSkip) && 
+				    !(_fighter.attack == duel.EMOTE_PP39 && _fighter.grabbedPP) && 
+				    !(_fighter.attack == duel.EMOTE_PP10 && _fighter.summonTankCountdown)) {
+					caught1 = caught1 || (duel.illegalGetCaught(50) && !duel.EVENT_PP_ENLIGHTENMENT) && !_fighter.badLuck;
+				}
+				
+				// Tricher les charges
+				if (_fighter.attack == EMOTE_PP51 && _fighter.regularCharges <= 0 && duel.illegalGetCaught(80)) {
+					caught1 = true;
+				}
+				if (_fighter.attack == EMOTE_PP52 && _fighter.specialCharges <= 0 && duel.illegalGetCaught(95)) {
+					caught1 = true;
+				}
+				
+				// Triche des emotes animés
+				if (SPECIAL_EMOTE_LIST.indexOf(_fighter.attack) > -1 && duel.LIST_AVAILABLE_ATTACKS.indexOf(_fighter.attack) < 0) {
+					caught1 = duel.illegalGetCaught(100);
+				}
+				
+				// Illegal Jews (Hitler regular move)
+				if (duel.ILLEGAL_JEWS && _fighter.godList.indexOf(duel.GOD_PP7_PRIEST) > -1 && duel.illegalGetCaught(5)) {
+					duel.addMessage("Wait, I think " + _fighter.user.username + " is a jew !");
+					caught1 = true;
+				}
+				
+				// Lucky (Leprepuds regular move)
+				if (_fighter.isLucky && getRandomPercent() <= 50) {
+					caught1 = false;
+				}
+				
+				// True Barbarian from the North (Mongo special move)
+				if (_fighter.trueBarbarian && _fighter.STR >= 100 && caught1) {
+					caught1 = false;
+					duel.addMessage(_fighter.user.username + " strong. " + _fighter.user.username + " punch arbitratory if arbitratory bad.");
+				}
+				
+				// Caught cheating --> test si malus dex
+				if (caught1 && (getRandomPercent() >= 33 || _fighter.godList.indexOf(GOD_PP16_PRIEST) > -1 && _fighter.godList.indexOf(GOD_PP13_PRIEST) > -1)) {
+					duel.addMessage(_fighter.user.username + " is doing illegal stuff ! He loses 20 DEX and 10 STR.");
+					_fighter.user.username.STRValue -= 10;
+					_fighter.user.username.DEXValue -= 20;
+					_fighter.attack = EMOTE_PP50;
+					caught1 = false;
+				}
+				else if (caught1) {
+					duel.addMessage("WAIT " + _fighter.user.username.toUpperCase() + " IS DOING ILLEGAL STUFF RIGHT NOW !");
+					duel.addMessage(_fighter.user.username + " is disqualified for being a dumb shit.");
+					duel.addMessage(duel.getOppOf(_fighter).user.username + " wins !");
 
-			if (duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.FIGHTER1.attack) < 0 && !(duel.FIGHTER1.attack == duel.EMOTE_PP50 && duel.FIGHTER1.turnSkip) && !(duel.FIGHTER1.attack == duel.EMOTE_PP39 && duel.FIGHTER1.grabbedPP) && !(duel.FIGHTER1.attack == duel.EMOTE_PP10 && duel.FIGHTER1.summonTankCountdown)) {
-				caught1 = caught1 || (duel.illegalGetCaught(50) && !duel.EVENT_PP_ENLIGHTENMENT) && !duel.FIGHTER1.badLuck;
-			}
-			if (duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.FIGHTER2.attack) < 0 && !(duel.FIGHTER2.attack == duel.EMOTE_PP50 && duel.FIGHTER2.turnSkip) && !(duel.FIGHTER2.attack == duel.EMOTE_PP39 && duel.FIGHTER2.grabbedPP) && !(duel.FIGHTER2.attack == duel.EMOTE_PP10 && duel.FIGHTER2.summonTankCountdown)) {
-				caught2 = caught2 || (duel.illegalGetCaught(50) && !duel.EVENT_PP_ENLIGHTENMENT) && !duel.FIGHTER2.badLuck;
-			}
+					duel.getOppOf(_fighter).win();
+					addWinCounter(_fighter, -1);
 
-			if (duel.FIGHTER1.attack == EMOTE_PP51 && duel.FIGHTER1.regularCharges <= 0 && duel.illegalGetCaught(80)) {
-				caught1 = true;
-			}
-			if (duel.FIGHTER2.attack == EMOTE_PP51 && duel.FIGHTER2.regularCharges <= 0 && duel.illegalGetCaught(80)) {
-				caught2 = true;
-			}
-			if (duel.FIGHTER1.attack == EMOTE_PP52 && duel.FIGHTER1.specialCharges <= 0 && duel.illegalGetCaught(95)) {
-				caught1 = true;
-			}
-			if (duel.FIGHTER2.attack == EMOTE_PP52 && duel.FIGHTER2.specialCharges <= 0 && duel.illegalGetCaught(95)) {
-				caught2 = true;
-			}
-			
-			if (SPECIAL_EMOTE_LIST.indexOf(duel.FIGHTER1.attack) > -1 && duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.FIGHTER1.attack) < 0) {
-				caught1 = duel.illegalGetCaught(100);
-			}
-			if (SPECIAL_EMOTE_LIST.indexOf(duel.FIGHTER2.attack) > -1 && duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.FIGHTER2.attack) < 0) {
-				caught2 = duel.illegalGetCaught(100);
-			}
-			
-			if (duel.FIGHTER1.summonTankCountdown == 1) {
-				caught1 = false;
-			}
-			if (duel.FIGHTER2.summonTankCountdown == 1) {
-				caught2 = false;
-			}
-			
-			if (duel.ILLEGAL_JEWS && duel.FIGHTER1.godList.indexOf(duel.GOD_PP7_PRIEST) > -1 && duel.illegalGetCaught(5)) {
-				duel.addMessage("Wait, I think " + duel.FIGHTER1.user.username + " is a jew !");
-				caught1 = true;
-			}
-			if (duel.ILLEGAL_JEWS && duel.FIGHTER2.godList.indexOf(duel.GOD_PP7_PRIEST) > -1 && duel.illegalGetCaught(5)) {
-				duel.addMessage("Wait, I think " + duel.FIGHTER2.user.username + " is a jew !");
-				caught2 = true;
-			}
-
-			if (duel.FIGHTER1.isLucky && getRandomPercent() <= 50) {
-				caught1 = false;
-			}
-			if (duel.FIGHTER2.isLucky && getRandomPercent() <= 50) {
-				caught2 = false;
-			}
-			
-			if (duel.FIGHTER1.trueBarbarian && duel.FIGHTER1.STR >= 100 && caught1) {
-				caught1 = false;
-				duel.addMessage(duel.FIGHTER1.user.username + " strong. " + duel.FIGHTER1.user.username + " punch arbitratory if arbitratory bad.");
-			}
-			if (duel.FIGHTER2.trueBarbarian && duel.FIGHTER2.STR >= 100 && caught2) {
-				caught2 = false;
-				duel.addMessage(duel.FIGHTER2.user.username + " strong. " + duel.FIGHTER2.user.username + " punch arbitratory if arbitratory bad.");
-			}
-			
-			if (caught1 && (getRandomPercent() >= 33 || duel.FIGHTER1.godList.indexOf(GOD_PP12_PRIEST) > -1 && duel.FIGHTER1.godList.indexOf(GOD_PP13_PRIEST) > -1)) {
-				duel.addMessage(duel.FIGHTER1.user.username + " is doing illegal stuff ! He loses 20 DEX and 10 STR.");
-				duel.FIGHTER1.user.username.STRValue -= 10;
-				duel.FIGHTER1.user.username.DEXValue -= 20;
-				duel.FIGHTER1.attack = EMOTE_PP50;
-				caught1 = false;
-			}
-			if (caught2 && (getRandomPercent() >= 33 || duel.FIGHTER2.godList.indexOf(GOD_PP12_PRIEST) > -1 && duel.FIGHTER2.godList.indexOf(GOD_PP13_PRIEST) > -1)) {
-				duel.addMessage(duel.FIGHTER2.user.username + " is doing illegal stuff ! He loses 20 DEX and 10 STR.");
-				duel.FIGHTER2.user.username.STRValue -= 10;
-				duel.FIGHTER2.user.username.DEXValue -= 20;
-				duel.FIGHTER2.attack = EMOTE_PP50;
-				caught2 = false;
-			}
-
-			var winner;
-			if (caught1 && caught2) {
-				duel.addMessage("WAIT YOU ARE DOING ILLEGAL STUFF RIGHT NOW !");
-				duel.addMessage("You both loose the fight !");
-				duel.addMessage("You cheaters do not deserve to live !");
-				duel.addMessage("You fucking suckers");
-
-				addWinCounter(duel.FIGHTER1, -1);
-				addWinCounter(duel.FIGHTER2, -1);
-
-				duel.stopDuel();
-				return;
-			}
-			else if (caught1) {
-				winner = duel.FIGHTER2;
-			}
-			else if (caught2) {
-				winner = duel.FIGHTER1;
-			}
-
-			if (caught1 || caught2) {
-				duel.addMessage("WAIT " + duel.getOppOf(winner).user.username.toUpperCase() + " IS DOING ILLEGAL STUFF RIGHT NOW !");
-				duel.addMessage(duel.getOppOf(winner).user.username + " is disqualified for being a dumb shit.");
-				duel.addMessage(winner.user.username + " wins !");
-
-				winner.win();
-				addWinCounter(duel.getOppOf(winner), -1);
-
-				duel.stopDuel();
-				return;
-			}
+					duel.stopDuel();
+					return;
+				}
+			});
 			
 			duel.addMessage("\n\n**===== ATTACKS =====**");
 			
-			this.duel.bothFightersAction(function(_fighter) {
+			duel.bothFightersAction(function(_fighter) {
+				// Jew Hitler Paradox
 				if (_fighter.godList.indexOf(GOD_PP7_PRIEST) > -1 && _fighter.godList.indexOf(GOD_PP17_PRIEST) > -1 && getRandomPercent() <= 10) {
 					_fighter.duel.addMessage(_fighter.user.username + " gets the Jew-Hitler Paradox Effect !");
 					_fighter.attack = duel.getRandomEmote(false);
 				}
+				
+				// Change attack if dead (boss battle)
+				if (duel.FIGHTER1.STR <= 0) {
+					duel.FIGHTER1.attack = "IS_DEAD_LOL";
+				}
 			});
-
-			// Change attack if dead (cthulhu battle)
-			if (duel.FIGHTER1.STR <= 0) {
-				duel.FIGHTER1.attack = "IS_DEAD_LOL";
-			}
-			if (duel.FIGHTER2.STR <= 0) {
-				duel.FIGHTER2.attack = "IS_DEAD_LOL";
-			}
 
 			// ATTAQUES
 			var dexAttack1 = duel.FIGHTER1.DEX + duel.getDexChange(duel.FIGHTER1.attack) + Math.floor(Math.random() * 50 + 1);
@@ -2718,37 +2671,28 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			}
 
 			// ExclamationPoint
-			if (duel.FIGHTER1.attack == EMOTE_PP30) {
-				duel.FIGHTER1.attack = duel.FIGHTER1.oldAttack;
-			}
-			else {
-				duel.FIGHTER1.oldAttack = duel.FIGHTER1.attack;
-			}
-			if (duel.FIGHTER2.attack == EMOTE_PP30) {
-				duel.FIGHTER2.attack = duel.FIGHTER2.oldAttack;
-			}
-			else {
-				duel.FIGHTER2.oldAttack = duel.FIGHTER2.attack;
-			}
+			duel.bothFightersAction(function(_fighter) {
+				if (_fighter.attack == EMOTE_PP30) {
+					_fighter.attack = _fighter.oldAttack;
+				}
+				else {
+					_fighter.oldAttack = _fighter.attack;
+				}
+			});
 
 			if ((dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) || duel.AUTO_MOVES_COUNTDOWN > 0 || duel.EVENT_BOSS) {
 				duel.addMessage("Both opponents attack this turn !");
 				duel.sendMessages();
 
-				duel.FIGHTER1.playMove();
-				// Burst
-				if (duel.FIGHTER2.attack == EMOTE_PP8) {
-					duel.addMessage(duel.FIGHTER2.user.username + " burst !");
-					duel.FIGHTER1.hasBurst = 2;
-				}
-				duel.addMessage("-----------------");
-
-				duel.FIGHTER2.playMove();
-				// Burst
-				if (duel.FIGHTER1.attack == EMOTE_PP8) {
-					duel.addMessage(duel.FIGHTER1.user.username + " burst !");
-					duel.FIGHTER2.hasBurst = 2;
-				}
+				this.duel.bothFightersAction(function(_fighter) {
+					duel.addMessage("-----------------");
+					_fighter.playMove();
+					// Burst
+					if (duel.getOppOf(_fighter).attack == EMOTE_PP8) {
+						duel.addMessage(duel.getOppOf(_fighter).user.username + " burst !");
+						_fighter.hasBurst = 2;
+					}
+				});
 			}
 			else if (dexAttack1 > dexAttack2) {
 				// Save
