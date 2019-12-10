@@ -642,8 +642,11 @@ class Fighter {
 			else if (attack == EMOTE_PP25) {
 				// Bombardment
 				this.duel.addMessage(this.user.username + " calls for a bombardment !!!");
-				this.damage(1000);
-				this.duel.getOppOf(this).damage(1000);
+				this.duel.bothFightersAction(
+					function(_fighter, this) {
+						_fighter.damage(1000)
+					}
+				);
 			}
 			else if (attack == EMOTE_PP26) {
 				// Big Satan
@@ -2318,7 +2321,7 @@ class Duel {
 		return 0;
 	}
 	
-	bothPlayersAction(_function, _firstFighter = this.FIGHTER1) {
+	bothFightersAction(_function, _firstFighter = this.FIGHTER1) {
 		_function(_firstFighter);
 		_function(this.getOppOf(_firstFighter));
 	}
