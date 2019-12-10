@@ -1744,14 +1744,14 @@ class Duel {
 
 		if (this.NUCLEAR_BOMB == 0) {
 			this.addMessage("The Nuclear Bomb explodes now !");
-			this.duel.bothFightersAction(function(_fighter) {
+			this.bothFightersAction(function(_fighter) {
 				_fighter.damage(1000000000);
 			});
 		}
 
 		// Blood Moon Save
 		if (this.EVENT_BLOOD_MOON) {
-			this.duel.bothFightersAction(function(_fighter) {
+			this.bothFightersAction(function(_fighter) {
 				if (_fighter.STR <= 0) {
 					_fighter.DEXValue += (0-_fighter.STR)+1;
 					_fighter.STRValue += (0-_fighter.STR)+1;
@@ -1765,7 +1765,7 @@ class Duel {
 			if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP1) {
 				this.addMessage(this.CURRENT_BOSS + " goes back to sleep to heal his poor PP !");
 				this.addMessage("You both win !");
-				this.duel.bothFightersAction(function(_fighter) {
+				this.bothFightersAction(function(_fighter) {
 					addWinCounter(_fighter, 1);
 				});
 				this.EVENT_BOSS = false;
@@ -1778,14 +1778,14 @@ class Duel {
 			else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP3) {
 				this.addMessage(this.CURRENT_BOSS + " goes back hiding behind the moon !");
 				this.addMessage("You both win !");
-				this.duel.bothFightersAction(function(_fighter) {
+				this.bothFightersAction(function(_fighter) {
 					addWinCounter(_fighter, 1);
 				});
 				this.EVENT_BOSS = false;
 
 				var role = this.GUILD.roles.find(r => r.name == GOD_PP21_PRIEST);
 				try {
-					this.duel.bothFightersAction(function(_fighter) {
+					this.bothFightersAction(function(_fighter) {
 						_fighter.guildUser.addRole(role).catch(console.error);
 					});
 					this.addMessage("**D.I.C.K. is proud of you. He grants you his powers.**");
@@ -1806,10 +1806,10 @@ class Duel {
 
 		}
 		
-		this.duel.bothFightersAction(function(_fighter) {
+		this.bothFightersAction(function(_fighter) {
 			_fighter.turnChange();
 		});
-		this.duel.bothFightersAction(function(_fighter) {
+		this.bothFightersAction(function(_fighter) {
 			if (_fighter.STR <= 0 && _fighter.extraLife > 0) {
 				this.addMessage(_fighter.user.username + " uses an extra life !");
 				_fighter = new Fighter(_fighter.idUser, this.BATTLE_CHANNEL.id);
@@ -1822,7 +1822,7 @@ class Duel {
 			return;
 		}
 		
-		this.duel.bothFightersAction(function(_fighter) {
+		this.bothFightersAction(function(_fighter) {
 			if (_fighter.STR <= 0 && !this.EVENT_BOSS) {
 				this.addMessage(this.getOppOf(_fighter).user.username + " won ! Congrats !");
 				this.getOppOf(_fighter).win();
@@ -1919,7 +1919,7 @@ class Duel {
 		});
 
 		// Stop if dead (cthulhu battle)
-		this.duel.bothFightersAction(function(_fighter) {
+		duel.bothFightersAction(function(_fighter) {
 			if (_fighter.STR <= 0) {
 				_fighter.attack = "IS_DEAD_LOL";
 				_fighter.STRValue = -10;
@@ -2016,7 +2016,7 @@ class Duel {
 			this.EVENT_BLOOD_MOON = true;
 			this.addMessage(" -- BLOOD MOON --");
 			this.addMessage("If someone dies this turn, STR automatically stays at 1 but the remaining damages goes negative in the DEX.");
-			this.duel.bothFightersAction(function(_fighter) {
+			this.bothFightersAction(function(_fighter) {
 				if (_fighter.STR <= 0) {
 					_fighter.DEXValue += (0-_fighter.STR)+1;
 					_fighter.STRValue += (0-_fighter.STR)+1;
@@ -2036,7 +2036,7 @@ class Duel {
 			// Charge
 			this.addMessage(" -- GODS BIRTHDAY GIFTS --");
 			this.addMessage("Gods decide to give you a regular charge each");
-			this.duel.bothFightersAction(function(_fighter) {
+			this.bothFightersAction(function(_fighter) {
 				_fighter.regularCharges++;
 			});
 		}
@@ -2044,7 +2044,7 @@ class Duel {
 			// Charge
 			this.addMessage(" -- GODS CHRISTMAS GIFTS --");
 			this.addMessage("Gods decide to give you a special charge each");
-			this.duel.bothFightersAction(function(_fighter) {
+			this.bothFightersAction(function(_fighter) {
 				_fighter.specialCharges++;
 			});
 		}
@@ -2065,7 +2065,7 @@ class Duel {
 			// PP Blessing
 			this.addMessage(" -- PP BLESSING --");
 			this.addMessage("You suddenly feel new powers in your PP !");
-			this.duel.bothFightersAction(function(_fighter) {
+			this.bothFightersAction(function(_fighter) {
 				_fighter.godList = [GOD_PP21_PRIEST];
 				for (var i in PRIEST_ROLES) {
 					_fighter.godList.push(PRIEST_ROLES[i]);
