@@ -2675,6 +2675,10 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				}
 			});
 
+			var winner = duel.FIGHTER2;
+			if (dexAttack1 > dexAttack2) {
+				winner = duel.FIGHTER1;
+			}
 			if ((dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) || duel.AUTO_MOVES_COUNTDOWN > 0 || duel.EVENT_BOSS) {
 				duel.addMessage("Both opponents attack this turn !");
 				duel.sendMessages();
@@ -2687,14 +2691,9 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 						duel.addMessage(duel.getOppOf(_fighter).user.username + " burst !");
 						_fighter.hasBurst = 2;
 					}
-				});
+				}, winner);
 			}
-			else {
-				var winner = duel.FIGHTER2;
-				if (dexAttack1 > dexAttack2) {
-					winner = duel.FIGHTER1;
-				}
-				
+			else {				
 				// Save
 				if (duel.getOppOf(winner).attack == EMOTE_PP15) {
 					duel.getOppOf(winner).playMove();
