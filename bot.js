@@ -1862,6 +1862,7 @@ class Duel {
 			if (_fighter.STR <= 0 && _fighter.extraLife > 0) {
 				_fighter.duel.addMessage(_fighter.user.username + " uses an extra life !");
 				_fighter = new Fighter(_fighter.idUser, _fighter.duel.BATTLE_CHANNEL.id);
+				console.log(_fighter);
 			}
 		});
 		
