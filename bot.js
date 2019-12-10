@@ -29,7 +29,7 @@ const GOD_PP15_PRIEST = "STFU Isaac Priest";
 const GOD_PP16_PRIEST = "The Man Who made a Monster Priest";
 const GOD_PP17_PRIEST = "Hitler Priest";
 const GOD_PP18_PRIEST = "Salt King Priest";
-const GOD_PP19_PRIEST = ""; // TO ADD TO PRIEST_ROLES
+const GOD_PP19_PRIEST = "Chad Brenn Priest"; // TO ADD TO PRIEST_ROLES
 const GOD_PP20_PRIEST = ""; // TO ADD TO PRIEST_ROLES
 const GOD_PP21_PRIEST = "D.I.C.K. Priest";
 const PRIEST_ROLES = [GOD_PP1_PRIEST, GOD_PP2_PRIEST, GOD_PP3_PRIEST, GOD_PP4_PRIEST, GOD_PP5_PRIEST, GOD_PP6_PRIEST, GOD_PP7_PRIEST, GOD_PP8_PRIEST, GOD_PP9_PRIEST, GOD_PP10_PRIEST, GOD_PP11_PRIEST, GOD_PP12_PRIEST, GOD_PP13_PRIEST, GOD_PP14_PRIEST, GOD_PP15_PRIEST, GOD_PP16_PRIEST, GOD_PP17_PRIEST, GOD_PP18_PRIEST];
@@ -96,29 +96,36 @@ const EMOTE_PP57 = "644881328592125980"; // Cage / Sacrifice
 const EMOTE_PP58 = "644880195341254656"; // Cageless
 const EMOTE_PP59 = "650987017571926016"; // Triggered Pépin2Pom
 const EMOTE_PP60 = "644880194959704085"; // PP Duel
-const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20, EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30, EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP36, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40, EMOTE_PP41, EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP47, EMOTE_PP48, EMOTE_PP49, EMOTE_PP50, EMOTE_PP51, EMOTE_PP52, EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58, EMOTE_PP59, EMOTE_PP60];
+const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, 
+		    EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, 
+		    EMOTE_PP18, EMOTE_PP19, EMOTE_PP20, EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, 
+		    EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30, EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, 
+		    EMOTE_PP34, EMOTE_PP35, EMOTE_PP36, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40, EMOTE_PP41, 
+		    EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP47, EMOTE_PP48, EMOTE_PP49, 
+		    EMOTE_PP50, EMOTE_PP51, EMOTE_PP52, EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, 
+		    EMOTE_PP58, EMOTE_PP59, EMOTE_PP60];
 const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58, EMOTE_PP59, EMOTE_PP60];
 
-const GOD_PP1 = "644643782888783892" // Mongo
-const GOD_PP2 = "617686716479832064" // Dr Phil / WhatDAFuk
-const GOD_PP3 = "616332243337609257" // LeprePuds
-const GOD_PP4 = "614823752492122156" // DickHead Pudding
-const GOD_PP5 = "614823329731313670" // Hello There Puds
-const GOD_PP6 = "616877566396989451" // DickDickSon666
-const GOD_PP7 = "644621040093364283" // Jew
-const GOD_PP8 = "614823500951060481" // Fabulous Toast Man
-const GOD_PP9 = "615268884651442186" // That's me
-const GOD_PP10 = "618037444222255104" // Fabio
-const GOD_PP11 = "614825720962744344" // Country Music Brenn
-const GOD_PP12 = "615887132157804564" // Espinoza
-const GOD_PP13 = "617258233307987986" // 700IQ
-const GOD_PP14 = "615271176314290249" // UREGonnaGetRAPED
-const GOD_PP15 = "614822537800712213" // STFU Isaac
-const GOD_PP16 = "619795568230924291" // The Man Who made a Monster
-const GOD_PP17 = "622395294390157329" // Hitler
+const GOD_PP1 = "644643782888783892"; // Mongo
+const GOD_PP2 = "617686716479832064"; // Dr Phil / WhatDAFuk
+const GOD_PP3 = "616332243337609257"; // LeprePuds
+const GOD_PP4 = "614823752492122156"; // DickHead Pudding
+const GOD_PP5 = "614823329731313670"; // Hello There Puds
+const GOD_PP6 = "616877566396989451"; // DickDickSon666
+const GOD_PP7 = "644621040093364283"; // Jew
+const GOD_PP8 = "614823500951060481"; // Fabulous Toast Man
+const GOD_PP9 = "615268884651442186"; // That's me
+const GOD_PP10 = "618037444222255104"; // Fabio
+const GOD_PP11 = "614825720962744344"; // Country Music Brenn
+const GOD_PP12 = "615887132157804564"; // Espinoza
+const GOD_PP13 = "617258233307987986"; // 700IQ
+const GOD_PP14 = "615271176314290249"; // UREGonnaGetRAPED
+const GOD_PP15 = "614822537800712213"; // STFU Isaac
+const GOD_PP16 = "619795568230924291"; // The Man Who made a Monster
+const GOD_PP17 = "622395294390157329"; // Hitler
 const GOD_PP18 = "650830165751889935"; // Salt King
-const GOD_PP19 = "" // TO ADD TO MESSAGE REACTS
-const GOD_PP20 = "" // TO ADD TO MESSAGE REACTS
+const GOD_PP19 = "644634924477055015"; // Chad Brenn
+const GOD_PP20 = ""; // TO ADD TO MESSAGE REACTS
 const GOD_PP21 = "644617343456247829"; // D.I.C.K.
 
 // BOSSES
@@ -209,6 +216,7 @@ class Fighter {
 		this.doomReverse = 0;
 		this.hasExamined = 0;
 		this.extraLife = 0;
+		this.legAimer = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -336,54 +344,56 @@ class Fighter {
 		
 		// Status
 		txt += "\n**Status :**\n"
-		if (this.isOverCircumcised) {
-			txt += " - Overcircumcised\n";
-		}
-		else if (this.isCircumcised) {
-
-			txt += " - Circumcised\n";
-		}
-		if (this.bleedDamage > 0) {
-			txt += " - Haemorrhage : " + this.bleedDamage + "\n";
-		}
-		if (this.turkeyCountdown > 0) {
-			txt += " - Turkey Countdown : " + this.turkeyCountdown + " turns\n";
-		}
-		if (this.eldritchFriend) {
-			txt += " - Eldritch Friendly\n";
-		}
-		if (this.pigHeal > 0) {
-			txt += " - Hog Squeezer (" + this.pigHeal + ")\n";
-		}
-		if (this.doomReverse > 0) {
-			txt += " - DOOM-REVERSE(tm) (for " + this.doomReverse + " turns)\n";
+		if (this.hasBoomerang > 0) {
+			txt += " - With a Boomerang (for " + this.hasBoomerang + " turns)\n";
 		}
 		if (this.acidArmor > 0) {
 			txt += " - Armored in acid (for " + this.acidArmor + " turns)\n";
 		}
-		if (this.hasBoomerang > 0) {
-			txt += " - With a Boomerang (for " + this.hasBoomerang + " turns)\n";
+		if (this.doomReverse > 0) {
+			txt += " - DOOM-REVERSE(tm) (for " + this.doomReverse + " turns)\n";
 		}
 		if (this.isLucky > 0) {
 			txt += " - Lucky (for " + this.isLucky + " turns)\n";
 		}
-		if (this.badLuck) {
-			txt += " - Unlucky\n";
-		}
-		if (this.hasBoner) {
-			txt += " - Big Boner Mmmmmmh...\n";
-		}
-		if (this.chimera) {
-			txt += " - Furry PP\n";
+		if (this.turkeyCountdown > 0) {
+			txt += " - Turkey Countdown : " + this.turkeyCountdown + " turns\n";
 		}
 		if (this.tearDrinker > 0) {
 			txt += " - Tear Drinker (" + this.tearDrinker + ")\n";
+		}
+		if (this.pigHeal > 0) {
+			txt += " - Hog Squeezer (" + this.pigHeal + ")\n";
+		}
+		if (this.bleedDamage > 0) {
+			txt += " - Haemorrhage (" + this.bleedDamage + ")\n";
+		}
+		if (this.isOverCircumcised) {
+			txt += " - Overcircumcised\n";
+		}
+		else if (this.isCircumcised) {
+			txt += " - Circumcised\n";
+		}
+		if (this.eldritchFriend) {
+			txt += " - Eldritch Friendly\n";
+		}
+		if (this.badLuck) {
+			txt += " - Unlucky\n";
 		}
 		if (this.isCowBoy) {
 			txt += " - Cowboy\n";
 		}
 		if (this.isSalty) {
 			txt += " - Salty\n";
+		}
+		if (this.legAimer) {
+			txt += " - Leg Aimer\n";
+		}
+		if (this.chimera) {
+			txt += " - Furry PP\n";
+		}
+		if (this.hasBoner) {
+			txt += " - Big Boner Mmmmmmh...\n";
 		}
 		if (this.trueBarbarian) {
 			txt += " - Great Barbarian from the North Seeking New Lands for his Kingdom\n";
@@ -1064,6 +1074,17 @@ class Fighter {
 						this.duel.getOppOf(this).isSalty = true;
 					}
 				}
+				if (this.godList.indexOf(GOD_PP19_PRIEST) > -1) { // Chad Brenn
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Chad Brenn answers his calls !");
+					if (this.legAimer) {
+						this.duel.addMessage("But " + this.user.username + " already aims for legs !");
+					}
+					else {
+						this.duel.addMessage(this.user.username + " now aims for legs !");
+						this.legAimer = true;
+					}
+				}
 				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("D.I.C.K. answers his calls !");
@@ -1248,6 +1269,25 @@ class Fighter {
 					this.duel.addMessage(this.user.username + " takes " + Math.floor(this.duel.getOppOf(this).DEX/2) + " DEX from him.");
 					this.DEXValue += Math.floor(this.duel.getOppOf(this).DEX/2);
 					this.duel.getOppOf(this).DEXValue -= Math.floor(this.duel.getOppOf(this).DEX/2);
+				}
+				if (this.godList.indexOf(GOD_PP19_PRIEST) > -1) { // Chad Brenn
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Chad Brenn answers his calls !");
+					this.duel.addMessage(this.user.username + " dabs on the haters");
+					if (this.STR < this.duel.getOppOf(this).STR) {
+						this.duel.addMessage(this.user.username + " gets as much STR as " + this.duel.getOppOf(this).user.username);
+						this.STRValue -= this.STR-this.duel.getOppOf(this).STR; 
+					}
+					else {
+						this.duel.addMessage(this.user.username + " is the strongest !");
+					}
+					if (this.DEX < this.duel.getOppOf(this).DEX) {
+						this.duel.addMessage(this.user.username + " gets as much DEX as " + this.duel.getOppOf(this).user.username);
+						this.DEXValue -= this.STR-this.duel.getOppOf(this).DEX; 
+					}
+					else {
+						this.duel.addMessage(this.user.username + " is the fastest !");
+					}
 				}
 				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
 					this.duel.addMessage("-----------------");
@@ -2486,6 +2526,7 @@ CLIENT.on("message", async _message => {
 			_message2.react(GOD_PP16); // The Man Who made a Monster
 			_message2.react(GOD_PP17); // Hitler
 			_message2.react(GOD_PP18); // Salt King
+			_message2.react(GOD_PP19); // Chad Brenn
 		}).catch(function(e) {
 			console.log(e);
 		});
@@ -2689,7 +2730,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			if (dexAttack1 > dexAttack2) {
 				winner = duel.FIGHTER1;
 			}
-			if ((dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) || duel.AUTO_MOVES_COUNTDOWN > 0 || duel.EVENT_BOSS) {
+			if ((dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) || 
+			    duel.AUTO_MOVES_COUNTDOWN > 0 || duel.EVENT_BOSS || duel.getOppOf(winner).legAimer) {
 				duel.addMessage("Both opponents attack this turn !");
 				duel.sendMessages();
 
