@@ -2514,83 +2514,57 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			duel.SAVE_LIST.push(_user.id);
 			duel.addMessage(_user.username + " helps the fighters !");
 			duel.sendMessages();
-			duel.FIGHTER1.heal(50);
-			duel.FIGHTER2.heal(50);
+			duel.bothFightersAction(function(_fighter) {
+				_fighter.heal(50);
+			});
 		}
 		
 		// GAY_TURNS
 		if (duel.GAY_TURNS > 0) {
-			if (_user.id == duel.FIGHTER1.user.id) {
-				if (duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.getAttackFromEmote(_reaction.emoji)) < 0) {
-					duel.addMessage("Gay people can't cheat...");
-					return duel.sendMessages();
+			duel.bothFightersAction(function(_fighter) {
+				if (_user.id == _fighter.user.id) {
+					if (duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.getAttackFromEmote(_reaction.emoji)) < 0) {
+						duel.addMessage("Gay people can't cheat...");
+						return duel.sendMessages();
+					}
+					else {
+						duel.getOppOf(_fighter).attack = duel.getAttackFromEmote(_reaction.emoji);
+						duel.addMessage(duel.getOppOf(_fighter).user.username + " : " + _reaction.emoji.name);
+						duel.sendMessages();
+					}
 				}
-				else {
-					duel.FIGHTER2.attack = duel.getAttackFromEmote(_reaction.emoji);
-					duel.addMessage(duel.FIGHTER2.user.username + " : " + _reaction.emoji.name);
-					duel.sendMessages();
-				}
-			}
-			if (_user.id == duel.FIGHTER2.user.id) {
-				if (duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.getAttackFromEmote(_reaction.emoji)) < 0) {
-					duel.addMessage("Gay people can't cheat...");
-					return duel.endMessages();
-				}
-				else {
-					duel.FIGHTER1.attack = duel.getAttackFromEmote(_reaction.emoji);
-					duel.addMessage(duel.FIGHTER1.user.username + " : " + _reaction.emoji.name);
-					duel.sendMessages();
-				}
-			}
+			});
 		}
 
 		// Assigne attaque
-		else if (_user.id == duel.FIGHTER1.user.id && duel.FIGHTER1.isPossessed <= 0 && duel.FIGHTER1.turnSkip <= 0 && duel.FIGHTER1.grabbedPP <= 0 && duel.FIGHTER1.summonTankCountdown <= 0) {
-			duel.FIGHTER1.attack = duel.getAttackFromEmote(_reaction.emoji);
-			duel.addMessage(duel.FIGHTER1.user.username + " : " + _reaction.emoji.name);
-			duel.sendMessages();
-
-			// Possession
-			if (duel.FIGHTER2.isPossessed >= 1) {
-				duel.FIGHTER2.attack = duel.getAttackFromEmote(_reaction.emoji);
-				duel.addMessage(duel.FIGHTER2.user.username + " : " + _reaction.emoji.name);
+		duel.bothFightersAction(function(_fighter) {
+			if (_user.id == _fighter.user.id && _fighter.isPossessed <= 0 && _fighter.turnSkip <= 0 && _fighter.grabbedPP <= 0 && _fighter.summonTankCountdown <= 0) {
+				_fighter.attack = duel.getAttackFromEmote(_reaction.emoji);
+				duel.addMessage(_fighter.user.username + " : " + _reaction.emoji.name);
 				duel.sendMessages();
-			}
-		}
-		else if (_user.id == duel.FIGHTER2.user.id && duel.FIGHTER2.isPossessed <= 0 && duel.FIGHTER2.turnSkip <= 0 && duel.FIGHTER2.grabbedPP <= 0 && duel.FIGHTER2.summonTankCountdown <= 0) {
-			duel.FIGHTER2.attack = duel.getAttackFromEmote(_reaction.emoji);
-			duel.addMessage(duel.FIGHTER2.user.username + " : " + _reaction.emoji.name);
-			duel.sendMessages();
 
-			// Possession
-			if (duel.FIGHTER1.isPossessed >= 1) {
-				duel.FIGHTER1.attack = duel.getAttackFromEmote(_reaction.emoji);
-				duel.addMessage(duel.FIGHTER1.user.username + " : " + _reaction.emoji.name);
-				duel.sendMessages();
+				// Possession
+				if (duel.getOppOf(_fighter).isPossessed >= 1) {
+					duel.getOppOf(_fighter).attack = duel.getAttackFromEmote(_reaction.emoji);
+					duel.addMessage(duel.getOppOf(_fighter).user.username + " : " + _reaction.emoji.name);
+					duel.sendMessages();
+				}
 			}
-		}
+		});
 
 		// Deux attaques sont faites
 		if (duel.FIGHTER1.attack != "" && duel.FIGHTER2.attack != "") {
-			if (duel.FIGHTER1.turnSkip > 0) {
-				duel.FIGHTER1.attack = EMOTE_PP50;
-			}
-			if (duel.FIGHTER2.turnSkip > 0) {
-				duel.FIGHTER2.attack = EMOTE_PP50;
-			}
-			if (duel.FIGHTER1.grabbedPP > 0) {
-				duel.FIGHTER1.attack = EMOTE_PP39;
-			}
-			if (duel.FIGHTER2.grabbedPP > 0) {
-				duel.FIGHTER2.attack = EMOTE_PP39;
-			}
-			if (duel.FIGHTER1.summonTankCountdown > 0) {
-				duel.FIGHTER1.attack = EMOTE_PP10;
-			}
-			if (duel.FIGHTER2.summonTankCountdown > 0) {
-				duel.FIGHTER2.attack = EMOTE_PP10;
-			}
-			console.log(duel.FIGHTER1.attack + " / " + duel.FIGHTER2.attack);
+			duel.bothFightersAction(function(_fighter) {
+				if (_fighter.turnSkip > 0) {
+					duel.FIGHTER1.attack = EMOTE_PP50;
+				}
+				if (_fighter.grabbedPP > 0) {
+					duel.FIGHTER1.attack = EMOTE_PP39;
+				}
+				if (_fighter.summonTankCountdown > 0) {
+					duel.FIGHTER1.attack = EMOTE_PP10;
+				}
+			});
 
 			// test illegal
 			var caught1 = duel.illegalGetCaught(duel.getRisk(duel.FIGHTER1.attack)) || (duel.FIGHTER1.badLuck && duel.getRisk(duel.FIGHTER1.attack) > 0);
