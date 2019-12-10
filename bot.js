@@ -2691,11 +2691,11 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				duel.bothFightersAction(function(_fighter) {
 					duel.addMessage("-----------------");
 					_fighter.playMove();
-					duel.sendMessage();
+					duel.sendMessages();
 					// Burst
 					if (duel.getOppOf(_fighter).attack == EMOTE_PP8) {
 						duel.addMessage(duel.getOppOf(_fighter).user.username + " burst !");
-						duel.sendMessage();
+						duel.sendMessages();
 						_fighter.hasBurst = 2;
 					}
 				}, winner);
