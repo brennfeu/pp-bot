@@ -1255,7 +1255,7 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Man who Made a Monster answers his calls !");
 					this.duel.addMessage(this.user.username + " starts summoning the Monster !");
-					this.summonTankCountdown = 2;
+					this.summonTankCountdown = 4;
 				}
 				if (this.godList.indexOf(GOD_PP17_PRIEST) > -1) { // Hitler
 					this.duel.addMessage("-----------------");
@@ -1903,7 +1903,7 @@ class Duel {
 		}
 
 		this.addMessage("**=== GLOBAL STATUS ===**");
-		if (this.BLIND_COUNTDOWN >= 0) {
+		if (this.BLIND_COUNTDOWN > 0) {
 			this.addMessage(" - WTF I'M FUCKING BLIND !");
 			if (this.BLIND_COUNTDOWN < 100) {
 				this.addMessage("(I'll be healed in " + this.BLIND_COUNTDOWN + " turns...)");
@@ -1979,8 +1979,8 @@ class Duel {
 			}
 		});
 		
-		if ((this.FIGHTER1.turnSkip > 0 || this.FIGHTER1.grabbedPP > 0 || this.FIGHTER1.summonTankCountdown > 0 || this.FIGHTER1.isPossessed > 0) && 
-		    (this.FIGHTER2.turnSkip > 0 || this.FIGHTER2.grabbedPP > 0 || this.FIGHTER2.summonTankCountdown > 0 || this.FIGHTER2.isPossessed > 0)) {
+		if ((this.FIGHTER1.turnSkip > 0 || this.FIGHTER1.grabbedPP > 0 || this.FIGHTER1.summonTankCountdown == 1 || this.FIGHTER1.isPossessed > 0) && 
+		    (this.FIGHTER2.turnSkip > 0 || this.FIGHTER2.grabbedPP > 0 || this.FIGHTER2.summonTankCountdown == 1 || this.FIGHTER2.isPossessed > 0)) {
 			this.newTurnDuel();
 		}
 
@@ -2288,7 +2288,7 @@ class Duel {
 	}
 	
 	illegalGetCaught(_percentage) {
-		if (this.BLIND_COUNTDOWN >= 0) {
+		if (this.BLIND_COUNTDOWN > 0) {
 			return false;
 		}
 		var result = (getRandomPercent() < _percentage);
@@ -2598,7 +2598,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 					}
 				}
 			}
-			else if (_user.id == _fighter.user.id && _fighter.isPossessed <= 0 && _fighter.turnSkip <= 0 && _fighter.grabbedPP <= 0 && _fighter.summonTankCountdown <= 0) {
+			else if (_user.id == _fighter.user.id && _fighter.isPossessed <= 0 && _fighter.turnSkip <= 0 && _fighter.grabbedPP <= 0 && _fighter.summonTankCountdown != 1) {
 				_fighter.attack = duel.getAttackFromEmote(_reaction.emoji);
 				duel.addMessage(_fighter.user.username + " : " + _reaction.emoji.name);
 				duel.sendMessages();
@@ -2621,7 +2621,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				if (_fighter.grabbedPP > 0) {
 					_fighter.attack = EMOTE_PP39;
 				}
-				if (_fighter.summonTankCountdown > 0) {
+				if (_fighter.summonTankCountdown == 1) {
 					_fighter.attack = EMOTE_PP10;
 				}
 				// Si ajout, ne pas oublier d'autoriser dans tests illegaux
