@@ -421,7 +421,7 @@ class Fighter {
 		if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
 			txt += " - Too smart and too powerful\n";
 		}
-		if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
+		if (this.godList.indexOf(GOD_PP16_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
 			txt += " - Super Predator\n";
 		}
 		if (this.godList.indexOf(GOD_PP10_PRIEST) > -1 && this.godList.indexOf(GOD_PP8_PRIEST) > -1) {
@@ -2688,9 +2688,9 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				});
 			}
 			else {
-				var winner = FIGHTER2;
+				var winner = duel.FIGHTER2;
 				if (dexAttack1 > dexAttack2) {
-					winner = FIGHTER1;
+					winner = duel.FIGHTER1;
 				}
 				
 				// Save
