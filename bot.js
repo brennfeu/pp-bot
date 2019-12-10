@@ -2687,60 +2687,37 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 					}
 				});
 			}
-			else if (dexAttack1 > dexAttack2) {
-				// Save
-				if (duel.FIGHTER2.attack == EMOTE_PP15) {
-					duel.FIGHTER2.playMove();
-				}
-				
-				duel.FIGHTER1.playMove();
-				// Burst
-				if (duel.FIGHTER2.attack == EMOTE_PP8) {
-					duel.addMessage(duel.FIGHTER2.user.username + " burst !");
-					duel.FIGHTER1.hasBurst = 2;
-				}
-
-				// Scout
-				if (duel.FIGHTER2.attack == EMOTE_PP13) {
-					duel.FIGHTER2.playMove();
-				}
-
-				// Intimidates
-				if (duel.FIGHTER2.attack == EMOTE_PP28 && getRandomPercent() <= 25) {
-					duel.FIGHTER2.playMove();
-				}
-				
-				// Dual Loop
-				if (duel.FIGHTER2.attack == EMOTE_PP55) {
-					duel.FIGHTER2.playMove();
-				}
-			}
 			else {
-				// Save
-				if (duel.FIGHTER1.attack == EMOTE_PP15) {
-					duel.FIGHTER1.playMove();
+				var winner = FIGHTER2;
+				if (dexAttack1 > dexAttack2) {
+					winner = FIGHTER1;
 				}
 				
-				duel.FIGHTER2.playMove();
+				// Save
+				if (duel.getOppOf(winner).attack == EMOTE_PP15) {
+					duel.getOppOf(winner).playMove();
+				}
+				
+				winner.playMove();
 				// Burst
-				if (duel.FIGHTER1.attack == EMOTE_PP8) {
-					duel.addMessage(duel.FIGHTER1.user.username + " burst !");
-					duel.FIGHTER2.hasBurst = 2;
+				if (duel.getOppOf(winner).attack == EMOTE_PP8) {
+					duel.addMessage(duel.getOppOf(winner).user.username + " burst !");
+					winner.hasBurst = 2;
 				}
 
 				// Scout
-				if (duel.FIGHTER1.attack == EMOTE_PP13) {
-					duel.FIGHTER1.playMove();
+				if (duel.getOppOf(winner).attack == EMOTE_PP13) {
+					duel.getOppOf(winner).playMove();
 				}
 
 				// Intimidates
-				if (duel.FIGHTER1.attack == EMOTE_PP28 && getRandomPercent() <= 25) {
-					duel.FIGHTER1.playMove();
+				if (duel.getOppOf(winner).attack == EMOTE_PP28 && getRandomPercent() <= 25) {
+					duel.getOppOf(winner).playMove();
 				}
 				
 				// Dual Loop
-				if (duel.FIGHTER1.attack == EMOTE_PP55) {
-					duel.FIGHTER1.playMove();
+				if (duel.getOppOf(winner).attack == EMOTE_PP55) {
+					duel.getOppOf(winner).playMove();
 				}
 			}
 
