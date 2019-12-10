@@ -759,8 +759,11 @@ class Fighter {
 			else if (attack == EMOTE_PP39) {
 				// Interrogation Point
 				this.duel.addMessage(this.user.username + " summons a random move !");
-				this.duel.sendMessages();
-				this.playMove(this.duel.getRandomEmote());
+				var emote = this.duel.getRandomEmote();
+				if (emote == EMOTE_PP26 || emote = EMOTE_PP46) {
+					this.duel.sendMessages(1);
+				}
+				this.playMove(emote);
 			}
 			else if (attack == EMOTE_PP40) {
 				// ChestBurst
