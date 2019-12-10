@@ -1618,7 +1618,7 @@ class Fighter {
 			this.duel.addMessage("-----------------");
 		}
 		if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP19_PRIEST) > -1) {
-			this.duel.addMessage(this.user.username + " gets healed by the Unholy Pudding Trinity !");
+			this.duel.addMessage(this.user.username + " gets healed by the Holy Brenn Trinity !");
 			this.heal(10);
 			this.duel.addMessage("-----------------");
 		}
@@ -1861,8 +1861,12 @@ class Duel {
 		this.bothFightersAction(function(_fighter) {
 			if (_fighter.STR <= 0 && _fighter.extraLife > 0) {
 				_fighter.duel.addMessage(_fighter.user.username + " uses an extra life !");
-				_fighter = new Fighter(_fighter.idUser, _fighter.duel.BATTLE_CHANNEL.id);
-				console.log(_fighter);
+				if (_fighter.id == _fighter.duel.FIGHTER1.id) {
+					_fighter.duel.FIGHTER1 = new Fighter(_fighter.idUser, _fighter.duel.BATTLE_CHANNEL.id);
+				}
+				else {
+					_fighter.duel.FIGHTER2 = new Fighter(_fighter.idUser, _fighter.duel.BATTLE_CHANNEL.id);
+				}
 			}
 		});
 		
