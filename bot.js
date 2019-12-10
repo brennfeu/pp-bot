@@ -29,10 +29,13 @@ const GOD_PP15_PRIEST = "STFU Isaac Priest";
 const GOD_PP16_PRIEST = "The Man Who made a Monster Priest";
 const GOD_PP17_PRIEST = "Hitler Priest";
 const GOD_PP18_PRIEST = "Salt King Priest";
-const GOD_PP19_PRIEST = "Chad Brenn Priest"; // TO ADD TO PRIEST_ROLES
+const GOD_PP19_PRIEST = "Chad Brenn Priest";
 const GOD_PP20_PRIEST = ""; // TO ADD TO PRIEST_ROLES
 const GOD_PP21_PRIEST = "D.I.C.K. Priest";
-const PRIEST_ROLES = [GOD_PP1_PRIEST, GOD_PP2_PRIEST, GOD_PP3_PRIEST, GOD_PP4_PRIEST, GOD_PP5_PRIEST, GOD_PP6_PRIEST, GOD_PP7_PRIEST, GOD_PP8_PRIEST, GOD_PP9_PRIEST, GOD_PP10_PRIEST, GOD_PP11_PRIEST, GOD_PP12_PRIEST, GOD_PP13_PRIEST, GOD_PP14_PRIEST, GOD_PP15_PRIEST, GOD_PP16_PRIEST, GOD_PP17_PRIEST, GOD_PP18_PRIEST];
+const PRIEST_ROLES = [GOD_PP1_PRIEST, GOD_PP2_PRIEST, GOD_PP3_PRIEST, GOD_PP4_PRIEST, GOD_PP5_PRIEST, GOD_PP6_PRIEST,
+		      GOD_PP7_PRIEST, GOD_PP8_PRIEST, GOD_PP9_PRIEST, GOD_PP10_PRIEST, GOD_PP11_PRIEST, GOD_PP12_PRIEST,
+		      GOD_PP13_PRIEST, GOD_PP14_PRIEST, GOD_PP15_PRIEST, GOD_PP16_PRIEST, GOD_PP17_PRIEST, GOD_PP18_PRIEST,
+		      GOD_PP19_PRIEST];
 
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
 const EMOTE_PP2 = "535240768441548810"; // PunchingPPReallyHard
@@ -415,6 +418,9 @@ class Fighter {
 		}
 		
 		txt += "\n**Synergies :**\n"
+		if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP19_PRIEST) > -1) {
+			txt += " - Holy Brenn Trinity\n";
+		}
 		if (this.godList.indexOf(GOD_PP5_PRIEST) > -1 && this.godList.indexOf(GOD_PP6_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
 			txt += " - Unholy Pudding Trinity\n";
 		}
@@ -1602,7 +1608,7 @@ class Fighter {
 			}
 			this.duel.addMessage("-----------------");
 		}
-		// The Man Wh Made a Monster regular move
+		// The Man Who Made a Monster regular move
 		if (this.tearDrinker > 0) {
 			this.duel.addMessage(this.user.username + " drinks salty tears !");
 			this.heal(this.tearDrinker);
@@ -1611,9 +1617,14 @@ class Fighter {
 			}
 			this.duel.addMessage("-----------------");
 		}
-		if (this.godList.indexOf(GOD_PP5_PRIEST) > -1 && this.godList.indexOf(GOD_PP6_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
+		if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP19_PRIEST) > -1) {
 			this.duel.addMessage(this.user.username + " gets healed by the Unholy Pudding Trinity !");
 			this.heal(10);
+			this.duel.addMessage("-----------------");
+		}
+		if (this.godList.indexOf(GOD_PP5_PRIEST) > -1 && this.godList.indexOf(GOD_PP6_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
+			this.duel.addMessage(this.duel.getOppOf(this).user.username + " gets hurt by the Unholy Pudding Trinity !");
+			this.duel.getOppOf(this).damage(10);
 			this.duel.addMessage("-----------------");
 		}
 		if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
