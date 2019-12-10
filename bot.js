@@ -2320,10 +2320,10 @@ function killDeadDuels() {
 
 function setBotActivity() {
 	if (DUEL_LIST.length > 0) {
-		CLIENT.user.setActivity("PP Punch Arena (" + DUEL_LIST.length + " duels)");
+		CLIENT.user.setActivity(DUEL_LIST.length + " duel(s) of PP Punching");
 	}
 	else {
-		CLIENT.user.setActivity("");
+		CLIENT.user.setActivity("alone with my PP...");
 	}
 }
 
