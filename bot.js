@@ -742,7 +742,7 @@ class Fighter {
 				if (this.duel.BLIND_COUNTDOWN < 0) {
 					this.duel.BLIND_COUNTDOWN = 0;
 				}
-				this.duel.BLIND_COUNTDOWN += 2;
+				this.duel.BLIND_COUNTDOWN += 3;
 				if (getRandomPercent() < 33) {
 					this.duel.BLIND_COUNTDOWN = 9999999;
 					this.duel.addMessage("It looks like permanent damage !");
@@ -1238,7 +1238,7 @@ class Fighter {
 						}
 					}
 					else {
-						addMessage(this.user.username + " barks like the retarded furry he is !");
+						this.duel.addMessage(this.user.username + " barks like the retarded furry he is !");
 					}
 				}
 				if (this.godList.indexOf(GOD_PP14_PRIEST) > -1) { // UREGonnaGETRaped
