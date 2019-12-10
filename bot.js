@@ -1799,7 +1799,6 @@ class Duel {
 				fighter.STRValue -= this.BOSS_DAMAGE;
 				this.addMessage("He takes " + this.BOSS_DAMAGE + " damages !");
 			}
-
 		}
 		
 		this.bothFightersAction(function(_fighter) {
@@ -1817,15 +1816,14 @@ class Duel {
 			this.stopDuel();
 			return;
 		}
-		
 		this.bothFightersAction(function(_fighter) {
 			if (_fighter.STR <= 0 && !_fighter.duel.EVENT_BOSS) {
 				_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).user.username + " won ! Congrats !");
 				_fighter.duel.getOppOf(_fighter).win();
 				_fighter.duel.stopDuel();
-				return;
 			};
 		});
+		if (this.DEAD_DUEL) return;
 
 		this.startRandomEvent();
 		this.addMessage("\n\n**===== NEW TURN =====**");
@@ -2730,7 +2728,6 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 					duel.getOppOf(winner).playMove();
 				}
 			}
-
 			duel.sendMessages();
 			duel.newTurnDuel();
 		}
