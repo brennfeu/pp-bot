@@ -2599,6 +2599,7 @@ CLIENT.on('ready', () => {
 CLIENT.on("message", async _message => {
 	killDeadDuels();
 	setBotActivity();
+	skipWaitingDuels();
 	
 	// Recuperation commande
 	var argsUser = _message.content.trim().split(" ");
@@ -2733,6 +2734,7 @@ CLIENT.on("message", async _message => {
 CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	killDeadDuels();
 	setBotActivity();
+	skipWaitingDuels();
 
 	// DUEL
 	if (getDuel(_reaction.message.channel.id) != null) {
