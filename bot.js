@@ -367,14 +367,14 @@ class Fighter {
 		if (this.pigHeal > 0) {
 			txt += " - Hog Squeezer : " + this.pigHeal + "\n";
 		}
+		if (this.bonusDamage > 0) {
+			txt += " - Building up : " + this.bonusDamage + "\n";
+		}
 		if (this.bleedDamage > 0) {
 			txt += " - Haemorrhage : " + this.bleedDamage + "\n";
 			if (this.isSalty) {
 				txt += "   - Salty Wounds\n";
 			}
-		}
-		if (this.bonusDamage > 0) {
-			txt += " - Building up : " + this.bonusDamage + "\n";
 		}
 		if (this.isOverCircumcised) {
 			txt += " - Overcircumcised\n";
