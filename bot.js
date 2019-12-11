@@ -1442,7 +1442,7 @@ class Fighter {
 	heal(_amount) {
 		if (this.duel.REVERSE_DAMAGE <= 0) {
 			this.STRValue += _amount;
-			return this.duel.addMessage(this.user.username + " get healed by " + _amount + " HP");
+			return this.duel.addMessage(this.user.username + " gets healed by " + _amount + " HP");
 		}
 		else {
 			this.STRValue -= _amount;
@@ -1959,6 +1959,12 @@ class Duel {
 			_fighter.turnChange();
 		});
 		this.bothFightersAction(function(_fighter) {
+			// Overcircumcised = immune to status effects
+			if (_fighter.isOverCircumcised) {
+				_fighter.resetBattleVariables()
+			}
+		});
+		this.bothFightersAction(function(_fighter) {
 			if (_fighter.STR <= 0 && _fighter.extraLife > 0) {
 				_fighter.duel.addMessage(_fighter.user.username + " uses an extra life !");
 				if (_fighter.id == _fighter.duel.FIGHTER1.id) {
@@ -2189,8 +2195,8 @@ class Duel {
 		else if (randomVar == 8) {
 			// Ascension
 			this.addMessage(" -- ASCENSION --");
-			this.addMessage(winner.user.username + " accidentaly plays Ascend on his phone !");
 			var winner = this.getRandomFighter();
+			this.addMessage(winner.user.username + " accidentaly plays Ascend on his phone !");
 			this.bothFightersAction(function(_fighter) {
 				_fighter.playMove(EMOTE_PP49);
 			});
