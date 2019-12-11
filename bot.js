@@ -2572,10 +2572,10 @@ function skipWaitingDuels() {
 function setBotActivity() {
 	if (DUEL_LIST.length > 0) {
 		if (DUEL_LIST.length == 1) {
-			CLIENT.user.setActivity(DUEL_LIST.length + " duel of PP Punching");
+			CLIENT.user.setPresence(DUEL_LIST.length + " duel of PP Punching");
 		}
 		else {
-			CLIENT.user.setActivity(DUEL_LIST.length + " duels of PP Punching");
+			CLIENT.user.setPresence(DUEL_LIST.length + " duels of PP Punching");
 		}
 	}
 	else {
