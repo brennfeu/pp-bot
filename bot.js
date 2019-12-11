@@ -1728,8 +1728,11 @@ class Duel {
 		// TEST
 		var voiceChannel = _message.member.voiceChannel;
 		voiceChannel.join().then(connection =>{
+			console.log("test1");
 			const dispatcher = connection.playFile('./ascend.mp3');
+			console.log("test2");
 			dispatcher.resume();
+			console.log("test3");
 		}).catch(err => console.log(err));
 
 		if (getRandomPercent() < 10) {
