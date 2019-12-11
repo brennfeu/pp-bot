@@ -1726,7 +1726,7 @@ class Duel {
 		this.FIGHTER2 = new Fighter(_message.mentions.users.array()[0].id, this.BATTLE_CHANNEL.id);
 		
 		// TEST
-		var voiceChannel = message.member.voiceChannel;
+		var voiceChannel = _message.member.voiceChannel;
 		voiceChannel.join().then(connection =>{
 			const dispatcher = connection.playFile('./ascend.mp3');
 			dispatcher.on("end", end => {
