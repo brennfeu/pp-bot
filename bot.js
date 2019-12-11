@@ -2580,7 +2580,7 @@ function setBotActivity() {
 			texte = DUEL_LIST.length + " duels of PP Punching";
 		}
 	}
-	CLIENT.user.setActivity(texte);
+	CLIENT.user.setGame(texte);
 }
 
 function addWinCounter(_fighter, _number) {
