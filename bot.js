@@ -1730,6 +1730,7 @@ class Duel {
 		voiceChannel.join().then(connection =>{
 			const dispatcher = connection.playFile('./ascend.mp3');
 			dispatcher.on("end", end => {
+				console.log("end");
 				voiceChannel.leave();
 			});
 		}).catch(err => console.log(err));
@@ -2570,32 +2571,21 @@ function skipWaitingDuels() {
 }
 
 function setBotActivity() {
+	var texte = "Lonely PP :("
 	if (DUEL_LIST.length > 0) {
 		if (DUEL_LIST.length == 1) {
-			CLIENT.user.setPresence({
-				game: { 
-				    name: DUEL_LIST.length + " duel of PP Punching",
-				    type: 'PLAYING'
-				}
-			});
+			texte = DUEL_LIST.length + " duel of PP Punching";
 		}
 		else {
-			CLIENT.user.setPresence({
-				game: { 
-				    name: DUEL_LIST.length + " duels of PP Punching",
-				    type: 'PLAYING'
-				}
-			});
+			texte = DUEL_LIST.length + " duels of PP Punching";
 		}
 	}
-	else {
-		CLIENT.user.setPresence({
-			game: { 
-			    name: "Lonely PP :(",
-			    type: 'PLAYING'
-			}
-		});
-	}
+	CLIENT.user.setPresence({
+		game: { 
+		    name: texte,
+		    type: 'PLAYING'
+		}
+	});
 }
 
 function addWinCounter(_fighter, _number) {
