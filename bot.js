@@ -2964,7 +2964,10 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 					duel.getOppOf(winner).playMove();
 				}
 				
+				duel.addMessage(winner.user.username + " uses his move !");
+				duel.sendMessages();
 				winner.playMove();
+				
 				// Burst
 				if (duel.getOppOf(winner).attack == EMOTE_PP8) {
 					duel.addMessage(duel.getOppOf(winner).user.username + " burst !");
