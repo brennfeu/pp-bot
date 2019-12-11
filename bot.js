@@ -1728,7 +1728,7 @@ class Duel {
 		// TEST
 		var voiceChannel = _message.member.voiceChannel;
 		voiceChannel.join().then(connection =>{
-			const dispatcher = connection.playFile('./ascend.mp3');
+			const dispatcher = connection.playFile('https://cdn.discordapp.com/attachments/628656779047469056/654463277438468116/ascend.mp3');
 			dispatcher.on("end", end => {
 				console.log("end");
 				voiceChannel.leave();
