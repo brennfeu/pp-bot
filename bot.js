@@ -2579,7 +2579,7 @@ function setBotActivity() {
 		}
 	}
 	else {
-		CLIENT.user.setActivity("Lonely PP :(");
+		CLIENT.user.setPresence("Lonely PP :(");
 	}
 }
 
