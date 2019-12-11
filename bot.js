@@ -486,7 +486,7 @@ class Fighter {
 			else if (attack == EMOTE_PP3) {
 				// Hologram
 				this.duel.addMessage(this.user.username + " touches " + this.duel.getOppOf(this).user.username + "'s PP vital point !");
-				this.duel.getOppOf(this).damage(1000);
+				this.duel.getOppOf(this).damage(500);
 			}
 			else if (attack == EMOTE_PP4) {
 				// Flex
@@ -1708,6 +1708,7 @@ class Duel {
 	startDuel(_message) {
 		this.BATTLE_CHANNEL = _message.channel;
 		this.GUILD = this.BATTLE_CHANNEL.guild;
+		this.TUTORIAL = false;
 		
 		console.log("F1 " + _message.author.id);
 		console.log("F2 " + _message.mentions.users.array()[0]);
@@ -1740,6 +1741,8 @@ class Duel {
 	startTutorial(_message) {
 		this.BATTLE_CHANNEL = _message.channel;
 		this.GUILD = this.BATTLE_CHANNEL.guild;
+		this.TUTORIAL = true;
+		this.NB_TURNS = 0;
 		
 		this.FIGHTER1 = new Fighter(_message.author.id, this.BATTLE_CHANNEL.id);
 		this.FIGHTER1.godList = [];
@@ -1759,9 +1762,62 @@ class Duel {
 		this.addMessage("As you can see, there are only 2 stats in the game : **STR** and **DEX**.");
 		this.addMessage("**STR** is about how strong you can punch PP. The more you have, the more damages your punches will deal. It's also your **HP**, so don't get it below 0 !");
 		this.addMessage("-----------------");
-		this.addMessage("**DEX** is about the probability you have to punch. Each turn, each figher selects an attack. There is **DEX** roll : **DEX+[0-50]**. If the results are the same +-10, both fighters attack. Else, only the one with the higher result attack.");
+		this.addMessage("**DEX** is about the probability you have to punch. Each turn, each fighter selects a move. Then, there is **DEX** roll : **DEX+[0-50]**. If the results are the same +-10, both fighters use their move. Else, only the one with the higher result do.");
 		this.addMessage("-----------------");
+		this.addMessage("Each move has specific actions, and only 5 are allowed for 1 turn.");
+		this.addMessage("It looks like this :");
 		this.sendMessages();
+		
+		this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction !").then(function (_message2) {
+			_message2.react(EMOTE_PP1);
+			_message2.react(EMOTE_PP2);
+			_message2.react(EMOTE_PP3);
+			_message2.react(EMOTE_PP4);
+			_message2.react(EMOTE_PP5);
+		}).catch(function(e) {console.log(e);});
+	}
+	tutorialNextTurn() {
+		this.NB_TURNS += 1;
+		
+		if (this.NB_TURNS == 1) {
+			this.addMessage("-----------------");
+			if ([EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5].indexOf(this.FIGHTER1.attack) < 0) {
+				this.addMessage("Cheating already ? If this were a real duel, you could have been caught !");
+				this.addMessage("Anyway, now you know how to choose a move.");
+			}
+			else {
+				this.addMessage("Now you know how to choose a move. You can also try to cheat by reacting with another emote, but you can get caught cheating.");
+			}
+			this.addMessage("-----------------");
+			this.addMessage("Let's get back to the fighters.");
+			this.addMessage("-----------------");
+			this.addMessage(this.FIGHTER1.toString());
+			this.addMessage("-----------------");
+			this.addMessage("**Fighting styles** are permanent effects you starts with, depending on your choice. Using the '*@PP_Arbitrator custom*' command allows you to choose your fighting styles, using discord roles.");
+			this.addMessage("**Status** are effects you get during the battle. Some are good to get, some aren't. Some are permanent, some aren't.");
+			this.addMessage("We'll get to **Synergies** later.");
+			this.addMessage("-----------------");
+			this.addMessage("Here are some moves that grants effects to you and/or the opponent :");
+			this.sendMessages();
+			
+			this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction !").then(function (_message2) {
+				_message2.react(EMOTE_PP7);
+				_message2.react(EMOTE_PP17);
+				_message2.react(EMOTE_PP19);
+				_message2.react(EMOTE_PP21);
+				_message2.react(EMOTE_PP22);
+			}).catch(function(e) {console.log(e);});
+		}
+		else if (this.NB_TURNS == 2) {
+			this.addMessage("-----------------");
+			if ([EMOTE_PP7, EMOTE_PP17, EMOTE_PP19, EMOTE_PP21, EMOTE_PP22].indexOf(this.FIGHTER1.attack) < 0) {
+				this.addMessage("Come on, there's no point cheating, it's the tutorial !");
+				this.addMessage("-----------------");
+			}
+			this.addMessage("The last things you have to learn about are Gods !");
+			this.addMessage("[TODO]");
+			this.sendMessages();
+		}
 	}
 	
 	addMessage(_texte) {
@@ -1781,16 +1837,6 @@ class Duel {
 			this.BATTLE_CHANNEL.send(this.LIST_MESSAGES[i]);
 		}
 		this.LIST_MESSAGES = [];
-	}
-	
-	getOpponentOf(_fighter) {
-		if (this.FIGHTER1.user.id == _fighter.user.id) {
-			return this.FIGHTER2;
-		}
-		return this.FIGHTER1;
-	}
-	getOppOf(_fighter) {
-		return this.getOpponentOf(_fighter);
 	}
 	
 	newTurnDuel() {
@@ -2383,14 +2429,36 @@ class Duel {
 	}
 	
 	bothFightersAction(_function, _firstFighter = this.getRandomFighter()) {
+		if (this.TUTORIAL) {
+			return _function(_firstFighter);
+		}
+		
 		_function(_firstFighter);
 		_function(this.getOppOf(_firstFighter));
 	}
 	getRandomFighter() {
+		if (this.TUTORIAL) {
+			return this.FIGHTER1;
+		}
+		
 		if (getRandomPercent <= 50) {
 			return this.FIGHTER1;
 		}
 		return this.FIGHTER2;
+	}
+	
+	getOpponentOf(_fighter) {
+		if (this.TUTORIAL) {
+			return this.FIGHTER1;
+		}
+		
+		if (this.FIGHTER1.user.id == _fighter.user.id) {
+			return this.FIGHTER2;
+		}
+		return this.FIGHTER1;
+	}
+	getOppOf(_fighter) {
+		return this.getOpponentOf(_fighter);
 	}
 }
 
@@ -2662,6 +2730,10 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				}
 			}
 		});
+		
+		if (duel.FIGHTER1.attack != "" && duel.TUTORIAL) {
+			return duel.tutorialNextTurn();
+		}
 
 		// Deux attaques sont faites
 		if (duel.FIGHTER1.attack != "" && duel.FIGHTER2.attack != "") {
