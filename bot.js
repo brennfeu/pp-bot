@@ -1306,6 +1306,9 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("D.I.C.K. answers his calls !");
+					if (this.STR < 10) {
+						this.STRValue -= this.STR-10;
+					}
 					this.STRValue = this.STR*1000-this.STRValue;
 					this.duel.addMessage(this.user.username + " gets the strength of a thousand punchers !");
 					this.playMove(EMOTE_PP2);
