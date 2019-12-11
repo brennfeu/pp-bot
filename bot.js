@@ -1727,9 +1727,9 @@ class Duel {
 		
 		// TEST
 		var voiceChannel = _message.member.voiceChannel;
-		voiceChannel.join().then(connection =>{
+		voiceChannel.join().then(function(_connection) {
 			console.log("test1");
-			const dispatcher = connection.playFile('./ascend.mp3');
+			const dispatcher = _connection.playFile('./ascend.mp3');
 			console.log("test2");
 			dispatcher.resume();
 			console.log("test3");
