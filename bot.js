@@ -1745,7 +1745,7 @@ class Duel {
 		this.NB_TURNS = 0;
 		
 		this.FIGHTER1 = new Fighter(_message.author.id, this.BATTLE_CHANNEL.id);
-		this.FIGHTER1.godList = [];
+		this.FIGHTER1.godList = [GOD_PP13_PRIEST, GOD_PP18_PRIEST, GOD_PP9_PRIEST];
 		this.FIGHTER1.isBigPP = false;
 		this.FIGHTER1.isFastPP = true;
 		this.FIGHTER1.isDrunkPP = false;
@@ -1788,7 +1788,6 @@ class Duel {
 			else {
 				this.addMessage("Now you know how to choose a move. You can also try to cheat by reacting with another emote, but you can get caught cheating.");
 			}
-			this.addMessage("-----------------");
 			this.addMessage("Let's get back to the fighters.");
 			this.addMessage("-----------------");
 			this.addMessage(this.FIGHTER1.toString());
@@ -1814,9 +1813,40 @@ class Duel {
 				this.addMessage("Come on, there's no point cheating, it's the tutorial !");
 				this.addMessage("-----------------");
 			}
-			this.addMessage("The last things you have to learn about are Gods !");
-			this.addMessage("[TODO]");
+			this.addMessage("The last things you have to learn about are **Gods** !");
+			this.addMessage("You can have up to 3 gods when starting a duel. It works the same way as fighting styles, except their use is different.");
+			this.addMessage("You can call your **gods** powers using a charge you get with events. There are 2 kind of charges : **regular** and **special**, each calling all your gods **regular** or **special** moves.");
+			this.addMessage("There are some **Gods Synergies** that grants permanent effects.");
+			this.addMessage("-----------------");
+			this.addMessage("Let's say you are a Priest of **700IQ**, **Salt King** and **Brenn**.");
+			this.addMessage("I'm gonna give you a charge of each kind.");
+			this.FIGHTER1.regularCharges = 1;
+			this.FIGHTER1.specialCharges = 1;
+			this.addMessage("-----------------");
+			this.addMessage(this.FIGHTER1.toString());
+			this.addMessage("-----------------");
+			this.addMessage("Here are the moves that allows you to unleash your **Gods** :");
 			this.sendMessages();
+			
+			this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction !").then(function (_message2) {
+				_message2.react(EMOTE_PP51);
+				_message2.react(EMOTE_PP52);
+			}).catch(function(e) {console.log(e);});
+		}
+		else if (this.NB_TURNS == 3) {
+			this.addMessage("-----------------");
+			if ([EMOTE_PP51, EMOTE_PP52].indexOf(this.FIGHTER1.attack) < 0) {
+				this.addMessage("Come on, there's no point cheating, it's the tutorial !");
+				this.addMessage("-----------------");
+			}
+			this.addMessage("Now you know the basics ! The only remaining things to learn are what the moves do.");
+			this.addMessage("The **PP Bible** is great for that : https://github.com/brennfeu/pp-bot/wiki/PP-Bible. You can also get a link using the '*@PP_Arbitrator help*' command.");
+			this.addMessage("It's way easier and more fun to learn by playing with a friend. Keep the **PP Bible** on one tab to learn about what happens !");
+			this.addMessage("-----------------");
+			this.addMessage("That's it, the tutorial is over ! Have fun :)");
+			this.sendMessages();
+			
+			this.DEAD_DUEL = true;
 		}
 	}
 	
