@@ -2575,20 +2575,16 @@ function setBotActivity() {
 			CLIENT.user.setPresence({
 				game: { 
 				    name: DUEL_LIST.length + " duel of PP Punching",
-				    type: 'PLAYING',
-            			    url: "https://github.com/brennfeu/pp-bot/wiki/PP-Bible"
-				},
-				status: 'idle'
+				    type: 'PLAYING'
+				}
 			});
 		}
 		else {
 			CLIENT.user.setPresence({
 				game: { 
 				    name: DUEL_LIST.length + " duels of PP Punching",
-				    type: 'PLAYING',
-            			    url: "https://github.com/brennfeu/pp-bot/wiki/PP-Bible"
-				},
-				status: 'idle'
+				    type: 'PLAYING'
+				}
 			});
 		}
 	}
@@ -2596,10 +2592,8 @@ function setBotActivity() {
 		CLIENT.user.setPresence({
 			game: { 
 			    name: "Lonely PP :(",
-			    type: 'PLAYING',
-            		    url: "https://github.com/brennfeu/pp-bot/wiki/PP-Bible"
-			},
-			status: 'idle'
+			    type: 'PLAYING'
+			}
 		});
 	}
 }
