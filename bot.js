@@ -2578,13 +2578,11 @@ CLIENT.on('ready', () => {
 	setBotActivity();
 });
 
-CLIENT.on('raw', packet => {
+// This event will run on every single message received, from any channel or DM.
+CLIENT.on("message", async _message => {
 	killDeadDuels();
 	setBotActivity();
-});
-
-// This event will run on every single message received, from any channel or DM.
-CLIENT.on("message", async _message => {	
+	
 	// Recuperation commande
 	var argsUser = _message.content.trim().split(" ");
 	
@@ -2717,6 +2715,9 @@ CLIENT.on("message", async _message => {
 });
 
 CLIENT.on('messageReactionAdd', (_reaction, _user) => {
+	killDeadDuels();
+	setBotActivity();
+	
 	// Ignore si bot
 	if (_user.bot) return;
 
