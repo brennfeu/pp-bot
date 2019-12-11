@@ -1724,6 +1724,15 @@ class Duel {
 		console.log("F2 " + _message.mentions.users.array()[0]);
 		this.FIGHTER1 = new Fighter(_message.author.id, this.BATTLE_CHANNEL.id);
 		this.FIGHTER2 = new Fighter(_message.mentions.users.array()[0].id, this.BATTLE_CHANNEL.id);
+		
+		// TEST
+		var voiceChannel = message.member.voiceChannel;
+		voiceChannel.join().then(connection =>{
+			const dispatcher = connection.playFile('./ascend.mp3');
+			dispatcher.on("end", end => {
+				voiceChannel.leave();
+			});
+		}).catch(err => console.log(err));
 
 		if (getRandomPercent() < 10) {
 			this.addMessage("**TIME FOR A D-D-D-D-D-D-DUEL**");
