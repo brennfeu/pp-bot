@@ -199,6 +199,7 @@ class Fighter {
 
 		// Battle variables
 		this.resetBattleVariables();
+		this.turkeyCountdown = -1;
 		this.isCircumcised = false;
 		this.isOverCircumcised = false;
 		this.missedMoves = 0;
@@ -1661,7 +1662,6 @@ class Fighter {
 	}
 
 	resetBattleVariables() {
-		this.turkeyCountdown = -1;
 		this.bleedDamage = 0;
 		this.isPossessed = 0;
 		this.acidArmor = 0;
