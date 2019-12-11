@@ -1403,9 +1403,9 @@ class Fighter {
 					this.duel.addMessage("Unless I wasn't ?");
 					this.duel.addMessage("Nah it was a joke !");
 					this.duel.addMessage("Unless...?");
-					this.duel.getOppOf(this).playMove(EMOTE_PP47);
-					this.duel.getOppOf(this).playMove(EMOTE_PP47);
-					this.duel.getOppOf(this).playMove(EMOTE_PP47);
+					this.duel.addMessage("What are you gonna do ?");
+					this.duel.addMessage("Pee and poop maybe ?");
+					this.duel.addMessage("Maybe fart and cum ?");
 					this.duel.addMessage("hehe");
 					this.duel.sendMessages();
 				}
