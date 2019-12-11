@@ -1857,6 +1857,8 @@ class Duel {
 			
 			this.DEAD_DUEL = true;
 		}
+		
+		this.FIGHTER1.attack = "";
 	}
 	
 	addMessage(_texte) {
