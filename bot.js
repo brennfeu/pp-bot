@@ -1680,7 +1680,7 @@ class Duel {
 		this.DEAD_DUEL = false;
 		this.LIST_MESSAGES = [];
 		this.INFINITE_DAMAGE = 0;
-		this.TIMESTAMP = + new Date();
+		this.TIMESTAMP = +new Date();
 		
 		this.MOVE_COUNT = 0;
 		this.DAMAGE_COUNT = 0;
@@ -2524,8 +2524,8 @@ function killDeadDuels() {
 function skipWaitingDuels() {
 	for (var i = DUEL_LIST.length - 1; i >= 0; i--) {
 		console.log("A" + (DUEL_LIST[i].TIMESTAMP + (5 * 60*1000)));
-		console.log("B" + (0 + new Date()));
-		if (DUEL_LIST[i].TIMESTAMP + (5 * 60*1000) < 0 + new Date()) {
+		console.log("B" + (+new Date()));
+		if (DUEL_LIST[i].TIMESTAMP + (5 * 60*1000) < +new Date()) {
 			if (DUEL_LIST[i].TUTORIAL) {
 				DUEL_LIST[i].addMessage("Tutoriel cancelled :(")
 				DUEL_LIST[i].sendMessages();
