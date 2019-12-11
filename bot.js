@@ -2572,14 +2572,35 @@ function skipWaitingDuels() {
 function setBotActivity() {
 	if (DUEL_LIST.length > 0) {
 		if (DUEL_LIST.length == 1) {
-			CLIENT.user.setPresence(DUEL_LIST.length + " duel of PP Punching");
+			CLIENT.user.setPresence({
+				game: { 
+				    name: DUEL_LIST.length + " duel of PP Punching",
+				    type: 'PLAYING',
+            			    url: "https://github.com/brennfeu/pp-bot/wiki/PP-Bible"
+				},
+				status: 'idle'
+			});
 		}
 		else {
-			CLIENT.user.setPresence(DUEL_LIST.length + " duels of PP Punching");
+			CLIENT.user.setPresence({
+				game: { 
+				    name: DUEL_LIST.length + " duels of PP Punching",
+				    type: 'PLAYING',
+            			    url: "https://github.com/brennfeu/pp-bot/wiki/PP-Bible"
+				},
+				status: 'idle'
+			});
 		}
 	}
 	else {
-		CLIENT.user.setPresence("Lonely PP :(");
+		CLIENT.user.setPresence({
+			game: { 
+			    name: "Lonely PP :(",
+			    type: 'PLAYING',
+            		    url: "https://github.com/brennfeu/pp-bot/wiki/PP-Bible"
+			},
+			status: 'idle'
+		});
 	}
 }
 
