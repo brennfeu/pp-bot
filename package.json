@@ -1,15 +1,9 @@
 {
-  "name": "PP Arbitrator",
-  "description": "For PP Battles",
-  "version": "1.0.0",
-  "main": "bot.js",
   "scripts": {
     "start": "node bot.js"
   },
   "dependencies": {
     "discord.js": "11.1.0",
-    "node-opus": "^0.3.3",
-    "request": "2.81.0",
-    "ytdl-core": "^1.0.3"
+    "request": "2.81.0"
   }
 }
