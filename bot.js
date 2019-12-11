@@ -1756,9 +1756,12 @@ class Duel {
 		this.addMessage("-----------------");
 		this.addMessage(this.FIGHTER1.toString());
 		this.addMessage("-----------------");
-		this.addMessage("As you can see, there are only 2 stats in the game : STR and DEX.");
-		this.addMessage("STR is about how strong you can punch PP. The more you have, the more damages your punches will deal. It's also your HP, so don't get it below 0 !");
-		this.addMessage("DEX is about the probability you have to punch. Each turn, each figher selects an attack. There is DEX roll : DEX+[0-50]. If the results are the same +-10, both fighters attack. Else, only the one with the higher result attack.");
+		this.addMessage("As you can see, there are only 2 stats in the game : **STR** and **DEX**.");
+		this.addMessage("**STR** is about how strong you can punch PP. The more you have, the more damages your punches will deal. It's also your **HP**, so don't get it below 0 !");
+		this.addMessage("-----------------");
+		this.addMessage("**DEX** is about the probability you have to punch. Each turn, each figher selects an attack. There is **DEX** roll : **DEX+[0-50]**. If the results are the same +-10, both fighters attack. Else, only the one with the higher result attack.");
+		this.addMessage("-----------------");
+		this.sendMessages();
 	}
 	
 	addMessage(_texte) {
