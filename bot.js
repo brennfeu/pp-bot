@@ -1680,6 +1680,7 @@ class Duel {
 		this.DEAD_DUEL = false;
 		this.LIST_MESSAGES = [];
 		this.INFINITE_DAMAGE = 0;
+		this.TIMESTAMP = + new Date();
 		
 		this.MOVE_COUNT = 0;
 		this.DAMAGE_COUNT = 0;
@@ -1872,6 +1873,7 @@ class Duel {
 			this.BATTLE_CHANNEL.send(this.LIST_MESSAGES[i]);
 		}
 		this.LIST_MESSAGES = [];
+		this.TIMESTAMP = + new Date();
 	}
 	
 	newTurnDuel() {
