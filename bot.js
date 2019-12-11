@@ -2865,8 +2865,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				if (caught1 && (getRandomPercent() >= 33 || _fighter.godList.indexOf(GOD_PP16_PRIEST) > -1 && _fighter.godList.indexOf(GOD_PP13_PRIEST) > -1)) {
 					duel.addMessage(_fighter.user.username + " is doing illegal stuff ! He loses 20 DEX and 10 STR.");
 					duel.sendMessages();
-					_fighter.user.username.STRValue -= 10;
-					_fighter.user.username.DEXValue -= 20;
+					_fighter.STRValue -= 10;
+					_fighter.DEXValue -= 20;
 					_fighter.attack = EMOTE_PP50;
 					caught1 = false;
 				}
