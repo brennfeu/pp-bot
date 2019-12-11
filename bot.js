@@ -213,7 +213,6 @@ class Fighter {
 		this.eldritchFriend = false;
 		this.isCowBoy = false;
 		this.trueBarbarian = false;
-		this.isSalty = false;
 		this.pigHeal = 0;
 		this.isLucky = 0;
 		this.doomReverse = 0;
@@ -374,6 +373,9 @@ class Fighter {
 				txt += "   - Salty Wounds\n";
 			}
 		}
+		if (this.bonusDamage > 0) {
+			txt += " - Building up : " + this.bonusDamage + "\n";
+		}
 		if (this.isOverCircumcised) {
 			txt += " - Overcircumcised\n";
 		}
@@ -383,9 +385,6 @@ class Fighter {
 		if (this.eldritchFriend) {
 			txt += " - Eldritch Friendly\n";
 		}
-		if (this.badLuck) {
-			txt += " - Unlucky\n";
-		}
 		if (this.isCowBoy) {
 			txt += " - Cowboy\n";
 		}
@@ -394,6 +393,9 @@ class Fighter {
 		}
 		if (this.chimera) {
 			txt += " - Furry PP\n";
+		}
+		if (this.badLuck) {
+			txt += " - Unlucky\n";
 		}
 		if (this.hasBoner) {
 			txt += " - Big Boner Mmmmmmh...\n";
@@ -1668,6 +1670,7 @@ class Fighter {
 		this.grabbedPP = 0;
 		this.hasBoner = false;
 		this.badLuck = false;
+		this.isSalty = false;
 		// TODO keep up to date --> negative effects only
 	}
 }
