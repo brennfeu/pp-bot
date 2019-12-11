@@ -2571,7 +2571,7 @@ function skipWaitingDuels() {
 }
 
 function setBotActivity() {
-	var texte = "Lonely PP :("
+	var texte = "Lonely PP :(";
 	if (DUEL_LIST.length > 0) {
 		if (DUEL_LIST.length == 1) {
 			texte = DUEL_LIST.length + " duel of PP Punching";
@@ -2580,12 +2580,7 @@ function setBotActivity() {
 			texte = DUEL_LIST.length + " duels of PP Punching";
 		}
 	}
-	CLIENT.user.setPresence({
-		game: { 
-		    name: texte,
-		    type: 'PLAYING'
-		}
-	});
+	CLIENT.user.setActivity(texte);
 }
 
 function addWinCounter(_fighter, _number) {
