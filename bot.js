@@ -1745,7 +1745,7 @@ class Duel {
 		this.NB_TURNS = 0;
 		
 		this.FIGHTER1 = new Fighter(_message.author.id, this.BATTLE_CHANNEL.id);
-		this.FIGHTER1.godList = [GOD_PP13_PRIEST, GOD_PP18_PRIEST, GOD_PP9_PRIEST];
+		this.FIGHTER1.godList = [];
 		this.FIGHTER1.isBigPP = false;
 		this.FIGHTER1.isFastPP = true;
 		this.FIGHTER1.isDrunkPP = false;
@@ -1819,12 +1819,14 @@ class Duel {
 			this.addMessage("There are some **Gods Synergies** that grants permanent effects.");
 			this.addMessage("-----------------");
 			this.addMessage("Let's say you are a Priest of **700IQ**, **Salt King** and **Brenn**.");
-			this.addMessage("I'm gonna give you a charge of each kind.");
+			this.addMessage("I'm gonna give you a charge of each kind. Your gods only appear if you have at least one charge.");
+			this.FIGHTER1.godList = [GOD_PP13_PRIEST, GOD_PP18_PRIEST, GOD_PP9_PRIEST];
 			this.FIGHTER1.regularCharges = 1;
 			this.FIGHTER1.specialCharges = 1;
 			this.addMessage("-----------------");
 			this.addMessage(this.FIGHTER1.toString());
 			this.addMessage("-----------------");
+			this.addMessage("It gave you a synergy ! This one makes sure that you can't get below 0 **DEX**.");
 			this.addMessage("Here are the moves that allows you to unleash your **Gods** :");
 			this.sendMessages();
 			
@@ -1839,7 +1841,7 @@ class Duel {
 				this.addMessage("Come on, there's no point cheating, it's the tutorial !");
 				this.addMessage("-----------------");
 			}
-			this.addMessage("Now you know the basics ! The only remaining things to learn are what the moves do.");
+			this.addMessage("Now you know the theory ! The only remaining things to learn are what the moves do in practice.");
 			this.addMessage("The **PP Bible** is great for that : https://github.com/brennfeu/pp-bot/wiki/PP-Bible. You can also get a link using the '*@PP_Arbitrator help*' command.");
 			this.addMessage("It's way easier and more fun to learn by playing with a friend. Keep the **PP Bible** on one tab to learn about what happens !");
 			this.addMessage("-----------------");
