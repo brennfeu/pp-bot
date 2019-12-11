@@ -2524,10 +2524,19 @@ function killDeadDuels() {
 function skipWaitingDuels() {
 	for (var i = DUEL_LIST.length - 1; i >= 0; i--) {
 		if (DUEL_LIST[i].TIMESTAMP + (5 * 60*1000) < 0 + new Date()) {
-			if (DUEL_LIST[i].FIGHTER1.attack == "") {
+			if (DUEL_LIST[i].TUTORIAL) {
+				DUEL_LIST[i].addMessage("Tutoriel cancelled :(")
+				DUEL_LIST[i].sendMessages();
+				DUEL_LIST[i].DEAD_DUEL = true;
+			}
+			else if (DUEL_LIST[i].FIGHTER1.attack == "" && DUEL_LIST[i].FIGHTER2.attack == "") {
+				DUEL_LIST[i].FIGHTER1.attack = EMOTE_PP47;
+				DUEL_LIST[i].FIGHTER1.attack = EMOTE_PP47;
+			}
+			else if (DUEL_LIST[i].FIGHTER1.attack == "") {
 				DUEL_LIST[i].FIGHTER1.attack = EMOTE_PP50;
 			}
-			if (!DUEL_LIST[i].TUTORIAL && DUEL_LIST[i].FIGHTER2.attack == "") {
+			else if (DUEL_LIST[i].FIGHTER2.attack == "") {
 				DUEL_LIST[i].FIGHTER1.attack = EMOTE_PP50;
 			}
 			this.BATTLE_CHANNEL.send("...").then(function (_message2) { // Triggers the emote add
