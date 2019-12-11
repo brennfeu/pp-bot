@@ -2619,8 +2619,7 @@ CLIENT.on("message", async _message => {
 		}
 		
 		if (_message.author.id == _message.mentions.users.array()[0].id) {
-			this.addMessage("You can't battle yourself");
-			return;
+			return _message.reply("you can't battle yourself");
 		}
 
 		var duel = new Duel();
