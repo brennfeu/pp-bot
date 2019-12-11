@@ -1018,7 +1018,7 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Fabio answers his calls !");
 					this.duel.addMessage(this.user.username + " let his hair flow in the wind !");
-					this.heal(50*MOVE_COUNT);
+					this.heal(50*this.duel.MOVE_COUNT);
 				}
 				if (this.godList.indexOf(GOD_PP11_PRIEST) > -1) { // Country Music Brenn
 					this.duel.addMessage("-----------------");
@@ -1632,7 +1632,10 @@ class Fighter {
 		}
 		if (this.godList.indexOf(GOD_PP10_PRIEST) > -1 && this.godList.indexOf(GOD_PP8_PRIEST) > -1 && getRandomPercent() <= 10) {
 			this.duel.addMessage(this.user.username + "'s Yaoi starts !");
-			this.duel.GAY_TURNS = 2;
+			if (this.duel.GAY_TURNS < 2) {
+				this.duel.GAY_TURNS = 0;
+			}
+			this.duel.GAY_TURNS += 2;
 			this.duel.addMessage("-----------------");
 		}
 
@@ -2276,7 +2279,7 @@ class Duel {
 			this.addMessage("where were u wen club penguin die");
 			this.addMessage(winner.user.username + " was at house eating dorito when phone ring");
 			this.addMessage(this.getOppOf(winner).user.username + ' : "Club penguin is kil"');
-			this.addMessage(winner.user.username + ' : "*no*"');
+			this.addMessage(winner.user.username + ' : *"no"*');
 			
 			this.bothFightersAction(function(_fighter) {
 				_fighter.isPossessed = 2;
