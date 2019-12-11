@@ -1720,6 +1720,7 @@ class Duel {
 		else {
 			this.addMessage("**TIME FOR A DUEL**");
 		}
+		this.newTurnDuel();
 	}
 	stopDuel() {
 		this.sendMessages();
@@ -1735,6 +1736,29 @@ class Duel {
 		
 		this.EVENT_BOSS = false;
 		this.DEAD_DUEL = true;
+	}
+	startTutorial(_message) {
+		this.BATTLE_CHANNEL = _message.channel;
+		this.GUILD = this.BATTLE_CHANNEL.guild;
+		
+		this.FIGHTER1 = new Fighter(_message.author.id, this.BATTLE_CHANNEL.id);
+		this.FIGHTER1.godList = [];
+		this.FIGHTER1.isBigPP = false;
+		this.FIGHTER1.isFastPP = true;
+		this.FIGHTER1.isDrunkPP = false;
+		this.FIGHTER1.isHockeyPuckPP = false;
+		this.FIGHTER1.isAlienPP = true;
+		
+
+		this.addMessage("**TIME FOR A TUTORIAL**");
+		this.addMessage("Welcome to the PP Punch Arena !");
+		this.addMessage("First, let me teach you about the fighters !");
+		this.addMessage("-----------------");
+		this.addMessage(this.FIGHTER1.toString());
+		this.addMessage("-----------------");
+		this.addMessage("As you can see, there are only 2 stats in the game : STR and DEX.");
+		this.addMessage("STR is about how strong you can punch PP. The more you have, the more damages your punches will deal. It's also your HP, so don't get it below 0 !");
+		this.addMessage("DEX is about the probability you have to punch. Each turn, each figher selects an attack. There is DEX roll : DEX+[0-50]. If the results are the same +-10, both fighters attack. Else, only the one with the higher result attack.");
 	}
 	
 	addMessage(_texte) {
@@ -2496,7 +2520,6 @@ CLIENT.on("message", async _message => {
 		DUEL_LIST.push(duel);
 		
 		duel.startDuel(_message);
-		duel.newTurnDuel();
 
 		return;
 	}
@@ -2520,6 +2543,18 @@ CLIENT.on("message", async _message => {
 		else {
 			return _message.reply("there's no fight here...");
 		}
+	}
+	if (argsUser[1] == "tutorial") {
+		if (getDuel(_message.channel.id) != null) {
+			return _message.reply("there's a battle going on here...");
+		}
+
+		var duel = new Duel();
+		DUEL_LIST.push(duel);
+		
+		duel.startTutorial(_message);
+
+		return;
 	}
 	if (argsUser[1] == "custom") {
 		if (getDuel(_message.channel.id) != null) return _message.reply("let's try somewhere else...");
