@@ -2528,7 +2528,7 @@ class Duel {
 				_fighter.playMove();
 				_fighter.duel.sendMessages();
 				// Burst
-				if (this.getOppOf(_fighter).attack == EMOTE_PP8) {
+				if (_fighter.duel.getOppOf(_fighter).attack == EMOTE_PP8) {
 					_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).user.username + " burst !");
 					_fighter.duel.sendMessages();
 					_fighter.hasBurst = 2;
