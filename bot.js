@@ -144,6 +144,7 @@ const MUSIC_PP4 = "huge_gay_night.mp3";
 const MUSIC_PP5 = "lovecraftian_strain_911.mp3";
 const MUSIC_PP6 = "gaseous_punk.mp3";
 const MUSIC_PP7 = "anomaly_b.mp3";
+const MUSIC_PP7 = "mortem_march.mp3";
 
 // Variables
 var DUEL_LIST = [];
@@ -2134,6 +2135,7 @@ class Duel {
 		else {
 			this.setMusic(MUSIC_PP1); // Main theme (???)
 		}
+		// mortem march ?
 		
 		if ((this.FIGHTER1.turnSkip > 0 || this.FIGHTER1.grabbedPP > 0 || this.FIGHTER1.summonTankCountdown == 1 || this.FIGHTER1.isPossessed > 0) && 
 		    (this.FIGHTER2.turnSkip > 0 || this.FIGHTER2.grabbedPP > 0 || this.FIGHTER2.summonTankCountdown == 1 || this.FIGHTER2.isPossessed > 0)) {
@@ -2577,7 +2579,7 @@ class Duel {
 			const dispatcher = _connection.playFile("./" + _music);
 			// const dispatcher = _connection.playFile("./music/" + _music);
 			dispatcher.resume();
-			dispatcher.on('end', _connection.playFile("./" + _music););
+			dispatcher.on('end', _connection.playFile("./" + _music));
 		}).catch(err => console.log(err));
 	}
 }
