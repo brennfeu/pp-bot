@@ -137,7 +137,7 @@ const BOSS_PP2 = "Free Lives HQ";
 const BOSS_PP3 = "The Moon Lord";
 
 // MUSICS
-const MUSIC_PP1 = "";
+const MUSIC_PP1 = "main_theme.mp3";
 const MUSIC_PP2 = "ascend.mp3";
 const MUSIC_PP3 = "psychodios.mp3";
 const MUSIC_PP4 = "huge_gay_night.mp3";
@@ -226,6 +226,7 @@ class Fighter {
 		this.hasExamined = 0;
 		this.extraLife = 0;
 		this.legAimer = false;
+		this.livingGod = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -881,6 +882,7 @@ class Fighter {
 				this.duel.addMessage("Behold " + this.user.username + " the living God !");
 				this.STRValue += 10000;
 				this.DEXValue += 10000;
+				this.livingGod = true;
 			}
 			else if (attack == EMOTE_PP50) {
 				// Perhaps
@@ -1899,9 +1901,6 @@ class Duel {
 	}
 	
 	newTurnDuel() {
-		// TEST
-		this.setMusic(MUSIC_PP2);
-		
 		this.addMessage("**===== TURN CHANGE =====**");
 		this.sendMessages();
 
@@ -2110,6 +2109,20 @@ class Duel {
 			}
 		});
 		
+		// SET MUSIC
+		if (this.GAY_TURNS > 0) {
+			this.setMusic(MUSIC_PP4); // Huge Gay Night
+		}
+		else if (this.PP_ARMAGEDDON) {
+			this.setMusic(MUSIC_PP3); // Psychodios
+		}
+		else if (this.FIGHTER1.livingGod || this.FIGHTER2.livingGod) {
+			this.setMusic(MUSIC_PP2); // Ascend
+		}
+		else {
+			this.setMusic(MUSIC_PP1); // Main theme (???)
+		}
+		
 		if ((this.FIGHTER1.turnSkip > 0 || this.FIGHTER1.grabbedPP > 0 || this.FIGHTER1.summonTankCountdown == 1 || this.FIGHTER1.isPossessed > 0) && 
 		    (this.FIGHTER2.turnSkip > 0 || this.FIGHTER2.grabbedPP > 0 || this.FIGHTER2.summonTankCountdown == 1 || this.FIGHTER2.isPossessed > 0)) {
 			this.bothFightersAction(function(_fighter) {
@@ -2122,7 +2135,8 @@ class Duel {
 			});
 			this.newTurnDuel();
 		}
-
+		
+		// Stop FORCE_SATAN
 		if (getRandomPercent() <= 25) {
 			this.FORCE_SATAN = false;
 		}
@@ -2542,8 +2556,6 @@ class Duel {
 			}
 			this.AUDIO_CHANNEL = null;
 		}
-		console.log("AUDIO CHANNEL :");
-		console.log(this.AUDIO_CHANNEL);
 		
 		if (this.AUDIO_CHANNEL == null) return;
 		if (_music == this.CURRENT_THEME) return;
