@@ -1756,6 +1756,11 @@ class Duel {
 		
 		this.EVENT_BOSS = false;
 		this.DEAD_DUEL = true;
+		
+		if (this.AUDIO_CHANNEL != null) {
+			// TODO play an end theme before leaving ?
+			this.AUDIO_CHANNEL.leave();
+		}
 	}
 	startTutorial(_message) {
 		this.BATTLE_CHANNEL = _message.channel;
@@ -2532,6 +2537,9 @@ class Duel {
   			this.AUDIO_CHANNEL = this.FIGHTER2.guildUser.voiceChannel;
 		}
 		else {
+			if (this.AUDIO_CHANNEL != null) {
+				this.AUDIO_CHANNEL.leave();
+			}
 			this.AUDIO_CHANNEL = null;
 		}
 		console.log("AUDIO CHANNEL :");
