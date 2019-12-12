@@ -99,6 +99,7 @@ const EMOTE_PP57 = "644881328592125980"; // Cage / Sacrifice
 const EMOTE_PP58 = "644880195341254656"; // Cageless
 const EMOTE_PP59 = "650987017571926016"; // Triggered Pépin2Pom
 const EMOTE_PP60 = "644880194959704085"; // PP Duel
+const EMOTE_PP61 = "644880195903553536"; // Flag
 const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, 
 		    EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, 
 		    EMOTE_PP18, EMOTE_PP19, EMOTE_PP20, EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, 
@@ -106,8 +107,9 @@ const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE
 		    EMOTE_PP34, EMOTE_PP35, EMOTE_PP36, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40, EMOTE_PP41, 
 		    EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP47, EMOTE_PP48, EMOTE_PP49, 
 		    EMOTE_PP50, EMOTE_PP51, EMOTE_PP52, EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, 
-		    EMOTE_PP58, EMOTE_PP59, EMOTE_PP60];
-const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58, EMOTE_PP59, EMOTE_PP60];
+		    EMOTE_PP58, EMOTE_PP59, EMOTE_PP60, EMOTE_PP61];
+const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58, EMOTE_PP59, EMOTE_PP60,
+			   EMOTE_PP61];
 
 const GOD_PP1 = "644643782888783892"; // Mongo
 const GOD_PP2 = "617686716479832064"; // Dr Phil / WhatDAFuk
@@ -230,6 +232,7 @@ class Fighter {
 		this.extraLife = 0;
 		this.legAimer = false;
 		this.livingGod = false;
+		this.liberatedPP = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -354,6 +357,12 @@ class Fighter {
 				txt += " - Alien PP\n";
 			}
 		}
+		if (this.chimera) {
+			txt += " - Furry PP\n";
+		}
+		if (this.liberatedPP) {
+			txt += " - Liberated PP\n";
+		}
 		
 		// Status
 		txt += "\n**Status :**\n"
@@ -382,10 +391,11 @@ class Fighter {
 			txt += " - Building up : " + this.bonusDamage + "\n";
 		}
 		if (this.bleedDamage > 0) {
-			txt += " - Haemorrhage : " + this.bleedDamage + "\n";
+			txt += " - Haemorrhage : " + this.bleedDamage;
 			if (this.isSalty) {
-				txt += "   - Salty Wounds\n";
+				txt += " (**Salty Wounds**)";
 			}
+			txt += "\n";
 		}
 		if (this.isOverCircumcised) {
 			txt += " - Overcircumcised\n";
@@ -401,9 +411,6 @@ class Fighter {
 		}
 		if (this.legAimer) {
 			txt += " - Leg Aimer\n";
-		}
-		if (this.chimera) {
-			txt += " - Furry PP\n";
 		}
 		if (this.badLuck) {
 			txt += " - Unlucky\n";
@@ -730,8 +737,20 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP32) {
 				// High Five Emote
-				this.duel.addMessage(this.user.username + " stops the time !");
-				this.duel.STOPPED_MOVE_LIST = this.duel.LIST_AVAILABLE_ATTACKS;
+				if (this.liberatedPP) {
+					this.duel.addMessage(this.user.username + "'s liberated PP high fives the arbitrator !");
+					if (this.duel.BLIND_COUNTDOWN > 0) {
+						this.duel.addMessage("He is no longer blind !");
+						this.duel.BLIND_COUNTDOWN = 0
+					}
+					else {
+						this.duel.addMessage("He appreciates it !");
+					}
+				}
+				else {
+					this.duel.addMessage(this.user.username + " stops the time !");
+					this.duel.STOPPED_MOVE_LIST = this.duel.LIST_AVAILABLE_ATTACKS;
+				}
 			}
 			else if (attack == EMOTE_PP33) {
 				// Headless - Big Kidney Stone
@@ -1437,12 +1456,25 @@ class Fighter {
 					_fighter.bleedDamage = 0;
 				});
 			}
+			else if (attack == EMOTE_PP61) {
+				// Liberate PP
+				this.duel.MOVE_COUNT += 33;
+				this.duel.addMessage(this.user.username + " liberates his PP !");
+				this.resetBattleVariables();
+				this.liberatedPP = true;
+			}
 			else if (attack == "IS_DEAD_LOL") {
 				// Dead (Cthulhu battle)
-				this.duel.addMessage(this.user.username + " is dead...");
+				if (this.STRValue < 70) {
+					this.duel.addMessage(this.user.username + "'s PP corpse does not move.");
+				}
+				else {
+					this.duel.addMessage(this.user.username + "'s PP corpse is slightly twitching...");
+				}
 			}
 			else {
 				this.duel.addMessage(this.user.username + " makes an unknown move ?");
+				this.playMove(EMOTE_PP50);
 				console.log("UNKNOWN MOVE : " + attack)
 			}
 
