@@ -1713,7 +1713,7 @@ class Fighter {
 	
 	getOppName() {
 		if (this.duel.EVENT_BOSS) {
-			return this.duel.BOSS_NAME;
+			return this.duel.CURRENT_BOSS;
 		}
 		return this.duel.getOppOf(this).user.username;
 	}
@@ -1788,6 +1788,9 @@ class Duel {
 		this.newTurnDuel();
 	}
 	stopDuel() {
+		this.EVENT_BOSS = false;
+		this.DEAD_DUEL = true;
+		
 		this.sendMessages();
 		this.addMessage("**===== RECAP =====**");
 		this.addMessage("FIGHTERS CURRENT STATE :");
@@ -1798,9 +1801,6 @@ class Duel {
 		this.addMessage(" - Number of moves : " + this.MOVE_COUNT);
 		this.addMessage(" - Number of damages inflicted : " + this.DAMAGE_COUNT);
 		this.sendMessages();
-		
-		this.EVENT_BOSS = false;
-		this.DEAD_DUEL = true;
 		
 		if (this.AUDIO_CHANNEL != null) {
 			// TODO play an end theme before leaving ?
