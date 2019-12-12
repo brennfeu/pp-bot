@@ -2477,8 +2477,8 @@ class Duel {
 		});
 
 		// ATTAQUES
-		var dexAttack1 = this.FIGHTER1.DEX + duel.getDexChange(this.FIGHTER1.attack) + Math.floor(Math.random() * 50 + 1);
-		var dexAttack2 = this.FIGHTER2.DEX + duel.getDexChange(this.FIGHTER2.attack) + Math.floor(Math.random() * 50 + 1);
+		var dexAttack1 = this.FIGHTER1.DEX + this.getDexChange(this.FIGHTER1.attack) + Math.floor(Math.random() * 50 + 1);
+		var dexAttack2 = this.FIGHTER2.DEX + this.getDexChange(this.FIGHTER2.attack) + Math.floor(Math.random() * 50 + 1);
 		this.addMessage(this.FIGHTER1.user.username + " : " + dexAttack1 + " /VS/ " + this.FIGHTER2.user.username + " : " + dexAttack2);
 		this.sendMessages();
 
