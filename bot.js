@@ -320,7 +320,7 @@ class Fighter {
 	// fighter.toString
 	toString() {
 		if (this.STR <= 0 && this.duel.EVENT_BOSS) {
-			return this.user.username + "\n -> Dead :(";
+			return "**" + this.user.username + "**\n -> **Dead** :(";
 		}
 
 		var txt = "**" + this.user.username;
