@@ -141,6 +141,9 @@ const MUSIC_PP1 = "main_theme.mp3";
 const MUSIC_PP2 = "ascend.mp3";
 const MUSIC_PP3 = "psychodios.mp3";
 const MUSIC_PP4 = "huge_gay_night.mp3";
+const MUSIC_PP5 = "lovecraftian_strain_911.mp3";
+const MUSIC_PP6 = "gaseous_punk.mp3";
+const MUSIC_PP7 = "anomaly_b.mp3";
 
 // Variables
 var DUEL_LIST = [];
@@ -2113,6 +2116,15 @@ class Duel {
 		if (this.GAY_TURNS > 0) {
 			this.setMusic(MUSIC_PP4); // Huge Gay Night
 		}
+		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP1) {
+			this.setMusic(MUSIC_PP5); // Lovecraftian Strain 911
+		}
+		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP2) {
+			this.setMusic(MUSIC_PP6); // Gaseous Punk
+		}
+		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP3) {
+			this.setMusic(MUSIC_PP7); // Anomaly-B
+		}
 		else if (this.PP_ARMAGEDDON) {
 			this.setMusic(MUSIC_PP3); // Psychodios
 		}
@@ -2565,6 +2577,7 @@ class Duel {
 			const dispatcher = _connection.playFile("./" + _music);
 			// const dispatcher = _connection.playFile("./music/" + _music);
 			dispatcher.resume();
+			dispatcher.on('end', _connection.playFile("./" + _music););
 		}).catch(err => console.log(err));
 	}
 }
