@@ -1131,7 +1131,7 @@ class Fighter {
 					this.duel.addMessage("D.I.C.K. answers his calls !");
 					this.duel.addMessage(this.user.username + " gets a special charge, overcircumcised and more DEX !");
 					this.specialCharges += 1;
-					this.overCircumcised = true;
+					this.isOverCircumcised = true;
 					this.DEXValue += 10;
 				}
 			}
@@ -2034,7 +2034,7 @@ class Duel {
 		this.bothFightersAction(function(_fighter) {
 			if (_fighter.STR <= 0 && _fighter.extraLife > 0) {
 				_fighter.duel.addMessage(_fighter.user.username + " uses an extra life !");
-				if (_fighter.id == _fighter.duel.FIGHTER1.id) {
+				if (_fighter.idUser == _fighter.duel.FIGHTER1.idUser) {
 					_fighter.duel.FIGHTER1 = new Fighter(_fighter.duel.FIGHTER1.idUser, _fighter.duel.BATTLE_CHANNEL.id);
 				}
 				else {
