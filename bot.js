@@ -3087,7 +3087,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 					}
 				}
 			}
-			else if (_user.id == _fighter.user.id && _fighter.isPossessed <= 0 && _fighter.turnSkip <= 0 && _fighter.grabbedPP <= 0 && _fighter.summonTankCountdown != 1 && _fighter.attack != "IS_DEAD_LOL") {
+			else if (_user.id == _fighter.user.id && _fighter.isPossessed <= 0 && _fighter.turnSkip <= 0 && _fighter.grabbedPP <= 0 && _fighter.summonTankCountdown != 1) {
 				_fighter.attack = duel.getAttackFromEmote(_reaction.emoji);
 				duel.addMessage(_fighter.user.username + " : " + _reaction.emoji.name);
 				duel.sendMessages();
