@@ -298,6 +298,9 @@ class Fighter {
 		if (this.hasBoner) {
 			dex -= 20;
 		}
+		if (this.liberatedPP) {
+			dex += 200;
+		}
 		if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
 			dex += 10;
 		}
@@ -357,12 +360,6 @@ class Fighter {
 				txt += " - Alien PP\n";
 			}
 		}
-		if (this.chimera) {
-			txt += " - Furry PP\n";
-		}
-		if (this.liberatedPP) {
-			txt += " - Liberated PP\n";
-		}
 		
 		// Status
 		txt += "\n**Status :**\n"
@@ -414,6 +411,12 @@ class Fighter {
 		}
 		if (this.badLuck) {
 			txt += " - Unlucky\n";
+		}
+		if (this.chimera) {
+			txt += " - Furry PP\n";
+		}
+		if (this.liberatedPP) {
+			txt += " - Liberated PP\n";
 		}
 		if (this.hasBoner) {
 			txt += " - Big Boner Mmmmmmh...\n";
@@ -737,19 +740,14 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP32) {
 				// High Five Emote
-				if (this.liberatedPP) {
-					this.duel.addMessage(this.user.username + "'s liberated PP high fives the arbitrator !");
-					if (this.duel.BLIND_COUNTDOWN > 0) {
-						this.duel.addMessage("He is no longer blind !");
-						this.duel.BLIND_COUNTDOWN = 0
-					}
-					else {
-						this.duel.addMessage("He appreciates it !");
-					}
+				this.duel.STOPPED_MOVE_LIST = this.duel.LIST_AVAILABLE_ATTACKS;
+				this.duel.addMessage(this.user.username + " high fives the arbitrator !");
+				if (this.duel.BLIND_COUNTDOWN > 0) {
+					this.duel.addMessage("He is no longer blind !");
+					this.duel.BLIND_COUNTDOWN = 0
 				}
 				else {
-					this.duel.addMessage(this.user.username + " stops the time !");
-					this.duel.STOPPED_MOVE_LIST = this.duel.LIST_AVAILABLE_ATTACKS;
+					this.duel.addMessage("He appreciates it !");
 				}
 			}
 			else if (attack == EMOTE_PP33) {
@@ -1459,9 +1457,17 @@ class Fighter {
 			else if (attack == EMOTE_PP61) {
 				// Liberate PP
 				this.duel.MOVE_COUNT += 33;
-				this.duel.addMessage(this.user.username + " liberates his PP !");
-				this.resetBattleVariables();
-				this.liberatedPP = true;
+				if (!this.duel.getOppOf(this).liberatedPP) {
+					this.resetBattleVariables();
+					this.duel.addMessage(this.user.username + " liberates his opponent's PP !");
+					this.duel.addMessage(this.user.username + " takes " + this.duel.getOppOf(this).DEXValue + " DEX from " + this.duel.getOppOf(this).user.username + " !");
+					this.DEXValue += this.duel.getOppOf(this).DEXValue;
+					this.duel.getOppOf(this).DEXValue = 0;
+					this.duel.getOppOf(this).liberatedPP = true;
+				}
+				else {
+					this.duel.addMessage("But " + this.duel.getOppOf(this).user.username + " has already been liberated !");
+				}
 			}
 			else if (attack == "IS_DEAD_LOL") {
 				// Dead (Cthulhu battle)
