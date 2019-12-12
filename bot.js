@@ -136,6 +136,12 @@ const BOSS_PP1 = "Cthulhu";
 const BOSS_PP2 = "Free Lives HQ";
 const BOSS_PP3 = "The Moon Lord";
 
+// MUSICS
+const MUSIC_PP1 = "";
+const MUSIC_PP2 = "ascend.mp3";
+const MUSIC_PP3 = "psychodios.mp3";
+const MUSIC_PP4 = "huge_gay_night.mp3";
+
 // Variables
 var DUEL_LIST = [];
 
@@ -1720,20 +1726,13 @@ class Duel {
 		this.GUILD = this.BATTLE_CHANNEL.guild;
 		this.TUTORIAL = false;
 		
+		this.AUDIO_CHANNEL = null;
+		this.CURRENT_THEME = null;
+		
 		console.log("F1 " + _message.author.id);
 		console.log("F2 " + _message.mentions.users.array()[0]);
 		this.FIGHTER1 = new Fighter(_message.author.id, this.BATTLE_CHANNEL.id);
 		this.FIGHTER2 = new Fighter(_message.mentions.users.array()[0].id, this.BATTLE_CHANNEL.id);
-		
-		// TEST
-		var voiceChannel = _message.member.voiceChannel;
-		voiceChannel.join().then(function(_connection) {
-			console.log("test1");
-			const dispatcher = _connection.playFile('./ascend.mp3');
-			console.log("test2");
-			dispatcher.resume();
-			console.log("test3");
-		}).catch(err => console.log(err));
 
 		if (getRandomPercent() < 10) {
 			this.addMessage("**TIME FOR A D-D-D-D-D-D-DUEL**");
@@ -1895,6 +1894,9 @@ class Duel {
 	}
 	
 	newTurnDuel() {
+		// TEST
+		this.setMusic(MUSIC_PP2);
+		
 		this.addMessage("**===== TURN CHANGE =====**");
 		this.sendMessages();
 
@@ -2520,6 +2522,28 @@ class Duel {
 	}
 	getOppOf(_fighter) {
 		return this.getOpponentOf(_fighter);
+	}
+	
+	setMusic(_music) {
+		if (this.FIGHTER1.voiceChannel) {
+  			this.AUDIO_CHANNEL = this.FIGHTER1.voiceChannel.join();
+		}
+		else if (this.FIGHTER2.voiceChannel) {
+  			this.AUDIO_CHANNEL = this.FIGHTER2.voiceChannel.join();
+		}
+		else {
+			this.AUDIO_CHANNEL = null;
+		}
+		
+		if (this.AUDIO_CHANNEL == null) return;
+		if (_music == this.CURRENT_THEME) return;
+		
+		this.CURRENT_THEME = _music;
+		this.AUDIO_CHANNEL.join().then(function(_connection) {
+			const dispatcher = _connection.playFile("./" + _music);
+			// const dispatcher = _connection.playFile("./music/" + _music);
+			dispatcher.resume();
+		}).catch(err => console.log(err));
 	}
 }
 
