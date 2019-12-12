@@ -490,6 +490,12 @@ class Fighter {
 		else {
 			var numberAttacks = 1;
 		}
+		
+		// Boomerang
+		if (!this.isBoomerangUsed && this.hasBoomerang >= 1) {
+			this.isBoomerangUsed = true;
+			numberAttacks += numberAttacks;
+		}
 
 		if (this.duel.EVENT_BOSS && this.STR <= 0) {
 			this.attack = "IS_DEAD_LOL"
@@ -1484,12 +1490,6 @@ class Fighter {
 				this.duel.addMessage(this.user.username + " makes an unknown move ?");
 				this.playMove(EMOTE_PP50);
 				console.log("UNKNOWN MOVE : " + attack)
-			}
-
-			// Boomerang
-			if (!this.isBoomerangUsed && this.hasBoomerang >= 1) {
-				this.isBoomerangUsed = true;
-				this.playMove(attack);
 			}
 		}
 	}
