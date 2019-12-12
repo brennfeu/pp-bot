@@ -2395,35 +2395,37 @@ class Duel {
 		});
 
 		// test illegal
-		this.bothFightersAction(function(_fighter) {				
+		this.bothFightersAction(function(_fighter) {
+			var duel = _fighter.duel;
+			
 			// Illegalité
-			var caught1 = this.illegalGetCaught(this.getRisk(_fighter.attack)) || (_fighter.badLuck && this.getRisk(_fighter.attack) > 0);
+			var caught1 = duel.illegalGetCaught(duel.getRisk(_fighter.attack)) || (_fighter.badLuck && duel.getRisk(_fighter.attack) > 0);
 
 			// Move non autorisé (movepool)
-			if (this.LIST_AVAILABLE_ATTACKS.indexOf(_fighter.attack) < 0 && 
-			    !(_fighter.attack == this.EMOTE_PP50 && _fighter.turnSkip) && 
-			    !(_fighter.attack == this.EMOTE_PP39 && _fighter.grabbedPP) && 
-			    !(_fighter.attack == this.EMOTE_PP10 && _fighter.summonTankCountdown == 1)) {
-				caught1 = caught1 || (this.illegalGetCaught(50) && !this.EVENT_PP_ENLIGHTENMENT) && !_fighter.badLuck;
+			if (duel.LIST_AVAILABLE_ATTACKS.indexOf(_fighter.attack) < 0 && 
+			    !(_fighter.attack == duel.EMOTE_PP50 && _fighter.turnSkip) && 
+			    !(_fighter.attack == duel.EMOTE_PP39 && _fighter.grabbedPP) && 
+			    !(_fighter.attack == duel.EMOTE_PP10 && _fighter.summonTankCountdown == 1)) {
+				caught1 = caught1 || (duel.illegalGetCaught(50) && !duel.EVENT_PP_ENLIGHTENMENT) && !_fighter.badLuck;
 			}
 
 			// Tricher les charges
-			if (_fighter.attack == EMOTE_PP51 && _fighter.regularCharges <= 0 && this.illegalGetCaught(80)) {
+			if (_fighter.attack == EMOTE_PP51 && _fighter.regularCharges <= 0 && duel.illegalGetCaught(80)) {
 				caught1 = true;
 			}
-			if (_fighter.attack == EMOTE_PP52 && _fighter.specialCharges <= 0 && this.illegalGetCaught(95)) {
+			if (_fighter.attack == EMOTE_PP52 && _fighter.specialCharges <= 0 && duel.illegalGetCaught(95)) {
 				caught1 = true;
 			}
 
 			// Triche des emotes animés
 			if (SPECIAL_EMOTE_LIST.indexOf(_fighter.attack) > -1 && this.LIST_AVAILABLE_ATTACKS.indexOf(_fighter.attack) < 0) {
-				caught1 = this.illegalGetCaught(100);
+				caught1 = duel.illegalGetCaught(100);
 			}
 
 			// Illegal Jews (Hitler regular move)
-			if (this.ILLEGAL_JEWS && _fighter.godList.indexOf(this.GOD_PP7_PRIEST) > -1 && this.illegalGetCaught(5)) {
-				this.addMessage("Wait, I think " + _fighter.user.username + " is a jew !");
-				this.sendMessages();
+			if (duel.ILLEGAL_JEWS && _fighter.godList.indexOf(GOD_PP7_PRIEST) > -1 && duel.illegalGetCaught(5)) {
+				duel.addMessage("Wait, I think " + _fighter.user.username + " is a jew !");
+				duel.sendMessages();
 				caught1 = true;
 			}
 
@@ -2435,27 +2437,27 @@ class Duel {
 			// True Barbarian from the North (Mongo special move)
 			if (_fighter.trueBarbarian && _fighter.STR >= 100 && caught1) {
 				caught1 = false;
-				this.addMessage(_fighter.user.username + " strong. " + _fighter.user.username + " punch arbitratory if arbitratory bad.");
-				this.sendMessages();
+				duel.addMessage(_fighter.user.username + " strong. " + _fighter.user.username + " punch arbitratory if arbitratory bad.");
+				duel.sendMessages();
 			}
 
 			// Caught cheating --> test si malus dex
 			if (caught1 && (getRandomPercent() >= 33 || _fighter.godList.indexOf(GOD_PP16_PRIEST) > -1 && _fighter.godList.indexOf(GOD_PP13_PRIEST) > -1)) {
-				this.addMessage(_fighter.user.username + " is doing illegal stuff ! He loses 20 DEX and 10 STR.");
-				this.sendMessages();
+				duel.addMessage(_fighter.user.username + " is doing illegal stuff ! He loses 20 DEX and 10 STR.");
+				duel.sendMessages();
 				_fighter.STRValue -= 10;
 				_fighter.DEXValue -= 20;
 				_fighter.attack = EMOTE_PP50;
 				caught1 = false;
 			}
 			else if (caught1) {
-				this.addMessage("WAIT " + _fighter.user.username.toUpperCase() + " IS DOING ILLEGAL STUFF RIGHT NOW !");
-				this.addMessage(_fighter.user.username + " is disqualified for being a dumb shit.");
+				duel.addMessage("WAIT " + _fighter.user.username.toUpperCase() + " IS DOING ILLEGAL STUFF RIGHT NOW !");
+				duel.addMessage(_fighter.user.username + " is disqualified for being a dumb shit.");
 				_fighter.playMove(EMOTE_PP47);
-				this.sendMessages();
+				duel.sendMessages();
 
 				addWinCounter(_fighter, -1);
-				this.stopDuel();
+				duel.stopDuel();
 			}
 		});
 		if (this.DEAD_DUEL) return;
