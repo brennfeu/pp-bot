@@ -144,7 +144,7 @@ const MUSIC_PP4 = "huge_gay_night.mp3";
 const MUSIC_PP5 = "lovecraftian_strain_911.mp3";
 const MUSIC_PP6 = "gaseous_punk.mp3";
 const MUSIC_PP7 = "anomaly_b.mp3";
-const MUSIC_PP7 = "mortem_march.mp3";
+const MUSIC_PP8 = "mortem_march.mp3";
 
 // Variables
 var DUEL_LIST = [];
