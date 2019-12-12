@@ -143,7 +143,7 @@ const MUSIC_PP1 = "mortem_march.mp3";
 const MUSIC_PP2 = "ascend.mp3";
 const MUSIC_PP3 = "psychodios.mp3";
 const MUSIC_PP4 = "huge_gay_night.mp3";
-const MUSIC_PP5 = "lovecraftian_strain_911.mp3";
+const MUSIC_PP5 = "lovecraftian_strain_991.mp3";
 const MUSIC_PP6 = "gaseous_punk.mp3";
 const MUSIC_PP7 = "anomaly_b.mp3";
 
