@@ -2843,7 +2843,7 @@ function skipWaitingDuels() {
 			}
 			else if (DUEL_LIST[i].FIGHTER1.attack == "" && DUEL_LIST[i].FIGHTER2.attack == "") {
 				DUEL_LIST[i].FIGHTER1.attack = EMOTE_PP47;
-				DUEL_LIST[i].FIGHTER1.attack = EMOTE_PP47;
+				DUEL_LIST[i].FIGHTER2.attack = EMOTE_PP47;
 				DUEL_LIST[i].AUTO_MOVES_COUNTDOWN = 1;
 			}
 			else if (DUEL_LIST[i].FIGHTER1.attack == "") {
