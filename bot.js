@@ -2035,10 +2035,10 @@ class Duel {
 			if (_fighter.STR <= 0 && _fighter.extraLife > 0) {
 				_fighter.duel.addMessage(_fighter.user.username + " uses an extra life !");
 				if (_fighter.id == _fighter.duel.FIGHTER1.id) {
-					_fighter.duel.FIGHTER1 = new Fighter(_fighter.idUser, _fighter.duel.BATTLE_CHANNEL.id);
+					_fighter.duel.FIGHTER1 = new Fighter(_fighter.duel.FIGHTER1.idUser, _fighter.duel.BATTLE_CHANNEL.id);
 				}
 				else {
-					_fighter.duel.FIGHTER2 = new Fighter(_fighter.idUser, _fighter.duel.BATTLE_CHANNEL.id);
+					_fighter.duel.FIGHTER2 = new Fighter(_fighter.duel.FIGHTER2.idUser, _fighter.duel.BATTLE_CHANNEL.id);
 				}
 			}
 		});
