@@ -169,25 +169,25 @@ class Fighter {
 		this.isDrunkPP = false;
 		this.isHockeyPuckPP = false;
 		this.isAlienPP = false;
-		if (this.guildUser.roles.find("name", BIG_PP_ROLE)) {
+		if (this.guildUser.roles.find(r => r.name == BIG_PP_ROLE)) {
 			this.isBigPP = true;
 		}
-		if (this.guildUser.roles.find("name", FAST_PP_ROLE)) {
+		if (this.guildUser.roles.find(r => r.name == FAST_PP_ROLE)) {
 			this.isFastPP = true;
 		}
-		if (this.guildUser.roles.find("name", DRUNK_PP_ROLE)) {
+		if (this.guildUser.roles.find(r => r.name == DRUNK_PP_ROLE)) {
 			this.isDrunkPP = true;
 		}
-		if (this.guildUser.roles.find("name", HOCKEY_PUCK_PP_ROLE)) {
+		if (this.guildUser.roles.find(r => r.name == HOCKEY_PUCK_PP_ROLE)) {
 			this.isHockeyPuckPP = true;
 		}
-		if (this.guildUser.roles.find("name", ALIEN_PP_ROLE)) {
+		if (this.guildUser.roles.find(r => r.name == ALIEN_PP_ROLE)) {
 			this.isAlienPP = true;
 		}
 
 		this.godList = [];
 		for (var i in PRIEST_ROLES) {
-			if (this.guildUser.roles.find("name", PRIEST_ROLES[i])) {
+			if (this.guildUser.roles.find(r => r.name == PRIEST_ROLES[i])) {
 				this.godList.push(PRIEST_ROLES[i])
 			}
 		}
@@ -197,7 +197,7 @@ class Fighter {
 				this.godList.push(r);
 			}
 		}
-		if (this.guildUser.roles.find("name", GOD_PP21_PRIEST)) {
+		if (this.guildUser.roles.find(r => r.name == GOD_PP21_PRIEST)) {
 			this.godList.push(GOD_PP21_PRIEST); // D.I.C.K.
 		}
 		
@@ -2714,7 +2714,7 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 function getNumberOfGods(_guildUser) {
 	var counter = 0;
 	for (var i in PRIEST_ROLES) {
-		if (_guildUser.roles.find("name", PRIEST_ROLES[i])) {
+		if (_guildUser.roles.find(r => r.name == PRIEST_ROLES[i])) {
 			counter++;
 		}
 	}
