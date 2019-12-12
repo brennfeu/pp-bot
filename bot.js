@@ -2581,7 +2581,7 @@ class Duel {
 			const dispatcher = _connection.playFile("./" + _music);
 			// const dispatcher = _connection.playFile("./music/" + _music);
 			dispatcher.resume();
-			dispatcher.on('end', _connection.playFile("./" + _music));
+			dispatcher.on('end', function(_reason) {_connection.playFile("./" + _music)});
 		}).catch(err => console.log(err));
 	}
 }
