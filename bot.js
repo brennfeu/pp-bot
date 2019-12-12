@@ -1429,7 +1429,9 @@ class Fighter {
 					this.duel.addMessage(this.duel.getOppOf(this).user.username + " is a loser !");
 					this.duel.addMessage(this.duel.getOppOf(this).user.username + " is a big nerd !");
 					this.duel.addMessage(this.duel.getOppOf(this).user.username + " better abandons now !");
+					this.duel.addMessage("-----------------");
 					this.duel.getOppOf(this).playMove(EMOTE_PP47);
+					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Haha just kidding !");
 					this.duel.addMessage("Unless I wasn't ?");
 					this.duel.addMessage("Nah it was a joke !");
@@ -1457,9 +1459,9 @@ class Fighter {
 			else if (attack == EMOTE_PP61) {
 				// Liberate PP
 				this.duel.MOVE_COUNT += 33;
+				this.duel.addMessage(this.user.username + " liberates his opponent's PP !");
 				if (!this.duel.getOppOf(this).liberatedPP) {
 					this.resetBattleVariables();
-					this.duel.addMessage(this.user.username + " liberates his opponent's PP !");
 					this.duel.addMessage(this.user.username + " takes " + this.duel.getOppOf(this).DEXValue + " DEX from " + this.duel.getOppOf(this).user.username + " !");
 					this.DEXValue += this.duel.getOppOf(this).DEXValue;
 					this.duel.getOppOf(this).DEXValue = 0;
@@ -1487,7 +1489,7 @@ class Fighter {
 			// Boomerang
 			if (!this.isBoomerangUsed && this.hasBoomerang >= 1) {
 				this.isBoomerangUsed = true;
-				this.playMove();
+				this.playMove(attack);
 			}
 		}
 	}
@@ -2659,9 +2661,11 @@ function skipWaitingDuels() {
 			else if (DUEL_LIST[i].FIGHTER2.attack == "") {
 				DUEL_LIST[i].FIGHTER1.attack = EMOTE_PP50;
 			}
-			this.BATTLE_CHANNEL.send("...").then(function (_message2) { // Triggers the emote add
+			DUEL_LIST[i].BATTLE_CHANNEL.send("...").then(function (_message2) { // Triggers the emote add
 				_message2.react(EMOTE_PP50);
-			}).catch(function(e) {console.log(e);});
+			}).catch(function(e) {
+				console.log(e);
+			});
 		}
 	}
 }
