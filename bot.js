@@ -2578,8 +2578,7 @@ class Duel {
 		
 		this.CURRENT_THEME = _music;
 		this.AUDIO_CHANNEL.join().then(function(_connection) {
-			const dispatcher = _connection.playFile("./" + _music);
-			// const dispatcher = _connection.playFile("./music/" + _music);
+			const dispatcher = _connection.playFile("./music/" + _music);
 			dispatcher.resume();
 			dispatcher.on('end', function(_reason) {_connection.playFile("./" + _music)});
 		}).catch(err => console.log(err));
