@@ -2534,6 +2534,8 @@ class Duel {
 		else {
 			this.AUDIO_CHANNEL = null;
 		}
+		console.log("AUDIO CHANNEL :");
+		console.log(this.AUDIO_CHANNEL);
 		
 		if (this.AUDIO_CHANNEL == null) return;
 		if (_music == this.CURRENT_THEME) return;
