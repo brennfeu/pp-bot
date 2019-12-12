@@ -2126,8 +2126,11 @@ class Duel {
 		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP3) {
 			this.setMusic(MUSIC_PP7); // Anomaly-B
 		}
+		else if (this.ATTACK_MISS_COUNTDOWN > 0) {
+			this.setMusic(MUSIC_PP8); // Mortem March
+		}
 		else if (this.PP_ARMAGEDDON) {
-			this.setMusic(MUSIC_PP3); // Psychodios
+			this.setMusic(MUSIC_PP8); // Psychodios
 		}
 		else if (this.FIGHTER1.livingGod || this.FIGHTER2.livingGod) {
 			this.setMusic(MUSIC_PP2); // Ascend
@@ -2135,7 +2138,6 @@ class Duel {
 		else {
 			this.setMusic(MUSIC_PP1); // Main theme (???)
 		}
-		// mortem march ?
 		
 		if ((this.FIGHTER1.turnSkip > 0 || this.FIGHTER1.grabbedPP > 0 || this.FIGHTER1.summonTankCountdown == 1 || this.FIGHTER1.isPossessed > 0) && 
 		    (this.FIGHTER2.turnSkip > 0 || this.FIGHTER2.grabbedPP > 0 || this.FIGHTER2.summonTankCountdown == 1 || this.FIGHTER2.isPossessed > 0)) {
