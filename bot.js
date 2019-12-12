@@ -504,17 +504,17 @@ class Fighter {
 		for (var sdsds = 0; sdsds < numberAttacks; sdsds++) {
 			if (attack == EMOTE_PP1) {
 				// Punching PP
-				this.duel.addMessage(this.user.username + " punches " + this.duel.getOppOf(this).user.username + "'s PP !");
+				this.duel.addMessage(this.user.username + " punches " + this.getOppName() + "'s PP !");
 				this.duel.getOppOf(this).damage(Math.floor(10 + this.STR / 10));
 			}
 			else if (attack == EMOTE_PP2) {
 				// Punching PP Really Hard
-				this.duel.addMessage(this.user.username + " punches " + this.duel.getOppOf(this).user.username + "'s PP really hard !");
+				this.duel.addMessage(this.user.username + " punches " + this.getOppName() + "'s PP really hard !");
 				this.duel.getOppOf(this).damage(Math.floor(20 + this.STR / 10));
 			}
 			else if (attack == EMOTE_PP3) {
 				// Hologram
-				this.duel.addMessage(this.user.username + " touches " + this.duel.getOppOf(this).user.username + "'s PP vital point !");
+				this.duel.addMessage(this.user.username + " touches " + this.getOppName() + "'s PP vital point !");
 				this.duel.getOppOf(this).damage(500);
 			}
 			else if (attack == EMOTE_PP4) {
@@ -528,34 +528,25 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP6) {
 				// Kick
-				this.duel.addMessage(this.user.username + " kicks " + this.duel.getOppOf(this).user.username + "'s PP !");
+				this.duel.addMessage(this.user.username + " kicks " + this.getOppName() + "'s PP !");
 				this.duel.getOppOf(this).damage(Math.floor(20 + this.STR / 10)*3);
 			}
 			else if (attack == EMOTE_PP7) {
 				// Turkey
 				this.duel.addMessage(this.user.username + " and " + this.duel.getOppOf(this).user.username + " start a feast !");
-				this.heal(100);
-				this.turkeyCountdown = 11;
-				this.duel.getOppOf(this).heal(100);
-				this.duel.getOppOf(this).turkeyCountdown = 11;
-				if (this.isOverCircumcised) {
-					this.duel.addMessage(this.user.username + "'s circumcision gets a bit healed !");
-					this.isOverCircumcised = false;
-					this.isCircumcised = true;
-				}
-				else if (this.isCircumcised) {
-					this.duel.addMessage(this.user.username + " is no longer circumcised !");
-					this.isCircumcised = false;
-				}
-				if (this.duel.getOppOf(this).isOverCircumcised) {
-					this.duel.addMessage(this.duel.getOppOf(this).user.username + "'s circumcision gets a bit healed !");
-					this.duel.getOppOf(this).isOverCircumcised = false;
-					this.duel.getOppOf(this).isCircumcised = true;
-				}
-				else if (this.duel.getOppOf(this).isCircumcised) {
-					this.duel.addMessage(this.duel.getOppOf(this).user.username + " is no longer circumcised !");
-					this.duel.getOppOf(this).isCircumcised = false;
-				}
+				this.duel.bothFightersAction(function(_fighter) {
+					_fighter.heal(100);
+					_fighter.turkeyCountdown = 11;
+					if (_fighter.isOverCircumcised) {
+						_fighter.duel.addMessage(_fighter.user.username + "'s circumcision gets a bit healed !");
+						_fighter.isOverCircumcised = false;
+						_fighter.isCircumcised = true;
+					}
+					else if (_fighter.isCircumcised) {
+						_fighter.duel.addMessage(_fighter.user.username + " is no longer circumcised !");
+						_fighter.isCircumcised = false;
+					}
+				});
 			}
 			else if (attack == EMOTE_PP8) {
 				// Trap Sign
@@ -765,11 +756,13 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP34) {
 				// Facehugger
-				this.duel.addMessage(this.user.username + " impregnates " + this.duel.getOppOf(this).user.username + " !");
-				if (!this.duel.getOppOf(this).isAlienPP) {
-					this.duel.addMessage(this.duel.getOppOf(this).user.username + " gets an alien PP !");
+				this.duel.addMessage(this.user.username + " impregnates " + this.getOppName() + " !");
+				if (!this.duel.EVENT_BOSS) {
+					if (!this.duel.getOppOf(this).isAlienPP) {
+						this.duel.addMessage(this.duel.getOppOf(this).user.username + " gets an alien PP !");
+					}
+					this.duel.getOppOf(this).isAlienPP = true;
 				}
-				this.duel.getOppOf(this).isAlienPP = true;
 				this.duel.getOppOf(this).damage(Math.floor(this.duel.getOppOf(this).STR/2));
 			}
 			else if (attack == EMOTE_PP35) {
@@ -851,7 +844,7 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP43) {
 				// BrocketeerDive
-				this.duel.addMessage(this.user.username + " punches " + this.duel.getOppOf(this).user.username + "'s PP with his head !");
+				this.duel.addMessage(this.user.username + " punches " + this.getOppName() + "'s PP with his head !");
 				this.duel.getOppOf(this).damage(Math.floor(10 + this.STR / 10));
 				this.duel.getOppOf(this).hasBurst = 2;
 			}
@@ -1081,7 +1074,7 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP14_PRIEST) > -1) { // UREGonnaGETRaped
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Rapist Pudding answers his calls !");
-					this.duel.addMessage(this.user.username + " gives a boner punch to " + this.duel.getOppOf(this).user.username + " !");
+					this.duel.addMessage(this.user.username + " gives a boner punch to " + this.getOppName() + " !");
 					this.hasBoner = true;
 					this.duel.getOppOf(this).damage(Math.floor((this.STR - this.DEX)/10));
 				}
@@ -1281,7 +1274,7 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP14_PRIEST) > -1) { // UREGonnaGETRaped
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Rapist Pudding answers his calls !");
-					this.duel.addMessage(this.user.username + " sensually touches " + this.duel.getOppOf(this).user.username + "'s PP...");
+					this.duel.addMessage(this.user.username + " sensually touches " + this.getOppName() + "'s PP...");
 					this.duel.bothFightersAction(function(_fighter) {
 						_fighter.hasBoner = true;
 					});
@@ -1716,6 +1709,13 @@ class Fighter {
 		else {
 			addWinCounter(this, 1);
 		}
+	}
+	
+	getOppName() {
+		if (this.duel.EVENT_BOSS) {
+			return this.duel.BOSS_NAME;
+		}
+		return this.duel.getOppOf(this).user.username;
 	}
 
 	resetBattleVariables() {
