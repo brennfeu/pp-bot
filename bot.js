@@ -2465,14 +2465,14 @@ class Duel {
 		this.bothFightersAction(function(_fighter) {
 			// Jew Hitler Paradox
 			if (_fighter.godList.indexOf(GOD_PP7_PRIEST) > -1 && _fighter.godList.indexOf(GOD_PP17_PRIEST) > -1 && getRandomPercent() <= 10) {
-				this.addMessage(_fighter.user.username + " gets the Jew-Hitler Paradox Effect !");
-				this.sendMessages();
-				_fighter.attack = this.getRandomEmote(false);
+				_fighter.duel.addMessage(_fighter.user.username + " gets the Jew-Hitler Paradox Effect !");
+				_fighter.duel.sendMessages();
+				_fighter.attack = _fighter.duel.getRandomEmote(false);
 			}
 
 			// Change attack if dead (boss battle)
-			if (this.FIGHTER1.STR <= 0) {
-				this.FIGHTER1.attack = "IS_DEAD_LOL";
+			if (_fighter.STR <= 0) {
+				_fighter.attack = "IS_DEAD_LOL";
 			}
 		});
 
