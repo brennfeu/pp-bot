@@ -2803,6 +2803,7 @@ class Duel {
 		if (_music == this.CURRENT_THEME) return;
 		
 		this.CURRENT_THEME = _music;
+		this.AUDIO_CHANNEL.leave();
 		this.AUDIO_CHANNEL.join().then(function(_connection) {
 			const dispatcher = _connection.playFile("./music/" + _music);
 			dispatcher.resume();
