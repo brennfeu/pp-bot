@@ -2526,10 +2526,10 @@ class Duel {
 	
 	setMusic(_music) {
 		if (this.FIGHTER1.guildUser.voiceChannel) {
-  			this.AUDIO_CHANNEL = this.FIGHTER1.guildUser.voiceChannel.join();
+  			this.AUDIO_CHANNEL = this.FIGHTER1.guildUser.voiceChannel;
 		}
 		else if (this.FIGHTER2.guildUser.voiceChannel) {
-  			this.AUDIO_CHANNEL = this.FIGHTER2.guildUser.voiceChannel.join();
+  			this.AUDIO_CHANNEL = this.FIGHTER2.guildUser.voiceChannel;
 		}
 		else {
 			this.AUDIO_CHANNEL = null;
