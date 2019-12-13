@@ -1032,6 +1032,10 @@ class Fighter {
 						this.duel.addMessage(this.user.username + " gets an eldritch friend !");
 						this.eldritchFriend = true;
 					}
+					if (this.duel.getOppOf(this).eldritchFriend) {
+						this.duel.addMessage("Having 2 eldritch friends at the same place is dangerous...");
+						this.duel.FORCE_EVENT_ID = 5; // Cthulhu / Moon Lord
+					}
 				}
 				if (this.godList.indexOf(GOD_PP7_PRIEST) > -1) { // Jew
 					this.duel.addMessage("-----------------");
