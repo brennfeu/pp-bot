@@ -3249,7 +3249,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	else if (_reaction.emoji.id == GOD_PP20) {
 		changeRoleToStyler(GOD_PP20_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
-	else if (user.roles.find(r => r.name == PP_EXPERT_ROLE)) {
+	else if (_user.roles.find(r => r.name == PP_EXPERT_ROLE)) {
 		if (_reaction.emoji.id == GOD_PP21) {
 			changeRoleToStyler(GOD_PP21_PRIEST, _user.id, _reaction.message.channel.guild);
 		}
