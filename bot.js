@@ -3024,10 +3024,6 @@ CLIENT.on("message", async _message => {
 		var guild = _message.channel.guild;
 		var user = guild.members.get(_message.author.id);
 		var role = guild.roles.find(r => r.name == GOD_PP21_PRIEST);
-		if (user.roles.has(role.id)) {
-			user.removeRole(guild.roles.find(r => r.name == GOD_PP21_PRIEST)).catch(console.error);
-			_message.channel.send("D.I.C.K Priest was removed from your roles.");
-		}
 		
 		_message.reply("change your style with a reaction.").then(function (_message2) {
 			_message2.react(EMOTE_PP38); // Fast PP
