@@ -472,7 +472,7 @@ class Fighter {
 			txt += " - Salt Master\n";
 		}
 		if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP18_PRIEST) > -1) {
-			txt += " - Chad Team Member\n";
+			txt += " - Debilus Team Member\n";
 		}
 
 		return txt;
