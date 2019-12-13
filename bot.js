@@ -3078,12 +3078,15 @@ CLIENT.on("message", async _message => {
 		var duel = getDuel(_message.channel.id);
 		if (argsUser[2] == "move1" && argsUser.length >= 4) {
 			duel.FIGHTER1.playMove(EMOTE_LIST[parseInt(argsUser[3])]);
+			return duel.sendMessages();
 		}
 		if (argsUser[2] == "move2" && argsUser.length >= 4) {
 			duel.FIGHTER2.playMove(EMOTE_LIST[parseInt(argsUser[3])]);
+			return duel.sendMessages();
 		}
 		if (argsUser[2] == "forceEvent" && argsUser.length >= 4) {
 			duel.FORCE_EVENT_ID = parseInt(argsUser[3]);
+			return _message.reply("next event id will be : " + duel.FORCE_EVENT_ID);
 		}
 	}
 
