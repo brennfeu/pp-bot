@@ -139,13 +139,17 @@ const BOSS_PP2 = "Free Lives HQ";
 const BOSS_PP3 = "The Moon Lord";
 
 // MUSICS
-const MUSIC_PP1 = "mortem_march.mp3";
+const MUSIC_PP1 = "none";
 const MUSIC_PP2 = "ascend.mp3";
 const MUSIC_PP3 = "psychodios.mp3";
 const MUSIC_PP4 = "huge_gay_night.mp3";
 const MUSIC_PP5 = "lovecraftian_strain_991.mp3";
 const MUSIC_PP6 = "gaseous_punk.mp3";
 const MUSIC_PP7 = "anomaly_b.mp3";
+
+// IDs
+const ID_BRENNFEU = "234439428372824075";
+const ADMIN_LIST = [ID_BRENNFEU];
 
 // Variables
 var DUEL_LIST = [];
@@ -1739,6 +1743,8 @@ class Duel {
 		this.INFINITE_DAMAGE = 0;
 		this.TIMESTAMP = +new Date();
 		
+		this.FORCE_EVENT_ID = 0;
+		
 		this.MOVE_COUNT = 0;
 		this.DAMAGE_COUNT = 0;
 
@@ -2211,6 +2217,11 @@ class Duel {
 			while (!(randomVar <= 26 && randomVar >= 2)) {
 				randomVar = getRandomPercent();
 			}
+		}
+		
+		if (this.FORCE_EVENT_ID != 0) {
+			randomVar = this.FORCE_EVENT_ID;
+			this.FORCE_EVENT_ID = 0;
 		}
 
 		if (!this.PP_ARMAGEDDON && this.MOVE_COUNT >= 100) {
@@ -3052,6 +3063,28 @@ CLIENT.on("message", async _message => {
 	if (argsUser[1] == "help") {
 		// HELP
 		return _message.reply("you should read the PP Bible here : https://github.com/brennfeu/pp-bot/wiki/PP-Bible");
+	}
+	if (argsUser[1] == "admin") {
+		if (ADMIN_LIST.indexOf(_message.author.id) < 0) {
+			return _message.reply("you aren't an admin, sorry.");
+		}
+		if (argsUser.length <= 2) {
+			return _message.reply("I need more arguments.");
+		}
+		if (getDuel(_message.channel.id) == null) {
+			return _message.reply("there's no fight here...");
+		}
+		
+		var duel = getDuel(_message.channel.id);
+		if (argsUser[2] == "move1" && argsUser.length >= 4) {
+			duel.FIGHTER1.playMove(EMOTE_LIST[parseInt(argsUser[3])]);
+		}
+		if (argsUser[2] == "move2" && argsUser.length >= 4) {
+			duel.FIGHTER2.playMove(EMOTE_LIST[parseInt(argsUser[3])]);
+		}
+		if (argsUser[2] == "forceEvent" && argsUser.length >= 4) {
+			duel.FORCE_EVENT_ID = parseInt(argsUser[3]);
+		}
 	}
 
 	return _message.reply("I don't know this command, try using the help command !");
