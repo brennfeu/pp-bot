@@ -2034,11 +2034,14 @@ class Duel {
 		this.bothFightersAction(function(_fighter) {
 			if (_fighter.STR <= 0 && _fighter.extraLife > 0) {
 				_fighter.duel.addMessage(_fighter.user.username + " uses an extra life !");
+				var extra = _fighter.extraLife - 1;
 				if (_fighter.idUser == _fighter.duel.FIGHTER1.idUser) {
 					_fighter.duel.FIGHTER1 = new Fighter(_fighter.duel.FIGHTER1.idUser, _fighter.duel.BATTLE_CHANNEL.id);
+					_fighter.duel.FIGHTER1.extraLife = extra;
 				}
 				else {
 					_fighter.duel.FIGHTER2 = new Fighter(_fighter.duel.FIGHTER2.idUser, _fighter.duel.BATTLE_CHANNEL.id);
+					_fighter.duel.FIGHTER2.extraLife = extra;
 				}
 			}
 		});
