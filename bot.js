@@ -1033,7 +1033,7 @@ class Fighter {
 						this.eldritchFriend = true;
 					}
 					if (this.duel.getOppOf(this).eldritchFriend) {
-						this.duel.addMessage("Having 2 eldritch friends at the same place is dangerous...");
+						this.duel.addMessage("This place is getting too much eldritch...");
 						this.duel.FORCE_EVENT_ID = 5; // Cthulhu / Moon Lord
 					}
 				}
@@ -1809,7 +1809,7 @@ class Duel {
 		this.addMessage(this.FIGHTER1.toString());
 		this.addMessage("-----------------");
 		this.addMessage(this.FIGHTER2.toString());
-		this.addMessage("SOME STATS :");
+		this.addMessage("**===== SOME STATS =====**");
 		this.addMessage(" - Number of moves : " + this.MOVE_COUNT);
 		this.addMessage(" - Number of damages inflicted : " + this.DAMAGE_COUNT);
 		this.sendMessages();
