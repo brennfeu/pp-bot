@@ -953,7 +953,7 @@ class Fighter {
 			else if (attack == EMOTE_PP51) {
 				// Priest Regular Move
 				this.duel.addMessage(this.user.username + " calls for his Gods to help him !");
-				if (this.regularCharges > 0) {
+				if (this.regularCharges > 0 && sdsds == 0) {
 					this.regularCharges -= 1;
 				}
 				else if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
@@ -1144,7 +1144,7 @@ class Fighter {
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
 				this.duel.addMessage(this.user.username + " calls for his Gods to help him !");
-				if (this.specialCharges > 0) {
+				if (this.specialCharges > 0 && sdsds == 0) {
 					this.specialCharges -= 1;
 				}
 				else if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
