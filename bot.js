@@ -520,7 +520,7 @@ class Fighter {
 			else if (attack == EMOTE_PP4) {
 				// Flex
 				this.duel.addMessage(this.user.username + " flexes !");
-				this.heal(Math.floor(Math.random() * 30 + 1));
+				this.heal(Math.floor(Math.random() * 170 + 30));
 			}
 			else if (attack == EMOTE_PP5) {
 				// High Five
@@ -996,7 +996,7 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP4_PRIEST) > -1) { // DickHead Pudding
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("DickHead Pudding answers his calls !");
-					if (getRandomPercent() == 1) {
+					if (getRandomPercent() < 10) {
 						this.duel.addMessage(this.user.username + " wins !");
 						this.duel.getOppOf(this).playMove(EMOTE_PP47);
 						return;
@@ -1176,7 +1176,7 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP4_PRIEST) > -1) { // DickHead Pudding
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("DickHead Pudding answers his calls !");
-					if (getRandomPercent() <= 10) {
+					if (getRandomPercent() <= 33) {
 						this.duel.addMessage(this.user.username + " wins !");
 						this.duel.getOppOf(this).playMove(EMOTE_PP47);
 						return;
@@ -2423,7 +2423,7 @@ class Duel {
 			}
 
 			// Illegal Jews (Hitler regular move)
-			if (duel.ILLEGAL_JEWS && _fighter.godList.indexOf(GOD_PP7_PRIEST) > -1 && duel.illegalGetCaught(5)) {
+			if (duel.ILLEGAL_JEWS && _fighter.godList.indexOf(GOD_PP7_PRIEST) > -1 && duel.illegalGetCaught(20)) {
 				duel.addMessage("Wait, I think " + _fighter.user.username + " is a jew !");
 				duel.sendMessages();
 				caught1 = true;
