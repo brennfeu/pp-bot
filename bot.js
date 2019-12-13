@@ -11,6 +11,8 @@ const ALIEN_PP_ROLE = "Alien PP";
 const DRUNK_PP_ROLE = "Drunken PP";
 const HOCKEY_PUCK_PP_ROLE = "Hockey Puck PP";
 
+const PP_EXPERT_ROLE = "PP Expert";
+
 const GOD_PP1_PRIEST = "Mongo Priest";
 const GOD_PP2_PRIEST = "Dr Phil Priest";
 const GOD_PP3_PRIEST = "LeprePuds Priest";
@@ -2006,13 +2008,13 @@ class Duel {
 				});
 				this.EVENT_BOSS = false;
 
-				var role = this.GUILD.roles.find(r => r.name == GOD_PP21_PRIEST);
+				var role = this.GUILD.roles.find(r => r.name == PP_EXPERT_ROLE);
 				try {
 					this.bothFightersAction(function(_fighter) {
 						_fighter.guildUser.addRole(role).catch(console.error);
 					});
-					this.addMessage("**D.I.C.K. is proud of you. He grants you his powers.**");
-					this.addMessage("**If you don't want to be a D.I.C.K. Priest, use the custom command to automatically remove this role.**");
+					this.addMessage("**You are now PP Experts.**");
+					this.addMessage("**You have gained access to the D.I.C.K. god, and new arenas.**");
 				}
 				catch(e) {
 					this.addMessage("D.I.C.K. is proud of you. However, he can't grant you his powers on this server.");
@@ -2025,6 +2027,7 @@ class Duel {
 				this.addMessage(fighter.user.username + " gets attacked by " + this.CURRENT_BOSS + " !");
 				fighter.STRValue -= this.BOSS_DAMAGE;
 				this.addMessage("He takes " + this.BOSS_DAMAGE + " damages !");
+				this.addMessage("-----------------");
 			}
 		}
 		
@@ -3035,7 +3038,7 @@ CLIENT.on("message", async _message => {
 		}).catch(function(e) {
 			console.log(e);
 		});
-		return _message.reply("change your God with a reaction.").then(function (_message2) {
+		_message.reply("change your God with a reaction.").then(function (_message2) {
 			_message2.react(GOD_PP1); // Mongo
 			_message2.react(GOD_PP2); // Dr Phil / WhatDAFuk
 			_message2.react(GOD_PP3); // LeprePuds
@@ -3058,6 +3061,14 @@ CLIENT.on("message", async _message => {
 		}).catch(function(e) {
 			console.log(e);
 		});
+		if (user.roles.find(r => r.name == PP_EXPERT_ROLE)) {
+			_message.reply("here are your PP expert choices.").then(function (_message2) {
+				_message2.react(GOD_PP21); // D.I.C.K.
+			}).catch(function(e) {
+				console.log(e);
+			});
+		}
+		return;
 
 	}
 	if (argsUser[1] == "help") {
@@ -3077,11 +3088,11 @@ CLIENT.on("message", async _message => {
 		
 		var duel = getDuel(_message.channel.id);
 		if (argsUser[2] == "move1" && argsUser.length >= 4) {
-			duel.FIGHTER1.playMove(EMOTE_LIST[parseInt(argsUser[3])]);
+			duel.FIGHTER1.playMove(EMOTE_LIST[parseInt(argsUser[3])+1]);
 			return duel.sendMessages();
 		}
 		if (argsUser[2] == "move2" && argsUser.length >= 4) {
-			duel.FIGHTER2.playMove(EMOTE_LIST[parseInt(argsUser[3])]);
+			duel.FIGHTER2.playMove(EMOTE_LIST[parseInt(argsUser[3])+1]);
 			return duel.sendMessages();
 		}
 		if (argsUser[2] == "forceEvent" && argsUser.length >= 4) {
@@ -3238,8 +3249,10 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	else if (_reaction.emoji.id == GOD_PP20) {
 		changeRoleToStyler(GOD_PP20_PRIEST, _user.id, _reaction.message.channel.guild);
 	}
-	else if (_reaction.emoji.id == GOD_PP21) {
-		changeRoleToStyler(GOD_PP21_PRIEST, _user.id, _reaction.message.channel.guild);
+	else if (user.roles.find(r => r.name == PP_EXPERT_ROLE)) {
+		if (_reaction.emoji.id == GOD_PP21) {
+			changeRoleToStyler(GOD_PP21_PRIEST, _user.id, _reaction.message.channel.guild);
+		}
 	}
 	return;
 });
