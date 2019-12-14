@@ -2018,7 +2018,7 @@ class Duel {
 						_fighter.guildUser.addRole(role).catch(console.error);
 					});
 					this.addMessage("**You are now PP Experts.**");
-					this.addMessage("**You have gained access to the D.I.C.K. god, and new arenas.**");
+					this.addMessage("**You have gained access to the D.I.C.K. god.**");
 				}
 				catch(e) {
 					this.addMessage("D.I.C.K. is proud of you. However, he can't grant you his powers on this server.");
