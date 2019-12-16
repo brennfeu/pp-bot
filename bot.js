@@ -336,11 +336,11 @@ class Fighter {
 		var txt = "**" + this.user.username;
 		txt += "\nSTR :** " + this.STR;
 		if (this.STR == 69) {
-			txt += " (nice)";
+			txt += " (lmao)";
 		}
 		txt += "  //  **DEX :** " + this.DEX;
 		if (this.DEX == 69) {
-			txt += " (nice)";
+			txt += " (lmao)";
 		}
 
 		if (this.regularCharges > 0 || this.specialCharges > 0) {
@@ -1520,7 +1520,7 @@ class Fighter {
 			this.STRValue -= _amount;
 			return this.duel.addMessage(this.user.username + " takes " + _amount + " damages !");
 			if (_amount == 69) {
-				this.duel.addMessage("Nice !");
+				this.duel.addMessage("lmao !");
 			}
 		}
 	}
@@ -1562,7 +1562,7 @@ class Fighter {
 			this.STRValue += _amount;
 			return this.duel.addMessage(this.user.username + " get healed by " + _amount + " HP");
 			if (_amount == 69) {
-				this.duel.addMessage("Nice !");
+				this.duel.addMessage("lmao !");
 			}
 		}
 
@@ -2205,7 +2205,7 @@ class Duel {
 			this.addMessage(" - Illegal moves are legal for this turn !");
 		}
 		if (this.PP_NET > 0 && this.PP_NET < 200) {
-			this.addMessage(" - **PP-NET : STEP " + this.PP_NET + "**");
+			this.addMessage(" - PP-Net : Step " + this.PP_NET);
 		}
 		if (this.PP_ARMAGEDDON) {
 			this.addMessage(" - **PP ARMAGEDDON**");
