@@ -952,10 +952,10 @@ class Fighter {
 					}
 					else if (randomEvent <= 75) {
 						this.duel.addMessage("Natural values have been doubled !");
-						this.STRvalue = this.STRValue*2;
-						this.DEXvalue = this.DEXValue*2;
-						this.duel.getOppOf(this).STRValue = this.duel.getOppOf(this).STRValue*2;
-						this.duel.getOppOf(this).DEXValue = this.duel.getOppOf(this).DEXValue*2;
+						this.duel.bothFightersAction(function(_fighter) {
+							_fighter.STRvalue = _fighter.STRValue*2;
+							_fighter.DEXvalue = _fighter.DEXValue*2;
+						});
 					}
 					else {
 						this.duel.addMessage("Both fighters DEX has been changed to 0 !");
