@@ -2211,7 +2211,7 @@ class Duel {
 			this.addMessage(" - Illegal moves are legal for this turn !");
 		}
 		if (this.PP_NET > 0 && this.PP_NET < 200) {
-			this.addMessage(" - PP-Net : Step " + this.PP_NET);
+			this.addMessage(" - PP-Net Rising : Step " + this.PP_NET);
 		}
 		if (this.PP_ARMAGEDDON) {
 			this.addMessage(" - **PP ARMAGEDDON**");
@@ -3060,10 +3060,10 @@ function setBotActivity() {
 	var texte = "Lonely PP :(";
 	if (DUEL_LIST.length > 0) {
 		if (DUEL_LIST.length == 1) {
-			texte = DUEL_LIST.length + " duel of PP Punching";
+			texte = DUEL_LIST.length + " duel of PP Punching :)";
 		}
 		else {
-			texte = DUEL_LIST.length + " duels of PP Punching";
+			texte = DUEL_LIST.length + " duels of PP Punching :)";
 		}
 	}
 	CLIENT.user.setPresence({ game: { name: texte } })
