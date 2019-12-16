@@ -595,7 +595,13 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP11) {
 				// Steel
-				this.duel.addMessage(this.user.username + " sets up a protection for nothing...");
+				if (!this.STEEL_PROTECTION) {
+					this.STEEL_PROTECTION = true;
+					this.duel.addMessage(this.user.username + " sets up a protection !");
+				}
+				else {
+					this.duel.addMessage(this.user.username + " sets up a protection for nothing...");
+				}
 			}
 			else if (attack == EMOTE_PP12) {
 				// Overcircumscise
@@ -740,7 +746,13 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP29) {
 				// Barrel
-				this.duel.addMessage(this.user.username + " sets up a barrel for nothing...");
+				if (!this.BARREL_DAMAGE) {
+					this.BARREL_DAMAGE = true;
+					this.duel.addMessage(this.user.username + " sets up a barrel !");
+				}
+				else {
+					this.duel.addMessage(this.user.username + " sets up a barrel for nothing...");
+				}
 			}
 			else if (attack == EMOTE_PP30) {
 				// ExclamationPoint
