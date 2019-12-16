@@ -334,7 +334,14 @@ class Fighter {
 		}
 
 		var txt = "**" + this.user.username;
-		txt += "\nSTR :** " + this.STR + "  //  **DEX :** " + this.DEX;
+		txt += "\nSTR :** " + this.STR;
+		if (this.STR == 69) {
+			this.duel.addMessage(" (nice)");
+		}
+		txt += "  //  **DEX :** " + this.DEX;
+		if (this.DEX == 69) {
+			this.duel.addMessage(" (nice)");
+		}
 
 		if (this.regularCharges > 0 || this.specialCharges > 0) {
 			txt += "\n\n**Faith :**"
@@ -1505,10 +1512,16 @@ class Fighter {
 		if (this.duel.REVERSE_DAMAGE <= 0) {
 			this.STRValue += _amount;
 			return this.duel.addMessage(this.user.username + " gets healed by " + _amount + " HP");
+			if (_amount == 69) {
+				this.duel.addMessage("Nice !");
+			}
 		}
 		else {
 			this.STRValue -= _amount;
 			return this.duel.addMessage(this.user.username + " takes " + _amount + " damages !");
+			if (_amount == 69) {
+				this.duel.addMessage("Nice !");
+			}
 		}
 	}
 
@@ -1539,12 +1552,18 @@ class Fighter {
 			this.duel.BOSS_HEALTH -= _amount;
 			this.duel.addMessage(this.duel.CURRENT_BOSS + " takes " + _amount + " damages !");
 			this.duel.DAMAGE_COUNT += _amount;
+			if (_amount == 69) {
+				this.duel.addMessage("Nice !");
+			}
 			return;
 		}
 
 		if (this.duel.REVERSE_DAMAGE >= 0 && _punch) {
 			this.STRValue += _amount;
 			return this.duel.addMessage(this.user.username + " get healed by " + _amount + " HP");
+			if (_amount == 69) {
+				this.duel.addMessage("Nice !");
+			}
 		}
 
 		// Acid
@@ -1578,6 +1597,9 @@ class Fighter {
 			this.STRValue -= _amount;
 			this.duel.DAMAGE_COUNT += _amount;
 			this.duel.addMessage(this.user.username + " takes " + _amount + " damages !");
+			if (_amount == 69) {
+				this.duel.addMessage("Nice !");
+			}
 		}
 
 		// DoomReverse
