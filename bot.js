@@ -32,12 +32,12 @@ const GOD_PP16_PRIEST = "The Man Who made a Monster Priest";
 const GOD_PP17_PRIEST = "Hitler Priest";
 const GOD_PP18_PRIEST = "Salt King Priest";
 const GOD_PP19_PRIEST = "Chad Brenn Priest";
-const GOD_PP20_PRIEST = ""; // TO ADD TO PRIEST_ROLES
+const GOD_PP20_PRIEST = "Mikasa Priest";
 const GOD_PP21_PRIEST = "D.I.C.K. Priest";
 const PRIEST_ROLES = [GOD_PP1_PRIEST, GOD_PP2_PRIEST, GOD_PP3_PRIEST, GOD_PP4_PRIEST, GOD_PP5_PRIEST, GOD_PP6_PRIEST,
 		      GOD_PP7_PRIEST, GOD_PP8_PRIEST, GOD_PP9_PRIEST, GOD_PP10_PRIEST, GOD_PP11_PRIEST, GOD_PP12_PRIEST,
 		      GOD_PP13_PRIEST, GOD_PP14_PRIEST, GOD_PP15_PRIEST, GOD_PP16_PRIEST, GOD_PP17_PRIEST, GOD_PP18_PRIEST,
-		      GOD_PP19_PRIEST];
+		      GOD_PP19_PRIEST, GOD_PP20_PRIEST];
 
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
 const EMOTE_PP2 = "535240768441548810"; // PunchingPPReallyHard
@@ -132,7 +132,7 @@ const GOD_PP16 = "619795568230924291"; // The Man Who made a Monster
 const GOD_PP17 = "622395294390157329"; // Hitler
 const GOD_PP18 = "650830165751889935"; // Salt King
 const GOD_PP19 = "644634924477055015"; // Chad Brenn
-const GOD_PP20 = ""; // TO ADD TO MESSAGE REACTS
+const GOD_PP20 = "655523518812913664"; // Waifu
 const GOD_PP21 = "644617343456247829"; // D.I.C.K.
 
 // BOSSES
@@ -3005,7 +3005,6 @@ class Duel {
 		this.AUDIO_CHANNEL.join().then(function(_connection) {
 			const dispatcher = _connection.playFile("./music/" + _music);
 			dispatcher.resume();
-			dispatcher.on('end', function(_reason) {_connection.playFile("./" + _music)});
 		}).catch(err => console.log(err));
 	}
 }
@@ -3233,6 +3232,7 @@ CLIENT.on("message", async _message => {
 			_message2.react(GOD_PP17); // Hitler
 			_message2.react(GOD_PP18); // Salt King
 			_message2.react(GOD_PP19); // Chad Brenn
+			_message2.react(GOD_PP20); // Waifu
 		}).catch(function(e) {
 			console.log(e);
 		});
