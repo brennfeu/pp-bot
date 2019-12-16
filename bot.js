@@ -2612,7 +2612,7 @@ class Duel {
 
 			// Move non autorisé (movepool)
 			if (duel.LIST_AVAILABLE_ATTACKS.indexOf(_fighter.attack) < 0 && 
-			    !(_fighter.attack == "IS_DEAD_LOL")
+			    !(_fighter.attack == "IS_DEAD_LOL") &&
 			    !(_fighter.attack == EMOTE_PP50 && _fighter.turnSkip) && 
 			    !(_fighter.attack == EMOTE_PP39 && _fighter.grabbedPP) && 
 			    !(_fighter.attack == EMOTE_PP10 && _fighter.summonTankCountdown == 1)) {
