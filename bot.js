@@ -775,12 +775,15 @@ class Fighter {
 				// Facehugger
 				this.duel.addMessage(this.user.username + " impregnates " + this.getOppName() + " !");
 				if (!this.duel.EVENT_BOSS) {
+					this.duel.getOppOf(this).damage(Math.floor(this.duel.getOppOf(this).STR/2));
 					if (!this.duel.getOppOf(this).isAlienPP) {
 						this.duel.addMessage(this.duel.getOppOf(this).user.username + " gets an alien PP !");
 					}
 					this.duel.getOppOf(this).isAlienPP = true;
 				}
-				this.duel.getOppOf(this).damage(Math.floor(this.duel.getOppOf(this).STR/2));
+				else {
+					this.duel.getOppOf(this).damage(Math.floor(this.duel.BOSS_HEALTH/2));
+				}
 			}
 			else if (attack == EMOTE_PP35) {
 				// Facehugged
