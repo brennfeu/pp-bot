@@ -904,6 +904,9 @@ class Fighter {
 				// Pudding
 				this.duel.addMessage(this.user.username + " abandons the battle !");
 				this.STRValue = -999999999;
+				if (getRandomPercent() < 10) {
+					this.duel.addMessage("Bruh.");
+				}
 				return;
 			}
 			else if (attack == EMOTE_PP48) {
