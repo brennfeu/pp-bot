@@ -758,7 +758,9 @@ class Fighter {
 				this.duel.addMessage(this.user.username + " high fives the arbitrator !");
 				if (this.duel.BLIND_COUNTDOWN > 0) {
 					this.duel.addMessage("He is no longer blind !");
-					this.duel.BLIND_COUNTDOWN = 0
+					this.duel.addMessage(this.user.username + " gets 20 DEX as a reward !");
+					this.duel.BLIND_COUNTDOWN = 0;
+					this.DEXValue += 20;
 				}
 				else {
 					this.duel.addMessage("He appreciates it !");
@@ -767,7 +769,7 @@ class Fighter {
 			else if (attack == EMOTE_PP33) {
 				// Headless - Big Kidney Stone
 				this.duel.addMessage(this.user.username + " shoots a big kidney stone !");
-				this.duel.bothFightersAction(	function(_fighter) {
+				this.duel.bothFightersAction(function(_fighter) {
 					_fighter.damage(50);
 				});
 			}
@@ -2764,6 +2766,10 @@ class Duel {
 			}
 			// Intimidates
 			if (this.getOppOf(winner).attack == EMOTE_PP28 && getRandomPercent() <= 25) {
+				this.getOppOf(winner).playMove();
+			}
+			// High Five Emote
+			if (this.getOppOf(winner).attack == EMOTE_PP32 && this.BLIND_COUNTDOWN > 0) {
 				this.getOppOf(winner).playMove();
 			}
 			
