@@ -2612,9 +2612,10 @@ class Duel {
 
 			// Move non autorisé (movepool)
 			if (duel.LIST_AVAILABLE_ATTACKS.indexOf(_fighter.attack) < 0 && 
-			    !(_fighter.attack == duel.EMOTE_PP50 && _fighter.turnSkip) && 
-			    !(_fighter.attack == duel.EMOTE_PP39 && _fighter.grabbedPP) && 
-			    !(_fighter.attack == duel.EMOTE_PP10 && _fighter.summonTankCountdown == 1)) {
+			    !(_fighter.attack == "IS_DEAD_LOL")
+			    !(_fighter.attack == EMOTE_PP50 && _fighter.turnSkip) && 
+			    !(_fighter.attack == EMOTE_PP39 && _fighter.grabbedPP) && 
+			    !(_fighter.attack == EMOTE_PP10 && _fighter.summonTankCountdown == 1)) {
 				caught1 = caught1 || (duel.illegalGetCaught(50) && !duel.EVENT_PP_ENLIGHTENMENT) && !_fighter.badLuck;
 			}
 
@@ -2871,7 +2872,6 @@ class Duel {
 		}
 
 		this.LIST_AVAILABLE_ATTACKS = listeAttaques;
-		this.LIST_AVAILABLE_ATTACKS.push("IS_DEAD_LOL");
 	}
 	getRandomEmote(_canBeIllegal = true) {
 		var legalList = [EMOTE_PP7, EMOTE_PP8, EMOTE_PP9,
