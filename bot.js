@@ -654,7 +654,7 @@ class Fighter {
 			else if (attack == EMOTE_PP19) {
 				// Pig
 				this.duel.addMessage(this.user.username + " squeezes hog yeah yeah !");
-				this.pigHeal += 2;
+				this.pigHeal += 4;
 				if (this.hasBoner) {
 					this.duel.addMessage(this.user.username + " loses his boner !");
 				}
