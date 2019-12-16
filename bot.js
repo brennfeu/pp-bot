@@ -139,6 +139,10 @@ const GOD_PP21 = "644617343456247829"; // D.I.C.K.
 const BOSS_PP1 = "Cthulhu";
 const BOSS_PP2 = "Free Lives HQ";
 const BOSS_PP3 = "The Moon Lord";
+const BOSS_PP4 = "The PP Robot Police";
+const BOSS_PP5 = "The PP Harvester";
+const BOSS_PP6 = "The PP-Net Hive-Mind";
+const BOSS_PP7 = "PP Terminator";
 
 // MUSICS
 const MUSIC_PP1 = "none";
@@ -1767,6 +1771,7 @@ class Duel {
 		this.ATTACK_MISS_COUNTDOWN = 0;
 		this.AUTO_MOVES_COUNTDOWN = 0;
 		this.NUCLEAR_BOMB = 0;
+		this.PP_NET = 0;
 
 		this.PP_ARMAGEDDON = false;
 		this.EVENT_PP_ENLIGHTENMENT = false;
@@ -2026,6 +2031,51 @@ class Duel {
 
 				return this.stopDuel();
 			}
+			else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP4) {
+				this.addMessage(this.CURRENT_BOSS + " will leave you alone for a bit !");
+				this.EVENT_BOSS = false;
+				if (this.PP_NET == 3 || this.PP_NET == 4) {
+					this.FORCE_EVENT_ID = 29;
+				} 
+			}
+			else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP5) {
+				this.addMessage(this.CURRENT_BOSS + " is destroyed !");
+				this.EVENT_BOSS = false;
+			}
+			else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP6) {
+				this.addMessage(this.CURRENT_BOSS + " is destroyed !");
+				this.addMessage("PP-Net is shut down ! Long live the human PPs !");
+				this.addMessage("-----------------");
+				this.addMessage("As you read the changelog, you see that a PP Terminator has been sent to the past to kill the past you !");
+				this.addMessage("-----------------");
+				this.addMessage("**ANOTHER TIME, ANOTHER PLACE**");
+				this.addMessage("-----------------");
+				this.addMessage(this.FIGHTER1.user.username + " : 'I challenge you to a PP Punch duel !'");
+				this.addMessage(this.FIGHTER2.user.username + " : 'Alright, let's do this !'");
+				this.addMessage(this.FIGHTER1.user.username + " : 'Wait what is this thing ?'");
+				
+				this.FIGHTER1_SAVE = this.FIGHTER1;
+				this.FIGHTER2_SAVE = this.FIGHTER2;
+				this.FIGHTER1 = new Fighter(this.FIGHTER1.idUser, this.BATTLE_CHANNEL.id);
+				this.FIGHTER2 = new Fighter(this.FIGHTER2.idUser, this.BATTLE_CHANNEL.id);
+				
+				this.CURRENT_BOSS = BOSS_PP7;
+				this.BOSS_HEALTH = 500;
+				this.BOSS_DAMAGE = 30;
+				this.EVENT_BOSS = true;
+				this.PP_NET = -99999;
+			}
+			else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP7) {
+				this.addMessage(this.CURRENT_BOSS + " is destroyed !");
+				this.addMessage("-----------------");
+				this.addMessage("**ANOTHER TIME, ANOTHER PLACE**");
+				this.addMessage("-----------------");
+				
+				this.FIGHTER1 = this.FIGHTER1_SAVE;
+				this.FIGHTER2 = this.FIGHTER2_SAVE;
+				
+				this.PP_NET = 200;
+			}
 			else {
 				var fighter = this.getRandomFighter();
 				this.addMessage(fighter.user.username + " gets attacked by " + this.CURRENT_BOSS + " !");
@@ -2128,6 +2178,9 @@ class Duel {
 		if (this.EVENT_PP_PURGE) {
 			this.addMessage(" - Illegal moves are legal for this turn !");
 		}
+		if (this.PP_NET > 0 && this.PP_NET < 200) {
+			this.addMessage(" - **PP-NET : STEP " + this.PP_NET + "**");
+		}
 		if (this.PP_ARMAGEDDON) {
 			this.addMessage(" - **PP ARMAGEDDON**");
 		}
@@ -2221,7 +2274,7 @@ class Duel {
 		var randomVar = getRandomPercent();
 
 		if (this.FORCE_EVENT) {
-			while (!(randomVar <= 26 && randomVar >= 2)) {
+			while (!(randomVar <= 31 && randomVar >= 2)) {
 				randomVar = getRandomPercent();
 			}
 		}
@@ -2253,7 +2306,7 @@ class Duel {
 			// Sexually Confused
 			this.EVENT_CONFUSION = true;
 			this.addMessage(" -- SEXUAL CONFUSION --");
-			this.addMessage("Your PPs are confused for this turn");
+			this.addMessage("Your PPs are confused for this turn.");
 		}
 		else if (randomVar == 5) {
 			// Cthulhu
@@ -2313,7 +2366,7 @@ class Duel {
 				_fighter.playMove(EMOTE_PP49);
 			});
 		}
-		else if ([9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19].indexOf(randomVar) > -1) {
+		else if ([9, 10, 11, 12, 13, 14, 15, 16, 17, 18].indexOf(randomVar) > -1) {
 			// Charge
 			this.addMessage(" -- GODS BIRTHDAY GIFTS --");
 			this.addMessage("Gods decide to give you a regular charge each");
@@ -2321,7 +2374,7 @@ class Duel {
 				_fighter.regularCharges++;
 			});
 		}
-		else if ([20, 21].indexOf(randomVar) > -1) {
+		else if ([19, 20, 21].indexOf(randomVar) > -1) {
 			// Charge
 			this.addMessage(" -- GODS CHRISTMAS GIFTS --");
 			this.addMessage("Gods decide to give you a special charge each");
@@ -2389,10 +2442,100 @@ class Duel {
 			this.addMessage(winner.user.username + " was at house eating dorito when phone ring");
 			this.addMessage(this.getOppOf(winner).user.username + ' : "Club penguin is kil"');
 			this.addMessage(winner.user.username + ' : *"no"*');
+			this.addMessage("-----------------");
+			this.addMessage("You both take your turn to recover from this tragedy !");
 			
 			this.bothFightersAction(function(_fighter) {
 				_fighter.isPossessed = 2;
 			});
+		}
+		else if ([27, 28, 29, 30, 31].indexOf(randomVar) > -1) {
+			// PP-Net
+			this.PP_NET += 1;
+			if (this.PP_NET == 1) {
+				this.addMessage(" -- PP-NET RISING --");
+				this.addMessage("A new military AI has been created.");
+				this.addMessage("Its name : PP-Net.");
+			}
+			else if (this.PP_NET == 2) {
+				this.addMessage(" -- PP-NET RISING --");
+				this.addMessage("Rumors are saying PP-Net is growing sentient... and is doing more than it should be doing.");
+				this.addMessage("The PP Police has been replaced with robots.");
+			}
+			else if (this.PP_NET == 3) {
+				this.addMessage(" -- PP-NET RISING --");
+				this.addMessage("PP Punching is now considered 'illegal' because 'it is too dangerous'. This is dumb.");
+				this.addMessage("Let's continue the duel, but no more weird move. I don't wanna go in prison.");
+			}
+			else if (this.PP_NET == 4) {
+				this.addMessage(" -- FBI OPEN UP --");
+				this.addMessage("An illegal PP Punch duel has been spotted !");
+				this.addMessage("Surrender or die !");
+				if (this.EVENT_BOSS && this.BOSS_HEALTH > 0) {
+					this.addMessage(this.CURRENT_BOSS + " surrenders !");
+				}
+				this.EVENT_BOSS = true;
+				this.BOSS_HEALTH = 750;
+				this.BOSS_DAMAGE = 30;
+				this.CURRENT_BOSS = BOSS_PP4;
+			}
+			else if (this.PP_NET == 5) {
+				this.addMessage(" -- PP-NET RISING --");
+				this.addMessage("Humans are getting hunted down by the PP Police !");
+				this.addMessage("The PP Rebellion will get its revenge !");
+				this.EVENT_BOSS = true;
+				this.BOSS_HEALTH = 2000;
+				this.BOSS_DAMAGE = 30;
+				this.CURRENT_BOSS = BOSS_PP4;
+			}
+			else if (this.PP_NET == 6) {
+				this.addMessage(" -- PP-NET RISING --");
+				this.addMessage("New robots have been created to hunt us down, and suck our precious PP !");
+				this.addMessage("We have to hunt them down !");
+				if (this.EVENT_BOSS && this.BOSS_HEALTH > 0) {
+					this.addMessage(this.CURRENT_BOSS + "'s PP gets harvested !");
+					this.addMessage(this.CURRENT_BOSS + " dies !");
+				}
+				this.EVENT_BOSS = true;
+				this.BOSS_HEALTH = 1500;
+				this.BOSS_DAMAGE = 50;
+				this.CURRENT_BOSS = BOSS_PP5;
+			}
+			else if (this.PP_NET == 7) {
+				this.addMessage(" -- PP REBELLION RISING --");
+				this.addMessage("The rebellion has prepared a serum that makes your PP faster and stronger !");
+				this.addMessage("You both get 200 STR and 200 DEX !");
+				this.bothFightersAction(function(_fighter) {
+					_fighter.STRValue += 200;
+					_fighter.DEXValue += 200;
+				});
+			}
+			else if (this.PP_NET == 8) {
+				this.addMessage(" -- PP-NET RISING --");
+				this.addMessage("The PP-Net Hive-Mind is challenging you !");
+				if (this.EVENT_BOSS && this.BOSS_HEALTH > 0) {
+					this.addMessage(this.CURRENT_BOSS + "'s PP gets harvested !");
+					this.addMessage(this.CURRENT_BOSS + " dies !");
+				}
+				this.EVENT_BOSS = true;
+				this.BOSS_HEALTH = 20000;
+				this.BOSS_DAMAGE = 100;
+				this.CURRENT_BOSS = BOSS_PP6;
+			}
+			else if (this.PP_NET < 0) {
+				this.addMessage(" -- PP-NET RISING --");
+				this.addMessage("You better destroy the PP Terminator if you don't want the PP Rebellion to be without you !");
+			}
+			else {
+				this.addMessage(" -- PP REBELLION RISING --");
+				this.addMessage("The rebellion gives you another shot of the serum !");
+				this.addMessage("You both get 200 STR and 200 DEX !");
+				this.bothFightersAction(function(_fighter) {
+					_fighter.STRValue += 200;
+					_fighter.DEXValue += 200;
+				});
+				this.PP_NET -= 1;
+			}
 		}
 		else {
 			this.addMessage("No event this turn...");
