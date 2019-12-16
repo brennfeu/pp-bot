@@ -1153,6 +1153,12 @@ class Fighter {
 						this.legAimer = true;
 					}
 				}
+				if (this.godList.indexOf(GOD_PP20_PRIEST) > -1) { // Mikasa
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Mikasa answers his calls !");
+					this.duel.addMessage("[TODO]");
+					// Dual Wielding ? --> all moves are played twice
+				}
 				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("D.I.C.K. answers his calls !");
@@ -1356,6 +1362,11 @@ class Fighter {
 					else {
 						this.duel.addMessage(this.user.username + " is already the fastest !");
 					}
+				}
+				if (this.godList.indexOf(GOD_PP20_PRIEST) > -1) { // Mikasa
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Mikasa answers his calls !");
+					this.duel.addMessage("[TODO]");
 				}
 				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
 					this.duel.addMessage("-----------------");
@@ -2497,7 +2508,7 @@ class Duel {
 			else if (this.PP_NET == 3) {
 				this.addMessage(" -- PP-NET RISING --");
 				this.addMessage("PP Punching is now considered 'illegal' because 'it is too dangerous'. This is dumb.");
-				this.addMessage("Let's continue the duel, but be careful. I don't wanna go in prison.");
+				this.addMessage("Let's continue the duel, but no weird move. I don't wanna go in prison.");
 			}
 			else if (this.PP_NET == 4) {
 				this.addMessage(" -- FBI OPEN UP --");
@@ -2778,6 +2789,11 @@ class Duel {
 		}
 		if (this.FORCE_SATAN) {
 			return this.LIST_AVAILABLE_ATTACKS = [EMOTE_PP26];
+		}
+		if (this.PP_NET == 3) {
+			return [EMOTE_PP1, EMOTE_PP2, EMOTE_PP4, EMOTE_PP8, EMOTE_PP12, EMOTE_PP13, EMOTE_PP15,
+				EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP22, EMOTE_PP30, EMOTE_PP31, EMOTE_PP32, 
+				EMOTE_PP42, EMOTE_PP45, EMOTE_PP50];
 		}
 
 		// Attaque 1
