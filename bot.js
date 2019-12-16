@@ -2050,9 +2050,11 @@ class Duel {
 				this.addMessage("-----------------");
 				this.addMessage("**ANOTHER TIME, ANOTHER PLACE**");
 				this.addMessage("-----------------");
-				this.addMessage(this.FIGHTER1.user.username + " : 'I challenge you to a PP Punch duel !'");
-				this.addMessage(this.FIGHTER2.user.username + " : 'Alright, let's do this !'");
-				this.addMessage(this.FIGHTER1.user.username + " : 'Wait what is this thing ?'");
+				this.addMessage(this.FIGHTER1.user.username + " : *'I challenge you to a PP Punch duel !'*");
+				this.addMessage(this.FIGHTER2.user.username + " : *'Alright, let's do this !'*");
+				this.addMessage(this.FIGHTER1.user.username + " : *'Wait what is this thing ?'*");
+				this.addMessage("-----------------");
+				this.sendMessages();
 				
 				this.FIGHTER1_SAVE = this.FIGHTER1;
 				this.FIGHTER2_SAVE = this.FIGHTER2;
@@ -2070,11 +2072,13 @@ class Duel {
 				this.addMessage("-----------------");
 				this.addMessage("**ANOTHER TIME, ANOTHER PLACE**");
 				this.addMessage("-----------------");
+				this.sendMessages();
 				
 				this.FIGHTER1 = this.FIGHTER1_SAVE;
 				this.FIGHTER2 = this.FIGHTER2_SAVE;
 				
 				this.PP_NET = 200;
+				this.EVENT_BOSS = false;
 			}
 			else {
 				var fighter = this.getRandomFighter();
@@ -2465,7 +2469,7 @@ class Duel {
 			else if (this.PP_NET == 3) {
 				this.addMessage(" -- PP-NET RISING --");
 				this.addMessage("PP Punching is now considered 'illegal' because 'it is too dangerous'. This is dumb.");
-				this.addMessage("Let's continue the duel, but no more weird move. I don't wanna go in prison.");
+				this.addMessage("Let's continue the duel, but be careful. I don't wanna go in prison.");
 			}
 			else if (this.PP_NET == 4) {
 				this.addMessage(" -- FBI OPEN UP --");
