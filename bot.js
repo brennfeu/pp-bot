@@ -336,11 +336,11 @@ class Fighter {
 		var txt = "**" + this.user.username;
 		txt += "\nSTR :** " + this.STR;
 		if (this.STR == 69) {
-			this.duel.addMessage(" (nice)");
+			txt += " (nice)";
 		}
 		txt += "  //  **DEX :** " + this.DEX;
 		if (this.DEX == 69) {
-			this.duel.addMessage(" (nice)");
+			txt += " (nice)";
 		}
 
 		if (this.regularCharges > 0 || this.specialCharges > 0) {
@@ -873,7 +873,7 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP45) {
 				// Boomerang
-				this.duel.addMessage(this.user.username + " gets a nice boomerang.");
+				this.duel.addMessage(this.user.username + " gets a boomerang.");
 				this.hasBoomerang = 4;
 			}
 			else if (attack == EMOTE_PP46) {
