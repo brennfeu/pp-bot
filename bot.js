@@ -2103,8 +2103,8 @@ class Duel {
 				this.FIGHTER2 = new Fighter(this.FIGHTER2.idUser, this.BATTLE_CHANNEL.id);
 				
 				this.CURRENT_BOSS = BOSS_PP7;
-				this.BOSS_HEALTH = 500;
-				this.BOSS_DAMAGE = 30;
+				this.BOSS_HEALTH = 1500;
+				this.BOSS_DAMAGE = 25;
 				this.EVENT_BOSS = true;
 				this.PP_NET = -99999;
 			}
