@@ -243,6 +243,7 @@ class Fighter {
 		this.legAimer = false;
 		this.livingGod = false;
 		this.liberatedPP = false;
+		this.mikasaBuff = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -267,6 +268,9 @@ class Fighter {
 		}
 		if (this.hasBoner) {
 			str += 50
+		}
+		if (this.mikasaBuff > 0) {
+			str += 30
 		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			str += 50;
@@ -310,6 +314,9 @@ class Fighter {
 		}
 		if (this.liberatedPP) {
 			dex += 200;
+		}
+		if (this.mikasaBuff > 0) {
+			str += 30
 		}
 		if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
 			dex += 10;
@@ -391,6 +398,9 @@ class Fighter {
 		}
 		if (this.isLucky > 0) {
 			txt += " - Lucky (for " + this.isLucky + " turns)\n";
+		}
+		if (this.mikasaBuff > 0) {
+			txt += " - Blessed by Mikasa (for " + this.mikasaBuff + " turns)\n";
 		}
 		if (this.turkeyCountdown > 0) {
 			txt += " - Turkey Countdown : " + this.turkeyCountdown + " turns\n";
@@ -1170,8 +1180,8 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP20_PRIEST) > -1) { // Mikasa
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Mikasa answers his calls !");
-					this.duel.addMessage("[TODO]");
-					// Dual Wielding ? --> all moves are played twice
+					this.duel.addMessage("He gets her blessing for 3 turns !");
+					this.mikasaBuff = 4;
 				}
 				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
 					this.duel.addMessage("-----------------");
@@ -1683,6 +1693,7 @@ class Fighter {
 		this.grabbedPP -= 1;
 		this.isLucky -= 1;
 		this.summonTankCountdown -= 1;
+		this.mikasaBuff -= 1;
 
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
