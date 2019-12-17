@@ -651,13 +651,8 @@ class Fighter {
 			else if (attack == EMOTE_PP13) {
 				// Scout
 				this.duel.addMessage(this.user.username + " examines the qualities of " + this.duel.getOppOf(this).user.username + "'s PP !");
-				if (getRandomPercent() <= 33) {
-					this.duel.addMessage("And he learns a lot !");
-					this.hasExamined = 2;
-				}
-				else {
-					this.duel.addMessage("And he learns nothing...");
-				}
+				this.duel.addMessage("And he learns a lot !");
+				this.hasExamined = 2;
 			}
 			else if (attack == EMOTE_PP14) {
 				// SawBlade
