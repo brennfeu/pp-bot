@@ -505,6 +505,9 @@ class Fighter {
 		if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP18_PRIEST) > -1) {
 			txt += " - Debilus Team Member\n";
 		}
+		if (this.godList.indexOf(GOD_PP19_PRIEST) > -1 && this.godList.indexOf(GOD_PP20_PRIEST) > -1) {
+			txt += " - Waifu Body Pillow\n";
+		}
 
 		return txt;
 	}
@@ -1563,7 +1566,7 @@ class Fighter {
 			this.STRValue += _amount;
 			return this.duel.addMessage(this.user.username + " gets healed by " + _amount + " HP");
 			if (_amount == 69) {
-				this.duel.addMessage("Nice !");
+				this.duel.addMessage("nice !");
 			}
 		}
 		else {
@@ -1603,7 +1606,7 @@ class Fighter {
 			this.duel.addMessage(this.duel.CURRENT_BOSS + " takes " + _amount + " damages !");
 			this.duel.DAMAGE_COUNT += _amount;
 			if (_amount == 69) {
-				this.duel.addMessage("Nice !");
+				this.duel.addMessage("lmao !");
 			}
 			return;
 		}
@@ -1612,7 +1615,7 @@ class Fighter {
 			this.STRValue += _amount;
 			return this.duel.addMessage(this.user.username + " get healed by " + _amount + " HP");
 			if (_amount == 69) {
-				this.duel.addMessage("lmao !");
+				this.duel.addMessage("nice !");
 			}
 		}
 
@@ -1643,12 +1646,21 @@ class Fighter {
 			this.duel.getOppOf(this).damage(_amount);
 		}
 		else {
+			// Waifu Body Pillow
+			if (this.godList.indexOf(GOD_PP19_PRIEST) > -1 && this.godList.indexOf(GOD_PP20_PRIEST) > -1 && _punch) {
+				_amount -= 10;
+			}
+			
+			if (_amount <= 0) {
+				return this.duel.addMessage(this.user.username + " takes no damages !");
+			}
+			
 			// Damage
 			this.STRValue -= _amount;
 			this.duel.DAMAGE_COUNT += _amount;
 			this.duel.addMessage(this.user.username + " takes " + _amount + " damages !");
 			if (_amount == 69) {
-				this.duel.addMessage("Nice !");
+				this.duel.addMessage("lmao !");
 			}
 		}
 
