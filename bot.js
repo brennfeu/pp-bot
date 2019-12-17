@@ -177,6 +177,7 @@ class Fighter {
 		
 		this.attack = "";
 		this.oldAttack = EMOTE_PP30;
+		this.attackedThisTurn = false;
 		this.damageTaken = 0;
 
 		// set roles
@@ -227,11 +228,11 @@ class Fighter {
 		// Battle variables
 		this.resetBattleVariables();
 		this.turkeyCountdown = -1;
+		this.isPossessed = 0;
 		this.isCircumcised = false;
 		this.isOverCircumcised = false;
 		this.missedMoves = 0;
 		this.bonusDamage = 0;
-		this.attackedThisTurn = false;
 		this.isTerrorist = false;
 		this.hasBurst = 0;
 		this.chimera = false;
@@ -1857,7 +1858,6 @@ class Fighter {
 
 	resetBattleVariables() {
 		this.bleedDamage = 0;
-		this.isPossessed = 0;
 		this.acidArmor = 0;
 		this.turnSkip = 0;
 		this.grabbedPP = 0;
@@ -2607,7 +2607,7 @@ class Duel {
 			this.addMessage("You both take your turn to recover from this tragedy !");
 			
 			this.bothFightersAction(function(_fighter) {
-				_fighter.isPossessed = 2;
+				_fighter.isPossessed = 1;
 			});
 		}
 		else if ([27, 28, 29, 30, 31].indexOf(randomVar) > -1) {
