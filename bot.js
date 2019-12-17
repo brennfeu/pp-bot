@@ -1903,6 +1903,7 @@ class Duel {
 		this.EVENT_CONFUSION = false;
 		this.EVENT_BOSS = false;
 		this.EVENT_BLOOD_MOON = false;
+		this.EVENT_PP_EQUALITY = false;
 
 		this.FORCE_PERHAPS = false;
 		this.FORCE_SATAN = false;
@@ -2337,6 +2338,9 @@ class Duel {
 		if (this.EVENT_PP_PURGE) {
 			this.addMessage(" - Illegal moves are legal for this turn !");
 		}
+		if (this.EVENT_PP_EQUALITY) {
+			this.addMessage(" - Moves have no DEX modifier for this turn !");
+		}
 		if (this.PP_NET > 0 && this.PP_NET < 200) {
 			this.addMessage(" - PP-Net Rising : Step " + this.PP_NET);
 		}
@@ -2426,13 +2430,14 @@ class Duel {
 		this.EVENT_PP_PURGE = false;
 		this.EVENT_CONFUSION = false;
 		this.EVENT_BLOOD_MOON = false;
+		this.EVENT_PP_EQUALITY = false;
 
 		this.addMessage("**===== EVENTS =====**");
 		this.sendMessages();
 		var randomVar = getRandomPercent();
 
 		if (this.FORCE_EVENT) {
-			while (!(randomVar <= 31 && randomVar >= 2)) {
+			while (!(randomVar <= 32 && randomVar >= 2)) {
 				randomVar = getRandomPercent();
 			}
 		}
@@ -2458,7 +2463,7 @@ class Duel {
 			// PP Purge
 			this.EVENT_PP_PURGE = true;
 			this.addMessage(" -- PP PURGE --");
-			this.addMessage("All PPs grow a mohawk and start to roam the streets. \nIllegal moves can now be used freely but the judge will still see you if you use unavailable moves");
+			this.addMessage("All PPs grow a mohawk and start to roam the streets. \nIllegal moves can now be used freely but the judge can still see you if you use unavailable moves");
 		}
 		else if (randomVar == 4) {
 			// Sexually Confused
@@ -2698,6 +2703,12 @@ class Duel {
 				});
 				this.PP_NET -= 1;
 			}
+		}
+		else if (randomVar == 32) {
+			// Day of the PP Equality
+			this.addMessage(" -- DAY OF THE PP EQUALITY --");
+			this.addMessage("Today is Day of the PP Equality ! There is no DEX modifier for moves for this turn !");
+			this.EVENT_PP_EQUALITY = true;
 		}
 		else {
 			this.addMessage("No event this turn...");
@@ -3069,6 +3080,9 @@ class Duel {
 		return 0;
 	}
 	getDexChange(_move) {
+		if (this.EVENT_PP_EQUALITY) {
+			return 0;
+		}
 		switch(_move) {
 			case EMOTE_PP3:
 				return -30;
