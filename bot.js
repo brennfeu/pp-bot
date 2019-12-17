@@ -1923,6 +1923,15 @@ class Duel {
 		else {
 			this.addMessage("**TIME FOR A DUEL**");
 		}
+		
+		// Wild Start
+		if (getRandomPercent() <= 5) {
+			this.addMessage("**===== WILD START =====**");
+			this.addMessage("Let's make things a bit more interesting !");
+			this.REVERSE_DAMAGE = 1;
+			this.NUCLEAR_COUNTDOWN = 1;
+		}
+		
 		this.newTurnDuel();
 	}
 	stopDuel() {
