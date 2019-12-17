@@ -2101,18 +2101,6 @@ class Duel {
 		this.addMessage("**===== TURN CHANGE =====**");
 		this.sendMessages();
 
-		this.STEEL_PROTECTION = false;
-		this.BARREL_DAMAGE = false;
-		this.SAVE_LIST = [];
-		this.BLIND_COUNTDOWN -= 1;
-		this.INFINITE_DAMAGE = 0;
-		this.DISABLE_ABANDON = false;
-		this.REVERSE_DAMAGE -= 1;
-		this.GAY_TURNS -= 1;
-		this.ATTACK_MISS_COUNTDOWN -= 1;
-		this.AUTO_MOVES_COUNTDOWN -= 1;
-		this.NUCLEAR_BOMB -= 1;
-
 		if (this.NUCLEAR_BOMB == 0) {
 			this.addMessage("The Nuclear Bomb explodes now !");
 			this.bothFightersAction(function(_fighter) {
@@ -2273,6 +2261,19 @@ class Duel {
 		});
 		if (this.DEAD_DUEL) return;
 
+		
+		this.STEEL_PROTECTION = false;
+		this.BARREL_DAMAGE = false;
+		this.SAVE_LIST = [];
+		this.BLIND_COUNTDOWN -= 1;
+		this.INFINITE_DAMAGE = 0;
+		this.DISABLE_ABANDON = false;
+		this.REVERSE_DAMAGE -= 1;
+		this.GAY_TURNS -= 1;
+		this.ATTACK_MISS_COUNTDOWN -= 1;
+		this.AUTO_MOVES_COUNTDOWN -= 1;
+		this.NUCLEAR_BOMB -= 1;
+		
 		this.startRandomEvent();
 		this.addMessage("\n\n**===== NEW TURN =====**");
 		this.sendMessages();
@@ -2717,6 +2718,7 @@ class Duel {
 		// test illegal
 		this.bothFightersAction(function(_fighter) {
 			var duel = _fighter.duel;
+			if (duel.DEAD_DUEL) return;
 			
 			// Illegalité
 			var caught1 = duel.illegalGetCaught(duel.getRisk(_fighter.attack)) || (_fighter.badLuck && duel.getRisk(_fighter.attack) > 0);
