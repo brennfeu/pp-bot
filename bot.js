@@ -1143,7 +1143,7 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Mutantoid Lycanthrope answers his calls !");
 					this.duel.addMessage(this.user.username + " licks his wounds !");
-					this.playMove(Math.floor(this.damageTaken/2));
+					this.heal(Math.floor(this.damageTaken/2));
 				}
 				if (this.godList.indexOf(GOD_PP14_PRIEST) > -1) { // UREGonnaGETRaped
 					this.duel.addMessage("-----------------");
@@ -1891,7 +1891,7 @@ class Duel {
 		this.SAVE_LIST = [];
 		this.STOPPED_MOVE_LIST = [];
 		this.FORCE_EVENT = false;
-		this.REVERSE_DAMAGE = 0;
+		this.REVERSE_DAMAGE = -1;
 		this.GAY_TURNS = 0;
 		this.ILLEGAL_JEWS = false;
 		this.ATTACK_MISS_COUNTDOWN = 0;
@@ -2101,6 +2101,7 @@ class Duel {
 		this.addMessage("**===== TURN CHANGE =====**");
 		this.sendMessages();
 
+		this.NUCLEAR_BOMB -= 1;
 		if (this.NUCLEAR_BOMB == 0) {
 			this.addMessage("The Nuclear Bomb explodes now !");
 			this.bothFightersAction(function(_fighter) {
@@ -2260,7 +2261,6 @@ class Duel {
 			};
 		});
 		if (this.DEAD_DUEL) return;
-
 		
 		this.STEEL_PROTECTION = false;
 		this.BARREL_DAMAGE = false;
@@ -2272,7 +2272,6 @@ class Duel {
 		this.GAY_TURNS -= 1;
 		this.ATTACK_MISS_COUNTDOWN -= 1;
 		this.AUTO_MOVES_COUNTDOWN -= 1;
-		this.NUCLEAR_BOMB -= 1;
 		
 		this.startRandomEvent();
 		this.addMessage("\n\n**===== NEW TURN =====**");
