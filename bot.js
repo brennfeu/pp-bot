@@ -3252,7 +3252,7 @@ function cloneObject(obj) {
 	}
 
 	// Handle Object
-	if (obj instanceof Object) {
+	if (obj instanceof Fighter || obj instanceof Duel) {
 		var copy = new obj.constructor();
 		for (var attr in obj) {
 			if (obj.hasOwnProperty(attr)){
@@ -3265,6 +3265,10 @@ function cloneObject(obj) {
 			}
 		}
 		return copy;
+	}
+	
+	if (obj instanceof Object) {
+		return obj; // discord js objects
 	}
 
 	throw new Error("Unable to copy obj! Its type isn't supported.");
