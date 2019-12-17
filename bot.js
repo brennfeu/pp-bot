@@ -2271,8 +2271,8 @@ class Duel {
 		}
 
 		this.addMessage("**=== GLOBAL STATUS ===**");
-		if (this.duel.CHECKPOINT_DUEL != null) {
-			this.duel.addMessage(" - **Saved State**");
+		if (this.CHECKPOINT_DUEL != null) {
+			this.addMessage(" - **Saved State**");
 		}
 		if (this.BLIND_COUNTDOWN > 0) {
 			this.addMessage(" - WTF I'M FUCKING BLIND !");
