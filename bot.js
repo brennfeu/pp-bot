@@ -1265,9 +1265,7 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Hello There Puds answers his calls !");
 					this.duel.addMessage(this.user.username + " gets a sudden body change !");
-					this.DEXValue += this.STRValue;
-					this.STRValue = this.DEXValue - this.STRValue;
-					this.DEXValue -= this.STRValue;
+					this.DEXValue = this.STRValue;
 				}
 				if (this.godList.indexOf(GOD_PP6_PRIEST) > -1) { // Dickdickson666
 					this.duel.addMessage("-----------------");
@@ -3108,7 +3106,6 @@ class Duel {
 // FONCTIONS
 function getRandomPercent() {
 	var i = Math.floor(Math.random() * 100 + 1);
-	console.log("random : " + i);
 	return i;
 }
 function getDuel(_id) {
