@@ -1559,7 +1559,15 @@ class Fighter {
 					this.duel.CHECKPOINT_DUEL = null;
 					this.duel.addMessage("The old save has been removed !");
 				}
-				this.duel.CHECKPOINT_DUEL = Object.assign({}, this.duel);
+				
+				var duel = this.duel;
+				duel.FIGHTER1.duel = null;
+				duel.FIGHTER2.duel = null;
+				duel.CHECKPOINT_DUEL = cloneObject(duel);
+				duel.FIGHTER1.duel = duel;
+				duel.FIGHTER2.duel = duel;
+				duel.CHECKPOINT_DUEL.FIGHTER1.duel = duel.CHECKPOINT_DUEL;
+				duel.CHECKPOINT_DUEL.FIGHTER2.duel = duel.CHECKPOINT_DUEL;
 			}
 			else if (attack == "IS_DEAD_LOL") {
 				// Dead (Cthulhu battle)
@@ -3139,6 +3147,7 @@ function killDeadDuels() {
 		if (DUEL_LIST[i].DEAD_DUEL) {
 			if (DUEL_LIST[i].CHECKPOINT_DUEL != null) {
 				var duel = DUEL_LIST[i].CHECKPOINT_DUEL;
+				console.log(duel);
 				DUEL_LIST[i] = duel;
 				duel.CHECKPOINT_DUEL = null;
 				duel.addMessage("-----------------");
@@ -3229,6 +3238,37 @@ function getNumberOfGods(_guildUser) {
 	return counter;
 }
 
+function cloneObject(obj) {
+	obj = obj && obj instanceof Object ? obj : '';
+
+	// Handle Date (return new Date object with old value)
+	if (obj instanceof Date) {
+		return new Date(obj); 
+	}
+
+	// Handle Array (return a full slice of the array)
+	if (obj instanceof Array) {
+		return obj.slice();
+	}
+
+	// Handle Object
+	if (obj instanceof Object) {
+		var copy = new obj.constructor();
+		for (var attr in obj) {
+			if (obj.hasOwnProperty(attr)){
+				if (obj[attr] instanceof Object){
+					copy[attr] = cloneObject(obj[attr]);
+				}
+				else {
+					copy[attr] = obj[attr];
+				}
+			}
+		}
+		return copy;
+	}
+
+	throw new Error("Unable to copy obj! Its type isn't supported.");
+}
 
 CLIENT.on('ready', () => {
 	console.log(`Logged in as ${CLIENT.user.tag} !`);
