@@ -1559,7 +1559,7 @@ class Fighter {
 					this.duel.CHECKPOINT_DUEL = null;
 					this.duel.addMessage("The old save has been removed !");
 				}
-				this.duel.CHECKPOINT_DUEL = { ...this.duel };
+				this.duel.CHECKPOINT_DUEL = Object.assign({}, this.duel);
 			}
 			else if (attack == "IS_DEAD_LOL") {
 				// Dead (Cthulhu battle)
@@ -1906,8 +1906,6 @@ class Duel {
 		this.AUDIO_CHANNEL = null;
 		this.CURRENT_THEME = null;
 		
-		console.log("F1 " + _message.author.id);
-		console.log("F2 " + _message.mentions.users.array()[0]);
 		this.FIGHTER1 = new Fighter(_message.author.id, this.BATTLE_CHANNEL.id);
 		this.FIGHTER2 = new Fighter(_message.mentions.users.array()[0].id, this.BATTLE_CHANNEL.id);
 
@@ -2337,7 +2335,6 @@ class Duel {
 		this.BATTLE_CHANNEL.send("\n\nChoose your " + gay + "attack with a reaction !").then(function (_message2) {
 			var duel = getDuel(_message2.channel.id);
 			for (var i in duel.LIST_AVAILABLE_ATTACKS) {
-				console.log(duel.LIST_AVAILABLE_ATTACKS[i]);
 				if (duel.LIST_AVAILABLE_ATTACKS[i] != "IS_DEAD_LOL") {
 					_message2.react(duel.LIST_AVAILABLE_ATTACKS[i]);
 				}
@@ -3144,6 +3141,10 @@ function killDeadDuels() {
 				var duel = DUEL_LIST[i].CHECKPOINT_DUEL;
 				DUEL_LIST[i] = duel;
 				duel.CHECKPOINT_DUEL = null;
+				duel.addMessage("-----------------");
+				duel.addMessage("**DUEL SAVE STATE USED**");
+				duel.addMessage("-----------------");
+				duel.sendMessages();
 				duel.newTurnDuel();
 			}
 			else {
