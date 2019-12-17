@@ -2166,9 +2166,17 @@ class Duel {
 			else {
 				var fighter = this.getRandomFighter();
 				this.addMessage(fighter.user.username + " gets attacked by " + this.CURRENT_BOSS + " !");
-				fighter.STRValue -= this.BOSS_DAMAGE;
-				this.addMessage("He takes " + this.BOSS_DAMAGE + " damages !");
-				this.addMessage("-----------------");
+				if (this.EVENT_BLOOD_MOON && this.CURRENT_BOSS == BOSS_PP3) { // Blood Moon / Moon Lord
+					var amount = this.BOSS_DAMAGE*3;
+					fighter.STRValue -= amount;
+					this.addMessage("He takes " + amount + " damages !");
+					this.addMessage("-----------------");
+				}
+				else {
+					fighter.STRValue -= this.BOSS_DAMAGE;
+					this.addMessage("He takes " + this.BOSS_DAMAGE + " damages !");
+					this.addMessage("-----------------");
+				}
 			}
 		}
 		
@@ -2399,7 +2407,8 @@ class Duel {
 			// Cthulhu
 			if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP1) {
 				this.addMessage(" -- MOON LORD AWAKENS --");
-				this.addMessage("Cthulhu evolves to be the Moon Lord !");
+				this.addMessage("Cthulhu is blessed by the moonlight !");
+				this.addMessage("The Moon Lord has been summoned and takes control over Cthulhu's body !");
 				this.CURRENT_BOSS = BOSS_PP3;
 				this.BOSS_HEALTH = 500000;
 				this.BOSS_DAMAGE = 200;
@@ -2443,6 +2452,9 @@ class Duel {
 					_fighter.duel.addMessage(_fighter.user.username + " got saved thanks to the Blood Moon");
 				}
 			});
+			if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP3) {
+				this.addMessage("The Moon Lord is blessed by the Blood Moon.");
+			}
 		}
 		else if (randomVar == 8) {
 			// Ascension
