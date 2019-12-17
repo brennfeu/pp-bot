@@ -930,7 +930,7 @@ class Fighter {
 				this.duel.bothFightersAction(function(_fighter) {
 					if (_fighter.eldritchFriend && !_fighter.duel.getOppOf(_fighter).eldritchFriend) {
 						chaosNumber = 100;
-						var winner = _fighter;
+						winner = _fighter;
 					}
 				}, this.duel.getOppOf(this));
 				this.duel.addMessage("He will use " + chaosNumber + "% of his power in " + winner.user.username + " !");
@@ -1073,9 +1073,9 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP5_PRIEST) > -1) { // Hello There Puds
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Hello There Puds answers his calls !");
-					this.duel.addMessage(this.user.username + " tries to scare " + this.duel.getOppOf(this).user.username + " !");
+					this.duel.addMessage(this.user.username + " tries to scare " + this.getOppName() + " !");
 					if (getRandomPercent() <= 50+this.STR-this.duel.getOppOf(this).STR) {
-						this.duel.getOppOf(this).damage(50);
+						this.duel.getOppOf(this).damage(100);
 					}
 					else {
 						this.duel.addMessage("But it fails !");
@@ -1145,7 +1145,7 @@ class Fighter {
 					this.duel.addMessage("Rapist Pudding answers his calls !");
 					this.duel.addMessage(this.user.username + " gives a boner punch to " + this.getOppName() + " !");
 					this.hasBoner = true;
-					this.duel.getOppOf(this).damage(Math.floor((this.STR - this.DEX)/10));
+					this.duel.getOppOf(this).damage(Math.floor((this.STR - (this.DEX/2))/5));
 				}
 				if (this.godList.indexOf(GOD_PP15_PRIEST) > -1) { // STFU Isaac
 					this.duel.addMessage("-----------------");
