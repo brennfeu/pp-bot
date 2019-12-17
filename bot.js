@@ -173,6 +173,7 @@ class Fighter {
 		
 		this.attack = "";
 		this.oldAttack = EMOTE_PP30;
+		this.damageTaken = 0;
 
 		// set roles
 		this.isBigPP = false;
@@ -1137,8 +1138,8 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1) { // 700IQ
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Mutantoid Lycanthrope answers his calls !");
-					this.duel.addMessage(this.user.username + " makes a scientific discovery !");
-					this.playMove(this.duel.getRandomEmote());
+					this.duel.addMessage(this.user.username + " licks his wounds !");
+					this.playMove(Math.floor(this.damageTaken/2));
 				}
 				if (this.godList.indexOf(GOD_PP14_PRIEST) > -1) { // UREGonnaGETRaped
 					this.duel.addMessage("-----------------");
@@ -1581,6 +1582,7 @@ class Fighter {
 			if (_amount == 69) {
 				this.duel.addMessage("lmao !");
 			}
+			this.damageTaken += _amount;
 		}
 	}
 
@@ -1617,6 +1619,7 @@ class Fighter {
 			if (this.duel.BOSS_HEALTH + _amount > 0 && this.duel.BOSS_HEALTH <= 0) {
 				this.duel.getOppOf(this).bossKiller = 11;
 			}
+			this.damageTaken += _amount;
 			return;
 		}
 
@@ -1671,6 +1674,7 @@ class Fighter {
 			if (_amount == 69) {
 				this.duel.addMessage("lmao !");
 			}
+			this.damageTaken += _amount;
 		}
 
 		// DoomReverse
@@ -2188,6 +2192,7 @@ class Duel {
 					fighter.STRValue -= amount;
 					this.addMessage("He takes " + amount + " damages !");
 					this.addMessage("-----------------");
+					fighter.damageTaken += amount;
 				}
 				else {
 					fighter.STRValue -= this.BOSS_DAMAGE;
