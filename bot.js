@@ -413,7 +413,7 @@ class Fighter {
 			txt += " - Hog Squeezer : " + this.pigHeal + "\n";
 		}
 		if (this.bonusDamage > 0) {
-			txt += " - Building up : " + this.bonusDamage + "\n";
+			txt += " - Build up damages : " + this.bonusDamage + "\n";
 		}
 		if (this.bleedDamage > 0) {
 			txt += " - Haemorrhage : " + this.bleedDamage;
@@ -1189,6 +1189,7 @@ class Fighter {
 					this.duel.addMessage("Mikasa answers his calls !");
 					this.duel.addMessage(this.user.username + " gets her blessing for 3 turns !");
 					this.mikasaBuff = 4;
+					this.bonusDamage += 50;
 				}
 				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
 					this.duel.addMessage("-----------------");
