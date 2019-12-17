@@ -3028,6 +3028,7 @@ class Duel {
 			return false;
 		}
 		var result = (getRandomPercent() < _percentage);
+		console.log(result)
 		return result;
 	}
 	getRisk(_move) {
