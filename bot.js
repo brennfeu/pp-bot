@@ -1558,7 +1558,7 @@ class Fighter {
 				if (this.duel.CHECKPOINT_DUEL != null) {
 					this.duel.addMessage("The old save has been removed !");
 				}
-				this.duel.CHECKPOINT_DUEL = JSON.parse(JSON.stringify(this));
+				this.duel.CHECKPOINT_DUEL = { ...this.duel };
 			}
 			else if (attack == "IS_DEAD_LOL") {
 				// Dead (Cthulhu battle)
@@ -2271,6 +2271,9 @@ class Duel {
 		}
 
 		this.addMessage("**=== GLOBAL STATUS ===**");
+		if (this.duel.CHECKPOINT_DUEL != null) {
+			this.duel.addMessage(" - **Saved State**");
+		}
 		if (this.BLIND_COUNTDOWN > 0) {
 			this.addMessage(" - WTF I'M FUCKING BLIND !");
 			if (this.BLIND_COUNTDOWN < 100) {
