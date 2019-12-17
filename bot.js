@@ -1640,7 +1640,7 @@ class Fighter {
 			return;
 		}
 
-		if (this.duel.REVERSE_DAMAGE >= 0 && _punch) {
+		if (this.duel.REVERSE_DAMAGE > 0) {
 			this.STRValue += _amount;
 			return this.duel.addMessage(this.user.username + " get healed by " + _amount + " HP");
 			if (_amount == 69) {
