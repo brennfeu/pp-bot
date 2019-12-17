@@ -102,6 +102,7 @@ const EMOTE_PP58 = "644880195341254656"; // Cageless
 const EMOTE_PP59 = "650987017571926016"; // Triggered Pépin2Pom
 const EMOTE_PP60 = "644880194959704085"; // PP Duel
 const EMOTE_PP61 = "644880195903553536"; // Flag
+const EMOTE_PP62 = "644881329317478411"; // SuperCheckpoint
 const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, 
 		    EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, 
 		    EMOTE_PP18, EMOTE_PP19, EMOTE_PP20, EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, 
@@ -109,9 +110,9 @@ const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE
 		    EMOTE_PP34, EMOTE_PP35, EMOTE_PP36, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40, EMOTE_PP41, 
 		    EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP47, EMOTE_PP48, EMOTE_PP49, 
 		    EMOTE_PP50, EMOTE_PP51, EMOTE_PP52, EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, 
-		    EMOTE_PP58, EMOTE_PP59, EMOTE_PP60, EMOTE_PP61];
+		    EMOTE_PP58, EMOTE_PP59, EMOTE_PP60, EMOTE_PP61, EMOTE_PP62];
 const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58, EMOTE_PP59, EMOTE_PP60,
-			   EMOTE_PP61];
+			   EMOTE_PP61, EMOTE_PP62];
 
 const GOD_PP1 = "644643782888783892"; // Mongo
 const GOD_PP2 = "617686716479832064"; // Dr Phil / WhatDAFuk
@@ -573,7 +574,7 @@ class Fighter {
 				this.duel.addMessage(this.user.username + " and " + this.duel.getOppOf(this).user.username + " start a feast !");
 				this.duel.bothFightersAction(function(_fighter) {
 					_fighter.heal(100);
-					_fighter.turkeyCountdown = 11;
+					_fighter.turkeyCountdown = 6;
 					if (_fighter.isOverCircumcised) {
 						_fighter.duel.addMessage(_fighter.user.username + "'s circumcision gets a bit healed !");
 						_fighter.isOverCircumcised = false;
@@ -1760,7 +1761,7 @@ class Fighter {
 			this.duel.addMessage("-----------------");
 		}
 		if (this.godList.indexOf(GOD_PP5_PRIEST) > -1 && this.godList.indexOf(GOD_PP6_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
-			this.duel.addMessage(this.duel.getOppOf(this).user.username + " gets hurt by the Unholy Pudding Trinity !");
+			this.duel.addMessage(this.getOppName() + " gets hurt by the Unholy Pudding Trinity !");
 			this.duel.getOppOf(this).damage(10);
 			this.duel.addMessage("-----------------");
 		}
@@ -2444,7 +2445,7 @@ class Duel {
 			// Blood Moon
 			this.EVENT_BLOOD_MOON = true;
 			this.addMessage(" -- BLOOD MOON --");
-			this.addMessage("If someone dies this turn, STR automatically stays at 1 but the remaining damages goes positive in the DEX.");
+			this.addMessage("If someone dies this turn, STR automatically stays at 10 but the remaining damages goes positive in the DEX.");
 			this.bothFightersAction(function(_fighter) {
 				if (_fighter.STR <= 0) {
 					_fighter.DEXValue += (0-_fighter.STR)+10;
