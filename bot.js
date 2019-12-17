@@ -244,6 +244,7 @@ class Fighter {
 		this.livingGod = false;
 		this.liberatedPP = false;
 		this.mikasaBuff = 0;
+		this.dualWield = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -436,6 +437,9 @@ class Fighter {
 		if (this.legAimer) {
 			txt += " - Leg Aimer\n";
 		}
+		if (this.dualWield) {
+			txt += " - Dual Wielding";
+		}
 		if (this.badLuck) {
 			txt += " - Unlucky\n";
 		}
@@ -519,8 +523,11 @@ class Fighter {
 		}
 		
 		// Boomerang
-		if (!this.isBoomerangUsed && this.hasBoomerang >= 1) {
-			this.isBoomerangUsed = true;
+		if (this.hasBoomerang >= 1) {
+			numberAttacks += numberAttacks;
+		}
+		// Mikasa Special
+		if (this.dualWield) {
 			numberAttacks += numberAttacks;
 		}
 
@@ -1180,7 +1187,7 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP20_PRIEST) > -1) { // Mikasa
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Mikasa answers his calls !");
-					this.duel.addMessage("He gets her blessing for 3 turns !");
+					this.duel.addMessage(this.user.username + " gets her blessing for 3 turns !");
 					this.mikasaBuff = 4;
 				}
 				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
@@ -1390,7 +1397,8 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP20_PRIEST) > -1) { // Mikasa
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Mikasa answers his calls !");
-					this.duel.addMessage("[TODO]");
+					this.duel.addMessage(this.user.username + " learns how to dual wield !");
+					this.dualWield = true;
 				}
 				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
 					this.duel.addMessage("-----------------");
@@ -1688,7 +1696,6 @@ class Fighter {
 		this.doomReverse -= 1;
 		this.acidArmor -= 1;
 		this.hasBoomerang -= 1;
-		this.isBoomerangUsed = false;
 		this.turnSkip -= 1;
 		this.grabbedPP -= 1;
 		this.isLucky -= 1;
@@ -1800,7 +1807,6 @@ class Fighter {
 		this.bleedDamage = 0;
 		this.isPossessed = 0;
 		this.acidArmor = 0;
-		this.isBoomerangUsed = false;
 		this.turnSkip = 0;
 		this.grabbedPP = 0;
 		this.hasBoner = false;
