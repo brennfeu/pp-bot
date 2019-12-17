@@ -1942,8 +1942,18 @@ class Duel {
 		this.addMessage("-----------------");
 		this.addMessage(this.FIGHTER2.toString());
 		this.addMessage("**===== SOME STATS =====**");
-		this.addMessage(" - Number of moves : " + this.MOVE_COUNT);
-		this.addMessage(" - Number of damages inflicted : " + this.DAMAGE_COUNT);
+		if (this.MOVE_COUNT == 69) {
+			this.addMessage(" - Number of moves : " + this.MOVE_COUNT + " (lmao)");
+		}
+		else {
+			this.addMessage(" - Number of moves : " + this.MOVE_COUNT);
+		}
+		if (this.DAMAGE_COUNT == 69) {
+			this.addMessage(" - Number of damages inflicted : " + this.DAMAGE_COUNT + " (lmao)");
+		}
+		else {
+			this.addMessage(" - Number of damages inflicted : " + this.DAMAGE_COUNT);
+		}
 		this.sendMessages();
 		
 		if (this.AUDIO_CHANNEL != null) {
@@ -3151,7 +3161,6 @@ function killDeadDuels() {
 		if (DUEL_LIST[i].DEAD_DUEL) {
 			if (DUEL_LIST[i].CHECKPOINT_DUEL != null) {
 				var duel = DUEL_LIST[i].CHECKPOINT_DUEL;
-				console.log(duel);
 				DUEL_LIST[i] = duel;
 				duel.CHECKPOINT_DUEL = null;
 				duel.addMessage("-----------------");
