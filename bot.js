@@ -1707,7 +1707,8 @@ class Fighter {
 		}
 		// Alien PP
 		if (this.isAlienPP && _punch) {
-			this.duel.getOppOf(this).bleedDamage += 1;
+			this.duel.getOppOf(this).bleedDamage += 3;
+			this.duel.addMessage(this.duel.getOppOf(this).user.username + " gets hurt by the " + this.user.username + "'s alien PP");
 		}
 	}
 
