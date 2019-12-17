@@ -1556,6 +1556,7 @@ class Fighter {
 				this.duel.MOVE_COUNT += 33;
 				this.duel.addMessage(this.user.username + " saves the battle !");
 				if (this.duel.CHECKPOINT_DUEL != null) {
+					this.duel.CHECKPOINT_DUEL = null;
 					this.duel.addMessage("The old save has been removed !");
 				}
 				this.duel.CHECKPOINT_DUEL = { ...this.duel };
@@ -3141,9 +3142,9 @@ function killDeadDuels() {
 		if (DUEL_LIST[i].DEAD_DUEL) {
 			if (DUEL_LIST[i].CHECKPOINT_DUEL != null) {
 				var duel = DUEL_LIST[i].CHECKPOINT_DUEL;
-				duel.CHECKPOINT_DUEL = null;
 				DUEL_LIST[i] = duel;
-				DUEL_LIST[i].newTurnDuel();
+				duel.CHECKPOINT_DUEL = null;
+				duel.newTurnDuel();
 			}
 			else {
 				DUEL_LIST.splice(i, 1);
