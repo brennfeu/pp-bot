@@ -246,6 +246,7 @@ class Fighter {
 		this.liberatedPP = false;
 		this.mikasaBuff = 0;
 		this.dualWield = false;
+		this.bossKiller = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -404,6 +405,9 @@ class Fighter {
 		if (this.mikasaBuff > 0) {
 			txt += " - Blessed by Mikasa (for " + this.mikasaBuff + " turns)\n";
 		}
+		if (this.bossKiller > 0) {
+			txt += " - Boss Killer Blessing (for " + this.bossKiller + " turns)\n";
+		}
 		if (this.turkeyCountdown > 0) {
 			txt += " - Turkey Countdown : " + this.turkeyCountdown + " turns\n";
 		}
@@ -428,6 +432,9 @@ class Fighter {
 		}
 		else if (this.isCircumcised) {
 			txt += " - Circumcised\n";
+		}
+		if (this.isTerrorist) {
+			txt += " - Planning a Terrorist Move\n";
 		}
 		if (this.eldritchFriend) {
 			txt += " - Eldritch Friendly\n";
@@ -1008,7 +1015,7 @@ class Fighter {
 				if (this.regularCharges > 0 && sdsds == 0) {
 					this.regularCharges -= 1;
 				}
-				else if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
+				else if (this.godList.indexOf(GOD_PP21_PRIEST) > -1 && sdsds == 0) { // D.I.C.K.
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("D.I.C.K. is disappointed in " + this.user.username + " !");
 					this.playMove(EMOTE_PP47);
@@ -1210,7 +1217,7 @@ class Fighter {
 				if (this.specialCharges > 0 && sdsds == 0) {
 					this.specialCharges -= 1;
 				}
-				else if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
+				else if (this.godList.indexOf(GOD_PP21_PRIEST) > -1 && sdsds == 0) { // D.I.C.K.
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("D.I.C.K. is disappointed in " + this.user.username + " !");
 					this.playMove(EMOTE_PP47);
@@ -1609,6 +1616,9 @@ class Fighter {
 			if (_amount == 69) {
 				this.duel.addMessage("lmao !");
 			}
+			if (this.duel.BOSS_HEALTH + _amount > 0 && this.duel.BOSS_HEALTH <= 0) {
+				this.duel.getOppOf(this).bossKiller = 11;
+			}
 			return;
 		}
 
@@ -1715,6 +1725,7 @@ class Fighter {
 		this.isLucky -= 1;
 		this.summonTankCountdown -= 1;
 		this.mikasaBuff -= 1;
+		this.bossKiller -= 1;
 
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
@@ -1744,6 +1755,13 @@ class Fighter {
 				this.duel.addMessage(this.user.username + " squeezes hog !");
 				this.heal(this.pigHeal);
 			}
+			this.duel.addMessage("-----------------");
+		}
+		// Boss Killer
+		if (this.bossKiller > 0) {
+			this.duel.addMessage(this.user.username + " gets +1 DEX thanks to the Boss Killer Blessing !");
+			this.DEXValue += 1;
+			this.heal(30);
 			this.duel.addMessage("-----------------");
 		}
 		// The Man Who Made a Monster regular move
