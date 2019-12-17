@@ -164,6 +164,10 @@ var DUEL_LIST = [];
 // CLASSES
 class Fighter {
 	constructor(_idUser, _idDuel) {
+		if (_idUser == undefined) { // default constructor
+			return;
+		}
+		
 		// set variables
 		this.idUser = _idUser;
 		this.guildUser = getDuel(_idDuel).GUILD.members.get(_idUser);
