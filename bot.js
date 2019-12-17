@@ -2715,8 +2715,13 @@ class Duel {
 			var duel = _fighter.duel;
 			if (duel.DEAD_DUEL) return;
 			
+			var caught1 = false;
+			
 			// Illegalité
-			var caught1 = duel.illegalGetCaught(duel.getRisk(_fighter.attack)) || (_fighter.badLuck && duel.getRisk(_fighter.attack) > 0);
+			if (duel.illegalGetCaught(duel.getRisk(_fighter.attack)) || (_fighter.badLuck && duel.getRisk(_fighter.attack) > 0)) {
+				caught1 = true;
+				console.log("caught !");
+			}
 
 			// Move non autorisé (movepool)
 			if (duel.LIST_AVAILABLE_ATTACKS.indexOf(_fighter.attack) < 0 && 
@@ -3028,7 +3033,6 @@ class Duel {
 			return false;
 		}
 		var result = (getRandomPercent() < _percentage);
-		console.log(result)
 		return result;
 	}
 	getRisk(_move) {
