@@ -1551,6 +1551,15 @@ class Fighter {
 					this.duel.addMessage("But " + this.duel.getOppOf(this).user.username + " has already been liberated !");
 				}
 			}
+			else if (attack == EMOTE_PP62) {
+				// Duel Checkpoint
+				this.duel.MOVE_COUNT += 33;
+				this.duel.addMessage(this.user.username + " saves the battle !");
+				if (this.duel.CHECKPOINT_DUEL != null) {
+					this.duel.addMessage("The old save has been removed !");
+				}
+				this.duel.CHECKPOINT_DUEL = JSON.parse(JSON.stringify(this));
+			}
 			else if (attack == "IS_DEAD_LOL") {
 				// Dead (Cthulhu battle)
 				if (this.STRValue < 70) {
@@ -1876,6 +1885,7 @@ class Duel {
 		this.AUTO_MOVES_COUNTDOWN = 0;
 		this.NUCLEAR_BOMB = 0;
 		this.PP_NET = 0;
+		this.CHECKPOINT_DUEL = null;
 
 		this.PP_ARMAGEDDON = false;
 		this.EVENT_PP_ENLIGHTENMENT = false;
@@ -1913,6 +1923,8 @@ class Duel {
 		this.DEAD_DUEL = true;
 		
 		this.sendMessages();
+		if (this.CHECKPOINT_DUEL != null) return;
+		
 		this.addMessage("**===== RECAP =====**");
 		this.addMessage("FIGHTERS CURRENT STATE :");
 		this.addMessage(this.FIGHTER1.toString());
@@ -3124,7 +3136,15 @@ function getDuel(_id) {
 function killDeadDuels() {
 	for (var i = DUEL_LIST.length - 1; i >= 0; i--) {
 		if (DUEL_LIST[i].DEAD_DUEL) {
-			DUEL_LIST.splice(i, 1);
+			if (DUEL_LIST[i].CHECKPOINT_DUEL != null) {
+				var duel = DUEL_LIST[i].CHECKPOINT_DUEL;
+				duel.CHECKPOINT_DUEL = null;
+				DUEL_LIST[i] = duel;
+				DUEL_LIST[i].newTurnDuel();
+			}
+			else {
+				DUEL_LIST.splice(i, 1);
+			}
 		}
 	}
 }
