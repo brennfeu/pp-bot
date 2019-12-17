@@ -2720,7 +2720,6 @@ class Duel {
 			// Illegalité
 			if (duel.illegalGetCaught(duel.getRisk(_fighter.attack)) || (_fighter.badLuck && duel.getRisk(_fighter.attack) > 0)) {
 				caught1 = true;
-				console.log("caught !");
 			}
 
 			// Move non autorisé (movepool)
