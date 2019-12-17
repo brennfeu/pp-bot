@@ -561,7 +561,7 @@ class Fighter {
 			else if (attack == EMOTE_PP2) {
 				// Punching PP Really Hard
 				this.duel.addMessage(this.user.username + " punches " + this.getOppName() + "'s PP really hard !");
-				this.duel.getOppOf(this).damage(Math.floor(20 + this.STR / 10));
+				this.duel.getOppOf(this).damage(Math.floor(20 + this.STR / 8));
 			}
 			else if (attack == EMOTE_PP3) {
 				// Hologram
@@ -762,9 +762,10 @@ class Fighter {
 			else if (attack == EMOTE_PP27) {
 				// BigGuyBullet
 				this.duel.addMessage(this.user.username + " uses his PP as a gun !");
-				this.duel.getOppOf(this).damage(Math.floor(20 + this.STR / 10));
-				this.DEXValue -= 20;
-				this.duel.getOppOf(this).DEXValue -= 20;
+				this.duel.getOppOf(this).damage(Math.floor(20 + this.STR / 5));
+				this.duel.bothFightersAction(function(_fighter) {
+					_fighter.DEXValue -= 20;
+				});
 
 			}
 			else if (attack == EMOTE_PP28) {
@@ -3048,20 +3049,20 @@ class Duel {
 			return 0;
 		}
 		switch(_move) {
-			case EMOTE_PP46:
-				return 10;
 			case EMOTE_PP6:
-				return 20;
+				return 30;
 			case EMOTE_PP10:
-				return 70;
-			case EMOTE_PP43:
-				return 15;
-			case EMOTE_PP25:
-				return 60;
+				return 80;
 			case EMOTE_PP23:
 				return 20;
+			case EMOTE_PP25:
+				return 60;
+			case EMOTE_PP43:
+				return 15;
 			case EMOTE_PP44:
 				return 40;
+			case EMOTE_PP46:
+				return 10;
 			case EMOTE_PP49:
 				return 98;
 		}
