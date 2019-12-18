@@ -701,7 +701,7 @@ class Fighter {
 				this.doomReverse = 4;
 				if (this.STR <= 0) {
 					this.duel.addMessage(this.user.username + " uses DOOM-REVERSE(tm) !");
-					this.STRValue += (0-this.STR)+10;
+					this.STRValue += (0 - this.STR) + 10;
 					this.doomReverse = 0;
 				}
 			}
@@ -1699,7 +1699,7 @@ class Fighter {
 		// DoomReverse
 		if (this.STR <= 0 && this.doomReverse >= 1) {
 			this.duel.addMessage(this.user.username + " uses DOOM-REVERSE(tm) !");
-			this.STRValue += (0-this.STR)+10;
+			this.STRValue += (0 - this.STR) + 10;
 			this.doomReverse = 0;
 		}
 		// Alien PP
@@ -2119,8 +2119,8 @@ class Duel {
 		if (this.EVENT_BLOOD_MOON) {
 			this.bothFightersAction(function(_fighter) {
 				if (_fighter.STR <= 0) {
-					_fighter.DEXValue += (0-_fighter.STR)+10;
-					_fighter.STRValue += (0-_fighter.STR)+10;
+					_fighter.DEXValue += (0 - _fighter.STR) + 10;
+					_fighter.STRValue += (0 - _fighter.STR) + 10;
 					_fighter.duel.addMessage(_fighter.user.username + " got saved thanks to the Blood Moon");
 				}
 			});
@@ -2514,8 +2514,8 @@ class Duel {
 			this.addMessage("If someone dies this turn, STR automatically stays at 10 but the remaining damages goes positive in the DEX.");
 			this.bothFightersAction(function(_fighter) {
 				if (_fighter.STR <= 0) {
-					_fighter.DEXValue += (0-_fighter.STR)+10;
-					_fighter.STRValue += (0-_fighter.STR)+10;
+					_fighter.DEXValue += (0 - _fighter.STR) + 10;
+					_fighter.STRValue += (0 - _fighter.STR) + 10;
 					_fighter.duel.addMessage(_fighter.user.username + " got saved thanks to the Blood Moon");
 				}
 			});
