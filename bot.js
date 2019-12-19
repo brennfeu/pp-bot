@@ -153,9 +153,9 @@ const MUSIC_PP4 = "huge_gay_night.mp3";
 const MUSIC_PP5 = "lovecraftian_strain_991.mp3";
 const MUSIC_PP6 = "gaseous_punk.mp3";
 const MUSIC_PP7 = "anomaly_b.mp3";
-const MUSIC_PP8 = "brennijov_intro";
-const MUSIC_PP9 = "brennijov";
-const MUSIC_PP10 = "brennijov_outro";
+const MUSIC_PP8 = "brennijov_intro.mp3";
+const MUSIC_PP9 = "brennijov.mp3";
+const MUSIC_PP10 = "brennijov_outro.mp3";
 
 // IDs
 const ID_BRENNFEU = "234439428372824075";
