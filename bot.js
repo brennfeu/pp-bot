@@ -553,6 +553,16 @@ class Fighter {
 		}
 
 		for (var sdsds = 0; sdsds < numberAttacks; sdsds++) {
+			if (this.duel.MOVE_COUNT_TURN >= 100) {
+				if (this.duel.MOVE_COUNT_TURN == 100) {
+					this.duel.addMessage("**Move cap achieved !**");
+				}
+				return;
+			}
+			else {
+				this.duel.MOVE_COUNT_TURN += 1;
+			}
+			
 			if (attack == EMOTE_PP1) {
 				// Punching PP
 				this.duel.addMessage(this.user.username + " punches " + this.getOppName() + "'s PP !");
@@ -1623,7 +1633,9 @@ class Fighter {
 		}
 		
 		if (this.duel.INFINITE_DAMAGE >= 10) {
-			this.duel.addMessage("Damage cap achieved !");
+			if (this.duel.INFINITE_DAMAGE == 10) {
+			    this.duel.addMessage("**Damage cap achieved !**");
+			}
 			return this.duel.addMessage(_amount + " damages were canceled");
 		}
 		this.duel.INFINITE_DAMAGE += 1;
@@ -1879,6 +1891,7 @@ class Duel {
 		
 		this.MOVE_COUNT = 0;
 		this.DAMAGE_COUNT = 0;
+		this.MOVE_COUNT_TURN = 0;
 
 		this.ILLEGAL_BOMBING = false;
 		this.BLIND_COUNTDOWN = 0;
@@ -2278,6 +2291,7 @@ class Duel {
 		this.GAY_TURNS -= 1;
 		this.ATTACK_MISS_COUNTDOWN -= 1;
 		this.AUTO_MOVES_COUNTDOWN -= 1;
+		this.MOVE_COUNT_TURN = 0;
 		
 		this.startRandomEvent();
 		this.addMessage("\n\n**===== NEW TURN =====**");
