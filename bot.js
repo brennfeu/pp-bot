@@ -3216,7 +3216,7 @@ function skipWaitingDuels() {
 				DUEL_LIST[i].FIGHTER1.attack = EMOTE_PP50;
 			}
 			else if (DUEL_LIST[i].FIGHTER2.attack == "") {
-				DUEL_LIST[i].FIGHTER1.attack = EMOTE_PP50;
+				DUEL_LIST[i].FIGHTER2.attack = EMOTE_PP50;
 			}
 			DUEL_LIST[i].BATTLE_CHANNEL.send("...");
 			DUEL_LIST[i].launchAttacks();
