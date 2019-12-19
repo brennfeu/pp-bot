@@ -153,6 +153,9 @@ const MUSIC_PP4 = "huge_gay_night.mp3";
 const MUSIC_PP5 = "lovecraftian_strain_991.mp3";
 const MUSIC_PP6 = "gaseous_punk.mp3";
 const MUSIC_PP7 = "anomaly_b.mp3";
+const MUSIC_PP8 = "brennijov_intro";
+const MUSIC_PP9 = "brennijov";
+const MUSIC_PP10 = "brennijov_outro";
 
 // IDs
 const ID_BRENNFEU = "234439428372824075";
@@ -2409,6 +2412,15 @@ class Duel {
 		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP3) {
 			this.setMusic(MUSIC_PP7); // Anomaly-B
 		}
+		else if (this.EVENT_BOSS && (this.CURRENT_BOSS == BOSS_PP4 || this.CURRENT_BOSS == BOSS_PP5)) {
+			this.setMusic(MUSIC_PP8); // Brennijov Von Truffle Intro
+		}
+		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP6) {
+			this.setMusic(MUSIC_PP9); // Brennijov Von Truffle
+		}
+		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP7) {
+			this.setMusic(MUSIC_PP10); // Brennijov Von Truffle Outro
+		}
 		else if (this.PP_ARMAGEDDON) {
 			this.setMusic(MUSIC_PP3); // Psychodios
 		}
@@ -2416,7 +2428,7 @@ class Duel {
 			this.setMusic(MUSIC_PP2); // Ascend
 		}
 		else {
-			this.setMusic(MUSIC_PP1); // Mortem March
+			this.setMusic(MUSIC_PP1); // Silence
 		}
 		
 		if ((this.FIGHTER1.turnSkip > 0 || this.FIGHTER1.grabbedPP > 0 || this.FIGHTER1.summonTankCountdown == 1 || this.FIGHTER1.isPossessed > 0) && 
