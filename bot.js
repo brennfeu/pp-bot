@@ -2132,6 +2132,7 @@ class Duel {
 			this.bothFightersAction(function(_fighter) {
 				_fighter.damage(1000000000);
 			});
+			this.sendMessages();
 		}
 
 		// Blood Moon Save
