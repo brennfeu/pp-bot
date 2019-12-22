@@ -2128,11 +2128,7 @@ class Duel {
 
 		this.NUCLEAR_BOMB -= 1;
 		if (this.NUCLEAR_BOMB == 0) {
-			this.sendMessages();
-			this.addMessage("");
-			this.BATTLE_CHANNEL.send("The Nuclear Bomb explodes now !", {
-			    file: IMAGE_PP1
-			});
+			this.addMessage("The Nuclear Bomb explodes now !\n" + IMAGE_PP1);
 			this.bothFightersAction(function(_fighter) {
 				_fighter.damage(1000000000);
 			});
