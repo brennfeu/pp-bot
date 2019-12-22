@@ -157,6 +157,9 @@ const MUSIC_PP8 = "brennijov_intro.mp3";
 const MUSIC_PP9 = "brennijov.mp3";
 const MUSIC_PP10 = "brennijov_outro.mp3";
 
+// IMAGES
+const IMAGE_PP1 = "https://cdn.discordapp.com/attachments/616225633286094852/623080353807990784/image0.gif";
+
 // IDs
 const ID_BRENNFEU = "234439428372824075";
 const ADMIN_LIST = [ID_BRENNFEU];
@@ -2125,7 +2128,11 @@ class Duel {
 
 		this.NUCLEAR_BOMB -= 1;
 		if (this.NUCLEAR_BOMB == 0) {
-			this.addMessage("The Nuclear Bomb explodes now !");
+			this.sendMessages();
+			this.addMessage("");
+			this.BATTLE_CHANNEL.send("The Nuclear Bomb explodes now !", {
+			    file: IMAGE_PP1
+			});
 			this.bothFightersAction(function(_fighter) {
 				_fighter.damage(1000000000);
 			});
