@@ -559,14 +559,12 @@ class Fighter {
 		}
 
 		for (var sdsds = 0; sdsds < numberAttacks; sdsds++) {
-			if (this.duel.MOVE_COUNT_TURN >= 100) {
-				if (this.duel.MOVE_COUNT_TURN == 100) {
+			this.duel.MOVE_COUNT_TURN += 1;
+			if (this.duel.MOVE_COUNT_TURN >= 500) {
+				if (this.duel.MOVE_COUNT_TURN == 500) {
 					this.duel.addMessage("**Move cap achieved !**");
 				}
 				return;
-			}
-			else {
-				this.duel.MOVE_COUNT_TURN += 1;
 			}
 			
 			if (attack == EMOTE_PP1) {
@@ -1560,7 +1558,7 @@ class Fighter {
 				if (!this.duel.getOppOf(this).liberatedPP) {
 					this.resetBattleVariables();
 					this.duel.addMessage(this.user.username + " takes " + this.duel.getOppOf(this).DEXValue + " DEX from " + this.duel.getOppOf(this).user.username + " !");
-					this.DEXValue += this.duel.getOppOf(this).DEXValue;
+					this.DEXValue += this.duel.getOppOf(this).DEX;
 					this.duel.getOppOf(this).DEXValue = 0;
 					this.duel.getOppOf(this).liberatedPP = true;
 				}
@@ -1662,7 +1660,7 @@ class Fighter {
 
 		if (this.duel.REVERSE_DAMAGE > 0) {
 			this.STRValue += _amount;
-			return this.duel.addMessage(this.user.username + " get healed by " + _amount + " HP");
+			return this.duel.addMessage(this.user.username + " gets healed by " + _amount + " HP");
 			if (_amount == 69) {
 				this.duel.addMessage("nice !");
 			}
