@@ -1967,7 +1967,7 @@ class Duel {
 		if (this.CHECKPOINT_DUEL != null) return;
 		
 		this.addMessage("**===== RECAP =====**");
-		this.addMessage("FIGHTERS CURRENT STATE :");
+		this.addMessage("**===== CURRENT STATE =====**");
 		this.addMessage(this.FIGHTER1.toString());
 		this.addMessage("-----------------");
 		this.addMessage(this.FIGHTER2.toString());
