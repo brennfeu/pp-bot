@@ -458,7 +458,7 @@ class Fighter {
 			txt += " - Leg Aimer\n";
 		}
 		if (this.dualWield) {
-			txt += " - Dual Wielding";
+			txt += " - Dual Wielding\n";
 		}
 		if (this.badLuck) {
 			txt += " - Unlucky\n";
@@ -563,6 +563,7 @@ class Fighter {
 			if (this.duel.MOVE_COUNT_TURN >= 500) {
 				if (this.duel.MOVE_COUNT_TURN == 500) {
 					this.duel.addMessage("**Move cap achieved !**");
+					this.duel.sendMessages(1);
 				}
 				return;
 			}
@@ -2947,6 +2948,9 @@ class Duel {
 			if (this.getOppOf(winner).attack == EMOTE_PP55) {
 				this.getOppOf(winner).playMove();
 			}
+		}
+		if (this.MOVE_COUNT_TURN >= 500) {
+			this.sendMessages(1);
 		}
 		this.sendMessages();
 		this.newTurnDuel();
