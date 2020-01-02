@@ -1885,13 +1885,14 @@ class Fighter {
 }
 
 class Duel {
-	constructor() {
+	constructor(_easyDuel = false) {
 		this.DEAD_DUEL = false;
 		this.LIST_MESSAGES = [];
 		this.INFINITE_DAMAGE = 0;
 		this.TIMESTAMP = +new Date();
 		
 		this.FORCE_EVENT_ID = 0;
+		this.EASY_DUEL = _easyDuel;
 		
 		this.MOVE_COUNT = 0;
 		this.DAMAGE_COUNT = 0;
@@ -2298,7 +2299,10 @@ class Duel {
 		this.AUTO_MOVES_COUNTDOWN -= 1;
 		this.MOVE_COUNT_TURN = 0;
 		
-		this.startRandomEvent();
+		if (!this.EASY_DUEL) {
+			this.startRandomEvent();
+		}
+		
 		this.addMessage("\n\n**===== NEW TURN =====**");
 		this.sendMessages();
 
@@ -2957,11 +2961,6 @@ class Duel {
 		if (this.FORCE_SATAN) {
 			return this.LIST_AVAILABLE_ATTACKS = [EMOTE_PP26];
 		}
-		if (this.PP_NET == 3) {
-			return [EMOTE_PP1, EMOTE_PP2, EMOTE_PP4, EMOTE_PP8, EMOTE_PP12, EMOTE_PP13, EMOTE_PP15,
-				EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP22, EMOTE_PP30, EMOTE_PP31, EMOTE_PP32, 
-				EMOTE_PP42, EMOTE_PP45, EMOTE_PP50];
-		}
 
 		// Attaque 1
 		if (getRandomPercent() > 20) {
@@ -3035,17 +3034,17 @@ class Duel {
 	}
 	getRandomEmote(_canBeIllegal = true) {
 		var legalList = [EMOTE_PP7, EMOTE_PP8, EMOTE_PP9,
-						EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20,
-						EMOTE_PP21, EMOTE_PP22, EMOTE_PP24, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30,
-						EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40,
-						EMOTE_PP41, EMOTE_PP42, EMOTE_PP45, EMOTE_PP46, EMOTE_PP48, EMOTE_PP50
-						];
+					EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20,
+					EMOTE_PP21, EMOTE_PP22, EMOTE_PP24, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30,
+					EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40,
+					EMOTE_PP41, EMOTE_PP42, EMOTE_PP45, EMOTE_PP46, EMOTE_PP48, EMOTE_PP50
+				];
 		var illegalList = [EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, EMOTE_PP10,
-						EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20,
-						EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30,
-						EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40,
-						EMOTE_PP41, EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP48, EMOTE_PP49, EMOTE_PP50
-						];
+					EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20,
+					EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30,
+					EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40,
+					EMOTE_PP41, EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP48, EMOTE_PP49, EMOTE_PP50
+				];
 		var goodList;
 		if (_canBeIllegal) {
 			goodList = illegalList;
@@ -3062,6 +3061,11 @@ class Duel {
 		}
 		if (this.PP_ARMAGEDDON || getRandomPercent() <= 3) {
 			goodList = goodList.concat(SPECIAL_EMOTE_LIST);
+		}
+		if (this.PP_NET == 3 || this.EASY_DUEL) {
+			goodList = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP4, EMOTE_PP8, EMOTE_PP12, EMOTE_PP13, EMOTE_PP15,
+				EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP22, EMOTE_PP30, EMOTE_PP31, EMOTE_PP32, 
+				EMOTE_PP42, EMOTE_PP45, EMOTE_PP50];
 		}
 
 		return goodList[Math.floor(Math.random()*goodList.length)];
@@ -3374,7 +3378,7 @@ CLIENT.on("message", async _message => {
 		// RANKS
 		return _message.reply("sorry, global ranks are not availables atm :/");
 	}
-	if (argsUser[1] == "duel") {
+	if (argsUser[1] == "duel" || argsUser[1] == "simpleduel") {
 		if (getDuel(_message.channel.id) != null) {
 			return _message.reply("there's a battle going on here...");
 		}
@@ -3387,7 +3391,7 @@ CLIENT.on("message", async _message => {
 			return _message.reply("you can't battle yourself");
 		}
 
-		var duel = new Duel();
+		var duel = new Duel(argsUser[1] == "simpleduel");
 		DUEL_LIST.push(duel);
 		
 		duel.startDuel(_message);
