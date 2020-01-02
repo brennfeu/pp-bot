@@ -1935,6 +1935,11 @@ class Duel {
 		
 		this.FIGHTER1 = new Fighter(_message.author.id, this.BATTLE_CHANNEL.id);
 		this.FIGHTER2 = new Fighter(_message.mentions.users.array()[0].id, this.BATTLE_CHANNEL.id);
+		if (this.EASY_DUEL) {
+			this.bothFightersAction(function(_fighter) {
+				_fighter.godList = [];
+			});
+		}
 
 		if (getRandomPercent() < 10) {
 			this.addMessage("**TIME FOR A D-D-D-D-D-D-DUEL**");
@@ -3063,9 +3068,9 @@ class Duel {
 			goodList = goodList.concat(SPECIAL_EMOTE_LIST);
 		}
 		if (this.PP_NET == 3 || this.EASY_DUEL) {
-			goodList = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP4, EMOTE_PP8, EMOTE_PP12, EMOTE_PP13, EMOTE_PP15,
-				EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP22, EMOTE_PP30, EMOTE_PP31, EMOTE_PP32, 
-				EMOTE_PP42, EMOTE_PP45, EMOTE_PP50];
+			goodList = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP4, EMOTE_PP5, EMOTE_PP8, EMOTE_PP12, EMOTE_PP13,
+				EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP21, EMOTE_PP22, EMOTE_PP30, EMOTE_PP31,
+				EMOTE_PP32, EMOTE_PP42, EMOTE_PP45];
 		}
 
 		return goodList[Math.floor(Math.random()*goodList.length)];
