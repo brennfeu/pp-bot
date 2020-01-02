@@ -3387,6 +3387,59 @@ CLIENT.on("message", async _message => {
 		// RANKS
 		return _message.reply("sorry, global ranks are not availables atm :/");
 	}
+	if (argsUser[1] == "cheatpanel") {
+		_message.channel.send("Cheat Panel : Normal Moves I").then(function (_message2) {
+			_message2.react(EMOTE_PP1); _message2.react(EMOTE_PP2);
+			_message2.react(EMOTE_PP3); _message2.react(EMOTE_PP4);
+			_message2.react(EMOTE_PP5); _message2.react(EMOTE_PP6);
+			_message2.react(EMOTE_PP7); _message2.react(EMOTE_PP8);
+			_message2.react(EMOTE_PP9); _message2.react(EMOTE_PP10);
+			_message2.react(EMOTE_PP11); _message2.react(EMOTE_PP12);
+			_message2.react(EMOTE_PP13); _message2.react(EMOTE_PP14);
+			_message2.react(EMOTE_PP15); _message2.react(EMOTE_PP16);
+			_message2.react(EMOTE_PP17); _message2.react(EMOTE_PP18);
+			_message2.react(EMOTE_PP19); _message2.react(EMOTE_PP20);
+		}).catch(function(e) {
+			console.log(e);
+		});
+		_message.channel.send("Cheat Panel : Normal Moves II").then(function (_message2) {
+			_message2.react(EMOTE_PP21); _message2.react(EMOTE_PP22);
+			_message2.react(EMOTE_PP23); _message2.react(EMOTE_PP24);
+			_message2.react(EMOTE_PP25); _message2.react(EMOTE_PP26);
+			_message2.react(EMOTE_PP27); _message2.react(EMOTE_PP28);
+			_message2.react(EMOTE_PP29); _message2.react(EMOTE_PP30);
+			_message2.react(EMOTE_PP31); _message2.react(EMOTE_PP32);
+			_message2.react(EMOTE_PP33); _message2.react(EMOTE_PP34);
+			_message2.react(EMOTE_PP35); _message2.react(EMOTE_PP36);
+			_message2.react(EMOTE_PP37); _message2.react(EMOTE_PP38);
+			_message2.react(EMOTE_PP39); _message2.react(EMOTE_PP40);
+		}).catch(function(e) {
+			console.log(e);
+		});
+		_message.channel.send("Cheat Panel : Normal Moves III").then(function (_message2) {
+			_message2.react(EMOTE_PP41); _message2.react(EMOTE_PP42);
+			_message2.react(EMOTE_PP43); _message2.react(EMOTE_PP44);
+			_message2.react(EMOTE_PP45); _message2.react(EMOTE_PP46);
+			_message2.react(EMOTE_PP47); _message2.react(EMOTE_PP48);
+			_message2.react(EMOTE_PP49); _message2.react(EMOTE_PP50);
+		}).catch(function(e) {
+			console.log(e);
+		});
+		_message.channel.send("Cheat Panel : Priest Moves").then(function (_message2) {
+			_message2.react(EMOTE_PP51); _message2.react(EMOTE_PP52);
+		}).catch(function(e) {
+			console.log(e);
+		});
+		_message.channel.send("Cheat Panel : Animates Moves").then(function (_message2) {
+			_message2.react(EMOTE_PP53); _message2.react(EMOTE_PP54);
+			_message2.react(EMOTE_PP55); _message2.react(EMOTE_PP56);
+			_message2.react(EMOTE_PP57); _message2.react(EMOTE_PP58);
+			_message2.react(EMOTE_PP59); _message2.react(EMOTE_PP60);
+			_message2.react(EMOTE_PP60); _message2.react(EMOTE_PP62);
+		}).catch(function(e) {
+			console.log(e);
+		});
+	}
 	if (argsUser[1] == "duel" || argsUser[1] == "simpleduel") {
 		if (getDuel(_message.channel.id) != null) {
 			return _message.reply("there's a battle going on here...");
