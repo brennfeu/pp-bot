@@ -3430,7 +3430,7 @@ CLIENT.on("message", async _message => {
 		}).catch(function(e) {
 			console.log(e);
 		});
-		_message.channel.send("Cheat Panel : Animates Moves").then(function (_message2) {
+		_message.channel.send("Cheat Panel : Animated Moves").then(function (_message2) {
 			_message2.react(EMOTE_PP53); _message2.react(EMOTE_PP54);
 			_message2.react(EMOTE_PP55); _message2.react(EMOTE_PP56);
 			_message2.react(EMOTE_PP57); _message2.react(EMOTE_PP58);
@@ -3439,6 +3439,7 @@ CLIENT.on("message", async _message => {
 		}).catch(function(e) {
 			console.log(e);
 		});
+		return;
 	}
 	if (argsUser[1] == "duel" || argsUser[1] == "simpleduel") {
 		if (getDuel(_message.channel.id) != null) {
