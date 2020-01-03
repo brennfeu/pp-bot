@@ -204,7 +204,7 @@ var DUEL_LIST = [];
 
 // CLASSES
 class Fighter {
-	constructor(_idUser, _idDuel) {
+	constructor(_idUser, _idDuel, _stand = null) {
 		if (_idUser == undefined) { // default constructor
 			return;
 		}
@@ -220,56 +220,19 @@ class Fighter {
 		this.oldAttack = EMOTE_PP30;
 		this.attackedThisTurn = false;
 		this.damageTaken = 0;
-
+		
 		// set roles
 		this.isBigPP = false;
 		this.isFastPP = false;
 		this.isDrunkPP = false;
 		this.isHockeyPuckPP = false;
 		this.isAlienPP = false;
-		if (this.guildUser.roles.find(r => r.name == BIG_PP_ROLE)) {
-			this.isBigPP = true;
-		}
-		if (this.guildUser.roles.find(r => r.name == FAST_PP_ROLE)) {
-			this.isFastPP = true;
-		}
-		if (this.guildUser.roles.find(r => r.name == DRUNK_PP_ROLE)) {
-			this.isDrunkPP = true;
-		}
-		if (this.guildUser.roles.find(r => r.name == HOCKEY_PUCK_PP_ROLE)) {
-			this.isHockeyPuckPP = true;
-		}
-		if (this.guildUser.roles.find(r => r.name == ALIEN_PP_ROLE)) {
-			this.isAlienPP = true;
-		}
-
+		
 		this.godList = [];
-		for (var i in PRIEST_ROLES) {
-			if (this.guildUser.roles.find(r => r.name == PRIEST_ROLES[i])) {
-				this.godList.push(PRIEST_ROLES[i])
-			}
-		}
-		while (this.godList.length < 3) {
-			var r = PRIEST_ROLES[Math.floor(Math.random()*PRIEST_ROLES.length)];
-			if (this.godList.indexOf(r) <= -1) {
-				this.godList.push(r);
-			}
-		}
-		if (this.guildUser.roles.find(r => r.name == GOD_PP21_PRIEST)) {
-			this.godList.push(GOD_PP21_PRIEST); // D.I.C.K.
-		}
 		
 		// Priest Charges
 		this.regularCharges = 0;
 		this.specialCharges = 0;
-		
-		// Stands
-		this.actualStand = null;
-		this.usedMoves = [];
-
-		// Natural values
-		this.STRValue = 70;
-		this.DEXValue = 20;
 
 		// Battle variables
 		this.resetBattleVariables();
@@ -303,6 +266,57 @@ class Fighter {
 		// Check Bad Values
 		if (this.STR <= 0) {
 			this.STRValue += (0 - this.STR) + 1
+		}
+		
+		if (_stand != null) {
+			// Create a stand
+			this.user = {};
+			this.user["name"] = _stand + " (" + this.guildUser.user.username + ")";
+			this.user["id"] = this.guildUser.user.id;
+			
+			// Natural values
+			this.STRValue = 150;
+			this.DEXValue = 40;
+		}
+		else {
+			// Create a fighter
+			this.currentStand = null;
+			this.usedMoves = [];
+			
+			// Natural values
+			this.STRValue = 70;
+			this.DEXValue = 20;
+			
+			if (this.guildUser.roles.find(r => r.name == BIG_PP_ROLE)) {
+				this.isBigPP = true;
+			}
+			if (this.guildUser.roles.find(r => r.name == FAST_PP_ROLE)) {
+				this.isFastPP = true;
+			}
+			if (this.guildUser.roles.find(r => r.name == DRUNK_PP_ROLE)) {
+				this.isDrunkPP = true;
+			}
+			if (this.guildUser.roles.find(r => r.name == HOCKEY_PUCK_PP_ROLE)) {
+				this.isHockeyPuckPP = true;
+			}
+			if (this.guildUser.roles.find(r => r.name == ALIEN_PP_ROLE)) {
+				this.isAlienPP = true;
+			}
+
+			for (var i in PRIEST_ROLES) {
+				if (this.guildUser.roles.find(r => r.name == PRIEST_ROLES[i])) {
+					this.godList.push(PRIEST_ROLES[i])
+				}
+			}
+			while (this.godList.length < 3) {
+				var r = PRIEST_ROLES[Math.floor(Math.random()*PRIEST_ROLES.length)];
+				if (this.godList.indexOf(r) <= -1) {
+					this.godList.push(r);
+				}
+			}
+			if (this.guildUser.roles.find(r => r.name == GOD_PP21_PRIEST)) {
+				this.godList.push(GOD_PP21_PRIEST); // D.I.C.K.
+			}
 		}
 	}
 
@@ -1936,8 +1950,12 @@ class Duel {
 		this.INFINITE_DAMAGE = 0;
 		this.TIMESTAMP = +new Date();
 		
+		this.FIGHTER1_SAVE = null;
+		this.FIGHTER2_SAVE = null;
+		
 		this.FORCE_EVENT_ID = 0;
 		this.EASY_DUEL = _easyDuel;
+		this.STAND_BATTLE = false;
 		
 		this.MOVE_COUNT = 0;
 		this.DAMAGE_COUNT = 0;
@@ -3002,6 +3020,10 @@ class Duel {
 	}
 	
 	checkStandSummon() {
+		if (this.STAND_BATTLE) {
+			return;
+		}
+		
 		this.bothFightersAction(function(_fighter) {
 			var check = false;
 			for (var i in STAND_SUMMONS) {
@@ -3012,12 +3034,42 @@ class Duel {
 					}
 				}
 				if (check) {
+					_fighter.duel.addMessage("-----------------");
 					_fighter.duel.addMessage(_fighter.user.username + " summons the Stånd : " + i);
+					_fighter.currentStand = i;
 					return;
 				}
 			}
 		});
 		this.sendMessages();
+		
+		if (this.FIGHTER1.currentStand != null && this.FIGHTER2.currentStand != null) {
+			this.addMessage("**===== STAND BATTLE MODE =====**");
+			this.addMessage("Both fighters already have summoned their Stånd.");
+		}
+		else if (this.FIGHTER1.currentStand != null || this.FIGHTER2.currentStand != null) {
+			this.addMessage("**===== STAND BATTLE MODE =====**");
+			this.bothFightersAction(function(_fighter) {
+				if (_fighter.currentStand == null) {
+					var liste = Object.keys(STAND_SUMMONS);
+					_fighter.currentStand = liste[Math.floor(Math.random()*liste.length)];
+					_fighter.duel.addMessage(_fighter.user.username + " summons the Stånd : " + i);
+				}
+				else {
+					_fighter.duel.addMessage(_fighter.user.username + " already have summoned the Stånd : " + i);
+				}
+			});
+		}
+		else {
+			return;
+		}
+		this.sendMessages();
+		
+		this.STAND_BATTLE = true;
+		this.FIGHTER1_SAVE = this.FIGHTER1;
+		this.FIGHTER2_SAVE = this.FIGHTER2;
+		this.FIGHTER1 = new Fighter(this.FIGHTER1.idUser, this.BATTLE_CHANNEL.id, this.FIGHTER1.currentStand);
+		this.FIGHTER2 = new Fighter(this.FIGHTER2.idUser, this.BATTLE_CHANNEL.id, this.FIGHTER2.currentStand);
 	}
 	
 	setRandomAttackList() {
