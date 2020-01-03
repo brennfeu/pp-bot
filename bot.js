@@ -425,20 +425,20 @@ class Fighter {
 			txt += " (lmao)";
 		}
 
-		if (this.regularCharges > 0 || this.specialCharges > 0) {
-			txt += "\n\n**Faith :**"
-			for (var i in this.godList) {
-				txt += "\n - " + this.godList[i];
-			}
-		}
-		if (this.regularCharges > 0) {
-			txt += "\nRegular Charges : " + this.regularCharges;
-		}
-		if (this.specialCharges > 0) {
-			txt += "\nSpecial Charges : " + this.specialCharges;
-		}
-		
 		if (this.standPower == null) {
+			if (this.regularCharges > 0 || this.specialCharges > 0) {
+				txt += "\n\n**Faith :**"
+				for (var i in this.godList) {
+					txt += "\n - " + this.godList[i];
+				}
+			}
+			if (this.regularCharges > 0) {
+				txt += "\nRegular Charges : " + this.regularCharges;
+			}
+			if (this.specialCharges > 0) {
+				txt += "\nSpecial Charges : " + this.specialCharges;
+			}
+		
 			txt += "\n\n**Fighting Styles :**\n";
 			if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 				txt += " - *Ultimate PP*\n";
@@ -2353,6 +2353,20 @@ class Duel {
 				}
 			}
 		});
+		if (this.STAND_BATTLE && !(this.FIGHTER1.STR > 0 && this.FIGHTER2.STR > 0)) {
+			if (this.FIGHTER1.STR <= 0) {
+				this.FIGHTER2_SAVE.bossKiller = 5;
+				this.addMessage("**" + this.FIGHTER1.user.username + " has been defeated !**");
+			}
+			else if (this.FIGHTER2.STR <= 0) {
+				this.FIGHTER1_SAVE.bossKiller = 5;
+				this.addMessage("**" + this.FIGHTER2.user.username + " has been defeated !**");
+			}
+			
+			this.STAND_BATTLE = false;
+			this.FIGHTER1 = this.FIGHTER1_SAVE;
+			this.FIGHTER2 = this.FIGHTER2_SAVE;
+		}
 		
 		if (this.FIGHTER1.STR <= 0 && this.FIGHTER2.STR <= 0) {
 			this.addMessage("Both of you lost. No one won this time. You losers");
