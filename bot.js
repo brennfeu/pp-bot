@@ -2974,8 +2974,8 @@ class Duel {
 			var check = false;
 			for (var i in STAND_SUMMONS) {
 				check = true;
-				for (var j in STAND_SUMMON[i]) {
-					if (STAND_SUMMON[i][j] != _fighter.usedMoves[_fighter.usedMoves.length - (1 + j)]) {
+				for (var j in STAND_SUMMONS[i]) {
+					if (STAND_SUMMONS[i][j] != _fighter.usedMoves[_fighter.usedMoves.length - (1 + j)]) {
 						check = false;
 					}
 				}
