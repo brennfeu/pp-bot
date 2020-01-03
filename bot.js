@@ -2919,7 +2919,7 @@ class Duel {
 
 			this.bothFightersAction(function(_fighter) {
 				_fighter.duel.addMessage("-----------------");
-				_fighter._fighter.usedMoves[_fighter.usedMoves.length-j];
+				_fighter.playMove();
 				_fighter.duel.sendMessages();
 				// Burst
 				if (_fighter.duel.getOppOf(_fighter).attack == EMOTE_PP8) {
