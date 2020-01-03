@@ -266,6 +266,7 @@ class Fighter {
 		this.mikasaBuff = 0;
 		this.dualWield = false;
 		this.bossKiller = 0;
+		this.fullOfAmmo = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -528,6 +529,9 @@ class Fighter {
 		if (this.badLuck) {
 			txt += " - Unlucky\n";
 		}
+		if (this.fullOfAmmo) {
+			txt += " - Full of Ammos\n";
+		}
 		if (this.chimera) {
 			txt += " - Furry PP\n";
 		}
@@ -619,6 +623,11 @@ class Fighter {
 		// Mikasa Special
 		if (this.dualWield) {
 			numberAttacks += numberAttacks;
+		}
+		// Ammo Crate
+		if (this.fullOfAmmo) {
+			numberAttacks = numberAttacks*3;
+			this.fullOfAmmo = false;
 		}
 
 		if (this.duel.EVENT_BOSS && this.STR <= 0) {
@@ -1655,6 +1664,14 @@ class Fighter {
 				duel.FIGHTER2.duel = duel;
 				duel.CHECKPOINT_DUEL.FIGHTER1.duel = duel.CHECKPOINT_DUEL;
 				duel.CHECKPOINT_DUEL.FIGHTER2.duel = duel.CHECKPOINT_DUEL;
+			}
+			else if (attack == EMOTE_PP72) {
+				// Ammo Crate
+				this.fullOfAmmo = true;
+				this.duel.addMessage(this.user.username + " gets an ammo crate !");
+				if (this.fullOfAmmo) {
+					this.duel.addMessage("...but he already had one !");
+				}
 			}
 			else if (attack == "IS_DEAD_LOL") {
 				// Dead (Cthulhu battle)
