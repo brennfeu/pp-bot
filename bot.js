@@ -229,6 +229,7 @@ class Fighter {
 		this.isAlienPP = false;
 		
 		this.godList = [];
+		this.standPower = _stand;
 		
 		// Priest Charges
 		this.regularCharges = 0;
@@ -431,26 +432,28 @@ class Fighter {
 		if (this.specialCharges > 0) {
 			txt += "\nSpecial Charges : " + this.specialCharges;
 		}
-		    
-		txt += "\n\n**Fighting Styles :**\n";
-		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
-			txt += " - *Ultimate PP*\n";
-		}
-		else {
-			if (this.isBigPP) {
-				txt += " - Big PP\n";
+		
+		if (this.standPower == null) {
+			txt += "\n\n**Fighting Styles :**\n";
+			if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
+				txt += " - *Ultimate PP*\n";
 			}
-			if (this.isFastPP) {
-				txt += " - Fast PP\n";
-			}
-			if (this.isDrunkPP) {
-				txt += " - Drunken PP\n";
-			}
-			if (this.isHockeyPuckPP) {
-				txt += " - Hockey Puck PP\n";
-			}
-			if (this.isAlienPP) {
-				txt += " - Alien PP\n";
+			else {
+				if (this.isBigPP) {
+					txt += " - Big PP\n";
+				}
+				if (this.isFastPP) {
+					txt += " - Fast PP\n";
+				}
+				if (this.isDrunkPP) {
+					txt += " - Drunken PP\n";
+				}
+				if (this.isHockeyPuckPP) {
+					txt += " - Hockey Puck PP\n";
+				}
+				if (this.isAlienPP) {
+					txt += " - Alien PP\n";
+				}
 			}
 		}
 		
@@ -545,42 +548,44 @@ class Fighter {
 			txt += " - **Extra lives : " + this.extraLife + "**\n";
 		}
 		
-		txt += "\n**Synergies :**\n"
-		if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP19_PRIEST) > -1) {
-			txt += " - Holy Brenn Trinity\n";
-		}
-		if (this.godList.indexOf(GOD_PP5_PRIEST) > -1 && this.godList.indexOf(GOD_PP6_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
-			txt += " - Unholy Pudding Trinity\n";
-		}
-		if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
-			txt += " - A Sad Witness\n";
-		}
-		if (this.godList.indexOf(GOD_PP7_PRIEST) > -1 && this.godList.indexOf(GOD_PP17_PRIEST) > -1) {
-			txt += " - Jew-Hitler Paradox\n";
-		}
-		if (this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP9_PRIEST) > -1) {
-			txt += " - Garbage Music Maker\n";
-		}
-		if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) {
-			txt += " - Getting therapy sessions\n";
-		}
-		if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
-			txt += " - Too smart and too powerful\n";
-		}
-		if (this.godList.indexOf(GOD_PP16_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
-			txt += " - Super Predator\n";
-		}
-		if (this.godList.indexOf(GOD_PP10_PRIEST) > -1 && this.godList.indexOf(GOD_PP8_PRIEST) > -1) {
-			txt += " - Yaoi fan\n";
-		}
-		if (this.godList.indexOf(GOD_PP16_PRIEST) > -1 && this.godList.indexOf(GOD_PP18_PRIEST) > -1) {
-			txt += " - Salt Master\n";
-		}
-		if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP18_PRIEST) > -1) {
-			txt += " - Debilus Team Member\n";
-		}
-		if (this.godList.indexOf(GOD_PP19_PRIEST) > -1 && this.godList.indexOf(GOD_PP20_PRIEST) > -1) {
-			txt += " - Waifu Body Pillow\n";
+		if (this.standPower == null) {
+			txt += "\n**Synergies :**\n"
+			if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP19_PRIEST) > -1) {
+				txt += " - Holy Brenn Trinity\n";
+			}
+			if (this.godList.indexOf(GOD_PP5_PRIEST) > -1 && this.godList.indexOf(GOD_PP6_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
+				txt += " - Unholy Pudding Trinity\n";
+			}
+			if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
+				txt += " - A Sad Witness\n";
+			}
+			if (this.godList.indexOf(GOD_PP7_PRIEST) > -1 && this.godList.indexOf(GOD_PP17_PRIEST) > -1) {
+				txt += " - Jew-Hitler Paradox\n";
+			}
+			if (this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP9_PRIEST) > -1) {
+				txt += " - Garbage Music Maker\n";
+			}
+			if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) {
+				txt += " - Getting therapy sessions\n";
+			}
+			if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
+				txt += " - Too smart and too powerful\n";
+			}
+			if (this.godList.indexOf(GOD_PP16_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
+				txt += " - Super Predator\n";
+			}
+			if (this.godList.indexOf(GOD_PP10_PRIEST) > -1 && this.godList.indexOf(GOD_PP8_PRIEST) > -1) {
+				txt += " - Yaoi fan\n";
+			}
+			if (this.godList.indexOf(GOD_PP16_PRIEST) > -1 && this.godList.indexOf(GOD_PP18_PRIEST) > -1) {
+				txt += " - Salt Master\n";
+			}
+			if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP18_PRIEST) > -1) {
+				txt += " - Debilus Team Member\n";
+			}
+			if (this.godList.indexOf(GOD_PP19_PRIEST) > -1 && this.godList.indexOf(GOD_PP20_PRIEST) > -1) {
+				txt += " - Waifu Body Pillow\n";
+			}
 		}
 
 		return txt;
@@ -3191,6 +3196,9 @@ class Duel {
 			goodList = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP4, EMOTE_PP5, EMOTE_PP8, EMOTE_PP12, EMOTE_PP13,
 				EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP21, EMOTE_PP22, EMOTE_PP30, EMOTE_PP31,
 				EMOTE_PP39, EMOTE_PP42, EMOTE_PP45];
+		}
+		if (this.STAND_BATTLE) {
+			goodList = STAND_EMOTE_LIST;
 		}
 
 		return goodList[Math.floor(Math.random()*goodList.length)];
