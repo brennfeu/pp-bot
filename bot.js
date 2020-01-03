@@ -2975,8 +2975,8 @@ class Duel {
 			for (var i in STAND_SUMMONS) {
 				check = true;
 				for (var j in STAND_SUMMONS[i]) {
-					if (STAND_SUMMONS[i][j] != _fighter.usedMoves[_fighter.usedMoves.length-j]) {
-						console.log(STAND_SUMMONS[i][j] + " is not " + _fighter.usedMoves[_fighter.usedMoves.length-j]);
+					if (STAND_SUMMONS[i][j] != _fighter.usedMoves[_fighter.usedMoves.length-j+1]) {
+						console.log(STAND_SUMMONS[i][j] + " is not " + _fighter.usedMoves[_fighter.usedMoves.length-j+1]);
 						check = false;
 					}
 				}
