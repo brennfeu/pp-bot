@@ -275,7 +275,7 @@ class Fighter {
 		if (_stand != null) {
 			// Create a stand
 			this.user = {};
-			this.user["username"] = _stand + " (" + this.guildUser.user.username + ")";
+			this.user["username"] = _stand;
 			this.user["id"] = this.guildUser.user.id;
 			
 			// Natural values
@@ -412,6 +412,10 @@ class Fighter {
 		}
 
 		var txt = "**" + this.user.username;
+		if (this.standPower != null) {
+			txt += "\n(" + this.guildUser.user.username + ")";
+		}
+		
 		txt += "\nSTR :** " + this.STR;
 		if (this.STR == 69) {
 			txt += " (lmao)";
@@ -3094,6 +3098,16 @@ class Duel {
 		}
 		if (this.FORCE_SATAN) {
 			return this.LIST_AVAILABLE_ATTACKS = [EMOTE_PP26];
+		}
+		if (this.STAND_BATTLE) {
+			while (listeAttaques.length < 5) {
+				emote = this.getRandomEmote();
+				if (listeAttaques.indexOf(emote) < 0) {
+					listeAttaques.push(emote);
+				}
+			}
+			this.LIST_AVAILABLE_ATTACKS = listeAttaques;
+			return;
 		}
 
 		// Attaque 1
