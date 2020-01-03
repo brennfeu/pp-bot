@@ -3061,7 +3061,7 @@ class Duel {
 					_fighter.duel.addMessage(_fighter.user.username + " summons the Stånd : " + _fighter.currentStand);
 				}
 				else {
-					_fighter.duel.addMessage(_fighter.user.username + " already have summoned the Stånd : " + i);
+					_fighter.duel.addMessage(_fighter.user.username + " already have summoned the Stånd : " + _fighter.currentStand);
 				}
 			});
 		}
