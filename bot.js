@@ -3638,6 +3638,15 @@ CLIENT.on("message", async _message => {
 		}).catch(function(e) {
 			console.log(e);
 		});
+		_message.channel.send("Cheat Panel : Stånds Moves").then(function (_message2) {
+			_message2.react(EMOTE_PP63); _message2.react(EMOTE_PP64);
+			_message2.react(EMOTE_PP65); _message2.react(EMOTE_PP66);
+			_message2.react(EMOTE_PP67); _message2.react(EMOTE_PP68);
+			_message2.react(EMOTE_PP69); _message2.react(EMOTE_PP70);
+			_message2.react(EMOTE_PP70); _message2.react(EMOTE_PP72);
+		}).catch(function(e) {
+			console.log(e);
+		});
 		return;
 	}
 	if (argsUser[1] == "duel" || argsUser[1] == "simpleduel") {
