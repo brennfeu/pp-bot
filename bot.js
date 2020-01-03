@@ -2975,14 +2975,12 @@ class Duel {
 			for (var i in STAND_SUMMONS) {
 				check = true;
 				for (var j in STAND_SUMMONS[i]) {
-					console.log(_fighter.usedMoves.length-1-j);
-					if (STAND_SUMMONS[i][j] != _fighter.usedMoves[_fighter.usedMoves.length-1-j]) {
+					if (STAND_SUMMONS[i][j] != _fighter.usedMoves[_fighter.usedMoves.length-j]) {
 						check = false;
 					}
 				}
 				if (check) {
 					_fighter.duel.addMessage(_fighter.user.uername + " summons the Stånd : " + i);
-					console.log("stand : " + i);
 					return;
 				}
 			}
