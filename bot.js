@@ -578,7 +578,9 @@ class Fighter {
 				return;
 			}
 			
-			this.usedMoves.push(attack);
+			if (_newMove == undefined) {
+				this.usedMoves.push(attack);
+			}
 			
 			if (attack == EMOTE_PP1) {
 				// Punching PP
@@ -2917,7 +2919,7 @@ class Duel {
 
 			this.bothFightersAction(function(_fighter) {
 				_fighter.duel.addMessage("-----------------");
-				_fighter.playMove();
+				_fighter._fighter.usedMoves[_fighter.usedMoves.length-j];
 				_fighter.duel.sendMessages();
 				// Burst
 				if (_fighter.duel.getOppOf(_fighter).attack == EMOTE_PP8) {
@@ -2974,6 +2976,7 @@ class Duel {
 			var check = false;
 			for (var i in STAND_SUMMONS) {
 				check = true;
+				console.log("--------");
 				for (var j in STAND_SUMMONS[i]) {
 					if (STAND_SUMMONS[i][j] != _fighter.usedMoves[_fighter.usedMoves.length-j-1]) {
 						console.log(STAND_SUMMONS[i][j] + " is not " + _fighter.usedMoves[_fighter.usedMoves.length-j-1]);
