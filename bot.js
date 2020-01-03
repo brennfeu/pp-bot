@@ -136,6 +136,11 @@ const GOD_PP19 = "644634924477055015"; // Chad Brenn
 const GOD_PP20 = "655523518812913664"; // Waifu
 const GOD_PP21 = "644617343456247829"; // D.I.C.K.
 
+const STAND_PP1 = "Test"; // test
+
+const STAND_PP1_SUMMON = [EMOTE_PP23, EMOTE_PP22, EMOTE_PP11];
+const STAND_SUMMONS = {STAND_PP1 : STAND_PP1_SUMMON};
+
 // BOSSES
 const BOSS_PP1 = "Cthulhu";
 const BOSS_PP2 = "Free Lives HQ";
@@ -224,8 +229,13 @@ class Fighter {
 			this.godList.push(GOD_PP21_PRIEST); // D.I.C.K.
 		}
 		
+		// Priest Charges
 		this.regularCharges = 0;
 		this.specialCharges = 0;
+		
+		// Stands
+		this.actualStand = null;
+		this.usedMoves = [];
 
 		// Natural values
 		this.STRValue = 70;
@@ -567,6 +577,8 @@ class Fighter {
 				}
 				return;
 			}
+			
+			this.usedMoves.push(attack);
 			
 			if (attack == EMOTE_PP1) {
 				// Punching PP
@@ -2953,7 +2965,28 @@ class Duel {
 			this.sendMessages(1);
 		}
 		this.sendMessages();
+		this.checkStandSummon();
 		this.newTurnDuel();
+	}
+	
+	checkStandSummon() {
+		this.bothFightersAction(function(_fighter) {
+			var check = false;
+			for (var i in STAND_SUMMON) {
+				check = true;
+				for (var j in STAND_SUMMON[i]) {
+					if (STAND_SUMMON[i][j] != _fighter.usedMoves[_fighter.usedMoves.length - (1 + j)]) {
+						check = false;
+					}
+				}
+				if (check) {
+					_fighter.duel.addMessage(_fighter.user.uername + " summons the Stånd : " + i);
+					console.log("stand : " + i);
+					return;
+				}
+			}
+		});
+		this.sendMessages();
 	}
 	
 	setRandomAttackList() {
