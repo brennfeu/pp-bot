@@ -578,7 +578,7 @@ class Fighter {
 				return;
 			}
 			
-			if (_newMove == undefined) {
+			if (_newMove == this.attack) {
 				this.usedMoves.push(attack);
 			}
 			
