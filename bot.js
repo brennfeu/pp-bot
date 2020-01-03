@@ -2972,7 +2972,7 @@ class Duel {
 	checkStandSummon() {
 		this.bothFightersAction(function(_fighter) {
 			var check = false;
-			for (var i in STAND_SUMMON) {
+			for (var i in STAND_SUMMONS) {
 				check = true;
 				for (var j in STAND_SUMMON[i]) {
 					if (STAND_SUMMON[i][j] != _fighter.usedMoves[_fighter.usedMoves.length - (1 + j)]) {
