@@ -2366,6 +2366,11 @@ class Duel {
 			this.STAND_BATTLE = false;
 			this.FIGHTER1 = this.FIGHTER1_SAVE;
 			this.FIGHTER2 = this.FIGHTER2_SAVE;
+			
+			this.bothFightersAction(function(_fighter) {
+				_fighter.attack = "";
+				_fighter.currentStand = null;
+			});
 		}
 		
 		if (this.FIGHTER1.STR <= 0 && this.FIGHTER2.STR <= 0) {
