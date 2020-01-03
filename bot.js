@@ -140,7 +140,9 @@ const STAND_PP1 = "Test"; // test
 
 // THE LIST MUST BE REVERSED
 const STAND_PP1_SUMMON = [EMOTE_PP11, EMOTE_PP22, EMOTE_PP23]; // LaughSoul, MeatBro, Steel
-const STAND_SUMMONS = {STAND_PP1 : STAND_PP1_SUMMON};
+
+var STAND_SUMMONS = {};
+STAND_SUMMONS[STAND_PP1] = STAND_PP1_SUMMON;
 
 // BOSSES
 const BOSS_PP1 = "Cthulhu";
@@ -1969,7 +1971,7 @@ class Duel {
 			this.addMessage("**===== WILD START =====**");
 			this.addMessage("Let's make things a bit more interesting !");
 			this.REVERSE_DAMAGE = 1;
-			this.NUCLEAR_COUNTDOWN = 1;
+			this.NUCLEAR_BOMB = 1;
 		}
 		
 		this.newTurnDuel();
@@ -2977,15 +2979,13 @@ class Duel {
 			var check = false;
 			for (var i in STAND_SUMMONS) {
 				check = true;
-				console.log("--------");
 				for (var j in STAND_SUMMONS[i]) {
 					if (STAND_SUMMONS[i][j] != _fighter.usedMoves[_fighter.usedMoves.length-j-1]) {
-						console.log(STAND_SUMMONS[i][j] + " is not " + _fighter.usedMoves[_fighter.usedMoves.length-j-1]);
 						check = false;
 					}
 				}
 				if (check) {
-					_fighter.duel.addMessage(_fighter.user.uername + " summons the Stånd : " + i);
+					_fighter.duel.addMessage(_fighter.user.username + " summons the Stånd : " + i);
 					return;
 				}
 			}
