@@ -267,6 +267,7 @@ class Fighter {
 		this.dualWield = false;
 		this.bossKiller = 0;
 		this.fullOfAmmo = false;
+		this.ragingSpirit = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -489,6 +490,9 @@ class Fighter {
 		if (this.turkeyCountdown > 0) {
 			txt += " - Turkey Countdown : " + this.turkeyCountdown + " turns\n";
 		}
+		if (this.ragingSpirit > 0) {
+			txt += " - Lost Soul Streak : " + this.ragingSpirit + "\n";
+		}
 		if (this.tearDrinker > 0) {
 			txt += " - Tear Drinker : " + this.tearDrinker + "\n";
 		}
@@ -631,7 +635,7 @@ class Fighter {
 		}
 
 		if (this.duel.EVENT_BOSS && this.STR <= 0) {
-			this.attack = "IS_DEAD_LOL"
+			this.attack = "IS_DEAD_LOL";
 		}
 
 		for (var sdsds = 0; sdsds < numberAttacks; sdsds++) {
@@ -646,6 +650,9 @@ class Fighter {
 			
 			if (_newMove == this.attack) {
 				this.usedMoves.push(attack);
+				if (attack != EMOTE_PP69) {
+					this.ragingSpirit = 0;
+				}
 			}
 			
 			if (attack == EMOTE_PP1) {
@@ -1664,6 +1671,20 @@ class Fighter {
 				duel.FIGHTER2.duel = duel;
 				duel.CHECKPOINT_DUEL.FIGHTER1.duel = duel.CHECKPOINT_DUEL;
 				duel.CHECKPOINT_DUEL.FIGHTER2.duel = duel.CHECKPOINT_DUEL;
+			}
+			else if (attack == EMOTE_PP69) {
+				// Lost Soul
+				if (this.ragingSpirit <= 0) {
+					this.duel.addMessage(this.user.username + " starts casting !");
+				}
+				else {
+					this.duel.addMessage(this.user.username + " continues his spell !");
+				}
+				this.ragingSpirit += 1;
+				this.duel.addMessage(this.user.username + " summons " + this.ragingSpirit + " Lost Souls !");
+				for (var j = 0; j < this.ragingSpirit; j++) {
+					this.duel.getOppOf(this).damage(Math.floor(this.STR / 10));
+				}
 			}
 			else if (attack == EMOTE_PP72) {
 				// Ammo Crate
