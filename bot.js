@@ -3058,7 +3058,7 @@ class Duel {
 				if (_fighter.currentStand == null) {
 					var liste = Object.keys(STAND_SUMMONS);
 					_fighter.currentStand = liste[Math.floor(Math.random()*liste.length)];
-					_fighter.duel.addMessage(_fighter.user.username + " summons the Stånd : " + i);
+					_fighter.duel.addMessage(_fighter.user.username + " summons the Stånd : " + _fighter.currentStand);
 				}
 				else {
 					_fighter.duel.addMessage(_fighter.user.username + " already have summoned the Stånd : " + i);
