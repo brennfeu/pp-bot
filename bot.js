@@ -231,6 +231,9 @@ class Fighter {
 		this.godList = [];
 		this.standPower = _stand;
 		
+		this.currentStand = null;
+		this.usedMoves = [];
+		
 		// Priest Charges
 		this.regularCharges = 0;
 		this.specialCharges = 0;
@@ -272,7 +275,7 @@ class Fighter {
 		if (_stand != null) {
 			// Create a stand
 			this.user = {};
-			this.user["name"] = _stand + " (" + this.guildUser.user.username + ")";
+			this.user["username"] = _stand + " (" + this.guildUser.user.username + ")";
 			this.user["id"] = this.guildUser.user.id;
 			
 			// Natural values
@@ -281,12 +284,6 @@ class Fighter {
 		}
 		else {
 			// Create a fighter
-			this.currentStand = null;
-			this.usedMoves = [];
-			
-			// Natural values
-			this.STRValue = 70;
-			this.DEXValue = 20;
 			
 			if (this.guildUser.roles.find(r => r.name == BIG_PP_ROLE)) {
 				this.isBigPP = true;
@@ -318,6 +315,10 @@ class Fighter {
 			if (this.guildUser.roles.find(r => r.name == GOD_PP21_PRIEST)) {
 				this.godList.push(GOD_PP21_PRIEST); // D.I.C.K.
 			}
+			
+			// Natural values
+			this.STRValue = 70;
+			this.DEXValue = 20;
 		}
 	}
 
@@ -455,6 +456,9 @@ class Fighter {
 					txt += " - Alien PP\n";
 				}
 			}
+		}
+		else {
+			txt += "\n";
 		}
 		
 		// Status
