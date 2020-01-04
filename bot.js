@@ -1730,6 +1730,90 @@ class Fighter {
 				}
 				this.fullOfAmmo = true;
 			}
+			else if (attack == GOD_PP1) {
+				this.godList.push(GOD_PP1_PRIEST);
+				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP1_PRIEST + " !");
+			}
+			else if (attack == GOD_PP2) {
+				this.godList.push(GOD_PP2_PRIEST);
+				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP2_PRIEST + " !");
+			}
+			else if (attack == GOD_PP3) {
+				this.godList.push(GOD_PP3_PRIEST);
+				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP3_PRIEST + " !");
+			}
+			else if (attack == GOD_PP4) {
+				this.godList.push(GOD_PP4_PRIEST);
+				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP4_PRIEST + " !");
+			}
+			else if (attack == GOD_PP5) {
+				this.godList.push(GOD_PP5_PRIEST);
+				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP5_PRIEST + " !");
+			}
+			else if (attack == GOD_PP6) {
+				this.godList.push(GOD_PP6_PRIEST);
+				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP6_PRIEST + " !");
+			}
+			else if (attack == GOD_PP7) {
+				this.godList.push(GOD_PP7_PRIEST);
+				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP7_PRIEST + " !");
+			}
+			else if (attack == GOD_PP8) {
+				this.godList.push(GOD_PP8_PRIEST);
+				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP8_PRIEST + " !");
+			}
+			else if (attack == GOD_PP9) {
+				this.godList.push(GOD_PP9_PRIEST);
+				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP9_PRIEST + " !");
+			}
+			else if (attack == GOD_PP10) {
+				this.godList.push(GOD_PP10_PRIEST);
+				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP10_PRIEST + " !");
+			}
+			else if (attack == GOD_PP11) {
+				this.godList.push(GOD_PP11_PRIEST);
+				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP11_PRIEST + " !");
+			}
+			else if (attack == GOD_PP12) {
+				this.godList.push(GOD_PP12_PRIEST);
+				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP12_PRIEST + " !");
+			}
+			else if (attack == GOD_PP13) {
+				this.godList.push(GOD_PP13_PRIEST);
+				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP13_PRIEST + " !");
+			}
+			else if (attack == GOD_PP14) {
+				this.godList.push(GOD_PP14_PRIEST);
+				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP14_PRIEST + " !");
+			}
+			else if (attack == GOD_PP15) {
+				this.godList.push(GOD_PP15_PRIEST);
+				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP15_PRIEST + " !");
+			}
+			else if (attack == GOD_PP16) {
+				this.godList.push(GOD_PP16_PRIEST);
+				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP16_PRIEST + " !");
+			}
+			else if (attack == GOD_PP17) {
+				this.godList.push(GOD_PP17_PRIEST);
+				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP17_PRIEST + " !");
+			}
+			else if (attack == GOD_PP18) {
+				this.godList.push(GOD_PP18_PRIEST);
+				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP18_PRIEST + " !");
+			}
+			else if (attack == GOD_PP19) {
+				this.godList.push(GOD_PP19_PRIEST);
+				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP19_PRIEST + " !");
+			}
+			else if (attack == GOD_PP20) {
+				this.godList.push(GOD_PP20_PRIEST);
+				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP20_PRIEST + " !");
+			}
+			else if (attack == GOD_PP21) {
+				this.godList.push(GOD_PP21_PRIEST);
+				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP21_PRIEST + " !");
+			}
 			else if (attack == "IS_DEAD_LOL") {
 				// Dead (Cthulhu battle)
 				if (this.STRValue < 70) {
