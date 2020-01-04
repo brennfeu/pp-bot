@@ -394,8 +394,8 @@ class Fighter {
 		if (this.mikasaBuff > 0) {
 			dex += 30
 		}
-		if (this.helldogMask) {
-			dex += 10
+		if (this.duel.getOppOf(this).helldogMask) {
+			dex -= 10
 		}
 		if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
 			dex += 10;
@@ -1724,11 +1724,11 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP72) {
 				// Ammo Crate
-				this.fullOfAmmo = true;
 				this.duel.addMessage(this.user.username + " gets an ammo crate !");
 				if (this.fullOfAmmo) {
 					this.duel.addMessage("...but he already had one !");
 				}
+				this.fullOfAmmo = true;
 			}
 			else if (attack == "IS_DEAD_LOL") {
 				// Dead (Cthulhu battle)
@@ -2432,7 +2432,7 @@ class Duel {
 				this.FIGHTER2_SAVE.bossKiller = 5;
 				this.addMessage("**" + this.FIGHTER1.user.username + " has been defeated !**");
 			}
-			else if (this.FIGHTER2.STR <= 0) {
+			if (this.FIGHTER2.STR <= 0) {
 				this.FIGHTER1_SAVE.bossKiller = 5;
 				this.addMessage("**" + this.FIGHTER2.user.username + " has been defeated !**");
 			}
