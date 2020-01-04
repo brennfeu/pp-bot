@@ -268,6 +268,9 @@ class Fighter {
 		this.bossKiller = 0;
 		this.fullOfAmmo = false;
 		this.ragingSpirit = 0;
+		this.xenoMask = false;
+		this.satanMask = false;
+		this.helldogMask = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -391,6 +394,9 @@ class Fighter {
 		if (this.mikasaBuff > 0) {
 			dex += 30
 		}
+		if (this.helldogMask) {
+			dex += 10
+		}
 		if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
 			dex += 10;
 		}
@@ -508,6 +514,15 @@ class Fighter {
 				txt += " (**Salty Wounds**)";
 			}
 			txt += "\n";
+		}
+		if (this.xenoMask) {
+			txt += " - Mask : Xeno\n";
+		}
+		if (this.satanMask) {
+			txt += " - Mask : Satan\n";
+		}
+		if (this.helldogMask) {
+			txt += " - Mask : Intimidation\n";
 		}
 		if (this.isOverCircumcised) {
 			txt += " - Overcircumcised\n";
@@ -1672,6 +1687,20 @@ class Fighter {
 				duel.CHECKPOINT_DUEL.FIGHTER1.duel = duel.CHECKPOINT_DUEL;
 				duel.CHECKPOINT_DUEL.FIGHTER2.duel = duel.CHECKPOINT_DUEL;
 			}
+			else if (attack == EMOTE_PP64) {
+				// XenoHead
+				this.xenoMask = true;
+				this.duel.addMessage(this.user.username + " puts on a Mask : Xeno !");
+				this.satanMask = false;
+				this.helldogMask = false;
+			}
+			else if (attack == EMOTE_PP66) {
+				// SatanHead
+				this.satanMask = true;
+				this.duel.addMessage(this.user.username + " puts on a Mask : Satan !");
+				this.xenoMask = false;
+				this.helldogMask = false;
+			}
 			else if (attack == EMOTE_PP69) {
 				// Lost Soul
 				if (this.ragingSpirit <= 0) {
@@ -1683,8 +1712,15 @@ class Fighter {
 				this.ragingSpirit += 1;
 				this.duel.addMessage(this.user.username + " summons " + this.ragingSpirit + " Lost Souls !");
 				for (var j = 0; j < this.ragingSpirit; j++) {
-					this.duel.getOppOf(this).damage(Math.floor(this.STR / 10));
+					this.duel.getOppOf(this).damage(1 + Math.floor(this.STR / 10));
 				}
+			}
+			else if (attack == EMOTE_PP70) {
+				// HellDogHead
+				this.helldogMask = true;
+				this.duel.addMessage(this.user.username + " puts on a Mask : Intimidation !");
+				this.xenoMask = false;
+				this.satanMask = false;
 			}
 			else if (attack == EMOTE_PP72) {
 				// Ammo Crate
