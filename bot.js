@@ -150,6 +150,8 @@ const GOD_PP18 = "650830165751889935"; // Salt King
 const GOD_PP19 = "644634924477055015"; // Chad Brenn
 const GOD_PP20 = "655523518812913664"; // Waifu
 const GOD_PP21 = "644617343456247829"; // D.I.C.K.
+const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP4, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
+		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21];
 
 const STAND_PP1 = "Iron Maiden";
 const STAND_PP2 = "The Boreal Flame";
@@ -3402,6 +3404,11 @@ class Duel {
 		for (var i in EMOTE_LIST) {
 			if (_emote.name == CLIENT.emojis.get(EMOTE_LIST[i]).name) {
 				return EMOTE_LIST[i];
+			}
+		}
+		for (var i in GOD_LIST) {
+			if (_emote.name == CLIENT.emojis.get(GOD_LIST[i]).name) {
+				return GOD_LIST[i];
 			}
 		}
 		return EMOTE_PP50;
