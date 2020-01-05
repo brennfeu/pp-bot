@@ -1919,6 +1919,7 @@ class Fighter {
 			if (this.duel.getOppOf(this).standPower == STAND_PP4) {
 				this.duel.getOppOf(this).heal(Math.floor(_amount / 3));
 			}
+			
 			return;
 		}
 
@@ -1927,18 +1928,6 @@ class Fighter {
 			return this.duel.addMessage(this.user.username + " gets healed by " + _amount + " HP");
 			if (_amount == 69) {
 				this.duel.addMessage("nice !");
-			}
-		}
-
-		// Acid
-		if (this.acidArmor >= 1 && _punch) {
-			this.duel.addMessage(this.user.username + " has an acid armor !");
-			if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) {
-				this.duel.addMessage(this.duel.getOppOf(this).user.username + " therapy helps !");
-				this.duel.getOppOf(this).heal(10);
-			}
-			else {
-				this.duel.getOppOf(this).damage(10, false);
 			}
 		}
 
@@ -1978,6 +1967,22 @@ class Fighter {
 				this.duel.addMessage("lmao !");
 			}
 			this.damageTaken += _amount;
+			
+			if (this.duel.getOppOf(this).standPower == STAND_PP4) {
+				this.duel.getOppOf(this).heal(Math.floor(_amount / 3));
+			}
+		}
+		
+		// Acid
+		if (this.acidArmor >= 1 && _punch) {
+			this.duel.addMessage(this.user.username + " has an acid armor !");
+			if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) {
+				this.duel.addMessage(this.duel.getOppOf(this).user.username + " therapy helps !");
+				this.duel.getOppOf(this).heal(10);
+			}
+			else {
+				this.duel.getOppOf(this).damage(10, false);
+			}
 		}
 
 		// DoomReverse
