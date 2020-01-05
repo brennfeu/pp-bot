@@ -3871,16 +3871,7 @@ CLIENT.on("message", async _message => {
 			console.log(e);
 		});
 		_message.channel.send("Cheat Panel : Gods II").then(function (_message2) {
-			_message2.react(GOD_PP1); _message2.react(GOD_PP2);
-			_message2.react(GOD_PP3); _message2.react(GOD_PP4);
-			_message2.react(GOD_PP5); _message2.react(GOD_PP6);
-			_message2.react(GOD_PP7); _message2.react(GOD_PP8);
-			_message2.react(GOD_PP9); _message2.react(GOD_PP10);
-			_message2.react(GOD_PP11); _message2.react(GOD_PP12);
-			_message2.react(GOD_PP13); _message2.react(GOD_PP14);
-			_message2.react(GOD_PP15); _message2.react(GOD_PP16);
-			_message2.react(GOD_PP17); _message2.react(GOD_PP18);
-			_message2.react(GOD_PP19); _message2.react(GOD_PP20);
+			_message2.react(GOD_PP21); 
 		}).catch(function(e) {
 			console.log(e);
 		});
