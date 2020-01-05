@@ -2831,18 +2831,28 @@ class Duel {
 		else if ([9, 10, 11, 12, 13, 14, 15, 16, 17, 18].indexOf(randomVar) > -1) {
 			// Charge
 			this.addMessage(" -- GODS BIRTHDAY GIFTS --");
-			this.addMessage("Gods decide to give you a regular charge each");
-			this.bothFightersAction(function(_fighter) {
-				_fighter.regularCharges++;
-			});
+			if (this.STAND_BATTLE) {
+				this.addMessage("Stånds are unaffected");
+			}
+			else {
+				this.addMessage("Gods decide to give you a regular charge each");
+				this.bothFightersAction(function(_fighter) {
+					_fighter.regularCharges++;
+				});
+			}
 		}
 		else if ([19, 20, 21].indexOf(randomVar) > -1) {
 			// Charge
 			this.addMessage(" -- GODS CHRISTMAS GIFTS --");
-			this.addMessage("Gods decide to give you a special charge each");
-			this.bothFightersAction(function(_fighter) {
-				_fighter.specialCharges++;
-			});
+			if (this.STAND_BATTLE) {
+				this.addMessage("Stånds are unaffected");
+			}
+			else {
+				this.addMessage("Gods decide to give you a special charge each");
+				this.bothFightersAction(function(_fighter) {
+					_fighter.specialCharges++;
+				});
+			}
 		}
 		else if (randomVar == 22) {
 			// Huge Gay Night
@@ -2860,19 +2870,24 @@ class Duel {
 		else if (randomVar == 23) {
 			// PP Blessing
 			this.addMessage(" -- PP BLESSING --");
-			this.addMessage("You suddenly feel new powers in your PP !");
-			this.bothFightersAction(function(_fighter) {
-				_fighter.godList = [GOD_PP21_PRIEST];
-				for (var i in PRIEST_ROLES) {
-					_fighter.godList.push(PRIEST_ROLES[i]);
-				}
-				
-				_fighter.isBigPP = true;
-				_fighter.isFastPP = true;
-				_fighter.isDrunkPP = true;
-				_fighter.isHockeyPuckPP = true;
-				_fighter.isAlienPP = true;
-			});
+			if (this.STAND_BATTLE) {
+				this.addMessage("Stånds are unaffected");
+			}
+			else {
+				this.addMessage("You suddenly feel new powers in your PP !");
+				this.bothFightersAction(function(_fighter) {
+					_fighter.godList = [GOD_PP21_PRIEST];
+					for (var i in PRIEST_ROLES) {
+						_fighter.godList.push(PRIEST_ROLES[i]);
+					}
+
+					_fighter.isBigPP = true;
+					_fighter.isFastPP = true;
+					_fighter.isDrunkPP = true;
+					_fighter.isHockeyPuckPP = true;
+					_fighter.isAlienPP = true;
+				});
+			}
 		}
 		else if ([24, 25].indexOf(randomVar) > -1) {
 			// Free Lives
@@ -2900,9 +2915,9 @@ class Duel {
 			var winner = this.getRandomFighter();
 			
 			this.addMessage("apolgy for bad english");
-			this.addMessage("where were u wen club penguin die");
+			this.addMessage("where were u wen club pp die");
 			this.addMessage(winner.user.username + " was at house eating dorito when phone ring");
-			this.addMessage(this.getOppOf(winner).user.username + ' : "Club penguin is kil"');
+			this.addMessage(this.getOppOf(winner).user.username + ' : "Club pp is kil"');
 			this.addMessage(winner.user.username + ' : *"no"*');
 			this.addMessage("-----------------");
 			this.addMessage("You both take your turn to recover from this tragedy !");
