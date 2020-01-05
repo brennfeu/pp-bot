@@ -1573,8 +1573,8 @@ class Fighter {
 				// SignPost
 				this.duel.MOVE_COUNT += 33;
 				this.duel.addMessage(this.user.username + " summons every moves !");
-				for (var i = 0; i < EMOTE_LIST.length-SPECIAL_EMOTE_LIST.length; i++) {
-				this.duel.addMessage("-----------------");
+				for (var i = 0; i < 50; i++) {
+					this.duel.addMessage("-----------------");
 					if (EMOTE_LIST[i] != EMOTE_PP47) {
 						this.playMove(EMOTE_LIST[i]);
 					}
@@ -1702,6 +1702,10 @@ class Fighter {
 				this.duel.addMessage(this.user.username + " puts on a Mask : Satan !");
 				this.xenoMask = false;
 				this.helldogMask = false;
+			}
+			else if (attack == EMOTE_PP68) {
+				// Mech
+				this.duel.addMessage(this.user.username + " hides in his Mech !");
 			}
 			else if (attack == EMOTE_PP69) {
 				// Lost Soul
@@ -3196,6 +3200,12 @@ class Duel {
 			// High Five Emote
 			if (this.getOppOf(winner).attack == EMOTE_PP32 && this.BLIND_COUNTDOWN > 0) {
 				this.getOppOf(winner).playMove();
+			}
+			// Mech
+			if (this.getOppOf(winner).attack == EMOTE_PP68) {
+				this.addMessage(winner.user.username + " triggers " + this.getOppOf(winner).user.username + "'s Mech !");
+				this.addMessage(this.getOppOf(winner).user.username + " shoots !");
+				winner.damage(30);
 			}
 			
 			// Dual Loop
