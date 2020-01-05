@@ -350,6 +350,9 @@ class Fighter {
 		if (this.mikasaBuff > 0) {
 			str += 30
 		}
+		if (this.satanMask) {
+			str += 50;
+		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			str += 50;
 		}
@@ -397,7 +400,10 @@ class Fighter {
 			dex += 30
 		}
 		if (this.duel.getOppOf(this).helldogMask) {
-			dex -= 10
+			dex -= 20
+		}
+		if (this.xenoMask) {
+			dex += 10
 		}
 		if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
 			dex += 10;
