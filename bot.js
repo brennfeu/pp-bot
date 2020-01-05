@@ -115,6 +115,8 @@ const EMOTE_PP70 = "662651475398361099"; // HellDogHead
 const EMOTE_PP71 = "662651475549356051"; // Freedom
 const EMOTE_PP72 = "662651475629178880"; // AmmoCrate
 
+const EMOTE_PP80 = "644617031739768842"; // Fherla
+
 const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, 
 		    EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, 
 		    EMOTE_PP18, EMOTE_PP19, EMOTE_PP20, EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, 
@@ -128,6 +130,7 @@ const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOT
 			   EMOTE_PP61, EMOTE_PP62];
 const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70,
 			  EMOTE_PP71, EMOTE_PP72];
+const RARE_EMOTE_LIST = [EMOTE_PP80];
 
 const GOD_PP1 = "644643782888783892"; // Mongo
 const GOD_PP2 = "617686716479832064"; // Dr Phil / WhatDAFuk
@@ -1759,6 +1762,14 @@ class Fighter {
 					this.duel.addMessage("...but he already had one !");
 				}
 				this.fullOfAmmo = true;
+			}
+			else if (attack == EMOTE_PP80) {
+				// Fherla
+				this.duel.addMessage(this.user.username + " summons Fherla - Strawberry Girl !");
+				this.duel.addMessage("PP Punching is so filthy. May the chat be purged of this nonsense.");
+				this.duel.bothFightersAction(function(_fighter) {
+					_fighter.damage(Math.floor(Math.random() * 10000000000), false);
+				});
 			}
 			else if (attack == GOD_PP1) {
 				this.godList.push(GOD_PP1_PRIEST);
@@ -3459,6 +3470,9 @@ class Duel {
 		}
 		if (this.STAND_BATTLE) {
 			goodList = STAND_EMOTE_LIST;
+		}
+		if (getRandomPercent() <= 3) {
+			goodList = goodList.concat(RARE_EMOTE_LIST);
 		}
 
 		return goodList[Math.floor(Math.random()*goodList.length)];
