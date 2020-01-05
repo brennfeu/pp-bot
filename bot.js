@@ -273,6 +273,7 @@ class Fighter {
 		this.xenoMask = false;
 		this.satanMask = false;
 		this.helldogMask = false;
+		this.ironProtection = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -288,6 +289,10 @@ class Fighter {
 			// Natural values
 			this.STRValue = 150;
 			this.DEXValue = 40;
+			
+			if (this.standPower == STAND_PP1) { // Iron Maiden
+				this.ironProtection = 4;
+			}
 		}
 		else {
 			// Create a fighter
@@ -491,6 +496,9 @@ class Fighter {
 		}
 		if (this.doomReverse > 0) {
 			txt += " - DOOM-REVERSE(tm) (for " + this.doomReverse + " turns)\n";
+		}
+		if (this.ironProtection > 0) {
+			txt += " - Iron Protection (for " + this.ironProtection + " turns)\n";
 		}
 		if (this.isLucky > 0) {
 			txt += " - Lucky (for " + this.isLucky + " turns)\n";
@@ -1938,6 +1946,10 @@ class Fighter {
 			// Tank
 			this.duel.addMessage(this.user.username + " felt nothing !");
 		}
+		else if (this.ironProtection > 0 && _punch) {
+			// Iron Maiden
+			this.duel.addMessage(this.user.username + " felt nothing !");
+		}
 		else if (this.isProtected && _punch) {
 			// RiotShield
 			this.duel.addMessage(this.user.username + " reflects the damages !");
@@ -2015,6 +2027,7 @@ class Fighter {
 		this.summonTankCountdown -= 1;
 		this.mikasaBuff -= 1;
 		this.bossKiller -= 1;
+		this.ironProtection -= 1;
 
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
