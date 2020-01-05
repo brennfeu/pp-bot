@@ -1695,6 +1695,11 @@ class Fighter {
 				duel.CHECKPOINT_DUEL.FIGHTER1.duel = duel.CHECKPOINT_DUEL;
 				duel.CHECKPOINT_DUEL.FIGHTER2.duel = duel.CHECKPOINT_DUEL;
 			}
+			else if (attack == EMOTE_PP63) {
+				// Xenomorph
+				this.duel.addMessage(this.user.username + " slashes " + this.duel.getOppOf(this).user.username + " !");
+				this.duel.getOppOf(this).damage(this.DEX);
+			}
 			else if (attack == EMOTE_PP64) {
 				// XenoHead
 				this.xenoMask = true;
@@ -1708,6 +1713,11 @@ class Fighter {
 				this.duel.addMessage(this.user.username + " puts on a Mask : Satan !");
 				this.xenoMask = false;
 				this.helldogMask = false;
+			}
+			else if (attack == EMOTE_PP67) {
+				// RageSatan
+				this.duel.addMessage(this.user.username + " punches " + this.duel.getOppOf(this).user.username + " !");
+				this.duel.getOppOf(this).damage(Math.floor(20 + this.STR / 8));
 			}
 			else if (attack == EMOTE_PP68) {
 				// Mech
