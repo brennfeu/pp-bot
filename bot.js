@@ -1698,7 +1698,7 @@ class Fighter {
 			else if (attack == EMOTE_PP63) {
 				// Xenomorph
 				this.duel.addMessage(this.user.username + " slashes " + this.duel.getOppOf(this).user.username + " !");
-				this.duel.getOppOf(this).damage(this.DEX);
+				this.duel.getOppOf(this).damage(Math.floor(this.DEX / 2));
 			}
 			else if (attack == EMOTE_PP64) {
 				// XenoHead
