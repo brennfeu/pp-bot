@@ -1915,6 +1915,10 @@ class Fighter {
 				this.duel.getOppOf(this).bossKiller = 11;
 			}
 			this.damageTaken += _amount;
+			
+			if (this.duel.getOppOf(this).standPower == STAND_PP4) {
+				this.duel.getOppOf(this).heal(Math.floor(_amount / 3));
+			}
 			return;
 		}
 
