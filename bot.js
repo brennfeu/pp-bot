@@ -114,6 +114,7 @@ const EMOTE_PP69 = "662651475457212447"; // LostSoul
 const EMOTE_PP70 = "662651475398361099"; // HellDogHead
 const EMOTE_PP71 = "662651475549356051"; // Freedom
 const EMOTE_PP72 = "662651475629178880"; // AmmoCrate
+const EMOTE_PP73 = "663523761148133408"; // Quickening
 
 const EMOTE_PP80 = "644617031739768842"; // Fherla
 
@@ -124,12 +125,13 @@ const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE
 		    EMOTE_PP34, EMOTE_PP35, EMOTE_PP36, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40, EMOTE_PP41, 
 		    EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP47, EMOTE_PP48, EMOTE_PP49, 
 		    EMOTE_PP50, EMOTE_PP51, EMOTE_PP52, EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, 
-		    EMOTE_PP58, EMOTE_PP59, EMOTE_PP60, EMOTE_PP61, EMOTE_PP62, EMOTE_PP63, EMOTE_PP64, EMOTE_PP65,
-		    EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70, EMOTE_PP71, EMOTE_PP72, EMOTE_PP80];
+		    EMOTE_PP58, EMOTE_PP59, EMOTE_PP60, EMOTE_PP61, EMOTE_PP62, EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, 
+		    EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70, EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, 
+		    EMOTE_PP80];
 const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58, EMOTE_PP59, EMOTE_PP60,
 			   EMOTE_PP61, EMOTE_PP62];
 const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70,
-			  EMOTE_PP71, EMOTE_PP72];
+			  EMOTE_PP71, EMOTE_PP72, EMOTE_PP73];
 const RARE_EMOTE_LIST = [EMOTE_PP80];
 
 const GOD_PP1 = "644643782888783892"; // Mongo
@@ -277,6 +279,7 @@ class Fighter {
 		this.satanMask = false;
 		this.helldogMask = false;
 		this.ironProtection = 0;
+		this.quickeningCharges = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -514,6 +517,9 @@ class Fighter {
 		}
 		if (this.turkeyCountdown > 0) {
 			txt += " - Turkey Countdown : " + this.turkeyCountdown + " turns\n";
+		}
+		if (this.quickeningCharges > 0) {
+			txt += " - Quickening Charges : " + this.quickeningCharges + "\n";
 		}
 		if (this.ragingSpirit > 0) {
 			txt += " - Lost Soul Streak : " + this.ragingSpirit + "\n";
@@ -1763,6 +1769,11 @@ class Fighter {
 				}
 				this.fullOfAmmo = true;
 			}
+			else if (attack == EMOTE_PP73) {
+				// Quickening
+				this.duel.addMessage(this.user.username + " gets a Quickening Charge !");
+				this.quickeningCharges += 1;
+			}
 			else if (attack == EMOTE_PP80) {
 				// Fherla
 				this.duel.addMessage(this.user.username + " summons Fherla - Strawberry Girl !");
@@ -1873,6 +1884,7 @@ class Fighter {
 	}
 
 	heal(_amount) {
+		_amount += this.quickeningCharges;
 		if (this.duel.REVERSE_DAMAGE <= 0) {
 			this.STRValue += _amount;
 			return this.duel.addMessage(this.user.username + " gets healed by " + _amount + " HP");
@@ -1892,6 +1904,8 @@ class Fighter {
 
 	damage(_amount, _punch = true) {
 		if (_punch) {
+			_amount += this.duel.getOppOf(this).quickeningCharges;
+			
 			_amount += this.duel.getOppOf(this).bonusDamage;
 			this.duel.getOppOf(this).bonusDamage = 0;
 		}
