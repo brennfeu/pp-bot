@@ -118,6 +118,7 @@ const EMOTE_PP73 = "663523761148133408"; // Quickening
 
 const EMOTE_PP80 = "644617031739768842"; // Fherla
 
+// DON'T FORGET TO ADD TO THE CHEAT PANEL
 const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, 
 		    EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, 
 		    EMOTE_PP18, EMOTE_PP19, EMOTE_PP20, EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, 
@@ -1884,7 +1885,7 @@ class Fighter {
 	}
 
 	heal(_amount) {
-		_amount += this.quickeningCharges;
+		_amount += this.quickeningCharges*3;
 		if (this.duel.REVERSE_DAMAGE <= 0) {
 			this.STRValue += _amount;
 			return this.duel.addMessage(this.user.username + " gets healed by " + _amount + " HP");
@@ -1904,7 +1905,7 @@ class Fighter {
 
 	damage(_amount, _punch = true) {
 		if (_punch) {
-			_amount += this.duel.getOppOf(this).quickeningCharges;
+			_amount += this.duel.getOppOf(this).quickeningCharges*3;
 			
 			_amount += this.duel.getOppOf(this).bonusDamage;
 			this.duel.getOppOf(this).bonusDamage = 0;
@@ -3862,6 +3863,7 @@ CLIENT.on("message", async _message => {
 			_message2.react(EMOTE_PP67); _message2.react(EMOTE_PP68);
 			_message2.react(EMOTE_PP69); _message2.react(EMOTE_PP70);
 			_message2.react(EMOTE_PP70); _message2.react(EMOTE_PP72);
+			_message2.react(EMOTE_PP73);
 		}).catch(function(e) {
 			console.log(e);
 		});
