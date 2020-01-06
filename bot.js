@@ -3874,7 +3874,7 @@ CLIENT.on("message", async _message => {
 			_message2.react(EMOTE_PP67); _message2.react(EMOTE_PP68);
 			_message2.react(EMOTE_PP69); _message2.react(EMOTE_PP70);
 			_message2.react(EMOTE_PP70); _message2.react(EMOTE_PP72);
-			_message2.react(EMOTE_PP73); _message2.react(EMOTE_PP73);
+			_message2.react(EMOTE_PP73); _message2.react(EMOTE_PP74);
 		}).catch(function(e) {
 			console.log(e);
 		});
