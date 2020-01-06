@@ -115,6 +115,7 @@ const EMOTE_PP70 = "662651475398361099"; // HellDogHead
 const EMOTE_PP71 = "662651475549356051"; // Freedom
 const EMOTE_PP72 = "662651475629178880"; // AmmoCrate
 const EMOTE_PP73 = "663523761148133408"; // Quickening
+const EMOTE_PP74 = "663738297687867405"; // Sword
 
 const EMOTE_PP80 = "644617031739768842"; // Fherla
 
@@ -128,11 +129,11 @@ const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE
 		    EMOTE_PP50, EMOTE_PP51, EMOTE_PP52, EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, 
 		    EMOTE_PP58, EMOTE_PP59, EMOTE_PP60, EMOTE_PP61, EMOTE_PP62, EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, 
 		    EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70, EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, 
-		    EMOTE_PP80];
+		    EMOTE_PP74, EMOTE_PP80];
 const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58, EMOTE_PP59, EMOTE_PP60,
 			   EMOTE_PP61, EMOTE_PP62];
 const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70,
-			  EMOTE_PP71, EMOTE_PP72, EMOTE_PP73];
+			  EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74];
 const RARE_EMOTE_LIST = [EMOTE_PP80];
 
 const GOD_PP1 = "644643782888783892"; // Mongo
@@ -1715,7 +1716,7 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP63) {
 				// Xenomorph
-				this.duel.addMessage(this.user.username + " slashes " + this.duel.getOppOf(this).user.username + " !");
+				this.duel.addMessage(this.user.username + " slashes " + this.getOppName() + " !");
 				this.duel.getOppOf(this).damage(Math.floor(this.DEX / 2));
 			}
 			else if (attack == EMOTE_PP64) {
@@ -1734,7 +1735,7 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP67) {
 				// RageSatan
-				this.duel.addMessage(this.user.username + " punches " + this.duel.getOppOf(this).user.username + " !");
+				this.duel.addMessage(this.user.username + " punches " + this.getOppName() + " !");
 				this.duel.getOppOf(this).damage(Math.floor(20 + this.STR / 8));
 			}
 			else if (attack == EMOTE_PP68) {
@@ -1774,6 +1775,16 @@ class Fighter {
 				// Quickening
 				this.duel.addMessage(this.user.username + " gets a Quickening Charge !");
 				this.quickeningCharges += 1;
+			}
+			else if (attack == EMOTE_PP74) {
+				// Sword
+				this.duel.addMessage(this.user.username + " attacks " + this.getOppName() + " with a sword !");
+				if (this.STR > this.duel.getOppOf(this).STR) {
+					this.duel.getOppOf(this).damage(this.STR - this.duel.getOppOf(this).STR);
+				}
+				else {
+					this.duel.getOppOf(this).damage(Math.floor(10 + this.STR / 10));
+				}
 			}
 			else if (attack == EMOTE_PP80) {
 				// Fherla
@@ -3863,7 +3874,7 @@ CLIENT.on("message", async _message => {
 			_message2.react(EMOTE_PP67); _message2.react(EMOTE_PP68);
 			_message2.react(EMOTE_PP69); _message2.react(EMOTE_PP70);
 			_message2.react(EMOTE_PP70); _message2.react(EMOTE_PP72);
-			_message2.react(EMOTE_PP73);
+			_message2.react(EMOTE_PP73); _message2.react(EMOTE_PP73);
 		}).catch(function(e) {
 			console.log(e);
 		});
