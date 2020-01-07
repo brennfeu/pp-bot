@@ -1735,9 +1735,14 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP65) {
 				// Signpost
-				this.duel.addMessage(this.user.username + " gets new knowledge !");
-				this.duel.addMessage(this.user.username + " know kung-fu !");
-				this.kungFu = true;
+				this.duel.addMessage(this.user.username + " summons the knowledge signpost !");
+				if (this.kungFu) {
+					this.duel.addMessage("But he has nothing to learn !");
+				}
+				else {
+					this.duel.addMessage(this.user.username + " knows kung-fu !");
+					this.kungFu = true;
+				}
 			}
 			else if (attack == EMOTE_PP66) {
 				// SatanHead
