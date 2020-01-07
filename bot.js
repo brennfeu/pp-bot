@@ -284,6 +284,7 @@ class Fighter {
 		this.ironProtection = 0;
 		this.quickeningCharges = 0;
 		this.kungFu = false;
+		this.borealSummon = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -302,6 +303,9 @@ class Fighter {
 			
 			if (this.standPower == STAND_PP1) { // Iron Maiden
 				this.ironProtection = 4;
+			}
+			if (this.standPower == STAND_PP2) { // Boreal Flame
+				this.borealSummon = 11;
 			}
 		}
 		else {
@@ -367,6 +371,9 @@ class Fighter {
 		if (this.satanMask) {
 			str += 50;
 		}
+		if (this.BOREAL_WORLD && this.standPower == STAND_PP2) {
+			str += 200;
+		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			str += 50;
 		}
@@ -421,6 +428,9 @@ class Fighter {
 		}
 		if (this.kungFu) {
 			dex += 10;
+		}
+		if (this.BOREAL_WORLD && this.standPower == STAND_PP2) {
+			dex += 50;
 		}
 		if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
 			dex += 10;
@@ -523,6 +533,9 @@ class Fighter {
 		}
 		if (this.turkeyCountdown > 0) {
 			txt += " - Turkey Countdown : " + this.turkeyCountdown + " turns\n";
+		}
+		if (this.borealSummon > 0) {
+			txt += " - Boreal Fog Countdown : " + this.borealSummon + " turns\n";
 		}
 		if (this.quickeningCharges > 0) {
 			txt += " - Quickening Charges : " + this.quickeningCharges + "\n";
@@ -2112,6 +2125,7 @@ class Fighter {
 		this.mikasaBuff -= 1;
 		this.bossKiller -= 1;
 		this.ironProtection -= 1;
+		this.borealSummon -= 1;
 
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
@@ -2130,6 +2144,7 @@ class Fighter {
 			}
 			this.duel.addMessage("-----------------");
 		}
+		// Melt
 		if (this.meltingDamage > 0) {
 			this.duel.addMessage(this.user.username + " melts !");
 			if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) {
@@ -2154,6 +2169,7 @@ class Fighter {
 			}
 			this.duel.addMessage("-----------------");
 		}
+		
 		// Boss Killer
 		if (this.bossKiller > 0) {
 			this.duel.addMessage(this.user.username + " gets +1 DEX thanks to the Boss Killer Blessing !");
@@ -2161,6 +2177,7 @@ class Fighter {
 			this.heal(30);
 			this.duel.addMessage("-----------------");
 		}
+		
 		// The Man Who Made a Monster regular move
 		if (this.tearDrinker > 0) {
 			this.duel.addMessage(this.user.username + " drinks salty tears !");
@@ -2170,6 +2187,14 @@ class Fighter {
 			}
 			this.duel.addMessage("-----------------");
 		}
+		
+		// Boreal Summon
+		if (this.borealSummon == 0) {
+			this.duel.addMessage(this.user.username + " summons the Boreal World !");
+			this.duel.BOREAL_WORLD = true;
+		}
+		
+		// Synergies
 		if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP19_PRIEST) > -1) {
 			this.duel.addMessage(this.user.username + " gets healed by the Holy Brenn Trinity !");
 			this.heal(10);
@@ -2264,6 +2289,7 @@ class Duel {
 		this.MOVE_COUNT_TURN = 0;
 
 		this.ILLEGAL_BOMBING = false;
+		this.BOREAL_WORLD = false;
 		this.BLIND_COUNTDOWN = 0;
 		this.STEEL_PROTECTION = false;
 		this.BARREL_DAMAGE = false;
@@ -2751,6 +2777,9 @@ class Duel {
 		}
 		if (this.EVENT_PP_EQUALITY) {
 			this.addMessage(" - Moves have no DEX modifier for this turn !");
+		}
+		if (this.BOREAL_WORLD) {
+			this.addMessage(" - Boreal Fog is everywhere !");
 		}
 		if (this.PP_NET > 0 && this.PP_NET < 200) {
 			this.addMessage(" - PP-Net Rising : Step " + this.PP_NET);
