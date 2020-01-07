@@ -3864,7 +3864,7 @@ CLIENT.on("message", async _message => {
 			_message2.react(EMOTE_PP55); _message2.react(EMOTE_PP56);
 			_message2.react(EMOTE_PP57); _message2.react(EMOTE_PP58);
 			_message2.react(EMOTE_PP59); _message2.react(EMOTE_PP60);
-			_message2.react(EMOTE_PP60); _message2.react(EMOTE_PP62);
+			_message2.react(EMOTE_PP61); _message2.react(EMOTE_PP62);
 		}).catch(function(e) {
 			console.log(e);
 		});
@@ -3873,7 +3873,7 @@ CLIENT.on("message", async _message => {
 			_message2.react(EMOTE_PP65); _message2.react(EMOTE_PP66);
 			_message2.react(EMOTE_PP67); _message2.react(EMOTE_PP68);
 			_message2.react(EMOTE_PP69); _message2.react(EMOTE_PP70);
-			_message2.react(EMOTE_PP70); _message2.react(EMOTE_PP72);
+			_message2.react(EMOTE_PP71); _message2.react(EMOTE_PP72);
 			_message2.react(EMOTE_PP73); _message2.react(EMOTE_PP74);
 		}).catch(function(e) {
 			console.log(e);
