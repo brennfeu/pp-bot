@@ -1814,7 +1814,7 @@ class Fighter {
 					this.duel.getOppOf(this).damage(Math.floor(10 + this.STR / 10));
 				}
 			}
-			else if (attack == EMOTE_PP74) {
+			else if (attack == EMOTE_PP75) {
 				// AcidShot
 				this.duel.addMessage(this.user.username + " shoots acid at " + this.duel.getOppOf(this).user.username + " !");
 				this.duel.getOppOf(this).meltingDamage += 3;
