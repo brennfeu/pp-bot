@@ -3357,7 +3357,9 @@ class Duel {
 			this.sendMessages(1);
 		}
 		this.sendMessages();
-		this.checkStandSummon();
+		if (this.EASY_DUEL) {
+			this.checkStandSummon();
+		}
 		this.newTurnDuel();
 	}
 	
