@@ -282,6 +282,7 @@ class Fighter {
 		this.helldogMask = false;
 		this.ironProtection = 0;
 		this.quickeningCharges = 0;
+		this.kungFu = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -358,10 +359,10 @@ class Fighter {
 			str -= 10;
 		}
 		if (this.hasBoner) {
-			str += 50
+			str += 50;
 		}
 		if (this.mikasaBuff > 0) {
-			str += 30
+			str += 30;
 		}
 		if (this.satanMask) {
 			str += 50;
@@ -410,13 +411,16 @@ class Fighter {
 			dex += 200;
 		}
 		if (this.mikasaBuff > 0) {
-			dex += 30
+			dex += 30;
 		}
 		if (this.duel.getOppOf(this).helldogMask) {
-			dex -= 20
+			dex -= 20;
 		}
 		if (this.xenoMask) {
-			dex += 10
+			dex += 10;
+		}
+		if (this.kungFu) {
+			dex += 10;
 		}
 		if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
 			dex += 10;
@@ -577,6 +581,9 @@ class Fighter {
 		}
 		if (this.fullOfAmmo) {
 			txt += " - Full of Ammos\n";
+		}
+		if (this.kungFu) {
+			txt += " - Kung-Fu Master\n";
 		}
 		if (this.chimera) {
 			txt += " - Furry PP\n";
@@ -1726,6 +1733,12 @@ class Fighter {
 				this.satanMask = false;
 				this.helldogMask = false;
 			}
+			else if (attack == EMOTE_PP65) {
+				// Signpost
+				this.duel.addMessage(this.user.username + " gets new knowledge !");
+				this.duel.addMessage(this.user.username + " know kung-fu !");
+				this.kungFu = true;
+			}
 			else if (attack == EMOTE_PP66) {
 				// SatanHead
 				this.satanMask = true;
@@ -1927,6 +1940,10 @@ class Fighter {
 			
 			_amount += this.duel.getOppOf(this).bonusDamage;
 			this.duel.getOppOf(this).bonusDamage = 0;
+		}
+		if (this.kungFu) {
+			// Signpost
+			_amount += 10;
 		}
 		if (this.duel.STEEL_PROTECTION) {
 			// Steel
