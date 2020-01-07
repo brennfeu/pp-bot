@@ -1763,6 +1763,13 @@ class Fighter {
 				this.xenoMask = false;
 				this.satanMask = false;
 			}
+			else if (attack == EMOTE_PP71) {
+				// Freedom
+				this.duel.addMessage(this.user.username + " removes " + this.duel.getOppOf(this).user.username + "'s mask !");
+				this.duel.getOppOf(this).helldogMask = false;
+				this.duel.getOppOf(this).xenoMask = false;
+				this.duel.getOppOf(this).satanMask = false;
+			}
 			else if (attack == EMOTE_PP72) {
 				// Ammo Crate
 				this.duel.addMessage(this.user.username + " gets an ammo crate !");
