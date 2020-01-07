@@ -116,6 +116,7 @@ const EMOTE_PP71 = "662651475549356051"; // Freedom
 const EMOTE_PP72 = "662651475629178880"; // AmmoCrate
 const EMOTE_PP73 = "663523761148133408"; // Quickening
 const EMOTE_PP74 = "663738297687867405"; // Sword
+const EMOTE_PP75 = "664116840070512660"; // AcidShot
 
 const EMOTE_PP80 = "644617031739768842"; // Fherla
 
@@ -129,11 +130,11 @@ const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE
 		    EMOTE_PP50, EMOTE_PP51, EMOTE_PP52, EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, 
 		    EMOTE_PP58, EMOTE_PP59, EMOTE_PP60, EMOTE_PP61, EMOTE_PP62, EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, 
 		    EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70, EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, 
-		    EMOTE_PP74, EMOTE_PP80];
+		    EMOTE_PP74, EMOTE_PP75, EMOTE_PP80];
 const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58, EMOTE_PP59, EMOTE_PP60,
 			   EMOTE_PP61, EMOTE_PP62];
 const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70,
-			  EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74];
+			  EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75];
 const RARE_EMOTE_LIST = [EMOTE_PP80];
 
 const GOD_PP1 = "644643782888783892"; // Mongo
@@ -305,7 +306,6 @@ class Fighter {
 		}
 		else {
 			// Create a fighter
-			
 			if (this.guildUser.roles.find(r => r.name == BIG_PP_ROLE)) {
 				this.isBigPP = true;
 			}
@@ -545,6 +545,9 @@ class Fighter {
 				txt += " (**Salty Wounds**)";
 			}
 			txt += "\n";
+		}
+		if (this.meltingDamage > 0) {
+			txt += " - Acid : " + this.meltingDamage + "\n";
 		}
 		if (this.xenoMask) {
 			txt += " - Mask : Xeno\n";
@@ -1811,6 +1814,12 @@ class Fighter {
 					this.duel.getOppOf(this).damage(Math.floor(10 + this.STR / 10));
 				}
 			}
+			else if (attack == EMOTE_PP74) {
+				// AcidShot
+				this.duel.addMessage(this.user.username + " shoots acid at " + this.duel.getOppOf(this).user.username + " !");
+				this.duel.getOppOf(this).meltingDamage += 3;
+				this.duel.getOppOf(this).acidArmor = 6;
+			}
 			else if (attack == EMOTE_PP80) {
 				// Fherla
 				this.duel.addMessage(this.user.username + " summons Fherla - Strawberry Girl !");
@@ -2121,6 +2130,17 @@ class Fighter {
 			}
 			this.duel.addMessage("-----------------");
 		}
+		if (this.meltingDamage > 0) {
+			this.duel.addMessage(this.user.username + " melts !");
+			if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) {
+				this.duel.addMessage(this.user.username + " therapy helps !");
+				this.heal(this.meltingDamage);
+			}
+			else {
+				this.damage(this.meltingDamage, false);
+			}
+			this.duel.addMessage("-----------------");
+		}
 
 		// Pig
 		if (this.pigHeal > 0) {
@@ -2220,6 +2240,7 @@ class Fighter {
 		this.hasBoner = false;
 		this.badLuck = false;
 		this.isSalty = false;
+		this.meltingDamage = 0;
 		// TODO keep up to date --> negative effects only
 	}
 }
@@ -3904,6 +3925,7 @@ CLIENT.on("message", async _message => {
 			_message2.react(EMOTE_PP69); _message2.react(EMOTE_PP70);
 			_message2.react(EMOTE_PP71); _message2.react(EMOTE_PP72);
 			_message2.react(EMOTE_PP73); _message2.react(EMOTE_PP74);
+			_message2.react(EMOTE_PP75); 
 		}).catch(function(e) {
 			console.log(e);
 		});
