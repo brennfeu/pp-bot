@@ -1816,7 +1816,7 @@ class Fighter {
 				this.duel.addMessage(this.user.username + " summons Fherla - Strawberry Girl !");
 				this.duel.addMessage("PP Punching is so filthy. May the chat be purged of this nonsense.");
 				this.duel.bothFightersAction(function(_fighter) {
-					_fighter.damage(Math.floor(Math.random() * 10000000000), false);
+					_fighter.damage(Math.floor(Math.random() * 10000000000000), false);
 				});
 			}
 			else if (attack == GOD_PP1) {
