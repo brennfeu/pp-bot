@@ -324,6 +324,7 @@ class Fighter {
 				if (getRandomPercent() <= 50) {
 					this.standPower = STAND_PP8_2;
 				}
+				this.user["username"] = this.standPower;
 			}
 		}
 		else {
@@ -740,8 +741,7 @@ class Fighter {
 				return;
 			}
 			
-			if (_newMove == this.attack && sdsds == 0) {
-				this.usedMoves.push(attack);
+			if (_newMove == this.attack) {
 				if (attack != EMOTE_PP69) {
 					this.ragingSpirit = 0;
 				}
@@ -3253,6 +3253,8 @@ class Duel {
 		this.addMessage("\n\n**===== ATTACKS =====**");
 
 		this.bothFightersAction(function(_fighter) {
+			_fighter.usedMoves.push(_fighter.attack);
+			
 			if (_fighter.turnSkip > 0) {
 				_fighter.attack = EMOTE_PP50;
 			}
