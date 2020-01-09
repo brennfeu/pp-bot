@@ -168,6 +168,7 @@ const STAND_PP3 = "Shadow Gallery";
 const STAND_PP4 = "Above the Light";
 const STAND_PP5 = "The Perfect Machine";
 const STAND_PP6 = "The Sham Mirrors";
+const STAND_PP7 = "Parallel Minds";
 
 // THE LIST MUST BE REVERSED
 const STAND_PP1_SUMMON = [EMOTE_PP11, EMOTE_PP22, EMOTE_PP23]; // LaughSoul, MeatBro, Steel
@@ -176,6 +177,7 @@ const STAND_PP3_SUMMON = []; //
 const STAND_PP4_SUMMON = [EMOTE_PP26, EMOTE_PP16, EMOTE_PP49]; // LivingGod, Satan, BigSatan
 const STAND_PP5_SUMMON = [EMOTE_PP49, EMOTE_PP11]; // Steel, LivingGod
 const STAND_PP6_SUMMON = [EMOTE_PP11, EMOTE_PP30, EMOTE_PP16]; // Satan, Alert, Steel
+const STAND_PP7_SUMMON = [EMOTE_PP50, EMOTE_PP50]; // Perhaps, Perhaps
 
 var STAND_SUMMONS = {};
 STAND_SUMMONS[STAND_PP1] = STAND_PP1_SUMMON;
@@ -3376,6 +3378,12 @@ class Duel {
 					_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).user.username + " burst !");
 					_fighter.duel.sendMessages();
 					_fighter.hasBurst = 2;
+				}
+				if (_fighter.standPower == STAND_PP7) { // Parallel Minds
+					_fighter.duel.addMessage("-----------------");
+					_fighter.heal(15);
+					_fighter.duel.addMessage(_fighter.user.username + " gets 5 DEX !");
+					_fighter.DEX += 5;
 				}
 			}, winner);
 		}
