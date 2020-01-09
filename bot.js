@@ -332,6 +332,9 @@ class Fighter {
 				}
 				this.user["username"] = this.standPower;
 			}
+			if (this.standPower == STAND_PP8_1 || this.standPower == STAND_PP8_2) { // Black Clouds / Silver Linings
+				this.STRValue = 80;
+			}
 		}
 		else {
 			// Create a fighter
