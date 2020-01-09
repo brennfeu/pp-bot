@@ -169,6 +169,7 @@ const STAND_PP4 = "Above the Light";
 const STAND_PP5 = "The Perfect Machine";
 const STAND_PP6 = "The Sham Mirrors";
 const STAND_PP7 = "Parallel Minds";
+const STAND_PP8 = "Black Clouds & Silver Linings"; const STAND_PP8_1 = "Black Clouds"; const STAND_PP8_2 = "Silver Linings";
 
 // THE LIST MUST BE REVERSED
 const STAND_PP1_SUMMON = [EMOTE_PP11, EMOTE_PP22, EMOTE_PP23]; // LaughSoul, MeatBro, Steel
@@ -178,6 +179,7 @@ const STAND_PP4_SUMMON = [EMOTE_PP26, EMOTE_PP16, EMOTE_PP49]; // LivingGod, Sat
 const STAND_PP5_SUMMON = [EMOTE_PP49, EMOTE_PP11]; // Steel, LivingGod
 const STAND_PP6_SUMMON = [EMOTE_PP11, EMOTE_PP30, EMOTE_PP16]; // Satan, Alert, Steel
 const STAND_PP7_SUMMON = [EMOTE_PP50, EMOTE_PP50]; // Perhaps, Perhaps
+const STAND_PP8_SUMMON = [EMOTE_PP45, EMOTE_PP20, EMOTE_PP8]; // Trap, MookGrenade, Boomerang
 
 var STAND_SUMMONS = {};
 STAND_SUMMONS[STAND_PP1] = STAND_PP1_SUMMON;
@@ -186,6 +188,8 @@ STAND_SUMMONS[STAND_PP2] = STAND_PP2_SUMMON;
 STAND_SUMMONS[STAND_PP4] = STAND_PP4_SUMMON;
 STAND_SUMMONS[STAND_PP5] = STAND_PP5_SUMMON;
 STAND_SUMMONS[STAND_PP6] = STAND_PP6_SUMMON;
+STAND_SUMMONS[STAND_PP7] = STAND_PP7_SUMMON;
+STAND_SUMMONS[STAND_PP8] = STAND_PP8_SUMMON;
 
 // BOSSES
 const BOSS_PP1 = "Cthulhu";
@@ -314,6 +318,13 @@ class Fighter {
 			if (this.standPower == STAND_PP2) { // Boreal Flame
 				this.borealSummon = 11;
 			}
+			if (this.standPower == STAND_PP8) { // Black Clouds & Silver Linings
+				this.extraLife = 1;
+				this.standPower = STAND_PP8_1;
+				if (getRandomPercent() <= 50) {
+					this.standPower = STAND_PP8_2;
+				}
+			}
 		}
 		else {
 			// Create a fighter
@@ -378,6 +389,9 @@ class Fighter {
 		if (this.satanMask) {
 			str += 50;
 		}
+		if (this.standPower == STAND_PP8_1) {
+			str += 50;
+		}
 		if (this.BOREAL_WORLD && this.standPower == STAND_PP2) {
 			str += 200;
 		}
@@ -435,6 +449,9 @@ class Fighter {
 		}
 		if (this.kungFu) {
 			dex += 10;
+		}
+		if (this.standPower == STAND_PP8_2) {
+			str += 50;
 		}
 		if (this.BOREAL_WORLD && this.standPower == STAND_PP2) {
 			dex += 50;
@@ -2697,12 +2714,21 @@ class Duel {
 			if (_fighter.STR <= 0 && _fighter.extraLife > 0) {
 				_fighter.duel.addMessage(_fighter.user.username + " uses an extra life !");
 				var extra = _fighter.extraLife - 1;
+				var stand = null;
+				
+				if (_fighter.standPower = STAND_PP8_1) {
+					stand = STAND_PP8_2;
+				}
+				if (_fighter.standPower = STAND_PP8_2) {
+					stand = STAND_PP8_1;
+				}
+				
 				if (_fighter.idUser == _fighter.duel.FIGHTER1.idUser) {
-					_fighter.duel.FIGHTER1 = new Fighter(_fighter.duel.FIGHTER1.idUser, _fighter.duel.BATTLE_CHANNEL.id);
+					_fighter.duel.FIGHTER1 = new Fighter(_fighter.duel.FIGHTER1.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
 					_fighter.duel.FIGHTER1.extraLife = extra;
 				}
 				else {
-					_fighter.duel.FIGHTER2 = new Fighter(_fighter.duel.FIGHTER2.idUser, _fighter.duel.BATTLE_CHANNEL.id);
+					_fighter.duel.FIGHTER2 = new Fighter(_fighter.duel.FIGHTER2.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
 					_fighter.duel.FIGHTER2.extraLife = extra;
 				}
 			}
