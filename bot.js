@@ -2721,10 +2721,10 @@ class Duel {
 				var extra = _fighter.extraLife - 1;
 				var stand = null;
 				
-				if (_fighter.standPower = STAND_PP8_1) {
+				if (_fighter.standPower == STAND_PP8_1) {
 					stand = STAND_PP8_2;
 				}
-				if (_fighter.standPower = STAND_PP8_2) {
+				if (_fighter.standPower == STAND_PP8_2) {
 					stand = STAND_PP8_1;
 				}
 				
