@@ -451,7 +451,7 @@ class Fighter {
 			dex += 10;
 		}
 		if (this.standPower == STAND_PP8_2) {
-			str += 50;
+			dex += 10;
 		}
 		if (this.BOREAL_WORLD && this.standPower == STAND_PP2) {
 			dex += 50;
