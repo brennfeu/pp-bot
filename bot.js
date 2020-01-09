@@ -170,6 +170,8 @@ const STAND_PP5 = "The Perfect Machine";
 const STAND_PP6 = "The Sham Mirrors";
 const STAND_PP7 = "Parallel Minds";
 const STAND_PP8 = "Black Clouds & Silver Linings"; const STAND_PP8_1 = "Black Clouds"; const STAND_PP8_2 = "Silver Linings";
+const STAND_PP9 = "Cybion";
+const STAND_PP10 = "Illud Divinum Insanus";
 
 // THE LIST MUST BE REVERSED
 const STAND_PP1_SUMMON = [EMOTE_PP11, EMOTE_PP22, EMOTE_PP23]; // LaughSoul, MeatBro, Steel
@@ -180,6 +182,8 @@ const STAND_PP5_SUMMON = [EMOTE_PP49, EMOTE_PP11]; // Steel, LivingGod
 const STAND_PP6_SUMMON = [EMOTE_PP11, EMOTE_PP30, EMOTE_PP16]; // Satan, Alert, Steel
 const STAND_PP7_SUMMON = [EMOTE_PP50, EMOTE_PP50]; // Perhaps, Perhaps
 const STAND_PP8_SUMMON = [EMOTE_PP45, EMOTE_PP20, EMOTE_PP8]; // Trap, MookGrenade, Boomerang
+const STAND_PP9_SUMMON = []; // 
+const STAND_PP10_SUMMON = [EMOTE_PP46, EMOTE_PP49, EMOTE_PP4]; // Flex, LivingGod, YES
 
 var STAND_SUMMONS = {};
 STAND_SUMMONS[STAND_PP1] = STAND_PP1_SUMMON;
@@ -190,6 +194,8 @@ STAND_SUMMONS[STAND_PP5] = STAND_PP5_SUMMON;
 STAND_SUMMONS[STAND_PP6] = STAND_PP6_SUMMON;
 STAND_SUMMONS[STAND_PP7] = STAND_PP7_SUMMON;
 STAND_SUMMONS[STAND_PP8] = STAND_PP8_SUMMON;
+// STAND_SUMMONS[STAND_PP9] = STAND_PP9_SUMMON;
+STAND_SUMMONS[STAND_PP10] = STAND_PP10_SUMMON;
 
 // BOSSES
 const BOSS_PP1 = "Cthulhu";
@@ -2104,14 +2110,21 @@ class Fighter {
 				return this.duel.addMessage(this.user.username + " takes no damages !");
 			}
 			
-			// Damage
-			this.STRValue -= _amount;
-			this.duel.DAMAGE_COUNT += _amount;
 			this.duel.addMessage(this.user.username + " takes " + _amount + " damages !");
 			if (_amount == 69) {
 				this.duel.addMessage("lmao !");
 			}
+			
 			this.damageTaken += _amount;
+			this.duel.DAMAGE_COUNT += _amount;
+			if (this.duel.getOppOf(this).standPower == STAND_PP10 && _punch) {
+				// Illud Divinum Insanus
+				this.DEXValue += _amount;
+			}
+			else {
+				// Damage
+				this.STRValue -= _amount;
+			}
 			
 			if (this.duel.getOppOf(this).standPower == STAND_PP4) {
 				this.duel.getOppOf(this).heal(Math.floor(_amount / 3));
@@ -2716,6 +2729,13 @@ class Duel {
 			// Overcircumcised = immune to status effects
 			if (_fighter.isOverCircumcised) {
 				_fighter.resetBattleVariables()
+			}
+		});
+		this.bothFightersAction(function(_fighter) {
+			if (_fighter.duel.getOppOf(_fighter).standPower == STAND_PP10 && _fighter.STR <= _fighter.DEX) {
+				_fighter.duel.addMessage(_fighter.user.username + " is cursed by Illud Divinum Insanus !");
+				_fighter.duel.addMessage(_fighter.user.username + " dies !");
+				_fighter.STRValue = -900;
 			}
 		});
 		this.bothFightersAction(function(_fighter) {
