@@ -117,6 +117,7 @@ const EMOTE_PP72 = "662651475629178880"; // AmmoCrate
 const EMOTE_PP73 = "663523761148133408"; // Quickening
 const EMOTE_PP74 = "663738297687867405"; // Sword
 const EMOTE_PP75 = "664116840070512660"; // AcidShot
+const EMOTE_PP76 = "664845944252137494"; // EldritchPudding
 
 const EMOTE_PP80 = "644617031739768842"; // Fherla
 
@@ -130,11 +131,11 @@ const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE
 		    EMOTE_PP50, EMOTE_PP51, EMOTE_PP52, EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, 
 		    EMOTE_PP58, EMOTE_PP59, EMOTE_PP60, EMOTE_PP61, EMOTE_PP62, EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, 
 		    EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70, EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, 
-		    EMOTE_PP74, EMOTE_PP75, EMOTE_PP80];
+		    EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP80];
 const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58, EMOTE_PP59, EMOTE_PP60,
 			   EMOTE_PP61, EMOTE_PP62];
 const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70,
-			  EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75];
+			  EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76];
 const RARE_EMOTE_LIST = [EMOTE_PP80];
 
 const GOD_PP1 = "644643782888783892"; // Mongo
@@ -285,6 +286,7 @@ class Fighter {
 		this.quickeningCharges = 0;
 		this.kungFu = false;
 		this.borealSummon = 0;
+		this.tentacles = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -536,6 +538,9 @@ class Fighter {
 		}
 		if (this.borealSummon > 0) {
 			txt += " - Boreal Fog Countdown : " + this.borealSummon + " turns\n";
+		}
+		if (this.tentacles > 0) {
+			txt += " - Tentacles : " + this.tentacles + "\n";
 		}
 		if (this.quickeningCharges > 0) {
 			txt += " - Quickening Charges : " + this.quickeningCharges + "\n";
@@ -1830,8 +1835,21 @@ class Fighter {
 			else if (attack == EMOTE_PP75) {
 				// AcidShot
 				this.duel.addMessage(this.user.username + " shoots acid at " + this.duel.getOppOf(this).user.username + " !");
-				this.duel.getOppOf(this).meltingDamage += 3;
+				this.duel.getOppOf(this).meltingDamage += Math.floor(Math.random() * 5 + 5);
 				this.duel.getOppOf(this).acidArmor = 6;
+			}
+			else if (attack == EMOTE_PP76) {
+				// EldritchPudding
+				this.duel.addMessage(this.user.username + " eats some Eldritch Pudding !");
+				this.damage(50, false);
+				if (getRandomPercent() <= 10) {
+					this.duel.addMessage(this.user.username + " gets 100 tentacles !");
+					this.tentacles += 100;
+				}
+				else {
+					this.duel.addMessage(this.user.username + " gets a new tentacle !");
+					this.tentacles += 1;
+				}
 			}
 			else if (attack == EMOTE_PP80) {
 				// Fherla
@@ -1991,6 +2009,11 @@ class Fighter {
 			return this.duel.addMessage(_amount + " damages were canceled");
 		}
 		this.duel.INFINITE_DAMAGE += 1;
+		
+		if (getRandomPercent() < 10) {
+			_amount += _amount;
+			this.duel.addMessage("**Critical Hit !**");
+		}
 
 		if (this.duel.EVENT_BOSS && _punch) {
 			this.duel.BOSS_HEALTH -= _amount;
@@ -2192,6 +2215,12 @@ class Fighter {
 		if (this.borealSummon == 0) {
 			this.duel.addMessage(this.user.username + " summons the Boreal World !");
 			this.duel.BOREAL_WORLD = true;
+		}
+		
+		// Eldritch Pudding
+		if (this.tentacles > 0) {
+			this.duel.addMessage(this.user.username + " attacks with tentacles !");
+			this.duel.getOppOf(this).damage(this.tentacles*10);
 		}
 		
 		// Synergies
@@ -3956,7 +3985,7 @@ CLIENT.on("message", async _message => {
 			_message2.react(EMOTE_PP69); _message2.react(EMOTE_PP70);
 			_message2.react(EMOTE_PP71); _message2.react(EMOTE_PP72);
 			_message2.react(EMOTE_PP73); _message2.react(EMOTE_PP74);
-			_message2.react(EMOTE_PP75); 
+			_message2.react(EMOTE_PP75); _message2.react(EMOTE_PP76);
 		}).catch(function(e) {
 			console.log(e);
 		});
