@@ -3413,7 +3413,7 @@ class Duel {
 					_fighter.duel.addMessage("-----------------");
 					_fighter.heal(15);
 					_fighter.duel.addMessage(_fighter.user.username + " gets 5 DEX !");
-					_fighter.DEX += 5;
+					_fighter.DEXValue += 5;
 				}
 			}, winner);
 		}
