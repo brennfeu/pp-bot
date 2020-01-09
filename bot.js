@@ -451,6 +451,9 @@ class Fighter {
 		if (this.kungFu) {
 			dex += 10;
 		}
+		if (this.quickeningCharges > 0) {
+			dex += this.quickeningCharges;
+		}
 		if (this.standPower == STAND_PP8_2) {
 			dex += 10;
 		}
