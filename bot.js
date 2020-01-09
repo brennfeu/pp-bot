@@ -405,7 +405,7 @@ class Fighter {
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			str += 50;
 		}
-		if (this.duel.PP_ARMAGEDDON) {
+		if (this.duel.PP_ARMAGEDDON && this.stand == null) {
 			str += 1000000;
 		}
 
@@ -472,7 +472,7 @@ class Fighter {
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			dex += 50;
 		}
-		if (this.duel.PP_ARMAGEDDON) {
+		if (this.duel.PP_ARMAGEDDON && this.stand == null) {
 			dex += 200;
 		}
 		
@@ -2041,7 +2041,7 @@ class Fighter {
 		}
 		this.duel.INFINITE_DAMAGE += 1;
 		
-		if (getRandomPercent() < 10) {
+		if (getRandomPercent() < 10  && _punch) {
 			_amount += _amount;
 			this.duel.addMessage("**Critical Hit !**");
 		}
@@ -2735,7 +2735,7 @@ class Duel {
 			if (_fighter.duel.getOppOf(_fighter).standPower == STAND_PP10 && _fighter.STR <= _fighter.DEX) {
 				_fighter.duel.addMessage(_fighter.user.username + " is cursed by Illud Divinum Insanus !");
 				_fighter.duel.addMessage(_fighter.user.username + " dies !");
-				_fighter.STRValue = -900;
+				_fighter.STRValue -= _fighter.STR+100;
 			}
 		});
 		this.bothFightersAction(function(_fighter) {
