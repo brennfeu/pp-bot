@@ -2124,8 +2124,8 @@ class Fighter {
 		}
 		this.attackedThisTurn = false;
 
-		// Overcircumcised = immune to status effects
-		if (this.isOverCircumcised) {
+		// Overcircumcised / Perfect Machine = immune to status effects
+		if (this.isOverCircumcised || this.standPower == STAND_PP5) {
 			this.resetBattleVariables()
 		}
 
