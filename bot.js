@@ -167,7 +167,7 @@ const STAND_PP2 = "The Boreal Flame";
 const STAND_PP3 = "Shadow Gallery";
 const STAND_PP4 = "Above the Light";
 const STAND_PP5 = "The Perfect Machine";
-const STAND_PP6 = "The Perfect Sham Mirrors";
+const STAND_PP6 = "The Sham Mirrors";
 
 // THE LIST MUST BE REVERSED
 const STAND_PP1_SUMMON = [EMOTE_PP11, EMOTE_PP22, EMOTE_PP23]; // LaughSoul, MeatBro, Steel
@@ -175,7 +175,7 @@ const STAND_PP2_SUMMON = [EMOTE_PP36, EMOTE_PP21, EMOTE_PP29]; // Barrel, Acid, 
 const STAND_PP3_SUMMON = []; // 
 const STAND_PP4_SUMMON = [EMOTE_PP26, EMOTE_PP16, EMOTE_PP49]; // LivingGod, Satan, BigSatan
 const STAND_PP5_SUMMON = [EMOTE_PP49, EMOTE_PP11]; // Steel, LivingGod
-const STAND_PP6_SUMMON = []; // 
+const STAND_PP6_SUMMON = [EMOTE_PP11, EMOTE_PP30, EMOTE_PP16]; // Satan, Alert, Steel
 
 var STAND_SUMMONS = {};
 STAND_SUMMONS[STAND_PP1] = STAND_PP1_SUMMON;
@@ -183,7 +183,7 @@ STAND_SUMMONS[STAND_PP2] = STAND_PP2_SUMMON;
 // STAND_SUMMONS[STAND_PP3] = STAND_PP3_SUMMON;
 STAND_SUMMONS[STAND_PP4] = STAND_PP4_SUMMON;
 STAND_SUMMONS[STAND_PP5] = STAND_PP5_SUMMON;
-// STAND_SUMMONS[STAND_PP5] = STAND_PP5_SUMMON;
+STAND_SUMMONS[STAND_PP6] = STAND_PP6_SUMMON;
 
 // BOSSES
 const BOSS_PP1 = "Cthulhu";
@@ -2037,7 +2037,7 @@ class Fighter {
 			return;
 		}
 
-		if (this.duel.REVERSE_DAMAGE > 0 || (this.standPower == STAND_PP6 && getRandomPercent() <= 25)) {
+		if (this.duel.REVERSE_DAMAGE > 0) {
 			this.STRValue += _amount;
 			return this.duel.addMessage(this.user.username + " gets healed by " + _amount + " HP");
 			if (_amount == 69) {
@@ -2061,6 +2061,11 @@ class Fighter {
 			// RiotShield
 			this.duel.addMessage(this.user.username + " reflects the damages !");
 			this.isProtected = false;
+			this.duel.getOppOf(this).damage(_amount);
+		}
+		else if (this.standPower == STAND_PP6 && getRandomPercent() <= 25 && _punch) {
+			// Sham Mirrors
+			this.duel.addMessage(this.user.username + " reflects the damages !");
 			this.duel.getOppOf(this).damage(_amount);
 		}
 		else {
