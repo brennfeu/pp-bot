@@ -2038,6 +2038,10 @@ class Fighter {
 		}
 
 		if (this.duel.EVENT_BOSS && _punch) {
+			if (_amount <= 0) {
+				return this.duel.addMessage(this.user.username + " takes no damages !");
+			}
+			
 			this.duel.BOSS_HEALTH -= _amount;
 			this.duel.addMessage(this.duel.CURRENT_BOSS + " takes " + _amount + " damages !");
 			this.duel.DAMAGE_COUNT += _amount;
@@ -3457,7 +3461,7 @@ class Duel {
 			this.sendMessages(1);
 		}
 		this.sendMessages();
-		if (this.EASY_DUEL) {
+		if (!this.EASY_DUEL) {
 			this.checkStandSummon();
 		}
 		this.newTurnDuel();
