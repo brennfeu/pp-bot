@@ -740,7 +740,7 @@ class Fighter {
 				return;
 			}
 			
-			if (_newMove == this.attack) {
+			if (_newMove == this.attack && sdsds == 0) {
 				this.usedMoves.push(attack);
 				if (attack != EMOTE_PP69) {
 					this.ragingSpirit = 0;
@@ -2252,6 +2252,7 @@ class Fighter {
 		if (this.tentacles > 0) {
 			this.duel.addMessage(this.user.username + " attacks with tentacles !");
 			this.duel.getOppOf(this).damage(this.tentacles*10);
+			this.duel.addMessage("-----------------");
 		}
 		
 		// Synergies
@@ -2739,11 +2740,11 @@ class Duel {
 		});
 		if (this.STAND_BATTLE && !(this.FIGHTER1.STR > 0 && this.FIGHTER2.STR > 0)) {
 			if (this.FIGHTER1.STR <= 0) {
-				this.FIGHTER2_SAVE.bossKiller = 5;
+				this.FIGHTER2_SAVE.quickeningCharges += 10;
 				this.addMessage("**" + this.FIGHTER1.user.username + " has been defeated !**");
 			}
 			if (this.FIGHTER2.STR <= 0) {
-				this.FIGHTER1_SAVE.bossKiller = 5;
+				this.FIGHTER1_SAVE.quickeningCharges += 10;
 				this.addMessage("**" + this.FIGHTER2.user.username + " has been defeated !**");
 			}
 			
@@ -3055,7 +3056,7 @@ class Duel {
 			// Charge
 			this.addMessage(" -- GODS BIRTHDAY GIFTS --");
 			if (this.STAND_BATTLE) {
-				this.addMessage("Stånds are unaffected");
+				this.addMessage("Stånds are unaffected.");
 			}
 			else {
 				this.addMessage("Gods decide to give you a regular charge each");
@@ -3068,7 +3069,7 @@ class Duel {
 			// Charge
 			this.addMessage(" -- GODS CHRISTMAS GIFTS --");
 			if (this.STAND_BATTLE) {
-				this.addMessage("Stånds are unaffected");
+				this.addMessage("Stånds are unaffected.");
 			}
 			else {
 				this.addMessage("Gods decide to give you a special charge each");
@@ -3094,7 +3095,7 @@ class Duel {
 			// PP Blessing
 			this.addMessage(" -- PP BLESSING --");
 			if (this.STAND_BATTLE) {
-				this.addMessage("Stånds are unaffected");
+				this.addMessage("Stånds are unaffected.");
 			}
 			else {
 				this.addMessage("You suddenly feel new powers in your PP !");
