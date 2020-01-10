@@ -120,6 +120,7 @@ const EMOTE_PP75 = "664116840070512660"; // AcidShot
 const EMOTE_PP76 = "664845944252137494"; // EldritchPudding
 
 const EMOTE_PP80 = "644617031739768842"; // Fherla
+const EMOTE_PP81 = "650398049126055937"; // Melodia
 
 // DON'T FORGET TO ADD TO THE CHEAT PANEL
 const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, 
@@ -131,12 +132,12 @@ const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE
 		    EMOTE_PP50, EMOTE_PP51, EMOTE_PP52, EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, 
 		    EMOTE_PP58, EMOTE_PP59, EMOTE_PP60, EMOTE_PP61, EMOTE_PP62, EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, 
 		    EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70, EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, 
-		    EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP80];
+		    EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP80, EMOTE_PP81];
 const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58, EMOTE_PP59, EMOTE_PP60,
 			   EMOTE_PP61, EMOTE_PP62];
 const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70,
 			  EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76];
-const RARE_EMOTE_LIST = [EMOTE_PP80];
+const RARE_EMOTE_LIST = [EMOTE_PP80, EMOTE_PP81];
 
 const GOD_PP1 = "644643782888783892"; // Mongo
 const GOD_PP2 = "617686716479832064"; // Dr Phil / WhatDAFuk
@@ -1910,6 +1911,18 @@ class Fighter {
 					_fighter.damage(Math.floor(Math.random() * 10000000000000), false);
 				});
 			}
+			else if (attack == EMOTE_PP81) {
+				// Melodia
+				this.duel.addMessage(this.user.username + " summons Melodia !");
+				this.sendMessages();
+				this.duel.UWU_TEXT = !this.duel.UWU_TEXT;
+				if (this.duel.UWU_TEXT) {
+					this.duel.addMessage("UwU Mode Activated !");
+				}
+				else {
+					this.duel.addMessage("UwU Mode Deactivated !");
+				}
+			}
 			else if (attack == GOD_PP1) {
 				this.godList.push(GOD_PP1_PRIEST);
 				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP1_PRIEST + " !");
@@ -2400,6 +2413,7 @@ class Duel {
 		this.LIST_MESSAGES = [];
 		this.INFINITE_DAMAGE = 0;
 		this.TIMESTAMP = +new Date();
+		this.UWU_TEXT = false;
 		
 		this.FIGHTER1_SAVE = null;
 		this.FIGHTER2_SAVE = null;
@@ -2622,6 +2636,12 @@ class Duel {
 	}
 	
 	addMessage(_texte) {
+		if (this.UWU_TEXT) {
+			_texte = _texte.replace("r", "w");
+			if (getRandomPercent() <= 10) {
+				_texte = _texte.replace("e", "fuck");
+			}
+		}
 		this.LIST_MESSAGES.push(_texte);
 	}
 	sendMessages(_max = 20) {
