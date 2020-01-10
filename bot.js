@@ -2639,8 +2639,8 @@ class Duel {
 			_texte = _texte.split("r").join("w");
 			_texte = _texte.split("R").join("W");
 			if (getRandomPercent() <= 10) {
-				_texte = _texte.split("e").replace("fuck");
-				_texte = _texte.split("E").replace("Fuck");
+				_texte = _texte.split("e").join("fuck");
+				_texte = _texte.split("E").join("Fuck");
 			}
 		}
 		this.LIST_MESSAGES.push(_texte);
