@@ -2045,7 +2045,12 @@ class Fighter {
 			_amount = _amount*2;
 		}
 		if (this.duel.ATTACK_MISS_COUNTDOWN > 0 && getRandomPercent() < 90) {
+			// Boom Loop
 			_amount += _amount;
+		}
+		if (this.standPower == STAND_PP1 && _punch) {
+			// Iron Maiden
+			_amount -= 10;
 		}
 		
 		if (this.duel.INFINITE_DAMAGE >= 10) {
