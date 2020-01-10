@@ -2092,7 +2092,7 @@ class Fighter {
 			}
 		}
 
-		if (getRandomPercent() <= this.duel.getOppOf(this).madnessStacks && _punch) {
+		if (getRandomPercent() <= this.duel.getOppOf(this).madnessStacks*3 && _punch) {
 			// The Scythe of Cosmic Chaos
 			this.duel.addMessage(this.duel.getOppOf(this).user.username + " hits himself in his madness !");
 			this.duel.getOppOf(this).damage(_amount, false)
