@@ -172,6 +172,7 @@ const STAND_PP7 = "Parallel Minds";
 const STAND_PP8 = "Black Clouds & Silver Linings"; const STAND_PP8_1 = "Black Clouds"; const STAND_PP8_2 = "Silver Linings";
 const STAND_PP9 = "Cybion";
 const STAND_PP10 = "Illud Divinum Insanus";
+const STAND_PP11 = "Refuge Denied";
 
 // THE LIST MUST BE REVERSED
 const STAND_PP1_SUMMON = [EMOTE_PP11, EMOTE_PP22, EMOTE_PP23]; // LaughSoul, MeatBro, Steel
@@ -184,6 +185,7 @@ const STAND_PP7_SUMMON = [EMOTE_PP50, EMOTE_PP50]; // Perhaps, Perhaps
 const STAND_PP8_SUMMON = [EMOTE_PP45, EMOTE_PP20, EMOTE_PP8]; // Trap, MookGrenade, Boomerang
 const STAND_PP9_SUMMON = []; // 
 const STAND_PP10_SUMMON = [EMOTE_PP46, EMOTE_PP49, EMOTE_PP4]; // Flex, LivingGod, YES
+const STAND_PP11_SUMMON = [EMOTE_PP27, EMOTE_PP5, EMOTE_PP23]; // LaughSoul, HighFiveBro, Bullet
 
 var STAND_SUMMONS = {};
 STAND_SUMMONS[STAND_PP1] = STAND_PP1_SUMMON;
@@ -196,6 +198,7 @@ STAND_SUMMONS[STAND_PP7] = STAND_PP7_SUMMON;
 STAND_SUMMONS[STAND_PP8] = STAND_PP8_SUMMON;
 // STAND_SUMMONS[STAND_PP9] = STAND_PP9_SUMMON;
 STAND_SUMMONS[STAND_PP10] = STAND_PP10_SUMMON;
+STAND_SUMMONS[STAND_PP11] = STAND_PP11_SUMMON;
 
 // BOSSES
 const BOSS_PP1 = "Cthulhu";
@@ -2129,8 +2132,13 @@ class Fighter {
 				this.STRValue -= _amount;
 			}
 			
-			if (this.duel.getOppOf(this).standPower == STAND_PP4) {
+			if (this.duel.getOppOf(this).standPower == STAND_PP4) { // Above the Light
 				this.duel.getOppOf(this).heal(Math.floor(_amount / 3));
+			}
+			if (this.duel.getOppOf(this).standPower == STAND_PP11 && _amount >= 30) { // Refuge Denied
+				this.duel.getOppOf(this).heal(30);
+				this.duel.getOppOf(this).DEXValue += 10;
+				this.duel.sendMessage(this.duel.getOppOf(this).user.username + " gets 10 DEX !");
 			}
 		}
 		
