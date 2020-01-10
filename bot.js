@@ -2636,9 +2636,11 @@ class Duel {
 	
 	addMessage(_texte) {
 		if (this.UWU_TEXT) {
-			_texte = _texte.replace("r", "w");
+			_texte = _texte.split("r").join("w");
+			_texte = _texte.split("R").join("W");
 			if (getRandomPercent() <= 10) {
-				_texte = _texte.replace("e", "fuck");
+				_texte = _texte.split("e").replace("fuck");
+				_texte = _texte.split("E").replace("Fuck");
 			}
 		}
 		this.LIST_MESSAGES.push(_texte);
