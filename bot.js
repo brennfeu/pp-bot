@@ -1914,7 +1914,6 @@ class Fighter {
 			else if (attack == EMOTE_PP81) {
 				// Melodia
 				this.duel.addMessage(this.user.username + " summons Melodia !");
-				this.sendMessages();
 				this.duel.UWU_TEXT = !this.duel.UWU_TEXT;
 				if (this.duel.UWU_TEXT) {
 					this.duel.addMessage("UwU Mode Activated !");
