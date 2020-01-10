@@ -174,6 +174,7 @@ const STAND_PP9 = "Cybion";
 const STAND_PP10 = "Illud Divinum Insanus";
 const STAND_PP11 = "Refuge Denied";
 const STAND_PP12 = "Space Metal";
+const STAND_PP13 = "The Scythe of Cosmic Chaos";
 
 // THE LIST MUST BE REVERSED
 const STAND_PP1_SUMMON = [EMOTE_PP11, EMOTE_PP22, EMOTE_PP23]; // LaughSoul, MeatBro, Steel
@@ -188,6 +189,7 @@ const STAND_PP9_SUMMON = []; //
 const STAND_PP10_SUMMON = [EMOTE_PP46, EMOTE_PP49, EMOTE_PP4]; // Flex, LivingGod, YES
 const STAND_PP11_SUMMON = [EMOTE_PP27, EMOTE_PP5, EMOTE_PP23]; // LaughSoul, HighFiveBro, Bullet
 const STAND_PP12_SUMMON = [EMOTE_PP11, EMOTE_PP34]; // Facehugger, Steel
+const STAND_PP13_SUMMON = [EMOTE_PP16, EMOTE_PP46, EMOTE_PP14]; // SawBlade, YES, Satan
 
 var STAND_SUMMONS = {};
 STAND_SUMMONS[STAND_PP1] = STAND_PP1_SUMMON;
@@ -202,6 +204,7 @@ STAND_SUMMONS[STAND_PP8] = STAND_PP8_SUMMON;
 STAND_SUMMONS[STAND_PP10] = STAND_PP10_SUMMON;
 STAND_SUMMONS[STAND_PP11] = STAND_PP11_SUMMON;
 STAND_SUMMONS[STAND_PP12] = STAND_PP12_SUMMON;
+STAND_SUMMONS[STAND_PP13] = STAND_PP13_SUMMON;
 
 // BOSSES
 const BOSS_PP1 = "Cthulhu";
@@ -585,6 +588,9 @@ class Fighter {
 		}
 		if (this.quickeningCharges > 0) {
 			txt += " - Quickening Charges : " + this.quickeningCharges + "\n";
+		}
+		if (this.madnessStacks > 0) {
+			txt += " - Madness Stacks : " + this.madnessStacks + "\n";
 		}
 		if (this.ragingSpirit > 0) {
 			txt += " - Lost Soul Streak : " + this.ragingSpirit + "\n";
@@ -2086,7 +2092,13 @@ class Fighter {
 			}
 		}
 
-		if (this.isDrunkPP && getRandomPercent() < 50) {
+		if (getRandomPercent() <= this.duel.getOppOf(this).madnessStacks && _punch) {
+			// The Scythe of Cosmic Chaos
+			this.duel.addMessage(this.duel.getOppOf(this).user.username + " hits himself in his madness !");
+			this.duel.getOppOf(this).damage(_amount, false)
+			return;
+		}
+		else if (this.isDrunkPP && getRandomPercent() < 50) {
 			// Drunk PP
 			this.duel.addMessage(this.user.username + " felt nothing because too drunk !");
 		}
@@ -2141,10 +2153,17 @@ class Fighter {
 			if (this.duel.getOppOf(this).standPower == STAND_PP11 && _amount >= 30 && _punch) { // Refuge Denied
 				this.duel.getOppOf(this).heal(30);
 				this.duel.getOppOf(this).DEXValue += 10;
-				this.duel.sendMessage(this.duel.getOppOf(this).user.username + " gets 10 DEX !");
+				this.duel.addMessage(this.duel.getOppOf(this).user.username + " gets 10 DEX !");
 			}
 			if (this.duel.getOppOf(this).standPower == STAND_PP12 && _punch) { // Space Metal
 				this.meltingDamage += 2;
+			}
+			if (this.duel.getOppOf(this).standPower == STAND_PP13 && _punch) { // The Scythe of Cosmic Chaos
+				this.madnessStacks += 1;
+				if (getRandomPercent() <= 10+this.madnessStacks) {
+					this.duel.addMessage(this.user.username + " flinched !");
+					this.DEXValue = 0;
+				}
 			}
 		}
 		
@@ -2360,6 +2379,7 @@ class Fighter {
 		this.badLuck = false;
 		this.isSalty = false;
 		this.meltingDamage = 0;
+		this.madnessStacks = 0;
 		// TODO keep up to date --> negative effects only
 	}
 }
