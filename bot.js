@@ -318,7 +318,7 @@ class Fighter {
 		this.kungFu = false;
 		this.borealSummon = 0;
 		this.tentacles = 0;
-		this.randomizedStand = true;
+		this.randomizedStand = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -2376,10 +2376,10 @@ class Fighter {
 		
 		if (this.randomizedStand) {
 			this.duel.addMessage(this.user.username + " randomizes his ability !");
-			this.standPower = function (obj) {
-			    var keys = STAND_SUMMONS.keys(obj)
-			    return obj[keys[ keys.length * Math.random() << 0]];
-			};
+			
+			var keys = Object.keys(STAND_SUMMONS);
+			this.standPower = STAND_SUMMONS[keys[ keys.length * Math.random() << 0]];
+			
 			this.guildUser.sendMessage("Current Stånd Ability : " + this.standPower);
 		}
 
