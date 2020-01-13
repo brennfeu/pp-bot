@@ -2228,8 +2228,8 @@ class Fighter {
 		}
 		this.attackedThisTurn = false;
 
-		// Overcircumcised / Perfect Machine = immune to status effects
-		if (this.isOverCircumcised || this.standPower == STAND_PP5) {
+		// Overcircumcised / Perfect Machine / Cybion = immune to status effects
+		if (this.isOverCircumcised || this.standPower == STAND_PP5 || this.standPower == STAND_PP12) {
 			this.resetBattleVariables()
 		}
 
