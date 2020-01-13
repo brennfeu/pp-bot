@@ -341,9 +341,8 @@ class Fighter {
 			if (this.standPower == STAND_PP8_1 || this.standPower == STAND_PP8_2) { // Black Clouds / Silver Linings
 				this.STRValue = 80;
 			}
-			if (this.standPower == STAND_PP15) { // House of Atreus
-				this.godList = [STAND_PP15];
-				this.regularCharges = 999999;
+			if (this.standPower == STAND_PP12) { // Space Metal
+				this.quickeningCharges = 5;
 			}
 		}
 		else {
@@ -2347,6 +2346,12 @@ class Fighter {
 		if (this.standPower == STAND_PP14) {
 			this.playMove(EMOTE_PP73);
 			this.duel.addMessage("-----------------");
+		}
+		
+		// House of Atreus
+		if (this.standPower == STAND_PP15) {
+			this.godList = [STAND_PP15];
+			this.regularCharges = 1;
 		}
 		
 		// Eldritch Pudding
