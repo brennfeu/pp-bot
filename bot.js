@@ -182,7 +182,7 @@ const STAND_PP15 = "The House of Atreus";
 // THE LIST MUST BE REVERSED
 const STAND_PP1_SUMMON = [EMOTE_PP11, EMOTE_PP22, EMOTE_PP23]; // LaughSoul, MeatBro, Steel
 const STAND_PP2_SUMMON = [EMOTE_PP36, EMOTE_PP21, EMOTE_PP29]; // Barrel, Acid, Explosion
-const STAND_PP3_SUMMON = []; // 
+const STAND_PP3_SUMMON = [EMOTE_PP47, EMOTE_PP16, EMOTE_PP8]; // Trap, Satan, RootOfNuisance
 const STAND_PP4_SUMMON = [EMOTE_PP26, EMOTE_PP16, EMOTE_PP49]; // LivingGod, Satan, BigSatan
 const STAND_PP5_SUMMON = [EMOTE_PP49, EMOTE_PP11]; // Steel, LivingGod
 const STAND_PP6_SUMMON = [EMOTE_PP11, EMOTE_PP30, EMOTE_PP16]; // Satan, Alert, Steel
@@ -199,7 +199,7 @@ const STAND_PP15_SUMMON = []; //
 var STAND_SUMMONS = {};
 STAND_SUMMONS[STAND_PP1] = STAND_PP1_SUMMON;
 STAND_SUMMONS[STAND_PP2] = STAND_PP2_SUMMON;
-// STAND_SUMMONS[STAND_PP3] = STAND_PP3_SUMMON;
+STAND_SUMMONS[STAND_PP3] = STAND_PP3_SUMMON;
 STAND_SUMMONS[STAND_PP4] = STAND_PP4_SUMMON;
 STAND_SUMMONS[STAND_PP5] = STAND_PP5_SUMMON;
 STAND_SUMMONS[STAND_PP6] = STAND_PP6_SUMMON;
@@ -2868,10 +2868,24 @@ class Duel {
 			if (this.FIGHTER1.STR <= 0) {
 				this.FIGHTER2_SAVE.quickeningCharges += 10;
 				this.addMessage("**" + this.FIGHTER1.user.username + " has been defeated !**");
+				
+				if (this.FIGHTER1.standPower == STAND_PP3) {
+					this.playMove(EMOTE_PP47);
+				}
+				if (this.FIGHTER2.standPower == STAND_PP3) {
+					this.playMove(EMOTE_PP58);
+				}
 			}
 			if (this.FIGHTER2.STR <= 0) {
 				this.FIGHTER1_SAVE.quickeningCharges += 10;
 				this.addMessage("**" + this.FIGHTER2.user.username + " has been defeated !**");
+				
+				if (this.FIGHTER2.standPower == STAND_PP3) {
+					this.playMove(EMOTE_PP47);
+				}
+				if (this.FIGHTER1.standPower == STAND_PP3) {
+					this.playMove(EMOTE_PP58);
+				}
 			}
 			
 			this.STAND_BATTLE = false;
