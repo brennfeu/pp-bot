@@ -318,6 +318,7 @@ class Fighter {
 		this.kungFu = false;
 		this.borealSummon = 0;
 		this.tentacles = 0;
+		this.randomizedStand = true;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -339,6 +340,9 @@ class Fighter {
 			}
 			if (this.standPower == STAND_PP2) { // Boreal Flame
 				this.borealSummon = 11;
+			}
+			if (this.standPower == STAND_PP5) { // Perfect Machine
+				this.randomizedStand = true;
 			}
 			if (this.standPower == STAND_PP8) { // Black Clouds & Silver Linings
 				this.extraLife = 1;
@@ -563,6 +567,9 @@ class Fighter {
 		
 		// Status
 		txt += "\n**Status :**\n"
+		if (this.randomizedStand) {
+			txt += " - **Unknown Stånd Power**\n";
+		}
 		if (this.hasBoomerang > 0) {
 			txt += " - With a Boomerang (for " + this.hasBoomerang + " turns)\n";
 		}
@@ -2365,6 +2372,15 @@ class Fighter {
 			}
 			this.duel.GAY_TURNS += 2;
 			this.duel.addMessage("-----------------");
+		}
+		
+		if (this.randomizedStand) {
+			this.duel.addMessage(this.user.username + " randomizes his ability !");
+			this.standPower = function (obj) {
+			    var keys = STAND_SUMMONS.keys(obj)
+			    return obj[keys[ keys.length * Math.random() << 0]];
+			};
+			this.guildUser.sendMessage("Current Stånd Ability : " + this.standPower);
 		}
 
 		// PP Armageddon
