@@ -2097,6 +2097,21 @@ class Fighter {
 			this.duel.addMessage("**Critical Hit !**");
 		}
 
+		if (this.duel.REVERSE_DAMAGE > 0) {
+			this.STRValue += _amount;
+			return this.duel.addMessage(this.user.username + " gets healed by " + _amount + " HP");
+			if (_amount == 69) {
+				this.duel.addMessage("nice !");
+			}
+		}
+
+		if (getRandomPercent() <= this.madnessStacks*3 && _punch) { // Scythe of Cosmic Chaos
+			// The Scythe of Cosmic Chaos
+			this.duel.addMessage(this.duel.getOppOf(this).user.username + " hits himself in his madness !");
+			this.duel.getOppOf(this).damage(_amount, false)
+			return;
+		}
+		
 		if (this.duel.EVENT_BOSS && _punch) {
 			if (_amount <= 0) {
 				return this.duel.addMessage(this.user.username + " takes no damages !");
@@ -2117,21 +2132,6 @@ class Fighter {
 				this.duel.getOppOf(this).heal(Math.floor(_amount / 3));
 			}
 			
-			return;
-		}
-
-		if (this.duel.REVERSE_DAMAGE > 0) {
-			this.STRValue += _amount;
-			return this.duel.addMessage(this.user.username + " gets healed by " + _amount + " HP");
-			if (_amount == 69) {
-				this.duel.addMessage("nice !");
-			}
-		}
-
-		if (getRandomPercent() <= this.duel.getOppOf(this).madnessStacks*3 && _punch) {
-			// The Scythe of Cosmic Chaos
-			this.duel.addMessage(this.duel.getOppOf(this).user.username + " hits himself in his madness !");
-			this.duel.getOppOf(this).damage(_amount, false)
 			return;
 		}
 		else if (this.isDrunkPP && getRandomPercent() < 50) {
