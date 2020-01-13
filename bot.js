@@ -178,6 +178,7 @@ const STAND_PP12 = "Space Metal";
 const STAND_PP13 = "The Scythe of Cosmic Chaos";
 const STAND_PP14 = "Concepts of Maths";
 const STAND_PP15 = "The House of Atreus";
+const STAND_PP16 = "Virus";
 
 var STAND_SUMMONS = {};
 // THE LISTS MUST BE REVERSED
@@ -196,6 +197,7 @@ STAND_SUMMONS[STAND_PP12] = [EMOTE_PP11, EMOTE_PP34]; // Facehugger, Steel
 STAND_SUMMONS[STAND_PP13] = [EMOTE_PP16, EMOTE_PP46, EMOTE_PP14]; // SawBlade, YES, Satan
 STAND_SUMMONS[STAND_PP14] = [EMOTE_PP50, EMOTE_PP41, EMOTE_PP18]; // RedPill, CheersBro, Perhaps
 STAND_SUMMONS[STAND_PP15] = [EMOTE_PP30, EMOTE_PP51]; // God Regular Move, Alert
+STAND_SUMMONS[STAND_PP16] = [EMOTE_PP46, EMOTE_PP18, EMOTE_PP22]; // MeatBro, RedPill, YES
 
 // BOSSES
 const BOSS_PP1 = "Cthulhu";
@@ -653,7 +655,7 @@ class Fighter {
 			txt += " - Full of Ammos\n";
 		}
 		if (this.kungFu) {
-			txt += " - Kung-Fu Master\n";
+			txt += " - Trained Fighter\n";
 		}
 		if (this.chimera) {
 			txt += " - Furry PP\n";
@@ -1821,7 +1823,7 @@ class Fighter {
 					this.duel.addMessage("But he has nothing to learn !");
 				}
 				else {
-					this.duel.addMessage(this.user.username + " knows kung-fu !");
+					this.duel.addMessage(this.user.username + " now has battle knowledge !");
 					this.kungFu = true;
 				}
 			}
@@ -2072,6 +2074,11 @@ class Fighter {
 		if (this.duel.ATTACK_MISS_COUNTDOWN > 0 && getRandomPercent() < 90) {
 			// Boom Loop
 			_amount += _amount;
+		}
+		if (this.duel.getOppOf(this).standPower == STAND_PP16 && _punch && this.duel.getOppOf(this).STR <= 15) {
+			// Virus
+			this.duel.addMessage("Virus effect starts !");
+			_amount = _amount*100;
 		}
 		if (this.standPower == STAND_PP1 && _punch) {
 			// Iron Maiden
