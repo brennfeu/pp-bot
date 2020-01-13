@@ -2378,9 +2378,9 @@ class Fighter {
 			this.duel.addMessage(this.user.username + " randomizes his ability !");
 			
 			var keys = Object.keys(STAND_SUMMONS);
-			this.standPower = STAND_SUMMONS[keys[ keys.length * Math.random() << 0]];
+			this.standPower = keys[ keys.length * Math.random() << 0];
 			
-			this.guildUser.sendMessage("Current Stånd Ability : " + this.standPower);
+			this.guildUser.send("Current Stånd Ability : " + this.standPower);
 		}
 
 		// PP Armageddon
