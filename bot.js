@@ -188,12 +188,13 @@ const STAND_PP5_SUMMON = [EMOTE_PP49, EMOTE_PP11]; // Steel, LivingGod
 const STAND_PP6_SUMMON = [EMOTE_PP11, EMOTE_PP30, EMOTE_PP16]; // Satan, Alert, Steel
 const STAND_PP7_SUMMON = [EMOTE_PP50, EMOTE_PP50]; // Perhaps, Perhaps
 const STAND_PP8_SUMMON = [EMOTE_PP45, EMOTE_PP20, EMOTE_PP8]; // Trap, MookGrenade, Boomerang
-const STAND_PP9_SUMMON = []; // 
+const STAND_PP9_SUMMON = [EMOTE_PP49, EMOTE_PP50, EMOTE_PP11]; // Steel, Perhaps, LivingGod
 const STAND_PP10_SUMMON = [EMOTE_PP46, EMOTE_PP49, EMOTE_PP4]; // Flex, LivingGod, YES
 const STAND_PP11_SUMMON = [EMOTE_PP27, EMOTE_PP5, EMOTE_PP23]; // LaughSoul, HighFiveBro, Bullet
 const STAND_PP12_SUMMON = [EMOTE_PP11, EMOTE_PP34]; // Facehugger, Steel
 const STAND_PP13_SUMMON = [EMOTE_PP16, EMOTE_PP46, EMOTE_PP14]; // SawBlade, YES, Satan
 const STAND_PP14_SUMMON = [EMOTE_PP50, EMOTE_PP41, EMOTE_PP18]; // RedPill, CheersBro, Perhaps
+const STAND_PP15_SUMMON = []; // 
 
 var STAND_SUMMONS = {};
 STAND_SUMMONS[STAND_PP1] = STAND_PP1_SUMMON;
@@ -204,7 +205,7 @@ STAND_SUMMONS[STAND_PP5] = STAND_PP5_SUMMON;
 STAND_SUMMONS[STAND_PP6] = STAND_PP6_SUMMON;
 STAND_SUMMONS[STAND_PP7] = STAND_PP7_SUMMON;
 STAND_SUMMONS[STAND_PP8] = STAND_PP8_SUMMON;
-// STAND_SUMMONS[STAND_PP9] = STAND_PP9_SUMMON;
+STAND_SUMMONS[STAND_PP9] = STAND_PP9_SUMMON;
 STAND_SUMMONS[STAND_PP10] = STAND_PP10_SUMMON;
 STAND_SUMMONS[STAND_PP11] = STAND_PP11_SUMMON;
 STAND_SUMMONS[STAND_PP12] = STAND_PP12_SUMMON;
@@ -735,12 +736,18 @@ class Fighter {
 		this.duel.MOVE_COUNT += 1;
 		this.duel.INFINITE_DAMAGE = 0;
 		var attack = _newMove;
-
-		if (false) { // maybe someday
-			var numberAttacks = 3;
+		var numberAttacks = 1;
+		
+		// Cybion
+		if (this.standPower == STAND_PP9 && getRandomPercent() <= 25) {
+			this.duel.addMessage(this.user.username + " stops the time !");
+			this.duel.addMessage(this.user.username + " can perform his move twice !");
+			numberAttacks += numberAttacks;
 		}
-		else {
-			var numberAttacks = 1;
+		if (this.duel.getOppOf(this).standPower == STAND_PP9 && getRandomPercent() <= 25) {
+			this.duel.addMessage(this.duel.getOppOf(this).user.username + " deletes time !");
+			this.duel.addMessage(this.user.username + " doesn't understand what happened !");
+			numberAttacks = 0;
 		}
 		
 		// Boomerang
@@ -3497,13 +3504,13 @@ class Duel {
 				_fighter.duel.addMessage("-----------------");
 				_fighter.playMove();
 				_fighter.duel.sendMessages();
-				// Burst
-				if (_fighter.duel.getOppOf(_fighter).attack == EMOTE_PP8) {
+				
+				if (_fighter.duel.getOppOf(_fighter).attack == EMOTE_PP8) { // Burst
 					_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).user.username + " burst !");
 					_fighter.duel.sendMessages();
 					_fighter.hasBurst = 2;
 				}
-				if (_fighter.standPower == STAND_PP7) { // Parallel Minds
+				if (_fighter.standPower == STAND_PP7 && _fighter.attack == _fighter.duel.getOppOf(_fighter).attack) { // Parallel Minds
 					_fighter.duel.addMessage("-----------------");
 					_fighter.heal(15);
 					_fighter.duel.addMessage(_fighter.user.username + " gets 5 DEX !");
@@ -4130,7 +4137,7 @@ CLIENT.on("message", async _message => {
 			console.log(e);
 		});
 		_message.channel.send("Cheat Panel : Rare Moves").then(function (_message2) {
-			_message2.react(EMOTE_PP80);
+			_message2.react(EMOTE_PP80); _message2.react(EMOTE_PP81);
 		}).catch(function(e) {
 			console.log(e);
 		});
