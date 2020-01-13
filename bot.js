@@ -194,7 +194,7 @@ const STAND_PP11_SUMMON = [EMOTE_PP27, EMOTE_PP5, EMOTE_PP23]; // LaughSoul, Hig
 const STAND_PP12_SUMMON = [EMOTE_PP11, EMOTE_PP34]; // Facehugger, Steel
 const STAND_PP13_SUMMON = [EMOTE_PP16, EMOTE_PP46, EMOTE_PP14]; // SawBlade, YES, Satan
 const STAND_PP14_SUMMON = [EMOTE_PP50, EMOTE_PP41, EMOTE_PP18]; // RedPill, CheersBro, Perhaps
-const STAND_PP15_SUMMON = []; // 
+const STAND_PP15_SUMMON = [EMOTE_PP30, EMOTE_PP51]; // God Regular Move, Alert
 
 var STAND_SUMMONS = {};
 STAND_SUMMONS[STAND_PP1] = STAND_PP1_SUMMON;
@@ -354,6 +354,10 @@ class Fighter {
 			}
 			if (this.standPower == STAND_PP8_1 || this.standPower == STAND_PP8_2) { // Black Clouds / Silver Linings
 				this.STRValue = 80;
+			}
+			if (this.standPower == STAND_PP15) { // House of Atreus
+				this.godList = [STAND_PP15];
+				this.regularCharges = 999999;
 			}
 		}
 		else {
@@ -1260,6 +1264,12 @@ class Fighter {
 					this.duel.addMessage("D.I.C.K. is disappointed in " + this.user.username + " !");
 					this.playMove(EMOTE_PP47);
 					return;
+				}
+				if (this.godList.indexOf(STAND_PP15) > -1) { // House of Atreus
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Atreus answers his calls !");
+					this.this.duel.getOppOf(this).damage(10);
+					this.heal(10);
 				}
 				if (this.godList.indexOf(GOD_PP8_PRIEST) > -1) { // Fabulous Toast Man
 					this.duel.addMessage("-----------------");
