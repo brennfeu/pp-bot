@@ -1252,7 +1252,7 @@ class Fighter {
 				if (this.godList.indexOf(STAND_PP15) > -1) { // House of Atreus
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Atreus answers his calls !");
-					this.this.duel.getOppOf(this).damage(10);
+					this.duel.getOppOf(this).damage(10);
 					this.heal(10);
 				}
 				if (this.godList.indexOf(GOD_PP8_PRIEST) > -1) { // Fabulous Toast Man
@@ -3678,71 +3678,70 @@ class Duel {
 					listeAttaques.push(emote);
 				}
 			}
-			this.LIST_AVAILABLE_ATTACKS = listeAttaques;
-			return;
-		}
-
-		// Attaque 1
-		if (getRandomPercent() > 20) {
-			emote = this.getRandomEmote();
-			listeAttaques.push(emote);
 		}
 		else {
-			listeAttaques.push(EMOTE_PP1);
-		}
-		// Attaque 2
-		if (getRandomPercent() > 20) {
-			emote = this.getRandomEmote();
-			if (listeAttaques.indexOf(emote) < 0) {
+			// Attaque 1
+			if (getRandomPercent() > 20) {
+				emote = this.getRandomEmote();
 				listeAttaques.push(emote);
+			}
+			else {
+				listeAttaques.push(EMOTE_PP1);
+			}
+			// Attaque 2
+			if (getRandomPercent() > 20) {
+				emote = this.getRandomEmote();
+				if (listeAttaques.indexOf(emote) < 0) {
+					listeAttaques.push(emote);
+				}
+				else {
+					listeAttaques.push(EMOTE_PP2);
+				}
 			}
 			else {
 				listeAttaques.push(EMOTE_PP2);
 			}
-		}
-		else {
-			listeAttaques.push(EMOTE_PP2);
-		}
-		// Attaque 3
-		if (getRandomPercent() > 20) {
-			emote = this.getRandomEmote();
-			if (listeAttaques.indexOf(emote) < 0) {
-				listeAttaques.push(emote);
+			// Attaque 3
+			if (getRandomPercent() > 20) {
+				emote = this.getRandomEmote();
+				if (listeAttaques.indexOf(emote) < 0) {
+					listeAttaques.push(emote);
+				}
+				else {
+					listeAttaques.push(EMOTE_PP3);
+				}
 			}
 			else {
 				listeAttaques.push(EMOTE_PP3);
 			}
-		}
-		else {
-			listeAttaques.push(EMOTE_PP3);
-		}
-		// Attaque 4
-		if (getRandomPercent() > 20) {
-			emote = this.getRandomEmote();
-			if (listeAttaques.indexOf(emote) < 0) {
-				listeAttaques.push(emote);
+			// Attaque 4
+			if (getRandomPercent() > 20) {
+				emote = this.getRandomEmote();
+				if (listeAttaques.indexOf(emote) < 0) {
+					listeAttaques.push(emote);
+				}
+				else {
+					listeAttaques.push(EMOTE_PP4);
+				}
 			}
 			else {
 				listeAttaques.push(EMOTE_PP4);
 			}
-		}
-		else {
-			listeAttaques.push(EMOTE_PP4);
-		}
-		// Attaque 5
-		if (getRandomPercent() > 20) {
-			emote = this.getRandomEmote();
-			if (listeAttaques.indexOf(emote) < 0) {
-				listeAttaques.push(emote);
+			// Attaque 5
+			if (getRandomPercent() > 20) {
+				emote = this.getRandomEmote();
+				if (listeAttaques.indexOf(emote) < 0) {
+					listeAttaques.push(emote);
+				}
+				else {
+					listeAttaques.push(EMOTE_PP5);
+				}
 			}
 			else {
 				listeAttaques.push(EMOTE_PP5);
 			}
 		}
-		else {
-			listeAttaques.push(EMOTE_PP5);
-		}
-
+		
 		if (this.FIGHTER1.regularCharges > 0 || this.FIGHTER2.regularCharges > 0) {
 			listeAttaques.push(EMOTE_PP51);
 		}
