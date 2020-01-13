@@ -568,7 +568,7 @@ class Fighter {
 		// Status
 		txt += "\n**Status :**\n"
 		if (this.randomizedStand) {
-			txt += " - **Unknown Stånd Power**\n";
+			txt += " - **Perfect Stånd Power**\n";
 		}
 		if (this.hasBoomerang > 0) {
 			txt += " - With a Boomerang (for " + this.hasBoomerang + " turns)\n";
@@ -2236,7 +2236,7 @@ class Fighter {
 		this.attackedThisTurn = false;
 
 		// Overcircumcised / Perfect Machine / Cybion = immune to status effects
-		if (this.isOverCircumcised || this.standPower == STAND_PP5 || this.standPower == STAND_PP12) {
+		if (this.isOverCircumcised || this.randomizedStand || this.standPower == STAND_PP12) {
 			this.resetBattleVariables()
 		}
 
