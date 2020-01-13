@@ -2334,6 +2334,18 @@ class Fighter {
 		if (this.borealSummon == 0) {
 			this.duel.addMessage(this.user.username + " summons the Boreal World !");
 			this.duel.BOREAL_WORLD = true;
+			this.duel.addMessage("-----------------");
+		}
+		// Perfect Machine + Boreal Flame
+		if (this.standPower == STAND_PP2 && this.borealSummon < 0 && !this.duel.BOREAL_WORLD) {
+			this.borealSummon = 10;
+			this.duel.addMessage(this.user.username + " starts summoning the Boreal World !");
+		}
+		
+		// Concepts of Maths
+		if (this.standPower == STAND_PP14) {
+			this.playMove(EMOTE_PP73);
+			this.duel.addMessage("-----------------");
 		}
 		
 		// Eldritch Pudding
