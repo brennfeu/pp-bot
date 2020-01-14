@@ -202,7 +202,7 @@ STAND_SUMMONS[STAND_PP16] = [EMOTE_PP46, EMOTE_PP18, EMOTE_PP22]; // MeatBro, Re
 const REQUIEM_PP1 = "Etrange";
 const REQUIEM_PP2 = "Iamthemorning";
 const REQUIEM_PP3 = "Majestic";
-const REQUIEM_LIST = [REQUIEM_PP1, REQUIEM_PP2];
+const REQUIEM_LIST = [REQUIEM_PP1, REQUIEM_PP2, REQUIEM_PP3];
 
 // BOSSES
 const BOSS_PP1 = "Cthulhu";
@@ -313,6 +313,7 @@ class Fighter {
 		this.tentacles = 0;
 		this.randomizedStand = false;
 		this.requiemCooldown = 0;
+		this.extraLifeDuplication = null;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -707,7 +708,11 @@ class Fighter {
 			txt += " - **Stånd Power : " + this.standPower + "**\n";
 		}
 		if (this.extraLife > 0) {
-			txt += " - **Extra lives : " + this.extraLife + "**\n";
+			txt += " - **Extra lives : " + this.extraLife;
+			if (this.extraLifeDuplication != null) {
+				txt += " (Temporal Duplication)";
+			}
+			txt += "**\n";
 		}
 		
 		if (this.standPower == null) {
@@ -1694,6 +1699,15 @@ class Fighter {
 						this.duel.TIME_STOP = 3;
 						this.duel.addMessage(this.duel.getOppOf(this).user.username + " gets possessed !");
 						this.duel.getOppOf(this).isPossessed = 1;
+					}
+					if (this.requiemPower == REQUIEM_PP3) { // Majestic
+						this.duel.addMessage(this.duel.getOppOf(this).user.username + " makes a temporal duplication of himself !");
+						this.extraLife += 1;
+						
+						var duel = this.duel;
+						this.duel = null;
+						this.extraLifeDuplication = cloneObject(this);
+						this.duel = duel;
 					}
 				
 				}
@@ -2933,11 +2947,21 @@ class Duel {
 					}
 
 					if (_fighter.idUser == _fighter.duel.FIGHTER1.idUser) {
-						_fighter.duel.FIGHTER1 = new Fighter(_fighter.duel.FIGHTER1.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
+						if (_fighter.extraLifeDuplication != null) {
+							_fighter.duel.FIGHTER1 = _fighter.extraLifeDuplication;
+						}
+						else {
+							_fighter.duel.FIGHTER1 = new Fighter(_fighter.duel.FIGHTER1.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
+						}
 						_fighter.duel.FIGHTER1.extraLife = extra;
 					}
 					else {
-						_fighter.duel.FIGHTER2 = new Fighter(_fighter.duel.FIGHTER2.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
+						if (_fighter.extraLifeDuplication != null) {
+							_fighter.duel.FIGHTER2 = _fighter.extraLifeDuplication;
+						}
+						else {
+							_fighter.duel.FIGHTER2 = new Fighter(_fighter.duel.FIGHTER1.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
+						}
 						_fighter.duel.FIGHTER2.extraLife = extra;
 					}
 				}
