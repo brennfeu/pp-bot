@@ -199,9 +199,9 @@ STAND_SUMMONS[STAND_PP14] = [EMOTE_PP50, EMOTE_PP41, EMOTE_PP18]; // RedPill, Ch
 STAND_SUMMONS[STAND_PP15] = [EMOTE_PP30, EMOTE_PP51]; // God Regular Move, Alert
 STAND_SUMMONS[STAND_PP16] = [EMOTE_PP46, EMOTE_PP18, EMOTE_PP22]; // MeatBro, RedPill, YES
 
-const REQUIEM_PP1 = "Test A";
-const REQUIEM_PP2 = "Test B";
-const REQUIEM_PP3 = "Test C";
+const REQUIEM_PP1 = "Etrange";
+const REQUIEM_PP2 = "Iamthemorning";
+const REQUIEM_PP3 = "Majestic";
 const REQUIEM_LIST = [REQUIEM_PP1, REQUIEM_PP2, REQUIEM_PP3];
 
 // BOSSES
@@ -311,6 +311,7 @@ class Fighter {
 		this.borealSummon = 0;
 		this.tentacles = 0;
 		this.randomizedStand = false;
+		this.requiemCooldown = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -420,6 +421,9 @@ class Fighter {
 		if (this.BOREAL_WORLD && this.standPower == STAND_PP2) {
 			str += 200;
 		}
+		if (this.requiemPower != null && this.duel.STAND_BATTLE) {
+			str += 200;
+		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			str += 50;
 		}
@@ -484,6 +488,9 @@ class Fighter {
 		if (this.BOREAL_WORLD && this.standPower == STAND_PP2) {
 			dex += 50;
 		}
+		if (this.requiemPower != null && this.duel.STAND_BATTLE) {
+			dex += 30;
+		}
 		if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
 			dex += 10;
 		}
@@ -530,7 +537,7 @@ class Fighter {
 					txt += "\n - " + this.godList[i];
 				}
 				if (this.requiemPower != null) {
-					txt += "\n - **Requiem Power : " + this.requiemPower + "**";
+					txt += "\n - **Requiem**";
 				}
 			}
 			if (this.regularCharges > 0) {
@@ -597,6 +604,9 @@ class Fighter {
 		}
 		if (this.borealSummon > 0) {
 			txt += " - Boreal Fog Countdown : " + this.borealSummon + " turns\n";
+		}
+		if (this.requiemCooldown > 0) {
+			txt += " - Requiem Cooldown : " + this.requiemCooldown + " turns\n";
 		}
 		if (this.tentacles > 0) {
 			txt += " - Tentacles : " + this.tentacles + "\n";
@@ -1670,17 +1680,20 @@ class Fighter {
 					this.duel.addMessage(this.user.username + " gets the strength of a thousand punchers !");
 					this.playMove(EMOTE_PP2);
 				}
-				if (this.godList.indexOf(REQUIEM_PP1) > -1) { // 
+				if (this.requiemPower == REQUIEM_PP1 && this.requiemCooldown <= 0) { // Etrange
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage("Test A answers his calls !");
+					this.duel.addMessage(this.requiemPower + " answers his calls !");
+					this.requiemCooldown = 11;
 				}
-				if (this.godList.indexOf(REQUIEM_PP2) > -1) { // 
+				if (this.requiemPower == REQUIEM_PP2 && this.requiemCooldown <= 0) { // Iamthemorning
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage("Test B answers his calls !");
+					this.duel.addMessage(this.requiemPower + " answers his calls !");
+					this.requiemCooldown = 11;
 				}
-				if (this.godList.indexOf(REQUIEM_PP3) > -1) { // 
+				if (this.requiemPower == REQUIEM_PP3 && this.requiemCooldown <= 0) { // Majestic
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage("Test C answers his calls !");
+					this.duel.addMessage(this.requiemPower + " answers his calls !");
+					this.requiemCooldown = 11;
 				}
 			}
 			else if (attack == EMOTE_PP53) {
@@ -2295,6 +2308,7 @@ class Fighter {
 		this.bossKiller -= 1;
 		this.ironProtection -= 1;
 		this.borealSummon -= 1;
+		this.requiemCooldown -= 1;
 
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
@@ -3654,6 +3668,10 @@ class Duel {
 				this.addMessage(this.getOppOf(winner).user.username + " shoots !");
 				winner.damage(30);
 			}
+			// Requiem
+			if (this.getOppOf(winner).attack == EMOTE_PP52 && this.getOppOf(winner).requiemPower != null) {
+				this.getOppOf(winner).playMove();
+			}
 			
 			// Dual Loop
 			if (this.getOppOf(winner).attack == EMOTE_PP55) {
@@ -3689,6 +3707,7 @@ class Duel {
 					_fighter.duel.addMessage("-----------------");
 					_fighter.duel.addMessage(_fighter.user.username + " evolves to Requiem !");
 					_fighter.requiemPower = REQUIEM_LIST[Math.floor(Math.random()*REQUIEM_LIST.length)];
+					_fighter.guildUser.send("**Requiem Acquired : " + _fighter.requiemPower + "**");
 					return;
 				}
 				
