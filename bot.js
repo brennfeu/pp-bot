@@ -2098,7 +2098,7 @@ class Fighter {
 			_amount += this.duel.getOppOf(this).bonusDamage;
 			this.duel.getOppOf(this).bonusDamage = 0;
 		}
-		if (this.kungFu) {
+		if (this.kungFu && _punch) {
 			// Signpost
 			_amount += 10;
 		}
@@ -2114,7 +2114,7 @@ class Fighter {
 			// Boom Loop
 			_amount += _amount;
 		}
-		if (this.duel.getOppOf(this).standPower == STAND_PP16 && _punch && this.duel.getOppOf(this).STR <= 15) {
+		if (this.duel.getOppOf(this).standPower == STAND_PP16 && _punch && this.duel.getOppOf(this).STR <= 15 && _punch) {
 			// Virus
 			this.duel.addMessage("Virus effect starts !");
 			_amount = _amount*100;
@@ -2154,7 +2154,7 @@ class Fighter {
 		
 		if (this.duel.EVENT_BOSS && _punch) {
 			if (_amount <= 0) {
-				return this.duel.addMessage(this.user.username + " takes no damages !");
+				return this.duel.addMessage(this.duel.CURRENT_BOSS + " takes no damages !");
 			}
 			
 			this.duel.BOSS_HEALTH -= _amount;
@@ -3851,7 +3851,9 @@ class Duel {
 		if (this.FIGHTER1.regularCharges > 0 || this.FIGHTER2.regularCharges > 0) {
 			listeAttaques.push(EMOTE_PP51);
 		}
-		if (this.FIGHTER1.specialCharges > 0 || this.FIGHTER2.specialCharges > 0) {
+		if (this.FIGHTER1.specialCharges > 0 || this.FIGHTER2.specialCharges > 0 || 
+		    (this.FIGHTER1.requiemPower != null && this.FIGHTER1.requiemCountdown <= 0) ||
+		    (this.FIGHTER2.requiemPower != null && this.FIGHTER2.requiemCountdown <= 0)) {
 			listeAttaques.push(EMOTE_PP52);
 		}
 
