@@ -3132,18 +3132,24 @@ class Duel {
 			}
 		}
 		
-		if (this.FORCE_EVENT_ID != 0) {
-			randomVar = this.FORCE_EVENT_ID;
-			this.FORCE_EVENT_ID = 0;
-		}
-
 		if (!this.PP_ARMAGEDDON && this.MOVE_COUNT >= 100) {
 			// PP ARMAGEDDON
 			this.PP_ARMAGEDDON = true;
 			this.addMessage(" -- PP ARMAGEDDON --");
 			this.addMessage("PPs have ascended, the end is near !");
+			
+			if (this.FORCE_EVENT_ID == 0) {
+				this.sendMessages();
+				return;
+			}
 		}
-		else if (randomVar == 2) {
+		
+		if (this.FORCE_EVENT_ID != 0) {
+			randomVar = this.FORCE_EVENT_ID;
+			this.FORCE_EVENT_ID = 0;
+		}
+
+		if (randomVar == 2) {
 			// PP Enlightenment
 			this.EVENT_PP_ENLIGHTENMENT = true;
 			this.addMessage(" -- PP ENLIGHTENMENT --");
@@ -3428,7 +3434,8 @@ class Duel {
 		else {
 			this.addMessage("No event this turn...");
 		}
-		this.sendMessages()
+		
+		this.sendMessages();
 	}
 	launchAttacks() {
 		this.addMessage("\n\n**===== ATTACKS =====**");
