@@ -253,6 +253,7 @@ class Fighter {
 		this.oldAttack = EMOTE_PP30;
 		this.attackedThisTurn = false;
 		this.damageTaken = 0;
+		this.pushedDamages = 0;
 		
 		// set roles
 		this.isBigPP = false;
@@ -2111,6 +2112,10 @@ class Fighter {
 			// Barrel
 			_amount = _amount*2;
 		}
+		if (this.godList.indexOf(GOD_PP19_PRIEST) > -1 && this.godList.indexOf(GOD_PP20_PRIEST) > -1 && _punch) {
+			// Waifu Body Pillow
+			_amount -= 10;
+		}
 		if (this.duel.ATTACK_MISS_COUNTDOWN > 0 && getRandomPercent() < 90) {
 			// Boom Loop
 			_amount += _amount;
@@ -2175,6 +2180,12 @@ class Fighter {
 			
 			return;
 		}
+		else if (this.duel.TIME_STOP > 0 && _punch) {
+			if (_amount > 0) { 
+				this.pushedDamages += _amount;
+			}
+			return;
+		} 
 		else if (this.isDrunkPP && getRandomPercent() < 50) {
 			// Drunk PP
 			this.duel.addMessage(this.user.username + " felt nothing because too drunk !");
@@ -2199,10 +2210,6 @@ class Fighter {
 			this.duel.getOppOf(this).damage(_amount);
 		}
 		else {
-			// Waifu Body Pillow
-			if (this.godList.indexOf(GOD_PP19_PRIEST) > -1 && this.godList.indexOf(GOD_PP20_PRIEST) > -1 && _punch) {
-				_amount -= 10;
-			}
 			
 			if (_amount <= 0) {
 				return this.duel.addMessage(this.user.username + " takes no damages !");
@@ -2766,6 +2773,12 @@ class Duel {
 			this.FIGHTER2.attack = "";
 		}
 		else {
+			this.bothFightersAction(function(_fighter) {
+				if (_fighter.pushedDamages <= 0) {
+					_fighter.damage(_fighter.pushedDamages, false);
+				}
+			});
+			
 			this.NUCLEAR_BOMB -= 1;
 			if (this.NUCLEAR_BOMB == 0) {
 				this.addMessage("The Nuclear Bomb explodes now !\n" + IMAGE_PP1);
