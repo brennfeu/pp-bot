@@ -3094,6 +3094,9 @@ class Duel {
 		if (this.PP_ARMAGEDDON) {
 			this.addMessage(" - **PP ARMAGEDDON**");
 		}
+		if (this.TIME_STOP > 0) {
+			this.addMessage(" - **TIME STOPPED FOR " + this.TIME_STOP + " TURNS**");
+		}
 
 		// HighFiveEmote - Stop move_list
 		if (this.STOPPED_MOVE_LIST.length >= 1) {
@@ -3952,7 +3955,7 @@ class Duel {
 	}
 	
 	illegalGetCaught(_percentage) {
-		if (this.BLIND_COUNTDOWN > 0) {
+		if (this.BLIND_COUNTDOWN > 0 || this.TIME_STOP > 0) {
 			return false;
 		}
 		var result = (getRandomPercent() < _percentage);
