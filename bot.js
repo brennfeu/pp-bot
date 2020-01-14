@@ -2955,7 +2955,15 @@ class Duel {
 		this.AUTO_MOVES_COUNTDOWN -= 1;
 		this.MOVE_COUNT_TURN = 0;
 		
+		// Reset events
+		this.EVENT_PP_ENLIGHTENMENT = false;
+		this.EVENT_PP_PURGE = false;
+		this.EVENT_CONFUSION = false;
+		this.EVENT_BLOOD_MOON = false;
+		this.EVENT_PP_EQUALITY = false;
+		
 		if (!this.EASY_DUEL) {
+			this.addMessage("**===== EVENTS =====**");
 			this.startRandomEvent();
 		}
 		
@@ -3115,14 +3123,6 @@ class Duel {
 		}
 	}
 	startRandomEvent() {
-		// Reset events
-		this.EVENT_PP_ENLIGHTENMENT = false;
-		this.EVENT_PP_PURGE = false;
-		this.EVENT_CONFUSION = false;
-		this.EVENT_BLOOD_MOON = false;
-		this.EVENT_PP_EQUALITY = false;
-
-		this.addMessage("**===== EVENTS =====**");
 		this.sendMessages();
 		var randomVar = getRandomPercent();
 
@@ -3414,6 +3414,16 @@ class Duel {
 			this.addMessage(" -- DAY OF THE PP EQUALITY --");
 			this.addMessage("Today is Day of the PP Equality ! There is no DEX modifier for moves for this turn !");
 			this.EVENT_PP_EQUALITY = true;
+		}
+		else if (randomVar == 90) {
+			// Brenn Ejaculates
+			this.addMessage(" -- BRENN EJACULATES --");
+			this.addMessage("For some reasons, this summons every event !");
+			var idList = [2, 3, 4, 5, 6, 7, 8, 9, 19, 22, 23, 24, 26, 27, 32];
+			for (i = 0; i < idList.length; i++) {
+				this.FORCE_EVENT_ID = idList[i];
+				this.startRandomEvent();
+			}
 		}
 		else {
 			this.addMessage("No event this turn...");
