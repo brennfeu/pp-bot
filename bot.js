@@ -1682,17 +1682,19 @@ class Fighter {
 				}
 				if (this.requiemPower == REQUIEM_PP1 && this.requiemCooldown <= 0) { // Etrange
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage(this.requiemPower + " answers his calls !");
+					this.duel.addMessage(this.requiemPower + " Requiem Ability is trigger !");
+					this.duel.addMessage(this.duel.getOppOf(this).user.username + "'s past injuries are inflicted to him again !");
+					this.duel.getOppOf(this).damage(this.duel.getOppOf(this).damageTaken, false);
 					this.requiemCooldown = 11;
 				}
 				if (this.requiemPower == REQUIEM_PP2 && this.requiemCooldown <= 0) { // Iamthemorning
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage(this.requiemPower + " answers his calls !");
+					this.duel.addMessage(this.requiemPower + " Requiem Ability is trigger !");
 					this.requiemCooldown = 11;
 				}
 				if (this.requiemPower == REQUIEM_PP3 && this.requiemCooldown <= 0) { // Majestic
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage(this.requiemPower + " answers his calls !");
+					this.duel.addMessage(this.requiemPower + " Requiem Ability is trigger !");
 					this.requiemCooldown = 11;
 				}
 			}
