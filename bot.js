@@ -2965,7 +2965,7 @@ class Duel {
 							_fighter.duel.FIGHTER2 = _fighter.extraLifeDuplication;
 						}
 						else {
-							_fighter.duel.FIGHTER2 = new Fighter(_fighter.duel.FIGHTER1.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
+							_fighter.duel.FIGHTER2 = new Fighter(_fighter.duel.FIGHTER2.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
 						}
 						_fighter.duel.FIGHTER2.extraLife = extra;
 					}
