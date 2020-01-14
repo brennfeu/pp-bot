@@ -202,7 +202,7 @@ STAND_SUMMONS[STAND_PP16] = [EMOTE_PP46, EMOTE_PP18, EMOTE_PP22]; // MeatBro, Re
 const REQUIEM_PP1 = "Etrange";
 const REQUIEM_PP2 = "Iamthemorning";
 const REQUIEM_PP3 = "Majestic";
-const REQUIEM_LIST = [REQUIEM_PP1, REQUIEM_PP2, REQUIEM_PP3];
+const REQUIEM_LIST = [REQUIEM_PP1, REQUIEM_PP2];
 
 // BOSSES
 const BOSS_PP1 = "Cthulhu";
@@ -1691,6 +1691,11 @@ class Fighter {
 						this.duel.addMessage(this.duel.getOppOf(this).user.username + "'s past injuries are inflicted to him again !");
 						this.duel.getOppOf(this).damage(this.duel.getOppOf(this).damageTaken, false);
 					}
+					if (this.requiemPower == REQUIEM_PP2) { // Iamthemorning
+						this.duel.TIME_STOP = 3;
+						this.duel.addMessage(this.duel.getOppOf(this).user.username + " gets possessed !");
+						this.duel.getOppOf(this).isPossessed = 1;
+					}
 				
 				}
 			}
@@ -2719,9 +2724,18 @@ class Duel {
 		if (this.UWU_TEXT) {
 			_texte = _texte.split("r").join("w");
 			_texte = _texte.split("R").join("W");
-			if (getRandomPercent() <= 10) {
+			if (getRandomPercent() <= 5) {
 				_texte = _texte.split("e").join("fuck");
 				_texte = _texte.split("E").join("FUCK");
+			}
+			else if (getRandomPercent() <= 15) {
+				_texte += " uwu";
+			}
+			else if (getRandomPercent() <= 25) {
+				_texte += " owo";
+			}
+			else if (getRandomPercent() <= 35) {
+				_texte += " TwT";
 			}
 		}
 		this.LIST_MESSAGES.push(_texte);
