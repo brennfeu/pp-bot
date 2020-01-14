@@ -1701,7 +1701,7 @@ class Fighter {
 						this.duel.getOppOf(this).isPossessed = 1;
 					}
 					if (this.requiemPower == REQUIEM_PP3) { // Majestic
-						this.duel.addMessage(this.duel.getOppOf(this).user.username + " makes a temporal duplication of himself !");
+						this.duel.addMessage(this.user.username + " makes a temporal duplication of himself !");
 						this.extraLife += 1;
 						
 						var duel = this.duel;
@@ -2960,6 +2960,7 @@ class Duel {
 							_fighter.duel.FIGHTER1 = new Fighter(_fighter.duel.FIGHTER1.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
 						}
 						_fighter.duel.FIGHTER1.extraLife = extra;
+						_fighter.duel.FIGHTER1.attack = "";
 					}
 					else {
 						if (_fighter.extraLifeDuplication != null) {
@@ -2969,6 +2970,7 @@ class Duel {
 							_fighter.duel.FIGHTER2 = new Fighter(_fighter.duel.FIGHTER2.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
 						}
 						_fighter.duel.FIGHTER2.extraLife = extra;
+						_fighter.duel.FIGHTER1.attack = "";
 					}
 				}
 			});
