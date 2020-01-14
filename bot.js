@@ -4470,6 +4470,14 @@ CLIENT.on("message", async _message => {
 			duel.FORCE_EVENT_ID = parseInt(argsUser[3]);
 			return _message.reply("next event id will be : " + duel.FORCE_EVENT_ID);
 		}
+		if (argsUser[2] == "requiem1" && argsUser.length >= 4) {
+			duel.FIGHTER1.requiemPower = REQUIEM_LIST[parseInt(argsUser[3])-1];
+			return _message.reply(duel.FIGHTER1.user.username + " gets : " + REQUIEM_LIST[parseInt(argsUser[3])-1];);
+		}
+		if (argsUser[2] == "requiem2" && argsUser.length >= 4) {
+			duel.FIGHTER2.requiemPower = REQUIEM_LIST[parseInt(argsUser[3])-1];
+			return _message.reply(duel.FIGHTER2.user.username + " gets : " + REQUIEM_LIST[parseInt(argsUser[3])-1];);
+		}
 	}
 
 	return _message.reply("I don't know this command, try using the help command !");
