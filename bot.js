@@ -2721,7 +2721,7 @@ class Duel {
 			_texte = _texte.split("R").join("W");
 			if (getRandomPercent() <= 10) {
 				_texte = _texte.split("e").join("fuck");
-				_texte = _texte.split("E").join("Fuck");
+				_texte = _texte.split("E").join("FUCK");
 			}
 		}
 		this.LIST_MESSAGES.push(_texte);
@@ -2749,6 +2749,8 @@ class Duel {
 		
 		if (this.TIME_STOP > 0) {
 			this.TIME_STOP -= 1;
+			this.FIGHTER1.attack = "";
+			this.FIGHTER2.attack = "";
 		}
 		else {
 			this.NUCLEAR_BOMB -= 1;
