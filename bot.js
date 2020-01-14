@@ -4384,7 +4384,7 @@ CLIENT.on("message", async _message => {
 		
 		duel.startDuel(_message);
 
-		return;
+		return console.log(duel);
 	}
 	if (argsUser[1] == "quit") {
 		if (getDuel(_message.channel.id) != null) {
