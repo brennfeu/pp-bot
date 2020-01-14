@@ -761,13 +761,11 @@ class Fighter {
 		
 		// Cybion
 		if (this.standPower == STAND_PP9 && getRandomPercent() <= 25) {
-			this.duel.addMessage(this.user.username + " stops the time !");
 			this.duel.addMessage(this.user.username + " can perform his move twice !");
 			numberAttacks += numberAttacks;
 		}
 		if (this.duel.getOppOf(this).standPower == STAND_PP9 && getRandomPercent() <= 25) {
-			this.duel.addMessage(this.duel.getOppOf(this).user.username + " deletes time !");
-			this.duel.addMessage(this.user.username + " doesn't understand what happened !");
+			this.duel.addMessage(this.duel.getOppOf(this).user.username + " interrupts the move !");
 			numberAttacks = 0;
 		}
 		
@@ -2763,6 +2761,7 @@ class Duel {
 		
 		if (this.TIME_STOP > 0) {
 			this.TIME_STOP -= 1;
+			this.duel.STOPPED_MOVE_LIST = this.duel.LIST_AVAILABLE_ATTACKS;
 			this.FIGHTER1.attack = "";
 			this.FIGHTER2.attack = "";
 		}
@@ -2961,7 +2960,7 @@ class Duel {
 				if (this.FIGHTER2.STR > 0) {
 					this.FIGHTER2_SAVE.standPower = this.FIGHTER2.standPower;
 					this.FIGHTER2_SAVE.requiemPower = this.FIGHTER2.requiemPower;
-					this.FIGHTER1_SAVE.randomizedStand = this.FIGHTER1.randomizedStand;
+					this.FIGHTER2_SAVE.randomizedStand = this.FIGHTER2.randomizedStand;
 				}
 
 				this.STAND_BATTLE = false;
@@ -4488,7 +4487,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 
 		// Assigne attaque
 		duel.bothFightersAction(function(_fighter) {
-			if (duel.TIME_STOP > 0 && _fighter.requiemPower == null) { // if weak --> skip time skip
+			if (_fighter.duel.TIME_STOP > 0 && _fighter.requiemPower == null) { // if weak --> skip time skip
 				return;
 			}
 			
