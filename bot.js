@@ -263,6 +263,7 @@ class Fighter {
 		
 		this.godList = [];
 		this.standPower = _stand;
+		this.requiemPower = null;
 		
 		this.currentStand = null;
 		this.usedMoves = [];
@@ -507,6 +508,9 @@ class Fighter {
 
 		var txt = "**" + this.user.username;
 		if (this.standPower != null) {
+			if (this.requiemPower != null) {
+				txt += " Requiem";
+			}
 			txt += "\n(" + this.guildUser.user.username + ")";
 		}
 		
@@ -524,6 +528,9 @@ class Fighter {
 				txt += "\n\n**Faith :**"
 				for (var i in this.godList) {
 					txt += "\n - " + this.godList[i];
+				}
+				if (this.requiemPower != null) {
+					txt += "\n - **Requiem Power : " + this.requiemPower + "**";
 				}
 			}
 			if (this.regularCharges > 0) {
@@ -2897,6 +2904,14 @@ class Duel {
 				if (this.FIGHTER1.standPower == STAND_PP3) {
 					this.playMove(EMOTE_PP58);
 				}
+			}
+			if (this.FIGHTER1.STR > 0) {
+				this.FIGHTER1_SAVE.standPower = this.FIGHTER1.standPower;
+				this.FIGHTER1_SAVE.requiemPower = this.FIGHTER1.requiemPower;
+			}
+			if (this.FIGHTER2.STR > 0) {
+				this.FIGHTER2_SAVE.standPower = this.FIGHTER2.standPower;
+				this.FIGHTER2_SAVE.requiemPower = this.FIGHTER2.requiemPower;
 			}
 			
 			this.STAND_BATTLE = false;
