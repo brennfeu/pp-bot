@@ -3420,7 +3420,7 @@ class Duel {
 			this.addMessage(" -- BRENN EJACULATES --");
 			this.addMessage("For some reasons, this summons every event !");
 			var idList = [2, 3, 4, 5, 6, 7, 8, 9, 19, 22, 23, 24, 26, 27, 32];
-			for (i = 0; i < idList.length; i++) {
+			for (var i = 0; i < idList.length; i++) {
 				this.FORCE_EVENT_ID = idList[i];
 				this.startRandomEvent();
 			}
