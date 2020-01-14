@@ -507,7 +507,7 @@ class Fighter {
 		}
 
 		var txt = "**" + this.user.username;
-		if (this.standPower != null) {
+		if (this.duel.STAND_BATTLE) {
 			if (this.requiemPower != null) {
 				txt += " Requiem";
 			}
@@ -523,7 +523,7 @@ class Fighter {
 			txt += " (lmao)";
 		}
 
-		if (this.standPower == null) {
+		if (!this.duel.STAND_BATTLE) {
 			if (this.regularCharges > 0 || this.specialCharges > 0) {
 				txt += "\n\n**Faith :**"
 				for (var i in this.godList) {
@@ -691,6 +691,9 @@ class Fighter {
 		}
 		if (this.summonTankCountdown > 0) {
 			txt += " - **Summoning the Monster (" + (4-this.summonTankCountdown) + "/3)**\n";
+		}
+		if (this.standPower != null && !this.duel.STAND_BATTLE) {
+			txt += " - **Stånd Legacy (" + this.standPower + "**\n";
 		}
 		if (this.extraLife > 0) {
 			txt += " - **Extra lives : " + this.extraLife + "**\n";
