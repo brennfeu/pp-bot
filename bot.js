@@ -3692,7 +3692,7 @@ class Duel {
 					return;
 				}
 				
-			}
+			});
 		}
 		else {
 			this.bothFightersAction(function(_fighter) {
