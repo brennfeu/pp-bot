@@ -2493,6 +2493,7 @@ class Duel {
 		this.INFINITE_DAMAGE = 0;
 		this.TIMESTAMP = +new Date();
 		this.UWU_TEXT = false;
+		this.TIME_STOP = 0;
 		
 		this.FIGHTER1_SAVE = null;
 		this.FIGHTER2_SAVE = null;
@@ -3098,7 +3099,7 @@ class Duel {
 				_fighter.attack = "IS_DEAD_LOL";
 				_fighter.STRValue = -10;
 			}
-			if (this.TIME_STOP > 0 && _fighter.requiemPower == null) { // if weak --> skip time skip
+			if (_fighter.duel.TIME_STOP > 0 && _fighter.requiemPower == null) { // if weak --> skip time skip
 				_fighter.attack = "IS_DEAD_LOL";
 			}
 		});
