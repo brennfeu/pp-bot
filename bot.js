@@ -2768,13 +2768,13 @@ class Duel {
 		
 		if (this.TIME_STOP > 0) {
 			this.TIME_STOP -= 1;
-			this.duel.STOPPED_MOVE_LIST = this.duel.LIST_AVAILABLE_ATTACKS;
+			this.STOPPED_MOVE_LIST = this.LIST_AVAILABLE_ATTACKS;
 			this.FIGHTER1.attack = "";
 			this.FIGHTER2.attack = "";
 		}
 		else {
 			this.bothFightersAction(function(_fighter) {
-				if (_fighter.pushedDamages <= 0) {
+				if (_fighter.pushedDamages > 0) {
 					_fighter.damage(_fighter.pushedDamages, false);
 				}
 			});
