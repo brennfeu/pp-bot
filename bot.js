@@ -1707,6 +1707,7 @@ class Fighter {
 						var duel = this.duel;
 						this.duel = null;
 						this.extraLifeDuplication = cloneObject(this);
+						this.extraLifeDuplication.duel = duel;
 						this.duel = duel;
 					}
 				
