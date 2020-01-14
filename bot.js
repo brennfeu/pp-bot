@@ -3734,14 +3734,14 @@ class Duel {
 			else {
 				return;
 			}
+			
+			this.STAND_BATTLE = true;
+			this.FIGHTER1_SAVE = this.FIGHTER1;
+			this.FIGHTER2_SAVE = this.FIGHTER2;
+			this.FIGHTER1 = new Fighter(this.FIGHTER1.idUser, this.BATTLE_CHANNEL.id, this.FIGHTER1.currentStand);
+			this.FIGHTER2 = new Fighter(this.FIGHTER2.idUser, this.BATTLE_CHANNEL.id, this.FIGHTER2.currentStand);
 		}
 		this.sendMessages();
-		
-		this.STAND_BATTLE = true;
-		this.FIGHTER1_SAVE = this.FIGHTER1;
-		this.FIGHTER2_SAVE = this.FIGHTER2;
-		this.FIGHTER1 = new Fighter(this.FIGHTER1.idUser, this.BATTLE_CHANNEL.id, this.FIGHTER1.currentStand);
-		this.FIGHTER2 = new Fighter(this.FIGHTER2.idUser, this.BATTLE_CHANNEL.id, this.FIGHTER2.currentStand);
 	}
 	
 	setRandomAttackList() {
