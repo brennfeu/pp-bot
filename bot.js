@@ -199,9 +199,9 @@ STAND_SUMMONS[STAND_PP14] = [EMOTE_PP50, EMOTE_PP41, EMOTE_PP18]; // RedPill, Ch
 STAND_SUMMONS[STAND_PP15] = [EMOTE_PP30, EMOTE_PP51]; // God Regular Move, Alert
 STAND_SUMMONS[STAND_PP16] = [EMOTE_PP46, EMOTE_PP18, EMOTE_PP22]; // MeatBro, RedPill, YES
 
-const REQUIEM_PP1 = "";
-const REQUIEM_PP2 = "";
-const REQUIEM_PP3 = "";
+const REQUIEM_PP1 = "Test A";
+const REQUIEM_PP2 = "Test B";
+const REQUIEM_PP3 = "Test C";
 const REQUIEM_LIST = [REQUIEM_PP1, REQUIEM_PP2, REQUIEM_PP3];
 
 // BOSSES
@@ -1255,7 +1255,7 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP51) {
 				// Priest Regular Move
-				this.duel.addMessage(this.user.username + " calls for his Gods to help him !");
+				this.duel.addMessage(this.user.username + " calls for superior powers !");
 				if (this.regularCharges > 0 && sdsds == 0) {
 					this.regularCharges -= 1;
 				}
@@ -1463,7 +1463,7 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
-				this.duel.addMessage(this.user.username + " calls for his Gods to help him !");
+				this.duel.addMessage(this.user.username + " calls for superior powers !");
 				if (this.specialCharges > 0 && sdsds == 0) {
 					this.specialCharges -= 1;
 				}
@@ -1669,6 +1669,18 @@ class Fighter {
 					this.STRValue = this.STR*1000-this.STRValue;
 					this.duel.addMessage(this.user.username + " gets the strength of a thousand punchers !");
 					this.playMove(EMOTE_PP2);
+				}
+				if (this.godList.indexOf(REQUIEM_PP1) > -1) { // 
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Test A answers his calls !");
+				}
+				if (this.godList.indexOf(REQUIEM_PP2) > -1) { // 
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Test B answers his calls !");
+				}
+				if (this.godList.indexOf(REQUIEM_PP3) > -1) { // 
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Test C answers his calls !");
 				}
 			}
 			else if (attack == EMOTE_PP53) {
@@ -3660,47 +3672,68 @@ class Duel {
 	
 	checkStandSummon() {
 		if (this.STAND_BATTLE) {
-			return;
-		}
-		
-		this.bothFightersAction(function(_fighter) {
-			var check = false;
-			for (var i in STAND_SUMMONS) {
-				check = true;
-				for (var j in STAND_SUMMONS[i]) {
-					if (STAND_SUMMONS[i][j] != _fighter.usedMoves[_fighter.usedMoves.length-j-1]) {
+			this.bothFightersAction(function(_fighter) {
+				var requiemCombo = [EMOTE_PP52];
+				
+				if (_fighter.requiemPower != null) {
+					return;
+				}
+				
+				var check = true;
+				for (var j in requiemCombo) {
+					if (requiemCombo[j] != _fighter.usedMoves[_fighter.usedMoves.length-j-1]) {
 						check = false;
 					}
 				}
 				if (check) {
 					_fighter.duel.addMessage("-----------------");
-					_fighter.duel.addMessage(_fighter.user.username + " summons the Stånd : " + i);
-					_fighter.currentStand = i;
+					_fighter.duel.addMessage(_fighter.user.username + " evolves to Requiem !");
+					_fighter.requiemPower = REQUIEM_LIST[Math.floor(Math.random()*REQUIEM_LIST.length)];
 					return;
 				}
+				
 			}
-		});
-		this.sendMessages();
-		
-		if (this.FIGHTER1.currentStand != null && this.FIGHTER2.currentStand != null) {
-			this.addMessage("**===== STAND BATTLE MODE =====**");
-			this.addMessage("Both fighters already have summoned their Stånd.");
-		}
-		else if (this.FIGHTER1.currentStand != null || this.FIGHTER2.currentStand != null) {
-			this.addMessage("**===== STAND BATTLE MODE =====**");
-			this.bothFightersAction(function(_fighter) {
-				if (_fighter.currentStand == null) {
-					var liste = Object.keys(STAND_SUMMONS);
-					_fighter.currentStand = liste[Math.floor(Math.random()*liste.length)];
-					_fighter.duel.addMessage(_fighter.user.username + " summons the Stånd : " + _fighter.currentStand);
-				}
-				else {
-					_fighter.duel.addMessage(_fighter.user.username + " already have summoned the Stånd : " + _fighter.currentStand);
-				}
-			});
 		}
 		else {
-			return;
+			this.bothFightersAction(function(_fighter) {
+				var check = false;
+				for (var i in STAND_SUMMONS) {
+					check = true;
+					for (var j in STAND_SUMMONS[i]) {
+						if (STAND_SUMMONS[i][j] != _fighter.usedMoves[_fighter.usedMoves.length-j-1]) {
+							check = false;
+						}
+					}
+					if (check) {
+						_fighter.duel.addMessage("-----------------");
+						_fighter.duel.addMessage(_fighter.user.username + " summons the Stånd : " + i);
+						_fighter.currentStand = i;
+						return;
+					}
+				}
+			});
+			this.sendMessages();
+
+			if (this.FIGHTER1.currentStand != null && this.FIGHTER2.currentStand != null) {
+				this.addMessage("**===== STAND BATTLE MODE =====**");
+				this.addMessage("Both fighters already have summoned their Stånd.");
+			}
+			else if (this.FIGHTER1.currentStand != null || this.FIGHTER2.currentStand != null) {
+				this.addMessage("**===== STAND BATTLE MODE =====**");
+				this.bothFightersAction(function(_fighter) {
+					if (_fighter.currentStand == null) {
+						var liste = Object.keys(STAND_SUMMONS);
+						_fighter.currentStand = liste[Math.floor(Math.random()*liste.length)];
+						_fighter.duel.addMessage(_fighter.user.username + " summons the Stånd : " + _fighter.currentStand);
+					}
+					else {
+						_fighter.duel.addMessage(_fighter.user.username + " already have summoned the Stånd : " + _fighter.currentStand);
+					}
+				});
+			}
+			else {
+				return;
+			}
 		}
 		this.sendMessages();
 		
