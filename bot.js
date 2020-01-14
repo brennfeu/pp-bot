@@ -2567,7 +2567,7 @@ class Duel {
 		this.CURRENT_THEME = null;
 		
 		this.FIGHTER1 = new Fighter(_message.author.id, this.BATTLE_CHANNEL.id);
-		this.FIGHTER2 = new Fighter(_message.mentions.users.array()[0].id, this.BATTLE_CHANNEL.id);
+		this.FIGHTER2 = new Fighter(_message.mentions.users.array().last().id, this.BATTLE_CHANNEL.id);
 		if (this.EASY_DUEL) {
 			this.bothFightersAction(function(_fighter) {
 				_fighter.godList = [];
