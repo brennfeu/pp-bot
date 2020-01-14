@@ -2558,7 +2558,7 @@ class Duel {
 		this.FORCE_PERHAPS = false;
 		this.FORCE_SATAN = false;
 	}
-	startDuel(_message) {
+	startDuel(_message, _alone = false) {
 		this.BATTLE_CHANNEL = _message.channel;
 		this.GUILD = this.BATTLE_CHANNEL.guild;
 		this.TUTORIAL = false;
@@ -2567,7 +2567,12 @@ class Duel {
 		this.CURRENT_THEME = null;
 		
 		this.FIGHTER1 = new Fighter(_message.author.id, this.BATTLE_CHANNEL.id);
-		this.FIGHTER2 = new Fighter(_message.mentions.users.last().id, this.BATTLE_CHANNEL.id);
+		if (!_alone) {
+			this.FIGHTER2 = new Fighter(_message.mentions.users.last().id, this.BATTLE_CHANNEL.id);
+		}
+		else {
+			this.FIGHTER2 = new Fighter(CLIENT.user.id, this.BATTLE_CHANNEL.id);
+		}
 		if (this.EASY_DUEL) {
 			this.bothFightersAction(function(_fighter) {
 				_fighter.godList = [];
@@ -4364,6 +4369,18 @@ CLIENT.on("message", async _message => {
 		}).catch(function(e) {
 			console.log(e);
 		});
+		return;
+	}
+	if (argsUser[1] == "training") {
+		if (getDuel(_message.channel.id) != null) {
+			return _message.reply("there's a battle going on here...");
+		}
+
+		var duel = new Duel();
+		DUEL_LIST.push(duel);
+		
+		duel.startDuel(_message, true);
+
 		return;
 	}
 	if (argsUser[1] == "duel" || argsUser[1] == "simpleduel") {
