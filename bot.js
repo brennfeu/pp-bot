@@ -692,8 +692,8 @@ class Fighter {
 		if (this.summonTankCountdown > 0) {
 			txt += " - **Summoning the Monster (" + (4-this.summonTankCountdown) + "/3)**\n";
 		}
-		if (this.standPower != null && !this.duel.STAND_BATTLE) {
-			txt += " - **Stånd Legacy (" + this.standPower + "**\n";
+		if (this.standPower != null && !this.duel.STAND_BATTLE && !this.randomizedStand) {
+			txt += " - **Stånd Power : " + this.standPower + "**\n";
 		}
 		if (this.extraLife > 0) {
 			txt += " - **Extra lives : " + this.extraLife + "**\n";
@@ -2911,10 +2911,12 @@ class Duel {
 			if (this.FIGHTER1.STR > 0) {
 				this.FIGHTER1_SAVE.standPower = this.FIGHTER1.standPower;
 				this.FIGHTER1_SAVE.requiemPower = this.FIGHTER1.requiemPower;
+				this.FIGHTER1_SAVE.randomizedStand = this.FIGHTER1.randomizedStand;
 			}
 			if (this.FIGHTER2.STR > 0) {
 				this.FIGHTER2_SAVE.standPower = this.FIGHTER2.standPower;
 				this.FIGHTER2_SAVE.requiemPower = this.FIGHTER2.requiemPower;
+				this.FIGHTER1_SAVE.randomizedStand = this.FIGHTER1.randomizedStand;
 			}
 			
 			this.STAND_BATTLE = false;
