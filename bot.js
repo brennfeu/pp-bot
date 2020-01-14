@@ -3095,7 +3095,7 @@ class Duel {
 			this.addMessage(" - **PP ARMAGEDDON**");
 		}
 		if (this.TIME_STOP > 0) {
-			this.addMessage(" - **TIME STOPPED FOR " + this.TIME_STOP + " TURNS**");
+			this.addMessage(" - **TIME STOPPED**");
 		}
 
 		// HighFiveEmote - Stop move_list
