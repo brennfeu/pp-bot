@@ -4260,7 +4260,7 @@ CLIENT.on("message", async _message => {
 	if(_message.author.bot) return;
 	// Ignore si pas appelé
 	if (_message.mentions.users.array().length < 1) return;
-	if (_message.mentions.users.array()[_message.mentions.users.array().length-1].id != CLIENT.user.id) return;
+	if (_message.mentions.users.first().id != CLIENT.user.id) return;
 	console.log(argsUser);
 	
 	killDeadDuels();
@@ -4375,8 +4375,8 @@ CLIENT.on("message", async _message => {
 			return _message.reply("you need to tag the person you want to duel in the command !\nSee the help command for more help !");
 		}
 		
-		if (_message.author.id == _message.mentions.users.array()[0].id) {
-			return _message.reply("you can't battle yourself");
+		if (_message.author.id == _message.mentions.users.last().id) {
+			return _message.reply("you can't battle yourself !");
 		}
 
 		var duel = new Duel(argsUser[1] == "simpleduel");
@@ -4384,7 +4384,7 @@ CLIENT.on("message", async _message => {
 		
 		duel.startDuel(_message);
 
-		return console.log(duel);
+		return;
 	}
 	if (argsUser[1] == "quit") {
 		if (getDuel(_message.channel.id) != null) {
