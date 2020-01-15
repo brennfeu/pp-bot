@@ -2652,6 +2652,8 @@ class Duel {
 		}
 		else {
 			this.FIGHTER2 = new Fighter(CLIENT.user.id, this.BATTLE_CHANNEL.id);
+			this.FIGHTER2.STRValue = 5000;
+			this.FIGHTER2.DEXValue = 50;
 		}
 		if (this.EASY_DUEL) {
 			this.bothFightersAction(function(_fighter) {
