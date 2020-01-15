@@ -205,7 +205,8 @@ STAND_SUMMONS[STAND_PP16] = [EMOTE_PP46, EMOTE_PP18, EMOTE_PP22]; // MeatBro, Re
 const REQUIEM_PP1 = "Etrange";
 const REQUIEM_PP2 = "Iamthemorning";
 const REQUIEM_PP3 = "Majestic";
-const REQUIEM_LIST = [REQUIEM_PP1, REQUIEM_PP2, REQUIEM_PP3];
+const REQUIEM_PP3 = "DayDream XI";
+const REQUIEM_LIST = [REQUIEM_PP1, REQUIEM_PP2, REQUIEM_PP3, REQUIEM_PP4];
 
 // BOSSES
 const BOSS_PP1 = "Cthulhu";
@@ -1713,7 +1714,11 @@ class Fighter {
 						this.extraLifeDuplication.duel = duel;
 						this.duel = duel;
 					}
-				
+					if (this.requiemPower == REQUIEM_PP4) { // DayDream XI
+						this.duel.TIME_STOP = 4;
+						this.duel.addMessage(this.user.username + " will compress time when it'll go back to normal !");
+						this.duel.TIME_COMPRESSION = 4;
+					}
 				}
 			}
 			else if (attack == EMOTE_PP53) {
@@ -2533,8 +2538,6 @@ class Duel {
 		this.TIMESTAMP = +new Date();
 		this.LIST_AVAILABLE_ATTACKS = [];
 		
-		this.UWU_TEXT = false;
-		this.TIME_STOP = 0;
 		
 		this.FIGHTER1_SAVE = null;
 		this.FIGHTER2_SAVE = null;
@@ -2542,6 +2545,9 @@ class Duel {
 		this.FORCE_EVENT_ID = 0;
 		this.EASY_DUEL = _easyDuel;
 		this.STAND_BATTLE = false;
+		this.UWU_TEXT = false;
+		this.TIME_STOP = 0;
+		this.TIME_COMPRESSION = 0;
 		
 		this.MOVE_COUNT = 0;
 		this.DAMAGE_COUNT = 0;
@@ -2799,9 +2805,6 @@ class Duel {
 	}
 	
 	newTurnDuel() {
-		this.addMessage("**===== TURN CHANGE =====**");
-		this.sendMessages();
-		
 		this.TIME_STOP -= 1;
 		if (this.TIME_STOP > 0) {
 			this.STOPPED_MOVE_LIST = this.LIST_AVAILABLE_ATTACKS;
@@ -2809,271 +2812,282 @@ class Duel {
 			this.FIGHTER2.attack = "";
 		}
 		else {
-			this.bothFightersAction(function(_fighter) {
-				if (_fighter.pushedDamages > 0) {
-					_fighter.damage(_fighter.pushedDamages, false);
-					_fighter.pushedDamages = 0;
-					_fighter.duel.addMessage("-----------------");
-				}
-			});
+			var nbTurnChanges = 1;
+			if (this.TIME_COMPRESSION > 0) {
+				nbTurnChanges = 3;
+			}
 			
-			this.NUCLEAR_BOMB -= 1;
-			if (this.NUCLEAR_BOMB == 0) {
-				this.addMessage("The Nuclear Bomb explodes now !\n" + IMAGE_PP1);
-				this.bothFightersAction(function(_fighter) {
-					_fighter.damage(1000000000);
-				});
+			for (var nbTurn = 0; nbTurn < nbTurnChanges; nbTurn++) {
+				this.addMessage("**===== TURN CHANGE =====**");
 				this.sendMessages();
-			}
-
-			// Blood Moon Save
-			if (this.EVENT_BLOOD_MOON) {
+				
 				this.bothFightersAction(function(_fighter) {
-					if (_fighter.STR <= 0) {
-						_fighter.DEXValue += (0 - _fighter.STR) + 10;
-						_fighter.STRValue += (0 - _fighter.STR) + 10;
-						_fighter.duel.addMessage(_fighter.user.username + " got saved thanks to the Blood Moon");
+					if (_fighter.pushedDamages > 0) {
+						_fighter.damage(_fighter.pushedDamages, false);
+						_fighter.pushedDamages = 0;
+						_fighter.duel.addMessage("-----------------");
 					}
 				});
-			}
-
-			// Cthulhu
-			if (this.EVENT_BOSS) {
-				if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP1) {
-					this.addMessage(this.CURRENT_BOSS + " goes back to sleep to heal his poor PP !");
-					this.addMessage("You both win !");
+				
+				this.NUCLEAR_BOMB -= 1;
+				if (this.NUCLEAR_BOMB == 0) {
+					this.addMessage("The Nuclear Bomb explodes now !\n" + IMAGE_PP1);
 					this.bothFightersAction(function(_fighter) {
-						addWinCounter(_fighter, 1);
+						_fighter.damage(1000000000);
 					});
-					this.EVENT_BOSS = false;
-					return this.stopDuel();
+					this.sendMessages();
 				}
-				else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP2) {
-					this.addMessage(this.CURRENT_BOSS + " will now stop making updates for some time !");
-					this.EVENT_BOSS = false;
-				}
-				else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP3) {
-					this.addMessage(this.CURRENT_BOSS + " goes back hiding behind the moon !");
-					this.addMessage("You both win !");
-					this.bothFightersAction(function(_fighter) {
-						addWinCounter(_fighter, 1);
-					});
-					this.EVENT_BOSS = false;
 
-					var role = this.GUILD.roles.find(r => r.name == PP_EXPERT_ROLE);
-					try {
+				// Blood Moon Save
+				if (this.EVENT_BLOOD_MOON) {
+					this.bothFightersAction(function(_fighter) {
+						if (_fighter.STR <= 0) {
+							_fighter.DEXValue += (0 - _fighter.STR) + 10;
+							_fighter.STRValue += (0 - _fighter.STR) + 10;
+							_fighter.duel.addMessage(_fighter.user.username + " got saved thanks to the Blood Moon");
+						}
+					});
+				}
+
+				// Cthulhu
+				if (this.EVENT_BOSS) {
+					if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP1) {
+						this.addMessage(this.CURRENT_BOSS + " goes back to sleep to heal his poor PP !");
+						this.addMessage("You both win !");
 						this.bothFightersAction(function(_fighter) {
-							_fighter.guildUser.addRole(role).catch(console.error);
+							addWinCounter(_fighter, 1);
 						});
-						this.addMessage("**You are now PP Experts.**");
-						this.addMessage("**You have gained access to the D.I.C.K. god.**");
+						this.EVENT_BOSS = false;
+						return this.stopDuel();
 					}
-					catch(e) {
-						this.addMessage("D.I.C.K. is proud of you. However, he can't grant you his powers on this server.");
+					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP2) {
+						this.addMessage(this.CURRENT_BOSS + " will now stop making updates for some time !");
+						this.EVENT_BOSS = false;
+					}
+					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP3) {
+						this.addMessage(this.CURRENT_BOSS + " goes back hiding behind the moon !");
+						this.addMessage("You both win !");
+						this.bothFightersAction(function(_fighter) {
+							addWinCounter(_fighter, 1);
+						});
+						this.EVENT_BOSS = false;
+
+						var role = this.GUILD.roles.find(r => r.name == PP_EXPERT_ROLE);
+						try {
+							this.bothFightersAction(function(_fighter) {
+								_fighter.guildUser.addRole(role).catch(console.error);
+							});
+							this.addMessage("**You are now PP Experts.**");
+							this.addMessage("**You have gained access to the D.I.C.K. god.**");
+						}
+						catch(e) {
+							this.addMessage("D.I.C.K. is proud of you. However, he can't grant you his powers on this server.");
+						}
+
+						return this.stopDuel();
+					}
+					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP4) {
+						this.addMessage(this.CURRENT_BOSS + " will leave you alone for a bit !");
+						this.EVENT_BOSS = false;
+						if (this.PP_NET == 3 || this.PP_NET == 4) {
+							this.FORCE_EVENT_ID = 29;
+						} 
+					}
+					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP5) {
+						this.addMessage(this.CURRENT_BOSS + " is destroyed !");
+						this.EVENT_BOSS = false;
+					}
+					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP6) {
+						this.addMessage(this.CURRENT_BOSS + " is destroyed !");
+						this.addMessage("PP-Net is shut down ! Long live the human PPs !");
+						this.addMessage("-----------------");
+						this.addMessage("As you read the changelog, you see that a PP Terminator has been sent to the past to kill the past you !");
+						this.addMessage("-----------------");
+						this.addMessage("**ANOTHER TIME, ANOTHER PLACE**");
+						this.addMessage("-----------------");
+						this.addMessage(this.FIGHTER1.user.username + " : *'I challenge you to a PP Punch duel !'*");
+						this.addMessage(this.FIGHTER2.user.username + " : *'Alright, let's do this !'*");
+						this.addMessage(this.FIGHTER1.user.username + " : *'Wait what is this thing ?'*");
+						this.addMessage("-----------------");
+						this.sendMessages();
+
+						this.FIGHTER1_SAVE = this.FIGHTER1;
+						this.FIGHTER2_SAVE = this.FIGHTER2;
+						this.FIGHTER1 = new Fighter(this.FIGHTER1.idUser, this.BATTLE_CHANNEL.id);
+						this.FIGHTER2 = new Fighter(this.FIGHTER2.idUser, this.BATTLE_CHANNEL.id);
+
+						this.CURRENT_BOSS = BOSS_PP7;
+						this.BOSS_HEALTH = 1500;
+						this.BOSS_DAMAGE = 25;
+						this.EVENT_BOSS = true;
+						this.PP_NET = -99999;
+					}
+					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP7) {
+						this.addMessage(this.CURRENT_BOSS + " is destroyed !");
+						this.addMessage("-----------------");
+						this.addMessage("**ANOTHER TIME, ANOTHER PLACE**");
+						this.addMessage("-----------------");
+						this.sendMessages();
+
+						this.FIGHTER1 = this.FIGHTER1_SAVE;
+						this.FIGHTER2 = this.FIGHTER2_SAVE;
+
+						this.PP_NET = 200;
+						this.EVENT_BOSS = false;
+					}
+					else {
+						var fighter = this.getRandomFighter();
+						this.addMessage(fighter.user.username + " gets attacked by " + this.CURRENT_BOSS + " !");
+						if (this.EVENT_BLOOD_MOON && this.CURRENT_BOSS == BOSS_PP3) { // Blood Moon / Moon Lord
+							var amount = this.BOSS_DAMAGE*3;
+							fighter.STRValue -= amount;
+							this.addMessage("He takes " + amount + " damages !");
+							this.addMessage("-----------------");
+							fighter.damageTaken += amount;
+						}
+						else {
+							fighter.STRValue -= this.BOSS_DAMAGE;
+							this.addMessage("He takes " + this.BOSS_DAMAGE + " damages !");
+							this.addMessage("-----------------");
+						}
+					}
+				}
+
+				this.bothFightersAction(function(_fighter) {
+					_fighter.turnChange();
+				});
+				this.bothFightersAction(function(_fighter) {
+					// Overcircumcised = immune to status effects
+					if (_fighter.isOverCircumcised) {
+						_fighter.resetBattleVariables()
+					}
+				});
+				this.bothFightersAction(function(_fighter) {
+					if (_fighter.duel.getOppOf(_fighter).standPower == STAND_PP10 && _fighter.STR <= _fighter.DEX) {
+						_fighter.duel.addMessage(_fighter.user.username + " is cursed by Illud Divinum Insanus !");
+						_fighter.duel.addMessage(_fighter.user.username + " dies !");
+						_fighter.STRValue -= _fighter.STR+100;
+					}
+				});
+				this.bothFightersAction(function(_fighter) {
+					if (_fighter.STR <= 0 && _fighter.extraLife > 0) {
+						_fighter.duel.addMessage(_fighter.user.username + " uses an extra life !");
+						var extra = _fighter.extraLife - 1;
+						var stand = null;
+
+						if (_fighter.standPower == STAND_PP8_1) {
+							stand = STAND_PP8_2;
+						}
+						if (_fighter.standPower == STAND_PP8_2) {
+							stand = STAND_PP8_1;
+						}
+
+						if (_fighter.idUser == _fighter.duel.FIGHTER1.idUser) {
+							if (_fighter.extraLifeDuplication != null) {
+								_fighter.duel.FIGHTER1 = _fighter.extraLifeDuplication;
+								_fighter.duel.addMessage(_fighter.user.username + "'s temporal duplication replaces him !");
+							}
+							else {
+								_fighter.duel.FIGHTER1 = new Fighter(_fighter.duel.FIGHTER1.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
+							}
+							_fighter.duel.FIGHTER1.extraLife = extra;
+							_fighter.duel.FIGHTER1.attack = "";
+						}
+						else {
+							if (_fighter.extraLifeDuplication != null) {
+								_fighter.duel.FIGHTER2 = _fighter.extraLifeDuplication;
+								_fighter.duel.addMessage(_fighter.user.username + "'s temporal duplication replaces him !");
+							}
+							else {
+								_fighter.duel.FIGHTER2 = new Fighter(_fighter.duel.FIGHTER2.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
+							}
+							_fighter.duel.FIGHTER2.extraLife = extra;
+							_fighter.duel.FIGHTER1.attack = "";
+						}
+					}
+				});
+				if (this.STAND_BATTLE && !(this.FIGHTER1.STR > 0 && this.FIGHTER2.STR > 0)) {
+					if (this.FIGHTER1.STR <= 0) {
+						this.FIGHTER2_SAVE.quickeningCharges += 10;
+						this.addMessage("**" + this.FIGHTER1.user.username + " has been defeated !**");
+
+						if (this.FIGHTER1.standPower == STAND_PP3) {
+							this.playMove(EMOTE_PP47);
+						}
+						if (this.FIGHTER2.standPower == STAND_PP3) {
+							this.playMove(EMOTE_PP58);
+						}
+					}
+					if (this.FIGHTER2.STR <= 0) {
+						this.FIGHTER1_SAVE.quickeningCharges += 10;
+						this.addMessage("**" + this.FIGHTER2.user.username + " has been defeated !**");
+
+						if (this.FIGHTER2.standPower == STAND_PP3) {
+							this.playMove(EMOTE_PP47);
+						}
+						if (this.FIGHTER1.standPower == STAND_PP3) {
+							this.playMove(EMOTE_PP58);
+						}
+					}
+					if (this.FIGHTER1.STR > 0) {
+						this.FIGHTER1_SAVE.standPower = this.FIGHTER1.standPower;
+						this.FIGHTER1_SAVE.requiemPower = this.FIGHTER1.requiemPower;
+						this.FIGHTER1_SAVE.randomizedStand = this.FIGHTER1.randomizedStand;
+					}
+					if (this.FIGHTER2.STR > 0) {
+						this.FIGHTER2_SAVE.standPower = this.FIGHTER2.standPower;
+						this.FIGHTER2_SAVE.requiemPower = this.FIGHTER2.requiemPower;
+						this.FIGHTER2_SAVE.randomizedStand = this.FIGHTER2.randomizedStand;
 					}
 
-					return this.stopDuel();
-				}
-				else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP4) {
-					this.addMessage(this.CURRENT_BOSS + " will leave you alone for a bit !");
-					this.EVENT_BOSS = false;
-					if (this.PP_NET == 3 || this.PP_NET == 4) {
-						this.FORCE_EVENT_ID = 29;
-					} 
-				}
-				else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP5) {
-					this.addMessage(this.CURRENT_BOSS + " is destroyed !");
-					this.EVENT_BOSS = false;
-				}
-				else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP6) {
-					this.addMessage(this.CURRENT_BOSS + " is destroyed !");
-					this.addMessage("PP-Net is shut down ! Long live the human PPs !");
-					this.addMessage("-----------------");
-					this.addMessage("As you read the changelog, you see that a PP Terminator has been sent to the past to kill the past you !");
-					this.addMessage("-----------------");
-					this.addMessage("**ANOTHER TIME, ANOTHER PLACE**");
-					this.addMessage("-----------------");
-					this.addMessage(this.FIGHTER1.user.username + " : *'I challenge you to a PP Punch duel !'*");
-					this.addMessage(this.FIGHTER2.user.username + " : *'Alright, let's do this !'*");
-					this.addMessage(this.FIGHTER1.user.username + " : *'Wait what is this thing ?'*");
-					this.addMessage("-----------------");
-					this.sendMessages();
-
-					this.FIGHTER1_SAVE = this.FIGHTER1;
-					this.FIGHTER2_SAVE = this.FIGHTER2;
-					this.FIGHTER1 = new Fighter(this.FIGHTER1.idUser, this.BATTLE_CHANNEL.id);
-					this.FIGHTER2 = new Fighter(this.FIGHTER2.idUser, this.BATTLE_CHANNEL.id);
-
-					this.CURRENT_BOSS = BOSS_PP7;
-					this.BOSS_HEALTH = 1500;
-					this.BOSS_DAMAGE = 25;
-					this.EVENT_BOSS = true;
-					this.PP_NET = -99999;
-				}
-				else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP7) {
-					this.addMessage(this.CURRENT_BOSS + " is destroyed !");
-					this.addMessage("-----------------");
-					this.addMessage("**ANOTHER TIME, ANOTHER PLACE**");
-					this.addMessage("-----------------");
-					this.sendMessages();
-
+					this.STAND_BATTLE = false;
 					this.FIGHTER1 = this.FIGHTER1_SAVE;
 					this.FIGHTER2 = this.FIGHTER2_SAVE;
 
-					this.PP_NET = 200;
-					this.EVENT_BOSS = false;
-				}
-				else {
-					var fighter = this.getRandomFighter();
-					this.addMessage(fighter.user.username + " gets attacked by " + this.CURRENT_BOSS + " !");
-					if (this.EVENT_BLOOD_MOON && this.CURRENT_BOSS == BOSS_PP3) { // Blood Moon / Moon Lord
-						var amount = this.BOSS_DAMAGE*3;
-						fighter.STRValue -= amount;
-						this.addMessage("He takes " + amount + " damages !");
-						this.addMessage("-----------------");
-						fighter.damageTaken += amount;
-					}
-					else {
-						fighter.STRValue -= this.BOSS_DAMAGE;
-						this.addMessage("He takes " + this.BOSS_DAMAGE + " damages !");
-						this.addMessage("-----------------");
-					}
-				}
-			}
-
-			this.bothFightersAction(function(_fighter) {
-				_fighter.turnChange();
-			});
-			this.bothFightersAction(function(_fighter) {
-				// Overcircumcised = immune to status effects
-				if (_fighter.isOverCircumcised) {
-					_fighter.resetBattleVariables()
-				}
-			});
-			this.bothFightersAction(function(_fighter) {
-				if (_fighter.duel.getOppOf(_fighter).standPower == STAND_PP10 && _fighter.STR <= _fighter.DEX) {
-					_fighter.duel.addMessage(_fighter.user.username + " is cursed by Illud Divinum Insanus !");
-					_fighter.duel.addMessage(_fighter.user.username + " dies !");
-					_fighter.STRValue -= _fighter.STR+100;
-				}
-			});
-			this.bothFightersAction(function(_fighter) {
-				if (_fighter.STR <= 0 && _fighter.extraLife > 0) {
-					_fighter.duel.addMessage(_fighter.user.username + " uses an extra life !");
-					var extra = _fighter.extraLife - 1;
-					var stand = null;
-
-					if (_fighter.standPower == STAND_PP8_1) {
-						stand = STAND_PP8_2;
-					}
-					if (_fighter.standPower == STAND_PP8_2) {
-						stand = STAND_PP8_1;
-					}
-
-					if (_fighter.idUser == _fighter.duel.FIGHTER1.idUser) {
-						if (_fighter.extraLifeDuplication != null) {
-							_fighter.duel.FIGHTER1 = _fighter.extraLifeDuplication;
-							_fighter.duel.addMessage(_fighter.user.username + "'s temporal duplication replaces him !");
-						}
-						else {
-							_fighter.duel.FIGHTER1 = new Fighter(_fighter.duel.FIGHTER1.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
-						}
-						_fighter.duel.FIGHTER1.extraLife = extra;
-						_fighter.duel.FIGHTER1.attack = "";
-					}
-					else {
-						if (_fighter.extraLifeDuplication != null) {
-							_fighter.duel.FIGHTER2 = _fighter.extraLifeDuplication;
-							_fighter.duel.addMessage(_fighter.user.username + "'s temporal duplication replaces him !");
-						}
-						else {
-							_fighter.duel.FIGHTER2 = new Fighter(_fighter.duel.FIGHTER2.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
-						}
-						_fighter.duel.FIGHTER2.extraLife = extra;
-						_fighter.duel.FIGHTER1.attack = "";
-					}
-				}
-			});
-			if (this.STAND_BATTLE && !(this.FIGHTER1.STR > 0 && this.FIGHTER2.STR > 0)) {
-				if (this.FIGHTER1.STR <= 0) {
-					this.FIGHTER2_SAVE.quickeningCharges += 10;
-					this.addMessage("**" + this.FIGHTER1.user.username + " has been defeated !**");
-
-					if (this.FIGHTER1.standPower == STAND_PP3) {
-						this.playMove(EMOTE_PP47);
-					}
-					if (this.FIGHTER2.standPower == STAND_PP3) {
-						this.playMove(EMOTE_PP58);
-					}
-				}
-				if (this.FIGHTER2.STR <= 0) {
-					this.FIGHTER1_SAVE.quickeningCharges += 10;
-					this.addMessage("**" + this.FIGHTER2.user.username + " has been defeated !**");
-
-					if (this.FIGHTER2.standPower == STAND_PP3) {
-						this.playMove(EMOTE_PP47);
-					}
-					if (this.FIGHTER1.standPower == STAND_PP3) {
-						this.playMove(EMOTE_PP58);
-					}
-				}
-				if (this.FIGHTER1.STR > 0) {
-					this.FIGHTER1_SAVE.standPower = this.FIGHTER1.standPower;
-					this.FIGHTER1_SAVE.requiemPower = this.FIGHTER1.requiemPower;
-					this.FIGHTER1_SAVE.randomizedStand = this.FIGHTER1.randomizedStand;
-				}
-				if (this.FIGHTER2.STR > 0) {
-					this.FIGHTER2_SAVE.standPower = this.FIGHTER2.standPower;
-					this.FIGHTER2_SAVE.requiemPower = this.FIGHTER2.requiemPower;
-					this.FIGHTER2_SAVE.randomizedStand = this.FIGHTER2.randomizedStand;
+					this.bothFightersAction(function(_fighter) {
+						_fighter.attack = "";
+						_fighter.currentStand = null;
+					});
 				}
 
-				this.STAND_BATTLE = false;
-				this.FIGHTER1 = this.FIGHTER1_SAVE;
-				this.FIGHTER2 = this.FIGHTER2_SAVE;
-
+				if (this.FIGHTER1.STR <= 0 && this.FIGHTER2.STR <= 0) {
+					this.addMessage("Both of you lost. No one won this time. You losers.");
+					this.stopDuel();
+					return;
+				}
 				this.bothFightersAction(function(_fighter) {
-					_fighter.attack = "";
-					_fighter.currentStand = null;
+					if (_fighter.STR <= 0 && !_fighter.duel.EVENT_BOSS) {
+						_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).user.username + " won ! Congrats !");
+						_fighter.duel.getOppOf(_fighter).win();
+						_fighter.duel.stopDuel();
+					};
 				});
-			}
+				if (this.DEAD_DUEL) return;
 
-			if (this.FIGHTER1.STR <= 0 && this.FIGHTER2.STR <= 0) {
-				this.addMessage("Both of you lost. No one won this time. You losers.");
-				this.stopDuel();
-				return;
-			}
-			this.bothFightersAction(function(_fighter) {
-				if (_fighter.STR <= 0 && !_fighter.duel.EVENT_BOSS) {
-					_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).user.username + " won ! Congrats !");
-					_fighter.duel.getOppOf(_fighter).win();
-					_fighter.duel.stopDuel();
-				};
-			});
-			if (this.DEAD_DUEL) return;
+				this.STEEL_PROTECTION = false;
+				this.BARREL_DAMAGE = false;
+				this.SAVE_LIST = [];
+				this.BLIND_COUNTDOWN -= 1;
+				this.INFINITE_DAMAGE = 0;
+				this.DISABLE_ABANDON = false;
+				this.REVERSE_DAMAGE -= 1;
+				this.GAY_TURNS -= 1;
+				this.ATTACK_MISS_COUNTDOWN -= 1;
+				this.AUTO_MOVES_COUNTDOWN -= 1;
+				this.MOVE_COUNT_TURN = 0;
+				this.TIME_COMPRESSION -= 1;
 
-			this.STEEL_PROTECTION = false;
-			this.BARREL_DAMAGE = false;
-			this.SAVE_LIST = [];
-			this.BLIND_COUNTDOWN -= 1;
-			this.INFINITE_DAMAGE = 0;
-			this.DISABLE_ABANDON = false;
-			this.REVERSE_DAMAGE -= 1;
-			this.GAY_TURNS -= 1;
-			this.ATTACK_MISS_COUNTDOWN -= 1;
-			this.AUTO_MOVES_COUNTDOWN -= 1;
-			this.MOVE_COUNT_TURN = 0;
+				// Reset events
+				this.EVENT_PP_ENLIGHTENMENT = false;
+				this.EVENT_PP_PURGE = false;
+				this.EVENT_CONFUSION = false;
+				this.EVENT_BLOOD_MOON = false;
+				this.EVENT_PP_EQUALITY = false;
 
-			// Reset events
-			this.EVENT_PP_ENLIGHTENMENT = false;
-			this.EVENT_PP_PURGE = false;
-			this.EVENT_CONFUSION = false;
-			this.EVENT_BLOOD_MOON = false;
-			this.EVENT_PP_EQUALITY = false;
-
-			if (!this.EASY_DUEL) {
-				this.addMessage("**===== EVENTS =====**");
-				this.startRandomEvent();
+				if (!this.EASY_DUEL) {
+					this.addMessage("**===== EVENTS =====**");
+					this.startRandomEvent();
+				}
 			}
 		}
 		
@@ -3148,6 +3162,9 @@ class Duel {
 		}
 		if (this.TIME_STOP > 0) {
 			this.addMessage(" - **TIME STOPPED FOR " + this.TIME_STOP + " TURNS**");
+		}
+		else if (this.TIME_COMPRESSION > 0) {
+			this.addMessage(" - **TIME COMPRESSED FOR " + this.TIME_STOP + " TURNS**");
 		}
 
 		// HighFiveEmote - Stop move_list
