@@ -3171,7 +3171,7 @@ class Duel {
 			this.addMessage(" - **TIME STOPPED FOR " + this.TIME_STOP + " TURNS**");
 		}
 		else if (this.TIME_COMPRESSION > 0) {
-			this.addMessage(" - **TIME COMPRESSED FOR " + this.TIME_STOP + " TURNS**");
+			this.addMessage(" - **TIME COMPRESSED FOR " + this.TIME_COMPRESSION + " TURNS**");
 		}
 
 		// HighFiveEmote - Stop move_list
