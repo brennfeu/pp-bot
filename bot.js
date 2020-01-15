@@ -2561,6 +2561,7 @@ class Duel {
 		this.UWU_TEXT = false;
 		this.TIME_STOP = 0;
 		this.TIME_COMPRESSION = 0;
+		this.TIME_BREAK = 0;
 		
 		this.MOVE_COUNT = 0;
 		this.DAMAGE_COUNT = 0;
@@ -2820,6 +2821,11 @@ class Duel {
 	newTurnDuel() {
 		this.sendMessages();
 		this.TIME_STOP -= 1;
+		
+		if (this.TIME_STOP <= 0  && getRandomPercent() <= this.TIME_BREAK) {
+			this.addMessage("**Time breaks !**");
+			this.TIME_STOP = 1;
+		}
 		
 		if (this.TIME_STOP > 0) {
 			this.STOPPED_MOVE_LIST = this.LIST_AVAILABLE_ATTACKS;
@@ -3185,6 +3191,9 @@ class Duel {
 		}
 		else if (this.TIME_COMPRESSION > 0) {
 			this.addMessage(" - **TIME COMPRESSED FOR " + this.TIME_COMPRESSION + " TURNS**");
+		}
+		else if (this.TIME_BREAK > 0) {
+			this.addMessage(" - **TIME BREAKING PROBABILITY : " + this.TIME_BREAK + "%**");
 		}
 
 		// HighFiveEmote - Stop move_list
