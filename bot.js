@@ -2531,9 +2531,9 @@ class Fighter {
 		
 		// ImpendingDoom
 		if (this.impendingDoom == 0) {
-			this.duel.addMessage(this.user.username + " cannot escape fate !");
+			this.duel.addMessage("**" + this.user.username + " cannot escape fate and dies !**");
 			if (this.doomReverse > 0) {
-				this.duel.addMessage(this.user.username + " uses DOOM-REVERSE(tm) !");
+				this.duel.addMessage("**" + this.user.username + " uses DOOM-REVERSE(tm) !**");
 				this.STRValue += (0 - this.STR) + 10;
 				this.doomReverse = 0;
 				this.duel.getOppOf(this).impendingDoom = 2;
@@ -2848,7 +2848,7 @@ class Duel {
 		var counter = 0;
 		this.TIMESTAMP = + new Date();
 		
-		if (this.NO_MESSAGE <= 0 && this.TIME_STOP <= 0) {
+		if (this.NO_MESSAGE <= 0 || this.TIME_STOP > 0) {
 			while (this.LIST_MESSAGES.length > _max) {
 				this.LIST_MESSAGES.splice(0, 1);
 				counter += 1;
@@ -3872,7 +3872,7 @@ class Duel {
 	checkStandSummon() {
 		if (this.STAND_BATTLE) {
 			this.bothFightersAction(function(_fighter) {
-				var requiemCombo = [EMOTE_PP52];
+				var requiemCombo = [EMOTE_PP73, EMOTE_PP76, EMOTE_PP69, EMOTE_PP73]; // Brolander, EldritchPudding, LostSoul, Brolander
 				
 				if (_fighter.requiemPower != null) {
 					return;
