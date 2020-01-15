@@ -209,7 +209,9 @@ const REQUIEM_PP4 = "DayDream XI";
 const REQUIEM_PP5 = "Flying Colors";
 const REQUIEM_PP6 = "Witherfall";
 const REQUIEM_PP7 = "All Traps on Earth";
-const REQUIEM_LIST = [REQUIEM_PP1, REQUIEM_PP2, REQUIEM_PP3, REQUIEM_PP4, REQUIEM_PP5, REQUIEM_PP6, REQUIEM_PP7];
+const REQUIEM_PP8 = "Hawkwind";
+const REQUIEM_LIST = [REQUIEM_PP1, REQUIEM_PP2, REQUIEM_PP3, REQUIEM_PP4, REQUIEM_PP5, REQUIEM_PP6, REQUIEM_PP7,
+		     REQUIEM_PP8];
 
 // BOSSES
 const BOSS_PP1 = "Cthulhu";
@@ -321,6 +323,7 @@ class Fighter {
 		this.randomizedStand = false;
 		this.requiemCooldown = 0;
 		this.extraLifeDuplication = null;
+		this.impendingDoom = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -720,6 +723,9 @@ class Fighter {
 				txt += " (Temporal Duplication)";
 			}
 			txt += "**\n";
+		}
+		if (this.impendingDoom > 0) {
+			txt += " - **Impending Doom : " + this.impendingDoom + " turns**\n";
 		}
 		
 		if (this.standPower == null) {
@@ -1734,6 +1740,10 @@ class Fighter {
 						}
 						this.duel.TIME_BREAK += 10;
 					}
+					if (this.requiemPower == REQUIEM_PP8 || this.requiemPower == REQUIEM_PP7) { // Hawkwind
+						this.duel.addMessage(this.user.username + " defines the fate of " + this.duel.getOppOf(this).user.username + " !");
+						this.duel.getOppOf(this).impendingDoom = 11;
+					}
 					
 					if (this.requiemPower == REQUIEM_PP7) { // All Traps on Earth
 						this.duel.TIME_STOP = 6;
@@ -2368,6 +2378,7 @@ class Fighter {
 		this.ironProtection -= 1;
 		this.borealSummon -= 1;
 		this.requiemCooldown -= 1;
+		this.impendingDoom -= 1;
 
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
@@ -2496,16 +2507,33 @@ class Fighter {
 		
 		if (this.randomizedStand) {
 			this.duel.addMessage(this.user.username + " randomizes his ability !");
+			this.duel.addMessage("-----------------");
 			
 			var keys = Object.keys(STAND_SUMMONS);
 			this.standPower = keys[ keys.length * Math.random() << 0];
 			
 			this.guildUser.send("Current Stånd Ability : " + this.standPower);
 		}
-
+		
 		// PP Armageddon
 		if (this.duel.PP_ARMAGEDDON) {
 			this.STRValue -= 5000;
+		}
+		
+		// ImpendingDoom
+		if (this.impendingDoom == 0) {
+			this.duel.addMessage(this.user.username + " cannot escape fate !");
+			if (this.doomReverse > 0) {
+				this.duel.addMessage(this.user.username + " uses DOOM-REVERSE(tm) !");
+				this.STRValue += (0 - this.STR) + 10;
+				this.doomReverse = 0;
+				this.duel.getOppOf(this).impendingDoom = 2;
+			}
+			else {
+				this.extraLife = 0;
+				this.STRValue -= this.STR;
+			}
+			this.duel.addMessage("-----------------");
 		}
 		
 		if (this.turnSkip > 0) {
@@ -3197,7 +3225,7 @@ class Duel {
 		else if (this.TIME_COMPRESSION > 0) {
 			this.addMessage(" - **TIME COMPRESSED FOR " + this.TIME_COMPRESSION + " TURNS**");
 		}
-		else if (this.TIME_BREAK > 0) {
+		if (this.TIME_BREAK > 0) {
 			this.addMessage(" - **TIME BREAKING PROBABILITY : " + this.TIME_BREAK + "%**");
 		}
 
