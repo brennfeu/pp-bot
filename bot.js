@@ -208,7 +208,8 @@ const REQUIEM_PP3 = "Majestic";
 const REQUIEM_PP4 = "DayDream XI";
 const REQUIEM_PP5 = "Flying Colors";
 const REQUIEM_PP6 = "Witherfall";
-const REQUIEM_LIST = [REQUIEM_PP1, REQUIEM_PP2, REQUIEM_PP3, REQUIEM_PP4, REQUIEM_PP5, REQUIEM_PP6];
+const REQUIEM_PP7 = "All Traps on Earth";
+const REQUIEM_LIST = [REQUIEM_PP1, REQUIEM_PP2, REQUIEM_PP3, REQUIEM_PP4, REQUIEM_PP5, REQUIEM_PP6, REQUIEM_PP7];
 
 // BOSSES
 const BOSS_PP1 = "Cthulhu";
@@ -1697,7 +1698,7 @@ class Fighter {
 					this.duel.addMessage("**Time stops !**");
 					this.duel.TIME_STOP = 2;
 					
-					if (this.requiemPower == REQUIEM_PP1) { // Etrange
+					if (this.requiemPower == REQUIEM_PP1 || this.requiemPower == REQUIEM_PP7) { // Etrange
 						this.duel.addMessage(this.duel.getOppOf(this).user.username + "'s past injuries are inflicted to him again !");
 						this.duel.getOppOf(this).damage(this.duel.getOppOf(this).damageTaken, false);
 					}
@@ -1706,7 +1707,7 @@ class Fighter {
 						this.duel.addMessage(this.duel.getOppOf(this).user.username + " gets possessed !");
 						this.duel.getOppOf(this).isPossessed = 1;
 					}
-					if (this.requiemPower == REQUIEM_PP3) { // Majestic
+					if (this.requiemPower == REQUIEM_PP3 || this.requiemPower == REQUIEM_PP7) { // Majestic
 						this.duel.addMessage(this.user.username + " makes a temporal duplication of himself !");
 						this.extraLife += 1;
 						
@@ -1716,22 +1717,26 @@ class Fighter {
 						this.extraLifeDuplication.duel = duel;
 						this.duel = duel;
 					}
-					if (this.requiemPower == REQUIEM_PP4) { // DayDream XI
+					if (this.requiemPower == REQUIEM_PP4 || this.requiemPower == REQUIEM_PP7) { // DayDream XI
 						this.duel.TIME_STOP = 4;
 						this.duel.addMessage(this.user.username + " will compress time when it'll go back to normal !");
 						this.duel.TIME_COMPRESSION = 4;
 					}
-					if (this.requiemPower == REQUIEM_PP5) { // Flying Colors
+					if (this.requiemPower == REQUIEM_PP5 || this.requiemPower == REQUIEM_PP7) { // Flying Colors
 						this.duel.addMessage(this.user.username + "'s past injuries are reverted back in time !");
 						this.heal(this.damageTaken);
 					}
-					if (this.requiemPower == REQUIEM_PP6) { // Witherfall
+					if (this.requiemPower == REQUIEM_PP6 || this.requiemPower == REQUIEM_PP7) { // Witherfall
 						this.duel.addMessage(this.user.username + " damages time itself !");
 						if (this.duel.getOppOf(this).requiemPower != null && this.duel.getOppOf(this).requiemPower != REQUIEM_PP6) {
 							this.duel.getOppOf(this).requiemPower = null;
 							this.duel.addMessage(this.duel.getOppOf(this).user.username + "'s requiem ability is destroyed !");
 						}
 						this.duel.TIME_BREAK += 10;
+					}
+					
+					if (this.requiemPower == REQUIEM_PP7) { // All Traps on Earth
+						this.duel.TIME_STOP = 6;
 					}
 				}
 			}
