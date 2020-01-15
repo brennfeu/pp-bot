@@ -2094,7 +2094,10 @@ class Fighter {
 				this.playMove(EMOTE_PP50);
 				console.log("UNKNOWN MOVE : " + attack)
 			}
-			this.duel.addMessage("-----------------");
+			
+			if (sdsds < numberAttacks) {
+				this.duel.addMessage("-----------------");
+			}
 		}
 	}
 
@@ -2805,7 +2808,7 @@ class Duel {
 			this.bothFightersAction(function(_fighter) {
 				if (_fighter.pushedDamages > 0) {
 					_fighter.damage(_fighter.pushedDamages, false);
-					this.addMessage("-----------------");
+					_fighter.duel.addMessage("-----------------");
 				}
 			});
 			
@@ -2965,6 +2968,7 @@ class Duel {
 					if (_fighter.idUser == _fighter.duel.FIGHTER1.idUser) {
 						if (_fighter.extraLifeDuplication != null) {
 							_fighter.duel.FIGHTER1 = _fighter.extraLifeDuplication;
+							_fighter.duel.addMessage(_fighter.user.username + "'s temporal duplication replaces him !");
 						}
 						else {
 							_fighter.duel.FIGHTER1 = new Fighter(_fighter.duel.FIGHTER1.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
@@ -2975,6 +2979,7 @@ class Duel {
 					else {
 						if (_fighter.extraLifeDuplication != null) {
 							_fighter.duel.FIGHTER2 = _fighter.extraLifeDuplication;
+							_fighter.duel.addMessage(_fighter.user.username + "'s temporal duplication replaces him !");
 						}
 						else {
 							_fighter.duel.FIGHTER2 = new Fighter(_fighter.duel.FIGHTER2.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
