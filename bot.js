@@ -1745,9 +1745,11 @@ class Fighter {
 						this.duel.addMessage(this.user.username + " defines the fate of " + this.duel.getOppOf(this).user.username + " !");
 						this.duel.getOppOf(this).impendingDoom = 11;
 					}
+					
 					if (this.requiemPower == REQUIEM_PP9 || this.requiemPower == REQUIEM_PP7) { // Porcupine Tree
 						this.duel.TIME_STOP = 4;
-						this.duel.addMessage(this.user.username + " curses the arbitrator's time flow !");
+						this.duel.addMessage(this.user.username + " deletes the arbitrator's speaking time !");
+						this.sendMessages();
 						this.duel.NO_MESSAGE = 4;
 					}
 					
@@ -2845,7 +2847,7 @@ class Duel {
 		var counter = 0;
 		this.TIMESTAMP = + new Date();
 		
-		if (this.NO_MESSAGE <= 0) {
+		if (this.NO_MESSAGE <= 0 && this.TIME_STOP <= 0) {
 			while (this.LIST_MESSAGES.length > _max) {
 				this.LIST_MESSAGES.splice(0, 1);
 				counter += 1;
