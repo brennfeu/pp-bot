@@ -2815,12 +2815,12 @@ class Duel {
 			}
 			this.addMessage("One last game mechanic to learn : **Stånds** !");
 			this.addMessage("When performing specific move combos, you summon a stånd. This will trigger the **Stånds Battle Mode** and the opponent will get a random stånd.");
-			this.addMessage("Your respective stånds will replace you in the battle, and the winner of the battle will keep his stånd's powers and get stat buffs.");
+			this.addMessage("Your respective **stånds** will replace you in the battle, and the winner of the battle will keep his stånd's powers and get stat buffs. Both fighter are then able to continue the fight.");
 			this.addMessage("-----------------");
 			this.addMessage("If a stånd performs this move combo : [*Brolander*, *LostSoul*, *EldritchPudding*, *Brolander*], it will get better stats and a random **Requiem**.");
 			this.addMessage("A Requiem is an ability performed using the **god special move**. They are also given to a fighter if he wins the Stånd Battle.");
 			this.addMessage("-----------------");
-			this.addMessage("Here are some stånd moves :");
+			this.addMessage("Here are some moves specific to stånd battles :");
 			this.sendMessages();
 			
 			this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction !").then(function (_message2) {
