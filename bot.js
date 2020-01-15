@@ -2543,7 +2543,6 @@ class Duel {
 		this.TIMESTAMP = +new Date();
 		this.LIST_AVAILABLE_ATTACKS = [];
 		
-		
 		this.FIGHTER1_SAVE = null;
 		this.FIGHTER2_SAVE = null;
 		
@@ -3904,7 +3903,10 @@ class Duel {
 		}
 		else {
 			// Attaque 1
-			if (getRandomPercent() > 20) {
+			if (this.MOVE_COUNT == 0 && getRandomPercent() > 10) {
+				listeAttaques.push(EMOTE_PP81); // Melodia
+			}
+			else if (getRandomPercent() > 20) {
 				emote = this.getRandomEmote();
 				listeAttaques.push(emote);
 			}
