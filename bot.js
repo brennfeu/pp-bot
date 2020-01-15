@@ -205,7 +205,7 @@ STAND_SUMMONS[STAND_PP16] = [EMOTE_PP46, EMOTE_PP18, EMOTE_PP22]; // MeatBro, Re
 const REQUIEM_PP1 = "Etrange";
 const REQUIEM_PP2 = "Iamthemorning";
 const REQUIEM_PP3 = "Majestic";
-const REQUIEM_PP3 = "DayDream XI";
+const REQUIEM_PP4 = "DayDream XI";
 const REQUIEM_LIST = [REQUIEM_PP1, REQUIEM_PP2, REQUIEM_PP3, REQUIEM_PP4];
 
 // BOSSES
