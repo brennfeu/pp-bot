@@ -206,7 +206,8 @@ const REQUIEM_PP1 = "Etrange";
 const REQUIEM_PP2 = "Iamthemorning";
 const REQUIEM_PP3 = "Majestic";
 const REQUIEM_PP4 = "DayDream XI";
-const REQUIEM_LIST = [REQUIEM_PP1, REQUIEM_PP2, REQUIEM_PP3, REQUIEM_PP4];
+const REQUIEM_PP5 = "Flying Colors";
+const REQUIEM_LIST = [REQUIEM_PP1, REQUIEM_PP2, REQUIEM_PP3, REQUIEM_PP4, REQUIEM_PP5];
 
 // BOSSES
 const BOSS_PP1 = "Cthulhu";
@@ -1718,6 +1719,10 @@ class Fighter {
 						this.duel.TIME_STOP = 4;
 						this.duel.addMessage(this.user.username + " will compress time when it'll go back to normal !");
 						this.duel.TIME_COMPRESSION = 4;
+					}
+					if (this.requiemPower == REQUIEM_PP5) { // Flying Colors
+						this.duel.addMessage(this.user.username + "'s past injuries are reverted back in time !");
+						this.heal(this.damageTaken);
 					}
 				}
 			}
