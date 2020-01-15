@@ -2095,7 +2095,7 @@ class Fighter {
 				console.log("UNKNOWN MOVE : " + attack)
 			}
 			
-			if (sdsds < numberAttacks) {
+			if (sdsds+1 < numberAttacks) {
 				this.duel.addMessage("-----------------");
 			}
 		}
@@ -2425,9 +2425,11 @@ class Fighter {
 		}
 		
 		// House of Atreus
-		if (this.standPower == STAND_PP15) {
-			this.godList = [STAND_PP15];
-			this.regularCharges = 1;
+		if (this.standPower == STAND_PP15 && this.godList.indexOf(STAND_PP15) < 0) {
+			this.godList.push(STAND_PP15);
+			if (this.duel.STAND_BATTLE) {
+				this.regularCharges = 1;
+			}
 		}
 		
 		// Eldritch Pudding
@@ -2808,6 +2810,7 @@ class Duel {
 			this.bothFightersAction(function(_fighter) {
 				if (_fighter.pushedDamages > 0) {
 					_fighter.damage(_fighter.pushedDamages, false);
+					_fighter.pushedDamages = 0;
 					_fighter.duel.addMessage("-----------------");
 				}
 			});
