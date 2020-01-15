@@ -210,8 +210,9 @@ const REQUIEM_PP5 = "Flying Colors";
 const REQUIEM_PP6 = "Witherfall";
 const REQUIEM_PP7 = "All Traps on Earth";
 const REQUIEM_PP8 = "Hawkwind";
+const REQUIEM_PP9 = "Porcupine Tree";
 const REQUIEM_LIST = [REQUIEM_PP1, REQUIEM_PP2, REQUIEM_PP3, REQUIEM_PP4, REQUIEM_PP5, REQUIEM_PP6, REQUIEM_PP7,
-		     REQUIEM_PP8];
+		     REQUIEM_PP8, REQUIEM_PP9];
 
 // BOSSES
 const BOSS_PP1 = "Cthulhu";
@@ -1744,6 +1745,11 @@ class Fighter {
 						this.duel.addMessage(this.user.username + " defines the fate of " + this.duel.getOppOf(this).user.username + " !");
 						this.duel.getOppOf(this).impendingDoom = 11;
 					}
+					if (this.requiemPower == REQUIEM_PP9 || this.requiemPower == REQUIEM_PP7) { // Porcupine Tree
+						this.duel.TIME_STOP = 4;
+						this.duel.addMessage(this.user.username + " curses the arbitrator's time flow !");
+						this.duel.NO_MESSAGE = 4;
+					}
 					
 					if (this.requiemPower == REQUIEM_PP7) { // All Traps on Earth
 						this.duel.TIME_STOP = 6;
@@ -2595,6 +2601,7 @@ class Duel {
 		this.TIME_STOP = 0;
 		this.TIME_COMPRESSION = 0;
 		this.TIME_BREAK = 0;
+		this.NO_MESSAGE = 0;
 		
 		this.MOVE_COUNT = 0;
 		this.DAMAGE_COUNT = 0;
@@ -2836,19 +2843,22 @@ class Duel {
 	}
 	sendMessages(_max = 20) {
 		var counter = 0;
-		while (this.LIST_MESSAGES.length > _max) {
-			this.LIST_MESSAGES.splice(0, 1);
-			counter += 1;
-		}
+		this.TIMESTAMP = + new Date();
+		
+		if (this.NO_MESSAGE <= 0) {
+			while (this.LIST_MESSAGES.length > _max) {
+				this.LIST_MESSAGES.splice(0, 1);
+				counter += 1;
+			}
 
-		if (counter > 0) {
-			this.LIST_MESSAGES = ["**-----------------\n" + counter + " messages were cancelled !\n-----------------**"].concat(this.LIST_MESSAGES);
-		}
-		for (var i in this.LIST_MESSAGES) {
-			this.BATTLE_CHANNEL.send(this.LIST_MESSAGES[i]);
+			if (counter > 0) {
+				this.LIST_MESSAGES = ["**-----------------\n" + counter + " messages were cancelled !\n-----------------**"].concat(this.LIST_MESSAGES);
+			}
+			for (var i in this.LIST_MESSAGES) {
+				this.BATTLE_CHANNEL.send(this.LIST_MESSAGES[i]);
+			}	
 		}
 		this.LIST_MESSAGES = [];
-		this.TIMESTAMP = + new Date();
 	}
 	
 	newTurnDuel() {
@@ -2872,6 +2882,7 @@ class Duel {
 			}
 			
 			this.TIME_COMPRESSION -= 1;
+			this.NO_MESSAGE -= 1;
 			
 			for (var nbTurn = 0; nbTurn < nbTurnChanges; nbTurn++) {
 				this.addMessage("**===== TURN CHANGE =====**");
