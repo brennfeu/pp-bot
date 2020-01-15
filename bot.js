@@ -207,7 +207,8 @@ const REQUIEM_PP2 = "Iamthemorning";
 const REQUIEM_PP3 = "Majestic";
 const REQUIEM_PP4 = "DayDream XI";
 const REQUIEM_PP5 = "Flying Colors";
-const REQUIEM_LIST = [REQUIEM_PP1, REQUIEM_PP2, REQUIEM_PP3, REQUIEM_PP4, REQUIEM_PP5];
+const REQUIEM_PP6 = "Witherfall";
+const REQUIEM_LIST = [REQUIEM_PP1, REQUIEM_PP2, REQUIEM_PP3, REQUIEM_PP4, REQUIEM_PP5, REQUIEM_PP6];
 
 // BOSSES
 const BOSS_PP1 = "Cthulhu";
@@ -1723,6 +1724,14 @@ class Fighter {
 					if (this.requiemPower == REQUIEM_PP5) { // Flying Colors
 						this.duel.addMessage(this.user.username + "'s past injuries are reverted back in time !");
 						this.heal(this.damageTaken);
+					}
+					if (this.requiemPower == REQUIEM_PP6) { // Witherfall
+						this.duel.addMessage(this.user.username + " damages time itself !");
+						if (this.duel.getOppOf(this).requiemPower != null && this.duel.getOppOf(this).requiemPower != REQUIEM_PP6) {
+							this.duel.getOppOf(this).requiemPower = null;
+							this.duel.addMessage(this.duel.getOppOf(this).user.username + "'s requiem ability is destroyed !");
+						}
+						this.duel.TIME_BREAK += 10;
 					}
 				}
 			}
