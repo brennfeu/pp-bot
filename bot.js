@@ -1732,6 +1732,7 @@ class Fighter {
 					if (this.requiemPower == REQUIEM_PP5 || this.requiemPower == REQUIEM_PP7) { // Flying Colors
 						this.duel.addMessage(this.user.username + "'s past injuries are reverted back in time !");
 						this.heal(this.damageTaken);
+						this.resetBattleVariables();
 					}
 					if (this.requiemPower == REQUIEM_PP6 || this.requiemPower == REQUIEM_PP7) { // Witherfall
 						this.duel.addMessage(this.user.username + " damages time itself !");
@@ -1746,8 +1747,8 @@ class Fighter {
 						this.duel.getOppOf(this).impendingDoom = 11;
 					}
 					
-					if (this.requiemPower == REQUIEM_PP9 || this.requiemPower == REQUIEM_PP7) { // Porcupine Tree
-						this.duel.TIME_STOP = 4;
+					if (this.requiemPower == REQUIEM_PP9) { // Porcupine Tree
+						this.duel.TIME_STOP = 11;
 						this.duel.addMessage(this.user.username + " deletes the arbitrator's speaking time !");
 						this.sendMessages();
 						this.duel.NO_MESSAGE = 4;
