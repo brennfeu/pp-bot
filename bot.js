@@ -2805,7 +2805,10 @@ class Duel {
 	}
 	
 	newTurnDuel() {
+		this.sendMessages();
 		this.TIME_STOP -= 1;
+		this.TIME_COMPRESSION -= 1;
+		
 		if (this.TIME_STOP > 0) {
 			this.STOPPED_MOVE_LIST = this.LIST_AVAILABLE_ATTACKS;
 			this.FIGHTER1.attack = "";
@@ -2819,7 +2822,6 @@ class Duel {
 			
 			for (var nbTurn = 0; nbTurn < nbTurnChanges; nbTurn++) {
 				this.addMessage("**===== TURN CHANGE =====**");
-				this.sendMessages();
 				
 				this.bothFightersAction(function(_fighter) {
 					if (_fighter.pushedDamages > 0) {
@@ -3075,7 +3077,6 @@ class Duel {
 				this.ATTACK_MISS_COUNTDOWN -= 1;
 				this.AUTO_MOVES_COUNTDOWN -= 1;
 				this.MOVE_COUNT_TURN = 0;
-				this.TIME_COMPRESSION -= 1;
 
 				// Reset events
 				this.EVENT_PP_ENLIGHTENMENT = false;
@@ -3083,12 +3084,17 @@ class Duel {
 				this.EVENT_CONFUSION = false;
 				this.EVENT_BLOOD_MOON = false;
 				this.EVENT_PP_EQUALITY = false;
+				
+				if (nbTurn+1 < nbTurnChanges) {
+					this.sendMessages();
+				}
 
 				if (!this.EASY_DUEL) {
 					this.addMessage("**===== EVENTS =====**");
 					this.startRandomEvent();
 				}
 			}
+			this.sendMessages();
 		}
 		
 		this.addMessage("\n\n**===== NEW TURN =====**");
@@ -3255,7 +3261,6 @@ class Duel {
 		}
 	}
 	startRandomEvent() {
-		this.sendMessages();
 		var randomVar = getRandomPercent();
 
 		if (this.FORCE_EVENT) {
@@ -3566,8 +3571,6 @@ class Duel {
 		else {
 			this.addMessage("No event this turn...");
 		}
-		
-		this.sendMessages();
 	}
 	launchAttacks() {
 		this.addMessage("\n\n**===== ATTACKS =====**");
