@@ -39,6 +39,9 @@ const PRIEST_ROLES = [GOD_PP1_PRIEST, GOD_PP2_PRIEST, GOD_PP3_PRIEST, GOD_PP4_PR
 		      GOD_PP13_PRIEST, GOD_PP14_PRIEST, GOD_PP15_PRIEST, GOD_PP16_PRIEST, GOD_PP17_PRIEST, GOD_PP18_PRIEST,
 		      GOD_PP19_PRIEST, GOD_PP20_PRIEST];
 
+const EMOTE_SKIP = "TURN_SKIP";
+const EMOTE_DEAD = "IS_DEAD_LOL";
+
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
 const EMOTE_PP2 = "535240768441548810"; // PunchingPPReallyHard
 const EMOTE_PP3 = "358232421537284109"; // Hologram
@@ -790,7 +793,7 @@ class Fighter {
 		}
 
 		if (this.duel.EVENT_BOSS && this.STR <= 0) {
-			this.attack = "IS_DEAD_LOL";
+			this.attack = EMOTE_DEAD;
 		}
 
 		for (var sdsds = 0; sdsds < numberAttacks; sdsds++) {
@@ -1687,16 +1690,16 @@ class Fighter {
 				if (this.requiemPower != null && this.requiemCooldown <= 0) {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage(this.requiemPower + " Requiem Ability is triggered !");
-					this.requiemCooldown = 11;
+					this.requiemCooldown = 6;
 					this.duel.addMessage("**Time stops !**");
-					this.duel.TIME_STOP = 1;
+					this.duel.TIME_STOP = 2;
 					
 					if (this.requiemPower == REQUIEM_PP1) { // Etrange
 						this.duel.addMessage(this.duel.getOppOf(this).user.username + "'s past injuries are inflicted to him again !");
 						this.duel.getOppOf(this).damage(this.duel.getOppOf(this).damageTaken, false);
 					}
 					if (this.requiemPower == REQUIEM_PP2) { // Iamthemorning
-						this.duel.TIME_STOP = 3;
+						this.duel.TIME_STOP = 4;
 						this.duel.addMessage(this.duel.getOppOf(this).user.username + " gets possessed !");
 						this.duel.getOppOf(this).isPossessed = 1;
 					}
@@ -2072,7 +2075,7 @@ class Fighter {
 				this.godList.push(GOD_PP21_PRIEST);
 				this.duel.addMessage(this.user.username + " becomes a " + GOD_PP21_PRIEST + " !");
 			}
-			else if (attack == "IS_DEAD_LOL") {
+			else if (attack == EMOTE_DEAD) {
 				// Dead (Cthulhu battle)
 				if (this.STRValue < 70) {
 					this.duel.addMessage(this.user.username + "'s PP corpse does not move.");
@@ -2080,6 +2083,10 @@ class Fighter {
 				else {
 					this.duel.addMessage(this.user.username + "'s PP corpse is slightly twitching...");
 				}
+			}
+			else if (attack == EMOTE_SKIP) {
+				// Skip
+				this.duel.addMessage(this.user.username + " does nothing...");
 			}
 			else {
 				this.duel.addMessage(this.user.username + " makes an unknown move ?");
@@ -2786,8 +2793,8 @@ class Duel {
 		this.addMessage("**===== TURN CHANGE =====**");
 		this.sendMessages();
 		
+		this.TIME_STOP -= 1;
 		if (this.TIME_STOP > 0) {
-			this.TIME_STOP -= 1;
 			this.STOPPED_MOVE_LIST = this.LIST_AVAILABLE_ATTACKS;
 			this.FIGHTER1.attack = "";
 			this.FIGHTER2.attack = "";
@@ -3127,7 +3134,7 @@ class Duel {
 			this.addMessage(" - **PP ARMAGEDDON**");
 		}
 		if (this.TIME_STOP > 0) {
-			this.addMessage(" - **TIME STOPPED**");
+			this.addMessage(" - **TIME STOPPED FOR " + this.TIME_STOP + " TURNS**");
 		}
 
 		// HighFiveEmote - Stop move_list
@@ -3149,7 +3156,7 @@ class Duel {
 		this.BATTLE_CHANNEL.send("\n\nChoose your " + gay + "attack with a reaction !").then(function (_message2) {
 			var duel = getDuel(_message2.channel.id);
 			for (var i in duel.LIST_AVAILABLE_ATTACKS) {
-				if (duel.LIST_AVAILABLE_ATTACKS[i] != "IS_DEAD_LOL") {
+				if (duel.LIST_AVAILABLE_ATTACKS[i] != EMOTE_DEAD && duel.LIST_AVAILABLE_ATTACKS[i] != EMOTE_SKIP) {
 					_message2.react(duel.LIST_AVAILABLE_ATTACKS[i]);
 				}
 			}
@@ -3159,11 +3166,11 @@ class Duel {
 
 		this.bothFightersAction(function(_fighter) {
 			if (_fighter.STR <= 0) { // Stop if dead (cthulhu battle)
-				_fighter.attack = "IS_DEAD_LOL";
+				_fighter.attack = EMOTE_DEAD;
 				_fighter.STRValue = -10;
 			}
 			if (_fighter.duel.TIME_STOP > 0 && _fighter.requiemPower == null) { // if weak --> skip time skip
-				_fighter.attack = "IS_DEAD_LOL";
+				_fighter.attack = EMOTE_SKIP;
 			}
 		});
 		
@@ -3564,7 +3571,8 @@ class Duel {
 
 			// Move non autorisé (movepool)
 			if (duel.LIST_AVAILABLE_ATTACKS.indexOf(_fighter.attack) < 0 && 
-			    !(_fighter.attack == "IS_DEAD_LOL") &&
+			    !(_fighter.attack == EMOTE_DEAD) &&
+			    !(_fighter.attack == EMOTE_SKIP) &&
 			    !(_fighter.attack == EMOTE_PP50 && _fighter.turnSkip) && 
 			    !(_fighter.attack == EMOTE_PP39 && _fighter.grabbedPP) && 
 			    !(_fighter.attack == EMOTE_PP10 && _fighter.summonTankCountdown == 1)) {
@@ -3634,7 +3642,7 @@ class Duel {
 
 			// Change attack if dead (boss battle)
 			if (_fighter.STR <= 0) {
-				_fighter.attack = "IS_DEAD_LOL";
+				_fighter.attack = EMOTE_DEAD;
 			}
 		});
 
@@ -3681,7 +3689,8 @@ class Duel {
 			winner = this.FIGHTER1;
 		}
 		if ((dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) || 
-		    this.AUTO_MOVES_COUNTDOWN > 0 || this.EVENT_BOSS || this.getOppOf(winner).legAimer) {
+		    this.AUTO_MOVES_COUNTDOWN > 0 || this.EVENT_BOSS || this.getOppOf(winner).legAimer ||
+		    this.TIME_STOP > 0) {
 			this.addMessage("Both opponents attack this turn !");
 			this.sendMessages();
 
