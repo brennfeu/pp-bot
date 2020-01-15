@@ -2785,7 +2785,7 @@ class Duel {
 				this.addMessage("Come on, there's no point cheating, it's the tutorial !");
 				this.addMessage("-----------------");
 			}
-			this.addMessage("The last things you have to learn about are **Gods** !");
+			this.addMessage("Another things you have to learn about are **Gods** !");
 			this.addMessage("You can have up to 3 gods when starting a duel. It works the same way as fighting styles, except their use is different.");
 			this.addMessage("You can call your **gods** powers using a charge you get with events. There are 2 kind of charges : **regular** and **special**, each calling all your gods **regular** or **special** moves.");
 			this.addMessage("There are some **Gods Synergies** that grants permanent effects.");
@@ -2810,6 +2810,31 @@ class Duel {
 		else if (this.NB_TURNS == 3) {
 			this.addMessage("-----------------");
 			if ([EMOTE_PP51, EMOTE_PP52].indexOf(this.FIGHTER1.attack) < 0) {
+				this.addMessage("Come on, there's no point cheating, it's the tutorial !");
+				this.addMessage("-----------------");
+			}
+			this.addMessage("One last game mechanic to learn : **Stånds** !");
+			this.addMessage("When performing specific move combos, you summon a **Stånd**. This will trigger the **Stånds Battle Mode** and the opponent will get a random **Stånd**.");
+			this.addMessage("Your respective **Stånds** will replace you in the battle, and the winner of the battle will keep his Stånd's powers and get stat buffs.");
+			this.addMessage("-----------------");
+			this.addMessage("If **Stånds** performs this move combo : [**Brolander**, **LostSoul**, **EldritchPudding**, **Brolander**], it will get a random **Requiem Ability**.");
+			this.addMessage("A **Requiem** is a move performed using the **God Special Move**. They are also given to a fighter if he wins the **Stånd Battle**.");
+			this.addMessage("-----------------");
+			this.addMessage("Here are some moves form the **Stånds** movepool :");
+			this.sendMessages();
+			
+			this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction !").then(function (_message2) {
+				_message2.react(EMOTE_PP67);
+				_message2.react(EMOTE_PP68);
+				_message2.react(EMOTE_PP69);
+				_message2.react(EMOTE_PP73);
+				_message2.react(EMOTE_PP74);
+			}).catch(function(e) {console.log(e);});
+			
+		}
+		else if (this.NB_TURNS == 4) {
+			this.addMessage("-----------------");
+			if ([EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP73, EMOTE_PP74].indexOf(this.FIGHTER1.attack) < 0) {
 				this.addMessage("Come on, there's no point cheating, it's the tutorial !");
 				this.addMessage("-----------------");
 			}
