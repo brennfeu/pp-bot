@@ -1771,10 +1771,10 @@ class Fighter {
 				var godListMemory = this.godList.slice();
 				this.godList = [];
 				for (var i = 0; i < 5; i++) {
-					var randomGod = Math.floor(Math.random()*PRIEST_ROLES.length)
+					var randomGod = PRIEST_ROLES[Math.floor(Math.random()*PRIEST_ROLES.length)];
 					var nbTries = 0;
 					while (this.godList.indexOf(PRIEST_ROLES[randomGod]) > -1 && nbTries < 100) {
-						randomGod = Math.floor(Math.random()*PRIEST_ROLES.length);
+						randomGod = PRIEST_ROLES[Math.floor(Math.random()*PRIEST_ROLES.length)];
 						nbTries += 1;
 					}
 					this.godList.push(randomGod);
@@ -3903,7 +3903,7 @@ class Duel {
 		}
 		else {
 			// Attaque 1
-			if (this.MOVE_COUNT == 0 && getRandomPercent() > 10) {
+			if (this.MOVE_COUNT == 0 && getRandomPercent() <= 50) {
 				listeAttaques.push(EMOTE_PP81); // Melodia
 			}
 			else if (getRandomPercent() > 20) {
