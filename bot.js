@@ -2531,6 +2531,8 @@ class Duel {
 		this.LIST_MESSAGES = [];
 		this.INFINITE_DAMAGE = 0;
 		this.TIMESTAMP = +new Date();
+		this.LIST_AVAILABLE_ATTACKS = [];
+		
 		this.UWU_TEXT = false;
 		this.TIME_STOP = 0;
 		
@@ -3037,7 +3039,7 @@ class Duel {
 			}
 
 			if (this.FIGHTER1.STR <= 0 && this.FIGHTER2.STR <= 0) {
-				this.addMessage("Both of you lost. No one won this time. You losers");
+				this.addMessage("Both of you lost. No one won this time. You losers.");
 				this.stopDuel();
 				return;
 			}
