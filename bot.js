@@ -1767,6 +1767,7 @@ class Fighter {
 						randomGod = Math.floor(Math.random()*PRIEST_ROLES.length);
 						nbTries += 1;
 					}
+					this.godList.push(randomGod);
 				}
 				this.playMove(EMOTE_PP51);
 				this.duel.addMessage("-----------------");
@@ -2093,6 +2094,7 @@ class Fighter {
 				this.playMove(EMOTE_PP50);
 				console.log("UNKNOWN MOVE : " + attack)
 			}
+			this.duel.addMessage("-----------------");
 		}
 	}
 
@@ -2803,6 +2805,7 @@ class Duel {
 			this.bothFightersAction(function(_fighter) {
 				if (_fighter.pushedDamages > 0) {
 					_fighter.damage(_fighter.pushedDamages, false);
+					this.addMessage("-----------------");
 				}
 			});
 			
