@@ -2814,13 +2814,13 @@ class Duel {
 				this.addMessage("-----------------");
 			}
 			this.addMessage("One last game mechanic to learn : **Stånds** !");
-			this.addMessage("When performing specific move combos, you summon a **Stånd**. This will trigger the **Stånds Battle Mode** and the opponent will get a random **Stånd**.");
-			this.addMessage("Your respective **Stånds** will replace you in the battle, and the winner of the battle will keep his Stånd's powers and get stat buffs.");
+			this.addMessage("When performing specific move combos, you summon a stånd. This will trigger the **Stånds Battle Mode** and the opponent will get a random stånd.");
+			this.addMessage("Your respective stånds will replace you in the battle, and the winner of the battle will keep his stånd's powers and get stat buffs.");
 			this.addMessage("-----------------");
-			this.addMessage("If **Stånds** performs this move combo : [**Brolander**, **LostSoul**, **EldritchPudding**, **Brolander**], it will get a random **Requiem Ability**.");
-			this.addMessage("A **Requiem** is a move performed using the **God Special Move**. They are also given to a fighter if he wins the **Stånd Battle**.");
+			this.addMessage("If a stånd performs this move combo : [*Brolander*, *LostSoul*, *EldritchPudding*, *Brolander*], it will get better stats and a random **Requiem**.");
+			this.addMessage("A Requiem is an ability performed using the **god special move**. They are also given to a fighter if he wins the Stånd Battle.");
 			this.addMessage("-----------------");
-			this.addMessage("Here are some moves form the **Stånds** movepool :");
+			this.addMessage("Here are some stånd moves :");
 			this.sendMessages();
 			
 			this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction !").then(function (_message2) {
