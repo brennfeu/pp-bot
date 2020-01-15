@@ -2134,7 +2134,7 @@ class Fighter {
 			}
 			else {
 				this.duel.addMessage(this.user.username + " makes an unknown move ?");
-				this.playMove(EMOTE_PP50);
+				this.playMove(EMOTE_SKIP);
 				console.log("UNKNOWN MOVE : " + attack)
 			}
 			
@@ -3722,7 +3722,7 @@ class Duel {
 				duel.sendMessages();
 				_fighter.STRValue -= 10;
 				_fighter.DEXValue -= 20;
-				_fighter.attack = EMOTE_PP50;
+				_fighter.attack = EMOTE_SKIP;
 				caught1 = false;
 			}
 			else if (caught1) {
@@ -4100,7 +4100,7 @@ class Duel {
 				return GOD_LIST[i];
 			}
 		}
-		return EMOTE_PP50;
+		return EMOTE_SKIP;
 	}
 	
 	illegalGetCaught(_percentage) {
@@ -4269,10 +4269,10 @@ function skipWaitingDuels() {
 				DUEL_LIST[i].AUTO_MOVES_COUNTDOWN = 1;
 			}
 			else if (DUEL_LIST[i].FIGHTER1.attack == "") {
-				DUEL_LIST[i].FIGHTER1.attack = EMOTE_PP50;
+				DUEL_LIST[i].FIGHTER1.attack = EMOTE_SKIP;
 			}
 			else if (DUEL_LIST[i].FIGHTER2.attack == "") {
-				DUEL_LIST[i].FIGHTER2.attack = EMOTE_PP50;
+				DUEL_LIST[i].FIGHTER2.attack = EMOTE_SKIP;
 			}
 			DUEL_LIST[i].BATTLE_CHANNEL.send("...");
 			DUEL_LIST[i].launchAttacks();
