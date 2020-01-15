@@ -2807,7 +2807,6 @@ class Duel {
 	newTurnDuel() {
 		this.sendMessages();
 		this.TIME_STOP -= 1;
-		this.TIME_COMPRESSION -= 1;
 		
 		if (this.TIME_STOP > 0) {
 			this.STOPPED_MOVE_LIST = this.LIST_AVAILABLE_ATTACKS;
@@ -2819,6 +2818,8 @@ class Duel {
 			if (this.TIME_COMPRESSION > 0) {
 				nbTurnChanges = 3;
 			}
+			
+			this.TIME_COMPRESSION -= 1;
 			
 			for (var nbTurn = 0; nbTurn < nbTurnChanges; nbTurn++) {
 				this.addMessage("**===== TURN CHANGE =====**");
