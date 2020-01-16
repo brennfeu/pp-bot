@@ -2056,7 +2056,7 @@ class Fighter {
 				// Eye of Truth
 				this.duel.addMessage(this.getName() + " summons the Eye of Truth !");
 				this.duel.addMessage(this.getName() + " uses his signature move.");
-				var moveId = parseInt(this.guildUser.user.id, 10);
+				var moveId = parseInt(this.guildUser.user.id);
 				var effectId = moveId%6;
 				var subEffectId = moveId + effectId;
 				var value = 0;
@@ -2064,7 +2064,7 @@ class Fighter {
 				var buffList = ["bonusDamage", "tearDrinker", "pigHeal", "quickeningCharges", "tentacles"];
 				
 				for (var i = 0; i < 3; i++) {
-					effectId = moveId + parseInt(moveId.toString().charAt(moveId.toString().length-(i+3)), 10);
+					effectId = i + moveId + moveId%(567+i);
 					subEffectId = moveId + effectId;
 					
 					if (subEffectId%8 == 0) {
