@@ -406,7 +406,22 @@ class Fighter {
 	}
 	
 	getName() {
-		return this.user.username;
+		var name = this.user.username;
+		if (this.duel.SEXY_TEXT) {
+			if (getRandomPercent() <= 33) {
+				name = "Sexy " + name;
+			}
+			else if (getRandomPercent() <= 66) {
+				name = "Hot " + name;
+			}
+			else {
+				name = "Retarded " + name;
+			}
+		}
+		if (this.duel.RUSSIAN_TEXT) {
+			name += "ijov";
+		}
+		return name;
 	}
 
 	// fighter.STR
@@ -862,6 +877,9 @@ class Fighter {
 			else if (attack == EMOTE_PP7) {
 				// Turkey
 				this.duel.addMessage(this.getName() + " and " + this.duel.getOppOf(this).getName() + " start a feast !");
+				if (this.duel.UWU_TEXT) {
+					this.duel.SEXY_TEXT = true;
+				}
 				this.duel.bothFightersAction(function(_fighter) {
 					_fighter.heal(100);
 					_fighter.turkeyCountdown = 6;
@@ -1237,6 +1255,9 @@ class Fighter {
 				// Brennfeu
 				this.duel.addMessage(this.getName() + " messes everything !");
 				this.duel.addMessage("As always !");
+				if (this.duel.UWU_TEXT) {
+					this.duel.RUSSIAN_TEXT = true;
+				}
 				this.duel.bothFightersAction(function(_fighter) {
 					_fighter.STRValue += Math.floor((getRandomPercent() - 50)/2);
 					_fighter.DEXValue += Math.floor((getRandomPercent() - 50)/2);
@@ -2630,6 +2651,8 @@ class Duel {
 		this.UWU_TEXT = false;
 		this.GOD_TEXT = false;
 		this.YES_TEXT = false;
+		this.SEXY_TEXT = false;
+		this.RUSSIAN_TEXT = false;
 		
 		this.MOVE_COUNT = 0;
 		this.DAMAGE_COUNT = 0;
@@ -2897,6 +2920,15 @@ class Duel {
 				_texte += " TwT";
 			}
 			
+			if (this.RUSSIAN_TEXT) {
+				lettres = _texte.split(" ");
+				for (var i = 0; i < lettres.length; i++) { 
+					if (getRandomPercent() <= 33) {
+						lettres[i] += "ovo";
+					}
+				}
+				_texte = lettres.join("");
+			}
 			if (this.GOD_TEXT) {
 				lettres = _texte.split("");
 				for (var i = 0; i < lettres.length; i++) { 
@@ -2904,6 +2936,7 @@ class Duel {
 						lettres[i] = lettres[i].toUpperCase();
 					}
 				}
+				_texte = lettres.join("");
 			}
 			if (this.YES_TEXT) {
 				_texte = _texte.split("o").join("0");
