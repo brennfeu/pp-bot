@@ -2092,8 +2092,7 @@ class Fighter {
 					else {
 						value = EMOTE_LIST.indexOf(duel.getOppOf(this).oldAttack)*2;
 					}
-					
-					console.log(effectId + " / " + subEffectId + " / " + value);
+					value += 10
 					
 					if (effectId == 0) { // Inflict damage
 						this.duel.getOppOf(this).damage(20 + value, subEffectId%3 == 0);
@@ -2103,13 +2102,15 @@ class Fighter {
 						this.duel.addMessage(this.duel.getOppOf(this).getName() + " looses " + Math.floor(value/10) + " DEX !");
 					}
 					else if (effectId == 2) { // Heal
-						this.heal(20 + value, subEffectId%3 == 0);
+						this.heal(20 + value);
 					}
 					else if (effectId == 3) { // Heal DEX
 						this.DEXValue += Math.floor(value/10);
 						this.duel.addMessage(this.getName() + " gets " + Math.floor(value/10) + " DEX !");
 					}
 					else if (effectId == 4) { // Inflict debuff
+						console.log(subEffectId%debuffList.length);
+						
 						this.duel.getOppOf(this)[debuffList[subEffectId%debuffList.length]] += Math.floor(value/10);
 						this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets " + Math.floor(value/10) + " " + debuffList[subEffectId%debuffList.length] + " !");
 					}
