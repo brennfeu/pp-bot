@@ -122,6 +122,7 @@ const EMOTE_PP74 = "663738297687867405"; // Sword
 const EMOTE_PP75 = "664116840070512660"; // AcidShot
 const EMOTE_PP76 = "664845944252137494"; // EldritchPudding
 
+const EMOTE_PP79 = "667336163396288522"; // Eye of Truth
 const EMOTE_PP80 = "644617031739768842"; // Fherla
 const EMOTE_PP81 = "650398049126055937"; // Melodia
 
@@ -135,12 +136,12 @@ const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE
 		    EMOTE_PP50, EMOTE_PP51, EMOTE_PP52, EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, 
 		    EMOTE_PP58, EMOTE_PP59, EMOTE_PP60, EMOTE_PP61, EMOTE_PP62, EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, 
 		    EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70, EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, 
-		    EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP80, EMOTE_PP81];
+		    EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
 const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58, EMOTE_PP59, EMOTE_PP60,
 			   EMOTE_PP61, EMOTE_PP62];
 const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70,
 			  EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76];
-const RARE_EMOTE_LIST = [EMOTE_PP80, EMOTE_PP81];
+const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
 
 const GOD_PP1 = "644643782888783892"; // Mongo
 const GOD_PP2 = "617686716479832064"; // Dr Phil / WhatDAFuk
@@ -290,6 +291,7 @@ class Fighter {
 		this.isPossessed = 0;
 		this.isCircumcised = false;
 		this.isOverCircumcised = false;
+		this.acidArmor = 0;
 		this.missedMoves = 0;
 		this.bonusDamage = 0;
 		this.isTerrorist = false;
@@ -878,7 +880,7 @@ class Fighter {
 				// Turkey
 				this.duel.addMessage(this.getName() + " and " + this.duel.getOppOf(this).getName() + " start a feast !");
 				if (this.duel.UWU_TEXT) {
-					this.duel.SEXY_TEXT = 6;
+					this.duel.SEXY_TEXT = 11;
 				}
 				this.duel.bothFightersAction(function(_fighter) {
 					_fighter.heal(100);
@@ -1136,7 +1138,7 @@ class Fighter {
 					this.duel.addMessage("It looks like permanent damage !");
 				}
 				if (this.duel.UWU_TEXT) {
-					this.duel.SPOIL_TEXT = 6;
+					this.duel.SPOIL_TEXT = 1;
 				}
 			}
 			else if (attack == EMOTE_PP36) {
@@ -1226,7 +1228,7 @@ class Fighter {
 				this.duel.DISABLE_ABANDON = true;
 				this.duel.addMessage(this.getName() + " calls the Ancient Fongus !");
 				if (this.duel.UWU_TEXT) {
-					this.duel.YES_TEXT = 6;
+					this.duel.YES_TEXT = 1;
 				}
 				var chaosNumber = getRandomPercent();
 				var winner = this.duel.getRandomFighter();
@@ -1270,7 +1272,7 @@ class Fighter {
 				// Soup
 				this.duel.addMessage(this.getName() + " ascends !");
 				if (this.duel.UWU_TEXT) {
-					this.duel.GOD_TEXT = 6;
+					this.duel.GOD_TEXT = 3;
 				}
 				this.duel.addMessage("Behold " + this.getName() + " the living God !");
 				this.STRValue += 10000;
@@ -2049,6 +2051,70 @@ class Fighter {
 					this.tentacles += 1;
 				}
 			}
+			else if (attack == EMOTE_PP79) {
+				// Eye of Truth
+				this.duel.addMessage(this.getName() + " summons the Eye of Truth !");
+				this.duel.addMessage(this.getName() + " uses his signature move.");
+				var moveId = this.guildUser.user.id;
+				var effectId = moveId%6;
+				var subEffectId = moveId + effectId;
+				var value = 0;
+				var debuffList = ["bleedDamage", "meltingDamage", "madnessStack"];
+				var buffList = ["bonusDamage", "tearDrinker", "pigHeal", "quickeningCharges", "tentacles"];
+				
+				for (var i = 0; i < 3; i++) {
+					effectId += parseInt(moveId.toString().charAt(moveId.toString().length-(i+1)))%6;
+					subEffectId = moveId + effectId;
+					
+					if (subEffectId%8 == 0) {
+						value = Math.floor(this.STR/10):
+					}
+					else if (subEffectId%8 == 1) {
+						value = Math.floor(this.DEX/5):
+					}
+					else if (subEffectId%8 == 2) {
+						value = EMOTE_LIST.indexOf(this.oldAttack)*2:
+					}
+					else if (subEffectId%8 == 3) {
+						value = Math.floor(this.damageTaken/10):
+					}
+					else if (subEffectId%8 == 4) {
+						value = Math.floor(this.usedMoves/2):
+					}
+					else if (subEffectId%8 == 5) {
+						value = Math.floor(duel.MOVE_COUNT/3):
+					}
+					else if (subEffectId%8 == 6) {
+						value = Math.floor(duel.DAMAGE_COUNT/15):
+					}
+					else {
+						value = EMOTE_LIST.indexOf(duel.getOppOf(this).oldAttack)*2:
+					}
+					
+					if (effectId == 0) { // Inflict damage
+						this.duel.getOppOf(this).damage(20 + value, subEffectId%3 == 0);
+					}
+					else if (effectId == 1) { // Inflict DEX damage
+						this.duel.getOppOf(this).DEXValue -= Math.floor(value/10);
+						this.duel.addMessage(this.duel.getOppOf(this).getName() + " looses " + Math.floor(value/10) + " DEX !");
+					}
+					else if (effectId == 2) { // Heal
+						this.heal(20 + value, subEffectId%3 == 0);
+					}
+					else if (effectId == 3) { // Heal DEX
+						this.DEXValue += Math.floor(value/10);
+						this.duel.addMessage(this.getName() + " gets " + Math.floor(value/10) + " DEX !");
+					}
+					else if (effectId == 4) { // Inflict debuff
+						this.duel.getOppOf(this)[debuffList[subEffectId%debuffList.length]] += Math.floor(value/10);
+						this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets " + Math.floor(value/10) + " " + debuffList[subEffectId%debuffList.length] + " !");
+					}
+					else { // Gets buff
+						this[buffList[subEffectId%buffList.length]] += Math.floor(value/10);
+						this.duel.addMessage(this.getName() + " gets " + Math.floor(value/10) + " " + buffList[subEffectId%buffList.length] + " !");
+					}
+				}
+			}
 			else if (attack == EMOTE_PP80) {
 				// Fherla
 				this.duel.addMessage(this.getName() + " summons Fherla - Strawberry Girl !");
@@ -2616,7 +2682,6 @@ class Fighter {
 
 	resetBattleVariables() {
 		this.bleedDamage = 0;
-		this.acidArmor = 0;
 		this.turnSkip = 0;
 		this.grabbedPP = 0;
 		this.hasBoner = false;
