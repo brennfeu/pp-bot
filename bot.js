@@ -2067,25 +2067,25 @@ class Fighter {
 					effectId = i + moveId + moveId%(567+i);
 					subEffectId = moveId + effectId;
 					
-					if (subEffectId%8 == 0) {
+					if (subEffectId % 8 == 0) {
 						value = Math.floor(this.STR/10);
 					}
-					else if (subEffectId%8 == 1) {
+					else if (subEffectId % 8 == 1) {
 						value = Math.floor(this.DEX/5);
 					}
-					else if (subEffectId%8 == 2) {
+					else if (subEffectId % 8 == 2) {
 						value = EMOTE_LIST.indexOf(this.oldAttack)*2;
 					}
-					else if (subEffectId%8 == 3) {
+					else if (subEffectId % 8 == 3) {
 						value = Math.floor(this.damageTaken/10);
 					}
-					else if (subEffectId%8 == 4) {
+					else if (subEffectId % 8 == 4) {
 						value = Math.floor(this.usedMoves/2);
 					}
-					else if (subEffectId%8 == 5) {
+					else if (subEffectId % 8 == 5) {
 						value = Math.floor(duel.MOVE_COUNT/3);
 					}
-					else if (subEffectId%8 == 6) {
+					else if (subEffectId % 8 == 6) {
 						value = Math.floor(duel.DAMAGE_COUNT/15);
 					}
 					else {
@@ -2093,7 +2093,7 @@ class Fighter {
 					}
 					value += 10
 					
-					console.log(effectId + " / " + subEffectId + " / " + value);
+					console.log(subEffectId % 8);
 					
 					if (effectId%6 == 0) { // Inflict damage
 						this.duel.getOppOf(this).damage(20 + value, subEffectId%3 == 0);
