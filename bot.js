@@ -2067,28 +2067,28 @@ class Fighter {
 					subEffectId = moveId + effectId;
 					
 					if (subEffectId%8 == 0) {
-						value = Math.floor(this.STR/10):
+						value = Math.floor(this.STR/10);
 					}
 					else if (subEffectId%8 == 1) {
-						value = Math.floor(this.DEX/5):
+						value = Math.floor(this.DEX/5);
 					}
 					else if (subEffectId%8 == 2) {
-						value = EMOTE_LIST.indexOf(this.oldAttack)*2:
+						value = EMOTE_LIST.indexOf(this.oldAttack)*2;
 					}
 					else if (subEffectId%8 == 3) {
-						value = Math.floor(this.damageTaken/10):
+						value = Math.floor(this.damageTaken/10);
 					}
 					else if (subEffectId%8 == 4) {
-						value = Math.floor(this.usedMoves/2):
+						value = Math.floor(this.usedMoves/2);
 					}
 					else if (subEffectId%8 == 5) {
-						value = Math.floor(duel.MOVE_COUNT/3):
+						value = Math.floor(duel.MOVE_COUNT/3);
 					}
 					else if (subEffectId%8 == 6) {
-						value = Math.floor(duel.DAMAGE_COUNT/15):
+						value = Math.floor(duel.DAMAGE_COUNT/15);
 					}
 					else {
-						value = EMOTE_LIST.indexOf(duel.getOppOf(this).oldAttack)*2:
+						value = EMOTE_LIST.indexOf(duel.getOppOf(this).oldAttack)*2;
 					}
 					
 					if (effectId == 0) { // Inflict damage
@@ -4655,7 +4655,8 @@ CLIENT.on("message", async _message => {
 			console.log(e);
 		});
 		_message.channel.send("Cheat Panel : Rare Moves").then(function (_message2) {
-			_message2.react(EMOTE_PP80); _message2.react(EMOTE_PP81);
+			_message2.react(EMOTE_PP79); _message2.react(EMOTE_PP80);
+			_message2.react(EMOTE_PP81);
 		}).catch(function(e) {
 			console.log(e);
 		});
