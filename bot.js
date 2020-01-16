@@ -2064,8 +2064,8 @@ class Fighter {
 				var buffList = ["bonusDamage", "tearDrinker", "pigHeal", "quickeningCharges", "tentacles"];
 				
 				for (var i = 0; i < 3; i++) {
-					effectId = i + moveId + moveId%(567+i);
-					subEffectId = moveId + effectId;
+					effectId = moveId + moveId%(567+i);
+					subEffectId = moveId + moveId%(234+i);
 					
 					if (subEffectId%8 == 0) {
 						value = Math.floor(this.STR/10);
