@@ -2065,7 +2065,6 @@ class Fighter {
 				
 				for (var i = 0; i < 3; i++) {
 					effectId = parseInt(moveId.toString().charAt(moveId.toString().length-(i+1)), 10);
-					effectId = effectId%6;
 					subEffectId = moveId + effectId;
 					
 					if (subEffectId%8 == 0) {
@@ -2094,21 +2093,23 @@ class Fighter {
 					}
 					value += 10
 					
-					if (effectId == 0) { // Inflict damage
+					console.log(effectId + " / " + subEffectId + " / " + value);
+					
+					if (effectId%6 == 0) { // Inflict damage
 						this.duel.getOppOf(this).damage(20 + value, subEffectId%3 == 0);
 					}
-					else if (effectId == 1) { // Inflict DEX damage
+					else if (effectId%6 == 1) { // Inflict DEX damage
 						this.duel.getOppOf(this).DEXValue -= Math.floor(value/10);
 						this.duel.addMessage(this.duel.getOppOf(this).getName() + " looses " + Math.floor(value/10) + " DEX !");
 					}
-					else if (effectId == 2) { // Heal
+					else if (effectId%6 == 2) { // Heal
 						this.heal(20 + value);
 					}
-					else if (effectId == 3) { // Heal DEX
+					else if (effectId%6 == 3) { // Heal DEX
 						this.DEXValue += Math.floor(value/10);
 						this.duel.addMessage(this.getName() + " gets " + Math.floor(value/10) + " DEX !");
 					}
-					else if (effectId == 4) { // Inflict debuff
+					else if (effectId%6 == 4) { // Inflict debuff
 						this.duel.getOppOf(this)[debuffList[subEffectId % debuffList.length]] += Math.floor(value/10);
 						this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets " + Math.floor(value/10) + " " + debuffList[subEffectId%debuffList.length] + " !");
 					}
