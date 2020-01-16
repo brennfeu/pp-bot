@@ -2066,52 +2066,90 @@ class Fighter {
 				for (var i = 0; i < 3; i++) {
 					effectId = moveId + moveId%(567+i);
 					subEffectId = moveId + moveId%(234+i);
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Move " + (i+1) + "/3");
 					
-					if (subEffectId%8 == 0) {
+					if (subEffectId%12 == 0) {
 						value = Math.floor(this.STR/10);
+						this.duel.addMessage("Value : based on " + this.getName() + "'s STR.");
 					}
-					else if (subEffectId%8 == 1) {
+					else if (subEffectId%12 == 1) {
 						value = Math.floor(this.DEX/5);
+						this.duel.addMessage("Value : based on " + this.getName() + "'s DEX.");
 					}
-					else if (subEffectId%8 == 2) {
+					else if (subEffectId%12 == 2) {
 						value = EMOTE_LIST.indexOf(this.oldAttack)*2;
+						this.duel.addMessage("Value : based on " + this.getName() + "'s last move ID.");
 					}
-					else if (subEffectId%8 == 3) {
+					else if (subEffectId%12 == 3) {
 						value = Math.floor(this.damageTaken/10);
+						this.duel.addMessage("Value : based on " + this.getName() + "'s total taken damages.");
 					}
-					else if (subEffectId%8 == 4) {
+					else if (subEffectId%12 == 4) {
 						value = Math.floor(this.usedMoves/2);
+						this.duel.addMessage("Value : based on " + this.getName() + "'s moves count.");
 					}
-					else if (subEffectId%8 == 5) {
+					else if (subEffectId%12 == 5) {
+						value = Math.floor(this.duel.getOppOf(this).STR/10);
+						this.duel.addMessage("Value : based on " + this.duel.getOppOf(this).getName() + "'s STR.");
+					}
+					else if (subEffectId%12 == 6) {
+						value = Math.floor(this.duel.getOppOf(this).DEX/5);
+						this.duel.addMessage("Value : based on " + this.duel.getOppOf(this).getName() + "'s DEX.");
+					}
+					else if (subEffectId%12 == 7) {
+						value = EMOTE_LIST.indexOf(this.duel.getOppOf(this).oldAttack)*2;
+						this.duel.addMessage("Value : based on " + this.duel.getOppOf(this).getName() + "'s last move ID.");
+					}
+					else if (subEffectId%12 == 8) {
+						value = Math.floor(this.duel.getOppOf(this).damageTaken/10);
+						this.duel.addMessage("Value : based on " + this.duel.getOppOf(this).getName() + "'s total taken damages.");
+					}
+					else if (subEffectId%12 == 9) {
+						value = Math.floor(this.duel.getOppOf(this).usedMoves/2);
+						this.duel.addMessage("Value : based on " + this.duel.getOppOf(this).getName() + "'s moves count.");
+					}
+					else if (subEffectId%12 == 10) {
 						value = Math.floor(this.duel.MOVE_COUNT/3);
-					}
-					else if (subEffectId%8 == 6) {
-						value = Math.floor(this.duel.DAMAGE_COUNT/15);
+						this.duel.addMessage("Value : based on total moves count.");
 					}
 					else {
-						value = EMOTE_LIST.indexOf(this.duel.getOppOf(this).oldAttack)*2;
+						value = Math.floor(this.duel.DAMAGE_COUNT/15);
+						this.duel.addMessage("Value : based on total damages count.");
 					}
 					value += 10;
 					
 					if (effectId%6 == 0) { // Inflict damage
+						this.duel.addMessage("Effect : Damage");
+						this.duel.addMessage("-----------------");
 						this.duel.getOppOf(this).damage(20 + value, subEffectId%3 == 0);
 					}
 					else if (effectId%6 == 1) { // Inflict DEX damage
 						this.duel.getOppOf(this).DEXValue -= Math.floor(value/10);
+						this.duel.addMessage("Effect : DEX Damage");
+						this.duel.addMessage("-----------------");
 						this.duel.addMessage(this.duel.getOppOf(this).getName() + " looses " + Math.floor(value/10) + " DEX !");
 					}
 					else if (effectId%6 == 2) { // Heal
+						this.duel.addMessage("Effect : Heal");
+						this.duel.addMessage("-----------------");
 						this.heal(20 + value);
 					}
 					else if (effectId%6 == 3) { // Heal DEX
 						this.DEXValue += Math.floor(value/10);
+						this.duel.addMessage("Effect : DEX Gain");
+						this.duel.addMessage("-----------------");
 						this.duel.addMessage(this.getName() + " gets " + Math.floor(value/10) + " DEX !");
 					}
 					else if (effectId%6 == 4) { // Inflict debuff
+						this.duel.addMessage("Effect : Debuff");
+						this.duel.addMessage("-----------------");
 						this.duel.getOppOf(this)[debuffList[subEffectId % debuffList.length]] += Math.floor(value/10);
 						this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets " + Math.floor(value/10) + " " + debuffList[subEffectId%debuffList.length] + " !");
 					}
 					else { // Gets buff
+						this.duel.addMessage("Effect : Buff");
+						this.duel.addMessage("-----------------");
 						this[buffList[subEffectId%buffList.length]] += Math.floor(value/10);
 						this.duel.addMessage(this.getName() + " gets " + Math.floor(value/10) + " " + buffList[subEffectId%buffList.length] + " !");
 					}
