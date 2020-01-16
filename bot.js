@@ -1402,7 +1402,7 @@ class Fighter {
 						this.duel.addMessage("But his opponent doesn't care.");
 					}
 					else {
-						this.duel.addMessage(this.duel.getOppOf(this).user.username + " gets an Hocky Puck PP !");
+						this.duel.addMessage(this.duel.getOppOf(this).user.username + " gets an Hockey Puck PP !");
 						this.duel.getOppOf(this).isHockeyPuckPP = true;
 					}
 				}
@@ -2480,6 +2480,15 @@ class Fighter {
 		if (this.tentacles > 0) {
 			this.duel.addMessage(this.user.username + " attacks with tentacles !");
 			this.duel.getOppOf(this).damage(this.tentacles*10);
+			this.duel.addMessage("-----------------");
+		}
+		
+		// Espinoza Waifu Stealer
+		if (this.duel.MOVE_COUNT > 10 && this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.duel.getOppOf(this).godList.indexOf(GOD_PP20_PRIEST) > -1) {
+			this.duel.addMessage("Espinoza just sniffed Mikasa !");
+			this.duel.addMessage("He truly is a waifu stealer !");
+			this.duel.getOppOf(this).godList.splice(this.duel.getOppOf(this).godList.indexOf(GOD_PP20_PRIEST), 1);
+			this.godList.push(GOD_PP20_PRIEST);
 			this.duel.addMessage("-----------------");
 		}
 		
