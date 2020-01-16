@@ -2063,7 +2063,7 @@ class Fighter {
 				var buffList = ["bonusDamage", "tearDrinker", "pigHeal", "quickeningCharges", "tentacles"];
 				
 				for (var i = 0; i < 3; i++) {
-					effectId += parseInt(moveId.toString().charAt(moveId.toString().length-(i+1)));
+					effectId = moveId + parseInt(moveId.toString().charAt(moveId.toString().length-(i+1)));
 					effectId = effectId%6;
 					subEffectId = moveId + effectId;
 					
