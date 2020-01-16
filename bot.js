@@ -407,7 +407,7 @@ class Fighter {
 	
 	getName() {
 		var name = this.user.username;
-		if (this.duel.SEXY_TEXT) {
+		if (this.duel.SEXY_TEXT > 0) {
 			if (getRandomPercent() <= 33) {
 				name = "Sexy " + name;
 			}
@@ -418,7 +418,7 @@ class Fighter {
 				name = "Retarded " + name;
 			}
 		}
-		if (this.duel.RUSSIAN_TEXT) {
+		if (this.duel.RUSSIAN_TEXT > 0) {
 			name += "ijov";
 		}
 		return name;
@@ -878,7 +878,7 @@ class Fighter {
 				// Turkey
 				this.duel.addMessage(this.getName() + " and " + this.duel.getOppOf(this).getName() + " start a feast !");
 				if (this.duel.UWU_TEXT) {
-					this.duel.SEXY_TEXT = true;
+					this.duel.SEXY_TEXT = 6;
 				}
 				this.duel.bothFightersAction(function(_fighter) {
 					_fighter.heal(100);
@@ -1135,6 +1135,9 @@ class Fighter {
 					this.duel.BLIND_COUNTDOWN = 9999999;
 					this.duel.addMessage("It looks like permanent damage !");
 				}
+				if (this.duel.UWU_TEXT) {
+					this.duel.SPOIL_TEXT = 6;
+				}
 			}
 			else if (attack == EMOTE_PP36) {
 				// Explosion
@@ -1223,7 +1226,7 @@ class Fighter {
 				this.duel.DISABLE_ABANDON = true;
 				this.duel.addMessage(this.getName() + " calls the Ancient Fongus !");
 				if (this.duel.UWU_TEXT) {
-					this.duel.YES_TEXT = true;
+					this.duel.YES_TEXT = 6;
 				}
 				var chaosNumber = getRandomPercent();
 				var winner = this.duel.getRandomFighter();
@@ -1256,7 +1259,7 @@ class Fighter {
 				this.duel.addMessage(this.getName() + " messes everything !");
 				this.duel.addMessage("As always !");
 				if (this.duel.UWU_TEXT) {
-					this.duel.RUSSIAN_TEXT = true;
+					this.duel.RUSSIAN_TEXT = 6;
 				}
 				this.duel.bothFightersAction(function(_fighter) {
 					_fighter.STRValue += Math.floor((getRandomPercent() - 50)/2);
@@ -1267,7 +1270,7 @@ class Fighter {
 				// Soup
 				this.duel.addMessage(this.getName() + " ascends !");
 				if (this.duel.UWU_TEXT) {
-					this.duel.GOD_TEXT = true;
+					this.duel.GOD_TEXT = 6;
 				}
 				this.duel.addMessage("Behold " + this.getName() + " the living God !");
 				this.STRValue += 10000;
@@ -2649,10 +2652,11 @@ class Duel {
 		this.NO_MESSAGE = 0;
 		
 		this.UWU_TEXT = false;
-		this.GOD_TEXT = false;
-		this.YES_TEXT = false;
-		this.SEXY_TEXT = false;
-		this.RUSSIAN_TEXT = false;
+		this.GOD_TEXT = 0;
+		this.YES_TEXT = 0;
+		this.SEXY_TEXT = 0;
+		this.RUSSIAN_TEXT = 0;
+		this.SPOIL_TEXT = 0;
 		
 		this.MOVE_COUNT = 0;
 		this.DAMAGE_COUNT = 0;
@@ -2920,7 +2924,7 @@ class Duel {
 				_texte += " TwT";
 			}
 			
-			if (this.RUSSIAN_TEXT) {
+			if (this.RUSSIAN_TEXT > 0) {
 				lettres = _texte.split(" ");
 				for (var i = 0; i < lettres.length; i++) { 
 					if (getRandomPercent() <= 33) {
@@ -2929,7 +2933,7 @@ class Duel {
 				}
 				_texte = lettres.join(" ");
 			}
-			if (this.GOD_TEXT) {
+			if (this.GOD_TEXT > 0) {
 				lettres = _texte.split("");
 				for (var i = 0; i < lettres.length; i++) { 
 					if (getRandomPercent() <= 33) {
@@ -2938,7 +2942,7 @@ class Duel {
 				}
 				_texte = lettres.join("");
 			}
-			if (this.YES_TEXT) {
+			if (this.YES_TEXT > 0) {
 				_texte = _texte.split("o").join("0");
 				_texte = _texte.split("O").join("0");
 				_texte = _texte.split("i").join("1");
@@ -2951,6 +2955,15 @@ class Duel {
 				_texte = _texte.split("S").join("5");
 				_texte = _texte.split("b").join("8");
 				_texte = _texte.split("B").join("8");
+			}
+			if (this.SPOIL_TEXT > 0) {
+				lettres = _texte.split(" ");
+				for (var i = 0; i < lettres.length; i++) { 
+					if (getRandomPercent() <= 33) {
+						lettres[i] = "||" + lettres[i] + "||";
+					}
+				}
+				_texte = lettres.join(" ");
 			}
 		}
 		this.LIST_MESSAGES.push(_texte);
@@ -2996,10 +3009,16 @@ class Duel {
 			}
 			
 			this.TIME_COMPRESSION -= 1;
-			this.NO_MESSAGE -= 1;
 			
 			for (var nbTurn = 0; nbTurn < nbTurnChanges; nbTurn++) {
 				this.addMessage("**===== TURN CHANGE =====**");
+				
+				this.NO_MESSAGE -= 1;
+				this.GOD_TEXT -= 1;
+				this.YES_TEXT -= 1;
+				this.SEXY_TEXT -= 1;
+				this.RUSSIAN_TEXT -= 1;
+				this.SPOIL_TEXT -= 1;
 				
 				this.bothFightersAction(function(_fighter) {
 					if (_fighter.pushedDamages > 0) {
