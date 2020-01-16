@@ -1679,7 +1679,7 @@ class Fighter {
 					}
 					if (this.DEX < this.duel.getOppOf(this).DEX) {
 						this.duel.addMessage(this.user.username + " gets as much DEX as " + this.duel.getOppOf(this).user.username);
-						this.DEXValue -= this.STR-this.duel.getOppOf(this).DEX; 
+						this.DEXValue -= this.DEX-this.duel.getOppOf(this).DEX; 
 					}
 					else {
 						this.duel.addMessage(this.user.username + " is already the fastest !");
@@ -2747,6 +2747,7 @@ class Duel {
 		this.addMessage("**STR** is about how strong you can punch PP. The more you have, the more damages your punches will deal. It's also your **HP**, so don't get it below 0 !");
 		this.addMessage("-----------------");
 		this.addMessage("**DEX** is about the probability you have to punch. Each turn, each fighter selects a move. Then, there is **DEX** roll : **DEX+[0-50]**. If the results are the same +-10, both fighters use their move. Else, only the one with the higher result do.");
+		this.addMessage("When you perform a move, you get **-10** stackable DEX. It gets removed when the opponent plays a move.");
 		this.addMessage("-----------------");
 		this.addMessage("Each move has specific actions, and only 5 are allowed for 1 turn.");
 		this.addMessage("It looks like this :");
