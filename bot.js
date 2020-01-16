@@ -2056,7 +2056,7 @@ class Fighter {
 				// Eye of Truth
 				this.duel.addMessage(this.getName() + " summons the Eye of Truth !");
 				this.duel.addMessage(this.getName() + " uses his signature move.");
-				var moveId = parseInt(this.guildUser.user.id);
+				var moveId = parseInt(this.guildUser.user.id.slice(9, this.guildUser.user.id.length));
 				var effectId = moveId%6;
 				var subEffectId = moveId + effectId;
 				var value = 0;
@@ -2091,10 +2091,7 @@ class Fighter {
 					else {
 						value = EMOTE_LIST.indexOf(duel.getOppOf(this).oldAttack)*2;
 					}
-					value += 10
-					
-					console.log(subEffectId);
-					console.log(subEffectId%8);
+					value += 10;
 					
 					if (effectId%6 == 0) { // Inflict damage
 						this.duel.getOppOf(this).damage(20 + value, subEffectId%3 == 0);
