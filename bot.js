@@ -1603,12 +1603,8 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) { // Brenn
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Brenn answers his calls !");
-					this.duel.addMessage("Brenn's massive dong falls in the battlefield !");
-					this.duel.bothFightersAction(function(_fighter) {
-						_fighter.damage(100);
-						_fighter.extraLife += 1;
-					});
-					this.duel.addMessage("Its healing properties grants an extra life to both fighters !");
+					this.duel.addMessage(this.getName() + " feels like Jesus !");
+					this.extraLife += 1;
 				}
 				if (this.godList.indexOf(GOD_PP10_PRIEST) > -1) { // Fabio
 					this.duel.addMessage("-----------------");
