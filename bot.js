@@ -2927,7 +2927,7 @@ class Duel {
 						lettres[i] += "ovo";
 					}
 				}
-				_texte = lettres.join("");
+				_texte = lettres.join(" ");
 			}
 			if (this.GOD_TEXT) {
 				lettres = _texte.split("");
