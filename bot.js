@@ -241,7 +241,8 @@ const IMAGE_PP1 = "https://cdn.discordapp.com/attachments/616225633286094852/623
 
 // IDs
 const ID_BRENNFEU = "234439428372824075";
-const ADMIN_LIST = [ID_BRENNFEU];
+const ID_COUNTRYMUSICBRENN = "536293359342583820";
+const ADMIN_LIST = [ID_BRENNFEU, ID_COUNTRYMUSICBRENN];
 
 // Variables
 var DUEL_LIST = [];
@@ -2091,6 +2092,8 @@ class Fighter {
 					else {
 						value = EMOTE_LIST.indexOf(duel.getOppOf(this).oldAttack)*2;
 					}
+					
+					console.log(effectId + " / " + subEffectId + " / " + value);
 					
 					if (effectId == 0) { // Inflict damage
 						this.duel.getOppOf(this).damage(20 + value, subEffectId%3 == 0);
