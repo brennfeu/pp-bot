@@ -3007,64 +3007,19 @@ class Duel {
 	
 	addMessage(_texte) {
 		if (this.UWU_TEXT) {
-			var lettres = [];
-			
-			_texte = _texte.split("r").join("w");
-			_texte = _texte.split("R").join("W");
-			if (getRandomPercent() <= 5) {
-				_texte = _texte.split("e").join("fuck");
-				_texte = _texte.split("E").join("FUCK");
-			}
-			else if (getRandomPercent() <= 15) {
-				_texte += " uwu";
-			}
-			else if (getRandomPercent() <= 25) {
-				_texte += " owo";
-			}
-			else if (getRandomPercent() <= 35) {
-				_texte += " TwT";
-			}
+			_texte = changeTextUwu(_texte);
 			
 			if (this.RUSSIAN_TEXT > 0) {
-				lettres = _texte.split(" ");
-				for (var i = 0; i < lettres.length; i++) { 
-					if (getRandomPercent() <= 33) {
-						lettres[i] += "ovo";
-					}
-				}
-				_texte = lettres.join(" ");
+				_texte = changeTextRussian(_texte);
 			}
 			if (this.GOD_TEXT > 0) {
-				lettres = _texte.split("");
-				for (var i = 0; i < lettres.length; i++) { 
-					if (getRandomPercent() <= 33) {
-						lettres[i] = lettres[i].toUpperCase();
-					}
-				}
-				_texte = lettres.join("");
+				_texte = changeTextRandomCap(_texte);
 			}
 			if (this.YES_TEXT > 0) {
-				_texte = _texte.split("o").join("0");
-				_texte = _texte.split("O").join("0");
-				_texte = _texte.split("i").join("1");
-				_texte = _texte.split("I").join("1");
-				_texte = _texte.split("e").join("3");
-				_texte = _texte.split("E").join("3");
-				_texte = _texte.split("a").join("4");
-				_texte = _texte.split("A").join("4");
-				_texte = _texte.split("s").join("5");
-				_texte = _texte.split("S").join("5");
-				_texte = _texte.split("b").join("8");
-				_texte = _texte.split("B").join("8");
+				_texte = changeTextLeet(_texte);
 			}
 			if (this.SPOIL_TEXT > 0) {
-				lettres = _texte.split(" ");
-				for (var i = 0; i < lettres.length; i++) { 
-					if (getRandomPercent() <= 33) {
-						lettres[i] = "||" + lettres[i] + "||";
-					}
-				}
-				_texte = lettres.join(" ");
+				_texte = changeTextRandomSpoil(_texte);
 			}
 		}
 		this.LIST_MESSAGES.push(_texte);
@@ -4560,6 +4515,80 @@ function getNumberOfGods(_guildUser) {
 	return counter;
 }
 
+function changeTextUwu(_texte) {
+	var lettres = [];
+			
+	_texte = _texte.split("r").join("w");
+	_texte = _texte.split("R").join("W");
+	if (getRandomPercent() <= 5) {
+		_texte = _texte.split("e").join("fuck");
+		_texte = _texte.split("E").join("FUCK");
+	}
+	else if (getRandomPercent() <= 15) {
+		_texte += " uwu";
+	}
+	else if (getRandomPercent() <= 25) {
+		_texte += " owo";
+	}
+	else if (getRandomPercent() <= 35) {
+		_texte += " TwT";
+	}
+	
+	return _texte;
+}
+function changeTextLeet(_texte) {
+	_texte = _texte.split("o").join("0");
+	_texte = _texte.split("O").join("0");
+	_texte = _texte.split("i").join("1");
+	_texte = _texte.split("I").join("1");
+	_texte = _texte.split("e").join("3");
+	_texte = _texte.split("E").join("3");
+	_texte = _texte.split("a").join("4");
+	_texte = _texte.split("A").join("4");
+	_texte = _texte.split("s").join("5");
+	_texte = _texte.split("S").join("5");
+	_texte = _texte.split("b").join("8");
+	_texte = _texte.split("B").join("8");
+	
+	return _texte;
+}
+function changeTextRandomCap(_texte) {
+	var lettres = _texte.split("");
+	
+	for (var i = 0; i < lettres.length; i++) { 
+		if (getRandomPercent() <= 33) {
+			lettres[i] = lettres[i].toUpperCase();
+		}
+	}
+	_texte = lettres.join("");
+	
+	return _texte;
+}
+function changeTextRussian(_texte) {
+	var lettres = _texte.split(" ");
+	
+	for (var i = 0; i < lettres.length; i++) { 
+		if (getRandomPercent() <= 33) {
+			lettres[i] += "ovo";
+		}
+	}
+	_texte = lettres.join(" ");
+	
+	return _texte;
+}
+function changeTextRandomSpoil(_texte) {
+	var lettres = _texte.split(" ");
+	
+	for (var i = 0; i < lettres.length; i++) { 
+		if (getRandomPercent() <= 33) {
+			lettres[i] = "||" + lettres[i] + "||";
+		}
+	}
+	_texte = lettres.join(" ");
+	
+	return _texte;
+}
+
 function cloneObject(obj) {
 	obj = obj && obj instanceof Object ? obj : '';
 
@@ -4612,6 +4641,13 @@ CLIENT.on("message", async _message => {
 	
 	// Ignore si bot
 	if(_message.author.bot) return;
+	
+	// PM
+	if(_message.channel.type == "dm") {
+		_message.channel.send(changeTextRandomSpoil(changeTextLeet(changeTextRandomCap(changeTextRussian(changeTextUwu(_message.content.trim()))))));
+		return;
+	}
+	
 	// Ignore si pas appelé
 	if (_message.mentions.users.array().length < 1) return;
 	if (_message.mentions.users.first().id != CLIENT.user.id) return;
