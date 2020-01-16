@@ -2083,13 +2083,13 @@ class Fighter {
 						value = Math.floor(this.usedMoves/2);
 					}
 					else if (subEffectId%8 == 5) {
-						value = Math.floor(duel.MOVE_COUNT/3);
+						value = Math.floor(this.duel.MOVE_COUNT/3);
 					}
 					else if (subEffectId%8 == 6) {
-						value = Math.floor(duel.DAMAGE_COUNT/15);
+						value = Math.floor(this.duel.DAMAGE_COUNT/15);
 					}
 					else {
-						value = EMOTE_LIST.indexOf(duel.getOppOf(this).oldAttack)*2;
+						value = EMOTE_LIST.indexOf(this.duel.getOppOf(this).oldAttack)*2;
 					}
 					value += 10;
 					
