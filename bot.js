@@ -405,7 +405,7 @@ class Fighter {
 		}
 	}
 	
-	function getName() {
+	getName() {
 		return this.user.username;
 	}
 
