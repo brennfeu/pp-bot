@@ -2110,6 +2110,8 @@ class Fighter {
 					}
 					else if (effectId == 4) { // Inflict debuff
 						console.log(subEffectId%debuffList.length);
+						console.log(subEffectId);
+						console.log(debuffList.length);
 						
 						this.duel.getOppOf(this)[debuffList[subEffectId%debuffList.length]] += Math.floor(value/10);
 						this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets " + Math.floor(value/10) + " " + debuffList[subEffectId%debuffList.length] + " !");
