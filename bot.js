@@ -285,6 +285,7 @@ class Fighter {
 
 		// Battle variables
 		this.resetBattleVariables();
+		this.dexMalus = 0;
 		this.turkeyCountdown = -1;
 		this.isPossessed = 0;
 		this.isCircumcised = false;
@@ -457,11 +458,11 @@ class Fighter {
 		if (this.hasBurst == 1) {
 			return 0;
 		}
-		// Scout
+		
+		dex -= this.dexMalus;
 		if (this.hasExamined == 1) {
 			dex += 30;
 		}
-
 		if (this.isBigPP) {
 			dex -= 5;
 		}
@@ -817,10 +818,12 @@ class Fighter {
 				return;
 			}
 			
-			if (_newMove == this.attack) {
+			if (_newMove == this.attack && sdsds == 0) {
 				if (attack != EMOTE_PP69) {
 					this.ragingSpirit = 0;
 				}
+				this.dexMalus += 10;
+				this.duel.getOppOf(this).dexMalus = 0;
 			}
 			
 			if (attack == EMOTE_PP1) {
