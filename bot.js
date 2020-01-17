@@ -2844,7 +2844,7 @@ class Duel {
 		// Christian
 		if (getRandomPercent() <= 10 && !this.CHRISTIAN_TEXT) {
 			this.addMessage("**===== CHRISTIAN GAME =====**");
-			this.addMessage("Let's be a bit more friendly :)");
+			this.addMessage("Let's be a bit more friendly for Timmy :)");
 			this.CHRISTIAN_TEXT = true;
 		}
 		
@@ -3944,10 +3944,7 @@ class Duel {
 		
 		console.log(this.LIST_AVAILABLE_ATTACKS)
 		for (i = 0; i < RARE_EMOTE_LIST.length; i++) { // Rare Moves
-			console.log(RARE_EMOTE_LIST[i]);
-			console.log(this.LIST_AVAILABLE_ATTACKS.indexOf(RARE_EMOTE_LIST[i]));
-			if (this.LIST_AVAILABLE_ATTACKS.indexOf(RARE_EMOTE_LIST[i]) > 0) {
-				console.log(CLIENT.emojis.get(RARE_EMOTE_LIST[i]).name);
+			if (this.LIST_AVAILABLE_ATTACKS.indexOf(RARE_EMOTE_LIST[i]) > -1) {
 				return this.triggerReaction(CLIENT.emojis.get(RARE_EMOTE_LIST[i]).name, fighter.user);
 			}
 		}
