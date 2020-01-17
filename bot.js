@@ -2159,10 +2159,18 @@ class Fighter {
 			else if (attack == EMOTE_PP80) {
 				// Fherla
 				this.duel.addMessage(this.getName() + " summons Fherla - Strawberry Girl !");
-				this.duel.addMessage("PP Punching is so filthy. May the chat be purged of this nonsense.");
-				this.duel.bothFightersAction(function(_fighter) {
-					_fighter.damage(Math.floor(Math.random() * 10000000000000), false);
-				});
+				if (this.duel.CHRISTIAN_TEXT) {
+					this.duel.addMessage("PP Punching is so good. Please continue !");
+					this.duel.bothFightersAction(function(_fighter) {
+						_fighter.heal(Math.floor(Math.random() * 10000000000000));
+					});
+				}
+				else {
+					this.duel.addMessage("PP Punching is so filthy. May the chat be purged of this nonsense.");
+					this.duel.bothFightersAction(function(_fighter) {
+						_fighter.damage(Math.floor(Math.random() * 10000000000000), false);
+					});
+				}
 			}
 			else if (attack == EMOTE_PP81) {
 				// Melodia
