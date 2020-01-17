@@ -1470,7 +1470,7 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Isaac answers his calls !");
 					this.duel.addMessage(this.getName() + " starts to cry !");
-					this.duel.addMessage(this.duel.BATTLE_CHANNEL.guild.members.random().getName() + " helps the fighters !");
+					this.duel.addMessage(this.duel.BATTLE_CHANNEL.guild.members.random().user.username + " helps the fighters !");
 					this.duel.FIGHTER1.heal(50);
 					this.duel.FIGHTER2.heal(50);
 				}
