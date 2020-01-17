@@ -4080,6 +4080,7 @@ class Duel {
 			nbTries += 1;
 		}
 		
+		console.log(dont);
 		// Random Emote
 		this.triggerReaction(CLIENT.emojis.get(emote).name, this.FIGHTER2.user);
 	}
@@ -4579,7 +4580,7 @@ class Duel {
 		}
 		switch(_move) {
 			case EMOTE_PP3:
-				return -30;
+				return -40;
 			case EMOTE_PP26:
 			case EMOTE_PP17:
 			case EMOTE_PP4:
