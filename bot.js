@@ -4008,8 +4008,26 @@ class Duel {
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP74).name, fighter.user);
 		}
 		
+		if (this.MOVE_COUNT > 50 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP46) > 0) {
+			// YES
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP46).name, fighter.user);
+		}
+		if (this.MOVE_COUNT > 50 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP26) > 0) {
+			// BigSatan
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP26).name, fighter.user);
+		}
+		if (fighter.isBigPP && fighter.isFastPP && fighter.isAlienPP && fighter.isDrunkPP && fighter.isHockeyPuckPP && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP50) > 0) {
+			// Perhaps
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP50).name, fighter.user);
+		}
+		
+		var emote = this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)];
+		while ([EMOTE_PP50, EMOTE_PP47, EMOTE_PP9].indexOf(emote) > 0) {
+			emote = this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)];
+		}
+		
 		// Random Emote
-		this.triggerReaction(CLIENT.emojis.get(this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)]).name, this.FIGHTER2.user);
+		this.triggerReaction(CLIENT.emojis.get(emote).name, this.FIGHTER2.user);
 	}
 	launchAttacks() {
 		this.addMessage("\n\n**===== ATTACKS =====**");
