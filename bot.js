@@ -796,7 +796,6 @@ class Fighter {
 	}
 
 	playMove(_newMove = this.attack) {
-		this.attackedThisTurn = true;
 		this.duel.MOVE_COUNT += 1;
 		this.duel.INFINITE_DAMAGE = 0;
 		var attack = _newMove;
@@ -841,11 +840,10 @@ class Fighter {
 			}
 			
 			if (_newMove == this.attack && sdsds == 0) {
+				this.attackedThisTurn = true;
 				if (attack != EMOTE_PP69) {
 					this.ragingSpirit = 0;
 				}
-				this.dexMalus += 10;
-				this.duel.getOppOf(this).dexMalus = 0;
 			}
 			
 			if (attack == EMOTE_PP1) {
@@ -2489,6 +2487,8 @@ class Fighter {
 		this.attack = "";
 		if (!this.attackedThisTurn) {
 			this.missedMoves += 1;
+			this.dexMalus = 0;
+			this.duel.getOppOf(this).dexMalus += 10;
 		}
 		this.attackedThisTurn = false;
 
@@ -2806,7 +2806,6 @@ class Duel {
 		else {
 			this.FIGHTER2 = new Fighter(CLIENT.user.id, this.BATTLE_CHANNEL.id);
 			this.FIGHTER2.STRValue = 5000;
-			this.FIGHTER2.DEXValue = 50;
 		}
 		if (this.EASY_DUEL) {
 			this.bothFightersAction(function(_fighter) {
