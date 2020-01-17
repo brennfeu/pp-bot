@@ -566,7 +566,7 @@ class Fighter {
 			txt += " (lmao)";
 		}
 		if (this.dexMalus > 0) {
-			txt += " - DEX Malus : **" + this.dexMalus + "**\n";
+			txt += "\n - DEX Malus : **" + this.dexMalus + "**";
 		}
 
 		if (!this.duel.STAND_BATTLE) {
@@ -4017,9 +4017,11 @@ class Duel {
 			// BigSatan
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP26).name, fighter.user);
 		}
-		if (fighter.isBigPP && fighter.isFastPP && fighter.isAlienPP && fighter.isDrunkPP && fighter.isHockeyPuckPP && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP50) > 0) {
-			// Perhaps
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP50).name, fighter.user);
+		// BOSS_FIGHT --> slow moves
+		for (i = 0; i < EMOTE_LIST.length; i++) { 
+			if (this.getDexChange(EMOTE_LIST[i]) < 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_LIST[i]) > 0) {
+				return this.triggerReaction(CLIENT.emojis.get(EMOTE_LIST[i]).name, fighter.user);
+			}
 		}
 		
 		var emote = this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)];
@@ -4054,9 +4056,13 @@ class Duel {
 			dont.push(EMOTE_PP17);
 		}
 		for (i = 0; i < EMOTE_LIST.length; i++) { // No move with shitty DEX
-			if (this.getDexChange(EMOTE_LIST) < 0 && fighter.DEX + this.getDexChange(EMOTE_LIST) < this.getOppOf(fighter).DEX) {
+			if (this.getDexChange(EMOTE_LIST[i]) < 0 && fighter.DEX + this.getDexChange(EMOTE_LIST[i]) < this.getOppOf(fighter).DEX) {
 				dont.push(EMOTE_LIST[i]);
 			}
+		}
+		if (fighter.isBigPP && fighter.isFastPP && fighter.isAlienPP && fighter.isDrunkPP && fighter.isHockeyPuckPP) {
+			// Perhaps
+			dont.slice(dont.indexOf(EMOTE_PP50), 1);
 		}
 		
 		var nbTries = 0;
