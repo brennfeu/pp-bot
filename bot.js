@@ -4790,6 +4790,7 @@ function changeTextChristian(_texte) {
 	_texte = _texte.replace(/ancient fongus/gi, "Papa Stalin");
 	_texte = _texte.replace(/furry/gi, "Hairy Man");
 	_texte = _texte.replace(/terrorist/gi, "Muslim"); // That's racist :o
+	_texte = _texte.replace("SEXUAL CONFUSION", "ROMANTIC TENSION");
 	return _texte;
 }
 
