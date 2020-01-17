@@ -3945,7 +3945,9 @@ class Duel {
 		console.log(this.LIST_AVAILABLE_ATTACKS)
 		for (i = 0; i < RARE_EMOTE_LIST.length; i++) { // Rare Moves
 			console.log(RARE_EMOTE_LIST[i]);
+			console.log(this.LIST_AVAILABLE_ATTACKS.indexOf(RARE_EMOTE_LIST[i]) > 0);
 			if (this.LIST_AVAILABLE_ATTACKS.indexOf(RARE_EMOTE_LIST[i]) > 0) {
+				console.log(CLIENT.emojis.get(RARE_EMOTE_LIST[i]).name);
 				return this.triggerReaction(CLIENT.emojis.get(RARE_EMOTE_LIST[i]).name, fighter.user);
 			}
 		}
