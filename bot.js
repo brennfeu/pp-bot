@@ -4077,8 +4077,8 @@ class Duel {
 		}
 		
 		var nbTries = 0;
+		console.log(dont);
 		while (dont.indexOf(emote) > -1 && nbTries < 100) {
-			console.log(dont);
 			emote = this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)];
 			nbTries += 1;
 		}
