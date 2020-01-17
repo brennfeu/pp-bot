@@ -2490,8 +2490,10 @@ class Fighter {
 		this.attack = "";
 		if (!this.attackedThisTurn) {
 			this.missedMoves += 1;
-			this.dexMalus = 0;
 			this.duel.getOppOf(this).dexMalus += 10;
+		}
+		else {
+			this.duel.getOppOf(this).dexMalus = 0;
 		}
 		this.attackedThisTurn = false;
 
@@ -3900,13 +3902,13 @@ class Duel {
 		if (this.FIGHTER2.user.id != CLIENT.user.id) return;
 		var i = 0;
 		
-		for (i = 0, i < RARE_EMOTE_LIST.length, i++) { // Rare Moves
+		for (i = 0; i < RARE_EMOTE_LIST.length; i++) { // Rare Moves
 			if (this.LIST_AVAILABLE_ATTACKS.indexOf(RARE_EMOTE_LIST[i]) > 0) {
 				this.triggerReaction(RARE_EMOTE_LIST[i], this.FIGHTER2.user);
 				return;
 			}
 		}
-		for (i = 0, i < ANIMATED_EMOTE_LIST.length, i++) { // Animated Moves
+		for (i = 0; i < ANIMATED_EMOTE_LIST.length; i++) { // Animated Moves
 			if (this.LIST_AVAILABLE_ATTACKS.indexOf(ANIMATED_EMOTE_LIST[i]) > 0) {
 				this.triggerReaction(ANIMATED_EMOTE_LIST[i], this.FIGHTER2.user);
 				return;
@@ -3920,7 +3922,7 @@ class Duel {
 			this.triggerReaction(EMOTE_PP51, this.FIGHTER2.user); // God Regular Moves
 			return;
 		}
-		for (i = 0, i < EMOTE_LIST.length, i++) { // If blind --> Illegal
+		for (i = 0; i < EMOTE_LIST.length; i++) { // If blind --> Illegal
 			if ((this.BLIND_COUNTDOWN > 0 || this.TIME_STOP > 0) && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_LIST[i]) > 0 &&
 			    this.getRisk(EMOTE_LIST[i]) > 0) {
 				this.triggerReaction(EMOTE_LIST[i], this.FIGHTER2.user);
