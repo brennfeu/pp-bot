@@ -3828,6 +3828,68 @@ class Duel {
 			this.addMessage("No event this turn...");
 		}
 	}
+	triggerReaction(_reaction, _user) {
+		if (this.EASY_DUEL && this.LIST_AVAILABLE_ATTACKS.indexOf(this.getAttackFromEmote(_reaction.emoji)) < 0) {
+			return;
+		}
+		
+		// Save Me Move
+		if (this.getAttackFromEmote(_reaction.emoji) == EMOTE_PP31 && this.SAVE_LIST.indexOf(_user.id) < 0 && !_user.bot) {
+			this.SAVE_LIST.push(_user.id);
+			this.addMessage(_user.username + " helps the fighters !");
+			this.sendMessages();
+			this.bothFightersAction(function(_fighter) {
+				_fighter.heal(50);
+			});
+		}
+
+		// Assigne attaque
+		this.bothFightersAction(function(_fighter) {
+			var duel = _fighter.duel
+			
+			if (_fighter.duel.TIME_STOP > 0 && _fighter.requiemPower == null) { // if weak --> skip time skip
+				return;
+			}
+			
+			// GAY_TURNS
+			if (duel.GAY_TURNS > 0) {
+				if (_user.id == _fighter.user.id) {
+					if (duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.getAttackFromEmote(_reaction.emoji)) < 0) {
+						duel.addMessage("Gay people can't cheat...");
+						return duel.sendMessages();
+					}
+					else {
+						duel.getOppOf(_fighter).attack = duel.getAttackFromEmote(_reaction.emoji);
+						duel.addMessage(duel.getOppOf(_fighter).getName() + " : " + _reaction.emoji.name);
+						duel.sendMessages();
+					}
+				}
+			}
+			else if (_user.id == _fighter.user.id && _fighter.isPossessed <= 0 && _fighter.turnSkip <= 0 && _fighter.grabbedPP <= 0 && _fighter.summonTankCountdown != 1) {
+				_fighter.attack = duel.getAttackFromEmote(_reaction.emoji);
+				duel.addMessage(_fighter.getName() + " : " + _reaction.emoji.name);
+				duel.sendMessages();
+
+				// Possession
+				if (duel.getOppOf(_fighter).isPossessed >= 1) {
+					duel.getOppOf(_fighter).attack = duel.getAttackFromEmote(_reaction.emoji);
+					duel.addMessage(duel.getOppOf(_fighter).getName() + " : " + _reaction.emoji.name);
+					duel.sendMessages();
+				}
+			}
+		});
+		
+		if (this.FIGHTER1.attack != "" && this.TUTORIAL) {
+			return this.tutorialNextTurn();
+		}
+
+		// Deux attaques sont faites
+		if (this.FIGHTER1.attack != "" && this.FIGHTER2.attack != "") {
+			this.launchAttacks();
+		}
+		
+		this.sendMessages();
+	}
 	launchAttacks() {
 		this.addMessage("\n\n**===== ATTACKS =====**");
 
@@ -4922,64 +4984,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	if (getDuel(_reaction.message.channel.id) != null) {
 		var duel = getDuel(_reaction.message.channel.id);
 		
-		if (duel.EASY_DUEL && duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.getAttackFromEmote(_reaction.emoji)) < 0) {
-			return;
-		}
-		
-		// Save Me Move
-		if (duel.getAttackFromEmote(_reaction.emoji) == EMOTE_PP31 && duel.SAVE_LIST.indexOf(_user.id) < 0 && !_user.bot) {
-			duel.SAVE_LIST.push(_user.id);
-			duel.addMessage(_user.username + " helps the fighters !");
-			duel.sendMessages();
-			duel.bothFightersAction(function(_fighter) {
-				_fighter.heal(50);
-			});
-		}
-
-		// Assigne attaque
-		duel.bothFightersAction(function(_fighter) {
-			if (_fighter.duel.TIME_STOP > 0 && _fighter.requiemPower == null) { // if weak --> skip time skip
-				return;
-			}
-			
-			// GAY_TURNS
-			if (duel.GAY_TURNS > 0) {
-				if (_user.id == _fighter.user.id) {
-					if (duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.getAttackFromEmote(_reaction.emoji)) < 0) {
-						duel.addMessage("Gay people can't cheat...");
-						return duel.sendMessages();
-					}
-					else {
-						duel.getOppOf(_fighter).attack = duel.getAttackFromEmote(_reaction.emoji);
-						duel.addMessage(duel.getOppOf(_fighter).getName() + " : " + _reaction.emoji.name);
-						duel.sendMessages();
-					}
-				}
-			}
-			else if (_user.id == _fighter.user.id && _fighter.isPossessed <= 0 && _fighter.turnSkip <= 0 && _fighter.grabbedPP <= 0 && _fighter.summonTankCountdown != 1) {
-				_fighter.attack = duel.getAttackFromEmote(_reaction.emoji);
-				duel.addMessage(_fighter.getName() + " : " + _reaction.emoji.name);
-				duel.sendMessages();
-
-				// Possession
-				if (duel.getOppOf(_fighter).isPossessed >= 1) {
-					duel.getOppOf(_fighter).attack = duel.getAttackFromEmote(_reaction.emoji);
-					duel.addMessage(duel.getOppOf(_fighter).getName() + " : " + _reaction.emoji.name);
-					duel.sendMessages();
-				}
-			}
-		});
-		
-		if (duel.FIGHTER1.attack != "" && duel.TUTORIAL) {
-			return duel.tutorialNextTurn();
-		}
-
-		// Deux attaques sont faites
-		if (duel.FIGHTER1.attack != "" && duel.FIGHTER2.attack != "") {
-			duel.launchAttacks();
-		}
-		
-		duel.sendMessages();
+		duel.triggerReaction(_reaction, _user);
 		return;
 	}
 
