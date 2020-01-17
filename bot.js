@@ -565,6 +565,9 @@ class Fighter {
 		if (this.DEX == 69) {
 			txt += " (lmao)";
 		}
+		if (this.dexMalus > 0) {
+			txt += " - DEX Malus : **" + this.dexMalus + "**\n";
+		}
 
 		if (!this.duel.STAND_BATTLE) {
 			if (this.regularCharges > 0 || this.specialCharges > 0) {
@@ -643,9 +646,6 @@ class Fighter {
 		}
 		if (this.requiemCooldown > 0) {
 			txt += " - Requiem Cooldown : " + this.requiemCooldown + " turns\n";
-		}
-		if (this.dexMalus > 0) {
-			txt += " - DEX Malus : " + this.dexMalus + "\n";
 		}
 		if (this.tentacles > 0) {
 			txt += " - Tentacles : " + this.tentacles + "\n";
@@ -3923,6 +3923,15 @@ class Duel {
 		var i = 0;
 		var fighter = this.FIGHTER2;
 		
+		if (fighter.STR < this.getOppOf(fighter).STR && fighter.DEX < this.getOppOf(fighter).DEX && this.getOppOf(fighter).isPossessed > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP5) > 0) {
+			// High Five
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP5).name, fighter.user);
+		}
+		if (fighter.DEX + 30 < this.getOppOf(fighter).DEX && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP8) > 0) {
+			// Trap
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP8).name, fighter.user);
+		}
+		
 		for (i = 0; i < RARE_EMOTE_LIST.length; i++) { // Rare Moves
 			if (this.LIST_AVAILABLE_ATTACKS.indexOf(RARE_EMOTE_LIST[i]) > 0) {
 				return this.triggerReaction(CLIENT.emojis.get(RARE_EMOTE_LIST[i]).name, fighter.user);
@@ -3946,16 +3955,8 @@ class Duel {
 			}
 		}
 		
-		if (fighter.STR < this.getOppOf(fighter).STR && fighter.DEX < this.getOppOf(fighter).DEX && this.getOppOf(fighter).isPossessed > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP5) > 0) {
-			// High Five
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP5).name, fighter.user);
-		}
-		if (fighter.DEX + 30 < this.getOppOf(fighter).DEX && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP8) > 0) {
-			// Trap
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP8).name, fighter.user);
-		}
 		if (fighter.DEX + 30 < this.getOppOf(fighter).DEX && this.BLIND_COUNTDOWN > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP32) > 0) {
-			// Trap
+			// High Five Emote
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP32).name, fighter.user);
 		}
 		if (fighter.bleedDamage * 5 > fighter.STR && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP12) > 0) {
@@ -4051,7 +4052,12 @@ class Duel {
 		if (fighter.riotShield) {
 			// RiotShield
 			dont.push(EMOTE_PP17);
-		} 
+		}
+		for (i = 0; i < EMOTE_LIST.length; i++) { // No move with shitty DEX
+			if (this.getDexChange(EMOTE_LIST) < 0 && fighter.DEX + this.getDexChange(EMOTE_LIST) < this.getOppOf(fighter).DEX) {
+				dont.push(EMOTE_LIST[i]);
+			}
+		}
 		
 		var nbTries = 0;
 		while (dont.indexOf(emote) > 0 && nbTries < 100) {
