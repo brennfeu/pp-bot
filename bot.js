@@ -3515,7 +3515,7 @@ class Duel {
 			this.newTurnDuel();
 		}
 		
-		if (this.FIGHTER2.use.id == CLIENT.user.id) {
+		if (this.FIGHTER2.user.id == CLIENT.user.id) {
 			this.botReacts();
 		}
 		
