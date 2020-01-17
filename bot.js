@@ -2833,6 +2833,12 @@ class Duel {
 			this.REVERSE_DAMAGE = 1;
 			this.NUCLEAR_BOMB = 1;
 		}
+		// Christian
+		if (getRandomPercent() <= 10 && !this.CHRISTIAN_TEXT) {
+			this.addMessage("**===== CHRISTIAN GAME =====**");
+			this.addMessage("Let's be a bit more friendly :)");
+			this.CHRISTIAN_TEXT = true;
+		}
 		
 		this.newTurnDuel();
 	}
@@ -4323,7 +4329,7 @@ class Duel {
 		}
 		else {
 			// Attaque 1
-			if (this.MOVE_COUNT == 0 && getRandomPercent() <= 10) {
+			if (this.MOVE_COUNT == 0 && getRandomPercent() <= 33) {
 				listeAttaques.push(EMOTE_PP81); // Melodia
 			}
 			else if (getRandomPercent() > 20) {
@@ -4775,6 +4781,7 @@ function changeTextChristian(_texte) {
 	_texte = _texte.replace(/hog/gi, "Teddy Bear");
 	_texte = _texte.replace(/ancient fongus/gi, "Papa Stalin");
 	_texte = _texte.replace(/furry/gi, "Hairy Man");
+	_texte = _texte.replace(/terrorist/gi, "Muslim"); // That's racist :o
 	return _texte;
 }
 
