@@ -3942,7 +3942,6 @@ class Duel {
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP8).name, fighter.user);
 		}
 		
-		console.log(this.LIST_AVAILABLE_ATTACKS)
 		for (i = 0; i < RARE_EMOTE_LIST.length; i++) { // Rare Moves
 			if (this.LIST_AVAILABLE_ATTACKS.indexOf(RARE_EMOTE_LIST[i]) > -1) {
 				return this.triggerReaction(CLIENT.emojis.get(RARE_EMOTE_LIST[i]).name, fighter.user);
@@ -4036,7 +4035,8 @@ class Duel {
 		}
 		
 		var emote = this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)];
-		var dont = [EMOTE_PP9, EMOTE_PP10, EMOTE_PP25, EMOTE_PP38, EMOTE_PP40, EMOTE_PP41, EMOTE_PP47, EMOTE_PP50];
+		var dont = [EMOTE_PP9, EMOTE_PP10, EMOTE_PP25, EMOTE_PP38, EMOTE_PP40, EMOTE_PP41, EMOTE_PP47, EMOTE_PP50,
+			    EMOTE_PP51, EMOTE_PP52];
 		
 		if (fighter.isOverCurcumcised) {
 			// Overcircumcised
