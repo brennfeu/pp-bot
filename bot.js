@@ -3923,6 +3923,15 @@ class Duel {
 		var i = 0;
 		var fighter = this.FIGHTER2;
 		
+		if (this.AUTO_MOVES_COUNTDOWN <= 0 && !fighter.legAimer && (duel.GAY_TURNS > 0 || (this.getOppOf(fighter).isPossessed > 0 && this.getOppOf(fighter).DEX > this.DEX))) {
+			var dumbMoves = [EMOTE_PP47, EMOTE_PP9, EMOTE_PP41, EMOTE_PP50];
+			for (i = 0; i < dumbMoves.length; i++) { // opponent plays garbage moves
+				if (this.LIST_AVAILABLE_ATTACKS.indexOf(dumbMoves[i])) {
+					return this.triggerReaction(CLIENT.emojis.get(dumbMoves[i]).name, fighter.user);
+				}
+			}
+		}
+		
 		if (fighter.STR < this.getOppOf(fighter).STR && fighter.DEX < this.getOppOf(fighter).DEX && this.getOppOf(fighter).isPossessed > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP5) > 0) {
 			// High Five
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP5).name, fighter.user);
@@ -3979,7 +3988,7 @@ class Duel {
 			// Hologram
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP3).name, fighter.user);
 		}
-		if (fighter.DEX > this.getOppOf(fighter).DEX && fighter.STR < 200 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP4) > 0) {
+		if (fighter.DEX > this.getOppOf(fighter).DEX && fighter.STR < 500 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP4) > 0) {
 			// Flex
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP4).name, fighter.user);
 		}
