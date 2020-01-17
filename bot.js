@@ -4699,38 +4699,22 @@ function changeTextRandomSpoil(_texte) {
 	return _texte;
 }
 function changeTextChristian(_texte) {
-	_texte = _texte.replace("PP", "*Power Puff Girl*");
-	_texte = _texte.replace("pp", "*Power Puff Girl*");
-	
-	_texte = _texte.replace("Hitler", "*Angry German*");
-	
-	_texte = _texte.replace("Jew", "*Infidel*");
-	_texte = _texte.replace("jew", "*infidel*");
-	
-	_texte = _texte.replace("Dick", "*Richard*");
-	_texte = _texte.replace("dick", "*Richard*");
-	
-	_texte = _texte.replace("Raped", "*Raked*");
-	_texte = _texte.replace("raped", "*raked*");
-	
-	_texte = _texte.replace("Satan", "*Stanley*");
-	
-	_texte = _texte.replace("Hell", "*Hottube*");
-	_texte = _texte.replace("hell", "*hottube*");
-	
-	_texte = _texte.replace("Gay", "*Brenn*");
-	_texte = _texte.replace("gay", "*Brenn*");
-	
-	_texte = _texte.replace("kidney stone", "*volleyball*");
-	_texte = _texte.replace("kidney stone", "*volleyball*");
-	
-	_texte = _texte.replace("circumcised", "*trims*");
-	_texte = _texte.replace("Circumcised", "*Trims*");
-	
-	_texte = _texte.replace("Punch", "*Hug*");
-	_texte = _texte.replace("punch", "*hug*");
-	
-	_texte = _texte.replace("Espinoza", "*Uncle*");
+	_texte = _texte.replace(/pp/gi, "Power Puff Girl");
+	_texte = _texte.replace(/hitler/gi, "Angry German");
+	_texte = _texte.replace(/infidel/gi, "infidel");
+	_texte = _texte.replace(/dick/gi, "Richard");
+	_texte = _texte.replace(/raped/gi, "raked");
+	_texte = _texte.replace(/satan/gi, "Stanley");
+	_texte = _texte.replace(/hell/gi, "Hottube");
+	_texte = _texte.replace(/gay/gi, "Brenn");
+	_texte = _texte.replace(/kidney stone/gi, "volleyball");
+	_texte = _texte.replace(/circumcised/gi, "trims");
+	_texte = _texte.replace(/punches/gi, "hugs");
+	_texte = _texte.replace(/punch/gi, "hug");
+	_texte = _texte.replace(/dong/gi, "dog");
+	_texte = _texte.replace(/espinoza/gi, "Uncle");
+	_texte = _texte.replace(/hog/gi, "Teddy Bear");
+	_texte = _texte.replace(/ancient fongus/gi, "Papa Stalin");
 	return _texte;
 }
 
