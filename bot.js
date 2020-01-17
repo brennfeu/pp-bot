@@ -2763,6 +2763,7 @@ class Duel {
 		this.SEXY_TEXT = 0;
 		this.RUSSIAN_TEXT = 0;
 		this.SPOIL_TEXT = 0;
+		this.CHRISTIAN_TEXT = false;
 		
 		this.MOVE_COUNT = 0;
 		this.DAMAGE_COUNT = 0;
@@ -3026,6 +3027,9 @@ class Duel {
 				_texte = changeTextRandomSpoil(_texte);
 			}
 		}
+		if (this.CHRISTIAN_TEXT) {
+			_texte = changeTextChristian(_texte);
+		}
 		this.LIST_MESSAGES.push(_texte);
 	}
 	sendMessages(_max = 20) {
@@ -3033,9 +3037,11 @@ class Duel {
 		this.TIMESTAMP = + new Date();
 		
 		if (this.NO_MESSAGE <= 0 || this.TIME_STOP > 0) {
-			while (this.LIST_MESSAGES.length > _max) {
-				this.LIST_MESSAGES.splice(0, 1);
-				counter += 1;
+			if (this.LIST_MESSAGES.length + 1 > _max) {
+				while (this.LIST_MESSAGES.length > _max) {
+					this.LIST_MESSAGES.splice(0, 1);
+					counter += 1;
+				}
 			}
 
 			if (counter > 0) {
@@ -4692,6 +4698,41 @@ function changeTextRandomSpoil(_texte) {
 	
 	return _texte;
 }
+function changeTextChristian(_texte) {
+	_texte = _texte.replace("PP", "*Power Puff Girl*");
+	_texte = _texte.replace("pp", "*Power Puff Girl*");
+	
+	_texte = _texte.replace("Hitler", "*Angry German*");
+	
+	_texte = _texte.replace("Jew", "*Infidel*");
+	_texte = _texte.replace("jew", "*infidel*");
+	
+	_texte = _texte.replace("Dick", "*Richard*");
+	_texte = _texte.replace("dick", "*Richard*");
+	
+	_texte = _texte.replace("Raped", "*Raked*");
+	_texte = _texte.replace("raped", "*raked*");
+	
+	_texte = _texte.replace("Satan", "*Stanley*");
+	
+	_texte = _texte.replace("Hell", "*Hottube*");
+	_texte = _texte.replace("hell", "*hottube*");
+	
+	_texte = _texte.replace("Gay", "*Brenn*");
+	_texte = _texte.replace("gay", "*Brenn*");
+	
+	_texte = _texte.replace("kidney stone", "*volleyball*");
+	_texte = _texte.replace("kidney stone", "*volleyball*");
+	
+	_texte = _texte.replace("circumcised", "*trims*");
+	_texte = _texte.replace("Circumcised", "*Trims*");
+	
+	_texte = _texte.replace("Punch", "*Hug*");
+	_texte = _texte.replace("punch", "*hug*");
+	
+	_texte = _texte.replace("Espinoza", "*Uncle*");
+	return _texte;
+}
 
 function cloneObject(obj) {
 	obj = obj && obj instanceof Object ? obj : '';
@@ -4873,7 +4914,7 @@ CLIENT.on("message", async _message => {
 
 		return;
 	}
-	if (argsUser[1] == "duel" || argsUser[1] == "simpleduel") {
+	if (argsUser[1] == "duel" || argsUser[1] == "simpleduel" || argsUser[1] == "hug") {
 		if (getDuel(_message.channel.id) != null) {
 			return _message.reply("there's a battle going on here...");
 		}
@@ -4887,6 +4928,7 @@ CLIENT.on("message", async _message => {
 		}
 
 		var duel = new Duel(argsUser[1] == "simpleduel");
+		duel.CHRISTIAN_TEXT = argsUser[1] == "hug";
 		DUEL_LIST.push(duel);
 		
 		duel.startDuel(_message);
