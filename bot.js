@@ -3904,33 +3904,33 @@ class Duel {
 		
 		for (i = 0; i < RARE_EMOTE_LIST.length; i++) { // Rare Moves
 			if (this.LIST_AVAILABLE_ATTACKS.indexOf(RARE_EMOTE_LIST[i]) > 0) {
-				this.triggerReaction(RARE_EMOTE_LIST[i], this.FIGHTER2.user);
+				this.triggerReaction(CLIENT.emojis.get(RARE_EMOTE_LIST[i]).name, this.FIGHTER2.user);
 				return;
 			}
 		}
 		for (i = 0; i < SPECIAL_EMOTE_LIST.length; i++) { // Animated Moves
 			if (this.LIST_AVAILABLE_ATTACKS.indexOf(SPECIAL_EMOTE_LIST[i]) > 0) {
-				this.triggerReaction(SPECIAL_EMOTE_LIST[i], this.FIGHTER2.user);
+				this.triggerReaction(CLIENT.emojis.get(SPECIAL_EMOTE_LIST[i]).name, this.FIGHTER2.user);
 				return;
 			}
 		}
 		if (this.FIGHTER2.specialCharges > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP52) > 0) {
-			this.triggerReaction(EMOTE_PP52, this.FIGHTER2.user); // God Special Moves
+			this.triggerReaction(CLIENT.emojis.get(EMOTE_PP52).name, this.FIGHTER2.user); // God Special Moves
 			return;
 		}
 		if (this.FIGHTER2.regularCharges > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP51) > 0) {
-			this.triggerReaction(EMOTE_PP51, this.FIGHTER2.user); // God Regular Moves
+			this.triggerReaction(CLIENT.emojis.get(EMOTE_PP51).name, this.FIGHTER2.user); // God Regular Moves
 			return;
 		}
 		for (i = 0; i < EMOTE_LIST.length; i++) { // If blind --> Illegal
 			if ((this.BLIND_COUNTDOWN > 0 || this.TIME_STOP > 0) && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_LIST[i]) > 0 &&
 			    this.getRisk(EMOTE_LIST[i]) > 0) {
-				this.triggerReaction(EMOTE_LIST[i], this.FIGHTER2.user);
+				this.triggerReaction(CLIENT.emojis.get(EMOTE_LIST[i]).name, this.FIGHTER2.user);
 				return;
 			}
 		}
 		// Random Emote
-		this.triggerReaction(this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)], this.FIGHTER2.user);
+		this.triggerReaction(CLIENT.emojis.get(this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)]).name, this.FIGHTER2.user);
 	}
 	launchAttacks() {
 		this.addMessage("\n\n**===== ATTACKS =====**");
