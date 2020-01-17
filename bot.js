@@ -3930,6 +3930,7 @@ class Duel {
 					return this.triggerReaction(CLIENT.emojis.get(dumbMoves[i]).name, fighter.user);
 				}
 			}
+			this.triggerReaction(CLIENT.emojis.get(this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)]).name, this.FIGHTER2.user);
 		}
 		
 		if (fighter.STR < this.getOppOf(fighter).STR && fighter.DEX < this.getOppOf(fighter).DEX && this.getOppOf(fighter).isPossessed > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP5) > 0) {
@@ -3984,7 +3985,7 @@ class Duel {
 			// Alert
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP30).name, fighter.user);
 		}
-		if (fighter.DEX - 30 > this.getOppOf(fighter).DEX && fighter.STR < 1500 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP3) > 0) {
+		if (fighter.DEX - this.getDexChange(EMOTE_PP3) > this.getOppOf(fighter).DEX && fighter.STR < 1500 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP3) > 0) {
 			// Hologram
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP3).name, fighter.user);
 		}
@@ -4080,7 +4081,6 @@ class Duel {
 			nbTries += 1;
 		}
 		
-		console.log(dont);
 		// Random Emote
 		this.triggerReaction(CLIENT.emojis.get(emote).name, this.FIGHTER2.user);
 	}
