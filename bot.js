@@ -4027,12 +4027,6 @@ class Duel {
 			// BigSatan
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP26).name, fighter.user);
 		}
-		// BOSS_FIGHT --> slow moves
-		for (i = 0; i < EMOTE_LIST.length; i++) { 
-			if (this.getDexChange(EMOTE_LIST[i]) < 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_LIST[i]) > -1) {
-				return this.triggerReaction(CLIENT.emojis.get(EMOTE_LIST[i]).name, fighter.user);
-			}
-		}
 		
 		var emote = this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)];
 		var dont = [EMOTE_PP9, EMOTE_PP10, EMOTE_PP25, EMOTE_PP38, EMOTE_PP40, EMOTE_PP41, EMOTE_PP47, EMOTE_PP50,
