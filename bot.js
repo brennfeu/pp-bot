@@ -3908,9 +3908,9 @@ class Duel {
 				return;
 			}
 		}
-		for (i = 0; i < ANIMATED_EMOTE_LIST.length; i++) { // Animated Moves
-			if (this.LIST_AVAILABLE_ATTACKS.indexOf(ANIMATED_EMOTE_LIST[i]) > 0) {
-				this.triggerReaction(ANIMATED_EMOTE_LIST[i], this.FIGHTER2.user);
+		for (i = 0; i < SPECIAL_EMOTE_LIST.length; i++) { // Animated Moves
+			if (this.LIST_AVAILABLE_ATTACKS.indexOf(SPECIAL_EMOTE_LIST[i]) > 0) {
+				this.triggerReaction(SPECIAL_EMOTE_LIST[i], this.FIGHTER2.user);
 				return;
 			}
 		}
