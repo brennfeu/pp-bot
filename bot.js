@@ -3923,7 +3923,7 @@ class Duel {
 		var i = 0;
 		var fighter = this.FIGHTER2;
 		
-		if (this.AUTO_MOVES_COUNTDOWN <= 0 && !fighter.legAimer && (duel.GAY_TURNS > 0 || (this.getOppOf(fighter).isPossessed > 0 && this.getOppOf(fighter).DEX > this.DEX))) {
+		if (this.AUTO_MOVES_COUNTDOWN <= 0 && !fighter.legAimer && (this.GAY_TURNS > 0 || (this.getOppOf(fighter).isPossessed > 0 && this.getOppOf(fighter).DEX > this.DEX))) {
 			var dumbMoves = [EMOTE_PP47, EMOTE_PP9, EMOTE_PP41, EMOTE_PP50];
 			for (i = 0; i < dumbMoves.length; i++) { // opponent plays garbage moves
 				if (this.LIST_AVAILABLE_ATTACKS.indexOf(dumbMoves[i])) {
