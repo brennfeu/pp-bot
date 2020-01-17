@@ -4022,8 +4022,41 @@ class Duel {
 		}
 		
 		var emote = this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)];
-		while ([EMOTE_PP50, EMOTE_PP47, EMOTE_PP9].indexOf(emote) > 0) {
+		var dont = [EMOTE_PP9, EMOTE_PP10, EMOTE_PP25, EMOTE_PP38, EMOTE_PP40, EMOTE_PP41, EMOTE_PP47, EMOTE_PP50];
+		
+		if (fighter.isOverCurcumcised) {
+			// Overcircumcised
+			dont.push(EMOTE_PP12);
+		}
+		if (fighter.isCurcumcised) {
+			// Circumcised
+			dont.push(EMOTE_PP22);
+		}
+		if (fighter.STR > this.getOppOf(fighter).STR) {
+			// Knockback
+			dont.push(EMOTE_PP24);
+		}
+		if (this.BLIND_COUNTDOWN > 100) {
+			// Facehugged
+			dont.push(EMOTE_PP35);
+		}
+		if (!fighter.isTerrorist) {
+			// Explosion
+			dont.push(EMOTE_PP36);
+		}
+		else {
+			// Kamikaze
+			dont.push(EMOTE_PP44);
+		}
+		if (fighter.riotShield) {
+			// RiotShield
+			dont.push(EMOTE_PP17);
+		} 
+		
+		var nbTries = 0;
+		while (dont.indexOf(emote) > 0 && nbTries < 100) {
 			emote = this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)];
+			nbTries += 1;
 		}
 		
 		// Random Emote
