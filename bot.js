@@ -263,7 +263,7 @@ class Fighter {
 		
 		this.attack = "";
 		this.oldAttack = EMOTE_PP30;
-		this.attackedThisTurn = false;
+		this.attackedThisTurn = true;
 		this.damageTaken = 0;
 		this.pushedDamages = 0;
 		
@@ -643,6 +643,9 @@ class Fighter {
 		}
 		if (this.requiemCooldown > 0) {
 			txt += " - Requiem Cooldown : " + this.requiemCooldown + " turns\n";
+		}
+		if (this.dexMalus > 0) {
+			txt += " - DEX Malus : " + this.dexMalus + "\n";
 		}
 		if (this.tentacles > 0) {
 			txt += " - Tentacles : " + this.tentacles + "\n";
@@ -3510,6 +3513,10 @@ class Duel {
 			this.newTurnDuel();
 		}
 		
+		if (this.FIGHTER2.use.id == CLIENT.user.id) {
+			this.botReacts();
+		}
+		
 		// Stop FORCE_SATAN
 		if (getRandomPercent() <= 25) {
 			this.FORCE_SATAN = false;
@@ -3827,13 +3834,13 @@ class Duel {
 			this.addMessage("No event this turn...");
 		}
 	}
-	triggerReaction(_reaction, _user) {
-		if (this.EASY_DUEL && this.LIST_AVAILABLE_ATTACKS.indexOf(this.getAttackFromEmote(_reaction.emoji)) < 0) {
+	triggerReaction(_emote, _user) {
+		if (this.EASY_DUEL && this.LIST_AVAILABLE_ATTACKS.indexOf(this.getAttackFromEmote(_emote)) < 0) {
 			return;
 		}
 		
 		// Save Me Move
-		if (this.getAttackFromEmote(_reaction.emoji) == EMOTE_PP31 && this.SAVE_LIST.indexOf(_user.id) < 0 && !_user.bot) {
+		if (this.getAttackFromEmote(_emote) == EMOTE_PP31 && this.SAVE_LIST.indexOf(_user.id) < 0 && !_user.bot) {
 			this.SAVE_LIST.push(_user.id);
 			this.addMessage(_user.username + " helps the fighters !");
 			this.sendMessages();
@@ -3853,26 +3860,26 @@ class Duel {
 			// GAY_TURNS
 			if (duel.GAY_TURNS > 0) {
 				if (_user.id == _fighter.user.id) {
-					if (duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.getAttackFromEmote(_reaction.emoji)) < 0) {
+					if (duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.getAttackFromEmote(_emote)) < 0) {
 						duel.addMessage("Gay people can't cheat...");
 						return duel.sendMessages();
 					}
 					else {
-						duel.getOppOf(_fighter).attack = duel.getAttackFromEmote(_reaction.emoji);
-						duel.addMessage(duel.getOppOf(_fighter).getName() + " : " + _reaction.emoji.name);
+						duel.getOppOf(_fighter).attack = duel.getAttackFromEmote(_emote);
+						duel.addMessage(duel.getOppOf(_fighter).getName() + " : " + _emote);
 						duel.sendMessages();
 					}
 				}
 			}
 			else if (_user.id == _fighter.user.id && _fighter.isPossessed <= 0 && _fighter.turnSkip <= 0 && _fighter.grabbedPP <= 0 && _fighter.summonTankCountdown != 1) {
-				_fighter.attack = duel.getAttackFromEmote(_reaction.emoji);
-				duel.addMessage(_fighter.getName() + " : " + _reaction.emoji.name);
+				_fighter.attack = duel.getAttackFromEmote(_emote);
+				duel.addMessage(_fighter.getName() + " : " + _emote);
 				duel.sendMessages();
 
 				// Possession
 				if (duel.getOppOf(_fighter).isPossessed >= 1) {
-					duel.getOppOf(_fighter).attack = duel.getAttackFromEmote(_reaction.emoji);
-					duel.addMessage(duel.getOppOf(_fighter).getName() + " : " + _reaction.emoji.name);
+					duel.getOppOf(_fighter).attack = duel.getAttackFromEmote(_emote);
+					duel.addMessage(duel.getOppOf(_fighter).getName() + " : " + _emote);
 					duel.sendMessages();
 				}
 			}
@@ -3888,6 +3895,40 @@ class Duel {
 		}
 		
 		this.sendMessages();
+	}
+	botReacts() {
+		if (this.FIGHTER2.user.id != CLIENT.user.id) return;
+		var i = 0;
+		
+		for (i = 0, i < RARE_EMOTE_LIST.length, i++) { // Rare Moves
+			if (this.LIST_AVAILABLE_ATTACKS.indexOf(RARE_EMOTE_LIST[i]) > 0) {
+				this.triggerReaction(RARE_EMOTE_LIST[i], this.FIGHTER2.user);
+				return;
+			}
+		}
+		for (i = 0, i < ANIMATED_EMOTE_LIST.length, i++) { // Animated Moves
+			if (this.LIST_AVAILABLE_ATTACKS.indexOf(ANIMATED_EMOTE_LIST[i]) > 0) {
+				this.triggerReaction(ANIMATED_EMOTE_LIST[i], this.FIGHTER2.user);
+				return;
+			}
+		}
+		if (this.FIGHTER2.specialCharges > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP52) > 0) {
+			this.triggerReaction(EMOTE_PP52, this.FIGHTER2.user); // God Special Moves
+			return;
+		}
+		if (this.FIGHTER2.regularCharges > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP51) > 0) {
+			this.triggerReaction(EMOTE_PP51, this.FIGHTER2.user); // God Regular Moves
+			return;
+		}
+		for (i = 0, i < EMOTE_LIST.length, i++) { // If blind --> Illegal
+			if ((this.BLIND_COUNTDOWN > 0 || this.TIME_STOP > 0) && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_LIST[i]) > 0 &&
+			    this.getRisk(EMOTE_LIST[i]) > 0) {
+				this.triggerReaction(EMOTE_LIST[i], this.FIGHTER2.user);
+				return;
+			}
+		}
+		// Random Emote
+		this.triggerReaction(this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)], this.FIGHTER2.user);
 	}
 	launchAttacks() {
 		this.addMessage("\n\n**===== ATTACKS =====**");
@@ -4336,7 +4377,7 @@ class Duel {
 	}
 	getAttackFromEmote(_emote) {
 		for (var i in EMOTE_LIST) {
-			if (_emote.name == CLIENT.emojis.get(EMOTE_LIST[i]).name) {
+			if (_emote == CLIENT.emojis.get(EMOTE_LIST[i]).name) {
 				return EMOTE_LIST[i];
 			}
 		}
@@ -4980,10 +5021,10 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	skipWaitingDuels();
 
 	// DUEL
-	if (getDuel(_reaction.message.channel.id) != null) {
+	if (getDuel(_reaction.message.channel.id) != null && _user.id != CLIENT.user.id) {
 		var duel = getDuel(_reaction.message.channel.id);
 		
-		duel.triggerReaction(_reaction, _user);
+		duel.triggerReaction(_reaction.emoji.name, _user);
 		return;
 	}
 
