@@ -3907,34 +3907,93 @@ class Duel {
 	botReacts() {
 		if (this.FIGHTER2.user.id != CLIENT.user.id) return;
 		var i = 0;
+		var fighter = this.FIGHTER2;
 		
 		for (i = 0; i < RARE_EMOTE_LIST.length; i++) { // Rare Moves
 			if (this.LIST_AVAILABLE_ATTACKS.indexOf(RARE_EMOTE_LIST[i]) > 0) {
-				this.triggerReaction(CLIENT.emojis.get(RARE_EMOTE_LIST[i]).name, this.FIGHTER2.user);
-				return;
+				return this.triggerReaction(CLIENT.emojis.get(RARE_EMOTE_LIST[i]).name, fighter.user);
 			}
 		}
 		for (i = 0; i < SPECIAL_EMOTE_LIST.length; i++) { // Animated Moves
 			if (this.LIST_AVAILABLE_ATTACKS.indexOf(SPECIAL_EMOTE_LIST[i]) > 0) {
-				this.triggerReaction(CLIENT.emojis.get(SPECIAL_EMOTE_LIST[i]).name, this.FIGHTER2.user);
-				return;
+				return this.triggerReaction(CLIENT.emojis.get(SPECIAL_EMOTE_LIST[i]).name, fighter.user);
 			}
 		}
-		if (this.FIGHTER2.specialCharges > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP52) > 0) {
-			this.triggerReaction(CLIENT.emojis.get(EMOTE_PP52).name, this.FIGHTER2.user); // God Special Moves
-			return;
+		if (fighter.specialCharges > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP52) > 0) {
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP52).name, fighter.user); // God Special Moves
 		}
-		if (this.FIGHTER2.regularCharges > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP51) > 0) {
-			this.triggerReaction(CLIENT.emojis.get(EMOTE_PP51).name, this.FIGHTER2.user); // God Regular Moves
-			return;
+		if (fighter.regularCharges > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP51) > 0) {
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP51).name, fighter.user); // God Regular Moves
 		}
 		for (i = 0; i < EMOTE_LIST.length; i++) { // If blind --> Illegal
 			if ((this.BLIND_COUNTDOWN > 0 || this.TIME_STOP > 0) && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_LIST[i]) > 0 &&
 			    this.getRisk(EMOTE_LIST[i]) > 0) {
-				this.triggerReaction(CLIENT.emojis.get(EMOTE_LIST[i]).name, this.FIGHTER2.user);
-				return;
+				return this.triggerReaction(CLIENT.emojis.get(EMOTE_LIST[i]).name, fighter.user);
 			}
 		}
+		
+		if (fighter.STR < this.getOppOf(fighter).STR && fighter.DEX < this.getOppOf(fighter).DEX && this.getOppOf(fighter).isPossessed > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP5) > 0) {
+			// High Five
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP5).name, fighter.user);
+		}
+		if (fighter.DEX + 30 < this.getOppOf(fighter).DEX && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP8) > 0) {
+			// Trap
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP8).name, fighter.user);
+		}
+		if (fighter.DEX + 30 < this.getOppOf(fighter).DEX && this.BLIND_COUNTDOWN > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP32) > 0) {
+			// Trap
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP32).name, fighter.user);
+		}
+		if (fighter.bleedDamage * 5 > fighter.STR && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP12) > 0) {
+			// Overcircumcise
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP12).name, fighter.user);
+		}
+		if (fighter.bleedDamage * 5 > fighter.STR && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP22) > 0) {
+			// Circumcise
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP22).name, fighter.user);
+		}
+		if (fighter.STR < this.getOppOf(fighter).STR && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP24) > 0) {
+			// Knockback
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP24).name, fighter.user);
+		}
+		if (this.getRisk(fighter.oldAttack) > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP30) > 0) {
+			// Alert
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP30).name, fighter.user);
+		}
+		if (fighter.DEX - 30 > this.getOppOf(fighter).DEX && fighter.STR < 1500 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP3) > 0) {
+			// Hologram
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP3).name, fighter.user);
+		}
+		if (fighter.DEX > this.getOppOf(fighter).DEX && fighter.STR < 200 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP4) > 0) {
+			// Flex
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP4).name, fighter.user);
+		}
+		if (fighter.STR < 50 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP7) > 0) {
+			// Turkey
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP7).name, fighter.user);
+		}
+		if (fighter.STR < 50 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP31) > 0) {
+			// Save Me Sign
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP31).name, fighter.user);
+		}
+		
+		if (fighter.DEX + 30 < this.getOppOf(fighter).DEX && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP68) > 0) {
+			// Mech
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP68).name, fighter.user);
+		}
+		if (fighter.STR > this.getOppOf(fighter).STR * 2 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP74) > 0) {
+			// Sword
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP74).name, fighter.user);
+		}
+		if (this.getRisk(fighter.oldAttack) == EMOTE_PP69 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP69) > 0) {
+			// LostSoul
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP69).name, fighter.user);
+		}
+		if (fighter.STR > this.getOppOf(fighter).STR + 30 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP74) > 0) {
+			// Sword
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP74).name, fighter.user);
+		}
+		
 		// Random Emote
 		this.triggerReaction(CLIENT.emojis.get(this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)]).name, this.FIGHTER2.user);
 	}
@@ -4701,7 +4760,7 @@ function changeTextRandomSpoil(_texte) {
 function changeTextChristian(_texte) {
 	_texte = _texte.replace(/pp/gi, "Power Puff Girl");
 	_texte = _texte.replace(/hitler/gi, "Angry German");
-	_texte = _texte.replace(/infidel/gi, "infidel");
+	_texte = _texte.replace(/jew/gi, "infidel");
 	_texte = _texte.replace(/dick/gi, "Richard");
 	_texte = _texte.replace(/raped/gi, "raked");
 	_texte = _texte.replace(/satan/gi, "Stanley");
@@ -4715,6 +4774,7 @@ function changeTextChristian(_texte) {
 	_texte = _texte.replace(/espinoza/gi, "Uncle");
 	_texte = _texte.replace(/hog/gi, "Teddy Bear");
 	_texte = _texte.replace(/ancient fongus/gi, "Papa Stalin");
+	_texte = _texte.replace(/furry/gi, "Hairy Man");
 	return _texte;
 }
 
