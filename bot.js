@@ -2819,7 +2819,7 @@ class Duel {
 		}
 		else {
 			this.FIGHTER2 = new Fighter(CLIENT.user.id, this.BATTLE_CHANNEL.id);
-			this.FIGHTER2.STRValue = 500;
+			this.FIGHTER2.STRValue = 100;
 		}
 		if (this.EASY_DUEL) {
 			this.bothFightersAction(function(_fighter) {
@@ -3942,7 +3942,9 @@ class Duel {
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP8).name, fighter.user);
 		}
 		
+		console.log(this.LIST_AVAILABLE_ATTACKS)
 		for (i = 0; i < RARE_EMOTE_LIST.length; i++) { // Rare Moves
+			console.log(RARE_EMOTE_LIST[i]);
 			if (this.LIST_AVAILABLE_ATTACKS.indexOf(RARE_EMOTE_LIST[i]) > 0) {
 				return this.triggerReaction(CLIENT.emojis.get(RARE_EMOTE_LIST[i]).name, fighter.user);
 			}
