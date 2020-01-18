@@ -3846,7 +3846,7 @@ class Duel {
 			// Brenn Ejaculates
 			this.addMessage(" -- BRENN EJACULATES --");
 			this.addMessage("For some reasons, this summons every event !");
-			var idList = [2, 3, 4, 5, 6, 7, 8, 9, 19, 22, 23, 24, 26, 27, 32];
+			var idList = [2, 3, 4, 6, 7, 8, 9, 19, 22, 23, 26, 32];
 			for (var i = 0; i < idList.length; i++) {
 				this.FORCE_EVENT_ID = idList[i];
 				this.startRandomEvent();
@@ -4857,6 +4857,7 @@ function changeTextChristian(_texte) {
 	_texte = _texte.replace(/hog/gi, "Teddy Bear");
 	_texte = _texte.replace(/ancient fongus/gi, "Papa Stalin");
 	_texte = _texte.replace(/furry/gi, "Hairy Man");
+	_texte = _texte.replace(/fuck/gi, "duck");
 	_texte = _texte.replace(/terrorist/gi, "Muslim"); // That's racist :o
 	_texte = _texte.replace("SEXUAL CONFUSION", "ROMANTIC TENSION");
 	return _texte;
