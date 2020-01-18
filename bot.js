@@ -12,6 +12,7 @@ const DRUNK_PP_ROLE = "Drunken PP";
 const HOCKEY_PUCK_PP_ROLE = "Hockey Puck PP";
 
 const PP_EXPERT_ROLE = "PP Expert";
+const PP_SKIPPER_ROLE = "PP Skipper";
 
 const GOD_PP1_PRIEST = "Mongo Priest";
 const GOD_PP2_PRIEST = "Dr Phil Priest";
@@ -41,6 +42,7 @@ const PRIEST_ROLES = [GOD_PP1_PRIEST, GOD_PP2_PRIEST, GOD_PP3_PRIEST, GOD_PP4_PR
 
 const EMOTE_SKIP = "TURN_SKIP";
 const EMOTE_DEAD = "IS_DEAD_LOL";
+const EMOTE_SKIPPER = "665141844640006156";
 
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
 const EMOTE_PP2 = "535240768441548810"; // PunchingPPReallyHard
@@ -2763,7 +2765,9 @@ class Duel {
 		this.TIME_STOP = 0;
 		this.TIME_COMPRESSION = 0;
 		this.TIME_BREAK = 0;
+		
 		this.NO_MESSAGE = 0;
+		this.MESSAGE_SKIP = 0;
 		
 		this.UWU_TEXT = false;
 		this.GOD_TEXT = 0;
@@ -2825,6 +2829,10 @@ class Duel {
 			this.bothFightersAction(function(_fighter) {
 				_fighter.godList = [];
 			});
+		}
+		
+		if (this.FIGHTER1.guildUser.roles.find(r => r.name == PP_SKIPPER_ROLE) && this.FIGHTER2.guildUser.roles.find(r => r.name == PP_SKIPPER_ROLE)) {
+			this.MESSAGE_SKIP = true;
 		}
 
 		if (getRandomPercent() < 10) {
@@ -3024,7 +3032,7 @@ class Duel {
 		this.FIGHTER1.attack = "";
 	}
 	
-	addMessage(_texte) {
+	addMessage(_texte, _forceAppear = false) {
 		if (this.UWU_TEXT) {
 			_texte = changeTextUwu(_texte);
 			
@@ -3043,6 +3051,9 @@ class Duel {
 		}
 		if (this.CHRISTIAN_TEXT) {
 			_texte = changeTextChristian(_texte);
+		}
+		if (this.MESSAGE_SKIP && !_forceAppear) {
+			return;
 		}
 		this.LIST_MESSAGES.push(_texte);
 	}
@@ -3374,21 +3385,21 @@ class Duel {
 			this.sendMessages();
 		}
 		
-		this.addMessage("\n\n**===== NEW TURN =====**");
+		this.addMessage("\n\n**===== NEW TURN =====**", true);
 		this.sendMessages();
 
-		this.addMessage("**=== FIGHTERS ===**");
+		this.addMessage("**=== FIGHTERS ===**", true);
 		if (!this.EVENT_BOSS) {
-			this.addMessage(this.FIGHTER1.toString());
-			this.addMessage("**===== /VS/ =====**");
-			this.addMessage(this.FIGHTER2.toString());
+			this.addMessage(this.FIGHTER1.toString(), true);
+			this.addMessage("**===== /VS/ =====**", true);
+			this.addMessage(this.FIGHTER2.toString(), true);
 		}
 		else {
-			this.addMessage(this.FIGHTER1.toString());
-			this.addMessage("-----------------");
-			this.addMessage(this.FIGHTER2.toString());
-			this.addMessage("**===== /VS/ =====**");
-			this.addMessage("**" + this.CURRENT_BOSS + "**\n**STR :** " + this.BOSS_HEALTH);
+			this.addMessage(this.FIGHTER1.toString(), true);
+			this.addMessage("-----------------", true);
+			this.addMessage(this.FIGHTER2.toString(), true);
+			this.addMessage("**===== /VS/ =====**", true);
+			this.addMessage("**" + this.CURRENT_BOSS + "**\n**STR :** " + this.BOSS_HEALTH, true);
 		}
 
 		this.addMessage("**=== GLOBAL STATUS ===**");
@@ -3467,7 +3478,7 @@ class Duel {
 			gay = "opponent's "
 		}
 
-		this.addMessage("**=== MOVE SELECT ===**");
+		this.addMessage("**=== MOVE SELECT ===**", true);
 		this.sendMessages();
 		this.BATTLE_CHANNEL.send("\n\nChoose your " + gay + "attack with a reaction !").then(function (_message2) {
 			var duel = getDuel(_message2.channel.id);
@@ -4740,14 +4751,14 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 
 	try {
 		if (user.roles.has(role.id)) {
-			user.removeRole(role).catch(console.error);
+			user.removeRole(role);
 			user.send("Role removed : " + _nomRole);
 		}
 		else {
 			if (getNumberOfGods(user) >= 3 && PRIEST_ROLES.indexOf(_nomRole) > -1) {
 				return user.send("You can't have more than 3 Gods");
 			}
-			user.addRole(role).catch(console.error);
+			user.addRole(role);
 			user.send("Role added : " + _nomRole);
 		}
 	}
@@ -5140,6 +5151,7 @@ CLIENT.on("message", async _message => {
 		if (user.roles.find(r => r.name == PP_EXPERT_ROLE)) {
 			_message.reply("here are your PP expert choices.").then(function (_message2) {
 				_message2.react(GOD_PP21); // D.I.C.K.
+				_message2.react(EMOTE_SKIPPER); // Skipper
 			}).catch(function(e) {
 				console.log(e);
 			});
@@ -5287,6 +5299,24 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	else if (_reaction.message.channel.guild.members.get(_user.id).roles.find(r => r.name == PP_EXPERT_ROLE)) {
 		if (_reaction.emoji.id == GOD_PP21) {
 			changeRoleToStyler(GOD_PP21_PRIEST, _user.id, _reaction.message.channel.guild);
+		}
+		else if (_reaction.emoji.id == EMOTE_SKIPPER) {
+			var role = _reaction.message.channel.guild.roles.find(r => r.name == PP_SKIPPER_ROLE);
+			var user = _reaction.message.channel.guild.members.get(_user.id);
+			try {
+				if (user.roles.has(role.id)) {
+					user.removeRole(role);
+					user.send("Role removed : " + PP_SKIPPER_ROLE);
+				}
+				else {
+					user.addRole(role);
+					user.send("Role added : " + PP_SKIPPER_ROLE);
+				}
+			}
+			catch(e) {
+				user.send("I'm sorry I can't do that :(");
+				user.send("Looks like there is no " + PP_SKIPPER_ROLE + " role there...");
+			}
 		}
 	}
 	return;
