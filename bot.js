@@ -3894,6 +3894,9 @@ class Duel {
 			if (_fighter.duel.TIME_STOP > 0 && _fighter.requiemPower == null) { // if weak --> skip time skip
 				return;
 			}
+			if (_fighter.attack == EMOTE_DEAD || _fighter.attack == EMOTE_SKIP) { // no choice
+				return;
+			}
 			
 			// GAY_TURNS
 			if (duel.GAY_TURNS > 0) {
