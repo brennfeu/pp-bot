@@ -554,7 +554,7 @@ class Fighter {
 			if (this.requiemPower != null) {
 				txt += " Requiem";
 			}
-			txt += "\n(" + this.guildUser.getName() + ")";
+			txt += "\n(" + this.guildUser.user.username + ")";
 		}
 		
 		txt += "\nSTR :** " + this.STR;
