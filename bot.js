@@ -3055,7 +3055,12 @@ class Duel {
 		if (this.MESSAGE_SKIP && !_forceAppear) {
 			return;
 		}
-		this.LIST_MESSAGES.push(_texte);
+		if (_texte.length + this.LIST_MESSAGES[this.LIST_MESSAGES.length-1].length + "\n".length < 2000) {
+			this.LIST_MESSAGES[this.LIST_MESSAGES.length-1] = this.LIST_MESSAGES[this.LIST_MESSAGES.length-1] + "\n" + _texte;
+		}
+		else {
+			this.LIST_MESSAGES.push(_texte);
+		}
 	}
 	sendMessages(_max = 20) {
 		var counter = 0;
@@ -3899,20 +3904,20 @@ class Duel {
 					}
 					else {
 						duel.getOppOf(_fighter).attack = duel.getAttackFromEmote(_emote);
-						duel.addMessage(duel.getOppOf(_fighter).getName() + " : " + _emote);
+						duel.addMessage(duel.getOppOf(_fighter).getName() + " : " + _emote, true);
 						duel.sendMessages();
 					}
 				}
 			}
 			else if (_user.id == _fighter.user.id && _fighter.isPossessed <= 0 && _fighter.turnSkip <= 0 && _fighter.grabbedPP <= 0 && _fighter.summonTankCountdown != 1) {
 				_fighter.attack = duel.getAttackFromEmote(_emote);
-				duel.addMessage(_fighter.getName() + " : " + _emote);
+				duel.addMessage(_fighter.getName() + " : " + _emote, true);
 				duel.sendMessages();
 
 				// Possession
 				if (duel.getOppOf(_fighter).isPossessed >= 1) {
 					duel.getOppOf(_fighter).attack = duel.getAttackFromEmote(_emote);
-					duel.addMessage(duel.getOppOf(_fighter).getName() + " : " + _emote);
+					duel.addMessage(duel.getOppOf(_fighter).getName() + " : " + _emote, true);
 					duel.sendMessages();
 				}
 			}
