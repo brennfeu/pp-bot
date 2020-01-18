@@ -1243,7 +1243,7 @@ class Fighter {
 					}
 				}, this.duel.getOppOf(this));
 				this.duel.addMessage("He will use " + chaosNumber + "% of his power in " + winner.getName() + " !");
-				this.duel.sendMessages(2);
+				this.duel.sendMessages(1);
 				chaosNumber = Math.floor(chaosNumber/4);
 				var i;
 				for (i = 0; i < chaosNumber; i++) {
@@ -4051,6 +4051,10 @@ class Duel {
 		var dont = [EMOTE_PP9, EMOTE_PP10, EMOTE_PP25, EMOTE_PP38, EMOTE_PP40, EMOTE_PP41, EMOTE_PP47, EMOTE_PP50,
 			    EMOTE_PP51, EMOTE_PP52];
 		
+		if (fighter.STR > 1000) {
+			// Turkey
+			dont.push(EMOTE_PP7);
+		}
 		if (fighter.isOverCurcumcised) {
 			// Overcircumcised
 			dont.push(EMOTE_PP12);
