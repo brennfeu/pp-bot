@@ -759,41 +759,46 @@ class Fighter {
 		
 		if (this.standPower == null) {
 			txt += "\n**Synergies :**\n"
-			if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP19_PRIEST) > -1) {
-				txt += " - Holy Brenn Trinity\n";
+			if (this.godList.length >= GOD_LIST.length) {
+				txt += " - *All of them*";
 			}
-			if (this.godList.indexOf(GOD_PP5_PRIEST) > -1 && this.godList.indexOf(GOD_PP6_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
-				txt += " - Unholy Pudding Trinity\n";
-			}
-			if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
-				txt += " - A Sad Witness\n";
-			}
-			if (this.godList.indexOf(GOD_PP7_PRIEST) > -1 && this.godList.indexOf(GOD_PP17_PRIEST) > -1) {
-				txt += " - Jew-Hitler Paradox\n";
-			}
-			if (this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP9_PRIEST) > -1) {
-				txt += " - Garbage Music Maker\n";
-			}
-			if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) {
-				txt += " - Getting therapy sessions\n";
-			}
-			if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
-				txt += " - Too smart and too powerful\n";
-			}
-			if (this.godList.indexOf(GOD_PP16_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
-				txt += " - Super Predator\n";
-			}
-			if (this.godList.indexOf(GOD_PP10_PRIEST) > -1 && this.godList.indexOf(GOD_PP8_PRIEST) > -1) {
-				txt += " - Yaoi fan\n";
-			}
-			if (this.godList.indexOf(GOD_PP16_PRIEST) > -1 && this.godList.indexOf(GOD_PP18_PRIEST) > -1) {
-				txt += " - Salt Master\n";
-			}
-			if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP18_PRIEST) > -1) {
-				txt += " - Debilus Team Member\n";
-			}
-			if (this.godList.indexOf(GOD_PP19_PRIEST) > -1 && this.godList.indexOf(GOD_PP20_PRIEST) > -1) {
-				txt += " - Waifu Body Pillow\n";
+			else {
+				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP19_PRIEST) > -1) {
+					txt += " - Holy Brenn Trinity\n";
+				}
+				if (this.godList.indexOf(GOD_PP5_PRIEST) > -1 && this.godList.indexOf(GOD_PP6_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
+					txt += " - Unholy Pudding Trinity\n";
+				}
+				if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
+					txt += " - A Sad Witness\n";
+				}
+				if (this.godList.indexOf(GOD_PP7_PRIEST) > -1 && this.godList.indexOf(GOD_PP17_PRIEST) > -1) {
+					txt += " - Jew-Hitler Paradox\n";
+				}
+				if (this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP9_PRIEST) > -1) {
+					txt += " - Garbage Music Maker\n";
+				}
+				if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) {
+					txt += " - Getting therapy sessions\n";
+				}
+				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
+					txt += " - Too smart and too powerful\n";
+				}
+				if (this.godList.indexOf(GOD_PP16_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
+					txt += " - Super Predator\n";
+				}
+				if (this.godList.indexOf(GOD_PP10_PRIEST) > -1 && this.godList.indexOf(GOD_PP8_PRIEST) > -1) {
+					txt += " - Yaoi fan\n";
+				}
+				if (this.godList.indexOf(GOD_PP16_PRIEST) > -1 && this.godList.indexOf(GOD_PP18_PRIEST) > -1) {
+					txt += " - Salt Master\n";
+				}
+				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP18_PRIEST) > -1) {
+					txt += " - Debilus Team Member\n";
+				}
+				if (this.godList.indexOf(GOD_PP19_PRIEST) > -1 && this.godList.indexOf(GOD_PP20_PRIEST) > -1) {
+					txt += " - Waifu Body Pillow\n";
+				}
 			}
 		}
 
@@ -3949,7 +3954,7 @@ class Duel {
 					return this.triggerReaction(CLIENT.emojis.get(dumbMoves[i]).name, fighter.user);
 				}
 			}
-			this.triggerReaction(CLIENT.emojis.get(this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)]).name, this.FIGHTER2.user);
+			return this.triggerReaction(CLIENT.emojis.get(this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)]).name, this.FIGHTER2.user);
 		}
 		
 		if (fighter.STR < this.getOppOf(fighter).STR && fighter.DEX < this.getOppOf(fighter).DEX && this.getOppOf(fighter).isPossessed > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP5) > -1) {
