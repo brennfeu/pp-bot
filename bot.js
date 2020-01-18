@@ -3055,7 +3055,7 @@ class Duel {
 		if (this.MESSAGE_SKIP && !_forceAppear) {
 			return;
 		}
-		if (this.LIST_MESSAGES.length > 0 && _texte.length + this.LIST_MESSAGES[this.LIST_MESSAGES.length-1].length + "\n".length < 2000) {
+		if (this.LIST_MESSAGES.length > 0 && _texte.length + this.LIST_MESSAGES[this.LIST_MESSAGES.length-1].length + "\n".length < 100) {
 			this.LIST_MESSAGES[this.LIST_MESSAGES.length-1] = this.LIST_MESSAGES[this.LIST_MESSAGES.length-1] + "\n" + _texte;
 		}
 		else {
