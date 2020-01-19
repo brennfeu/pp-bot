@@ -574,8 +574,13 @@ class Fighter {
 		if (!this.duel.STAND_BATTLE) {
 			if (this.regularCharges > 0 || this.specialCharges > 0) {
 				txt += "\n\n**Faith :**"
-				for (var i in this.godList) {
-					txt += "\n - " + this.godList[i];
+				if (this.godList.length > 20) {
+					txt += "\n - *All of them*";
+				}
+				else {
+					for (var i in this.godList) {
+						txt += "\n - " + this.godList[i];
+					}
 				}
 				if (this.requiemPower != null) {
 					txt += "\n - **Requiem**";
@@ -3412,67 +3417,68 @@ class Duel {
 			this.addMessage("**" + this.CURRENT_BOSS + "**\n**STR :** " + this.BOSS_HEALTH, true);
 		}
 
-		this.addMessage("**=== GLOBAL STATUS ===**");
+		var txt = "**=== GLOBAL STATUS ===**\n";
 		if (this.CHECKPOINT_DUEL != null) {
-			this.addMessage(" - **Saved State**");
+			txt += " - **Saved State**\n";
 		}
 		if (this.BLIND_COUNTDOWN > 0) {
-			this.addMessage(" - WTF I'M FUCKING BLIND !");
+			txt += " - WTF I'M FUCKING BLIND !\n";
 			if (this.BLIND_COUNTDOWN < 100) {
-				this.addMessage("(I'll be healed in " + this.BLIND_COUNTDOWN + " turns...)");
+				txt += "(I'll be healed in " + this.BLIND_COUNTDOWN + " turns...)\n";
 			}
 		}
 		if (this.REVERSE_DAMAGE > 0) {
-			this.addMessage(" - Damages and heals are reversed for " + this.REVERSE_DAMAGE + " turns !");
+			txt += " - Damages and heals are reversed for " + this.REVERSE_DAMAGE + " turns !\n";
 		}
 		if (this.GAY_TURNS > 0) {
-			this.addMessage(" - You are both gay for " + this.GAY_TURNS + " turns !");
+			txt += " - You are both gay for " + this.GAY_TURNS + " turns !\n";
 		}
 		if (this.ATTACK_MISS_COUNTDOWN > 0) {
-			this.addMessage(" - Attacks are twice as powerful for " + this.ATTACK_MISS_COUNTDOWN + " turns !");
+			txt += " - Attacks are twice as powerful for " + this.ATTACK_MISS_COUNTDOWN + " turns !\n";
 		}
 		if (this.AUTO_MOVES_COUNTDOWN > 0) {
-			this.addMessage(" - Both fighters always play for " + this.AUTO_MOVES_COUNTDOWN + " turns !");
+			txt += " - Both fighters always play for " + this.AUTO_MOVES_COUNTDOWN + " turns !\n";
 		}
 		if (this.NUCLEAR_BOMB > 0) {
-			this.addMessage(" - The Nuclear Bomb will explode in " + this.NUCLEAR_BOMB + " turns !");
+			txt += " - The Nuclear Bomb will explode in " + this.NUCLEAR_BOMB + " turns !\n";
 		}
 		if (this.FORCE_EVENT) {
-			this.addMessage(" - Events will occur every turns !");
+			txt += " - Events will occur every turns !\n";
 		}
 		if (this.ILLEGAL_JEWS) {
-			this.addMessage(" - Jew Priests are illegal !");
+			txt += " - Jew Priests are illegal !\n";
 		}
 		if (this.EVENT_BLOOD_MOON) {
-			this.addMessage(" - The Blood Moon is up in the sky !");
+			txt += " - The Blood Moon is up in the sky !\n";
 		}
 		if (this.EVENT_PP_ENLIGHTENMENT) {
-			this.addMessage(" - You can use moves that aren't in this turn's movepool !");
+			txt += " - You can use moves that aren't in this turn's movepool !\n";
 		}
 		if (this.EVENT_PP_PURGE) {
-			this.addMessage(" - Illegal moves are legal for this turn !");
+			txt += " - Illegal moves are legal for this turn !\n";
 		}
 		if (this.EVENT_PP_EQUALITY) {
-			this.addMessage(" - Moves have no DEX modifier for this turn !");
+			txt += " - Moves have no DEX modifier for this turn !\n";
 		}
 		if (this.BOREAL_WORLD) {
-			this.addMessage(" - Boreal Fog is everywhere !");
+			txt += " - Boreal Fog is everywhere !\n";
 		}
 		if (this.PP_NET > 0 && this.PP_NET < 200) {
-			this.addMessage(" - PP-Net Rising : Step " + this.PP_NET);
+			txt += " - PP-Net Rising : Step " + this.PP_NET + "\n";
 		}
 		if (this.PP_ARMAGEDDON) {
-			this.addMessage(" - **PP ARMAGEDDON**");
+			txt += " - **PP ARMAGEDDON**\n";
 		}
 		if (this.TIME_STOP > 0) {
-			this.addMessage(" - **TIME STOPPED FOR " + this.TIME_STOP + " TURNS**");
+			txt += " - **TIME STOPPED FOR " + this.TIME_STOP + " TURNS**\n";
 		}
 		else if (this.TIME_COMPRESSION > 0) {
-			this.addMessage(" - **TIME COMPRESSED FOR " + this.TIME_COMPRESSION + " TURNS**");
+			txt += " - **TIME COMPRESSED FOR " + this.TIME_COMPRESSION + " TURNS**\n";
 		}
 		if (this.TIME_BREAK > 0) {
-			this.addMessage(" - **TIME BREAKING PROBABILITY : " + this.TIME_BREAK + "%**");
+			txt += " - **TIME BREAKING PROBABILITY : " + this.TIME_BREAK + "%**\n";
 		}
+		this.addMessage(txt);
 
 		// HighFiveEmote - Stop move_list
 		if (this.STOPPED_MOVE_LIST.length >= 1) {
