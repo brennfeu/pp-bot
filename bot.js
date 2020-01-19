@@ -3479,7 +3479,7 @@ class Duel {
 		if (this.TIME_BREAK > 0) {
 			txt += " - **TIME BREAKING PROBABILITY : " + this.TIME_BREAK + "%**\n";
 		}
-		txt = txt.slice(0, -2);
+		txt = txt.slice(0, -1);
 		this.addMessage(txt);
 
 		// HighFiveEmote - Stop move_list
