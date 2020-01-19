@@ -3574,6 +3574,13 @@ class Duel {
 			}
 		}
 		
+		if (this.MOVE_COUNT >= 10000) {
+			// Heat death of the universe
+			this.addMessage(" -- HEAT DEATH OF THE UNIVERSE --");
+			this.addMessage("The world collapses after so many PP Punching !");
+			this.DEAD_DUEL = true;
+			return;
+		}
 		if (!this.PP_ARMAGEDDON && this.MOVE_COUNT >= 100) {
 			// PP ARMAGEDDON
 			this.PP_ARMAGEDDON = true;
