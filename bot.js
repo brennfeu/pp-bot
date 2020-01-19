@@ -3077,7 +3077,7 @@ class Duel {
 		this.TIMESTAMP = + new Date();
 		
 		if (this.NO_MESSAGE <= 0 || this.TIME_STOP > 0) {
-			if (this.LIST_MESSAGES.length + 1 > _max) {
+			if (this.LIST_MESSAGES.length + 2 > _max) {
 				while (this.LIST_MESSAGES.length > _max) {
 					this.LIST_MESSAGES.splice(0, 1);
 					counter += 1;
@@ -3422,10 +3422,11 @@ class Duel {
 			txt += " - **Saved State**\n";
 		}
 		if (this.BLIND_COUNTDOWN > 0) {
-			txt += " - WTF I'M FUCKING BLIND !\n";
+			txt += " - WTF I'M FUCKING BLIND !";
 			if (this.BLIND_COUNTDOWN < 100) {
-				txt += "(I'll be healed in " + this.BLIND_COUNTDOWN + " turns...)\n";
+				txt += " (for " + this.BLIND_COUNTDOWN + " turns)";
 			}
+			txt += "\n"
 		}
 		if (this.REVERSE_DAMAGE > 0) {
 			txt += " - Damages and heals are reversed for " + this.REVERSE_DAMAGE + " turns !\n";
@@ -3478,6 +3479,7 @@ class Duel {
 		if (this.TIME_BREAK > 0) {
 			txt += " - **TIME BREAKING PROBABILITY : " + this.TIME_BREAK + "%**\n";
 		}
+		txt = txt.slice(0, -2);
 		this.addMessage(txt);
 
 		// HighFiveEmote - Stop move_list
@@ -4650,7 +4652,7 @@ class Duel {
 			return this.FIGHTER1;
 		}
 		
-		if (getRandomPercent <= 50) {
+		if (getRandomPercent() <= 50) {
 			return this.FIGHTER1;
 		}
 		return this.FIGHTER2;
