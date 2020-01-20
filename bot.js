@@ -1784,6 +1784,7 @@ class Fighter {
 					this.playMove(EMOTE_PP2);
 				}
 				if (this.requiemPower != null && this.requiemCooldown <= 0) {
+					this.MOVE_COUNT += 999
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage(this.requiemPower + " Requiem Ability is triggered !");
 					this.requiemCooldown = 6;
@@ -2342,6 +2343,7 @@ class Fighter {
 			else if (attack == EMOTE_SKIP) {
 				// Skip
 				this.duel.addMessage(this.getName() + " does nothing...");
+				return;
 			}
 			else {
 				this.duel.addMessage(this.getName() + " makes an unknown move ?");
