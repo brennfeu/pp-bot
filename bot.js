@@ -4087,6 +4087,14 @@ class Duel {
 			// Turkey
 			dont.push(EMOTE_PP7);
 		}
+		if (fighter.STR < 50) {
+			// Headless
+			dont.push(EMOTE_PP33);
+		}
+		if (fighter.STR < 25) {
+			// Disembowled
+			dont.push(EMOTE_PP37);
+		}
 		if (fighter.godList.indexOf(GOD_PP15_PRIEST) > -1 && fighter.godList.indexOf(GOD_PP2_PRIEST) > -1) {
 			// Therapy --> (Over)Curcumcise
 			dont.push(EMOTE_PP22);
