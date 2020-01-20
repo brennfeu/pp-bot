@@ -559,6 +559,10 @@ class Fighter {
 
 	// fighter.toString
 	toString() {
+		if (this.duel.MOVE_COUNT >= 10000) {
+			return "**" + this.getName() + "**\n - Wiped out";
+		}
+		
 		if (this.STR <= 0 && this.duel.EVENT_BOSS) {
 			return "**" + this.getName() + "**\n -> **Dead** :(";
 		}
@@ -3660,7 +3664,7 @@ class Duel {
 		if (this.MOVE_COUNT >= 10000) {
 			// Heat death of the universe
 			this.addMessage(" -- HEAT DEATH OF THE UNIVERSE --");
-			this.addMessage("**The world collapses after so many PP Punching !**\n" + IMAGE_PP2);
+			this.addMessage("*You punched PP so much, the world collapses. Good job ! You don’t get to go to work tomorrow. Or school. Or anything else. You wanna know why ? Well... you see... YOU FUCKED IT ALL UP !!!*\n" + IMAGE_PP2);
 			this.stopDuel();
 			return;
 		}
