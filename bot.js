@@ -3592,6 +3592,7 @@ class Duel {
 	}
 	startRandomEvent() {
 		var randomVar = getRandomPercent();
+		var forcedEvent = this.FORCE_EVENT;
 
 		if (this.FORCE_EVENT) {
 			while (!(randomVar <= 32 && randomVar >= 2)) {
@@ -3621,6 +3622,7 @@ class Duel {
 		if (this.FORCE_EVENT_ID != 0) {
 			randomVar = this.FORCE_EVENT_ID;
 			this.FORCE_EVENT_ID = 0;
+			forcedEvent = true;
 		}
 
 		if (randomVar == 2) {
@@ -3641,7 +3643,7 @@ class Duel {
 			this.addMessage(" -- SEXUAL CONFUSION --");
 			this.addMessage("Your PPs are confused for this turn.");
 		}
-		else if (randomVar == 5) {
+		else if (randomVar == 5 && (this.MOVE_COUNT >= 30 || forcedEvent)) {
 			// Cthulhu
 			if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP1) {
 				this.addMessage(" -- MOON LORD AWAKENS --");
@@ -3669,7 +3671,7 @@ class Duel {
 				this.CURRENT_BOSS = BOSS_PP1;
 			}
 		}
-		else if (randomVar == 6) {
+		else if (randomVar == 6 && (this.MOVE_COUNT >= 30 || forcedEvent)) {
 			// Accidental Summoning
 			this.addMessage(" -- ACCIDENTAL SUMMONING --");
 			var winner = this.getRandomFighter();
@@ -3703,7 +3705,7 @@ class Duel {
 				_fighter.playMove(EMOTE_PP49);
 			});
 		}
-		else if ([9, 10, 11, 12, 13, 14, 15, 16, 17, 18].indexOf(randomVar) > -1) {
+		else if ([9, 10, 11, 12, 13, 14, 15, 16, 17, 18].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 10 || forcedEvent)) {
 			// Charge
 			this.addMessage(" -- GODS BIRTHDAY GIFTS --");
 			if (this.STAND_BATTLE) {
@@ -3716,7 +3718,7 @@ class Duel {
 				});
 			}
 		}
-		else if ([19, 20, 21].indexOf(randomVar) > -1) {
+		else if ([19, 20, 21].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 10 || forcedEvent)) {
 			// Charge
 			this.addMessage(" -- GODS CHRISTMAS GIFTS --");
 			if (this.STAND_BATTLE) {
@@ -3742,7 +3744,7 @@ class Duel {
 			}
 
 		}
-		else if (randomVar == 23) {
+		else if (randomVar == 23 && (this.MOVE_COUNT >= 30 || forcedEvent)) {
 			// PP Blessing
 			this.addMessage(" -- PP BLESSING --");
 			if (this.STAND_BATTLE) {
@@ -3895,7 +3897,7 @@ class Duel {
 			this.addMessage("Today is Day of the PP Equality ! There is no DEX modifier for moves for this turn !");
 			this.EVENT_PP_EQUALITY = true;
 		}
-		else if (randomVar == 90) {
+		else if (randomVar == 90 && (this.MOVE_COUNT >= 50 || forcedEvent)) {
 			// Brenn Ejaculates
 			this.addMessage(" -- BRENN EJACULATES --");
 			this.addMessage("For some reasons, this summons every event !");
