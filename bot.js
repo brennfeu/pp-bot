@@ -141,6 +141,13 @@ const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE
 		    EMOTE_PP58, EMOTE_PP59, EMOTE_PP60, EMOTE_PP61, EMOTE_PP62, EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, 
 		    EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70, EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, 
 		    EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP77, EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
+const NORMAL_EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, 
+		    EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, 
+		    EMOTE_PP18, EMOTE_PP19, EMOTE_PP20, EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, 
+		    EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30, EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, 
+		    EMOTE_PP34, EMOTE_PP35, EMOTE_PP36, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40, EMOTE_PP41, 
+		    EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP47, EMOTE_PP48, EMOTE_PP49, 
+		    EMOTE_PP50];
 const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58, EMOTE_PP59, EMOTE_PP60,
 			   EMOTE_PP61, EMOTE_PP62];
 const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70,
@@ -576,13 +583,22 @@ class Fighter {
 		if (!this.duel.STAND_BATTLE) {
 			if (this.regularCharges > 0 || this.specialCharges > 0) {
 				txt += "\n\n**Faith :**"
-				if (this.godList.length > 20) {
+				var allGods = true;
+				for (var i in GOD_LIST) {
+					if (this.godList.indexOf(GOD_LIST[i]) <= -1) {
+						allGods = false;
+					}
+				}
+				if (allGods) {
 					txt += "\n - *All of them*";
 				}
 				else {
 					for (var i in this.godList) {
 						txt += "\n - " + this.godList[i];
 					}
+				}
+				if (this.godList.indexOf(STAND_PP15) > -1) {
+					txt += "\n - " + STAND_PP15;
 				}
 				if (this.requiemPower != null) {
 					txt += "\n - **Requiem**";
@@ -4098,6 +4114,11 @@ class Duel {
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP26).name, fighter.user);
 		}
 		
+		if (this.quickeningCharges >= 10 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP77) > -1) {
+			// Satan Hand
+			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP77).name, fighter.user);
+		}
+		
 		var emote = this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)];
 		var dont = [EMOTE_PP9, EMOTE_PP10, EMOTE_PP25, EMOTE_PP38, EMOTE_PP40, EMOTE_PP41, EMOTE_PP47, EMOTE_PP50,
 			    EMOTE_PP51, EMOTE_PP52];
@@ -4368,7 +4389,7 @@ class Duel {
 		}
 		else {
 			// Priority automatic moves
-			if (priorityMoves.indexOf(this.getOppOf(winner)) > -1) {
+			if (priorityMoves.indexOf(this.getOppOf(winner).attack) > -1) {
 				this.getOppOf(winner).playMove();
 			}
 
@@ -4571,18 +4592,22 @@ class Duel {
 		this.LIST_AVAILABLE_ATTACKS = listeAttaques;
 	}
 	getRandomEmote(_canBeIllegal = true) {
-		var legalList = [EMOTE_PP7, EMOTE_PP8, EMOTE_PP9,
-					EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20,
-					EMOTE_PP21, EMOTE_PP22, EMOTE_PP24, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30,
-					EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40,
-					EMOTE_PP41, EMOTE_PP42, EMOTE_PP45, EMOTE_PP46, EMOTE_PP48, EMOTE_PP50
-				];
-		var illegalList = [EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, EMOTE_PP10,
-					EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20,
-					EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30,
-					EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40,
-					EMOTE_PP41, EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP48, EMOTE_PP49, EMOTE_PP50
-				];
+		var legalList = [];
+		var illegalList = [];
+		
+		for (var i in NORMAL_EMOTE_LIST) {
+			if (this.getRisk(NORMAL_EMOTE_LIST[i]) == 0) {
+				legalList.push(NORMAL_EMOTE_LIST[i]);
+			}
+			illegalList.push(NORMAL_EMOTE_LIST[i]);
+		}
+		if (legalList.indexOf(EMOTE_PP36) > -1) {
+			legalList.splice(legalList.indexOf(EMOTE_PP36), 1);
+		}
+		else {
+			illegalList.splice(illegalList.indexOf(EMOTE_PP36), 1);
+		}
+		
 		var goodList;
 		if (_canBeIllegal) {
 			goodList = illegalList;
