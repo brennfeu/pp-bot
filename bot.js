@@ -1003,8 +1003,13 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP16) {
 				// Satan
-				this.duel.addMessage(this.getName() + " possesses " + this.duel.getOppOf(this).getName() + "'s PP !");
-				this.duel.getOppOf(this).isPossessed = 2;
+				if (this.duel.BOSS_FIGHT && (this.CURRENT_BOSS == BOSS_PP8 || this.CURRENT_BOSS == BOSS_PP9)) {
+					this.duel.addMessage("But nothing happens...");
+				}
+				else {
+					this.duel.addMessage(this.getName() + " possesses " + this.duel.getOppOf(this).getName() + "'s PP !");
+					this.duel.getOppOf(this).isPossessed = 2;
+				}
 			}
 			else if (attack == EMOTE_PP17) {
 				// RiotShield
@@ -1074,21 +1079,26 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP26) {
 				// Big Satan
-				this.duel.DISABLE_ABANDON = true;
 				this.duel.addMessage(this.getName() + " summons Satan chaotic powers !!!");
-				this.duel.sendMessages(1);
-				this.duel.bothFightersAction(function(_fighter) {
-					_fighter.duel.addMessage("-----------------");
-					_fighter.playMove(_fighter.duel.getRandomEmote(false));
-					_fighter.duel.addMessage("-----------------");
-					_fighter.playMove(_fighter.duel.getRandomEmote(false));
-					_fighter.duel.addMessage("-----------------");
-					_fighter.playMove(_fighter.duel.getRandomEmote(false));
-					_fighter.duel.addMessage("-----------------");
-					_fighter.playMove(_fighter.duel.getRandomEmote());
-					_fighter.duel.addMessage("-----------------");
-					_fighter.playMove(_fighter.duel.getRandomEmote());
-				});
+				if (this.duel.BOSS_FIGHT && (this.CURRENT_BOSS == BOSS_PP8 || this.CURRENT_BOSS == BOSS_PP9)) {
+					this.duel.addMessage("But nothing happens...");
+				}
+				else {
+					this.duel.DISABLE_ABANDON = true;
+					this.duel.sendMessages(1);
+					this.duel.bothFightersAction(function(_fighter) {
+						_fighter.duel.addMessage("-----------------");
+						_fighter.playMove(_fighter.duel.getRandomEmote(false));
+						_fighter.duel.addMessage("-----------------");
+						_fighter.playMove(_fighter.duel.getRandomEmote(false));
+						_fighter.duel.addMessage("-----------------");
+						_fighter.playMove(_fighter.duel.getRandomEmote(false));
+						_fighter.duel.addMessage("-----------------");
+						_fighter.playMove(_fighter.duel.getRandomEmote());
+						_fighter.duel.addMessage("-----------------");
+						_fighter.playMove(_fighter.duel.getRandomEmote());
+					});
+				}
 			}
 			else if (attack == EMOTE_PP27) {
 				// BigGuyBullet
@@ -3276,7 +3286,8 @@ class Duel {
 						this.EVENT_BOSS = false;
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP8) {
-						this.addMessage(this.CURRENT_BOSS + " summons his true form !");
+						this.addMessage("**" + this.CURRENT_BOSS + " summons his true form !**");
+						this.addMessage("-----------------");
 						this.CURRENT_BOSS = BOSS_PP9;
 						this.BOSS_HEALTH = 100000000;
 						this.BOSS_DAMAGE = 100000;
@@ -3300,13 +3311,11 @@ class Duel {
 						else {
 							var amount = this.BOSS_DAMAGE;
 						}
-						fighter.damageTaken += amount;
-						fighter.STRValue -= this.BOSS_DAMAGE;
-						this.addMessage("He takes " + this.BOSS_DAMAGE + " damages !");
+						fighter.damage(amount, false);
 						
 						if (this.CURRENT_BOSS == BOSS_PP8 || this.CURRENT_BOSS == BOSS_PP9) {
-							this.addMessage("The satanic energy from the attack makes him possess " + this.getOppOf(fighter) + " !");
-							this.getOppOf(fighter).isPossessed = 1;
+							this.addMessage("The satanic energy from the attack makes him possess " + this.getOppOf(fighter).getName() + " !");
+							this.getOppOf(fighter).isPossessed = 2;
 						}
 						
 						this.addMessage("-----------------");
