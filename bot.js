@@ -3331,106 +3331,8 @@ class Duel {
 						_fighter.resetBattleVariables()
 					}
 				});
-				this.bothFightersAction(function(_fighter) {
-					if (_fighter.duel.getOppOf(_fighter).standPower == STAND_PP10 && _fighter.STR <= _fighter.DEX) {
-						_fighter.duel.addMessage(_fighter.getName() + " is cursed by Illud Divinum Insanus !");
-						_fighter.duel.addMessage(_fighter.getName() + " dies !");
-						_fighter.STRValue -= _fighter.STR+100;
-					}
-				});
-				this.bothFightersAction(function(_fighter) {
-					if (_fighter.STR <= 0 && _fighter.extraLife > 0) {
-						_fighter.duel.addMessage(_fighter.getName() + " uses an extra life !");
-						var extra = _fighter.extraLife - 1;
-						var stand = null;
-
-						if (_fighter.standPower == STAND_PP8_1) {
-							stand = STAND_PP8_2;
-						}
-						if (_fighter.standPower == STAND_PP8_2) {
-							stand = STAND_PP8_1;
-						}
-
-						if (_fighter.idUser == _fighter.duel.FIGHTER1.idUser) {
-							if (_fighter.extraLifeDuplication != null) {
-								_fighter.duel.FIGHTER1 = _fighter.extraLifeDuplication;
-								_fighter.duel.addMessage(_fighter.getName() + "'s temporal duplication replaces him !");
-							}
-							else {
-								_fighter.duel.FIGHTER1 = new Fighter(_fighter.duel.FIGHTER1.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
-							}
-							_fighter.duel.FIGHTER1.extraLife = extra;
-							_fighter.duel.FIGHTER1.attack = "";
-						}
-						else {
-							if (_fighter.extraLifeDuplication != null) {
-								_fighter.duel.FIGHTER2 = _fighter.extraLifeDuplication;
-								_fighter.duel.addMessage(_fighter.getName() + "'s temporal duplication replaces him !");
-							}
-							else {
-								_fighter.duel.FIGHTER2 = new Fighter(_fighter.duel.FIGHTER2.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
-							}
-							_fighter.duel.FIGHTER2.extraLife = extra;
-							_fighter.duel.FIGHTER1.attack = "";
-						}
-					}
-				});
-				if (this.STAND_BATTLE && !(this.FIGHTER1.STR > 0 && this.FIGHTER2.STR > 0)) {
-					if (this.FIGHTER1.STR <= 0) {
-						this.FIGHTER2_SAVE.quickeningCharges += 10;
-						this.addMessage("**" + this.FIGHTER1.getName() + " has been defeated !**");
-
-						if (this.FIGHTER1.standPower == STAND_PP3) {
-							this.playMove(EMOTE_PP47);
-						}
-						if (this.FIGHTER2.standPower == STAND_PP3) {
-							this.playMove(EMOTE_PP58);
-						}
-					}
-					if (this.FIGHTER2.STR <= 0) {
-						this.FIGHTER1_SAVE.quickeningCharges += 10;
-						this.addMessage("**" + this.FIGHTER2.getName() + " has been defeated !**");
-
-						if (this.FIGHTER2.standPower == STAND_PP3) {
-							this.playMove(EMOTE_PP47);
-						}
-						if (this.FIGHTER1.standPower == STAND_PP3) {
-							this.playMove(EMOTE_PP58);
-						}
-					}
-					if (this.FIGHTER1.STR > 0) {
-						this.FIGHTER1_SAVE.standPower = this.FIGHTER1.standPower;
-						this.FIGHTER1_SAVE.requiemPower = this.FIGHTER1.requiemPower;
-						this.FIGHTER1_SAVE.randomizedStand = this.FIGHTER1.randomizedStand;
-					}
-					if (this.FIGHTER2.STR > 0) {
-						this.FIGHTER2_SAVE.standPower = this.FIGHTER2.standPower;
-						this.FIGHTER2_SAVE.requiemPower = this.FIGHTER2.requiemPower;
-						this.FIGHTER2_SAVE.randomizedStand = this.FIGHTER2.randomizedStand;
-					}
-
-					this.STAND_BATTLE = false;
-					this.FIGHTER1 = this.FIGHTER1_SAVE;
-					this.FIGHTER2 = this.FIGHTER2_SAVE;
-
-					this.bothFightersAction(function(_fighter) {
-						_fighter.attack = "";
-						_fighter.currentStand = null;
-					});
-				}
-
-				if (this.FIGHTER1.STR <= 0 && this.FIGHTER2.STR <= 0) {
-					this.addMessage("Both of you lost. No one won this time. You losers.");
-					this.stopDuel();
-					return;
-				}
-				this.bothFightersAction(function(_fighter) {
-					if (_fighter.STR <= 0 && !_fighter.duel.EVENT_BOSS) {
-						_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).getName() + " won ! Congrats !");
-						_fighter.duel.getOppOf(_fighter).win();
-						_fighter.duel.stopDuel();
-					};
-				});
+				
+				this.checkDeath();
 				if (this.DEAD_DUEL) return;
 
 				this.STEEL_PROTECTION = false;
@@ -3463,6 +3365,9 @@ class Duel {
 			}
 			this.sendMessages();
 		}
+		
+		this.checkDeath();
+		if (this.DEAD_DUEL) return;
 		
 		this.addMessage("\n\n**===== NEW TURN =====**", true);
 		this.sendMessages();
@@ -3637,6 +3542,110 @@ class Duel {
 			this.FORCE_SATAN = false;
 		}
 	}
+	
+	checkDeath() {
+		this.bothFightersAction(function(_fighter) {
+			if (_fighter.duel.getOppOf(_fighter).standPower == STAND_PP10 && _fighter.STR <= _fighter.DEX) {
+				_fighter.duel.addMessage(_fighter.getName() + " is cursed by Illud Divinum Insanus !");
+				_fighter.duel.addMessage(_fighter.getName() + " dies !");
+				_fighter.STRValue -= _fighter.STR+100;
+			}
+		});
+		this.bothFightersAction(function(_fighter) {
+			if (_fighter.STR <= 0 && _fighter.extraLife > 0) {
+				_fighter.duel.addMessage(_fighter.getName() + " uses an extra life !");
+				var extra = _fighter.extraLife - 1;
+				var stand = null;
+
+				if (_fighter.standPower == STAND_PP8_1) {
+					stand = STAND_PP8_2;
+				}
+				if (_fighter.standPower == STAND_PP8_2) {
+					stand = STAND_PP8_1;
+				}
+
+				if (_fighter.idUser == _fighter.duel.FIGHTER1.idUser) {
+					if (_fighter.extraLifeDuplication != null) {
+						_fighter.duel.FIGHTER1 = _fighter.extraLifeDuplication;
+						_fighter.duel.addMessage(_fighter.getName() + "'s temporal duplication replaces him !");
+					}
+					else {
+						_fighter.duel.FIGHTER1 = new Fighter(_fighter.duel.FIGHTER1.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
+					}
+					_fighter.duel.FIGHTER1.extraLife = extra;
+					_fighter.duel.FIGHTER1.attack = "";
+				}
+				else {
+					if (_fighter.extraLifeDuplication != null) {
+						_fighter.duel.FIGHTER2 = _fighter.extraLifeDuplication;
+						_fighter.duel.addMessage(_fighter.getName() + "'s temporal duplication replaces him !");
+					}
+					else {
+						_fighter.duel.FIGHTER2 = new Fighter(_fighter.duel.FIGHTER2.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
+					}
+					_fighter.duel.FIGHTER2.extraLife = extra;
+					_fighter.duel.FIGHTER1.attack = "";
+				}
+			}
+		});
+		if (this.STAND_BATTLE && !(this.FIGHTER1.STR > 0 && this.FIGHTER2.STR > 0)) {
+			if (this.FIGHTER1.STR <= 0) {
+				this.FIGHTER2_SAVE.quickeningCharges += 10;
+				this.addMessage("**" + this.FIGHTER1.getName() + " has been defeated !**");
+
+				if (this.FIGHTER1.standPower == STAND_PP3) {
+					this.playMove(EMOTE_PP47);
+				}
+				if (this.FIGHTER2.standPower == STAND_PP3) {
+					this.playMove(EMOTE_PP58);
+				}
+			}
+			if (this.FIGHTER2.STR <= 0) {
+				this.FIGHTER1_SAVE.quickeningCharges += 10;
+				this.addMessage("**" + this.FIGHTER2.getName() + " has been defeated !**");
+
+				if (this.FIGHTER2.standPower == STAND_PP3) {
+					this.playMove(EMOTE_PP47);
+				}
+				if (this.FIGHTER1.standPower == STAND_PP3) {
+					this.playMove(EMOTE_PP58);
+				}
+			}
+			if (this.FIGHTER1.STR > 0) {
+				this.FIGHTER1_SAVE.standPower = this.FIGHTER1.standPower;
+				this.FIGHTER1_SAVE.requiemPower = this.FIGHTER1.requiemPower;
+				this.FIGHTER1_SAVE.randomizedStand = this.FIGHTER1.randomizedStand;
+			}
+			if (this.FIGHTER2.STR > 0) {
+				this.FIGHTER2_SAVE.standPower = this.FIGHTER2.standPower;
+				this.FIGHTER2_SAVE.requiemPower = this.FIGHTER2.requiemPower;
+				this.FIGHTER2_SAVE.randomizedStand = this.FIGHTER2.randomizedStand;
+			}
+
+			this.STAND_BATTLE = false;
+			this.FIGHTER1 = this.FIGHTER1_SAVE;
+			this.FIGHTER2 = this.FIGHTER2_SAVE;
+
+			this.bothFightersAction(function(_fighter) {
+				_fighter.attack = "";
+				_fighter.currentStand = null;
+			});
+		}
+
+		if (this.FIGHTER1.STR <= 0 && this.FIGHTER2.STR <= 0) {
+			this.addMessage("Both of you lost. No one won this time. You losers.");
+			this.stopDuel();
+			return;
+		}
+		this.bothFightersAction(function(_fighter) {
+			if (_fighter.STR <= 0 && !_fighter.duel.EVENT_BOSS) {
+				_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).getName() + " won ! Congrats !");
+				_fighter.duel.getOppOf(_fighter).win();
+				_fighter.duel.stopDuel();
+			};
+		});
+	}
+	
 	startRandomEvent() {
 		var randomVar = getRandomPercent();
 		var forcedEvent = this.FORCE_EVENT;
