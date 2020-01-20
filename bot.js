@@ -4020,11 +4020,11 @@ class Duel {
 			// High Five Emote
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP32).name, fighter.user);
 		}
-		if (!(this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) && fighter.bleedDamage * 5 > fighter.STR && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP12) > -1) {
+		if (!(fighter.godList.indexOf(GOD_PP15_PRIEST) > -1 && fighter.godList.indexOf(GOD_PP2_PRIEST) > -1) && fighter.bleedDamage * 5 > fighter.STR && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP12) > -1) {
 			// Overcircumcise
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP12).name, fighter.user);
 		}
-		if (!(this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) && fighter.bleedDamage * 5 > fighter.STR && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP22) > -1) {
+		if (!(fighter.godList.indexOf(GOD_PP15_PRIEST) > -1 && fighter.godList.indexOf(GOD_PP2_PRIEST) > -1) && fighter.bleedDamage * 5 > fighter.STR && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP22) > -1) {
 			// Circumcise
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP22).name, fighter.user);
 		}
@@ -4087,7 +4087,7 @@ class Duel {
 			// Turkey
 			dont.push(EMOTE_PP7);
 		}
-		if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) {
+		if (fighter.godList.indexOf(GOD_PP15_PRIEST) > -1 && fighter.godList.indexOf(GOD_PP2_PRIEST) > -1) {
 			// Therapy --> (Over)Curcumcise
 			dont.push(EMOTE_PP22);
 			dont.push(EMOTE_PP12);
