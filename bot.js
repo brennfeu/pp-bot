@@ -3998,7 +3998,7 @@ class Duel {
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP51).name, fighter.user); // God Regular Moves
 		}
 		for (i = 0; i < EMOTE_LIST.length; i++) { // If blind --> Illegal
-			if ((this.BLIND_COUNTDOWN > 0 || this.TIME_STOP > 0) && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_LIST[i]) > -1 &&
+			if ((this.BLIND_COUNTDOWN > 0 || this.TIME_STOP > 0 || fighter.trueBarbarian) && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_LIST[i]) > -1 &&
 			    this.getRisk(EMOTE_LIST[i]) > 0) {
 				return this.triggerReaction(CLIENT.emojis.get(EMOTE_LIST[i]).name, fighter.user);
 			}
@@ -4075,6 +4075,10 @@ class Duel {
 			// Turkey
 			dont.push(EMOTE_PP7);
 		}
+		if (fighter.STR/10 > this.getOppOf(fighter).missedMoves*50) {
+			// LaughSoul
+			dont.push(EMOTE_PP23);
+		}
 		if (fighter.isOverCurcumcised) {
 			// Overcircumcised
 			dont.push(EMOTE_PP12);
@@ -4103,14 +4107,18 @@ class Duel {
 			// RiotShield
 			dont.push(EMOTE_PP17);
 		}
+		if (fighter.isBigPP && fighter.isFastPP && fighter.isAlienPP && fighter.isDrunkPP && fighter.isHockeyPuckPP) {
+			// Perhaps
+			dont.slice(dont.indexOf(EMOTE_PP50), 1);
+		}
+		if (dont.indexOf(fighter.oldAttack) > -1) {
+			// Alert
+			dont.push(EMOTE_PP30);
+		}
 		for (i = 0; i < EMOTE_LIST.length; i++) { // No move with shitty DEX
 			if (this.getDexChange(EMOTE_LIST[i]) < 0 && fighter.DEX + this.getDexChange(EMOTE_LIST[i]) < this.getOppOf(fighter).DEX) {
 				dont.push(EMOTE_LIST[i]);
 			}
-		}
-		if (fighter.isBigPP && fighter.isFastPP && fighter.isAlienPP && fighter.isDrunkPP && fighter.isHockeyPuckPP) {
-			// Perhaps
-			dont.slice(dont.indexOf(EMOTE_PP50), 1);
 		}
 		
 		var nbTries = 0;
