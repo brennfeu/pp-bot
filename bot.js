@@ -4017,7 +4017,7 @@ class Duel {
 			}
 			
 			// GAY_TURNS
-			if (duel.GAY_TURNS > 0) {
+			if (duel.GAY_TURNS > 0 && duel.TIME_STOP <= 0) {
 				if (_user.id == _fighter.user.id) {
 					if (duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.getAttackFromEmote(_emote)) < 0) {
 						duel.addMessage("Gay people can't cheat...");
