@@ -5367,6 +5367,14 @@ CLIENT.on("message", async _message => {
 			duel.MOVE_COUNT = parseInt(argsUser[3]);
 			return _message.reply("duel move count : " + duel.MOVE_COUNT);
 		}
+		if (argsUser[2] == "megaKill") {
+			for (var i in DUEL_LIST) {
+				DUEL_LIST[i].addMessage(" -- HEAT DEATH OF THE UNIVERSE --");
+				DUEL_LIST[i].addMessage("*The Universe suddenly collapses.*\n" + IMAGE_PP2);
+				DUEL_LIST[i].MOVE_COUNT = 1000000;
+				DUEL_LIST[i].stopDuel();
+			}
+		}
 	}
 
 	return _message.reply("I don't know this command, try using the help command !");
