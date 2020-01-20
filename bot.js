@@ -2099,7 +2099,7 @@ class Fighter {
 						this.duel.addMessage("**Value :** based on " + this.getName() + "'s total taken damages.");
 					}
 					else if (subEffectId%12 == 4) {
-						value = Math.floor(this.usedMoves/2);
+						value = Math.floor(this.usedMoves.length/2);
 						this.duel.addMessage("**Value :** based on " + this.getName() + "'s moves count.");
 					}
 					else if (subEffectId%12 == 5) {
@@ -2119,7 +2119,7 @@ class Fighter {
 						this.duel.addMessage("**Value :** based on " + this.duel.getOppOf(this).getName() + "'s total taken damages.");
 					}
 					else if (subEffectId%12 == 9) {
-						value = Math.floor(this.duel.getOppOf(this).usedMoves/2);
+						value = Math.floor(this.duel.getOppOf(this).usedMoves.length/2);
 						this.duel.addMessage("**Value :** based on " + this.duel.getOppOf(this).getName() + "'s moves count.");
 					}
 					else if (subEffectId%12 == 10) {
