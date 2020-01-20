@@ -784,10 +784,10 @@ class Fighter {
 					txt += " - Garbage Music Maker\n";
 				}
 				if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) {
-					txt += " - Getting therapy sessions\n";
+					txt += " - Therapy Time\n";
 				}
 				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
-					txt += " - Too smart and too powerful\n";
+					txt += " - Too Smart and Too Powerful\n";
 				}
 				if (this.godList.indexOf(GOD_PP16_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
 					txt += " - Super Predator\n";
@@ -4020,11 +4020,11 @@ class Duel {
 			// High Five Emote
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP32).name, fighter.user);
 		}
-		if (fighter.bleedDamage * 5 > fighter.STR && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP12) > -1) {
+		if (!(this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) && fighter.bleedDamage * 5 > fighter.STR && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP12) > -1) {
 			// Overcircumcise
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP12).name, fighter.user);
 		}
-		if (fighter.bleedDamage * 5 > fighter.STR && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP22) > -1) {
+		if (!(this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) && fighter.bleedDamage * 5 > fighter.STR && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP22) > -1) {
 			// Circumcise
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP22).name, fighter.user);
 		}
@@ -4086,6 +4086,11 @@ class Duel {
 		if (fighter.STR > 1000) {
 			// Turkey
 			dont.push(EMOTE_PP7);
+		}
+		if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) {
+			// Therapy --> (Over)Curcumcise
+			dont.push(EMOTE_PP22);
+			dont.push(EMOTE_PP12);
 		}
 		if (fighter.STR/10 > this.getOppOf(fighter).missedMoves*50) {
 			// LaughSoul
@@ -4291,11 +4296,21 @@ class Duel {
 		if (dexAttack1 > dexAttack2) {
 			winner = this.FIGHTER1;
 		}
+		
+		var priorityMoves = [EMOTE_PP15, EMOTE_PP29, EMOTE_PP11]; // Hobro / Steel / Barrel
+		
 		if ((dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) || 
 		    this.AUTO_MOVES_COUNTDOWN > 0 || this.EVENT_BOSS || this.getOppOf(winner).legAimer ||
 		    this.TIME_STOP > 0) {
 			this.addMessage("Both opponents attack this turn !");
 			this.sendMessages();
+			
+			if (priorityMoves.indexOf(this.getOppOf(winner)) > -1) {
+				winner = this.getOppOf(winner);
+			}
+			if (priorityMoves.indexOf(this.getOppOf(winner)) > -1) {
+				winner = this.getOppOf(winner);
+			}
 
 			this.bothFightersAction(function(_fighter) {
 				_fighter.duel.addMessage("-----------------");
@@ -4316,8 +4331,8 @@ class Duel {
 			}, winner);
 		}
 		else {
-			// Save
-			if (this.getOppOf(winner).attack == EMOTE_PP15) {
+			// Priority automatic moves
+			if (priorityMoves.indexOf(this.getOppOf(winner)) > -1) {
 				this.getOppOf(winner).playMove();
 			}
 
