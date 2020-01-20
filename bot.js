@@ -123,6 +123,8 @@ const EMOTE_PP73 = "663523761148133408"; // Quickening
 const EMOTE_PP74 = "663738297687867405"; // Sword
 const EMOTE_PP75 = "664116840070512660"; // AcidShot
 const EMOTE_PP76 = "664845944252137494"; // EldritchPudding
+const EMOTE_PP77 = "668790615902912514"; // SatanHand
+const EMOTE_PP78 = ""; // 
 
 const EMOTE_PP79 = "667336163396288522"; // Eye of Truth
 const EMOTE_PP80 = "644617031739768842"; // Fherla
@@ -138,11 +140,11 @@ const EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE
 		    EMOTE_PP50, EMOTE_PP51, EMOTE_PP52, EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, 
 		    EMOTE_PP58, EMOTE_PP59, EMOTE_PP60, EMOTE_PP61, EMOTE_PP62, EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, 
 		    EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70, EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, 
-		    EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
+		    EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP77, EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
 const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58, EMOTE_PP59, EMOTE_PP60,
 			   EMOTE_PP61, EMOTE_PP62];
 const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70,
-			  EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76];
+			  EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP77];
 const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
 
 const GOD_PP1 = "644643782888783892"; // Mongo
@@ -2065,6 +2067,21 @@ class Fighter {
 					this.tentacles += 1;
 				}
 			}
+			else if (attack == EMOTE_PP77) {
+				// SatanHand
+				this.duel.addMessage(this.getName() + " summons the Hand of Satan !");
+				if (this.quickeningCharges >= 10) {
+					this.duel.addMessage("The Hand brings him a gift against 10 quickening charges !");
+					this.quickeningCharges -= 10;
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage(this.getName() + " evolves to Requiem !");
+					this.requiemPower = REQUIEM_LIST[Math.floor(Math.random()*REQUIEM_LIST.length)];
+					this.guildUser.send("**Requiem Acquired : " + this.requiemPower + "**");
+				}
+				else {
+					this.duel.addMessage(this.getName() + " needs more quickening charges to deal with it !");
+				}
+			}
 			else if (attack == EMOTE_PP79) {
 				// Eye of Truth
 				this.duel.addMessage(this.getName() + " summons the Eye of Truth !");
@@ -3008,7 +3025,7 @@ class Duel {
 			this.addMessage("When performing specific move combos, you summon a stånd. This will trigger the **Stånds Battle Mode** and the opponent will get a random stånd.");
 			this.addMessage("Your respective **stånds** will replace you in the battle, and the winner of the battle will keep his stånd's powers and get stat buffs. Both fighter are then able to continue the fight.");
 			this.addMessage("-----------------");
-			this.addMessage("If a stånd performs this move combo : [*Brolander*, *LostSoul*, *EldritchPudding*, *Brolander*], it will get better stats and a random **Requiem**.");
+			this.addMessage("If a stånd uses the **Satan Hand** move while having **10 Quickening Charges**, it will get better stats and a random **Requiem**.");
 			this.addMessage("A Requiem is an ability performed using the **god special move**. They are also given to a fighter if he wins the Stånd Battle.");
 			this.addMessage("-----------------");
 			this.addMessage("Here are some moves specific to stånd battles :");
@@ -4402,31 +4419,7 @@ class Duel {
 	}
 	
 	checkStandSummon() {
-		if (this.STAND_BATTLE) {
-			this.bothFightersAction(function(_fighter) {
-				var requiemCombo = [EMOTE_PP73, EMOTE_PP76, EMOTE_PP69, EMOTE_PP73]; // Brolander, EldritchPudding, LostSoul, Brolander
-				
-				if (_fighter.requiemPower != null) {
-					return;
-				}
-				
-				var check = true;
-				for (var j in requiemCombo) {
-					if (requiemCombo[j] != _fighter.usedMoves[_fighter.usedMoves.length-j-1]) {
-						check = false;
-					}
-				}
-				if (check) {
-					_fighter.duel.addMessage("-----------------");
-					_fighter.duel.addMessage(_fighter.getName() + " evolves to Requiem !");
-					_fighter.requiemPower = REQUIEM_LIST[Math.floor(Math.random()*REQUIEM_LIST.length)];
-					_fighter.guildUser.send("**Requiem Acquired : " + _fighter.requiemPower + "**");
-					return;
-				}
-				
-			});
-		}
-		else {
+		if (!this.STAND_BATTLE) {
 			this.bothFightersAction(function(_fighter) {
 				var check = false;
 				for (var i in STAND_SUMMONS) {
@@ -5097,6 +5090,7 @@ CLIENT.on("message", async _message => {
 			_message2.react(EMOTE_PP71); _message2.react(EMOTE_PP72);
 			_message2.react(EMOTE_PP73); _message2.react(EMOTE_PP74);
 			_message2.react(EMOTE_PP75); _message2.react(EMOTE_PP76);
+			_message2.react(EMOTE_PP77); // _message2.react(EMOTE_PP78);
 		}).catch(function(e) {
 			console.log(e);
 		});
