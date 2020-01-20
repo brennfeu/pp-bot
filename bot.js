@@ -3976,6 +3976,18 @@ class Duel {
 			// High Five
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP5).name, fighter.user);
 		}
+		for (i in STAND_SUMMONS) {
+			var check = true;
+			for (var j in STAND_SUMMONS[i]) {
+				if (STAND_SUMMONS[i][j] != fighter.usedMoves[fighter.usedMoves.length-j-1] && j != STAND_SUMMONS[i].length-1) {
+					check = false;
+				}
+			}
+			if (check && this.LIST_AVAILABLE_ATTACKS.indexOf(STAND_SUMMONS[i][STAND_SUMMONS[i].length-1]) > -1) {
+				// Summon Stand
+				return this.triggerReaction(CLIENT.emojis.get(STAND_SUMMONS[i][STAND_SUMMONS[i].length-1]).name, fighter.user);
+			}
+		}
 		if (fighter.DEX + 30 < this.getOppOf(fighter).DEX && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP8) > -1) {
 			// Trap
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP8).name, fighter.user);
