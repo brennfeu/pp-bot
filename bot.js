@@ -4087,6 +4087,10 @@ class Duel {
 			// Turkey
 			dont.push(EMOTE_PP7);
 		}
+		if (this.BLIND_COUNTDOWN <= 0) {
+			// High Five Emote
+			dont.push(EMOTE_PP32);
+		}
 		if (fighter.STR < 50) {
 			// Headless
 			dont.push(EMOTE_PP33);
@@ -4142,6 +4146,7 @@ class Duel {
 		}
 		for (i = 0; i < EMOTE_LIST.length; i++) { // No move with shitty DEX
 			if (this.getDexChange(EMOTE_LIST[i]) < 0 && fighter.DEX + this.getDexChange(EMOTE_LIST[i]) < this.getOppOf(fighter).DEX) {
+				console.log(CLIENT.emojis.get(EMOTE_LIST[i]).name);
 				dont.push(EMOTE_LIST[i]);
 			}
 		}
