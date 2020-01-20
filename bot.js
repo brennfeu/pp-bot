@@ -252,6 +252,7 @@ const MUSIC_PP10 = "brennijov_outro.mp3";
 // IMAGES
 const IMAGE_PP1 = "https://cdn.discordapp.com/attachments/616225633286094852/623080353807990784/image0.gif";
 const IMAGE_PP2 = "https://cdn.discordapp.com/attachments/616228498075549756/668824699551219722/bigboom.gif";
+const IMAGE_PP3 = "https://cdn.discordapp.com/attachments/667337519477817363/668844698495877160/timestop.gif";
 
 // IDs
 const ID_BRENNFEU = "234439428372824075";
@@ -1786,7 +1787,7 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage(this.requiemPower + " Requiem Ability is triggered !");
 					this.requiemCooldown = 6;
-					this.duel.addMessage("**Time stops !**");
+					this.duel.addMessage("**Time stops !**\n" + IMAGE_PP3);
 					this.duel.TIME_STOP = 2;
 					
 					if (this.requiemPower == REQUIEM_PP1 || this.requiemPower == REQUIEM_PP7) { // Etrange
