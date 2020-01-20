@@ -234,6 +234,8 @@ const BOSS_PP4 = "The PP Robot Police";
 const BOSS_PP5 = "The PP Harvester";
 const BOSS_PP6 = "The PP-Net Hive-Mind";
 const BOSS_PP7 = "PP Terminator";
+const BOSS_PP8 = "Satan";
+const BOSS_PP9 = "Satan True Form";
 
 // MUSICS
 const MUSIC_PP1 = "none";
@@ -474,7 +476,7 @@ class Fighter {
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			str += 50;
 		}
-		if (this.duel.PP_ARMAGEDDON && this.stand == null) {
+		if (this.duel.PP_ARMAGEDDON) {
 			str += 1000000;
 		}
 
@@ -544,7 +546,7 @@ class Fighter {
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			dex += 50;
 		}
-		if (this.duel.PP_ARMAGEDDON && this.stand == null) {
+		if (this.duel.PP_ARMAGEDDON) {
 			dex += 200;
 		}
 		
@@ -3273,21 +3275,41 @@ class Duel {
 						this.PP_NET = 200;
 						this.EVENT_BOSS = false;
 					}
+					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP8) {
+						this.addMessage(this.CURRENT_BOSS + " summons his true form !");
+						this.CURRENT_BOSS = BOSS_PP9;
+						this.BOSS_HEALTH = 100000000;
+						this.BOSS_DAMAGE = 100000;
+						this.EVENT_BOSS = true;
+					}
+					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP9) {
+						this.addMessage(this.CURRENT_BOSS + " is sent back to his eldritch realm !");
+						this.addMessage("You both win !");
+						this.bothFightersAction(function(_fighter) {
+							addWinCounter(_fighter, 1);
+						});
+						this.EVENT_BOSS = false;
+						return this.stopDuel();
+					}
 					else {
 						var fighter = this.getRandomFighter();
 						this.addMessage(fighter.getName() + " gets attacked by " + this.CURRENT_BOSS + " !");
 						if (this.EVENT_BLOOD_MOON && this.CURRENT_BOSS == BOSS_PP3) { // Blood Moon / Moon Lord
 							var amount = this.BOSS_DAMAGE*3;
-							fighter.STRValue -= amount;
-							this.addMessage("He takes " + amount + " damages !");
-							this.addMessage("-----------------");
-							fighter.damageTaken += amount;
 						}
 						else {
-							fighter.STRValue -= this.BOSS_DAMAGE;
-							this.addMessage("He takes " + this.BOSS_DAMAGE + " damages !");
-							this.addMessage("-----------------");
+							var amount = this.BOSS_DAMAGE;
 						}
+						fighter.damageTaken += amount;
+						fighter.STRValue -= this.BOSS_DAMAGE;
+						this.addMessage("He takes " + this.BOSS_DAMAGE + " damages !");
+						
+						if (this.CURRENT_BOSS == BOSS_PP8 || this.CURRENT_BOSS == BOSS_PP9) {
+							this.addMessage("The satanic energy from the attack makes him possess " + this.getOppOf(fighter) + " !");
+							this.getOppOf(fighter).isPossessed = 1;
+						}
+						
+						this.addMessage("-----------------");
 					}
 				}
 
@@ -3611,7 +3633,7 @@ class Duel {
 		var forcedEvent = this.FORCE_EVENT;
 
 		if (this.FORCE_EVENT) {
-			while (!(randomVar <= 32 && randomVar >= 2)) {
+			while (!(randomVar <= 33 && randomVar >= 2)) {
 				randomVar = getRandomPercent();
 			}
 		}
@@ -3912,6 +3934,18 @@ class Duel {
 			this.addMessage(" -- DAY OF THE PP EQUALITY --");
 			this.addMessage("Today is Day of the PP Equality ! There is no DEX modifier for moves for this turn !");
 			this.EVENT_PP_EQUALITY = true;
+		}
+		else if (randomVar == 33 && (this.MOVE_COUNT >= 1000 || forcedEvent)) {
+			// Eldritch Gate
+			this.addMessage(" -- ELDRITCH GATE --");
+			this.addMessage("The Eldritch Gate has been opened ! " + BOSS_PP8 + " faces you !");
+			if (this.EVENT_BOSS) {
+				this.addMessage("He destroys " + CURRENT_BOSS + " just to show off");
+			}
+			this.EVENT_BOSS = true;
+			this.BOSS_HEALTH = 500000;
+			this.BOSS_DAMAGE = 1000;
+			this.CURRENT_BOSS = BOSS_PP8;
 		}
 		else if (randomVar == 90 && (this.MOVE_COUNT >= 50 || forcedEvent)) {
 			// Brenn Ejaculates
@@ -5300,6 +5334,10 @@ CLIENT.on("message", async _message => {
 		if (argsUser[2] == "requiem2" && argsUser.length >= 4) {
 			duel.FIGHTER2.requiemPower = REQUIEM_LIST[parseInt(argsUser[3])-1];
 			return _message.reply(duel.FIGHTER2.getName() + " gets : " + REQUIEM_LIST[parseInt(argsUser[3])-1]);
+		}
+		if (argsUser[2] == "moveCount" && argsUser.length >= 4) {
+			duel.MOVE_COUNT = parseInt(argsUser[3]);
+			return _message.reply("duel move count : " + duel.MOVE_COUNT);
 		}
 	}
 
