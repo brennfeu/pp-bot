@@ -3506,7 +3506,7 @@ class Duel {
 				}
 			}
 		}).catch(function(e) {
-			console.log(e);
+			// LEVEL ALREADY DEAD
 		});
 
 		this.bothFightersAction(function(_fighter) {
@@ -4144,9 +4144,13 @@ class Duel {
 			// Alert
 			dont.push(EMOTE_PP30);
 		}
-		for (i = 0; i < EMOTE_LIST.length; i++) { // No move with shitty DEX
+		for (i = 0; i < EMOTE_LIST.length; i++) {
 			if (this.getDexChange(EMOTE_LIST[i]) < 0 && fighter.DEX + this.getDexChange(EMOTE_LIST[i]) < this.getOppOf(fighter).DEX) {
-				console.log(CLIENT.emojis.get(EMOTE_LIST[i]).name);
+				// No move with shitty DEX
+				dont.push(EMOTE_LIST[i]);
+			}
+			else if (this.getRisk(EMOTE_LIST[i]) > 0) {
+				// No illegal move
 				dont.push(EMOTE_LIST[i]);
 			}
 		}
