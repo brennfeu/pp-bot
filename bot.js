@@ -2931,18 +2931,15 @@ class Duel {
 		this.addMessage("-----------------");
 		this.addMessage(this.FIGHTER2.toString());
 		this.addMessage("**===== SOME STATS =====**");
+		var txt = " - Number of moves : " + this.MOVE_COUNT;
 		if (this.MOVE_COUNT == 69) {
-			this.addMessage(" - Number of moves : " + this.MOVE_COUNT + " (lmao)");
+			txt += " (lmao)";
 		}
-		else {
-			this.addMessage(" - Number of moves : " + this.MOVE_COUNT);
-		}
+		txt += "\n - Number of damages inflicted : " + this.DAMAGE_COUNT;
 		if (this.DAMAGE_COUNT == 69) {
-			this.addMessage(" - Number of damages inflicted : " + this.DAMAGE_COUNT + " (lmao)");
+			txt += " (lmao)";
 		}
-		else {
-			this.addMessage(" - Number of damages inflicted : " + this.DAMAGE_COUNT);
-		}
+		this.addMessage(txt);
 		this.sendMessages();
 		
 		if (this.AUDIO_CHANNEL != null) {
@@ -3666,6 +3663,14 @@ class Duel {
 			this.addMessage(" -- HEAT DEATH OF THE UNIVERSE --");
 			this.addMessage("*You punched PP so much, the world collapses. Good job ! You don’t get to go to work tomorrow. Or school. Or anything else. You wanna know why ? Well... you see... YOU FUCKED IT ALL UP !!!*\n" + IMAGE_PP2);
 			this.stopDuel();
+			for (var i in DUEL_LIST) {
+				if (DUEL_LIST[i].BATTLE_CHANNEL.id != this.BATTLE_CHANNEL.id) {
+					DUEL_LIST[i].addMessage(" -- HEAT DEATH OF THE UNIVERSE --");
+					DUEL_LIST[i].addMessage("*The Universe suddenly collapses.*\n" + IMAGE_PP2);
+					DUEL_LIST[i].MOVE_COUNT = 1000000;
+					DUEL_LIST[i].stopDuel();
+				}
+			}
 			return;
 		}
 		if (!this.PP_ARMAGEDDON && this.MOVE_COUNT >= 100) {
