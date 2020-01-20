@@ -251,6 +251,7 @@ const MUSIC_PP10 = "brennijov_outro.mp3";
 
 // IMAGES
 const IMAGE_PP1 = "https://cdn.discordapp.com/attachments/616225633286094852/623080353807990784/image0.gif";
+const IMAGE_PP2 = "https://cdn.discordapp.com/attachments/616228498075549756/668824699551219722/bigboom.gif";
 
 // IDs
 const ID_BRENNFEU = "234439428372824075";
@@ -3659,8 +3660,8 @@ class Duel {
 		if (this.MOVE_COUNT >= 10000) {
 			// Heat death of the universe
 			this.addMessage(" -- HEAT DEATH OF THE UNIVERSE --");
-			this.addMessage("The world collapses after so many PP Punching !");
-			this.DEAD_DUEL = true;
+			this.addMessage("**The world collapses after so many PP Punching !**\n" + IMAGE_PP2);
+			this.stopDuel();
 			return;
 		}
 		if (!this.PP_ARMAGEDDON && this.MOVE_COUNT >= 100) {
