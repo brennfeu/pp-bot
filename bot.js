@@ -3874,10 +3874,10 @@ class Duel {
 				var rageBrenn = CLIENT.emojis.get("668922988397068298");
 				
 				this.addMessage("*Dispair in IV acts.*");
-				this.addMessage("${brennUwu} ${mikasa}");
-				this.addMessage("${brennUwu} ${mikasa} ${espinoza}");
-				this.addMessage("${brennUwu}");
-				this.addMessage("${rageBrenn}");
+				this.addMessage(`${brennUwu} ${mikasa}`);
+				this.addMessage(`${brennUwu} ${mikasa} ${espinoza}`);
+				this.addMessage(`${brennUwu}`);
+				this.addMessage(`${rageBrenn}`);
 			}
 			this.addMessage("-----------------");
 			this.addMessage("You both take your turn to recover from this tragedy !");
