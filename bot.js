@@ -4681,10 +4681,10 @@ class Duel {
 			illegalList.push(NORMAL_EMOTE_LIST[i]);
 		}
 		if (legalList.indexOf(EMOTE_PP36) > -1) {
-			legalList.splice(legalList.indexOf(EMOTE_PP36), 1);
+			legalList = legalList.splice(legalList.indexOf(EMOTE_PP36), 1);
 		}
 		else {
-			illegalList.splice(illegalList.indexOf(EMOTE_PP36), 1);
+			illegalList = illegalList.splice(illegalList.indexOf(EMOTE_PP36), 1);
 		}
 		
 		var goodList;
@@ -4714,6 +4714,9 @@ class Duel {
 		}
 		if (getRandomPercent() <= 3) {
 			goodList = goodList.concat(RARE_EMOTE_LIST);
+		}
+		if (goodList.indexOf(EMOTE_PP77) > -1 && (this.FIGHTER1.quickeningCharges <= 10 || this.FIGHTER2.quickeningCharges <= 10)) {
+			goodList = goodList.splice(goodList.indexOf(EMOTE_PP77), 1);
 		}
 
 		return goodList[Math.floor(Math.random()*goodList.length)];
