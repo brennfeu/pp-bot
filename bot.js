@@ -3858,13 +3858,27 @@ class Duel {
 		else if (randomVar == 26) {
 			// Tragedy
 			this.addMessage(" -- TRAGEDY --");
-			var winner = this.getRandomFighter();
-			
-			this.addMessage("apolgy for bad english");
-			this.addMessage("where were u wen club pp die");
-			this.addMessage(winner.getName() + " was at house eating dorito when phone ring");
-			this.addMessage(this.getOppOf(winner).getName() + ' : "Club pp is kil"');
-			this.addMessage(winner.getName() + ' : *"no"*');
+			if (getRandomPercent() <= 50) {
+				var winner = this.getRandomFighter();
+
+				this.addMessage("apolgy for bad english");
+				this.addMessage("where were u wen club pp die");
+				this.addMessage(winner.getName() + " was at house eating dorito when phone ring");
+				this.addMessage(this.getOppOf(winner).getName() + ' : "Club pp is kil"');
+				this.addMessage(winner.getName() + ' : *"no"*');
+			}
+			else {
+				var brennUwu = CLIENT.emojis.get("655449555873038337");
+				var mikasa = CLIENT.emojis.get("655523518812913664");
+				var espinoza = CLIENT.emojis.get("615887132157804564");
+				var rageBrenn = CLIENT.emojis.get("668922988397068298");
+				
+				this.addMessage("*Dispair in IV acts.*");
+				this.addMessage("${brennUwu} ${mikasa}");
+				this.addMessage("${brennUwu} ${mikasa} ${espinoza}");
+				this.addMessage("${brennUwu}");
+				this.addMessage("${rageBrenn}");
+			}
 			this.addMessage("-----------------");
 			this.addMessage("You both take your turn to recover from this tragedy !");
 			
