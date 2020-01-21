@@ -3871,7 +3871,7 @@ class Duel {
 				var brennUwu = CLIENT.emojis.get("655449555873038337");
 				var mikasa = CLIENT.emojis.get("655523518812913664");
 				var espinoza = CLIENT.emojis.get("615887132157804564");
-				var rageBrenn = CLIENT.emojis.get("668922988397068298");
+				var rageBrenn = CLIENT.emojis.get("668946953681502248");
 				
 				this.addMessage("*Dispair in IV acts.*");
 				this.addMessage(`${brennUwu} ${mikasa}`);
