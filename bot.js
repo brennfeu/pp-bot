@@ -170,7 +170,7 @@ const GOD_PP18 = "650830165751889935"; // Salt King
 const GOD_PP19 = "644634924477055015"; // Chad Brenn
 const GOD_PP20 = "655523518812913664"; // Waifu
 const GOD_PP21 = "644617343456247829"; // D.I.C.K.
-const GOD_PP22 = EMOTE_PP16; // Satan
+const GOD_PP22 = "669581624026988578"; // Satan
 const GOD_PP23 = EMOTE_PP46; // Ancient Fongus
 const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP4, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
 		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
@@ -3304,7 +3304,7 @@ class Duel {
 						espinozaBoss = getRandomPercent() <= 10;
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP9) {
-						this.addMessage(this.CURRENT_BOSS + " is sent back to his eldritch realm !");
+						this.addMessage(this.CURRENT_BOSS + " is sent back to his Eldritch Realm !");
 						this.addMessage("You both win !");
 						this.bothFightersAction(function(_fighter) {
 							addWinCounter(_fighter, 1);
@@ -4972,7 +4972,7 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 				return user.send("You can't have more than 3 Gods.");
 			}
 			if (getNumberOfGods(user, ELDRITCH_PRIEST_ROLES) >= 1 && ELDRITCH_PRIEST_ROLES.indexOf(_nomRole) > -1) {
-				return user.send("You can't have more than 1 Eldritch Entity.");
+				return user.send("You can't have more than 1 Eldritch God.");
 			}
 			user.addRole(role);
 		}
