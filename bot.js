@@ -42,7 +42,7 @@ const PRIEST_ROLES = [GOD_PP1_PRIEST, GOD_PP2_PRIEST, GOD_PP3_PRIEST, GOD_PP4_PR
 const GOD_PP21_PRIEST = "D.I.C.K. Priest";
 const GOD_PP22_PRIEST = "Satan Priest";
 const GOD_PP23_PRIEST = "Ancient Fongus Priest";
-const ELDRITCH_PRIEST_ROLES = [GOD_PP22_PRIEST, GOD_PP23_PRIEST];
+const ELDRITCH_PRIEST_ROLES = [GOD_PP21_PRIEST, GOD_PP22_PRIEST, GOD_PP23_PRIEST];
 
 const EMOTE_SKIP = "TURN_SKIP";
 const EMOTE_DEAD = "IS_DEAD_LOL";
@@ -4964,7 +4964,6 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 				return user.send("You can't have more than 1 Eldritch Entity.");
 			}
 			user.addRole(role);
-			user.send("Role added : " + _nomRole);
 		}
 	}
 	catch(e) {
@@ -5525,8 +5524,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		else if (_reaction.emoji.id == GOD_PP22) {
 			changeRoleToStyler(GOD_PP22_PRIEST, _user.id, _reaction.message.channel.guild);
 		}
-		else if (_reaction.emoji.id == GOD_PP22) {
-			changeRoleToStyler(GOD_PP22_PRIEST, _user.id, _reaction.message.channel.guild);
+		else if (_reaction.emoji.id == GOD_PP23) {
+			changeRoleToStyler(GOD_PP23_PRIEST, _user.id, _reaction.message.channel.guild);
 		}
 		else if (_reaction.emoji.id == EMOTE_SKIPPER) {
 			var role = _reaction.message.channel.guild.roles.find(r => r.name == PP_SKIPPER_ROLE);
