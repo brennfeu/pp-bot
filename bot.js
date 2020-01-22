@@ -243,6 +243,7 @@ const BOSS_PP6 = "The PP-Net Hive-Mind";
 const BOSS_PP7 = "PP Terminator";
 const BOSS_PP8 = "Satan";
 const BOSS_PP9 = "Satan True Form";
+const BOSS_PP10 = "Espinoza Raid Boss";
 
 // MUSICS
 const MUSIC_PP1 = "none";
@@ -260,6 +261,7 @@ const MUSIC_PP10 = "brennijov_outro.mp3";
 const IMAGE_PP1 = "https://cdn.discordapp.com/attachments/616225633286094852/623080353807990784/image0.gif";
 const IMAGE_PP2 = "https://cdn.discordapp.com/attachments/616228498075549756/668824699551219722/bigboom.gif";
 const IMAGE_PP3 = "https://cdn.discordapp.com/attachments/667337519477817363/668846565284118598/ezgif.com-gif-maker.gif";
+const IMAGE_PP4 = "https://cdn.discordapp.com/attachments/523411977725411373/669513268464975892/image0.jpg";
 
 // IDs
 const ID_BRENNFEU = "234439428372824075";
@@ -3215,6 +3217,7 @@ class Duel {
 
 				// Cthulhu
 				if (this.EVENT_BOSS) {
+					var espinozaBoss = false;
 					if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP1) {
 						this.addMessage(this.CURRENT_BOSS + " goes back to sleep to heal his poor PP !");
 						this.addMessage("You both win !");
@@ -3227,6 +3230,7 @@ class Duel {
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP2) {
 						this.addMessage(this.CURRENT_BOSS + " will now stop making updates for some time !");
 						this.EVENT_BOSS = false;
+						espinozaBoss = getRandomPercent() <= 10;
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP3) {
 						this.addMessage(this.CURRENT_BOSS + " goes back hiding behind the moon !");
@@ -3306,6 +3310,7 @@ class Duel {
 						this.BOSS_HEALTH = 100000000;
 						this.BOSS_DAMAGE = 100000;
 						this.EVENT_BOSS = true;
+						espinozaBoss = getRandomPercent() <= 10;
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP9) {
 						this.addMessage(this.CURRENT_BOSS + " is sent back to his eldritch realm !");
@@ -3315,6 +3320,15 @@ class Duel {
 						});
 						this.EVENT_BOSS = false;
 						return this.stopDuel();
+					}
+					else if (espinozaBoss) {
+						this.addMessage(this.CURRENT_BOSS + " was only a mimic !");
+						this.addMessage(this.CURRENT_BOSS + " is in fact " + BOSS_PP10 + "\n" + IMAGE_PP4);
+						this.addMessage("-----------------");
+						this.CURRENT_BOSS = BOSS_PP10;
+						this.BOSS_HEALTH = 1000000;
+						this.BOSS_DAMAGE = 1000;
+						this.EVENT_BOSS = true;
 					}
 					else {
 						var fighter = this.getRandomFighter();
