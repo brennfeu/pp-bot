@@ -34,11 +34,15 @@ const GOD_PP17_PRIEST = "Hitler Priest";
 const GOD_PP18_PRIEST = "Salt King Priest";
 const GOD_PP19_PRIEST = "Chad Brenn Priest";
 const GOD_PP20_PRIEST = "Mikasa Priest";
-const GOD_PP21_PRIEST = "D.I.C.K. Priest";
 const PRIEST_ROLES = [GOD_PP1_PRIEST, GOD_PP2_PRIEST, GOD_PP3_PRIEST, GOD_PP4_PRIEST, GOD_PP5_PRIEST, GOD_PP6_PRIEST,
 		      GOD_PP7_PRIEST, GOD_PP8_PRIEST, GOD_PP9_PRIEST, GOD_PP10_PRIEST, GOD_PP11_PRIEST, GOD_PP12_PRIEST,
 		      GOD_PP13_PRIEST, GOD_PP14_PRIEST, GOD_PP15_PRIEST, GOD_PP16_PRIEST, GOD_PP17_PRIEST, GOD_PP18_PRIEST,
 		      GOD_PP19_PRIEST, GOD_PP20_PRIEST];
+
+const GOD_PP21_PRIEST = "D.I.C.K. Priest";
+const GOD_PP22_PRIEST = "Satan Priest";
+const GOD_PP23_PRIEST = "Ancient Fongus Priest";
+const ELDRITCH_PRIEST_ROLES = [GOD_PP22_PRIEST, GOD_PP23_PRIEST];
 
 const EMOTE_SKIP = "TURN_SKIP";
 const EMOTE_DEAD = "IS_DEAD_LOL";
@@ -175,8 +179,11 @@ const GOD_PP18 = "650830165751889935"; // Salt King
 const GOD_PP19 = "644634924477055015"; // Chad Brenn
 const GOD_PP20 = "655523518812913664"; // Waifu
 const GOD_PP21 = "644617343456247829"; // D.I.C.K.
+const GOD_PP22 = EMOTE_PP16; // Satan
+const GOD_PP23 = EMOTE_PP46; // Ancient Fongus
 const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP4, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
-		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21];
+		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
+		 GOD_PP22, GOD_PP23];
 
 const STAND_PP1 = "Iron Maiden";
 const STAND_PP2 = "The Boreal Flame";
@@ -592,21 +599,23 @@ class Fighter {
 			if (this.regularCharges > 0 || this.specialCharges > 0) {
 				txt += "\n\n**Faith :**"
 				var allGods = true;
-				for (var i in GOD_LIST) {
-					if (this.godList.indexOf(GOD_LIST[i]) <= -1) {
+				for (var i in PRIEST_ROLES) {
+					if (this.godList.indexOf(PRIEST_ROLES[i]) <= -1) {
 						allGods = false;
 					}
 				}
 				if (allGods) {
-					txt += "\n - *All of them*";
+					txt += "\n - *All Gods*";
+					for (var i in this.godList) {
+						if (PRIEST_ROLES.indexOf(this.godList[i]) < 0) {
+							txt += "\n - " + this.godList[i];
+						}
+					}
 				}
 				else {
 					for (var i in this.godList) {
 						txt += "\n - " + this.godList[i];
 					}
-				}
-				if (this.godList.indexOf(STAND_PP15) > -1) {
-					txt += "\n - " + STAND_PP15;
 				}
 				if (this.requiemPower != null) {
 					txt += "\n - **Requiem**";
@@ -790,7 +799,7 @@ class Fighter {
 		
 		if (this.standPower == null) {
 			txt += "\n**Synergies :**\n"
-			if (this.godList.length >= GOD_LIST.length) {
+			if (this.godList.length >= PRIEST_ROLES.length) {
 				txt += " - *All of them*";
 			}
 			else {
@@ -4949,7 +4958,10 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 		}
 		else {
 			if (getNumberOfGods(user) >= 3 && PRIEST_ROLES.indexOf(_nomRole) > -1) {
-				return user.send("You can't have more than 3 Gods");
+				return user.send("You can't have more than 3 Gods.");
+			}
+			if (getNumberOfGods(user, ELDRITCH_PRIEST_ROLES) >= 1 && ELDRITCH_PRIEST_ROLES.indexOf(_nomRole) > -1) {
+				return user.send("You can't have more than 1 Eldritch Entity.");
 			}
 			user.addRole(role);
 			user.send("Role added : " + _nomRole);
@@ -4960,10 +4972,10 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 		user.send("Looks like there is no " + _nomRole + " role there...");
 	}
 }
-function getNumberOfGods(_guildUser) {
+function getNumberOfGods(_guildUser, _godList = PRIEST_ROLES) {
 	var counter = 0;
-	for (var i in PRIEST_ROLES) {
-		if (_guildUser.roles.find(r => r.name == PRIEST_ROLES[i])) {
+	for (var i in _godList) {
+		if (_guildUser.roles.find(r => r.name == _godList[i])) {
 			counter++;
 		}
 	}
@@ -5231,7 +5243,8 @@ CLIENT.on("message", async _message => {
 			console.log(e);
 		});
 		_message.channel.send("Cheat Panel : Gods II").then(function (_message2) {
-			_message2.react(GOD_PP21); 
+			_message2.react(GOD_PP21); _message2.react(GOD_PP22); 
+			_message2.react(GOD_PP23); 
 		}).catch(function(e) {
 			console.log(e);
 		});
@@ -5346,6 +5359,8 @@ CLIENT.on("message", async _message => {
 		if (user.roles.find(r => r.name == PP_EXPERT_ROLE)) {
 			_message.reply("here are your PP expert choices.").then(function (_message2) {
 				_message2.react(GOD_PP21); // D.I.C.K.
+				_message2.react(GOD_PP22); // Satan
+				_message2.react(GOD_PP23); // Ancient Fongus
 				_message2.react(EMOTE_SKIPPER); // Skipper
 			}).catch(function(e) {
 				console.log(e);
@@ -5506,6 +5521,12 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	else if (_reaction.message.channel.guild.members.get(_user.id).roles.find(r => r.name == PP_EXPERT_ROLE)) {
 		if (_reaction.emoji.id == GOD_PP21) {
 			changeRoleToStyler(GOD_PP21_PRIEST, _user.id, _reaction.message.channel.guild);
+		}
+		else if (_reaction.emoji.id == GOD_PP22) {
+			changeRoleToStyler(GOD_PP22_PRIEST, _user.id, _reaction.message.channel.guild);
+		}
+		else if (_reaction.emoji.id == GOD_PP22) {
+			changeRoleToStyler(GOD_PP22_PRIEST, _user.id, _reaction.message.channel.guild);
 		}
 		else if (_reaction.emoji.id == EMOTE_SKIPPER) {
 			var role = _reaction.message.channel.guild.roles.find(r => r.name == PP_SKIPPER_ROLE);
