@@ -3874,10 +3874,11 @@ class Duel {
 				var rageBrenn = CLIENT.emojis.get("668946953681502248");
 				
 				this.addMessage("*Dispair in IV acts.*");
-				this.addMessage(`${brennUwu} ${mikasa}`);
-				this.addMessage(`${brennUwu} ${mikasa} ${espinoza}`);
-				this.addMessage(`${brennUwu}`);
-				this.addMessage(`${rageBrenn}`);
+				this.sendMessages();
+				this.BATTLE_CHANNEL.send(`${brennUwu} ${mikasa}`);
+				this.BATTLE_CHANNEL.send(`${brennUwu} ${mikasa} ${espinoza}`);
+				this.BATTLE_CHANNEL.send(`${brennUwu}`);
+				this.BATTLE_CHANNEL.send(`${rageBrenn}`);
 			}
 			this.addMessage("-----------------");
 			this.addMessage("You both take your turn to recover from this tragedy !");
@@ -4259,6 +4260,11 @@ class Duel {
 			// Perhaps
 			dont.slice(dont.indexOf(EMOTE_PP50), 1);
 		}
+		if (this.quickeningCharges < 10) {
+			// Satan Hand
+			dont.push(EMOTE_PP77);
+		}
+		
 		if (dont.indexOf(fighter.oldAttack) > -1) {
 			// Alert
 			dont.push(EMOTE_PP30);
@@ -4715,7 +4721,8 @@ class Duel {
 		if (getRandomPercent() <= 3) {
 			goodList = goodList.concat(RARE_EMOTE_LIST);
 		}
-		if (goodList.indexOf(EMOTE_PP77) > -1 && (this.FIGHTER1.quickeningCharges <= 10 || this.FIGHTER2.quickeningCharges <= 10)) {
+		if (goodList.indexOf(EMOTE_PP77) > -1 && (this.FIGHTER1.quickeningCharges < 10 || this.FIGHTER2.c < 10)) {
+			// Satan Hand
 			goodList = goodList.splice(goodList.indexOf(EMOTE_PP77), 1);
 		}
 
