@@ -128,7 +128,7 @@ const EMOTE_PP74 = "663738297687867405"; // Sword
 const EMOTE_PP75 = "664116840070512660"; // AcidShot
 const EMOTE_PP76 = "664845944252137494"; // EldritchPudding
 const EMOTE_PP77 = "668790615902912514"; // SatanHand
-const EMOTE_PP78 = ""; // 
+const EMOTE_PP78 = "669581624026988578"; // SatanSkull
 
 const EMOTE_PP79 = "667336163396288522"; // Eye of Truth
 const EMOTE_PP80 = "644617031739768842"; // Fherla
@@ -145,7 +145,7 @@ const NORMAL_EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5
 const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58, EMOTE_PP59, EMOTE_PP60,
 			   EMOTE_PP61, EMOTE_PP62];
 const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70,
-			  EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP77];
+			  EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP77, EMOTE_PP78];
 const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
 const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST);
 
@@ -170,7 +170,7 @@ const GOD_PP18 = "650830165751889935"; // Salt King
 const GOD_PP19 = "644634924477055015"; // Chad Brenn
 const GOD_PP20 = "655523518812913664"; // Waifu
 const GOD_PP21 = "644617343456247829"; // D.I.C.K.
-const GOD_PP22 = "669581624026988578"; // Satan
+const GOD_PP22 = EMOTE_PP16; // Satan
 const GOD_PP23 = EMOTE_PP46; // Ancient Fongus
 const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP4, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
 		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
@@ -2332,6 +2332,14 @@ class Fighter {
 			else if (attack == GOD_PP21) {
 				this.godList.push(GOD_PP21_PRIEST);
 				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP21_PRIEST + " !");
+			}
+			else if (attack == GOD_PP22) {
+				this.godList.push(GOD_PP22_PRIEST);
+				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP22_PRIEST + " !");
+			}
+			else if (attack == GOD_PP23) {
+				this.godList.push(GOD_PP23_PRIEST);
+				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP23_PRIEST + " !");
 			}
 			else if (attack == EMOTE_DEAD) {
 				// Dead (Cthulhu battle)
