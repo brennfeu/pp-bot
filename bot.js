@@ -4730,7 +4730,7 @@ class Duel {
 		if (getRandomPercent() <= 3) {
 			goodList = goodList.concat(RARE_EMOTE_LIST);
 		}
-		if (goodList.indexOf(EMOTE_PP77) > -1 && (this.FIGHTER1.quickeningCharges < 10 || this.FIGHTER2.c < 10)) {
+		if (goodList.indexOf(EMOTE_PP77) > -1 && (this.FIGHTER1.quickeningCharges < 10 || this.FIGHTER2.quickeningCharges < 10)) {
 			// Satan Hand
 			goodList = goodList.splice(goodList.indexOf(EMOTE_PP77), 1);
 		}
@@ -4954,7 +4954,6 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 	try {
 		if (user.roles.has(role.id)) {
 			user.removeRole(role);
-			user.send("Role removed : " + _nomRole);
 		}
 		else {
 			if (getNumberOfGods(user) >= 3 && PRIEST_ROLES.indexOf(_nomRole) > -1) {
