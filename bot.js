@@ -3339,7 +3339,7 @@ class Duel {
 						this.EVENT_BOSS = false;
 						return this.stopDuel();
 					}
-					else if (espinozaBoss) {
+					if (espinozaBoss) {
 						this.addMessage(this.CURRENT_BOSS + " was only a mimic !");
 						this.addMessage(this.CURRENT_BOSS + " is in fact " + BOSS_PP10 + "\n" + IMAGE_PP4);
 						this.addMessage("-----------------");
@@ -3348,7 +3348,7 @@ class Duel {
 						this.BOSS_DAMAGE = 1000;
 						this.EVENT_BOSS = true;
 					}
-					else {
+					if (this.EVENT_BOSS) {
 						var fighter = this.getRandomFighter();
 						this.addMessage(fighter.getName() + " gets attacked by " + this.CURRENT_BOSS + " !");
 						if (this.EVENT_BLOOD_MOON && this.CURRENT_BOSS == BOSS_PP3) { // Blood Moon / Moon Lord
