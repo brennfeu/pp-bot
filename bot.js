@@ -2917,10 +2917,6 @@ class Duel {
 			this.addMessage("**TIME FOR A DUEL**");
 		}
 		
-		this.addMessage("**===== CHEAT PANEL =====**");
-		this.sendMessages();
-		sendCheatPanel(this.BATTLE_CHANNEL);
-		
 		// Wild Start
 		if (getRandomPercent() <= 5) {
 			this.addMessage("**===== WILD START =====**");
