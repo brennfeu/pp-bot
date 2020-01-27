@@ -5405,6 +5405,7 @@ CLIENT.on("message", async _message => {
 				_message2.react(GOD_PP21); // D.I.C.K.
 				_message2.react(GOD_PP22); // Satan
 				_message2.react(GOD_PP23); // Ancient Fongus
+				_message2.react(GOD_PP24); // Time Cube
 				_message2.react(EMOTE_SKIPPER); // Skipper
 			}).catch(function(e) {
 				console.log(e);
