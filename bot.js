@@ -4694,7 +4694,7 @@ class Duel {
 				listeAttaques.push(emote);
 			}
 			else {
-				emote = EMOTE_P5;
+				emote = EMOTE_PP5;
 				while (listeAttaques.length < 5) {
 					if (listeAttaques.indexOf(emote) < 0) {
 						listeAttaques.push(emote);
