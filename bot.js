@@ -346,6 +346,7 @@ class Fighter {
 		this.requiemCooldown = 0;
 		this.extraLifeDuplication = null;
 		this.impendingDoom = 0;
+		this.redPillAddiction = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -693,6 +694,9 @@ class Fighter {
 		if (this.madnessStacks > 0) {
 			txt += " - Madness Stacks : " + this.madnessStacks + "\n";
 		}
+		if (this.redPillAddiction > 0) {
+			txt += " - RedPill Addiction : " + this.redPillAddiction + "\n";
+		}
 		if (this.ragingSpirit > 0) {
 			txt += " - Lost Soul Streak : " + this.ragingSpirit + "\n";
 		}
@@ -1029,8 +1033,9 @@ class Fighter {
 			else if (attack == EMOTE_PP18) {
 				// Red Pill
 				this.duel.addMessage(this.getName() + " gets a pill !");
-				this.STRValue += 5;
-				this.DEXValue += 3;
+				this.redPillAddiction += 1;
+				this.STRValue += 5*this.redPillAddiction;
+				this.DEXValue += 3*this.redPillAddiction;
 			}
 			else if (attack == EMOTE_PP19) {
 				// Pig
@@ -2120,6 +2125,12 @@ class Fighter {
 				else {
 					this.duel.addMessage(this.getName() + " needs more quickening charges to deal with it !");
 				}
+			}
+			else if (attack == EMOTE_PP78) {
+				// SatanSkull
+				this.duel.addMessage(this.getName() + " summons the Satan Horns !");
+				this.duel.getOppOf(this).damage(Math.floor(20 + this.STR / 8));
+				this.duel.getOppOf(this).damage(Math.floor(20 + this.STR / 8));
 			}
 			else if (attack == EMOTE_PP79) {
 				// Eye of Truth
@@ -3231,7 +3242,7 @@ class Duel {
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP2) {
 						this.addMessage(this.CURRENT_BOSS + " will now stop making updates for some time !");
 						this.EVENT_BOSS = false;
-						espinozaBoss = getRandomPercent() <= 10;
+						espinozaBoss = getRandomPercent() <= 20;
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP3) {
 						this.addMessage(this.CURRENT_BOSS + " goes back hiding behind the moon !");
@@ -3311,7 +3322,8 @@ class Duel {
 						this.BOSS_HEALTH = 100000000;
 						this.BOSS_DAMAGE = 100000;
 						this.EVENT_BOSS = true;
-						espinozaBoss = getRandomPercent() <= 10;
+						
+						espinozaBoss = getRandomPercent() <= 20;
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP9) {
 						this.addMessage(this.CURRENT_BOSS + " is sent back to his Eldritch Realm !");
@@ -4820,6 +4832,7 @@ class Duel {
 			case EMOTE_PP17:
 			case EMOTE_PP4:
 			case EMOTE_PP46:
+			case EMOTE_PP78:
 				return -20;
 			case EMOTE_PP2:
 			case EMOTE_PP6:
