@@ -172,6 +172,7 @@ const GOD_PP20 = "655523518812913664"; // Waifu
 const GOD_PP21 = "644617343456247829"; // D.I.C.K.
 const GOD_PP22 = EMOTE_PP16; // Satan
 const GOD_PP23 = EMOTE_PP46; // Ancient Fongus
+// const GOD_PP24 = ""; // Time Cube
 const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP4, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
 		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
 		 GOD_PP22, GOD_PP23];
@@ -2915,6 +2916,10 @@ class Duel {
 			this.addMessage("**TIME FOR A DUEL**");
 		}
 		
+		this.addMessage("**===== CHEAT PANEL =====**");
+		this.sendMessages();
+		sendCheatPanel(this.BATTLE_CHANNEL);
+		
 		// Wild Start
 		if (getRandomPercent() <= 5) {
 			this.addMessage("**===== WILD START =====**");
@@ -5005,6 +5010,98 @@ function getNumberOfGods(_guildUser, _godList = PRIEST_ROLES) {
 	return counter;
 }
 
+function sendCheatPanel(_channel) {
+	_channel.send("Cheat Panel : Normal Moves I").then(function (_message2) {
+		_message2.react(EMOTE_PP1); _message2.react(EMOTE_PP2);
+		_message2.react(EMOTE_PP3); _message2.react(EMOTE_PP4);
+		_message2.react(EMOTE_PP5); _message2.react(EMOTE_PP6);
+		_message2.react(EMOTE_PP7); _message2.react(EMOTE_PP8);
+		_message2.react(EMOTE_PP9); _message2.react(EMOTE_PP10);
+		_message2.react(EMOTE_PP11); _message2.react(EMOTE_PP12);
+		_message2.react(EMOTE_PP13); _message2.react(EMOTE_PP14);
+		_message2.react(EMOTE_PP15); _message2.react(EMOTE_PP16);
+		_message2.react(EMOTE_PP17); _message2.react(EMOTE_PP18);
+		_message2.react(EMOTE_PP19); _message2.react(EMOTE_PP20);
+	}).catch(function(e) {
+		console.log(e);
+	});
+	_channel.send("Cheat Panel : Normal Moves II").then(function (_message2) {
+		_message2.react(EMOTE_PP21); _message2.react(EMOTE_PP22);
+		_message2.react(EMOTE_PP23); _message2.react(EMOTE_PP24);
+		_message2.react(EMOTE_PP25); _message2.react(EMOTE_PP26);
+		_message2.react(EMOTE_PP27); _message2.react(EMOTE_PP28);
+		_message2.react(EMOTE_PP29); _message2.react(EMOTE_PP30);
+		_message2.react(EMOTE_PP31); _message2.react(EMOTE_PP32);
+		_message2.react(EMOTE_PP33); _message2.react(EMOTE_PP34);
+		_message2.react(EMOTE_PP35); _message2.react(EMOTE_PP36);
+		_message2.react(EMOTE_PP37); _message2.react(EMOTE_PP38);
+		_message2.react(EMOTE_PP39); _message2.react(EMOTE_PP40);
+	}).catch(function(e) {
+		console.log(e);
+	});
+	_channel.send("Cheat Panel : Normal Moves III").then(function (_message2) {
+		_message2.react(EMOTE_PP41); _message2.react(EMOTE_PP42);
+		_message2.react(EMOTE_PP43); _message2.react(EMOTE_PP44);
+		_message2.react(EMOTE_PP45); _message2.react(EMOTE_PP46);
+		_message2.react(EMOTE_PP47); _message2.react(EMOTE_PP48);
+		_message2.react(EMOTE_PP49); _message2.react(EMOTE_PP50);
+	}).catch(function(e) {
+		console.log(e);
+	});
+	_channel.send("Cheat Panel : Priest Moves").then(function (_message2) {
+		_message2.react(EMOTE_PP51); _message2.react(EMOTE_PP52);
+	}).catch(function(e) {
+		console.log(e);
+	});
+	_channel.send("Cheat Panel : Animated Moves").then(function (_message2) {
+		_message2.react(EMOTE_PP53); _message2.react(EMOTE_PP54);
+		_message2.react(EMOTE_PP55); _message2.react(EMOTE_PP56);
+		_message2.react(EMOTE_PP57); _message2.react(EMOTE_PP58);
+		_message2.react(EMOTE_PP59); _message2.react(EMOTE_PP60);
+		_message2.react(EMOTE_PP61); _message2.react(EMOTE_PP62);
+	}).catch(function(e) {
+		console.log(e);
+	});
+	_channel.send("Cheat Panel : Stånds Moves").then(function (_message2) {
+		_message2.react(EMOTE_PP63); _message2.react(EMOTE_PP64);
+		_message2.react(EMOTE_PP65); _message2.react(EMOTE_PP66);
+		_message2.react(EMOTE_PP67); _message2.react(EMOTE_PP68);
+		_message2.react(EMOTE_PP69); _message2.react(EMOTE_PP70);
+		_message2.react(EMOTE_PP71); _message2.react(EMOTE_PP72);
+		_message2.react(EMOTE_PP73); _message2.react(EMOTE_PP74);
+		_message2.react(EMOTE_PP75); _message2.react(EMOTE_PP76);
+		_message2.react(EMOTE_PP77); // _message2.react(EMOTE_PP78);
+	}).catch(function(e) {
+		console.log(e);
+	});
+	_channel.send("Cheat Panel : Rare Moves").then(function (_message2) {
+		_message2.react(EMOTE_PP79); _message2.react(EMOTE_PP80);
+		_message2.react(EMOTE_PP81);
+	}).catch(function(e) {
+		console.log(e);
+	});
+	_channel.send("Cheat Panel : Gods I").then(function (_message2) {
+		_message2.react(GOD_PP1); _message2.react(GOD_PP2);
+		_message2.react(GOD_PP3); _message2.react(GOD_PP4);
+		_message2.react(GOD_PP5); _message2.react(GOD_PP6);
+		_message2.react(GOD_PP7); _message2.react(GOD_PP8);
+		_message2.react(GOD_PP9); _message2.react(GOD_PP10);
+		_message2.react(GOD_PP11); _message2.react(GOD_PP12);
+		_message2.react(GOD_PP13); _message2.react(GOD_PP14);
+		_message2.react(GOD_PP15); _message2.react(GOD_PP16);
+		_message2.react(GOD_PP17); _message2.react(GOD_PP18);
+		_message2.react(GOD_PP19); _message2.react(GOD_PP20);
+	}).catch(function(e) {
+		console.log(e);
+	});
+	_channel.send("Cheat Panel : Gods II").then(function (_message2) {
+		_message2.react(GOD_PP21); _message2.react(GOD_PP22); 
+		_message2.react(GOD_PP23); 
+	}).catch(function(e) {
+		console.log(e);
+	});
+}
+
 function changeTextUwu(_texte) {
 	var lettres = [];
 			
@@ -5182,95 +5279,7 @@ CLIENT.on("message", async _message => {
 		return _message.reply("sorry, global ranks are not availables atm :/");
 	}
 	if (argsUser[1] == "cheatpanel") {
-		_message.channel.send("Cheat Panel : Normal Moves I").then(function (_message2) {
-			_message2.react(EMOTE_PP1); _message2.react(EMOTE_PP2);
-			_message2.react(EMOTE_PP3); _message2.react(EMOTE_PP4);
-			_message2.react(EMOTE_PP5); _message2.react(EMOTE_PP6);
-			_message2.react(EMOTE_PP7); _message2.react(EMOTE_PP8);
-			_message2.react(EMOTE_PP9); _message2.react(EMOTE_PP10);
-			_message2.react(EMOTE_PP11); _message2.react(EMOTE_PP12);
-			_message2.react(EMOTE_PP13); _message2.react(EMOTE_PP14);
-			_message2.react(EMOTE_PP15); _message2.react(EMOTE_PP16);
-			_message2.react(EMOTE_PP17); _message2.react(EMOTE_PP18);
-			_message2.react(EMOTE_PP19); _message2.react(EMOTE_PP20);
-		}).catch(function(e) {
-			console.log(e);
-		});
-		_message.channel.send("Cheat Panel : Normal Moves II").then(function (_message2) {
-			_message2.react(EMOTE_PP21); _message2.react(EMOTE_PP22);
-			_message2.react(EMOTE_PP23); _message2.react(EMOTE_PP24);
-			_message2.react(EMOTE_PP25); _message2.react(EMOTE_PP26);
-			_message2.react(EMOTE_PP27); _message2.react(EMOTE_PP28);
-			_message2.react(EMOTE_PP29); _message2.react(EMOTE_PP30);
-			_message2.react(EMOTE_PP31); _message2.react(EMOTE_PP32);
-			_message2.react(EMOTE_PP33); _message2.react(EMOTE_PP34);
-			_message2.react(EMOTE_PP35); _message2.react(EMOTE_PP36);
-			_message2.react(EMOTE_PP37); _message2.react(EMOTE_PP38);
-			_message2.react(EMOTE_PP39); _message2.react(EMOTE_PP40);
-		}).catch(function(e) {
-			console.log(e);
-		});
-		_message.channel.send("Cheat Panel : Normal Moves III").then(function (_message2) {
-			_message2.react(EMOTE_PP41); _message2.react(EMOTE_PP42);
-			_message2.react(EMOTE_PP43); _message2.react(EMOTE_PP44);
-			_message2.react(EMOTE_PP45); _message2.react(EMOTE_PP46);
-			_message2.react(EMOTE_PP47); _message2.react(EMOTE_PP48);
-			_message2.react(EMOTE_PP49); _message2.react(EMOTE_PP50);
-		}).catch(function(e) {
-			console.log(e);
-		});
-		_message.channel.send("Cheat Panel : Priest Moves").then(function (_message2) {
-			_message2.react(EMOTE_PP51); _message2.react(EMOTE_PP52);
-		}).catch(function(e) {
-			console.log(e);
-		});
-		_message.channel.send("Cheat Panel : Animated Moves").then(function (_message2) {
-			_message2.react(EMOTE_PP53); _message2.react(EMOTE_PP54);
-			_message2.react(EMOTE_PP55); _message2.react(EMOTE_PP56);
-			_message2.react(EMOTE_PP57); _message2.react(EMOTE_PP58);
-			_message2.react(EMOTE_PP59); _message2.react(EMOTE_PP60);
-			_message2.react(EMOTE_PP61); _message2.react(EMOTE_PP62);
-		}).catch(function(e) {
-			console.log(e);
-		});
-		_message.channel.send("Cheat Panel : Stånds Moves").then(function (_message2) {
-			_message2.react(EMOTE_PP63); _message2.react(EMOTE_PP64);
-			_message2.react(EMOTE_PP65); _message2.react(EMOTE_PP66);
-			_message2.react(EMOTE_PP67); _message2.react(EMOTE_PP68);
-			_message2.react(EMOTE_PP69); _message2.react(EMOTE_PP70);
-			_message2.react(EMOTE_PP71); _message2.react(EMOTE_PP72);
-			_message2.react(EMOTE_PP73); _message2.react(EMOTE_PP74);
-			_message2.react(EMOTE_PP75); _message2.react(EMOTE_PP76);
-			_message2.react(EMOTE_PP77); // _message2.react(EMOTE_PP78);
-		}).catch(function(e) {
-			console.log(e);
-		});
-		_message.channel.send("Cheat Panel : Rare Moves").then(function (_message2) {
-			_message2.react(EMOTE_PP79); _message2.react(EMOTE_PP80);
-			_message2.react(EMOTE_PP81);
-		}).catch(function(e) {
-			console.log(e);
-		});
-		_message.channel.send("Cheat Panel : Gods I").then(function (_message2) {
-			_message2.react(GOD_PP1); _message2.react(GOD_PP2);
-			_message2.react(GOD_PP3); _message2.react(GOD_PP4);
-			_message2.react(GOD_PP5); _message2.react(GOD_PP6);
-			_message2.react(GOD_PP7); _message2.react(GOD_PP8);
-			_message2.react(GOD_PP9); _message2.react(GOD_PP10);
-			_message2.react(GOD_PP11); _message2.react(GOD_PP12);
-			_message2.react(GOD_PP13); _message2.react(GOD_PP14);
-			_message2.react(GOD_PP15); _message2.react(GOD_PP16);
-			_message2.react(GOD_PP17); _message2.react(GOD_PP18);
-			_message2.react(GOD_PP19); _message2.react(GOD_PP20);
-		}).catch(function(e) {
-			console.log(e);
-		});
-		_message.channel.send("Cheat Panel : Gods II").then(function (_message2) {
-			_message2.react(GOD_PP21); _message2.react(GOD_PP22); 
-			_message2.react(GOD_PP23); 
-		}).catch(function(e) {
-			console.log(e);
-		});
+		sendCheatPanel(_message.channel);
 		return;
 	}
 	if (argsUser[1] == "training") {
