@@ -42,7 +42,8 @@ const PRIEST_ROLES = [GOD_PP1_PRIEST, GOD_PP2_PRIEST, GOD_PP3_PRIEST, GOD_PP4_PR
 const GOD_PP21_PRIEST = "D.I.C.K. Priest";
 const GOD_PP22_PRIEST = "Satan Priest";
 const GOD_PP23_PRIEST = "Ancient Fongus Priest";
-const ELDRITCH_PRIEST_ROLES = [GOD_PP21_PRIEST, GOD_PP22_PRIEST, GOD_PP23_PRIEST];
+const GOD_PP24_PRIEST = "Time Cube Priest";
+const ELDRITCH_PRIEST_ROLES = [GOD_PP21_PRIEST, GOD_PP22_PRIEST, GOD_PP23_PRIEST, GOD_PP24_PRIEST];
 
 const EMOTE_SKIP = "TURN_SKIP";
 const EMOTE_DEAD = "IS_DEAD_LOL";
@@ -155,9 +156,9 @@ const GOD_PP18 = "650830165751889935"; // Salt King
 const GOD_PP19 = "644634924477055015"; // Chad Brenn
 const GOD_PP20 = "655523518812913664"; // Waifu
 const GOD_PP21 = "644617343456247829"; // D.I.C.K.
-const GOD_PP22 = EMOTE_PP16; // Satan
-const GOD_PP23 = EMOTE_PP46; // Ancient Fongus
-// const GOD_PP24 = ""; // Time Cube
+const GOD_PP22 = "671344081841946625"; // Satan
+const GOD_PP23 = "671347173270618112"; // Ancient Fongus
+const GOD_PP24 = "671347614431576065"; // Time Cube
 
 // DON'T FORGET TO ADD TO THE CHEAT PANEL
 const NORMAL_EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, 
@@ -175,7 +176,7 @@ const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_
 const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
 const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP4, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
 		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
-		 GOD_PP22, GOD_PP23];
+		 GOD_PP22, GOD_PP23, GOD_PP24];
 const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST).concat(GOD_LIST);
 
 const STAND_PP1 = "Iron Maiden";
@@ -1385,12 +1386,6 @@ class Fighter {
 				if (this.regularCharges > 0 && sdsds == 0) {
 					this.regularCharges -= 1;
 				}
-				else if (this.godList.indexOf(GOD_PP21_PRIEST) > -1 && sdsds == 0) { // D.I.C.K.
-					this.duel.addMessage("-----------------");
-					this.duel.addMessage("D.I.C.K. is disappointed in " + this.getName() + " !");
-					this.playMove(EMOTE_PP47);
-					return;
-				}
 				if (this.godList.indexOf(STAND_PP15) > -1) { // House of Atreus
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Atreus answers his calls !");
@@ -1592,12 +1587,6 @@ class Fighter {
 				this.duel.addMessage(this.getName() + " calls for superior powers !");
 				if (this.specialCharges > 0 && sdsds == 0) {
 					this.specialCharges -= 1;
-				}
-				else if (this.godList.indexOf(GOD_PP21_PRIEST) > -1 && sdsds == 0) { // D.I.C.K.
-					this.duel.addMessage("-----------------");
-					this.duel.addMessage("D.I.C.K. is disappointed in " + this.getName() + " !");
-					this.playMove(EMOTE_PP47);
-					return;
 				}
 				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1) { // Mongo
 					this.duel.addMessage("-----------------");
@@ -2353,6 +2342,10 @@ class Fighter {
 			else if (attack == GOD_PP23) {
 				this.godList.push(GOD_PP23_PRIEST);
 				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP23_PRIEST + " !");
+			}
+			else if (attack == GOD_PP24) {
+				this.godList.push(GOD_PP24_PRIEST);
+				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP24_PRIEST + " !");
 			}
 			else if (attack == EMOTE_DEAD) {
 				// Dead (Cthulhu battle)
@@ -5115,7 +5108,7 @@ function sendCheatPanel(_channel) {
 	});
 	_channel.send("Cheat Panel : Gods II").then(function (_message2) {
 		_message2.react(GOD_PP21); _message2.react(GOD_PP22); 
-		_message2.react(GOD_PP23); 
+		_message2.react(GOD_PP23); _message2.react(GOD_PP24); 
 	}).catch(function(e) {
 		console.log(e);
 	});
@@ -5578,6 +5571,9 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		}
 		else if (_reaction.emoji.id == GOD_PP23) {
 			changeRoleToStyler(GOD_PP23_PRIEST, _user.id, _reaction.message.channel.guild);
+		}
+		else if (_reaction.emoji.id == GOD_PP24) {
+			changeRoleToStyler(GOD_PP24_PRIEST, _user.id, _reaction.message.channel.guild);
 		}
 		else if (_reaction.emoji.id == EMOTE_SKIPPER) {
 			var role = _reaction.message.channel.guild.roles.find(r => r.name == PP_SKIPPER_ROLE);
