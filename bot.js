@@ -3241,8 +3241,11 @@ class Duel {
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP2) {
 						this.addMessage(this.CURRENT_BOSS + " will now stop making updates for some time !");
+						this.addMessage("-----------------");
 						this.EVENT_BOSS = false;
 						espinozaBoss = getRandomPercent() <= 20;
+						console.log(espinozaBoss);
+						console.log(getRandomPercent() <= 80)
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP3) {
 						this.addMessage(this.CURRENT_BOSS + " goes back hiding behind the moon !");
@@ -3268,6 +3271,7 @@ class Duel {
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP4) {
 						this.addMessage(this.CURRENT_BOSS + " will leave you alone for a bit !");
+						this.addMessage("-----------------");
 						this.EVENT_BOSS = false;
 						if (this.PP_NET == 3 || this.PP_NET == 4) {
 							this.FORCE_EVENT_ID = 29;
@@ -3275,6 +3279,7 @@ class Duel {
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP5) {
 						this.addMessage(this.CURRENT_BOSS + " is destroyed !");
+						this.addMessage("-----------------");
 						this.EVENT_BOSS = false;
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP6) {
