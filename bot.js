@@ -3796,7 +3796,7 @@ class Duel {
 				_fighter.playMove(EMOTE_PP49);
 			});
 		}
-		else if ([9, 10, 11, 12, 13, 14, 15, 16, 17, 18].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 10 || forcedEvent)) {
+		else if ([9, 10, 11, 12, 13, 14, 15, 16, 17, 18].indexOf(randomVar) > -1) {
 			// Charge
 			this.addMessage(" -- GODS BIRTHDAY GIFTS --");
 			if (this.STAND_BATTLE) {
@@ -3809,7 +3809,7 @@ class Duel {
 				});
 			}
 		}
-		else if ([19, 20, 21].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 10 || forcedEvent)) {
+		else if ([19, 20, 21].indexOf(randomVar) > -1) {
 			// Charge
 			this.addMessage(" -- GODS CHRISTMAS GIFTS --");
 			if (this.STAND_BATTLE) {
@@ -4640,57 +4640,62 @@ class Duel {
 			else {
 				listeAttaques.push(EMOTE_PP1);
 			}
+			
 			// Attaque 2
-			if (getRandomPercent() > 20) {
-				emote = this.getRandomEmote();
-				if (listeAttaques.indexOf(emote) < 0) {
-					listeAttaques.push(emote);
-				}
-				else {
-					listeAttaques.push(EMOTE_PP2);
-				}
+			emote = this.getRandomEmote();
+			if (getRandomPercent() > 20 && listeAttaques.indexOf(emote) < 0) {
+				listeAttaques.push(emote);
 			}
 			else {
-				listeAttaques.push(EMOTE_PP2);
+				emote = EMOTE_PP2;
+				while (listeAttaques.length < 2) {
+					if (listeAttaques.indexOf(emote) < 0) {
+						listeAttaques.push(emote);
+					}
+					emote = this.getRandomEmote();
+				}
 			}
 			// Attaque 3
-			if (getRandomPercent() > 20) {
-				emote = this.getRandomEmote();
-				if (listeAttaques.indexOf(emote) < 0) {
-					listeAttaques.push(emote);
-				}
-				else {
-					listeAttaques.push(EMOTE_PP3);
-				}
+			emote = this.getRandomEmote();
+			if (getRandomPercent() > 20 && listeAttaques.indexOf(emote) < 0) {
+				listeAttaques.push(emote);
 			}
 			else {
-				listeAttaques.push(EMOTE_PP3);
+				emote = EMOTE_PP3;
+				while (listeAttaques.length < 3) {
+					if (listeAttaques.indexOf(emote) < 0) {
+						listeAttaques.push(emote);
+					}
+					emote = this.getRandomEmote();
+				}
 			}
 			// Attaque 4
-			if (getRandomPercent() > 20) {
-				emote = this.getRandomEmote();
-				if (listeAttaques.indexOf(emote) < 0) {
-					listeAttaques.push(emote);
-				}
-				else {
-					listeAttaques.push(EMOTE_PP4);
-				}
+			emote = this.getRandomEmote();
+			if (getRandomPercent() > 20 && listeAttaques.indexOf(emote) < 0) {
+				listeAttaques.push(emote);
 			}
 			else {
-				listeAttaques.push(EMOTE_PP4);
+				emote = EMOTE_PP4;
+				while (listeAttaques.length < 4) {
+					if (listeAttaques.indexOf(emote) < 0) {
+						listeAttaques.push(emote);
+					}
+					emote = this.getRandomEmote();
+				}
 			}
 			// Attaque 5
-			if (getRandomPercent() > 20) {
-				emote = this.getRandomEmote();
-				if (listeAttaques.indexOf(emote) < 0) {
-					listeAttaques.push(emote);
-				}
-				else {
-					listeAttaques.push(EMOTE_PP5);
-				}
+			emote = this.getRandomEmote();
+			if (getRandomPercent() > 20 && listeAttaques.indexOf(emote) < 0) {
+				listeAttaques.push(emote);
 			}
 			else {
-				listeAttaques.push(EMOTE_PP5);
+				emote = EMOTE_P5;
+				while (listeAttaques.length < 5) {
+					if (listeAttaques.indexOf(emote) < 0) {
+						listeAttaques.push(emote);
+					}
+					emote = this.getRandomEmote();
+				}
 			}
 		}
 		
