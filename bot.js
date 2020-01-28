@@ -4770,7 +4770,7 @@ class Duel {
 		var goodList = [];
 		
 		for (var i in NORMAL_EMOTE_LIST) {
-			if ([EMOTE_PP36, EMOTE_PP47].indexof(NORMAL_EMOTE_LIST[i]) < 0) {
+			if ([EMOTE_PP36, EMOTE_PP47].indexOf(NORMAL_EMOTE_LIST[i]) < 0) {
 				if (this.getRisk(NORMAL_EMOTE_LIST[i]) == 0) {
 					legalList.push(NORMAL_EMOTE_LIST[i]);
 				}
