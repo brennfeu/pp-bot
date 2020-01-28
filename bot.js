@@ -4771,9 +4771,7 @@ class Duel {
 		if (legalList.indexOf(EMOTE_PP36) > -1) {
 			legalList = legalList.splice(legalList.indexOf(EMOTE_PP36), 1);
 		}
-		else {
-			illegalList = illegalList.splice(illegalList.indexOf(EMOTE_PP36), 1);
-		}
+		illegalList = illegalList.splice(illegalList.indexOf(EMOTE_PP36), 1);
 		
 		var goodList;
 		if (_canBeIllegal) {
