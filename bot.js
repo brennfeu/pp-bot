@@ -4497,15 +4497,6 @@ class Duel {
 			return;
 		}
 
-		// Steel
-		if (this.FIGHTER1.attack == EMOTE_PP11 || this.FIGHTER2.attack == EMOTE_PP11) {
-			this.STEEL_PROTECTION = true;
-		}
-		// Barrel
-		if (this.FIGHTER1.attack == EMOTE_PP29 || this.FIGHTER2.attack == EMOTE_PP29) {
-			this.BARREL_DAMAGE = true;
-		}
-
 		// ExclamationPoint
 		this.bothFightersAction(function(_fighter) {
 			if (_fighter.attack == EMOTE_PP30) {
@@ -4515,6 +4506,15 @@ class Duel {
 				_fighter.oldAttack = _fighter.attack;
 			}
 		});
+		
+		// Steel
+		if (this.FIGHTER1.attack == EMOTE_PP11 || this.FIGHTER2.attack == EMOTE_PP11) {
+			this.STEEL_PROTECTION = true;
+		}
+		// Barrel
+		if (this.FIGHTER1.attack == EMOTE_PP29 || this.FIGHTER2.attack == EMOTE_PP29) {
+			this.BARREL_DAMAGE = true;
+		}
 
 		var winner = this.FIGHTER2;
 		if (dexAttack1 > dexAttack2) {
@@ -5221,7 +5221,8 @@ function changeTextRandomSpoil(_texte) {
 	return _texte;
 }
 function changeTextChristian(_texte) {
-	_texte = _texte.replace(/pp/gi, "Power Puff Girl");
+	_texte = _texte.replace("PP", "Power Puff Girl");
+	_texte = _texte.replace("Pp", "Power Puff Girl");
 	_texte = _texte.replace(/hitler/gi, "Angry German");
 	_texte = _texte.replace(/jew/gi, "infidel");
 	_texte = _texte.replace(/dick/gi, "Richard");
@@ -5232,6 +5233,7 @@ function changeTextChristian(_texte) {
 	_texte = _texte.replace(/kidney stone/gi, "volleyball");
 	_texte = _texte.replace(/circumcised/gi, "trims");
 	_texte = _texte.replace(/punches/gi, "hugs");
+	_texte = _texte.replace(/punching/gi, "hugging");
 	_texte = _texte.replace(/punch/gi, "hug");
 	_texte = _texte.replace(/dong/gi, "dog");
 	_texte = _texte.replace(/espinoza/gi, "Uncle");
