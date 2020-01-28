@@ -4038,11 +4038,31 @@ class Duel {
 				this.CURRENT_BOSS = BOSS_PP8;
 			}
 		}
+		else if (randomVar == 34 && (this.MOVE_COUNT >= 100 || forcedEvent)) {
+			// Ascension Requiem
+			this.addMessage(" -- ASCENSION REQUIEM --");
+			var winner = this.getRandomFighter();
+			this.addMessage(winner.getName() + " accidentaly plays Ascend [EarRape Version] 20k Subscribers Special on his phone !");
+			this.bothFightersAction(function(_fighter) {
+				_fighter.quickeningCharges += 10;
+				_fighter.playMove(EMOTE_PP77);
+			});
+			
+		}
+		else if (randomVar == 35 && !this.STAND_BATTLE) {
+			// BIZARRE PP
+			this.addMessage(" -- BIZARRE PP BATTLE --");
+			this.bothFightersAction(function(_fighter) {
+				var liste = Object.keys(STAND_SUMMONS);
+				_fighter.currentStand = liste[Math.floor(Math.random()*liste.length)];
+				_fighter.duel.addMessage(_fighter.getName() + " summons the Stånd : " + _fighter.currentStand);
+			});
+		}
 		else if (randomVar == 90 && (this.MOVE_COUNT >= 50 || forcedEvent)) {
 			// Brenn Ejaculates
 			this.addMessage(" -- BRENN EJACULATES --");
 			this.addMessage("For some reasons, this summons every event !");
-			var idList = [2, 3, 4, 6, 7, 8, 9, 19, 22, 23, 26, 32];
+			var idList = shuffleArray([2, 3, 4, 6, 7, 8, 9, 19, 22, 23, 26, 32, 34, 35]);
 			for (var i = 0; i < idList.length; i++) {
 				this.FORCE_EVENT_ID = idList[i];
 				this.startRandomEvent();
@@ -5210,6 +5230,14 @@ function changeTextChristian(_texte) {
 	_texte = _texte.replace(/terrorist/gi, "Muslim"); // That's racist :o
 	_texte = _texte.replace("SEXUAL CONFUSION", "ROMANTIC TENSION");
 	return _texte;
+}
+function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
 }
 
 function cloneObject(obj) {
