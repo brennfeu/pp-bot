@@ -1581,7 +1581,7 @@ class Fighter {
 					this.isOverCircumcised = true;
 					this.DEXValue += 10;
 				}
-				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // Time Cube
+				if (this.godList.indexOf(GOD_PP23_PRIEST) > -1) { // Time Cube
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Time Cube answers his calls !");
 					this.duel.addMessage(this.getName() + " stops time !");
@@ -4353,7 +4353,7 @@ class Duel {
 			dont.push(EMOTE_PP30);
 		}
 		for (i = 0; i < EMOTE_LIST.length; i++) {
-			if (this.getDexChange(EMOTE_LIST[i]) < 0 && fighter.DEX + this.getDexChange(EMOTE_LIST[i]) < this.getOppOf(fighter).DEX) {
+			if (fighter.DEX + this.getDexChange(EMOTE_LIST[i]) + 20 < this.getOppOf(fighter).DEX) {
 				// No move with shitty DEX
 				dont.push(EMOTE_LIST[i]);
 			}
@@ -4369,7 +4369,6 @@ class Duel {
 			nbTries += 1;
 		}
 		
-		// Random Emote
 		this.triggerReaction(CLIENT.emojis.get(emote).name, this.FIGHTER2.user);
 	}
 	launchAttacks() {
