@@ -1985,11 +1985,17 @@ class Fighter {
 				var duel = this.duel;
 				duel.FIGHTER1.duel = null;
 				duel.FIGHTER2.duel = null;
+				duel.FIGHTER1_SAVE.duel = null;
+				duel.FIGHTER2_SAVE.duel = null;
 				duel.CHECKPOINT_DUEL = cloneObject(duel);
 				duel.FIGHTER1.duel = duel;
 				duel.FIGHTER2.duel = duel;
 				duel.CHECKPOINT_DUEL.FIGHTER1.duel = duel.CHECKPOINT_DUEL;
 				duel.CHECKPOINT_DUEL.FIGHTER2.duel = duel.CHECKPOINT_DUEL;
+				duel.FIGHTER1_SAVE.duel = duel;
+				duel.FIGHTER2_SAVE.duel = duel;
+				duel.CHECKPOINT_DUEL.FIGHTER1_SAVE.duel = duel.CHECKPOINT_DUEL;
+				duel.CHECKPOINT_DUEL.FIGHTER2_SAVE.duel = duel.CHECKPOINT_DUEL;
 			}
 			else if (attack == EMOTE_PP63) {
 				// Xenomorph
@@ -2109,7 +2115,12 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage(this.getName() + " evolves to Requiem !");
 					this.requiemPower = REQUIEM_LIST[Math.floor(Math.random()*REQUIEM_LIST.length)];
-					this.guildUser.send("**Requiem Acquired : " + this.requiemPower + "**");
+					try {
+						this.guildUser.send("**Requiem Acquired : " + this.requiemPower + "**");
+					}
+					catch(e) {
+						// User = Bot
+					}
 				}
 				else {
 					this.duel.addMessage(this.getName() + " needs more quickening charges to deal with it !");
@@ -4047,6 +4058,7 @@ class Duel {
 				_fighter.quickeningCharges += 10;
 				_fighter.playMove(EMOTE_PP77);
 			});
+			this.STAND_BATTLE = true;
 			
 		}
 		else if (randomVar == 35 && !this.STAND_BATTLE) {
