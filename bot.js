@@ -1581,6 +1581,12 @@ class Fighter {
 					this.isOverCircumcised = true;
 					this.DEXValue += 10;
 				}
+				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // Time Cube
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("The Time Cube answers his calls !");
+					this.duel.addMessage(this.getName() + " stops time !");
+					this.TIME_STOP = 2;
+				}
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
@@ -3537,7 +3543,7 @@ class Duel {
 				_fighter.attack = EMOTE_DEAD;
 				_fighter.STRValue = -10;
 			}
-			if (_fighter.duel.TIME_STOP > 0 && _fighter.requiemPower == null) { // if weak --> skip time skip
+			if (_fighter.duel.TIME_STOP > 0 && _fighter.requiemPower == null && _fighter.godList.indexOf(GOD_PP23_PRIEST) < 0) { // if weak --> skip time skip
 				_fighter.attack = EMOTE_SKIP;
 			}
 		});
@@ -4103,7 +4109,7 @@ class Duel {
 		this.bothFightersAction(function(_fighter) {
 			var duel = _fighter.duel
 			
-			if (_fighter.duel.TIME_STOP > 0 && _fighter.requiemPower == null) { // if weak --> skip time skip
+			if (_fighter.duel.TIME_STOP > 0 && _fighter.requiemPower == null && _fighter.godList.indexOf(GOD_PP23_PRIEST) < 0) { // if weak --> skip time skip
 				return;
 			}
 			if (_fighter.attack == EMOTE_DEAD || _fighter.attack == EMOTE_SKIP) { // no choice
@@ -4761,19 +4767,17 @@ class Duel {
 	getRandomEmote(_canBeIllegal = true) {
 		var legalList = [];
 		var illegalList = [];
+		var goodList = [];
 		
 		for (var i in NORMAL_EMOTE_LIST) {
-			if (this.getRisk(NORMAL_EMOTE_LIST[i]) == 0) {
-				legalList.push(NORMAL_EMOTE_LIST[i]);
+			if ([EMOTE_PP36, EMOTE_PP47].indexof(NORMAL_EMOTE_LIST[i]) < 0) {
+				if (this.getRisk(NORMAL_EMOTE_LIST[i]) == 0) {
+					legalList.push(NORMAL_EMOTE_LIST[i]);
+				}
+				illegalList.push(NORMAL_EMOTE_LIST[i]);
 			}
-			illegalList.push(NORMAL_EMOTE_LIST[i]);
 		}
-		if (legalList.indexOf(EMOTE_PP36) > -1) {
-			legalList = legalList.splice(legalList.indexOf(EMOTE_PP36), 1);
-		}
-		illegalList = illegalList.splice(illegalList.indexOf(EMOTE_PP36), 1);
 		
-		var goodList;
 		if (_canBeIllegal) {
 			goodList = illegalList;
 		}
