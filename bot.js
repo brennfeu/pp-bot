@@ -864,7 +864,6 @@ class Fighter {
 	}
 
 	playMove(_newMove = this.attack) {
-		this.duel.MOVE_COUNT += 1;
 		this.duel.INFINITE_DAMAGE = 0;
 		var attack = _newMove;
 		var numberAttacks = 1;
@@ -904,6 +903,7 @@ class Fighter {
 
 		for (var sdsds = 0; sdsds < numberAttacks; sdsds++) {
 			this.duel.MOVE_COUNT_TURN += 1;
+			this.duel.MOVE_COUNT += 1;
 			if (this.duel.MOVE_COUNT_TURN >= 500) {
 				if (this.duel.MOVE_COUNT_TURN == 500) {
 					this.duel.addMessage("**Move cap achieved !**");
@@ -1634,8 +1634,11 @@ class Fighter {
 					 // Time Cube
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Time Cube answers his calls !");
-					this.duel.addMessage(this.getName() + " stops time !");
-					this.TIME_STOP = 2;
+					this.duel.addMessage(this.getName() + " stops time and gets a special charge !");
+					this.duel.TIME_STOP = 4;
+					this.specialCharges += 1;
+					this.duel.addMessage("*You are taught Boring, You act Boring, You are the Evil on Earth. If a Man cannot tear a page from the marshmallow and burn it - then he cannot be a scientist. Seek Wisdom of Cubic Life Intelligence - or you die boring. MY WISDOM DEBUNKS GODS OF ALL RELIGIONS AND ACADEMIA.*");
+					this.duel.addMessage("***I do not promote or suggest anyone kissing you, but you are unfit to live on Earth.***")
 				}
 			}
 			else if (attack == EMOTE_PP52) {
@@ -1854,6 +1857,23 @@ class Fighter {
 					for (var i = 0; i < 500; i++) {
 						this.playMove(this.duel.getRandomEmote());
 					}
+				}
+				if (this.godList.indexOf(GOD_PP24_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
+					 // Time Cube
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("The Time Cube answers his calls !");
+					this.duel.addMessage(this.getName() + " becomes a godlike being with superior intelligence who has absolute evidence and proof");
+					if (this.STR < 10) {
+						this.STRValue -= this.STR-10;
+					}
+					this.STRValue = this.STR*50-this.STRValue;
+					if (this.DEX < 10) {
+						this.DEXValue -= this.DEX-10;
+					}
+					this.DEXValue = this.DEX*50-this.DEXValue;
+					this.duel.addMessage(this.getName() + "'s stats were greatly improved !");
+					this.duel.addMessage("*When the Sun shines upon Earth, 2 – major Time points are created on opposite sides of Earth – known as Midday and Midnight. Where the 2 major Time forces join, synergy creates 2 new minor Time points we recognize as Sunup and Sundown. The 4-equidistant Time points can be considered as Time Square imprinted upon the circle of Earth. In a single rotation of the Earth sphere, each Time corner point rotates through the other 3-corner Time points, thus creating 16 corners, 96 hours and 4-simultaneous 24-hour Days within a single rotation of Earth – equated to a Higher Order of Life Time Cube*");
+					this.duel.addMessage("***LIFE ENCOMPASSES A 4-16 CUBE PRINCIPLE***");
 				}
 				if (this.requiemPower != null && this.requiemCooldown <= 0) {
 					this.MOVE_COUNT += 999
