@@ -1809,6 +1809,7 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Ancient Fongus answers his calls !");
 					this.duel.addMessage(this.getName() + " will summon 500 moves !");
+					this.duel.sendMessages();
 					for (var i = 0; i < 500; i++) {
 						this.playMove(this.duel.getRandomEmote());
 					}
@@ -2017,17 +2018,27 @@ class Fighter {
 				var duel = this.duel;
 				duel.FIGHTER1.duel = null;
 				duel.FIGHTER2.duel = null;
-				duel.FIGHTER1_SAVE.duel = null;
-				duel.FIGHTER2_SAVE.duel = null;
+				try {
+					duel.FIGHTER1_SAVE.duel = null;
+					duel.FIGHTER2_SAVE.duel = null;
+				}
+				catch(e) {
+					// saves are null
+				}
 				duel.CHECKPOINT_DUEL = cloneObject(duel);
 				duel.FIGHTER1.duel = duel;
 				duel.FIGHTER2.duel = duel;
 				duel.CHECKPOINT_DUEL.FIGHTER1.duel = duel.CHECKPOINT_DUEL;
 				duel.CHECKPOINT_DUEL.FIGHTER2.duel = duel.CHECKPOINT_DUEL;
-				duel.FIGHTER1_SAVE.duel = duel;
-				duel.FIGHTER2_SAVE.duel = duel;
-				duel.CHECKPOINT_DUEL.FIGHTER1_SAVE.duel = duel.CHECKPOINT_DUEL;
-				duel.CHECKPOINT_DUEL.FIGHTER2_SAVE.duel = duel.CHECKPOINT_DUEL;
+				try {
+					duel.FIGHTER1_SAVE.duel = duel;
+					duel.FIGHTER2_SAVE.duel = duel;
+					duel.CHECKPOINT_DUEL.FIGHTER1_SAVE.duel = duel.CHECKPOINT_DUEL;
+					duel.CHECKPOINT_DUEL.FIGHTER2_SAVE.duel = duel.CHECKPOINT_DUEL;
+				}
+				catch(e) {
+					// saves are null
+				}
 			}
 			else if (attack == EMOTE_PP63) {
 				// Xenomorph
