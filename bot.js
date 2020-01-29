@@ -1463,7 +1463,7 @@ class Fighter {
 						this.eldritchFriend = true;
 					}
 					if (this.duel.getOppOf(this).eldritchFriend) {
-						this.duel.addMessage("This place is getting too much eldritch...");
+						this.duel.addMessage("This place is getting too much eldritch energy...");
 						this.duel.FORCE_EVENT_ID = 5; // Cthulhu / Moon Lord
 					}
 				}
@@ -1581,7 +1581,21 @@ class Fighter {
 					this.isOverCircumcised = true;
 					this.DEXValue += 10;
 				}
-				if (this.godList.indexOf(GOD_PP23_PRIEST) > -1) { // Time Cube
+				if (this.godList.indexOf(GOD_PP23_PRIEST) > -1) { // Ancient Fongus
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("The Ancient Fongus answers his calls !");
+					this.duel.addMessage(this.getName() + " gets a special charge !");
+					this.specialCharges += 1;
+					if (this.duel.getOppOf(this).regularCharges > 0) {
+						this.duel.addMessage(this.duel.getOppOf(this).getName() + " looses his regular charge !");
+						this.duel.getOppOf(this).regularCharges = 0;
+					}
+					if (this.duel.getOppOf(this).specialCharges > 0) {
+						this.duel.addMessage(this.duel.getOppOf(this).getName() + " looses his special charge !");
+						this.duel.getOppOf(this).specialCharges = 0;
+					}
+				}
+				if (this.godList.indexOf(GOD_PP24_PRIEST) > -1) { // Time Cube
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Time Cube answers his calls !");
 					this.duel.addMessage(this.getName() + " stops time !");
@@ -1786,6 +1800,14 @@ class Fighter {
 					this.STRValue = this.STR*1000-this.STRValue;
 					this.duel.addMessage(this.getName() + " gets the strength of a thousand punchers !");
 					this.playMove(EMOTE_PP2);
+				}
+				if (this.godList.indexOf(GOD_PP23_PRIEST) > -1) { // Ancient Fongus
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("The Ancient Fongus answers his calls !");
+					this.duel.addMessage(this.getName() + " will summon 500 moves !");
+					for (var i = 0; i < 500; i++) {
+						this.playMove(this.duel.getRandomEmote());
+					}
 				}
 				if (this.requiemPower != null && this.requiemCooldown <= 0) {
 					this.MOVE_COUNT += 999
@@ -2731,6 +2753,11 @@ class Fighter {
 			this.duel.addMessage(this.getName() + " attacks with tentacles !");
 			this.duel.getOppOf(this).damage(this.tentacles*10);
 			this.duel.addMessage("-----------------");
+		}
+		
+		// Ancient Fongus
+		if (this.godList.indexOf(GOD_PP23_PRIEST)) {
+			this.eldritchFriend = true;
 		}
 		
 		// Espinoza Waifu Stealer
