@@ -350,6 +350,7 @@ class Fighter {
 		this.extraLifeDuplication = null;
 		this.impendingDoom = 0;
 		this.redPillAddiction = 0;
+		this.satanicMoveMultiplier = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -422,6 +423,16 @@ class Fighter {
 			for (var i in ELDRITCH_PRIEST_ROLES) {
 				if (this.guildUser.roles.find(r => r.name == ELDRITCH_PRIEST_ROLES[i])) {
 					this.godList.push(ELDRITCH_PRIEST_ROLES[i])
+				}
+			}
+			
+			if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // Start with +1 random god
+				var currentSize = this.godList.length;
+				while (this.godList.length < currentSize+1) {
+					r = PRIEST_ROLES[Math.floor(Math.random()*PRIEST_ROLES.length)];
+					if (this.godList.indexOf(r) < 0) {
+						this.godList.push(r);
+					}
 				}
 			}
 			
@@ -733,6 +744,9 @@ class Fighter {
 		if (this.helldogMask) {
 			txt += " - Mask : Intimidation\n";
 		}
+		if (this.satanicMoveMultiplier) {
+			txt += " - Satanic Move Multiplier\n"
+		}
 		if (this.isOverCircumcised) {
 			txt += " - Overcircumcised\n";
 		}
@@ -877,6 +891,11 @@ class Fighter {
 		if (this.fullOfAmmo) {
 			numberAttacks = numberAttacks*3;
 			this.fullOfAmmo = false;
+		}
+		// Satan Special Move
+		if (this.satanicMoveMultiplier) {
+			numberAttacks = numberAttacks*10;
+			this.satanicMoveMultiplier = false;
 		}
 
 		if (this.duel.EVENT_BOSS && this.STR <= 0) {
@@ -1577,7 +1596,8 @@ class Fighter {
 					this.mikasaBuff = 4;
 					this.bonusDamage += 50;
 				}
-				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
+				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
+					 // D.I.C.K.
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("D.I.C.K. answers his calls !");
 					this.duel.addMessage(this.getName() + " gets a special charge, overcircumcised and more DEX !");
@@ -1585,7 +1605,18 @@ class Fighter {
 					this.isOverCircumcised = true;
 					this.DEXValue += 10;
 				}
-				if (this.godList.indexOf(GOD_PP23_PRIEST) > -1) { // Ancient Fongus
+				if (this.godList.indexOf(GOD_PP22_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
+					 // Satan
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Satan answers his calls !");
+					this.duel.addMessage(this.getName() + " gets a special charge and removes his bad status !");
+					this.specialCharges += 1;
+					this.resetBattleVariables();
+					this.duel.addMessage(this.getName() + " possesses " + this.duel.getOppOf(this).getName() + "'s PP for 2 turns !");
+					this.duel.getOppOf(this).isPossessed = 3;
+				}
+				if (this.godList.indexOf(GOD_PP23_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
+					 // Ancient Fongus
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Ancient Fongus answers his calls !");
 					this.duel.addMessage(this.getName() + " gets a special charge !");
@@ -1599,7 +1630,8 @@ class Fighter {
 						this.duel.getOppOf(this).specialCharges = 0;
 					}
 				}
-				if (this.godList.indexOf(GOD_PP24_PRIEST) > -1) { // Time Cube
+				if (this.godList.indexOf(GOD_PP24_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
+					 // Time Cube
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Time Cube answers his calls !");
 					this.duel.addMessage(this.getName() + " stops time !");
@@ -1795,7 +1827,8 @@ class Fighter {
 					this.duel.addMessage(this.getName() + " learns how to dual wield !");
 					this.dualWield = true;
 				}
-				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K.
+				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
+					// D.I.C.K.
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("D.I.C.K. answers his calls !");
 					if (this.STR < 10) {
@@ -1805,7 +1838,15 @@ class Fighter {
 					this.duel.addMessage(this.getName() + " gets the strength of a thousand punchers !");
 					this.playMove(EMOTE_PP2);
 				}
-				if (this.godList.indexOf(GOD_PP23_PRIEST) > -1) { // Ancient Fongus
+				if (this.godList.indexOf(GOD_PP22_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
+					// Satan
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Satan answers his calls !");
+					this.satanicMoveMultiplier = true
+					this.duel.addMessage(this.getName() + " gets a Satanic Move Multiplier !");
+				}
+				if (this.godList.indexOf(GOD_PP23_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
+					// Ancient Fongus
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Ancient Fongus answers his calls !");
 					this.duel.addMessage(this.getName() + " will summon 500 moves !");
