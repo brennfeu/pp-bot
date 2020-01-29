@@ -1872,8 +1872,8 @@ class Fighter {
 					}
 					this.DEXValue = this.DEX*50-this.DEXValue;
 					this.duel.addMessage(this.getName() + "'s stats were greatly improved !");
-					this.duel.addMessage("*When the Sun shines upon Earth, 2 – major Time points are created on opposite sides of Earth – known as Midday and Midnight. Where the 2 major Time forces join, synergy creates 2 new minor Time points we recognize as Sunup and Sundown. The 4-equidistant Time points can be considered as Time Square imprinted upon the circle of Earth. In a single rotation of the Earth sphere, each Time corner point rotates through the other 3-corner Time points, thus creating 16 corners, 96 hours and 4-simultaneous 24-hour Days within a single rotation of Earth – equated to a Higher Order of Life Time Cube*");
-					this.duel.addMessage("***LIFE ENCOMPASSES A 4-16 CUBE PRINCIPLE***");
+					this.duel.addMessage("*When the Sun shines upon Earth, 2 – major Time points are created on opposite sides of Earth – known as Midday and Midnight. Where the 2 major Time forces join, synergy creates 2 new minor Time points we recognize as Sunup and Sundown. The 4-equidistant Time points can be considered as Time Square imprinted upon the circle of Earth. In a single rotation of the Earth sphere, each Time corner point rotates through the other 3-corner Time points, thus creating 16 corners, 96 hours and 4-simultaneous 24-hour Days within a single rotation of Earth – equated to a Higher Order of Life Time Cube. ONE - DOES NOT EXIST, EXCEPT IN DEATH STATE.*");
+					this.duel.addMessage("***For as long as you dumbass, educated brilliant and boring bastards IGNORE Cubic Creation, your sons and daughters deserve to die and be maimed in foreign lands - while kissing innocent women and children.***");
 				}
 				if (this.requiemPower != null && this.requiemCooldown <= 0) {
 					this.MOVE_COUNT += 999
@@ -3650,7 +3650,7 @@ class Duel {
 				_fighter.attack = EMOTE_DEAD;
 				_fighter.STRValue = -10;
 			}
-			if (_fighter.duel.TIME_STOP > 0 && _fighter.requiemPower == null && _fighter.godList.indexOf(GOD_PP23_PRIEST) < 0) { // if weak --> skip time skip
+			if (_fighter.duel.TIME_STOP > 0 && _fighter.requiemPower == null && _fighter.godList.indexOf(GOD_PP24_PRIEST) < 0) { // if weak --> skip time skip
 				_fighter.attack = EMOTE_SKIP;
 			}
 		});
@@ -4213,7 +4213,7 @@ class Duel {
 		this.bothFightersAction(function(_fighter) {
 			var duel = _fighter.duel
 			
-			if (_fighter.duel.TIME_STOP > 0 && _fighter.requiemPower == null && _fighter.godList.indexOf(GOD_PP23_PRIEST) < 0) { // if weak --> skip time skip
+			if (_fighter.duel.TIME_STOP > 0 && _fighter.requiemPower == null && _fighter.godList.indexOf(GOD_PP24_PRIEST) < 0) { // if weak --> skip time skip
 				return;
 			}
 			if (_fighter.attack == EMOTE_DEAD || _fighter.attack == EMOTE_SKIP) { // no choice
@@ -5246,6 +5246,7 @@ function sendCheatPanel(_channel) {
 	_channel.send("Cheat Panel : Gods II").then(function (_message2) {
 		_message2.react(GOD_PP21); _message2.react(GOD_PP22); 
 		_message2.react(GOD_PP23); _message2.react(GOD_PP24); 
+		_message2.react(GOD_PP25); 
 	}).catch(function(e) {
 		console.log(e);
 	});
@@ -5553,6 +5554,7 @@ CLIENT.on("message", async _message => {
 				_message2.react(GOD_PP22); // Satan
 				_message2.react(GOD_PP23); // Ancient Fongus
 				_message2.react(GOD_PP24); // Time Cube
+				_message2.react(GOD_PP25); // Cthulhu
 				_message2.react(EMOTE_SKIPPER); // Skipper
 			}).catch(function(e) {
 				console.log(e);
