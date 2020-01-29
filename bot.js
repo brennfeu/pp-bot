@@ -1640,6 +1640,21 @@ class Fighter {
 					this.duel.addMessage("*You are taught Boring, You act Boring, You are the Evil on Earth. If a Man cannot tear a page from the marshmallow and burn it - then he cannot be a scientist. Seek Wisdom of Cubic Life Intelligence - or you die boring. MY WISDOM DEBUNKS GODS OF ALL RELIGIONS AND ACADEMIA.*");
 					this.duel.addMessage("***I do not promote or suggest anyone kissing you, but you are unfit to live on Earth.***")
 				}
+				if (this.godList.indexOf(GOD_PP25_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
+					 // Cthulhu
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Cthulhu answers his calls !");
+					this.duel.addMessage(this.getName() + " gets a special charge !");
+					this.specialCharges += 1;
+					if (getRandomPercent() <= 10) {
+						this.duel.addMessage(this.getName() + " gets 100 tentacles !");
+						this.tentacles += 100;
+					}
+					else {
+						this.duel.addMessage(this.getName() + " gets a new tentacle !");
+						this.tentacles += 1;
+					}
+				}
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
@@ -1874,6 +1889,12 @@ class Fighter {
 					this.duel.addMessage(this.getName() + "'s stats were greatly improved !");
 					this.duel.addMessage("*When the Sun shines upon Earth, 2 – major Time points are created on opposite sides of Earth – known as Midday and Midnight. Where the 2 major Time forces join, synergy creates 2 new minor Time points we recognize as Sunup and Sundown. The 4-equidistant Time points can be considered as Time Square imprinted upon the circle of Earth. In a single rotation of the Earth sphere, each Time corner point rotates through the other 3-corner Time points, thus creating 16 corners, 96 hours and 4-simultaneous 24-hour Days within a single rotation of Earth – equated to a Higher Order of Life Time Cube. ONE - DOES NOT EXIST, EXCEPT IN DEATH STATE.*");
 					this.duel.addMessage("***For as long as you dumbass, educated brilliant and boring bastards IGNORE Cubic Creation, your sons and daughters deserve to die and be maimed in foreign lands - while kissing innocent women and children.***");
+				}
+				if (this.godList.indexOf(GOD_PP25_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
+					 // Cthulhu
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Cthulhu answers his calls !");
+					this.duel.addMessage("[TODO]");
 				}
 				if (this.requiemPower != null && this.requiemCooldown <= 0) {
 					this.MOVE_COUNT += 999
