@@ -419,9 +419,9 @@ class Fighter {
 					this.godList.push(r);
 				}
 			}
-			for (var i in ELDRICH_PRIEST_ROLES) {
-				if (this.guildUser.roles.find(r => r.name == ELDRICH_PRIEST_ROLES[i])) {
-					this.godList.push(ELDRICH_PRIEST_ROLES[i])
+			for (var i in ELDRITCH_PRIEST_ROLES) {
+				if (this.guildUser.roles.find(r => r.name == ELDRITCH_PRIEST_ROLES[i])) {
+					this.godList.push(ELDRITCH_PRIEST_ROLES[i])
 				}
 			}
 			
