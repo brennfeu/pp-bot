@@ -43,7 +43,8 @@ const GOD_PP21_PRIEST = "D.I.C.K. Priest";
 const GOD_PP22_PRIEST = "Satan Priest";
 const GOD_PP23_PRIEST = "Ancient Fongus Priest";
 const GOD_PP24_PRIEST = "Time Cube Priest";
-const ELDRITCH_PRIEST_ROLES = [GOD_PP21_PRIEST, GOD_PP22_PRIEST, GOD_PP23_PRIEST, GOD_PP24_PRIEST];
+const GOD_PP25_PRIEST = "Cthulhu Priest";
+const ELDRITCH_PRIEST_ROLES = [GOD_PP21_PRIEST, GOD_PP22_PRIEST, GOD_PP23_PRIEST, GOD_PP24_PRIEST, GOD_PP25_PRIEST];
 
 const EMOTE_SKIP = "TURN_SKIP";
 const EMOTE_DEAD = "IS_DEAD_LOL";
@@ -159,6 +160,7 @@ const GOD_PP21 = "644617343456247829"; // D.I.C.K.
 const GOD_PP22 = "671344081841946625"; // Satan
 const GOD_PP23 = "671347173270618112"; // Ancient Fongus
 const GOD_PP24 = "671347614431576065"; // Time Cube
+// const GOD_PP25 = ""; // Cthulhu
 
 // DON'T FORGET TO ADD TO THE CHEAT PANEL
 const NORMAL_EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, 
@@ -410,15 +412,6 @@ class Fighter {
 				if (this.guildUser.roles.find(r => r.name == PRIEST_ROLES[i])) {
 					this.godList.push(PRIEST_ROLES[i])
 				}
-			}
-			while (this.godList.length < 3) {
-				var r = PRIEST_ROLES[Math.floor(Math.random()*PRIEST_ROLES.length)];
-				if (this.godList.indexOf(r) <= -1) {
-					this.godList.push(r);
-				}
-			}
-			if (this.guildUser.roles.find(r => r.name == GOD_PP21_PRIEST)) {
-				this.godList.push(GOD_PP21_PRIEST); // D.I.C.K.
 			}
 			
 			// Natural values
@@ -2385,6 +2378,10 @@ class Fighter {
 			else if (attack == GOD_PP24) {
 				this.godList.push(GOD_PP24_PRIEST);
 				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP24_PRIEST + " !");
+			}
+			else if (attack == GOD_PP25) {
+				this.godList.push(GOD_PP25_PRIEST);
+				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP25_PRIEST + " !");
 			}
 			else if (attack == EMOTE_DEAD) {
 				// Dead (Cthulhu battle)
@@ -5645,6 +5642,9 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		}
 		else if (_reaction.emoji.id == GOD_PP24) {
 			changeRoleToStyler(GOD_PP24_PRIEST, _user.id, _reaction.message.channel.guild);
+		}
+		else if (_reaction.emoji.id == GOD_PP25) {
+			changeRoleToStyler(GOD_PP25_PRIEST, _user.id, _reaction.message.channel.guild);
 		}
 		else if (_reaction.emoji.id == EMOTE_SKIPPER) {
 			var role = _reaction.message.channel.guild.roles.find(r => r.name == PP_SKIPPER_ROLE);
