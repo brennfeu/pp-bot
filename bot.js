@@ -413,6 +413,17 @@ class Fighter {
 					this.godList.push(PRIEST_ROLES[i])
 				}
 			}
+			while (this.godList.length < 3) {
+				var r = PRIEST_ROLES[Math.floor(Math.random()*PRIEST_ROLES.length)];
+				if (this.godList.indexOf(r) <= -1) {
+					this.godList.push(r);
+				}
+			}
+			for (var i in ELDRICH_PRIEST_ROLES) {
+				if (this.guildUser.roles.find(r => r.name == ELDRICH_PRIEST_ROLES[i])) {
+					this.godList.push(ELDRICH_PRIEST_ROLES[i])
+				}
+			}
 			
 			// Natural values
 			this.STRValue = 70;
@@ -2753,7 +2764,7 @@ class Fighter {
 		}
 		
 		// Ancient Fongus
-		if (this.godList.indexOf(GOD_PP23_PRIEST)) {
+		if (this.godList.indexOf(GOD_PP23_PRIEST) > -1) {
 			this.eldritchFriend = true;
 		}
 		
@@ -3901,10 +3912,7 @@ class Duel {
 			else {
 				this.addMessage("You suddenly feel new powers in your PP !");
 				this.bothFightersAction(function(_fighter) {
-					_fighter.godList = [GOD_PP21_PRIEST];
-					for (var i in PRIEST_ROLES) {
-						_fighter.godList.push(PRIEST_ROLES[i]);
-					}
+					_fighter.godList = PRIEST_ROLES.concat(ELDRITCH_PRIEST_ROLES);
 
 					_fighter.isBigPP = true;
 					_fighter.isFastPP = true;
