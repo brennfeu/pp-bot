@@ -4275,6 +4275,7 @@ class Duel {
 				_fighter.currentStand = liste[Math.floor(Math.random()*liste.length)];
 				_fighter.duel.addMessage(_fighter.getName() + " summons the Stånd : " + _fighter.currentStand);
 			});
+			this.checkStandSummon()
 		}
 		else if (randomVar == 36) {
 			// Mega Movepool
@@ -5475,12 +5476,13 @@ function changeTextChristian(_texte) {
 	return _texte;
 }
 function shuffleArray(array) {
-    for (var i = array.length - 1; i > 0; i--) {
-        var j = Math.floor(Math.random() * (i + 1));
-        var temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
+	for (var i = array.length - 1; i > 0; i--) {
+		var j = Math.floor(Math.random() * (i + 1));
+		var temp = array[i];
+		array[i] = array[j];
+		array[j] = temp;
+	}
+	return array;
 }
 
 function cloneObject(obj) {
