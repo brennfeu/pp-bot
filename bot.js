@@ -426,7 +426,7 @@ class Fighter {
 				}
 			}
 			
-			if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // Start with +1 random god
+			if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K. Special Effect
 				var currentSize = this.godList.length;
 				while (this.godList.length < currentSize+1) {
 					r = PRIEST_ROLES[Math.floor(Math.random()*PRIEST_ROLES.length)];
@@ -435,10 +435,18 @@ class Fighter {
 					}
 				}
 			}
+			if (this.godList.indexOf(GOD_PP24_PRIEST) > -1) { // Time Cube Special Effect
+				this.redPillAddiction = 5;
+			}
 			
 			// Natural values
 			this.STRValue = 70;
 			this.DEXValue = 20;
+			
+			
+			if (this.godList.indexOf(GOD_PP25_PRIEST) > -1) { // Cthulhu Special Effect
+				this.STRValue = 100;
+			}
 		}
 	}
 	
@@ -1040,9 +1048,13 @@ class Fighter {
 				}
 			}
 			else if (attack == EMOTE_PP16) {
-				// Satan
+				// Satan Boss
 				if (this.duel.BOSS_FIGHT && (this.CURRENT_BOSS == BOSS_PP8 || this.CURRENT_BOSS == BOSS_PP9)) {
-					this.duel.addMessage("But nothing happens...");
+					this.duel.addMessage("Nothing happens...");
+				}
+				// Satan God
+				else if (this.duel.getOppOf(this).godList.indexOf(GOD_PP22_PRIEST) > -1) {
+					this.duel.addMessage(this.duel.getOppOf(this).getName() + " resists the possession !");
 				}
 				else {
 					this.duel.addMessage(this.getName() + " possesses " + this.duel.getOppOf(this).getName() + "'s PP !");
@@ -1119,12 +1131,28 @@ class Fighter {
 			else if (attack == EMOTE_PP26) {
 				// Big Satan
 				this.duel.addMessage(this.getName() + " summons Satan chaotic powers !!!");
+				this.duel.DISABLE_ABANDON = true;
 				if (this.duel.BOSS_FIGHT && (this.CURRENT_BOSS == BOSS_PP8 || this.CURRENT_BOSS == BOSS_PP9)) {
+					// Satan Boss
 					this.duel.addMessage("But nothing happens...");
 				}
-				else {
-					this.duel.DISABLE_ABANDON = true;
+				else if (this.godList.indexOf(GOD_PP22_PRIEST) > -1) {
+					// Satan God
 					this.duel.sendMessages(1);
+					for (var i = 0; i < 10; i++) {
+						this.duel.addMessage("-----------------");
+						this.playMove(this.duel.getRandomEmote());
+					}
+				}
+				else if (this.duel.getOppOf(this).godList.indexOf(GOD_PP22_PRIEST) > -1) {
+					// Satan God
+					this.duel.sendMessages(1);
+					for (var i = 0; i < 10; i++) {
+						this.duel.addMessage("-----------------");
+						this.duel.getOppOf(this).playMove(this.duel.getRandomEmote());
+					}
+				}
+				else {
 					this.duel.bothFightersAction(function(_fighter) {
 						_fighter.duel.addMessage("-----------------");
 						_fighter.playMove(_fighter.duel.getRandomEmote(false));
@@ -1137,6 +1165,7 @@ class Fighter {
 						_fighter.duel.addMessage("-----------------");
 						_fighter.playMove(_fighter.duel.getRandomEmote());
 					});
+					this.duel.sendMessages(1);
 				}
 			}
 			else if (attack == EMOTE_PP27) {
@@ -1894,7 +1923,8 @@ class Fighter {
 					 // Cthulhu
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Cthulhu answers his calls !");
-					this.duel.addMessage("[TODO]");
+					this.duel.addMessage(this.duel.getOppOf(this).getName() + " falls into madness !");
+					this.duel.getOppOf(this).madnessStacks += 15;
 				}
 				if (this.requiemPower != null && this.requiemCooldown <= 0) {
 					this.MOVE_COUNT += 999
@@ -2683,10 +2713,10 @@ class Fighter {
 			}
 			if (this.duel.getOppOf(this).standPower == STAND_PP13 && _punch) { // The Scythe of Cosmic Chaos
 				this.madnessStacks += 1;
-				if (getRandomPercent() <= 10+this.madnessStacks) {
-					this.duel.addMessage(this.getName() + " flinched !");
-					this.DEXValue = 0;
-				}
+			}
+			if (this.madnessStacks > 0 && getRandomPercent() <= 10+this.madnessStacks) {
+				this.duel.addMessage(this.getName() + " flinched !");
+				this.DEXValue = 0;
 			}
 		}
 		
