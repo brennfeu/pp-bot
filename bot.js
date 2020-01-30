@@ -1388,10 +1388,10 @@ class Fighter {
 				// Pudding
 				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1 && this.godList.indexOf(GOD_PP24_PRIEST) > -1) {
 					// Infinite Intellect
-					this.duel.addMessage(this.getName() + " proves with his high intellectual abilities that he shouldn't play this move but " +  + " should !");
+					this.duel.addMessage(this.getName() + " proves with his high intellectual abilities that he shouldn't play this move but " + this.duel.getOppOf(this).getName() + " should !");
 					if (this.duel.getOppOf(this).godList.indexOf(GOD_PP13_PRIEST) > -1 && this.duel.getOppOf(this).godList.indexOf(GOD_PP24_PRIEST) > -1) {
 						this.duel.addMessage("-----------------");
-						this.duel.addMessage("*Both fighters then debated on the use of this move ! The intellectual intercourse between " + this.getName() + " and " + this.duel.getOppOf(this).getName() + " lasted for 11 years. The both killed themselves at the end, no one knows what happened there... Let's go back in time to see what happened.*");
+						this.duel.addMessage("*Both fighters then debated on the use of this move ! The intellectual intercourse between " + this.getName() + " and " + this.duel.getOppOf(this).getName() + " lasted for 11 years. They both killed themselves at the end, no one knows what happened there... Let's go back in time to see what happened.*");
 						this.duel.addMessage("-----------------");
 						this.duel.addMessage(this.duel.getOppOf(this).getName() + " : 'Your PP is small lol !'");
 						this.duel.addMessage(this.getName() + " : 'Oh ok... :(' (he kills himself)");
