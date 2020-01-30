@@ -842,7 +842,7 @@ class Fighter {
 			txt += " - **Impending Doom : " + this.impendingDoom + " turns**\n";
 		}
 		
-		if (this.standPower == null) {
+		if (!this.duel.STAND_BATTLE) {
 			txt += "\n**Synergies :**\n"
 			if (this.godList.length >= PRIEST_ROLES.length) {
 				txt += " - *All of them*\n";
@@ -2127,10 +2127,9 @@ class Fighter {
 					this.duel.addMessage("Unless I wasn't ?");
 					this.duel.addMessage("Nah it was a joke !");
 					this.duel.addMessage("Unless...?");
-					this.duel.addMessage("What are you gonna do ?");
-					this.duel.addMessage("Pee and poop maybe ?");
-					this.duel.addMessage("Maybe fart and cum ?");
-					this.duel.addMessage("hehe");
+					this.duel.addMessage("Gonna cry ?");
+					this.duel.addMessage("Gonna piss your pant maybe ?");
+					this.duel.addMessage("Maybe shit and cum ?");
 					this.duel.sendMessages();
 				}
 				else {
@@ -5453,8 +5452,8 @@ function changeTextRandomSpoil(_texte) {
 	return _texte;
 }
 function changeTextChristian(_texte) {
-	_texte = _texte.replace("PP", "Power Puff Girl");
-	_texte = _texte.replace("Pp", "Power Puff Girl");
+	_texte = _texte.split("PP").join("Power Puff Girl");
+	_texte = _texte.split("Pp").join("Power Puff Girl");
 	_texte = _texte.replace(/hitler/gi, "Angry German");
 	_texte = _texte.replace(/jew/gi, "infidel");
 	_texte = _texte.replace(/dick/gi, "Richard");
