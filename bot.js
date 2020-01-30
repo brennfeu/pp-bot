@@ -4684,7 +4684,7 @@ class Duel {
 			}
 			
 			// Wild Mage
-			if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP25_PRIEST) > -1 && getRandomPercent() <= 10) {
+			if (_fighter.godList.indexOf(GOD_PP9_PRIEST) > -1 && _fighter.godList.indexOf(GOD_PP25_PRIEST) > -1 && getRandomPercent() <= 10) {
 				_fighter.duel.addMessage(_fighter.getName() + " feels the wild magic kicking in !");
 				_fighter.duel.sendMessages();
 				_fighter.attack = EMOTE_LIST[Math.floor(Math.random()*EMOTE_LIST.length)];
