@@ -845,7 +845,7 @@ class Fighter {
 		if (this.standPower == null) {
 			txt += "\n**Synergies :**\n"
 			if (this.godList.length >= PRIEST_ROLES.length) {
-				txt += " - *All of them*";
+				txt += " - *All of them*\n";
 			}
 			else {
 				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP19_PRIEST) > -1) {
@@ -2922,12 +2922,12 @@ class Fighter {
 		// Synergies
 		if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP19_PRIEST) > -1) {
 			this.duel.addMessage(this.getName() + " gets healed by the Holy Brenn Trinity !");
-			this.heal(10);
+			this.heal(5);
 			this.duel.addMessage("-----------------");
 		}
 		if (this.godList.indexOf(GOD_PP5_PRIEST) > -1 && this.godList.indexOf(GOD_PP6_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
 			this.duel.addMessage(this.getOppName() + " gets hurt by the Unholy Pudding Trinity !");
-			this.duel.getOppOf(this).damage(10);
+			this.duel.getOppOf(this).damage(5);
 			this.duel.addMessage("-----------------");
 		}
 		if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
