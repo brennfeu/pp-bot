@@ -884,10 +884,10 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP19_PRIEST) > -1 && this.godList.indexOf(GOD_PP20_PRIEST) > -1) {
 					txt += " - Waifu Body Pillow\n";
 				}
-				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP25_PRIEST) > -1) {
+				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1 && this.godList.indexOf(GOD_PP24_PRIEST) > -1) {
 					txt += " - Infinite Intellect\n";
 				}
-				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1 && this.godList.indexOf(GOD_PP24_PRIEST) > -1) {
+				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP25_PRIEST) > -1) {
 					txt += " - Wild Mage\n";
 				}
 			}
@@ -1386,10 +1386,10 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP47) {
 				// Pudding
-				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP25_PRIEST) > -1) {
+				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1 && this.godList.indexOf(GOD_PP24_PRIEST) > -1) {
 					// Infinite Intellect
 					this.duel.addMessage(this.getName() + " proves with his high intellectual abilities that he shouldn't play this move but " +  + " should !");
-					if (this.duel.getOppOf(this).godList.indexOf(GOD_PP9_PRIEST) > -1 && this.duel.getOppOf(this).godList.indexOf(GOD_PP25_PRIEST) > -1) {
+					if (this.duel.getOppOf(this).godList.indexOf(GOD_PP13_PRIEST) > -1 && this.duel.getOppOf(this).godList.indexOf(GOD_PP24_PRIEST) > -1) {
 						this.duel.addMessage("-----------------");
 						this.duel.addMessage("*Both fighters then debated on the use of this move ! The intellectual intercourse between " + this.getName() + " and " + this.duel.getOppOf(this).getName() + " lasted for 11 years. The both killed themselves at the end, no one knows what happened there... Let's go back in time to see what happened.*");
 						this.duel.addMessage("-----------------");
