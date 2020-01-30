@@ -626,17 +626,36 @@ class Fighter {
 				}
 				if (allGods) {
 					txt += "\n - *All Gods*";
+				}
+				else {
 					for (var i in this.godList) {
-						if (PRIEST_ROLES.indexOf(this.godList[i]) < 0) {
+						if (PRIEST_ROLES.indexOf(this.godList[i]) > -1) {
 							txt += "\n - " + this.godList[i];
 						}
 					}
 				}
+				for (var i in ELDRITCH_PRIEST_ROLES) {
+					if (this.godList.indexOf(ELDRITCH_PRIEST_ROLES[i]) <= -1) {
+						allGods = false;
+					}
+				}
+				if (allGods) {
+					txt += "\n - *All Eldritch Gods*";
+				}
 				else {
 					for (var i in this.godList) {
+						if (ELDRITCH_PRIEST_ROLES.indexOf(this.godList[i]) > -1) {
+							txt += "\n - " + this.godList[i];
+						}
+					}
+				}
+				
+				for (var i in this.godList) {
+					if (PRIEST_ROLES.indexOf(this.godList[i]) < 0 && ELDRITCH_PRIEST_ROLES.indexOf(this.godList[i]) < 0) {
 						txt += "\n - " + this.godList[i];
 					}
 				}
+				
 				if (this.requiemPower != null) {
 					txt += "\n - **Requiem**";
 				}
