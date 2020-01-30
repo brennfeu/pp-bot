@@ -4635,6 +4635,7 @@ class Duel {
 
 			// Triche des emotes animés
 			if (SPECIAL_EMOTE_LIST.indexOf(_fighter.attack) > -1 && duel.LIST_AVAILABLE_ATTACKS.indexOf(_fighter.attack) < 0 && !duel.EVENT_PP_ENLIGHTENMENT) {
+				console.log("test");
 				caught1 = duel.illegalGetCaught(100);
 			}
 
