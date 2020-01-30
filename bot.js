@@ -4095,7 +4095,7 @@ class Duel {
 			this.addMessage("You both take your turn to recover from this tragedy !");
 			
 			this.bothFightersAction(function(_fighter) {
-				_fighter.isPossessed = 1;
+				_fighter.attack = EMOTE_SKIP;
 			});
 		}
 		else if ([27, 28, 29, 30, 31].indexOf(randomVar) > -1) {
@@ -4356,6 +4356,11 @@ class Duel {
 		for (i = 0; i < RARE_EMOTE_LIST.length; i++) { // Rare Moves
 			if (this.LIST_AVAILABLE_ATTACKS.indexOf(RARE_EMOTE_LIST[i]) > -1) {
 				return this.triggerReaction(CLIENT.emojis.get(RARE_EMOTE_LIST[i]).name, fighter.user);
+			}
+		}
+		for (i = 0; i < GOD_LIST.length; i++) { // God
+			if (this.LIST_AVAILABLE_ATTACKS.indexOf(GOD_LIST[i]) > -1) {
+				return this.triggerReaction(CLIENT.emojis.get(GOD_LIST[i]).name, fighter.user);
 			}
 		}
 		for (i = 0; i < SPECIAL_EMOTE_LIST.length; i++) { // Animated Moves
@@ -5001,8 +5006,7 @@ class Duel {
 		if (this.BLIND_COUNTDOWN > 0 || this.TIME_STOP > 0) {
 			return false;
 		}
-		var result = (getRandomPercent() < _percentage);
-		return result;
+		return (getRandomPercent() < _percentage);
 	}
 	getRisk(_move) {
 		if (this.EVENT_PP_PURGE) {
