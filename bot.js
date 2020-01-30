@@ -884,6 +884,12 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP19_PRIEST) > -1 && this.godList.indexOf(GOD_PP20_PRIEST) > -1) {
 					txt += " - Waifu Body Pillow\n";
 				}
+				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP25_PRIEST) > -1) {
+					txt += " - Infinite Intellect\n";
+				}
+				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1 && this.godList.indexOf(GOD_PP24_PRIEST) > -1) {
+					txt += " - Wild Mage\n";
+				}
 			}
 		}
 
@@ -1380,12 +1386,31 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP47) {
 				// Pudding
-				this.duel.addMessage(this.getName() + " abandons the battle !");
-				this.STRValue = -999999999;
-				if (getRandomPercent() < 10) {
-					this.duel.addMessage("Bruh.");
+				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP25_PRIEST) > -1) {
+					// Infinite Intellect
+					this.duel.addMessage(this.getName() + " proves with his high intellectual abilities that he shouldn't play this move but " +  + " should !");
+					if (this.duel.getOppOf(this).godList.indexOf(GOD_PP9_PRIEST) > -1 && this.duel.getOppOf(this).godList.indexOf(GOD_PP25_PRIEST) > -1) {
+						this.duel.addMessage("-----------------");
+						this.duel.addMessage("*Both fighters then debated on the use of this move ! The intellectual intercourse between " + this.getName() + " and " + this.duel.getOppOf(this).getName() + " lasted for 11 years. The both killed themselves at the end, no one knows what happened there... Let's go back in time to see what happened.*");
+						this.duel.addMessage("-----------------");
+						this.duel.addMessage(this.duel.getOppOf(this).getName() + " : 'Your PP is small lol !'");
+						this.duel.addMessage(this.getName() + " : 'Oh ok... :(' (he kills himself)");
+						this.duel.addMessage(this.duel.getOppOf(this).getName() + " : 'I'm bored I'm gonna commit suicide.' (he kills himself)");
+						this.STRValue = -999999999;
+						this.duel.getOppOf(this).STRValue = -999999999;
+					}
+					else {
+						this.duel.getOppOf(this).playMove(EMOTE_PP47);
+					}
 				}
-				return;
+				else {
+					this.duel.addMessage(this.getName() + " abandons the battle !");
+					this.STRValue = -999999999;
+					if (getRandomPercent() < 10) {
+						this.duel.addMessage("Bruh.");
+					}
+					return;
+				}
 			}
 			else if (attack == EMOTE_PP48) {
 				// Brennfeu
@@ -4656,6 +4681,13 @@ class Duel {
 				_fighter.duel.addMessage(_fighter.getName() + " gets the Jew-Hitler Paradox Effect !");
 				_fighter.duel.sendMessages();
 				_fighter.attack = _fighter.duel.getRandomEmote(false);
+			}
+			
+			// Wild Mage
+			if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP25_PRIEST) > -1 && getRandomPercent() <= 10) {
+				_fighter.duel.addMessage(_fighter.getName() + " feels the wild magic kicking in !");
+				_fighter.duel.sendMessages();
+				_fighter.attack = EMOTE_LIST[Math.floor(Math.random()*EMOTE_LIST.length)];
 			}
 
 			// Change attack if dead (boss battle)
