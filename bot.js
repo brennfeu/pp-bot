@@ -4636,7 +4636,6 @@ class Duel {
 			// Triche des emotes animés
 			if (SPECIAL_EMOTE_LIST.indexOf(_fighter.attack) > -1 && duel.LIST_AVAILABLE_ATTACKS.indexOf(_fighter.attack) < 0 && !duel.EVENT_PP_ENLIGHTENMENT) {
 				caught1 = duel.illegalGetCaught(100);
-				console.log(caught1);
 			}
 
 			// Illegal Jews (Hitler regular move)
@@ -4647,7 +4646,7 @@ class Duel {
 			}
 
 			// Lucky (Leprepuds regular move)
-			if (_fighter.isLucky && getRandomPercent() <= 50) {
+			if (_fighter.isLucky > 0 && getRandomPercent() <= 50) {
 				caught1 = false;
 			}
 
