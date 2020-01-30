@@ -3404,6 +3404,9 @@ class Duel {
 			
 			for (var nbTurn = 0; nbTurn < nbTurnChanges; nbTurn++) {
 				this.addMessage("**===== TURN CHANGE =====**");
+				if (nbTurn == 0) {
+					this.sendMessages();
+				}
 				
 				this.NO_MESSAGE -= 1;
 				this.GOD_TEXT -= 1;
@@ -3723,24 +3726,6 @@ class Duel {
 			this.setRandomAttackList();
 		}
 
-		var gay = ""
-		if (this.GAY_TURNS > 0) {
-			gay = "opponent's "
-		}
-
-		this.addMessage("**=== MOVE SELECT ===**", true);
-		this.sendMessages();
-		this.BATTLE_CHANNEL.send("\n\nChoose your " + gay + "attack with a reaction !").then(function (_message2) {
-			var duel = getDuel(_message2.channel.id);
-			for (var i in duel.LIST_AVAILABLE_ATTACKS) {
-				if (duel.LIST_AVAILABLE_ATTACKS[i] != EMOTE_DEAD && duel.LIST_AVAILABLE_ATTACKS[i] != EMOTE_SKIP) {
-					_message2.react(duel.LIST_AVAILABLE_ATTACKS[i]);
-				}
-			}
-		}).catch(function(e) {
-			// LEVEL ALREADY DEAD
-		});
-
 		this.bothFightersAction(function(_fighter) {
 			if (_fighter.STR <= 0) { // Stop if dead (cthulhu battle)
 				_fighter.attack = EMOTE_DEAD;
@@ -3795,9 +3780,27 @@ class Duel {
 			});
 			this.newTurnDuel();
 		}
-		
-		if (this.FIGHTER2.user.id == CLIENT.user.id) {
-			this.botReacts();
+		else {
+			var gay = ""
+			if (this.GAY_TURNS > 0) {
+				gay = "opponent's "
+			}
+			this.addMessage("**=== MOVE SELECT ===**", true);
+			this.sendMessages();
+			this.BATTLE_CHANNEL.send("\n\nChoose your " + gay + "attack with a reaction !").then(function (_message2) {
+				var duel = getDuel(_message2.channel.id);
+				for (var i in duel.LIST_AVAILABLE_ATTACKS) {
+					if (duel.LIST_AVAILABLE_ATTACKS[i] != EMOTE_DEAD && duel.LIST_AVAILABLE_ATTACKS[i] != EMOTE_SKIP) {
+						_message2.react(duel.LIST_AVAILABLE_ATTACKS[i]);
+					}
+				}
+			}).catch(function(e) {
+				// LEVEL ALREADY DEAD
+			});
+			
+			if (this.FIGHTER2.user.id == CLIENT.user.id) {
+				this.botReacts();
+			}
 		}
 		
 		// Stop FORCE_SATAN
