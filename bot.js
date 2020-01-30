@@ -3059,6 +3059,7 @@ class Duel {
 		this.EVENT_BOSS = false;
 		this.EVENT_BLOOD_MOON = false;
 		this.EVENT_PP_EQUALITY = false;
+		this.EVENT_MEGA_POOL = false;
 
 		this.FORCE_PERHAPS = false;
 		this.FORCE_SATAN = false;
@@ -3869,7 +3870,7 @@ class Duel {
 		var forcedEvent = this.FORCE_EVENT;
 
 		if (this.FORCE_EVENT) {
-			while (!(randomVar <= 33 && randomVar >= 2)) {
+			while (!(randomVar <= 36 && randomVar >= 2)) {
 				randomVar = getRandomPercent();
 			}
 		}
@@ -4231,11 +4232,17 @@ class Duel {
 				_fighter.duel.addMessage(_fighter.getName() + " summons the Stånd : " + _fighter.currentStand);
 			});
 		}
+		else if (randomVar == 36) {
+			// Mega Movepool
+			this.addMessage(" -- MEGA MOVEPOOL --");
+			this.addMessage("You get blessed by the gods and get an extended movepool for this turn !");
+			this.EVENT_MEGA_POOL = true;
+		}
 		else if (randomVar == 90 && (this.MOVE_COUNT >= 50 || forcedEvent)) {
 			// Brenn Ejaculates
 			this.addMessage(" -- BRENN EJACULATES --");
 			this.addMessage("For some reasons, this summons every event !");
-			var idList = shuffleArray([2, 3, 4, 6, 7, 8, 9, 19, 22, 23, 26, 32, 34, 35]);
+			var idList = shuffleArray([2, 3, 4, 6, 7, 8, 9, 19, 22, 23, 26, 32, 34, 35, 36]);
 			for (var i = 0; i < idList.length; i++) {
 				this.FORCE_EVENT_ID = idList[i];
 				this.startRandomEvent();
@@ -4821,9 +4828,19 @@ class Duel {
 		if (this.EVENT_CONFUSION) {
 			return this.LIST_AVAILABLE_ATTACKS = [EMOTE_PP39];
 		}
+		if (this.EVENT_MEGA_POOL) {
+			while (listeAttaques.length < 20) {
+				emote = EMOTE_LIST[Math.floor(Math.random()*EMOTE_LIST.length)];
+				if (listeAttaques.indexOf(emote) < 0) {
+					listeAttaques.push(emote);
+				}
+			}
+			this.LIST_AVAILABLE_ATTACKS = listeAttaques;
+			return this.EVENT_MEGA_POOL = false
+		}
 		if (this.FORCE_PERHAPS) {
 			this.LIST_AVAILABLE_ATTACKS = [EMOTE_PP50];
-			return this.FORCE_PERHAPS = false
+			return this.FORCE_PERHAPS = false;
 		}
 		if (this.FORCE_SATAN) {
 			return this.LIST_AVAILABLE_ATTACKS = [EMOTE_PP26];
