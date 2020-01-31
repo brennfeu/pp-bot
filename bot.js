@@ -890,6 +890,12 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP25_PRIEST) > -1) {
 					txt += " - Wild Mage\n";
 				}
+				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1 && this.godList.indexOf(GOD_PP22_PRIEST) > -1) {
+					txt += " - Guerrier de l'Enfer\n";
+				}
+				if (this.godList.indexOf(GOD_PP6_PRIEST) > -1 && this.godList.indexOf(GOD_PP21_PRIEST) > -1) {
+					txt += " - Too Much Dicks\n";
+				}
 			}
 		}
 
@@ -2627,6 +2633,10 @@ class Fighter {
 		if (this.godList.indexOf(GOD_PP19_PRIEST) > -1 && this.godList.indexOf(GOD_PP20_PRIEST) > -1 && _punch) {
 			// Waifu Body Pillow
 			_amount -= 10;
+		}
+		if (this.duel.getOppOf(this).godList.indexOf(GOD_PP6_PRIEST) > -1 && this.duel.getOppOf(this).godList.indexOf(GOD_PP21_PRIEST) > -1 && _punch) {
+			// Too Much Dicks
+			_amount += 10;
 		}
 		if (this.duel.ATTACK_MISS_COUNTDOWN > 0 && getRandomPercent() < 90) {
 			// Boom Loop
@@ -4636,6 +4646,11 @@ class Duel {
 			// Triche des emotes animés
 			if (SPECIAL_EMOTE_LIST.indexOf(_fighter.attack) > -1 && duel.LIST_AVAILABLE_ATTACKS.indexOf(_fighter.attack) < 0 && !duel.EVENT_PP_ENLIGHTENMENT) {
 				caught1 = duel.illegalGetCaught(100);
+			}
+			
+			// Guerrier de l'Enfer
+			if (_fighter.attack == EMOTE_PP74 && _fighter.godList.indexOf(GOD_PP1_PRIEST) > -1 && _fighter.godList.indexOf(GOD_PP22_PRIEST) > -1) {
+				caught1 = false;
 			}
 
 			// Illegal Jews (Hitler regular move)
