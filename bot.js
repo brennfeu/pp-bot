@@ -1037,8 +1037,8 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP11) {
 				// Steel
-				if (!this.STEEL_PROTECTION) {
-					this.STEEL_PROTECTION = true;
+				if (!this.duel.STEEL_PROTECTION) {
+					this.duel.STEEL_PROTECTION = true;
 					this.duel.addMessage(this.getName() + " sets up a protection !");
 				}
 				else {
@@ -1216,8 +1216,8 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP29) {
 				// Barrel
-				if (!this.BARREL_DAMAGE) {
-					this.BARREL_DAMAGE = true;
+				if (!this.duel.BARREL_DAMAGE) {
+					this.duel.BARREL_DAMAGE = true;
 					this.duel.addMessage(this.getName() + " sets up a barrel !");
 				}
 				else {
