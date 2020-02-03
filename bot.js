@@ -4256,6 +4256,11 @@ class Duel {
 			this.addMessage(" -- ELDRITCH GATE --");
 			if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP8) {
 				this.addMessage("The Eldritch Gate grows bigger ! " + BOSS_PP8 + " gets more power !");
+				this.BOSS_HEALTH += 50000;
+				this.BOSS_DAMAGE += 100;
+			}
+			else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP9) {
+				this.addMessage("The Eldritch Gate grows bigger ! " + BOSS_PP9 + " gets more power !");
 				this.BOSS_HEALTH += 500000;
 				this.BOSS_DAMAGE += 1000;
 			}
