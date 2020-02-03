@@ -1228,6 +1228,7 @@ class Fighter {
 				// ExclamationPoint
 				this.duel.addMessage(this.getName() + " tries to go back too far in time !");
 				this.duel.addMessage("This create a space-time distortion !");
+				this.duel.DISABLE_ABANDON = true;
 				this.playMove(this.duel.getRandomEmote());
 			}
 			else if (attack == EMOTE_PP31) {
@@ -1316,6 +1317,7 @@ class Fighter {
 			else if (attack == EMOTE_PP39) {
 				// Interrogation Point
 				this.duel.addMessage(this.getName() + " summons a random move !");
+				this.duel.DISABLE_ABANDON = true;
 				var emote = this.duel.getRandomEmote();
 				if (emote == EMOTE_PP26 || emote == EMOTE_PP46) {
 					this.duel.sendMessages(1);
@@ -1946,6 +1948,7 @@ class Fighter {
 					// Ancient Fongus
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Ancient Fongus answers his calls !");
+					this.duel.DISABLE_ABANDON = true;
 					this.duel.addMessage(this.getName() + " will summon 500 moves !");
 					this.duel.sendMessages();
 					for (var i = 0; i < 500; i++) {
