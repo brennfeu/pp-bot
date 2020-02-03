@@ -601,7 +601,7 @@ class Fighter {
 						}
 					}
 				}
-				for (var i in ELDRITCH.name_ROLES) {
+				for (var i in GOD_LIST) {
 					if (this.godList.indexOf(GOD_LIST[i].name) <= -1 && GOD_LIST[i].type == "eldritch") {
 						allGods = false;
 					}
@@ -616,7 +616,7 @@ class Fighter {
 						}
 					}
 				}
-				for (var i in ELDRITCH.name_ROLES) {
+				for (var i in GOD_LIST) {
 					if (this.godList.indexOf(GOD_LIST[i].name) <= -1 && GOD_LIST[i].type == "waifu") {
 						allGods = false;
 					}
@@ -2483,7 +2483,7 @@ class Fighter {
 				return;
 			}
 			else {
-				for (var i = 0; i < GOD_LIST.length; i++) {
+				for (var i in GOD_LIST) {
 					if (GOD_LIST[i].emote == attack) {
 						this.godList.push(GOD_LIST[i].name);
 						this.duel.addMessage(this.getName() + " becomes a " + GOD_LIST[i].name + "Priest !");
@@ -3998,7 +3998,7 @@ class Duel {
 				this.addMessage("You suddenly feel new powers in your PP !");
 				this.bothFightersAction(function(_fighter) {
 					_fighter.godList = [];
-					for (var i = 0; i < GOD_LIST.length; i++) {
+					for (var i in GOD_LIST) {
 						_fighter.godList.push(GOD_LIST[i].name);
 					}
 
@@ -4326,9 +4326,9 @@ class Duel {
 				return this.triggerReaction(CLIENT.emojis.get(RARE_EMOTE_LIST[i]).name, fighter.user);
 			}
 		}
-		for (i = 0; i < GOD_LIST.length; i++) { // God
-			if (this.LIST_AVAILABLE_ATTACKS.indexOf(GOD_LIST[i]) > -1) {
-				return this.triggerReaction(CLIENT.emojis.get(GOD_LIST[i]).name, fighter.user);
+		for (var i in GOD_LIST) { // God
+			if (this.LIST_AVAILABLE_ATTACKS.indexOf(GOD_LIST[i].emote) > -1) {
+				return this.triggerReaction(CLIENT.emojis.get(GOD_LIST[i].emote).name, fighter.user);
 			}
 		}
 		for (i = 0; i < SPECIAL_EMOTE_LIST.length; i++) { // Animated Moves
@@ -5270,7 +5270,7 @@ function sendCheatPanel(_channel) {
 		console.log(e);
 	});
 	_channel.send("Cheat Panel : Gods I").then(function (_message2) {
-		for (var i = 0; i < GOD_LIST.length; i++) {
+		for (var i in GOD_LIST) {
 			if (GOD_LIST[i].type == "normal") {
 				_message2.react(GOD_LIST[i].emote);
 			}
@@ -5279,7 +5279,7 @@ function sendCheatPanel(_channel) {
 		console.log(e);
 	});
 	_channel.send("Cheat Panel : Gods II").then(function (_message2) {
-		for (var i = 0; i < GOD_LIST.length; i++) {
+		for (var i in GOD_LIST) {
 			if (GOD_LIST[i].type == "eldritch") {
 				_message2.react(GOD_LIST[i].emote);
 			}
@@ -5288,7 +5288,7 @@ function sendCheatPanel(_channel) {
 		console.log(e);
 	});
 	_channel.send("Cheat Panel : Gods III").then(function (_message2) {
-		for (var i = 0; i < GOD_LIST.length; i++) {
+		for (var i in GOD_LIST) {
 			if (GOD_LIST[i].type == "waifu") {
 				_message2.react(GOD_LIST[i].emote);
 			}
@@ -5572,37 +5572,21 @@ CLIENT.on("message", async _message => {
 			console.log(e);
 		});
 		_message.reply("change your God with a reaction.").then(function (_message2) {
-			_message2.react(GOD_PP1); // Mongo
-			_message2.react(GOD_PP2); // Dr Phil / WhatDAFuk
-			_message2.react(GOD_PP3); // LeprePuds
-			_message2.react(GOD_PP4); // DickHead Pudding
-			_message2.react(GOD_PP5); // Hello There Puds
-			_message2.react(GOD_PP6); // DickDickSon666
-			_message2.react(GOD_PP7); // Jew
-			_message2.react(GOD_PP8); // Fabulous Toast Man
-			_message2.react(GOD_PP9); // That's me
-			_message2.react(GOD_PP10); // Fabio
-			_message2.react(GOD_PP11); // Country Music Brenn
-			_message2.react(GOD_PP12); // Espinoza
-			_message2.react(GOD_PP13); // 700IQ
-			_message2.react(GOD_PP14); // UREGonnaGetRAPED
-			_message2.react(GOD_PP15); // STFU Isaac
-			_message2.react(GOD_PP16); // The Man Who made a Monster
-			_message2.react(GOD_PP17); // Hitler
-			_message2.react(GOD_PP18); // Salt King
-			_message2.react(GOD_PP19); // Chad Brenn
-			_message2.react(GOD_PP20); // Waifu
+			for (var i in GOD_LIST) {
+				if (GOD_LIST[i].type == "normal") {
+					_message2.react(GOD_LIST[i].emote);
+				}
+			}
 		}).catch(function(e) {
 			console.log(e);
 		});
 		if (user.roles.find(r => r.name == PP_EXPERT_ROLE)) {
 			_message.reply("here are your PP expert choices.").then(function (_message2) {
-				_message2.react(GOD_PP21); // D.I.C.K.
-				_message2.react(GOD_PP22); // Satan
-				_message2.react(GOD_PP23); // Ancient Fongus
-				_message2.react(GOD_PP24); // Time Cube
-				_message2.react(GOD_PP25); // Cthulhu
-				_message2.react(GOD_PP26); // Ranger
+				for (var i in GOD_LIST) {
+					if (GOD_LIST[i].type == "eldritch" || GOD_LIST[i].type == "waifu") {
+						_message2.react(GOD_LIST[i].emote);
+					}
+				} 
 				_message2.react(EMOTE_SKIPPER); // Skipper
 			}).catch(function(e) {
 				console.log(e);
@@ -5718,15 +5702,17 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				user.send("Looks like there is no " + PP_SKIPPER_ROLE + " role there...");
 			}
 		}
-		for (var i = 0; i < GOD_LIST.length; i++) {
+		for (var i in GOD_LIST) {
 			if (_reaction.emoji.id == GOD_LIST[i].emote) {
 				changeRoleToStyler(getPriestRoleName(GOD_LIST[i]), _user.id, _reaction.message.channel.guild);
 			}
 		}
 	}
 	else {
-		if (_reaction.emoji.id == GOD_LIST[i].emote && GOD_LIST[i].type == "normal") {
-			changeRoleToStyler(getPriestRoleName(GOD_LIST[i]), _user.id, _reaction.message.channel.guild);
+		for (var i in GOD_LIST) {
+			if (_reaction.emoji.id == GOD_LIST[i].emote) {
+				changeRoleToStyler(getPriestRoleName(GOD_LIST[i]), _user.id, _reaction.message.channel.guild);
+			}
 		}
 	}
 	return;
