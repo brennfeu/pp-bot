@@ -5175,10 +5175,10 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 			user.removeRole(role);
 		}
 		else {
-			if (user.roles.find(r => r.name == PP_EXPERT_ROLE) && getNumberOfGods(user) >= 4) {
+			if (getNumberOfGods(user) >= 4 && user.roles.find(r => r.name == PP_EXPERT_ROLE)) {
 				return;
 			}
-			if (getNumberOfGods(user) >= 3) {
+			if (getNumberOfGods(user) >= 3 && !user.roles.find(r => r.name == PP_EXPERT_ROLE) ) {
 				return;
 			}
 			user.addRole(role);
