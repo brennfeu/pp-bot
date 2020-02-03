@@ -161,6 +161,7 @@ const GOD_PP22 = "671344081841946625"; // Satan
 const GOD_PP23 = "671347173270618112"; // Ancient Fongus
 const GOD_PP24 = "671347614431576065"; // Time Cube
 const GOD_PP25 = "672065078144794645"; // Cthulhu
+const GOD_PP26 = "673882539328536576"; // Ranger
 
 // DON'T FORGET TO ADD TO THE CHEAT PANEL
 const NORMAL_EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, 
@@ -178,7 +179,7 @@ const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_
 const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
 const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP4, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
 		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
-		 GOD_PP22, GOD_PP23, GOD_PP24];
+		 GOD_PP22, GOD_PP23, GOD_PP24, GOD_PP25, GOD_PP26];
 const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST).concat(GOD_LIST);
 
 const STAND_PP1 = "Iron Maiden";
@@ -1678,7 +1679,7 @@ class Fighter {
 					this.bonusDamage += 50;
 				}
 				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
-					 // D.I.C.K.
+					// D.I.C.K.
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("D.I.C.K. answers his calls !");
 					this.duel.addMessage(this.getName() + " gets a special charge, overcircumcised and more DEX !");
@@ -1697,7 +1698,7 @@ class Fighter {
 					this.duel.getOppOf(this).isPossessed = 3;
 				}
 				if (this.godList.indexOf(GOD_PP23_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
-					 // Ancient Fongus
+					// Ancient Fongus
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Ancient Fongus answers his calls !");
 					this.duel.addMessage(this.getName() + " gets a special charge !");
@@ -1712,7 +1713,7 @@ class Fighter {
 					}
 				}
 				if (this.godList.indexOf(GOD_PP24_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
-					 // Time Cube
+					// Time Cube
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Time Cube answers his calls !");
 					this.duel.addMessage(this.getName() + " stops time and gets a special charge !");
@@ -1722,7 +1723,7 @@ class Fighter {
 					this.duel.addMessage("***I do not promote or suggest anyone kissing you, but you are unfit to live on Earth.***")
 				}
 				if (this.godList.indexOf(GOD_PP25_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
-					 // Cthulhu
+					// Cthulhu
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Cthulhu answers his calls !");
 					this.duel.addMessage(this.getName() + " gets a special charge !");
@@ -1735,6 +1736,12 @@ class Fighter {
 						this.duel.addMessage(this.getName() + " gets a new tentacle !");
 						this.tentacles += 1;
 					}
+				}
+				if (this.godList.indexOf(GOD_PP26_PRIEST) > -1) { // Ranger
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("The Ranger answers his calls !");
+					this.playMove(EMOTE_PP4);
+					this.playMove(EMOTE_PP28);
 				}
 			}
 			else if (attack == EMOTE_PP52) {
@@ -1978,6 +1985,17 @@ class Fighter {
 					this.duel.addMessage("Cthulhu answers his calls !");
 					this.duel.addMessage(this.duel.getOppOf(this).getName() + " falls into madness !");
 					this.duel.getOppOf(this).madnessStacks += 15;
+				}
+				if (this.godList.indexOf(GOD_PP26_PRIEST) > -1) { // Ranger
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("The Ranger answers his calls !");
+					this.playMove(EMOTE_PP27);
+					this.playMove(EMOTE_PP27);
+					if (this.duel.getOppOf(this).chimera) {
+						this.duel.addMessage(this.getName() + " has more bullets when dealing with furries !");
+						this.playMove(EMOTE_PP27);
+						this.playMove(EMOTE_PP27);
+					}
 				}
 				if (this.requiemPower != null && this.requiemCooldown <= 0) {
 					this.MOVE_COUNT += 999
@@ -2568,6 +2586,10 @@ class Fighter {
 			else if (attack == GOD_PP25) {
 				this.godList.push(GOD_PP25_PRIEST);
 				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP25_PRIEST + " !");
+			}
+			else if (attack == GOD_PP26) {
+				this.godList.push(GOD_PP26_PRIEST);
+				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP26_PRIEST + " !");
 			}
 			else if (attack == EMOTE_DEAD) {
 				// Dead (Cthulhu battle)
@@ -5694,6 +5716,7 @@ CLIENT.on("message", async _message => {
 				_message2.react(GOD_PP23); // Ancient Fongus
 				_message2.react(GOD_PP24); // Time Cube
 				_message2.react(GOD_PP25); // Cthulhu
+				_message2.react(GOD_PP26); // Ranger
 				_message2.react(EMOTE_SKIPPER); // Skipper
 			}).catch(function(e) {
 				console.log(e);
@@ -5866,6 +5889,9 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		}
 		else if (_reaction.emoji.id == GOD_PP25) {
 			changeRoleToStyler(GOD_PP25_PRIEST, _user.id, _reaction.message.channel.guild);
+		}
+		else if (_reaction.emoji.id == GOD_PP26) {
+			changeRoleToStyler(GOD_PP26_PRIEST, _user.id, _reaction.message.channel.guild);
 		}
 		else if (_reaction.emoji.id == EMOTE_SKIPPER) {
 			var role = _reaction.message.channel.guild.roles.find(r => r.name == PP_SKIPPER_ROLE);
