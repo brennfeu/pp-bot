@@ -148,10 +148,11 @@ const GOD_PP25 = {"name":"Cthulhu", "emote": "672065078144794645", "type": "eldr
 const GOD_PP12 = {"name" : "Espinoza", "emote": "615887132157804564", "type": "eldritch"};
 
 const GOD_PP20 = {"name":"Mikasa", "emote": "655523518812913664", "type": "waifu"};
+const GOD_PP27 = {"name":"Kurisu", "emote": "672543479598940179", "type": "waifu"};
 
 const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP4, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
 		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
-		 GOD_PP22, GOD_PP23, GOD_PP24, GOD_PP25, GOD_PP26];
+		 GOD_PP22, GOD_PP23, GOD_PP24, GOD_PP25, GOD_PP26, GOD_PP27];
 
 const STAND_PP1 = "Iron Maiden";
 const STAND_PP2 = "The Boreal Flame";
