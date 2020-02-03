@@ -131,21 +131,21 @@ const GOD_PP8 = {"name" : "Fabulous Toast Man", "emote": "614823500951060481", "
 const GOD_PP9 = {"name" : "Brenn", "emote": "615268884651442186", "type": "normal"};
 const GOD_PP10 = {"name" : "Fabio", "emote": "618037444222255104", "type": "normal"};
 const GOD_PP11 = {"name" : "Country Music Brenn", "emote": "614825720962744344", "type": "normal"};
-const GOD_PP12 = {"name" : "Espinoza Brenn", "emote": "615887132157804564", "type": "eldritch"};
-const GOD_PP13 = {"name":"700IQ", "emote": "617258233307987986", "type": "normal"};
-const GOD_PP14 = {"name":"UREGonnaGetRAPED", "emote": "615271176314290249", "type": "normal"};
-const GOD_PP15 = {"name":"STFU Isaac", "emote": "614822537800712213", "type": "normal"};
-const GOD_PP16 = {"name":"The Man Who made a Monster", "emote": "619795568230924291", "type": "normal"};
-const GOD_PP17 = {"name":"Hitler", "emote": "622395294390157329", "type": "normal"};
-const GOD_PP18 = {"name":"Salt King", "emote": "650830165751889935", "type": "normal"};
-const GOD_PP19 = {"name":"Chad Brenn", "emote": "644634924477055015", "type": "normal"};
-const GOD_PP26 = {"name":"Ranger", "emote": "673882539328536576", "type": "normal"};
+const GOD_PP13 = {"name" : "700IQ", "emote": "617258233307987986", "type": "normal"};
+const GOD_PP14 = {"name" : "UREGonnaGetRAPED", "emote": "615271176314290249", "type": "normal"};
+const GOD_PP15 = {"name" : "STFU Isaac", "emote": "614822537800712213", "type": "normal"};
+const GOD_PP16 = {"name" : "The Man Who made a Monster", "emote": "619795568230924291", "type": "normal"};
+const GOD_PP17 = {"name" : "Hitler", "emote": "622395294390157329", "type": "normal"};
+const GOD_PP18 = {"name" : "Salt King", "emote": "650830165751889935", "type": "normal"};
+const GOD_PP19 = {"name" : "Chad Brenn", "emote": "644634924477055015", "type": "normal"};
+const GOD_PP26 = {"name" : "Ranger", "emote": "673882539328536576", "type": "normal"};
 
 const GOD_PP21 = {"name":"D.I.C.K.", "emote": "644617343456247829", "type": "eldritch"};
 const GOD_PP22 = {"name":"Satan", "emote": "671344081841946625", "type": "eldritch"};
 const GOD_PP23 = {"name":"Ancient Fongus", "emote": "671347173270618112", "type": "eldritch"};
 const GOD_PP24 = {"name":"Time Cube", "emote": "671347614431576065", "type": "eldritch"};
 const GOD_PP25 = {"name":"Cthulhu", "emote": "672065078144794645", "type": "eldritch"};
+const GOD_PP12 = {"name" : "Espinoza", "emote": "615887132157804564", "type": "eldritch"};
 
 const GOD_PP20 = {"name":"Mikasa", "emote": "655523518812913664", "type": "waifu"};
 
@@ -5690,11 +5690,9 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			try {
 				if (user.roles.has(role.id)) {
 					user.removeRole(role);
-					user.send("Role removed : " + PP_SKIPPER_ROLE);
 				}
 				else {
 					user.addRole(role);
-					user.send("Role added : " + PP_SKIPPER_ROLE);
 				}
 			}
 			catch(e) {
