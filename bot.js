@@ -14,38 +14,6 @@ const HOCKEY_PUCK_PP_ROLE = "Hockey Puck PP";
 const PP_EXPERT_ROLE = "PP Expert";
 const PP_SKIPPER_ROLE = "PP Skipper";
 
-const GOD_PP1_PRIEST = "Mongo Priest";
-const GOD_PP2_PRIEST = "Dr Phil Priest";
-const GOD_PP3_PRIEST = "LeprePuds Priest";
-const GOD_PP4_PRIEST = "DickHead Pudding Priest";
-const GOD_PP5_PRIEST = "Hello There Puds Priest";
-const GOD_PP6_PRIEST = "DickDickSon666 Priest";
-const GOD_PP7_PRIEST = "Jew Priest";
-const GOD_PP8_PRIEST = "Fabulous Toast Man Priest";
-const GOD_PP9_PRIEST = "Brenn Priest";
-const GOD_PP10_PRIEST = "Fabio Priest";
-const GOD_PP11_PRIEST = "Country Music Brenn Priest";
-const GOD_PP12_PRIEST = "Espinoza Priest";
-const GOD_PP13_PRIEST = "700IQ Priest";
-const GOD_PP14_PRIEST = "UREGonnaGetRAPED Priest";
-const GOD_PP15_PRIEST = "STFU Isaac Priest";
-const GOD_PP16_PRIEST = "The Man Who made a Monster Priest";
-const GOD_PP17_PRIEST = "Hitler Priest";
-const GOD_PP18_PRIEST = "Salt King Priest";
-const GOD_PP19_PRIEST = "Chad Brenn Priest";
-const GOD_PP20_PRIEST = "Mikasa Priest";
-const PRIEST_ROLES = [GOD_PP1_PRIEST, GOD_PP2_PRIEST, GOD_PP3_PRIEST, GOD_PP4_PRIEST, GOD_PP5_PRIEST, GOD_PP6_PRIEST,
-		      GOD_PP7_PRIEST, GOD_PP8_PRIEST, GOD_PP9_PRIEST, GOD_PP10_PRIEST, GOD_PP11_PRIEST, GOD_PP12_PRIEST,
-		      GOD_PP13_PRIEST, GOD_PP14_PRIEST, GOD_PP15_PRIEST, GOD_PP16_PRIEST, GOD_PP17_PRIEST, GOD_PP18_PRIEST,
-		      GOD_PP19_PRIEST, GOD_PP20_PRIEST];
-
-const GOD_PP21_PRIEST = "D.I.C.K. Priest";
-const GOD_PP22_PRIEST = "Satan Priest";
-const GOD_PP23_PRIEST = "Ancient Fongus Priest";
-const GOD_PP24_PRIEST = "Time Cube Priest";
-const GOD_PP25_PRIEST = "Cthulhu Priest";
-const ELDRITCH_PRIEST_ROLES = [GOD_PP21_PRIEST, GOD_PP22_PRIEST, GOD_PP23_PRIEST, GOD_PP24_PRIEST, GOD_PP25_PRIEST];
-
 const EMOTE_SKIP = "TURN_SKIP";
 const EMOTE_DEAD = "IS_DEAD_LOL";
 const EMOTE_SKIPPER = "665141844640006156";
@@ -136,33 +104,6 @@ const EMOTE_PP79 = "667336163396288522"; // Eye of Truth
 const EMOTE_PP80 = "644617031739768842"; // Fherla
 const EMOTE_PP81 = "650398049126055937"; // Melodia
 
-const GOD_PP1 = "644643782888783892"; // Mongo
-const GOD_PP2 = "617686716479832064"; // Dr Phil / WhatDAFuk
-const GOD_PP3 = "616332243337609257"; // LeprePuds
-const GOD_PP4 = "614823752492122156"; // DickHead Pudding
-const GOD_PP5 = "614823329731313670"; // Hello There Puds
-const GOD_PP6 = "616877566396989451"; // DickDickSon666
-const GOD_PP7 = "644621040093364283"; // Jew
-const GOD_PP8 = "614823500951060481"; // Fabulous Toast Man
-const GOD_PP9 = "615268884651442186"; // That's me
-const GOD_PP10 = "618037444222255104"; // Fabio
-const GOD_PP11 = "614825720962744344"; // Country Music Brenn
-const GOD_PP12 = "615887132157804564"; // Espinoza
-const GOD_PP13 = "617258233307987986"; // 700IQ
-const GOD_PP14 = "615271176314290249"; // UREGonnaGetRAPED
-const GOD_PP15 = "614822537800712213"; // STFU Isaac
-const GOD_PP16 = "619795568230924291"; // The Man Who made a Monster
-const GOD_PP17 = "622395294390157329"; // Hitler
-const GOD_PP18 = "650830165751889935"; // Salt King
-const GOD_PP19 = "644634924477055015"; // Chad Brenn
-const GOD_PP20 = "655523518812913664"; // Waifu
-const GOD_PP21 = "644617343456247829"; // D.I.C.K.
-const GOD_PP22 = "671344081841946625"; // Satan
-const GOD_PP23 = "671347173270618112"; // Ancient Fongus
-const GOD_PP24 = "671347614431576065"; // Time Cube
-const GOD_PP25 = "672065078144794645"; // Cthulhu
-const GOD_PP26 = "673882539328536576"; // Ranger
-
 // DON'T FORGET TO ADD TO THE CHEAT PANEL
 const NORMAL_EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, 
 		    EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, 
@@ -177,10 +118,40 @@ const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOT
 const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70,
 			  EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP77, EMOTE_PP78];
 const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
+const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST);
+
+const GOD_PP1 = {"name" : "Mongo", "emote": "644643782888783892", "type": "normal"};
+const GOD_PP2 = {"name" : "Dr Phil", "emote": "617686716479832064", "type": "normal"};
+const GOD_PP3 = {"name" : "LeprePuds", "emote": "616332243337609257", "type": "normal"};
+const GOD_PP4 = {"name" : "DickHead Pudding", "emote": "614823752492122156", "type": "normal"};
+const GOD_PP5 = {"name" : "Hello There Puds", "emote": "614823329731313670", "type": "normal"};
+const GOD_PP6 = {"name" : "DickDickSon666", "emote": "616877566396989451", "type": "normal"};
+const GOD_PP7 = {"name" : "Jew", "emote": "644621040093364283", "type": "normal"};
+const GOD_PP8 = {"name" : "Fabulous Toast Man", "emote": "614823500951060481", "type": "normal"};
+const GOD_PP9 = {"name" : "Brenn", "emote": "615268884651442186", "type": "normal"};
+const GOD_PP10 = {"name" : "Fabio", "emote": "618037444222255104", "type": "normal"};
+const GOD_PP11 = {"name" : "Country Music Brenn", "emote": "614825720962744344", "type": "normal"};
+const GOD_PP12 = {"name" : "Espinoza Brenn", "emote": "615887132157804564", "type": "eldritch"};
+const GOD_PP13 = {"name":"700IQ", "emote": "617258233307987986", "type": "normal"};
+const GOD_PP14 = {"name":"UREGonnaGetRAPED", "emote": "615271176314290249", "type": "normal"};
+const GOD_PP15 = {"name":"STFU Isaac", "emote": "614822537800712213", "type": "normal"};
+const GOD_PP16 = {"name":"The Man Who made a Monster", "emote": "619795568230924291", "type": "normal"};
+const GOD_PP17 = {"name":"Hitler", "emote": "622395294390157329", "type": "normal"};
+const GOD_PP18 = {"name":"Salt King", "emote": "650830165751889935", "type": "normal"};
+const GOD_PP19 = {"name":"Chad Brenn", "emote": "644634924477055015", "type": "normal"};
+const GOD_PP26 = {"name":"Ranger", "emote": "673882539328536576", "type": "normal"};
+
+const GOD_PP21 = {"name":"D.I.C.K.", "emote": "644617343456247829", "type": "eldritch"};
+const GOD_PP22 = {"name":"Satan", "emote": "671344081841946625", "type": "eldritch"};
+const GOD_PP23 = {"name":"Ancient Fongus", "emote": "671347173270618112", "type": "eldritch"};
+const GOD_PP24 = {"name":"Time Cube", "emote": "671347614431576065", "type": "eldritch"};
+const GOD_PP25 = {"name":"Cthulhu", "emote": "672065078144794645", "type": "eldritch"};
+
+const GOD_PP20 = {"name":"Mikasa", "emote": "655523518812913664", "type": "waifu"};
+
 const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP4, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
 		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
 		 GOD_PP22, GOD_PP23, GOD_PP24, GOD_PP25, GOD_PP26];
-const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST).concat(GOD_LIST);
 
 const STAND_PP1 = "Iron Maiden";
 const STAND_PP2 = "The Boreal Flame";
@@ -410,33 +381,28 @@ class Fighter {
 				this.isAlienPP = true;
 			}
 
-			for (var i in PRIEST_ROLES) {
-				if (this.guildUser.roles.find(r => r.name == PRIEST_ROLES[i])) {
-					this.godList.push(PRIEST_ROLES[i])
+			for (var i in GOD_LIST) {
+				if (this.guildUser.roles.find(r => r.name == getPriestRoleName(GOD_LIST[i]))) {
+					this.godList.push(GOD_LIST[i].name)
 				}
 			}
 			while (this.godList.length < 3) {
-				var r = PRIEST_ROLES[Math.floor(Math.random()*PRIEST_ROLES.length)];
+				var r = GOD_LIST[Math.floor(Math.random()*GOD_LIST.length)];
 				if (this.godList.indexOf(r) <= -1) {
-					this.godList.push(r);
-				}
-			}
-			for (var i in ELDRITCH_PRIEST_ROLES) {
-				if (this.guildUser.roles.find(r => r.name == ELDRITCH_PRIEST_ROLES[i])) {
-					this.godList.push(ELDRITCH_PRIEST_ROLES[i])
+					this.godList.push(r.name);
 				}
 			}
 			
-			if (this.godList.indexOf(GOD_PP21_PRIEST) > -1) { // D.I.C.K. Special Effect
+			if (this.godList.indexOf(GOD_PP21.name) > -1) { // D.I.C.K. Special Effect
 				var currentSize = this.godList.length;
 				while (this.godList.length < currentSize+1) {
-					r = PRIEST_ROLES[Math.floor(Math.random()*PRIEST_ROLES.length)];
+					r = GOD_LIST[Math.floor(Math.random()*GOD_LIST.length)].name;
 					if (this.godList.indexOf(r) < 0) {
 						this.godList.push(r);
 					}
 				}
 			}
-			if (this.godList.indexOf(GOD_PP24_PRIEST) > -1) { // Time Cube Special Effect
+			if (this.godList.indexOf(GOD_PP24.name) > -1) { // Time Cube Special Effect
 				this.redPillAddiction = 5;
 			}
 			
@@ -445,7 +411,7 @@ class Fighter {
 			this.DEXValue = 20;
 			
 			
-			if (this.godList.indexOf(GOD_PP25_PRIEST) > -1) { // Cthulhu Special Effect
+			if (this.godList.indexOf(GOD_PP25.name) > -1) { // Cthulhu Special Effect
 				this.STRValue = 100;
 			}
 		}
@@ -570,7 +536,7 @@ class Fighter {
 		if (this.requiemPower != null && this.duel.STAND_BATTLE) {
 			dex += 30;
 		}
-		if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
+		if (this.godList.indexOf(GOD_PP12.name) > -1 && this.godList.indexOf(GOD_PP13.name) > -1) {
 			dex += 10;
 		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
@@ -580,7 +546,7 @@ class Fighter {
 			dex += 200;
 		}
 		
-		if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP18_PRIEST) > -1 && dex <= 0) {
+		if (this.godList.indexOf(GOD_PP9.name) > -1 && this.godList.indexOf(GOD_PP18.name) > -1 && dex <= 0) {
 			return 0;
 		}
 		return dex;
@@ -620,8 +586,8 @@ class Fighter {
 			if (this.regularCharges > 0 || this.specialCharges > 0) {
 				txt += "\n\n**Faith :**"
 				var allGods = true;
-				for (var i in PRIEST_ROLES) {
-					if (this.godList.indexOf(PRIEST_ROLES[i]) <= -1) {
+				for (var i in GOD_LIST) {
+					if (this.godList.indexOf(GOD_LIST[i].name) <= -1 && GOD_LIST[i].type == "normal") {
 						allGods = false;
 					}
 				}
@@ -630,13 +596,13 @@ class Fighter {
 				}
 				else {
 					for (var i in this.godList) {
-						if (PRIEST_ROLES.indexOf(this.godList[i]) > -1) {
+						if (this.godList.indexOf(GOD_LIST[i].name) <= -1 && GOD_LIST[i].type == "normal") {
 							txt += "\n - " + this.godList[i];
 						}
 					}
 				}
-				for (var i in ELDRITCH_PRIEST_ROLES) {
-					if (this.godList.indexOf(ELDRITCH_PRIEST_ROLES[i]) <= -1) {
+				for (var i in ELDRITCH.name_ROLES) {
+					if (this.godList.indexOf(GOD_LIST[i].name) <= -1 && GOD_LIST[i].type == "eldritch") {
 						allGods = false;
 					}
 				}
@@ -645,14 +611,29 @@ class Fighter {
 				}
 				else {
 					for (var i in this.godList) {
-						if (ELDRITCH_PRIEST_ROLES.indexOf(this.godList[i]) > -1) {
+						if (this.godList.indexOf(GOD_LIST[i].name) <= -1 && GOD_LIST[i].type == "eldritch") {
+							txt += "\n - " + this.godList[i];
+						}
+					}
+				}
+				for (var i in ELDRITCH.name_ROLES) {
+					if (this.godList.indexOf(GOD_LIST[i].name) <= -1 && GOD_LIST[i].type == "waifu") {
+						allGods = false;
+					}
+				}
+				if (allGods) {
+					txt += "\n - *All Waifus*";
+				}
+				else {
+					for (var i in this.godList) {
+						if (this.godList.indexOf(GOD_LIST[i].name) <= -1 && GOD_LIST[i].type == "waifu") {
 							txt += "\n - " + this.godList[i];
 						}
 					}
 				}
 				
 				for (var i in this.godList) {
-					if (PRIEST_ROLES.indexOf(this.godList[i]) < 0 && ELDRITCH_PRIEST_ROLES.indexOf(this.godList[i]) < 0) {
+					if (!GOD_LIST.find(r => r.name == this.godList[i])) {
 						txt += "\n - " + this.godList[i];
 					}
 				}
@@ -845,56 +826,56 @@ class Fighter {
 		
 		if (!this.duel.STAND_BATTLE) {
 			txt += "\n**Synergies :**\n"
-			if (this.godList.length >= PRIEST_ROLES.length) {
+			if (this.godList.length >= GOD_LIST.length) {
 				txt += " - *All of them*\n";
 			}
 			else {
-				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP19_PRIEST) > -1) {
+				if (this.godList.indexOf(GOD_PP9.name) > -1 && this.godList.indexOf(GOD_PP11.name) > -1 && this.godList.indexOf(GOD_PP19.name) > -1) {
 					txt += " - Holy Brenn Trinity\n";
 				}
-				if (this.godList.indexOf(GOD_PP5_PRIEST) > -1 && this.godList.indexOf(GOD_PP6_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
+				if (this.godList.indexOf(GOD_PP5.name) > -1 && this.godList.indexOf(GOD_PP6.name) > -1 && this.godList.indexOf(GOD_PP14.name) > -1) {
 					txt += " - Unholy Pudding Trinity\n";
 				}
-				if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
+				if (this.godList.indexOf(GOD_PP15.name) > -1 && this.godList.indexOf(GOD_PP12.name) > -1 && this.godList.indexOf(GOD_PP14.name) > -1) {
 					txt += " - A Sad Witness\n";
 				}
-				if (this.godList.indexOf(GOD_PP7_PRIEST) > -1 && this.godList.indexOf(GOD_PP17_PRIEST) > -1) {
+				if (this.godList.indexOf(GOD_PP7.name) > -1 && this.godList.indexOf(GOD_PP17.name) > -1) {
 					txt += " - Jew-Hitler Paradox\n";
 				}
-				if (this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP9_PRIEST) > -1) {
+				if (this.godList.indexOf(GOD_PP11.name) > -1 && this.godList.indexOf(GOD_PP9.name) > -1) {
 					txt += " - Garbage Music Maker\n";
 				}
-				if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) {
+				if (this.godList.indexOf(GOD_PP15.name) > -1 && this.godList.indexOf(GOD_PP2.name) > -1) {
 					txt += " - Therapy Time\n";
 				}
-				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
+				if (this.godList.indexOf(GOD_PP12.name) > -1 && this.godList.indexOf(GOD_PP13.name) > -1) {
 					txt += " - Too Smart and Too Powerful\n";
 				}
-				if (this.godList.indexOf(GOD_PP16_PRIEST) > -1 && this.godList.indexOf(GOD_PP13_PRIEST) > -1) {
+				if (this.godList.indexOf(GOD_PP16.name) > -1 && this.godList.indexOf(GOD_PP13.name) > -1) {
 					txt += " - Super Predator\n";
 				}
-				if (this.godList.indexOf(GOD_PP10_PRIEST) > -1 && this.godList.indexOf(GOD_PP8_PRIEST) > -1) {
+				if (this.godList.indexOf(GOD_PP10.name) > -1 && this.godList.indexOf(GOD_PP8.name) > -1) {
 					txt += " - Yaoi fan\n";
 				}
-				if (this.godList.indexOf(GOD_PP16_PRIEST) > -1 && this.godList.indexOf(GOD_PP18_PRIEST) > -1) {
+				if (this.godList.indexOf(GOD_PP16.name) > -1 && this.godList.indexOf(GOD_PP18.name) > -1) {
 					txt += " - Salt Master\n";
 				}
-				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP18_PRIEST) > -1) {
+				if (this.godList.indexOf(GOD_PP9.name) > -1 && this.godList.indexOf(GOD_PP18.name) > -1) {
 					txt += " - Debilus Team Member\n";
 				}
-				if (this.godList.indexOf(GOD_PP19_PRIEST) > -1 && this.godList.indexOf(GOD_PP20_PRIEST) > -1) {
+				if (this.godList.indexOf(GOD_PP19.name) > -1 && this.godList.indexOf(GOD_PP20.name) > -1) {
 					txt += " - Waifu Body Pillow\n";
 				}
-				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1 && this.godList.indexOf(GOD_PP24_PRIEST) > -1) {
+				if (this.godList.indexOf(GOD_PP13.name) > -1 && this.godList.indexOf(GOD_PP24.name) > -1) {
 					txt += " - Infinite Intellect\n";
 				}
-				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP25_PRIEST) > -1) {
+				if (this.godList.indexOf(GOD_PP9.name) > -1 && this.godList.indexOf(GOD_PP25.name) > -1) {
 					txt += " - Wild Mage\n";
 				}
-				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1 && this.godList.indexOf(GOD_PP22_PRIEST) > -1) {
+				if (this.godList.indexOf(GOD_PP1.name) > -1 && this.godList.indexOf(GOD_PP22.name) > -1) {
 					txt += " - Guerrier de l'Enfer\n";
 				}
-				if (this.godList.indexOf(GOD_PP6_PRIEST) > -1 && this.godList.indexOf(GOD_PP21_PRIEST) > -1) {
+				if (this.godList.indexOf(GOD_PP6.name) > -1 && this.godList.indexOf(GOD_PP21.name) > -1) {
 					txt += " - Too Much Dicks\n";
 				}
 			}
@@ -1085,7 +1066,7 @@ class Fighter {
 					this.duel.addMessage("Nothing happens...");
 				}
 				// Satan God
-				else if (this.duel.getOppOf(this).godList.indexOf(GOD_PP22_PRIEST) > -1) {
+				else if (this.duel.getOppOf(this).godList.indexOf(GOD_PP22.name) > -1) {
 					this.duel.addMessage(this.duel.getOppOf(this).getName() + " resists the possession !");
 				}
 				else {
@@ -1168,7 +1149,7 @@ class Fighter {
 					// Satan Boss
 					this.duel.addMessage("But nothing happens...");
 				}
-				else if (this.godList.indexOf(GOD_PP22_PRIEST) > -1) {
+				else if (this.godList.indexOf(GOD_PP22.name) > -1) {
 					// Satan God
 					this.duel.sendMessages(1);
 					for (var i = 0; i < 10; i++) {
@@ -1176,7 +1157,7 @@ class Fighter {
 						this.playMove(this.duel.getRandomEmote());
 					}
 				}
-				else if (this.duel.getOppOf(this).godList.indexOf(GOD_PP22_PRIEST) > -1) {
+				else if (this.duel.getOppOf(this).godList.indexOf(GOD_PP22.name) > -1) {
 					// Satan God
 					this.duel.sendMessages(1);
 					for (var i = 0; i < 10; i++) {
@@ -1395,10 +1376,10 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP47) {
 				// Pudding
-				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1 && this.godList.indexOf(GOD_PP24_PRIEST) > -1) {
+				if (this.godList.indexOf(GOD_PP13.name) > -1 && this.godList.indexOf(GOD_PP24.name) > -1) {
 					// Infinite Intellect
 					this.duel.addMessage(this.getName() + " proves with his high intellectual abilities that he shouldn't play this move but " + this.duel.getOppOf(this).getName() + " should !");
-					if (this.duel.getOppOf(this).godList.indexOf(GOD_PP13_PRIEST) > -1 && this.duel.getOppOf(this).godList.indexOf(GOD_PP24_PRIEST) > -1) {
+					if (this.duel.getOppOf(this).godList.indexOf(GOD_PP13.name) > -1 && this.duel.getOppOf(this).godList.indexOf(GOD_PP24.name) > -1) {
 						this.duel.addMessage("-----------------");
 						this.duel.addMessage("*Both fighters then debated on the use of this move ! The intellectual intercourse between " + this.getName() + " and " + this.duel.getOppOf(this).getName() + " lasted for 11 years. They both killed themselves at the end, no one knows what happened there... Let's go back in time to see what happened.*");
 						this.duel.addMessage("-----------------");
@@ -1497,44 +1478,44 @@ class Fighter {
 					this.duel.getOppOf(this).damage(10);
 					this.heal(10);
 				}
-				if (this.godList.indexOf(GOD_PP8_PRIEST) > -1) { // Fabulous Toast Man
+				if (this.godList.indexOf(GOD_PP8.name) > -1) { // Fabulous Toast Man
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Fabulous Toast Man answers his calls !");
-					var randomGod = Math.floor(Math.random()*PRIEST_ROLES.length)
+					var randomNumber = Math.floor(Math.random()*GOD_LIST.length)
 					var nbTries = 0;
-					while (this.godList.indexOf(PRIEST_ROLES[randomGod]) > -1 && nbTries < 100) {
-						randomGod = Math.floor(Math.random()*PRIEST_ROLES.length)
+					while (this.godList.indexOf(GOD_LIST[randomNumber].name) > -1 && nbTries < 100) {
+						randomNumber = Math.floor(Math.random()*GOD_LIST.length)
 						nbTries += 1;
 					}
 					if (nbTries < 100) {
-						this.godList.push(PRIEST_ROLES[randomGod]);
-						this.duel.addMessage(this.getName() + " becomes a " + PRIEST_ROLES[randomGod] + " thanks to his charisma !");
+						this.godList.push(GOD_LIST[randomNumber].name);
+						this.duel.addMessage(this.getName() + " becomes a " + GOD_LIST[randomNumber] + " Priest thanks to his charisma !");
 					}
 					else {
 						this.duel.addMessage(this.getName() + " has no more god to worship !");
 						this.playMove(EMOTE_PP49)
 					}
 				}
-				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1) { // Mongo
+				if (this.godList.indexOf(GOD_PP1.name) > -1) { // Mongo
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Mongo answers his calls !");
 					this.duel.addMessage(this.getName() + " gains some barbarian strength");
 					this.heal(50);
 				}
-				if (this.godList.indexOf(GOD_PP2_PRIEST) > -1) { // Dr Phil
+				if (this.godList.indexOf(GOD_PP2.name) > -1) { // Dr Phil
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Dr. Phil answers his calls !");
 					this.duel.addMessage("You suddenly all wonder about life...");
 					this.duel.FORCE_PERHAPS = true;
 				}
-				if (this.godList.indexOf(GOD_PP3_PRIEST) > -1) { // LeprePuds
+				if (this.godList.indexOf(GOD_PP3.name) > -1) { // LeprePuds
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("LeprePuds answers his calls !");
 					this.duel.addMessage(this.getName() + " feels lucky !");
 					this.isLucky = 4;
 					this.badLuck = false;
 				}
-				if (this.godList.indexOf(GOD_PP4_PRIEST) > -1) { // DickHead Pudding
+				if (this.godList.indexOf(GOD_PP4.name) > -1) { // DickHead Pudding
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("DickHead Pudding answers his calls !");
 					if (getRandomPercent() < 10) {
@@ -1546,7 +1527,7 @@ class Fighter {
 						this.duel.addMessage(this.getName() + " fails to be a complete dickhead !");
 					}
 				}
-				if (this.godList.indexOf(GOD_PP5_PRIEST) > -1) { // Hello There Puds
+				if (this.godList.indexOf(GOD_PP5.name) > -1) { // Hello There Puds
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Hello There Puds answers his calls !");
 					this.duel.addMessage(this.getName() + " tries to scare " + this.getOppName() + " !");
@@ -1557,7 +1538,7 @@ class Fighter {
 						this.duel.addMessage("But it fails !");
 					}
 				}
-				if (this.godList.indexOf(GOD_PP6_PRIEST) > -1) { // Dickdickson666
+				if (this.godList.indexOf(GOD_PP6.name) > -1) { // Dickdickson666
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("DickDickSon666 answers his calls !");
 					if (this.eldritchFriend) {
@@ -1572,7 +1553,7 @@ class Fighter {
 						this.duel.FORCE_EVENT_ID = 5; // Cthulhu / Moon Lord
 					}
 				}
-				if (this.godList.indexOf(GOD_PP7_PRIEST) > -1) { // Jew
+				if (this.godList.indexOf(GOD_PP7.name) > -1) { // Jew
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Jew Lord answers his calls !");
 					this.duel.addMessage(this.getName() + " takes " + this.duel.MOVE_COUNT*2 + " DEX from " + this.duel.getOppOf(this).getName() + " as the emerald tax !");
@@ -1580,19 +1561,19 @@ class Fighter {
 					this.duel.getOppOf(this).DEXValue -= this.duel.MOVE_COUNT*2;
 				}
 				// GOD 8 IS FIRST
-				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) { // Brenn
+				if (this.godList.indexOf(GOD_PP9.name) > -1) { // Brenn
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Brenn answers his calls !");
 					this.duel.addMessage(this.getName() + " plays a guitar solo that makes " + this.duel.getOppOf(this).getName() + "'s PP bleed !");
 					this.duel.getOppOf(this).bleedDamage += 5;
 				}
-				if (this.godList.indexOf(GOD_PP10_PRIEST) > -1) { // Fabio
+				if (this.godList.indexOf(GOD_PP10.name) > -1) { // Fabio
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Fabio answers his calls !");
 					this.duel.addMessage(this.getName() + " let his hair flow in the wind !");
 					this.heal(50*this.duel.MOVE_COUNT);
 				}
-				if (this.godList.indexOf(GOD_PP11_PRIEST) > -1) { // Country Music Brenn
+				if (this.godList.indexOf(GOD_PP11.name) > -1) { // Country Music Brenn
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Country Music Brenn answers his calls !");
 					this.duel.addMessage(this.getName() + " plays some country !");
@@ -1604,26 +1585,26 @@ class Fighter {
 						this.duel.getOppOf(this).isHockeyPuckPP = true;
 					}
 				}
-				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1) { // Espinoza
+				if (this.godList.indexOf(GOD_PP12.name) > -1) { // Espinoza
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Espinoza answers his calls !");
 					this.duel.addMessage(this.getName() + " sniffs " + this.duel.getOppOf(this).getName() + "'s PP and becomes faster !");
 					this.DEXValue += 10;
 				}
-				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1) { // 700IQ
+				if (this.godList.indexOf(GOD_PP13.name) > -1) { // 700IQ
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Mutantoid Lycanthrope answers his calls !");
 					this.duel.addMessage(this.getName() + " licks his wounds !");
 					this.heal(Math.floor(this.damageTaken/2));
 				}
-				if (this.godList.indexOf(GOD_PP14_PRIEST) > -1) { // UREGonnaGETRaped
+				if (this.godList.indexOf(GOD_PP14.name) > -1) { // UREGonnaGETRaped
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Rapist Pudding answers his calls !");
 					this.duel.addMessage(this.getName() + " gives a boner punch to " + this.getOppName() + " !");
 					this.hasBoner = true;
 					this.duel.getOppOf(this).damage(Math.floor((this.STR - (this.DEX/2))/5));
 				}
-				if (this.godList.indexOf(GOD_PP15_PRIEST) > -1) { // STFU Isaac
+				if (this.godList.indexOf(GOD_PP15.name) > -1) { // STFU Isaac
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Isaac answers his calls !");
 					this.duel.addMessage(this.getName() + " starts to cry !");
@@ -1631,13 +1612,13 @@ class Fighter {
 					this.duel.FIGHTER1.heal(50);
 					this.duel.FIGHTER2.heal(50);
 				}
-				if (this.godList.indexOf(GOD_PP16_PRIEST) > -1) { // The Man Who Made a Monster
+				if (this.godList.indexOf(GOD_PP16.name) > -1) { // The Man Who Made a Monster
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Man who Made a Monster answers his calls !");
 					this.duel.addMessage(this.getName() + " drinks " + this.duel.getOppOf(this).getName() + "'s salty tears !");
 					this.tearDrinker += 3;
 				}
-				if (this.godList.indexOf(GOD_PP17_PRIEST) > -1) { // Hitler
+				if (this.godList.indexOf(GOD_PP17.name) > -1) { // Hitler
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Literally Hitler answers his calls !");
 					if (this.duel.ILLEGAL_JEWS) {
@@ -1648,7 +1629,7 @@ class Fighter {
 						this.duel.ILLEGAL_JEWS = true;
 					}
 				}
-				if (this.godList.indexOf(GOD_PP18_PRIEST) > -1) { // Salt King
+				if (this.godList.indexOf(GOD_PP18.name) > -1) { // Salt King
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Salt King answers his calls !");
 					if (this.duel.getOppOf(this).isSalty) {
@@ -1660,7 +1641,7 @@ class Fighter {
 						this.duel.getOppOf(this).isSalty = true;
 					}
 				}
-				if (this.godList.indexOf(GOD_PP19_PRIEST) > -1) { // Chad Brenn
+				if (this.godList.indexOf(GOD_PP19.name) > -1) { // Chad Brenn
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Chad Brenn answers his calls !");
 					if (this.legAimer) {
@@ -1671,14 +1652,14 @@ class Fighter {
 						this.legAimer = true;
 					}
 				}
-				if (this.godList.indexOf(GOD_PP20_PRIEST) > -1) { // Mikasa
+				if (this.godList.indexOf(GOD_PP20.name) > -1) { // Mikasa
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Mikasa answers his calls !");
 					this.duel.addMessage(this.getName() + " gets her blessing for 3 turns !");
 					this.mikasaBuff = 4;
 					this.bonusDamage += 50;
 				}
-				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
+				if (this.godList.indexOf(GOD_PP21.name) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
 					// D.I.C.K.
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("D.I.C.K. answers his calls !");
@@ -1687,7 +1668,7 @@ class Fighter {
 					this.isOverCircumcised = true;
 					this.DEXValue += 10;
 				}
-				if (this.godList.indexOf(GOD_PP22_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
+				if (this.godList.indexOf(GOD_PP22.name) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
 					 // Satan
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Satan answers his calls !");
@@ -1697,7 +1678,7 @@ class Fighter {
 					this.duel.addMessage(this.getName() + " possesses " + this.duel.getOppOf(this).getName() + "'s PP for 2 turns !");
 					this.duel.getOppOf(this).isPossessed = 3;
 				}
-				if (this.godList.indexOf(GOD_PP23_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
+				if (this.godList.indexOf(GOD_PP23.name) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
 					// Ancient Fongus
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Ancient Fongus answers his calls !");
@@ -1712,7 +1693,7 @@ class Fighter {
 						this.duel.getOppOf(this).specialCharges = 0;
 					}
 				}
-				if (this.godList.indexOf(GOD_PP24_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
+				if (this.godList.indexOf(GOD_PP24.name) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
 					// Time Cube
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Time Cube answers his calls !");
@@ -1722,7 +1703,7 @@ class Fighter {
 					this.duel.addMessage("*You are taught Boring, You act Boring, You are the Evil on Earth. If a Man cannot tear a page from the marshmallow and burn it - then he cannot be a scientist. Seek Wisdom of Cubic Life Intelligence - or you die boring. MY WISDOM DEBUNKS GODS OF ALL RELIGIONS AND ACADEMIA.*");
 					this.duel.addMessage("***I do not promote or suggest anyone kissing you, but you are unfit to live on Earth.***")
 				}
-				if (this.godList.indexOf(GOD_PP25_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
+				if (this.godList.indexOf(GOD_PP25.name) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
 					// Cthulhu
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Cthulhu answers his calls !");
@@ -1737,7 +1718,7 @@ class Fighter {
 						this.tentacles += 1;
 					}
 				}
-				if (this.godList.indexOf(GOD_PP26_PRIEST) > -1) { // Ranger
+				if (this.godList.indexOf(GOD_PP26.name) > -1) { // Ranger
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Ranger answers his calls !");
 					this.playMove(EMOTE_PP4);
@@ -1750,7 +1731,7 @@ class Fighter {
 				if (this.specialCharges > 0 && sdsds == 0) {
 					this.specialCharges -= 1;
 				}
-				if (this.godList.indexOf(GOD_PP1_PRIEST) > -1) { // Mongo
+				if (this.godList.indexOf(GOD_PP1.name) > -1) { // Mongo
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Mongo answers his calls !");
 					if (this.trueBarbarian) {
@@ -1761,13 +1742,13 @@ class Fighter {
 						this.trueBarbarian = true;
 					}
 				}
-				if (this.godList.indexOf(GOD_PP2_PRIEST) > -1) { // Dr Phil
+				if (this.godList.indexOf(GOD_PP2.name) > -1) { // Dr Phil
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Dr. Phil answers his calls !");
 					this.duel.addMessage("Dr Phil sends " + this.duel.getOppOf(this).getName() + "'s will to fight to the ranch for 1 turn...");
 					this.duel.getOppOf(this).turnSkip = 2;
 				}
-				if (this.godList.indexOf(GOD_PP3_PRIEST) > -1) { // LeprePuds
+				if (this.godList.indexOf(GOD_PP3.name) > -1) { // LeprePuds
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("LeprePuds answers his calls !");
 					this.duel.addMessage(this.getName() + " is faster than ever !");
@@ -1776,7 +1757,7 @@ class Fighter {
 					}
 					this.DEXValue += 20;
 				}
-				if (this.godList.indexOf(GOD_PP4_PRIEST) > -1) { // DickHead Pudding
+				if (this.godList.indexOf(GOD_PP4.name) > -1) { // DickHead Pudding
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("DickHead Pudding answers his calls !");
 					if (getRandomPercent() <= 33) {
@@ -1788,43 +1769,43 @@ class Fighter {
 						this.duel.addMessage(this.getName() + " fails to be a complete dickhead !");
 					}
 				}
-				if (this.godList.indexOf(GOD_PP5_PRIEST) > -1) { // Hello There Puds
+				if (this.godList.indexOf(GOD_PP5.name) > -1) { // Hello There Puds
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Hello There Puds answers his calls !");
 					this.duel.addMessage(this.getName() + " gets a sudden body change !");
 					this.DEXValue = this.STRValue;
 				}
-				if (this.godList.indexOf(GOD_PP6_PRIEST) > -1) { // Dickdickson666
+				if (this.godList.indexOf(GOD_PP6.name) > -1) { // Dickdickson666
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("DickDickSon666 answers his calls !");
 					this.duel.addMessage(this.getName() + " releases Hell on earth !");
 					this.duel.FORCE_SATAN = true;
 				}
-				if (this.godList.indexOf(GOD_PP7_PRIEST) > -1) { // Jew
+				if (this.godList.indexOf(GOD_PP7.name) > -1) { // Jew
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Jew Lord answers his calls !");
 					this.duel.addMessage(this.getName() + " uses his long nose to get a new special charge !");
 					this.specialCharges += 1;
 				}
-				if (this.godList.indexOf(GOD_PP8_PRIEST) > -1) { // Fabulous Toast Man
+				if (this.godList.indexOf(GOD_PP8.name) > -1) { // Fabulous Toast Man
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Fabulous Toast Man answers his calls !");
 					this.duel.addMessage(this.getName() + " calls for a bit of power from all his gods !");
 					this.duel.getOppOf(this).damage(Math.floor(this.godList.length*this.STR/10));
 				}
-				if (this.godList.indexOf(GOD_PP9_PRIEST) > -1) { // Brenn
+				if (this.godList.indexOf(GOD_PP9.name) > -1) { // Brenn
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Brenn answers his calls !");
 					this.duel.addMessage(this.getName() + " feels like Jesus !");
 					this.extraLife += 1;
 				}
-				if (this.godList.indexOf(GOD_PP10_PRIEST) > -1) { // Fabio
+				if (this.godList.indexOf(GOD_PP10.name) > -1) { // Fabio
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Fabio answers his calls !");
 					this.duel.addMessage(this.getName() + " makes you all turn gay !");
 					this.duel.GAY_TURNS = 5;
 				}
-				if (this.godList.indexOf(GOD_PP11_PRIEST) > -1) { // Country Music Brenn
+				if (this.godList.indexOf(GOD_PP11.name) > -1) { // Country Music Brenn
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Country Music Brenn answers his calls !");
 					if (this.isCowboy) {
@@ -1835,27 +1816,27 @@ class Fighter {
 						this.isCowBoy = true;
 					}
 				}
-				if (this.godList.indexOf(GOD_PP12_PRIEST) > -1) { // Espinoza
+				if (this.godList.indexOf(GOD_PP12.name) > -1) { // Espinoza
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Espinoza answers his calls !");
 					this.duel.addMessage(this.getName() + " grabs " + this.duel.getOppOf(this).getName() + "'s PP !");
 					this.duel.getOppOf(this).grabbedPP = 2;
 				}
-				if (this.godList.indexOf(GOD_PP13_PRIEST) > -1) { // 700IQ
+				if (this.godList.indexOf(GOD_PP13.name) > -1) { // 700IQ
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Mutantoid Lycanthrope answers his calls !");
 					if (!this.chimera) {
 						this.duel.addMessage(this.getName() + " shares his furry genes with " + this.duel.getOppOf(this).getName() + " UwU");
 						this.duel.getOppOf(this).chimera = true;
 						for (var i in this.duel.getOppOf(this).godList) {
-							if (this.duel.getOppOf(this).godList[i] != GOD_PP13_PRIEST) {
-								this.duel.getOppOf(this).godList[i] = GOD_PP13_PRIEST;
+							if (this.duel.getOppOf(this).godList[i] != GOD_PP13.name) {
+								this.duel.getOppOf(this).godList[i] = GOD_PP13.name;
 								break;
 							}
 						}
 						var fullChimera = true;
 						for (var i in this.duel.getOppOf(this).godList) {
-							if (this.duel.getOppOf(this).godList[i] != GOD_PP13_PRIEST) {
+							if (this.duel.getOppOf(this).godList[i] != GOD_PP13.name) {
 								fullChimera = false
 							}
 						}
@@ -1868,7 +1849,7 @@ class Fighter {
 						this.duel.addMessage(this.getName() + " barks like the retarded furry he is !");
 					}
 				}
-				if (this.godList.indexOf(GOD_PP14_PRIEST) > -1) { // UREGonnaGETRaped
+				if (this.godList.indexOf(GOD_PP14.name) > -1) { // UREGonnaGETRaped
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Rapist Pudding answers his calls !");
 					this.duel.addMessage(this.getName() + " sensually touches " + this.getOppName() + "'s PP...");
@@ -1877,30 +1858,30 @@ class Fighter {
 					});
 					this.duel.getOppOf(this).damage(Math.floor(this.STR/2));
 				}
-				if (this.godList.indexOf(GOD_PP15_PRIEST) > -1) { // STFU Isaac
+				if (this.godList.indexOf(GOD_PP15.name) > -1) { // STFU Isaac
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Isaac answers his calls !");
 					this.duel.addMessage(this.getName() + " curses " + this.duel.getOppOf(this).getName() + " with bad luck !");
 					this.duel.getOppOf(this).badLuck = true;
 				}
-				if (this.godList.indexOf(GOD_PP16_PRIEST) > -1) { // The Man Who Made a Monster
+				if (this.godList.indexOf(GOD_PP16.name) > -1) { // The Man Who Made a Monster
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Man who Made a Monster answers his calls !");
 					this.duel.addMessage(this.getName() + " starts summoning the Monster !");
 					this.summonTankCountdown = 4;
 				}
-				if (this.godList.indexOf(GOD_PP17_PRIEST) > -1) { // Hitler
+				if (this.godList.indexOf(GOD_PP17.name) > -1) { // Hitler
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Literally Hitler answers his calls !");
 					this.duel.addMessage(this.getName() + " starts a new genocide !");
-					if (this.duel.getOppOf(this).godList.indexOf(GOD_PP7_PRIEST) > -1) {
+					if (this.duel.getOppOf(this).godList.indexOf(GOD_PP7.name) > -1) {
 						this.duel.getOppOf(this).playMove(EMOTE_PP47);
 					}
 					else {
 						this.duel.addMessage(this.duel.getOppOf(this).getName() + " is unaffected...");
 					}
 				}
-				if (this.godList.indexOf(GOD_PP18_PRIEST) > -1) { // Salt King
+				if (this.godList.indexOf(GOD_PP18.name) > -1) { // Salt King
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Salt King answers his calls !");
 					this.duel.addMessage(this.duel.getOppOf(this).getName() + " is Salt King's best friend");
@@ -1908,7 +1889,7 @@ class Fighter {
 					this.DEXValue += Math.floor(this.duel.getOppOf(this).DEX/2);
 					this.duel.getOppOf(this).DEXValue -= Math.floor(this.duel.getOppOf(this).DEX/2);
 				}
-				if (this.godList.indexOf(GOD_PP19_PRIEST) > -1) { // Chad Brenn
+				if (this.godList.indexOf(GOD_PP19.name) > -1) { // Chad Brenn
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Chad Brenn answers his calls !");
 					this.duel.addMessage(this.getName() + " dabs on the haters");
@@ -1927,13 +1908,13 @@ class Fighter {
 						this.duel.addMessage(this.getName() + " is already the fastest !");
 					}
 				}
-				if (this.godList.indexOf(GOD_PP20_PRIEST) > -1) { // Mikasa
+				if (this.godList.indexOf(GOD_PP20.name) > -1) { // Mikasa
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Mikasa answers his calls !");
 					this.duel.addMessage(this.getName() + " learns how to dual wield !");
 					this.dualWield = true;
 				}
-				if (this.godList.indexOf(GOD_PP21_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
+				if (this.godList.indexOf(GOD_PP21.name) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
 					// D.I.C.K.
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("D.I.C.K. answers his calls !");
@@ -1944,14 +1925,14 @@ class Fighter {
 					this.duel.addMessage(this.getName() + " gets the strength of a thousand punchers !");
 					this.playMove(EMOTE_PP2);
 				}
-				if (this.godList.indexOf(GOD_PP22_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
+				if (this.godList.indexOf(GOD_PP22.name) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
 					// Satan
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Satan answers his calls !");
 					this.satanicMoveMultiplier = true
 					this.duel.addMessage(this.getName() + " gets a Satanic Move Multiplier !");
 				}
-				if (this.godList.indexOf(GOD_PP23_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
+				if (this.godList.indexOf(GOD_PP23.name) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
 					// Ancient Fongus
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Ancient Fongus answers his calls !");
@@ -1962,7 +1943,7 @@ class Fighter {
 						this.playMove(this.duel.getRandomEmote());
 					}
 				}
-				if (this.godList.indexOf(GOD_PP24_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
+				if (this.godList.indexOf(GOD_PP24.name) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
 					 // Time Cube
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Time Cube answers his calls !");
@@ -1979,14 +1960,14 @@ class Fighter {
 					this.duel.addMessage("*When the Sun shines upon Earth, 2 – major Time points are created on opposite sides of Earth – known as Midday and Midnight. Where the 2 major Time forces join, synergy creates 2 new minor Time points we recognize as Sunup and Sundown. The 4-equidistant Time points can be considered as Time Square imprinted upon the circle of Earth. In a single rotation of the Earth sphere, each Time corner point rotates through the other 3-corner Time points, thus creating 16 corners, 96 hours and 4-simultaneous 24-hour Days within a single rotation of Earth – equated to a Higher Order of Life Time Cube. ONE - DOES NOT EXIST, EXCEPT IN DEATH STATE.*");
 					this.duel.addMessage("***For as long as you dumbass, educated brilliant and boring bastards IGNORE Cubic Creation, your sons and daughters deserve to die and be maimed in foreign lands - while kissing innocent women and children.***");
 				}
-				if (this.godList.indexOf(GOD_PP25_PRIEST) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
+				if (this.godList.indexOf(GOD_PP25.name) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
 					 // Cthulhu
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Cthulhu answers his calls !");
 					this.duel.addMessage(this.duel.getOppOf(this).getName() + " falls into madness !");
 					this.duel.getOppOf(this).madnessStacks += 15;
 				}
-				if (this.godList.indexOf(GOD_PP26_PRIEST) > -1) { // Ranger
+				if (this.godList.indexOf(GOD_PP26.name) > -1) { // Ranger
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Ranger answers his calls !");
 					this.playMove(EMOTE_PP27);
@@ -2104,10 +2085,10 @@ class Fighter {
 				var godListMemory = this.godList.slice();
 				this.godList = [];
 				for (var i = 0; i < 5; i++) {
-					var randomGod = PRIEST_ROLES[Math.floor(Math.random()*PRIEST_ROLES.length)];
+					var randomGod = GOD_LIST[Math.floor(Math.random()*GOD_LIST.length)].name;
 					var nbTries = 0;
-					while (this.godList.indexOf(PRIEST_ROLES[randomGod]) > -1 && nbTries < 100) {
-						randomGod = PRIEST_ROLES[Math.floor(Math.random()*PRIEST_ROLES.length)];
+					while (this.godList.indexOf(randomGod) > -1 && nbTries < 100) {
+						randomGod = GOD_LIST[Math.floor(Math.random()*GOD_LIST.length)].name;
 						nbTries += 1;
 					}
 					this.godList.push(randomGod);
@@ -2127,15 +2108,15 @@ class Fighter {
 				// Triggered Pépin2Pom
 				this.duel.MOVE_COUNT += 33;
 				for (var i in this.godList) {
-					if (this.godList[i] != GOD_PP18_PRIEST) {
+					if (this.godList[i] != GOD_PP18.name) {
 						this.duel.addMessage(this.getName() + " gets closer to the Salt King !");
-						this.godList[i] = GOD_PP18_PRIEST;
+						this.godList[i] = GOD_PP18.name;
 						break;
 					}
 				}
 				var nbSalt = 0;
 				for (var i in this.godList) {
-					if (this.godList[i] == GOD_PP18_PRIEST) {
+					if (this.godList[i] == GOD_PP18.name) {
 						nbSalt += 1;
 					}
 				}
@@ -2487,110 +2468,6 @@ class Fighter {
 					this.duel.addMessage("UwU Mode Deactivated !");
 				}
 			}
-			else if (attack == GOD_PP1) {
-				this.godList.push(GOD_PP1_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP1_PRIEST + " !");
-			}
-			else if (attack == GOD_PP2) {
-				this.godList.push(GOD_PP2_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP2_PRIEST + " !");
-			}
-			else if (attack == GOD_PP3) {
-				this.godList.push(GOD_PP3_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP3_PRIEST + " !");
-			}
-			else if (attack == GOD_PP4) {
-				this.godList.push(GOD_PP4_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP4_PRIEST + " !");
-			}
-			else if (attack == GOD_PP5) {
-				this.godList.push(GOD_PP5_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP5_PRIEST + " !");
-			}
-			else if (attack == GOD_PP6) {
-				this.godList.push(GOD_PP6_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP6_PRIEST + " !");
-			}
-			else if (attack == GOD_PP7) {
-				this.godList.push(GOD_PP7_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP7_PRIEST + " !");
-			}
-			else if (attack == GOD_PP8) {
-				this.godList.push(GOD_PP8_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP8_PRIEST + " !");
-			}
-			else if (attack == GOD_PP9) {
-				this.godList.push(GOD_PP9_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP9_PRIEST + " !");
-			}
-			else if (attack == GOD_PP10) {
-				this.godList.push(GOD_PP10_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP10_PRIEST + " !");
-			}
-			else if (attack == GOD_PP11) {
-				this.godList.push(GOD_PP11_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP11_PRIEST + " !");
-			}
-			else if (attack == GOD_PP12) {
-				this.godList.push(GOD_PP12_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP12_PRIEST + " !");
-			}
-			else if (attack == GOD_PP13) {
-				this.godList.push(GOD_PP13_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP13_PRIEST + " !");
-			}
-			else if (attack == GOD_PP14) {
-				this.godList.push(GOD_PP14_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP14_PRIEST + " !");
-			}
-			else if (attack == GOD_PP15) {
-				this.godList.push(GOD_PP15_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP15_PRIEST + " !");
-			}
-			else if (attack == GOD_PP16) {
-				this.godList.push(GOD_PP16_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP16_PRIEST + " !");
-			}
-			else if (attack == GOD_PP17) {
-				this.godList.push(GOD_PP17_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP17_PRIEST + " !");
-			}
-			else if (attack == GOD_PP18) {
-				this.godList.push(GOD_PP18_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP18_PRIEST + " !");
-			}
-			else if (attack == GOD_PP19) {
-				this.godList.push(GOD_PP19_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP19_PRIEST + " !");
-			}
-			else if (attack == GOD_PP20) {
-				this.godList.push(GOD_PP20_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP20_PRIEST + " !");
-			}
-			else if (attack == GOD_PP21) {
-				this.godList.push(GOD_PP21_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP21_PRIEST + " !");
-			}
-			else if (attack == GOD_PP22) {
-				this.godList.push(GOD_PP22_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP22_PRIEST + " !");
-			}
-			else if (attack == GOD_PP23) {
-				this.godList.push(GOD_PP23_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP23_PRIEST + " !");
-			}
-			else if (attack == GOD_PP24) {
-				this.godList.push(GOD_PP24_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP24_PRIEST + " !");
-			}
-			else if (attack == GOD_PP25) {
-				this.godList.push(GOD_PP25_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP25_PRIEST + " !");
-			}
-			else if (attack == GOD_PP26) {
-				this.godList.push(GOD_PP26_PRIEST);
-				this.duel.addMessage(this.getName() + " becomes a " + GOD_PP26_PRIEST + " !");
-			}
 			else if (attack == EMOTE_DEAD) {
 				// Dead (Cthulhu battle)
 				if (this.STRValue < 70) {
@@ -2606,9 +2483,12 @@ class Fighter {
 				return;
 			}
 			else {
-				this.duel.addMessage(this.getName() + " makes an unknown move ?");
-				this.playMove(EMOTE_SKIP);
-				console.log("UNKNOWN MOVE : " + attack)
+				for (var i = 0; i < GOD_LIST.length; i++) {
+					if (GOD_LIST[i].emote == attack) {
+						this.godList.push(GOD_LIST[i].name);
+						this.duel.addMessage(this.getName() + " becomes a " + GOD_LIST[i].name + "Priest !");
+					}
+				}
 			}
 			
 			if (sdsds+1 < numberAttacks) {
@@ -2655,11 +2535,11 @@ class Fighter {
 			// Barrel
 			_amount = _amount*2;
 		}
-		if (this.godList.indexOf(GOD_PP19_PRIEST) > -1 && this.godList.indexOf(GOD_PP20_PRIEST) > -1 && _punch) {
+		if (this.godList.indexOf(GOD_PP19.name) > -1 && this.godList.indexOf(GOD_PP20.name) > -1 && _punch) {
 			// Waifu Body Pillow
 			_amount -= 10;
 		}
-		if (this.duel.getOppOf(this).godList.indexOf(GOD_PP6_PRIEST) > -1 && this.duel.getOppOf(this).godList.indexOf(GOD_PP21_PRIEST) > -1 && _punch) {
+		if (this.duel.getOppOf(this).godList.indexOf(GOD_PP6.name) > -1 && this.duel.getOppOf(this).godList.indexOf(GOD_PP21.name) > -1 && _punch) {
 			// Too Much Dicks
 			_amount += 10;
 		}
@@ -2801,7 +2681,7 @@ class Fighter {
 		// Acid
 		if (this.acidArmor >= 1 && _punch) {
 			this.duel.addMessage(this.getName() + " has an acid armor !");
-			if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) {
+			if (this.godList.indexOf(GOD_PP15.name) > -1 && this.godList.indexOf(GOD_PP2.name) > -1) {
 				this.duel.addMessage(this.duel.getOppOf(this).getName() + " therapy helps !");
 				this.duel.getOppOf(this).heal(10);
 			}
@@ -2873,7 +2753,7 @@ class Fighter {
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
 			this.duel.addMessage(this.getName() + " bleeds !");
-			if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) {
+			if (this.godList.indexOf(GOD_PP15.name) > -1 && this.godList.indexOf(GOD_PP2.name) > -1) {
 				this.duel.addMessage(this.getName() + " therapy helps !");
 				this.heal(this.bleedDamage);
 			}
@@ -2890,7 +2770,7 @@ class Fighter {
 		// Melt
 		if (this.meltingDamage > 0) {
 			this.duel.addMessage(this.getName() + " melts !");
-			if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP2_PRIEST) > -1) {
+			if (this.godList.indexOf(GOD_PP15.name) > -1 && this.godList.indexOf(GOD_PP2.name) > -1) {
 				this.duel.addMessage(this.getName() + " therapy helps !");
 				this.heal(this.meltingDamage);
 			}
@@ -2925,7 +2805,7 @@ class Fighter {
 		if (this.tearDrinker > 0) {
 			this.duel.addMessage(this.getName() + " drinks salty tears !");
 			this.heal(this.tearDrinker);
-			if (this.godList.indexOf(GOD_PP16_PRIEST) > -1 && this.godList.indexOf(GOD_PP18_PRIEST) > -1) {
+			if (this.godList.indexOf(GOD_PP16.name) > -1 && this.godList.indexOf(GOD_PP18.name) > -1) {
 				this.duel.getOppOf(this).damage(this.tearDrinker);
 			}
 			this.duel.addMessage("-----------------");
@@ -2965,42 +2845,42 @@ class Fighter {
 		}
 		
 		// Ancient Fongus
-		if (this.godList.indexOf(GOD_PP23_PRIEST) > -1) {
+		if (this.godList.indexOf(GOD_PP23.name) > -1) {
 			this.eldritchFriend = true;
 		}
 		
 		// Espinoza Waifu Stealer
-		if (this.duel.MOVE_COUNT > 10 && this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.duel.getOppOf(this).godList.indexOf(GOD_PP20_PRIEST) > -1) {
+		if (this.duel.MOVE_COUNT > 10 && this.godList.indexOf(GOD_PP12.name) > -1 && this.duel.getOppOf(this).godList.indexOf(GOD_PP20.name) > -1) {
 			this.duel.addMessage("Espinoza just sniffed Mikasa !");
 			this.duel.addMessage("He truly is a waifu stealer !");
-			this.duel.getOppOf(this).godList.splice(this.duel.getOppOf(this).godList.indexOf(GOD_PP20_PRIEST), 1);
-			this.godList.push(GOD_PP20_PRIEST);
+			this.duel.getOppOf(this).godList.splice(this.duel.getOppOf(this).godList.indexOf(GOD_PP20.name), 1);
+			this.godList.push(GOD_PP20.name);
 			this.duel.addMessage("-----------------");
 		}
 		
 		// Synergies
-		if (this.godList.indexOf(GOD_PP9_PRIEST) > -1 && this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP19_PRIEST) > -1) {
+		if (this.godList.indexOf(GOD_PP9.name) > -1 && this.godList.indexOf(GOD_PP11.name) > -1 && this.godList.indexOf(GOD_PP19.name) > -1) {
 			this.duel.addMessage(this.getName() + " gets healed by the Holy Brenn Trinity !");
 			this.heal(5);
 			this.duel.addMessage("-----------------");
 		}
-		if (this.godList.indexOf(GOD_PP5_PRIEST) > -1 && this.godList.indexOf(GOD_PP6_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
+		if (this.godList.indexOf(GOD_PP5.name) > -1 && this.godList.indexOf(GOD_PP6.name) > -1 && this.godList.indexOf(GOD_PP14.name) > -1) {
 			this.duel.addMessage(this.getOppName() + " gets hurt by the Unholy Pudding Trinity !");
 			this.duel.getOppOf(this).damage(5);
 			this.duel.addMessage("-----------------");
 		}
-		if (this.godList.indexOf(GOD_PP15_PRIEST) > -1 && this.godList.indexOf(GOD_PP12_PRIEST) > -1 && this.godList.indexOf(GOD_PP14_PRIEST) > -1) {
+		if (this.godList.indexOf(GOD_PP15.name) > -1 && this.godList.indexOf(GOD_PP12.name) > -1 && this.godList.indexOf(GOD_PP14.name) > -1) {
 			this.duel.addMessage(this.getName() + " remembers haunting memories...");
 			this.playMove(EMOTE_PP42);
 			this.duel.addMessage("-----------------");
 		}
-		if (this.godList.indexOf(GOD_PP11_PRIEST) > -1 && this.godList.indexOf(GOD_PP9_PRIEST) > -1) {
+		if (this.godList.indexOf(GOD_PP11.name) > -1 && this.godList.indexOf(GOD_PP9.name) > -1) {
 			this.duel.addMessage(this.getName() + " plays garbage music");
 			this.duel.addMessage(this.duel.getOppOf(this).getName() + "'s ears starts bleeding");
 			this.duel.getOppOf(this).bleedDamage++;
 			this.duel.addMessage("-----------------");
 		}
-		if (this.godList.indexOf(GOD_PP10_PRIEST) > -1 && this.godList.indexOf(GOD_PP8_PRIEST) > -1 && getRandomPercent() <= 10) {
+		if (this.godList.indexOf(GOD_PP10.name) > -1 && this.godList.indexOf(GOD_PP8.name) > -1 && getRandomPercent() <= 10) {
 			this.duel.addMessage(this.getName() + "'s Yaoi starts !");
 			if (this.duel.GAY_TURNS < 2) {
 				this.duel.GAY_TURNS = 0;
@@ -3303,7 +3183,7 @@ class Duel {
 			this.addMessage("-----------------");
 			this.addMessage("Let's say you are a Priest of **700IQ**, **Salt King** and **Brenn**.");
 			this.addMessage("I'm gonna give you a charge of each kind. Your gods only appear if you have at least one charge.");
-			this.FIGHTER1.godList = [GOD_PP13_PRIEST, GOD_PP18_PRIEST, GOD_PP9_PRIEST];
+			this.FIGHTER1.godList = [GOD_PP13.name, GOD_PP18.name, GOD_PP9.name];
 			this.FIGHTER1.regularCharges = 1;
 			this.FIGHTER1.specialCharges = 1;
 			this.addMessage("-----------------");
@@ -3765,7 +3645,7 @@ class Duel {
 				_fighter.attack = EMOTE_DEAD;
 				_fighter.STRValue = -10;
 			}
-			if (_fighter.duel.TIME_STOP > 0 && _fighter.requiemPower == null && _fighter.godList.indexOf(GOD_PP24_PRIEST) < 0) { // if weak --> skip time skip
+			if (_fighter.duel.TIME_STOP > 0 && _fighter.requiemPower == null && _fighter.godList.indexOf(GOD_PP24.name) < 0) { // if weak --> skip time skip
 				_fighter.attack = EMOTE_SKIP;
 			}
 		});
@@ -4117,7 +3997,10 @@ class Duel {
 			else {
 				this.addMessage("You suddenly feel new powers in your PP !");
 				this.bothFightersAction(function(_fighter) {
-					_fighter.godList = PRIEST_ROLES.concat(ELDRITCH_PRIEST_ROLES);
+					_fighter.godList = [];
+					for (var i = 0; i < GOD_LIST.length; i++) {
+						_fighter.godList.push(GOD_LIST[i].name);
+					}
 
 					_fighter.isBigPP = true;
 					_fighter.isFastPP = true;
@@ -4356,7 +4239,7 @@ class Duel {
 		this.bothFightersAction(function(_fighter) {
 			var duel = _fighter.duel
 			
-			if (_fighter.duel.TIME_STOP > 0 && _fighter.requiemPower == null && _fighter.godList.indexOf(GOD_PP24_PRIEST) < 0) { // if weak --> skip time skip
+			if (_fighter.duel.TIME_STOP > 0 && _fighter.requiemPower == null && _fighter.godList.indexOf(GOD_PP24.name) < 0) { // if weak --> skip time skip
 				return;
 			}
 			if (_fighter.attack == EMOTE_DEAD || _fighter.attack == EMOTE_SKIP) { // no choice
@@ -4470,11 +4353,11 @@ class Duel {
 			// High Five Emote
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP32).name, fighter.user);
 		}
-		if (!(fighter.godList.indexOf(GOD_PP15_PRIEST) > -1 && fighter.godList.indexOf(GOD_PP2_PRIEST) > -1) && fighter.bleedDamage * 5 > fighter.STR && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP12) > -1) {
+		if (!(fighter.godList.indexOf(GOD_PP15.name) > -1 && fighter.godList.indexOf(GOD_PP2.name) > -1) && fighter.bleedDamage * 5 > fighter.STR && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP12) > -1) {
 			// Overcircumcise
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP12).name, fighter.user);
 		}
-		if (!(fighter.godList.indexOf(GOD_PP15_PRIEST) > -1 && fighter.godList.indexOf(GOD_PP2_PRIEST) > -1) && fighter.bleedDamage * 5 > fighter.STR && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP22) > -1) {
+		if (!(fighter.godList.indexOf(GOD_PP15.name) > -1 && fighter.godList.indexOf(GOD_PP2.name) > -1) && fighter.bleedDamage * 5 > fighter.STR && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP22) > -1) {
 			// Circumcise
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP22).name, fighter.user);
 		}
@@ -4554,7 +4437,7 @@ class Duel {
 			// Disembowled
 			dont.push(EMOTE_PP37);
 		}
-		if (fighter.godList.indexOf(GOD_PP15_PRIEST) > -1 && fighter.godList.indexOf(GOD_PP2_PRIEST) > -1) {
+		if (fighter.godList.indexOf(GOD_PP15.name) > -1 && fighter.godList.indexOf(GOD_PP2.name) > -1) {
 			// Therapy --> (Over)Curcumcise
 			dont.push(EMOTE_PP22);
 			dont.push(EMOTE_PP12);
@@ -4677,12 +4560,12 @@ class Duel {
 			}
 			
 			// Guerrier de l'Enfer
-			if (_fighter.attack == EMOTE_PP74 && _fighter.godList.indexOf(GOD_PP1_PRIEST) > -1 && _fighter.godList.indexOf(GOD_PP22_PRIEST) > -1) {
+			if (_fighter.attack == EMOTE_PP74 && _fighter.godList.indexOf(GOD_PP1.name) > -1 && _fighter.godList.indexOf(GOD_PP22.name) > -1) {
 				caught1 = false;
 			}
 
 			// Illegal Jews (Hitler regular move)
-			if (duel.ILLEGAL_JEWS && _fighter.godList.indexOf(GOD_PP7_PRIEST) > -1 && duel.illegalGetCaught(20)) {
+			if (duel.ILLEGAL_JEWS && _fighter.godList.indexOf(GOD_PP7.name) > -1 && duel.illegalGetCaught(20)) {
 				duel.addMessage("Wait, I think " + _fighter.getName() + " is a jew !");
 				duel.sendMessages();
 				caught1 = true;
@@ -4701,7 +4584,7 @@ class Duel {
 			}
 
 			// Caught cheating --> test si malus dex
-			if (caught1 && (getRandomPercent() >= 33 || _fighter.godList.indexOf(GOD_PP16_PRIEST) > -1 && _fighter.godList.indexOf(GOD_PP13_PRIEST) > -1)) {
+			if (caught1 && (getRandomPercent() >= 33 || _fighter.godList.indexOf(GOD_PP16.name) > -1 && _fighter.godList.indexOf(GOD_PP13.name) > -1)) {
 				duel.addMessage(_fighter.getName() + " is doing illegal stuff ! He loses 20 DEX and 10 STR.");
 				duel.sendMessages();
 				_fighter.STRValue -= 10;
@@ -4723,14 +4606,14 @@ class Duel {
 
 		this.bothFightersAction(function(_fighter) {
 			// Jew Hitler Paradox
-			if (_fighter.godList.indexOf(GOD_PP7_PRIEST) > -1 && _fighter.godList.indexOf(GOD_PP17_PRIEST) > -1 && getRandomPercent() <= 10) {
+			if (_fighter.godList.indexOf(GOD_PP7.name) > -1 && _fighter.godList.indexOf(GOD_PP17.name) > -1 && getRandomPercent() <= 10) {
 				_fighter.duel.addMessage(_fighter.getName() + " gets the Jew-Hitler Paradox Effect !");
 				_fighter.duel.sendMessages();
 				_fighter.attack = _fighter.duel.getRandomEmote(false);
 			}
 			
 			// Wild Mage
-			if (_fighter.godList.indexOf(GOD_PP9_PRIEST) > -1 && _fighter.godList.indexOf(GOD_PP25_PRIEST) > -1 && getRandomPercent() <= 10) {
+			if (_fighter.godList.indexOf(GOD_PP9.name) > -1 && _fighter.godList.indexOf(GOD_PP25.name) > -1 && getRandomPercent() <= 10) {
 				_fighter.duel.addMessage(_fighter.getName() + " feels the wild magic kicking in !");
 				_fighter.duel.sendMessages();
 				_fighter.attack = EMOTE_LIST[Math.floor(Math.random()*EMOTE_LIST.length)];
@@ -5083,8 +4966,8 @@ class Duel {
 			}
 		}
 		for (var i in GOD_LIST) {
-			if (_emote.name == CLIENT.emojis.get(GOD_LIST[i]).name) {
-				return GOD_LIST[i];
+			if (_emote.name == CLIENT.emojis.get(GOD_LIST[i].emote).name) {
+				return GOD_LIST[i].emote;
 			}
 		}
 		return EMOTE_SKIP;
@@ -5266,6 +5149,9 @@ function skipWaitingDuels() {
 		}
 	}
 }
+function getPriestRoleName(_god) {
+	return _god["name"] + " Priest";
+}
 
 function setBotActivity() {
 	var texte = "Lonely PP :(";
@@ -5295,12 +5181,6 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 			user.removeRole(role);
 		}
 		else {
-			if (getNumberOfGods(user) >= 3 && PRIEST_ROLES.indexOf(_nomRole) > -1) {
-				return user.send("You can't have more than 3 Gods.");
-			}
-			if (getNumberOfGods(user, ELDRITCH_PRIEST_ROLES) >= 1 && ELDRITCH_PRIEST_ROLES.indexOf(_nomRole) > -1) {
-				return user.send("You can't have more than 1 Eldritch God.");
-			}
 			user.addRole(role);
 		}
 	}
@@ -5309,10 +5189,10 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 		user.send("Looks like there is no " + _nomRole + " role there...");
 	}
 }
-function getNumberOfGods(_guildUser, _godList = PRIEST_ROLES) {
+function getNumberOfGods(_guildUser) {
 	var counter = 0;
-	for (var i in _godList) {
-		if (_guildUser.roles.find(r => r.name == _godList[i])) {
+	for (var i in GOD_LIST) {
+		if (_guildUser.roles.find(r => r.name == getPriestRoleName(GOD_LIST[i]))) {
 			counter++;
 		}
 	}
@@ -5390,23 +5270,29 @@ function sendCheatPanel(_channel) {
 		console.log(e);
 	});
 	_channel.send("Cheat Panel : Gods I").then(function (_message2) {
-		_message2.react(GOD_PP1); _message2.react(GOD_PP2);
-		_message2.react(GOD_PP3); _message2.react(GOD_PP4);
-		_message2.react(GOD_PP5); _message2.react(GOD_PP6);
-		_message2.react(GOD_PP7); _message2.react(GOD_PP8);
-		_message2.react(GOD_PP9); _message2.react(GOD_PP10);
-		_message2.react(GOD_PP11); _message2.react(GOD_PP12);
-		_message2.react(GOD_PP13); _message2.react(GOD_PP14);
-		_message2.react(GOD_PP15); _message2.react(GOD_PP16);
-		_message2.react(GOD_PP17); _message2.react(GOD_PP18);
-		_message2.react(GOD_PP19); _message2.react(GOD_PP20);
+		for (var i = 0; i < GOD_LIST.length; i++) {
+			if (GOD_LIST[i].type == "normal") {
+				_message2.react(GOD_LIST[i].emote);
+			}
+		}
 	}).catch(function(e) {
 		console.log(e);
 	});
 	_channel.send("Cheat Panel : Gods II").then(function (_message2) {
-		_message2.react(GOD_PP21); _message2.react(GOD_PP22); 
-		_message2.react(GOD_PP23); _message2.react(GOD_PP24); 
-		_message2.react(GOD_PP25); 
+		for (var i = 0; i < GOD_LIST.length; i++) {
+			if (GOD_LIST[i].type == "eldritch") {
+				_message2.react(GOD_LIST[i].emote);
+			}
+		} 
+	}).catch(function(e) {
+		console.log(e);
+	});
+	_channel.send("Cheat Panel : Gods III").then(function (_message2) {
+		for (var i = 0; i < GOD_LIST.length; i++) {
+			if (GOD_LIST[i].type == "waifu") {
+				_message2.react(GOD_LIST[i].emote);
+			}
+		} 
 	}).catch(function(e) {
 		console.log(e);
 	});
@@ -5674,7 +5560,7 @@ CLIENT.on("message", async _message => {
 		// STYLE
 		var guild = _message.channel.guild;
 		var user = guild.members.get(_message.author.id);
-		var role = guild.roles.find(r => r.name == GOD_PP21_PRIEST);
+		var role = guild.roles.find(r => r.name == GOD_PP21.name);
 		
 		_message.reply("change your style with a reaction.").then(function (_message2) {
 			_message2.react(EMOTE_PP38); // Fast PP
@@ -5813,87 +5699,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		// Hockey Puck PP
 		changeRoleToStyler(HOCKEY_PUCK_PP_ROLE, _user.id, _reaction.message.channel.guild);
 	}
-	
-	else if (_reaction.emoji.id == GOD_PP1) {
-		changeRoleToStyler(GOD_PP1_PRIEST, _user.id, _reaction.message.channel.guild);
-	}
-	else if (_reaction.emoji.id == GOD_PP2) {
-		changeRoleToStyler(GOD_PP2_PRIEST, _user.id, _reaction.message.channel.guild);
-	}
-	else if (_reaction.emoji.id == GOD_PP3) {
-		changeRoleToStyler(GOD_PP3_PRIEST, _user.id, _reaction.message.channel.guild);
-	}
-	else if (_reaction.emoji.id == GOD_PP4) {
-		changeRoleToStyler(GOD_PP4_PRIEST, _user.id, _reaction.message.channel.guild);
-	}
-	else if (_reaction.emoji.id == GOD_PP5) {
-		changeRoleToStyler(GOD_PP5_PRIEST, _user.id, _reaction.message.channel.guild);
-	}
-	else if (_reaction.emoji.id == GOD_PP6) {
-		changeRoleToStyler(GOD_PP6_PRIEST, _user.id, _reaction.message.channel.guild);
-	}
-	else if (_reaction.emoji.id == GOD_PP7) {
-		changeRoleToStyler(GOD_PP7_PRIEST, _user.id, _reaction.message.channel.guild);
-	}
-	else if (_reaction.emoji.id == GOD_PP8) {
-		changeRoleToStyler(GOD_PP8_PRIEST, _user.id, _reaction.message.channel.guild);
-	}
-	else if (_reaction.emoji.id == GOD_PP9) {
-		changeRoleToStyler(GOD_PP9_PRIEST, _user.id, _reaction.message.channel.guild);
-	}
-	else if (_reaction.emoji.id == GOD_PP10) {
-		changeRoleToStyler(GOD_PP10_PRIEST, _user.id, _reaction.message.channel.guild);
-	}
-	else if (_reaction.emoji.id == GOD_PP11) {
-		changeRoleToStyler(GOD_PP11_PRIEST, _user.id, _reaction.message.channel.guild);
-	}
-	else if (_reaction.emoji.id == GOD_PP12) {
-		changeRoleToStyler(GOD_PP12_PRIEST, _user.id, _reaction.message.channel.guild);
-	}
-	else if (_reaction.emoji.id == GOD_PP13) {
-		changeRoleToStyler(GOD_PP13_PRIEST, _user.id, _reaction.message.channel.guild);
-	}
-	else if (_reaction.emoji.id == GOD_PP14) {
-		changeRoleToStyler(GOD_PP14_PRIEST, _user.id, _reaction.message.channel.guild);
-	}
-	else if (_reaction.emoji.id == GOD_PP15) {
-		changeRoleToStyler(GOD_PP15_PRIEST, _user.id, _reaction.message.channel.guild);
-	}
-	else if (_reaction.emoji.id == GOD_PP16) {
-		changeRoleToStyler(GOD_PP16_PRIEST, _user.id, _reaction.message.channel.guild);
-	}
-	else if (_reaction.emoji.id == GOD_PP17) {
-		changeRoleToStyler(GOD_PP17_PRIEST, _user.id, _reaction.message.channel.guild);
-	}
-	else if (_reaction.emoji.id == GOD_PP18) {
-		changeRoleToStyler(GOD_PP18_PRIEST, _user.id, _reaction.message.channel.guild);
-	}
-	else if (_reaction.emoji.id == GOD_PP19) {
-		changeRoleToStyler(GOD_PP19_PRIEST, _user.id, _reaction.message.channel.guild);
-	}
-	else if (_reaction.emoji.id == GOD_PP20) {
-		changeRoleToStyler(GOD_PP20_PRIEST, _user.id, _reaction.message.channel.guild);
-	}
 	else if (_reaction.message.channel.guild.members.get(_user.id).roles.find(r => r.name == PP_EXPERT_ROLE)) {
-		if (_reaction.emoji.id == GOD_PP21) {
-			changeRoleToStyler(GOD_PP21_PRIEST, _user.id, _reaction.message.channel.guild);
-		}
-		else if (_reaction.emoji.id == GOD_PP22) {
-			changeRoleToStyler(GOD_PP22_PRIEST, _user.id, _reaction.message.channel.guild);
-		}
-		else if (_reaction.emoji.id == GOD_PP23) {
-			changeRoleToStyler(GOD_PP23_PRIEST, _user.id, _reaction.message.channel.guild);
-		}
-		else if (_reaction.emoji.id == GOD_PP24) {
-			changeRoleToStyler(GOD_PP24_PRIEST, _user.id, _reaction.message.channel.guild);
-		}
-		else if (_reaction.emoji.id == GOD_PP25) {
-			changeRoleToStyler(GOD_PP25_PRIEST, _user.id, _reaction.message.channel.guild);
-		}
-		else if (_reaction.emoji.id == GOD_PP26) {
-			changeRoleToStyler(GOD_PP26_PRIEST, _user.id, _reaction.message.channel.guild);
-		}
-		else if (_reaction.emoji.id == EMOTE_SKIPPER) {
+		if (_reaction.emoji.id == EMOTE_SKIPPER) {
 			var role = _reaction.message.channel.guild.roles.find(r => r.name == PP_SKIPPER_ROLE);
 			var user = _reaction.message.channel.guild.members.get(_user.id);
 			try {
@@ -5910,6 +5717,16 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				user.send("I'm sorry I can't do that :(");
 				user.send("Looks like there is no " + PP_SKIPPER_ROLE + " role there...");
 			}
+		}
+		for (var i = 0; i < GOD_LIST.length; i++) {
+			if (_reaction.emoji.id == GOD_LIST[i].emote) {
+				changeRoleToStyler(getPriestRoleName(GOD_LIST[i]), _user.id, _reaction.message.channel.guild);
+			}
+		}
+	}
+	else {
+		if (_reaction.emoji.id == GOD_LIST[i].emote && GOD_LIST[i].type == "normal") {
+			changeRoleToStyler(getPriestRoleName(GOD_LIST[i]), _user.id, _reaction.message.channel.guild);
 		}
 	}
 	return;
