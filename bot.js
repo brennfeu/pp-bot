@@ -597,7 +597,7 @@ class Fighter {
 				else {
 					for (var i in this.godList) {
 						if (this.godList.indexOf(GOD_LIST[i].name) <= -1 && GOD_LIST[i].type == "normal") {
-							txt += "\n - " + this.godList[i];
+							txt += "\n - " + this.godList[i] + " Priest";
 						}
 					}
 				}
@@ -612,7 +612,7 @@ class Fighter {
 				else {
 					for (var i in this.godList) {
 						if (this.godList.indexOf(GOD_LIST[i].name) <= -1 && GOD_LIST[i].type == "eldritch") {
-							txt += "\n - " + this.godList[i];
+							txt += "\n - " + this.godList[i] + " Priest";
 						}
 					}
 				}
@@ -627,14 +627,14 @@ class Fighter {
 				else {
 					for (var i in this.godList) {
 						if (this.godList.indexOf(GOD_LIST[i].name) <= -1 && GOD_LIST[i].type == "waifu") {
-							txt += "\n - " + this.godList[i];
+							txt += "\n - " + this.godList[i] + " Priest";
 						}
 					}
 				}
 				
 				for (var i in this.godList) {
 					if (!GOD_LIST.find(r => r.name == this.godList[i])) {
-						txt += "\n - " + this.godList[i];
+						txt += "\n - " + this.godList[i] + " Priest";
 					}
 				}
 				
@@ -1709,14 +1709,8 @@ class Fighter {
 					this.duel.addMessage("Cthulhu answers his calls !");
 					this.duel.addMessage(this.getName() + " gets a special charge !");
 					this.specialCharges += 1;
-					if (getRandomPercent() <= 10) {
-						this.duel.addMessage(this.getName() + " gets 100 tentacles !");
-						this.tentacles += 100;
-					}
-					else {
-						this.duel.addMessage(this.getName() + " gets a new tentacle !");
-						this.tentacles += 1;
-					}
+					this.duel.addMessage(this.getName() + " gets a new tentacle !");
+					this.tentacles += 1;
 				}
 				if (this.godList.indexOf(GOD_PP26.name) > -1) { // Ranger
 					this.duel.addMessage("-----------------");
