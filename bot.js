@@ -2767,9 +2767,9 @@ class Fighter {
 			if (this.duel.getOppOf(this).standPower == STAND_PP13 && _punch) { // The Scythe of Cosmic Chaos
 				this.madnessStacks += 1;
 			}
-			if (this.madnessStacks > 0 && getRandomPercent() <= 10+this.madnessStacks) {
+			if (this.madnessStacks > 0 && getRandomPercent() <= 10+this.madnessStacks && _punch) {
 				this.duel.addMessage(this.getName() + " flinched !");
-				this.DEXValue = 0;
+				this.hasBurst = 2;
 			}
 		}
 		
@@ -4742,15 +4742,6 @@ class Duel {
 				_fighter.oldAttack = _fighter.attack;
 			}
 		});
-		
-		// Steel
-		if (this.FIGHTER1.attack == EMOTE_PP11 || this.FIGHTER2.attack == EMOTE_PP11) {
-			this.STEEL_PROTECTION = true;
-		}
-		// Barrel
-		if (this.FIGHTER1.attack == EMOTE_PP29 || this.FIGHTER2.attack == EMOTE_PP29) {
-			this.BARREL_DAMAGE = true;
-		}
 
 		var winner = this.FIGHTER2;
 		if (dexAttack1 > dexAttack2) {
@@ -4765,10 +4756,10 @@ class Duel {
 			this.addMessage("Both opponents attack this turn !");
 			this.sendMessages();
 			
-			if (priorityMoves.indexOf(this.getOppOf(winner)) > -1) {
+			if (priorityMoves.indexOf(this.getOppOf(winner).attack) > -1) {
 				winner = this.getOppOf(winner);
 			}
-			if (priorityMoves.indexOf(this.getOppOf(winner)) > -1) {
+			if (priorityMoves.indexOf(this.getOppOf(winner).attack) > -1) {
 				winner = this.getOppOf(winner);
 			}
 
