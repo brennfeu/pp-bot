@@ -388,7 +388,7 @@ class Fighter {
 				}
 			}
 			while (this.godList.length < 3) {
-				var r = GOD_LIST[Math.floor(Math.random()*GOD_LIST.length)];
+				var r = randomFromList(GOD_LIST).name;
 				if (this.godList.indexOf(r) <= -1) {
 					this.godList.push(r.name);
 				}
@@ -397,7 +397,7 @@ class Fighter {
 			if (this.godList.indexOf(GOD_PP21.name) > -1) { // D.I.C.K. Special Effect
 				var currentSize = this.godList.length;
 				while (this.godList.length < currentSize+1) {
-					r = GOD_LIST[Math.floor(Math.random()*GOD_LIST.length)].name;
+					r = randomFromList(GOD_LIST).name;
 					if (this.godList.indexOf(r) < 0) {
 						this.godList.push(r);
 					}
@@ -1482,15 +1482,15 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP8.name) > -1) { // Fabulous Toast Man
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Fabulous Toast Man answers his calls !");
-					var randomNumber = Math.floor(Math.random()*GOD_LIST.length)
+					var randomGod = randomFromList(GOD_LIST);
 					var nbTries = 0;
-					while (this.godList.indexOf(GOD_LIST[randomNumber].name) > -1 && nbTries < 100) {
-						randomNumber = Math.floor(Math.random()*GOD_LIST.length)
+					while (this.godList.indexOf(randomGod.name) > -1 && nbTries < 100) {
+						randomGod = randomFromList(GOD_LIST);
 						nbTries += 1;
 					}
 					if (nbTries < 100) {
-						this.godList.push(GOD_LIST[randomNumber].name);
-						this.duel.addMessage(this.getName() + " becomes a " + GOD_LIST[randomNumber] + " Priest thanks to his charisma !");
+						this.godList.push(randomGod.name);
+						this.duel.addMessage(this.getName() + " becomes a " + randomGod.name + " Priest thanks to his charisma !");
 					}
 					else {
 						this.duel.addMessage(this.getName() + " has no more god to worship !");
@@ -2066,10 +2066,11 @@ class Fighter {
 				// SignPost
 				this.duel.MOVE_COUNT += 33;
 				this.duel.addMessage(this.getName() + " summons every moves !");
-				for (var i = 0; i < 50; i++) {
+				var moveList = shuffleArray(NORMAL_EMOTE_LIST);
+				for (var i in moveList) {
 					this.duel.addMessage("-----------------");
-					if (EMOTE_LIST[i] != EMOTE_PP47) {
-						this.playMove(EMOTE_LIST[i]);
+					if (moveList[i] != EMOTE_PP47) {
+						this.playMove(moveList[i]);
 					}
 				}
 			}
@@ -2079,15 +2080,12 @@ class Fighter {
 				this.duel.addMessage(this.getName() + " changes his gods for a bit !");
 				var godListMemory = this.godList.slice();
 				this.godList = [];
+				
+				var shuffleList = shuffleArray(GOD_LIST);
 				for (var i = 0; i < 5; i++) {
-					var randomGod = GOD_LIST[Math.floor(Math.random()*GOD_LIST.length)].name;
-					var nbTries = 0;
-					while (this.godList.indexOf(randomGod) > -1 && nbTries < 100) {
-						randomGod = GOD_LIST[Math.floor(Math.random()*GOD_LIST.length)].name;
-						nbTries += 1;
-					}
-					this.godList.push(randomGod);
+					this.godList.push(shuffleList[i]);
 				}
+				
 				this.playMove(EMOTE_PP51);
 				this.duel.addMessage("-----------------");
 				this.playMove(EMOTE_PP52);
@@ -2315,7 +2313,7 @@ class Fighter {
 					this.quickeningCharges -= 10;
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage(this.getName() + " evolves to Requiem !");
-					this.requiemPower = REQUIEM_LIST[Math.floor(Math.random()*REQUIEM_LIST.length)];
+					this.requiemPower = randomFromList(REQUIEM_LIST);
 					try {
 						this.guildUser.send("**Requiem Acquired : " + this.requiemPower + "**");
 					}
@@ -3352,7 +3350,7 @@ class Duel {
 					});
 				}
 
-				// Cthulhu
+				// Bosses
 				if (this.EVENT_BOSS) {
 					var espinozaBoss = false;
 					if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP1) {
@@ -4412,7 +4410,7 @@ class Duel {
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP77).name, fighter.user);
 		}
 		
-		var emote = this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)];
+		var emote = randomFromList(this.LIST_AVAILABLE_ATTACKS);
 		var dont = [EMOTE_PP9, EMOTE_PP10, EMOTE_PP25, EMOTE_PP38, EMOTE_PP40, EMOTE_PP41, EMOTE_PP47, EMOTE_PP50,
 			    EMOTE_PP51, EMOTE_PP52];
 		
@@ -4495,7 +4493,7 @@ class Duel {
 		
 		var nbTries = 0;
 		while (dont.indexOf(emote) > -1 && nbTries < 100) {
-			emote = this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)];
+			emote = randomFromList(this.LIST_AVAILABLE_ATTACKS);
 			nbTries += 1;
 		}
 		
@@ -4952,7 +4950,7 @@ class Duel {
 			goodList = goodList.splice(goodList.indexOf(EMOTE_PP77), 1);
 		}
 
-		return goodList[Math.floor(Math.random()*goodList.length)];
+		return randomFromList(goodList);
 	}
 	getAttackFromEmote(_emote) {
 		for (var i in EMOTE_LIST) {
@@ -5398,6 +5396,7 @@ function changeTextChristian(_texte) {
 	_texte = _texte.replace("SEXUAL CONFUSION", "ROMANTIC TENSION");
 	return _texte;
 }
+
 function shuffleArray(array) {
 	for (var i = array.length - 1; i > 0; i--) {
 		var j = Math.floor(Math.random() * (i + 1));
@@ -5406,6 +5405,12 @@ function shuffleArray(array) {
 		array[j] = temp;
 	}
 	return array;
+}
+function randomFromList(_list) {
+	if (_list.length == 0) {
+		return null;
+	}
+	return shuffleArray(_list)[0];
 }
 
 function cloneObject(obj) {
