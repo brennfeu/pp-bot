@@ -994,7 +994,7 @@ class Fighter {
 					this.duel.SEXY_TEXT = 11;
 				}
 				this.duel.bothFightersAction(function(_fighter) {
-					_fighter.heal(100);
+					_fighter.heal(300);
 					_fighter.turkeyCountdown = 6;
 					if (_fighter.isOverCircumcised) {
 						_fighter.duel.addMessage(_fighter.getName() + "'s circumcision gets a bit healed !");
