@@ -4279,8 +4279,6 @@ class Duel {
 				_fighter.quickeningCharges += 10;
 				_fighter.playMove(EMOTE_PP77);
 			});
-			this.STAND_BATTLE = true;
-			
 		}
 		else if (randomVar == 35 && !this.STAND_BATTLE) {
 			// BIZARRE PP
@@ -4290,7 +4288,7 @@ class Duel {
 				_fighter.currentStand = liste[Math.floor(Math.random()*liste.length)];
 				_fighter.duel.addMessage(_fighter.getName() + " summons the Stånd : " + _fighter.currentStand);
 			});
-			this.checkStandSummon()
+			this.checkStandSummon();
 		}
 		else if (randomVar == 36) {
 			// Mega Movepool
