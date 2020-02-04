@@ -235,7 +235,9 @@ const IMAGE_PP4 = "https://cdn.discordapp.com/attachments/523411977725411373/669
 // IDs
 const ID_BRENNFEU = "234439428372824075";
 const ID_COUNTRYMUSICBRENN = "536293359342583820";
-const ADMIN_LIST = [ID_BRENNFEU, ID_COUNTRYMUSICBRENN];
+const ID_PUDDING = "253197709249347595";
+const ID_PEPIN = "252878033436803072";
+const ADMIN_LIST = [ID_BRENNFEU, ID_COUNTRYMUSICBRENN, ID_PUDDING, ID_PEPIN];
 
 // Variables
 var DUEL_LIST = [];
@@ -2541,14 +2543,6 @@ class Fighter {
 			// Steel
 			_amount -= Math.floor(_amount/10);
 		}
-		if (this.duel.BARREL_DAMAGE) {
-			// Barrel
-			_amount = _amount*2;
-		}
-		if (this.godList.indexOf(GOD_PP19.name) > -1 && this.godList.find(r => r.type == "waifu") && _punch) {
-			// Waifu Body Pillow
-			_amount -= 10;
-		}
 		if (this.duel.getOppOf(this).godList.indexOf(GOD_PP6.name) > -1 && this.duel.getOppOf(this).godList.indexOf(GOD_PP21.name) > -1 && _punch) {
 			// Too Much Dicks
 			_amount += 10;
@@ -2557,6 +2551,10 @@ class Fighter {
 			// Boom Loop
 			_amount += _amount;
 		}
+		if (this.duel.BARREL_DAMAGE) {
+			// Barrel
+			_amount = _amount*2;
+		}
 		if (this.duel.getOppOf(this).standPower == STAND_PP16 && _punch && this.duel.getOppOf(this).STR <= 15 && _punch) {
 			// Virus
 			this.duel.addMessage("Virus effect starts !");
@@ -2564,6 +2562,10 @@ class Fighter {
 		}
 		if (this.standPower == STAND_PP1 && _punch) {
 			// Iron Maiden
+			_amount -= 10;
+		}
+		if (this.godList.indexOf(GOD_PP19.name) > -1 && this.godList.find(r => r.type == "waifu") && _punch) {
+			// Waifu Body Pillow
 			_amount -= 10;
 		}
 		
