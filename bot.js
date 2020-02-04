@@ -1571,19 +1571,18 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP10.name) > -1) { // Fabio
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Fabio answers his calls !");
-					this.duel.addMessage(this.getName() + " let his hair flow in the wind !");
-					this.heal(50*this.duel.MOVE_COUNT);
+					this.duel.addMessage(this.getName() + " makes you all turn gay !");
+					this.duel.GAY_TURNS = 5;
 				}
 				if (this.godList.indexOf(GOD_PP11.name) > -1) { // Country Music Brenn
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Country Music Brenn answers his calls !");
-					this.duel.addMessage(this.getName() + " plays some country !");
-					if (this.duel.getOppOf(this).isHockeyPuckPP) {
-						this.duel.addMessage("But his opponent doesn't care.");
+					if (this.isCowboy) {
+						this.duel.addMessage("But " + this.getName() + " already is Cow-Boy !");
 					}
 					else {
-						this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets an Hockey Puck PP !");
-						this.duel.getOppOf(this).isHockeyPuckPP = true;
+						this.duel.addMessage(this.getName() + " becomes a Cow-Boy !");
+						this.isCowBoy = true;
 					}
 				}
 				if (this.godList.indexOf(GOD_PP12.name) > -1) { // Espinoza
@@ -1617,7 +1616,7 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Man who Made a Monster answers his calls !");
 					this.duel.addMessage(this.getName() + " drinks " + this.duel.getOppOf(this).getName() + "'s salty tears !");
-					this.tearDrinker += 3;
+					this.tearDrinker += 5;
 				}
 				if (this.godList.indexOf(GOD_PP17.name) > -1) { // Hitler
 					this.duel.addMessage("-----------------");
@@ -1664,8 +1663,7 @@ class Fighter {
 					// D.I.C.K.
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("D.I.C.K. answers his calls !");
-					this.duel.addMessage(this.getName() + " gets a special charge, overcircumcised and more DEX !");
-					this.specialCharges += 1;
+					this.duel.addMessage(this.getName() + " gets overcircumcised and gains more DEX !");
 					this.isOverCircumcised = true;
 					this.DEXValue += 10;
 				}
@@ -1673,8 +1671,7 @@ class Fighter {
 					 // Satan
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Satan answers his calls !");
-					this.duel.addMessage(this.getName() + " gets a special charge and removes his bad status !");
-					this.specialCharges += 1;
+					this.duel.addMessage(this.getName() + " removes his bad status !");
 					this.resetBattleVariables();
 					this.duel.addMessage(this.getName() + " possesses " + this.duel.getOppOf(this).getName() + "'s PP for 2 turns !");
 					this.duel.getOppOf(this).isPossessed = 3;
@@ -1683,8 +1680,9 @@ class Fighter {
 					// Ancient Fongus
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Ancient Fongus answers his calls !");
-					this.duel.addMessage(this.getName() + " gets a special charge !");
-					this.specialCharges += 1;
+					if (this.duel.getOppOf(this).regularCharges <= 0 && this.duel.getOppOf(this).specialCharges > 0) {
+						this.duel.addMessage(this.duel.getOppOf(this).getName() + " has no charge to loose !");
+					}
 					if (this.duel.getOppOf(this).regularCharges > 0) {
 						this.duel.addMessage(this.duel.getOppOf(this).getName() + " looses his regular charge !");
 						this.duel.getOppOf(this).regularCharges = 0;
@@ -1698,9 +1696,15 @@ class Fighter {
 					// Time Cube
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Time Cube answers his calls !");
-					this.duel.addMessage(this.getName() + " stops time and gets a special charge !");
-					this.duel.TIME_STOP = 4;
-					this.specialCharges += 1;
+					this.duel.addMessage(this.getName() + " becomes a godlike being with superior intelligence who has absolute evidence and proof");
+					if (this.STR < 10) {
+						this.STRValue -= this.STR-10;
+					}
+					this.STRValue = this.STR*5-this.STRValue;
+					if (this.DEX < 10) {
+						this.DEXValue -= this.DEX-10;
+					}
+					this.DEXValue = this.DEX*5-this.DEXValue;
 					this.duel.addMessage("*You are taught Boring, You act Boring, You are the Evil on Earth. If a Man cannot tear a page from the marshmallow and burn it - then he cannot be a scientist. Seek Wisdom of Cubic Life Intelligence - or you die boring. MY WISDOM DEBUNKS GODS OF ALL RELIGIONS AND ACADEMIA.*");
 					this.duel.addMessage("***I do not promote or suggest anyone kissing you, but you are unfit to live on Earth.***")
 				}
@@ -1708,8 +1712,6 @@ class Fighter {
 					// Cthulhu
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Cthulhu answers his calls !");
-					this.duel.addMessage(this.getName() + " gets a special charge !");
-					this.specialCharges += 1;
 					this.duel.addMessage(this.getName() + " gets a new tentacle !");
 					this.tentacles += 1;
 				}
@@ -1797,18 +1799,19 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP10.name) > -1) { // Fabio
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Fabio answers his calls !");
-					this.duel.addMessage(this.getName() + " makes you all turn gay !");
-					this.duel.GAY_TURNS = 5;
+					this.duel.addMessage(this.getName() + " let his hair flow in the wind !");
+					this.heal(50*this.duel.MOVE_COUNT);
 				}
 				if (this.godList.indexOf(GOD_PP11.name) > -1) { // Country Music Brenn
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Country Music Brenn answers his calls !");
-					if (this.isCowboy) {
-						this.duel.addMessage("But " + this.getName() + " already is Cow-Boy !");
+					this.duel.addMessage(this.getName() + " plays some country !");
+					if (this.duel.getOppOf(this).isHockeyPuckPP) {
+						this.duel.addMessage("But his opponent doesn't care.");
 					}
 					else {
-						this.duel.addMessage(this.getName() + " becomes a Cow-Boy !");
-						this.isCowBoy = true;
+						this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets an Hockey Puck PP !");
+						this.duel.getOppOf(this).isHockeyPuckPP = true;
 					}
 				}
 				if (this.godList.indexOf(GOD_PP12.name) > -1) { // Espinoza
@@ -1942,15 +1945,8 @@ class Fighter {
 					 // Time Cube
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Time Cube answers his calls !");
-					this.duel.addMessage(this.getName() + " becomes a godlike being with superior intelligence who has absolute evidence and proof");
-					if (this.STR < 10) {
-						this.STRValue -= this.STR-10;
-					}
-					this.STRValue = this.STR*50-this.STRValue;
-					if (this.DEX < 10) {
-						this.DEXValue -= this.DEX-10;
-					}
-					this.DEXValue = this.DEX*50-this.DEXValue;
+					this.duel.addMessage(this.getName() + " stops time !");
+					this.duel.TIME_STOP = 3;
 					this.duel.addMessage(this.getName() + "'s stats were greatly improved !");
 					this.duel.addMessage("*When the Sun shines upon Earth, 2 – major Time points are created on opposite sides of Earth – known as Midday and Midnight. Where the 2 major Time forces join, synergy creates 2 new minor Time points we recognize as Sunup and Sundown. The 4-equidistant Time points can be considered as Time Square imprinted upon the circle of Earth. In a single rotation of the Earth sphere, each Time corner point rotates through the other 3-corner Time points, thus creating 16 corners, 96 hours and 4-simultaneous 24-hour Days within a single rotation of Earth – equated to a Higher Order of Life Time Cube. ONE - DOES NOT EXIST, EXCEPT IN DEATH STATE.*");
 					this.duel.addMessage("***For as long as you dumbass, educated brilliant and boring bastards IGNORE Cubic Creation, your sons and daughters deserve to die and be maimed in foreign lands - while kissing innocent women and children.***");
@@ -2777,7 +2773,7 @@ class Fighter {
 		if (this.pigHeal > 0) {
 			if (this.isCowBoy) {
 				this.duel.addMessage(this.getName() + " squeezes hog YEEHAAAAAW !");
-				this.heal(this.pigHeal*50);
+				this.heal(this.pigHeal*3);
 			}
 			else {
 				this.duel.addMessage(this.getName() + " squeezes hog !");
@@ -4570,7 +4566,7 @@ class Duel {
 			}
 
 			// True Barbarian from the North (Mongo special move)
-			if (_fighter.trueBarbarian && _fighter.STR >= 100 && caught1) {
+			if (_fighter.trueBarbarian && _fighter.STR >= 1000 && caught1) {
 				caught1 = false;
 				duel.addMessage(_fighter.getName() + " strong. " + _fighter.getName() + " punch arbitratory if arbitratory bad.");
 				duel.sendMessages();
