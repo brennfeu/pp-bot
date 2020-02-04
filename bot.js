@@ -324,6 +324,7 @@ class Fighter {
 		this.impendingDoom = 0;
 		this.redPillAddiction = 0;
 		this.satanicMoveMultiplier = false;
+		this.ultimatePPBuff = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -472,6 +473,9 @@ class Fighter {
 		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			str += 50;
+			if (this.ultimatePPBuff) {
+				str += 50;
+			}
 		}
 		if (this.duel.PP_ARMAGEDDON) {
 			str += 1000000;
@@ -542,6 +546,9 @@ class Fighter {
 		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			dex += 50;
+			if (this.ultimatePPBuff) {
+				dex += 50;
+			}
 		}
 		if (this.duel.PP_ARMAGEDDON) {
 			dex += 200;
@@ -1295,6 +1302,8 @@ class Fighter {
 				else {
 					this.isFastPP = true;
 					this.duel.addMessage("...and now he got it !");
+					this.DEXValue += 10;
+					this.ultimatePPBuff = true;
 				}
 			}
 			else if (attack == EMOTE_PP39) {
@@ -1316,6 +1325,8 @@ class Fighter {
 				else {
 					this.isBigPP = true;
 					this.duel.addMessage("...and now he got it !");
+					this.DEXValue += 10;
+					this.ultimatePPBuff = true;
 				}
 			}
 			else if (attack == EMOTE_PP41) {
@@ -1327,6 +1338,8 @@ class Fighter {
 				else {
 					this.isDrunkPP = true;
 					this.duel.addMessage("...and now he got it !");
+					this.DEXValue += 10;
+					this.ultimatePPBuff = true;
 				}
 			}
 			else if (attack == EMOTE_PP42) {
@@ -5141,7 +5154,7 @@ function skipWaitingDuels() {
 	}
 }
 function getPriestRoleName(_god) {
-	return _god["name"] + " Priest";
+	return _god.name + " Priest";
 }
 
 function setBotActivity() {
@@ -5256,7 +5269,7 @@ function sendCheatPanel(_channel) {
 		_message2.react(EMOTE_PP71); _message2.react(EMOTE_PP72);
 		_message2.react(EMOTE_PP73); _message2.react(EMOTE_PP74);
 		_message2.react(EMOTE_PP75); _message2.react(EMOTE_PP76);
-		_message2.react(EMOTE_PP77); // _message2.react(EMOTE_PP78);
+		_message2.react(EMOTE_PP77); _message2.react(EMOTE_PP78);
 	}).catch(function(e) {
 		console.log(e);
 	});
