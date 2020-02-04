@@ -1012,6 +1012,8 @@ class Fighter {
 				else {
 					this.isHockeyPuckPP = true;
 					this.duel.addMessage("...and now he got it !");
+					this.DEXValue += 10;
+					this.ultimatePPBuff = true;
 				}
 			}
 			else if (attack == EMOTE_PP10) {
