@@ -5589,48 +5589,56 @@ CLIENT.on("message", async _message => {
 		return _message.reply("you should read the PP Bible here : https://github.com/brennfeu/pp-bot/wiki/PP-Bible");
 	}
 	if (argsUser[1] == "admin") {
-		if (ADMIN_LIST.indexOf(_message.author.id) < 0) {
-			return _message.reply("you aren't an admin, sorry.");
-		}
-		if (argsUser.length <= 2) {
-			return _message.reply("I need more arguments.");
-		}
-		if (getDuel(_message.channel.id) == null) {
-			return _message.reply("there's no fight here...");
-		}
-		
-		var duel = getDuel(_message.channel.id);
-		if (argsUser[2] == "move1" && argsUser.length >= 4) {
-			duel.FIGHTER1.playMove(EMOTE_LIST[parseInt(argsUser[3])-1]);
-			return duel.sendMessages();
-		}
-		if (argsUser[2] == "move2" && argsUser.length >= 4) {
-			duel.FIGHTER2.playMove(EMOTE_LIST[parseInt(argsUser[3])-1]);
-			return duel.sendMessages();
-		}
-		if (argsUser[2] == "forceEvent" && argsUser.length >= 4) {
-			duel.FORCE_EVENT_ID = parseInt(argsUser[3]);
-			return _message.reply("next event id will be : " + duel.FORCE_EVENT_ID);
-		}
-		if (argsUser[2] == "requiem1" && argsUser.length >= 4) {
-			duel.FIGHTER1.requiemPower = REQUIEM_LIST[parseInt(argsUser[3])-1];
-			return _message.reply(duel.FIGHTER1.getName() + " gets : " + REQUIEM_LIST[parseInt(argsUser[3])-1]);
-		}
-		if (argsUser[2] == "requiem2" && argsUser.length >= 4) {
-			duel.FIGHTER2.requiemPower = REQUIEM_LIST[parseInt(argsUser[3])-1];
-			return _message.reply(duel.FIGHTER2.getName() + " gets : " + REQUIEM_LIST[parseInt(argsUser[3])-1]);
-		}
-		if (argsUser[2] == "moveCount" && argsUser.length >= 4) {
-			duel.MOVE_COUNT = parseInt(argsUser[3]);
-			return _message.reply("duel move count : " + duel.MOVE_COUNT);
-		}
-		if (argsUser[2] == "megaKill") {
-			for (var i in DUEL_LIST) {
-				DUEL_LIST[i].addMessage(" -- HEAT DEATH OF THE UNIVERSE --");
-				DUEL_LIST[i].addMessage("*The Universe suddenly collapses.*\n" + IMAGE_PP2);
-				DUEL_LIST[i].MOVE_COUNT = 1000000;
-				DUEL_LIST[i].stopDuel();
+		try {
+			if (ADMIN_LIST.indexOf(_message.author.id) < 0) {
+				return _message.reply("you aren't an admin, sorry.");
 			}
+			if (argsUser.length <= 2) {
+				return _message.reply("I need more arguments.");
+			}
+
+			if (argsUser[2] == "megaKill") {
+				for (var i in DUEL_LIST) {
+					DUEL_LIST[i].addMessage(" -- HEAT DEATH OF THE UNIVERSE --");
+					DUEL_LIST[i].addMessage("*The Universe suddenly collapses.*\n" + IMAGE_PP2);
+					DUEL_LIST[i].MOVE_COUNT = 1000000;
+					DUEL_LIST[i].stopDuel();
+				}
+				return;
+			}
+
+			if (getDuel(_message.channel.id) == null) {
+				return _message.reply("there's no fight here...");
+			}
+
+			var duel = getDuel(_message.channel.id);
+			if (argsUser[2] == "move1" && argsUser.length >= 4) {
+				duel.FIGHTER1.playMove(EMOTE_LIST[parseInt(argsUser[3])-1]);
+				return duel.sendMessages();
+			}
+			if (argsUser[2] == "move2" && argsUser.length >= 4) {
+				duel.FIGHTER2.playMove(EMOTE_LIST[parseInt(argsUser[3])-1]);
+				return duel.sendMessages();
+			}
+			if (argsUser[2] == "forceEvent" && argsUser.length >= 4) {
+				duel.FORCE_EVENT_ID = parseInt(argsUser[3]);
+				return _message.reply("next event id will be : " + duel.FORCE_EVENT_ID);
+			}
+			if (argsUser[2] == "requiem1" && argsUser.length >= 4) {
+				duel.FIGHTER1.requiemPower = REQUIEM_LIST[parseInt(argsUser[3])-1];
+				return _message.reply(duel.FIGHTER1.getName() + " gets : " + REQUIEM_LIST[parseInt(argsUser[3])-1]);
+			}
+			if (argsUser[2] == "requiem2" && argsUser.length >= 4) {
+				duel.FIGHTER2.requiemPower = REQUIEM_LIST[parseInt(argsUser[3])-1];
+				return _message.reply(duel.FIGHTER2.getName() + " gets : " + REQUIEM_LIST[parseInt(argsUser[3])-1]);
+			}
+			if (argsUser[2] == "moveCount" && argsUser.length >= 4) {
+				duel.MOVE_COUNT = parseInt(argsUser[3]);
+				return _message.reply("duel move count : " + duel.MOVE_COUNT);
+			}
+		}
+		catch(e) {
+			return _message.reply("wat ?");
 		}
 	}
 
