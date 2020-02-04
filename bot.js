@@ -946,6 +946,9 @@ class Fighter {
 				if (attack != EMOTE_PP69) {
 					this.ragingSpirit = 0;
 				}
+				if (attack != EMOTE_PP33 && attack != EMOTE_PP37 && this.duel.KIDNEY_CURSE > 0) {
+					this.duel.KIDNEY_CURSE -= 1;
+				}
 			}
 			
 			if (attack == EMOTE_PP1) {
@@ -1247,6 +1250,8 @@ class Fighter {
 				this.duel.bothFightersAction(function(_fighter) {
 					_fighter.damage(50);
 				});
+				this.duel.KIDNEY_CURSE += 1;
+				this.duel.addMessage("The Kidney Curse grows bigger !");
 			}
 			else if (attack == EMOTE_PP34) {
 				// Facehugger
@@ -1294,6 +1299,8 @@ class Fighter {
 				function(_fighter) {
 					_fighter.damage(25);
 				});
+				this.duel.KIDNEY_CURSE += 1;
+				this.duel.addMessage("The Kidney Curse grows bigger !");
 			}
 			else if (attack == EMOTE_PP38) {
 				// DeadBro
@@ -3017,6 +3024,7 @@ class Duel {
 		this.NUCLEAR_BOMB = 0;
 		this.PP_NET = 0;
 		this.CHECKPOINT_DUEL = null;
+		this.KIDNEY_CURSE = 0;
 
 		this.PP_ARMAGEDDON = false;
 		this.EVENT_PP_ENLIGHTENMENT = false;
@@ -3584,6 +3592,9 @@ class Duel {
 				txt += " (for " + this.BLIND_COUNTDOWN + " turns)";
 			}
 			txt += "\n"
+		}
+		if (this.KIDNEY_CURSE > 0) {
+			txt += " - Kidney Curse : " + this.KIDNEY_CURSE + "\n";
 		}
 		if (this.REVERSE_DAMAGE > 0) {
 			txt += " - Damages and heals are reversed for " + this.REVERSE_DAMAGE + " turns !\n";
@@ -4838,72 +4849,25 @@ class Duel {
 			}
 		}
 		else {
-			// Attaque 1
-			if (this.MOVE_COUNT == 0 && getRandomPercent() <= 33) {
-				listeAttaques.push(EMOTE_PP81); // Melodia
-			}
-			else if (getRandomPercent() > 20) {
-				emote = this.getRandomEmote();
-				listeAttaques.push(emote);
-			}
-			else {
-				listeAttaques.push(EMOTE_PP1);
-			}
+			var commonMoves = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5];
 			
-			// Attaque 2
-			emote = this.getRandomEmote();
-			if (getRandomPercent() > 20 && listeAttaques.indexOf(emote) < 0) {
-				listeAttaques.push(emote);
-			}
-			else {
-				emote = EMOTE_PP2;
-				while (listeAttaques.length < 2) {
-					if (listeAttaques.indexOf(emote) < 0) {
+			for (var i in commonMoves) {
+				if (this.KIDNEY_CURSE <= i) {
+					emote = this.getRandomEmote();
+					if (this.MOVE_COUNT == 0 && getRandomPercent() <= 33 && i == 0) {
+						listeAttaques.push(EMOTE_PP81); // Melodia
+					}
+					else if (getRandomPercent() > 20) {
+						emote = this.getRandomEmote();
 						listeAttaques.push(emote);
 					}
-					emote = this.getRandomEmote();
+					else {
+						listeAttaques.push(commonMoves[i]);
+					}
 				}
-			}
-			// Attaque 3
-			emote = this.getRandomEmote();
-			if (getRandomPercent() > 20 && listeAttaques.indexOf(emote) < 0) {
-				listeAttaques.push(emote);
-			}
-			else {
-				emote = EMOTE_PP3;
-				while (listeAttaques.length < 3) {
-					if (listeAttaques.indexOf(emote) < 0) {
-						listeAttaques.push(emote);
-					}
-					emote = this.getRandomEmote();
-				}
-			}
-			// Attaque 4
-			emote = this.getRandomEmote();
-			if (getRandomPercent() > 20 && listeAttaques.indexOf(emote) < 0) {
-				listeAttaques.push(emote);
-			}
-			else {
-				emote = EMOTE_PP4;
-				while (listeAttaques.length < 4) {
-					if (listeAttaques.indexOf(emote) < 0) {
-						listeAttaques.push(emote);
-					}
-					emote = this.getRandomEmote();
-				}
-			}
-			// Attaque 5
-			emote = this.getRandomEmote();
-			if (getRandomPercent() > 20 && listeAttaques.indexOf(emote) < 0) {
-				listeAttaques.push(emote);
-			}
-			else {
-				emote = EMOTE_PP5;
-				while (listeAttaques.length < 5) {
-					if (listeAttaques.indexOf(emote) < 0) {
-						listeAttaques.push(emote);
-					}
-					emote = this.getRandomEmote();
+				else if (listeAttaques.indexOf(EMOTE_PP33) < 0) {
+					listeAttaques.push(EMOTE_PP33);
+					listeAttaques.push(EMOTE_PP37);
 				}
 			}
 		}
