@@ -4985,14 +4985,16 @@ class Duel {
 				return 20;
 			case EMOTE_PP25:
 				return 60;
+			case EMOTE_PP36:
+				return 40;
 			case EMOTE_PP43:
-				return 15;
+				return 25;
 			case EMOTE_PP44:
 				return 40;
-			case EMOTE_PP46:
-				return 10;
 			case EMOTE_PP49:
 				return 98;
+			case EMOTE_PP57:
+				return 20;
 		}
 		return 0;
 	}
@@ -5007,14 +5009,14 @@ class Duel {
 			case EMOTE_PP17:
 			case EMOTE_PP4:
 			case EMOTE_PP46:
+			case EMOTE_PP6:
 			case EMOTE_PP78:
+			case EMOTE_PP34:
 				return -20;
 			case EMOTE_PP2:
-			case EMOTE_PP6:
 			case EMOTE_PP16:
+			case EMOTE_PP24:
 				return -10;
-			case EMOTE_PP28:
-				return -5;
 			case EMOTE_PP12:
 			case EMOTE_PP22:
 				return 20;
