@@ -389,8 +389,8 @@ class Fighter {
 				}
 			}
 			while (this.godList.length < 3) {
-				var r = randomFromList(GOD_LIST).name;
-				if (this.godList.indexOf(r) <= -1) {
+				var r = randomFromList(GOD_LIST);
+				if (this.godList.indexOf(r.name) <= -1) {
 					this.godList.push(r.name);
 				}
 			}
