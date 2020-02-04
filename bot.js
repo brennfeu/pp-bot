@@ -1401,7 +1401,7 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP47) {
 				// Pudding
-				if (this.godList.indexOf(GOD_PP13.name) > -1 && this.godList.indexOf(GOD_PP24.name) > -1) {
+				if (this.godList.indexOf(GOD_PP13.name) > -1 && this.godList.indexOf(GOD_PP24.name) > -1 && _newMove == this.attack) {
 					// Infinite Intellect
 					this.duel.addMessage(this.getName() + " proves with his high intellectual abilities that he shouldn't play this move but " + this.duel.getOppOf(this).getName() + " should !");
 					if (this.duel.getOppOf(this).godList.indexOf(GOD_PP13.name) > -1 && this.duel.getOppOf(this).godList.indexOf(GOD_PP24.name) > -1) {
@@ -3716,9 +3716,9 @@ class Duel {
 			this.newTurnDuel();
 		}
 		else {
-			var gay = ""
+			var gay = "";
 			if (this.GAY_TURNS > 0) {
-				gay = "opponent's "
+				gay = "opponent's ";
 			}
 			this.addMessage("**=== MOVE SELECT ===**", true);
 			this.sendMessages();
