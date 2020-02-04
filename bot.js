@@ -591,7 +591,7 @@ class Fighter {
 		}
 
 		if (!this.duel.STAND_BATTLE) {
-			if (this.regularCharges > 0 || this.specialCharges > 0) {
+			if (this.regularCharges > 0 || this.specialCharges > 0 || this.chimera) {
 				txt += "\n\n**Faith :**"
 				var allGods = true;
 				for (var i in GOD_LIST) {
@@ -871,7 +871,7 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP9.name) > -1 && this.godList.indexOf(GOD_PP18.name) > -1) {
 					txt += " - Debilus Team Member\n";
 				}
-				if (this.godList.indexOf(GOD_PP19.name) > -1 && this.godList.indexOf(GOD_PP20.name) > -1) {
+				if (this.godList.indexOf(GOD_PP19.name) > -1 && this.godList.find(r => r.type == "waifu")) {
 					txt += " - Waifu Body Pillow\n";
 				}
 				if (this.godList.indexOf(GOD_PP13.name) > -1 && this.godList.indexOf(GOD_PP24.name) > -1) {
@@ -1572,9 +1572,8 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP7.name) > -1) { // Jew
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Jew Lord answers his calls !");
-					this.duel.addMessage(this.getName() + " takes " + this.duel.MOVE_COUNT*2 + " DEX from " + this.duel.getOppOf(this).getName() + " as the emerald tax !");
-					this.DEXValue += this.duel.MOVE_COUNT*2;
-					this.duel.getOppOf(this).DEXValue -= this.duel.MOVE_COUNT*2;
+					this.duel.addMessage(this.getName() + " uses his long nose to get a new special charge !");
+					this.specialCharges += 1;
 				}
 				// GOD 8 IS FIRST
 				if (this.godList.indexOf(GOD_PP9.name) > -1) { // Brenn
@@ -1796,8 +1795,8 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP7.name) > -1) { // Jew
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Jew Lord answers his calls !");
-					this.duel.addMessage(this.getName() + " uses his long nose to get a new special charge !");
-					this.specialCharges += 1;
+					this.duel.addMessage(this.getName() + " uses his long nose to get a new regular charge !");
+					this.regularCharges += 1;
 				}
 				if (this.godList.indexOf(GOD_PP8.name) > -1) { // Fabulous Toast Man
 					this.duel.addMessage("-----------------");
@@ -2539,7 +2538,7 @@ class Fighter {
 			// Barrel
 			_amount = _amount*2;
 		}
-		if (this.godList.indexOf(GOD_PP19.name) > -1 && this.godList.indexOf(GOD_PP20.name) > -1 && _punch) {
+		if (this.godList.indexOf(GOD_PP19.name) > -1 && this.godList.find(r => r.type == "waifu") && _punch) {
 			// Waifu Body Pillow
 			_amount -= 10;
 		}
