@@ -623,13 +623,13 @@ class Fighter {
 				for (var t in types) {
 					var testAll = true;
 					for (var i in GOD_LIST) {
-						if (GOD_LIST[i].type == types[t] && !GOD_LIST.includes(r => r.name == this.godList[i])) {
+						if (GOD_LIST[i].type == types[t] && !GOD_LIST.find(r => r.name == this.godList[i])) {
 							testAll = false;
 						}
 					}
 					
 					if (testAll) {
-						txt += "\n - All " + typesNames[t];
+						txt += "\n - *All " + typesNames[t] + "*";
 					}
 					else {
 						for (var i in this.godList) {
