@@ -5496,7 +5496,7 @@ function cloneObject(obj) {
 
 CLIENT.on('ready', () => {
 	console.log(`Logged in as ${CLIENT.user.tag} !`);
-	setBotActivity();
+	setBotActivity("New Update of PP Punching");
 });
 
 // This event will run on every single message received, from any channel or DM.
@@ -5775,5 +5775,4 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	return;
 });
 
-setBotActivity("New Update of PP Punching");
 CLIENT.login(process.env.BOT_TOKEN);
