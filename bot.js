@@ -617,49 +617,25 @@ class Fighter {
 		if (!this.duel.STAND_BATTLE) {
 			if (this.regularCharges > 0 || this.specialCharges > 0 || this.chimera) {
 				txt += "\n\n**Faith :**"
-				var allGods = true;
-				for (var i in GOD_LIST) {
-					if (this.godList.indexOf(GOD_LIST[i].name) <= -1 && GOD_LIST[i].type == "normal") {
-						allGods = false;
-					}
-				}
-				if (allGods) {
-					txt += "\n - *All Gods*";
-				}
-				else {
-					for (var i in this.godList) {
-						if (this.godList.indexOf(GOD_LIST[i].name) <= -1 && GOD_LIST[i].type == "normal") {
-							txt += "\n - " + this.godList[i] + " Priest";
+				
+				var types = ["normal", "eldritch", "waifu"];
+				var typesNames = ["Gods", "Eldritch Gods", "Waifus"];
+				for (var t in types) {
+					var testAll = true;
+					for (var i in GOD_LIST) {
+						if (GOD_LIST[i].type == types[t] && !GOD_LIST.includes(r => r.name == this.godList[i])) {
+							testAll = false;
 						}
 					}
-				}
-				for (var i in GOD_LIST) {
-					if (this.godList.indexOf(GOD_LIST[i].name) <= -1 && GOD_LIST[i].type == "eldritch") {
-						allGods = false;
+					
+					if (testAll) {
+						txt += "\n - All " + typesNames[t];
 					}
-				}
-				if (allGods) {
-					txt += "\n - *All Eldritch Gods*";
-				}
-				else {
-					for (var i in this.godList) {
-						if (this.godList.indexOf(GOD_LIST[i].name) <= -1 && GOD_LIST[i].type == "eldritch") {
-							txt += "\n - " + this.godList[i] + " Priest";
-						}
-					}
-				}
-				for (var i in GOD_LIST) {
-					if (this.godList.indexOf(GOD_LIST[i].name) <= -1 && GOD_LIST[i].type == "waifu") {
-						allGods = false;
-					}
-				}
-				if (allGods) {
-					txt += "\n - *All Waifus*";
-				}
-				else {
-					for (var i in this.godList) {
-						if (this.godList.indexOf(GOD_LIST[i].name) <= -1 && GOD_LIST[i].type == "waifu") {
-							txt += "\n - " + this.godList[i] + " Priest";
+					else {
+						for (var i in this.godList) {
+							if (GOD_LIST.find(r => r.name == this.godList[i]).type == types[t]) {
+								txt += "\n - " + this.godList[i] + " Priest";
+							}
 						}
 					}
 				}
@@ -4896,7 +4872,7 @@ class Duel {
 			var commonMoves = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5];
 			
 			for (var i in commonMoves) {
-				if (this.KIDNEY_CURSE <= i && this.KIDNEY_CURSE > 0) {
+				if (this.KIDNEY_CURSE <= i || this.KIDNEY_CURSE <= 0) {
 					emote = this.getRandomEmote();
 					if (this.MOVE_COUNT == 0 && getRandomPercent() <= 33 && i == 0) {
 						listeAttaques.push(EMOTE_PP81); // Melodia
