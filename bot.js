@@ -105,13 +105,13 @@ const EMOTE_PP80 = "644617031739768842"; // Fherla
 const EMOTE_PP81 = "650398049126055937"; // Melodia
 
 // DON'T FORGET TO ADD TO THE CHEAT PANEL
-const NORMAL_EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8, EMOTE_PP9, 
-		    EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, EMOTE_PP17, 
-		    EMOTE_PP18, EMOTE_PP19, EMOTE_PP20, EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, 
-		    EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30, EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, 
-		    EMOTE_PP34, EMOTE_PP35, EMOTE_PP36, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40, EMOTE_PP41, 
-		    EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP47, EMOTE_PP48, EMOTE_PP49, 
-		    EMOTE_PP50];
+const NORMAL_EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8,
+		    EMOTE_PP9, EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, 
+		    EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20, EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, 
+		    EMOTE_PP25, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30, EMOTE_PP31, EMOTE_PP32, 
+		    EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP36, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40, 
+		    EMOTE_PP41, EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP47, EMOTE_PP48, 
+		    EMOTE_PP49, EMOTE_PP50];
 const GOD_EMOTE_LIST = [EMOTE_PP51, EMOTE_PP52];
 const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58, EMOTE_PP59, EMOTE_PP60,
 			   EMOTE_PP61, EMOTE_PP62];
@@ -121,7 +121,7 @@ const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
 const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST);
 
 const GOD_PP1 = {"name" : "Mongo", "emote": "644643782888783892", "type": "normal"};
-const GOD_PP2 = {"name" : "The Hermit", "emote": "", "type": "normal"}; // Add to God List
+const GOD_PP2 = {"name" : "Hermit", "emote": "", "type": "normal"}; // Add to God List
 const GOD_PP3 = {"name" : "LeprePuds", "emote": "616332243337609257", "type": "normal"};
 const GOD_PP4 = {"name" : "DickHead Pudding", "emote": "614823752492122156", "type": "normal"};
 const GOD_PP5 = {"name" : "Hello There Puds", "emote": "614823329731313670", "type": "normal"};
@@ -2723,7 +2723,12 @@ class Fighter {
 		// Acid
 		if (this.acidArmor >= 1 && _punch) {
 			this.duel.addMessage(this.getName() + " has an acid armor !");
-			this.duel.getOppOf(this).damage(10, false);
+			if (this.duel.getOppOf(this).hasSynergy(SYNERGY_PP4)) {
+				this.duel.getOppOf(this).heal(10);
+			}
+			else {
+				this.duel.getOppOf(this).damage(10, false);
+			}
 		}
 
 		// DoomReverse
@@ -2789,18 +2794,27 @@ class Fighter {
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
 			this.duel.addMessage(this.getName() + " bleeds !");
+			var bleedDamage = this.bleedDamage;
 			if (this.isSalty) {
-				this.damage(this.bleedDamage*5, false);
+				bleedDamage = bleedDamage*5;
+			}
+			if (this.hasSynergy(SYNERGY_PP4)) {
+				this.heal(bleedDamage);
 			}
 			else {
-				this.damage(this.bleedDamage, false);
+				this.damage(bleedDamage, false);
 			}
 			this.duel.addMessage("-----------------");
 		}
 		// Melt
 		if (this.meltingDamage > 0) {
 			this.duel.addMessage(this.getName() + " melts !");
-			this.damage(this.meltingDamage, false);
+			if (this.hasSynergy(SYNERGY_PP4)) {
+				this.heal(this.meltingDamage);
+			}
+			else {
+				this.damage(this.meltingDamage, false);
+			}
 			this.duel.addMessage("-----------------");
 		}
 
