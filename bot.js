@@ -121,7 +121,7 @@ const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
 const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST);
 
 const GOD_PP1 = {"name" : "Mongo", "emote": "644643782888783892", "type": "normal"};
-const GOD_PP2 = {"name" : "Dr Phil", "emote": "617686716479832064", "type": "normal"};
+const GOD_PP2 = {"name" : "", "emote": "", "type": "normal"}; // put back to GOD_LIST
 const GOD_PP3 = {"name" : "LeprePuds", "emote": "616332243337609257", "type": "normal"};
 const GOD_PP4 = {"name" : "DickHead Pudding", "emote": "614823752492122156", "type": "normal"};
 const GOD_PP5 = {"name" : "Hello There Puds", "emote": "614823329731313670", "type": "normal"};
@@ -150,7 +150,7 @@ const GOD_PP12 = {"name" : "Espinoza", "emote": "615887132157804564", "type": "e
 const GOD_PP20 = {"name":"Mikasa", "emote": "655523518812913664", "type": "waifu"};
 const GOD_PP27 = {"name":"Kurisu", "emote": "672543479598940179", "type": "waifu"};
 
-const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP4, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
+const GOD_LIST = [GOD_PP1, GOD_PP3, GOD_PP4, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
 		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
 		 GOD_PP22, GOD_PP23, GOD_PP24, GOD_PP25, GOD_PP26, GOD_PP27];
 
@@ -326,7 +326,7 @@ class Fighter {
 		this.impendingDoom = 0;
 		this.redPillAddiction = 0;
 		this.satanicMoveMultiplier = false;
-		this.ultimatePPBuff = false;
+		this.ultimatePPBuff = true;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -347,7 +347,7 @@ class Fighter {
 				this.ironProtection = 4;
 			}
 			if (this.standPower == STAND_PP2) { // Boreal Flame
-				this.borealSummon = 11;
+				this.borealSummon = 10;
 			}
 			if (this.standPower == STAND_PP5) { // Perfect Machine
 				this.randomizedStand = true;
@@ -383,6 +383,9 @@ class Fighter {
 			}
 			if (this.guildUser.roles.find(r => r.name == ALIEN_PP_ROLE)) {
 				this.isAlienPP = true;
+			}
+			if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
+				this.ultimatePPBuff = false;
 			}
 
 			for (var i in GOD_LIST) {
@@ -661,7 +664,11 @@ class Fighter {
 		
 			txt += "\n\n**Fighting Styles :**\n";
 			if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
-				txt += " - *Ultimate PP*\n";
+				txt += " - *Ultimate PP";
+				if (this.ultimatePPBuff) {
+					txt += " II";
+				}
+				txt += "*\n";
 			}
 			else {
 				if (this.isBigPP) {
@@ -980,7 +987,7 @@ class Fighter {
 			else if (attack == EMOTE_PP6) {
 				// Kick
 				this.duel.addMessage(this.getName() + " kicks " + this.getOppName() + "'s PP !");
-				this.duel.getOppOf(this).damage(Math.floor(20 + this.STR / 10)*3);
+				this.duel.getOppOf(this).damage(Math.floor(20 + this.STR/5)*3);
 			}
 			else if (attack == EMOTE_PP7) {
 				// Turkey
@@ -1018,7 +1025,6 @@ class Fighter {
 					this.isHockeyPuckPP = true;
 					this.duel.addMessage("...and now he got it !");
 					this.DEXValue += 10;
-					this.ultimatePPBuff = true;
 				}
 			}
 			else if (attack == EMOTE_PP10) {
@@ -1199,7 +1205,7 @@ class Fighter {
 			else if (attack == EMOTE_PP27) {
 				// BigGuyBullet
 				this.duel.addMessage(this.getName() + " uses his PP as a gun !");
-				this.duel.getOppOf(this).damage(Math.floor(20 + this.STR / 5));
+				this.duel.getOppOf(this).damage(Math.floor(20 + this.STR/5));
 				this.duel.bothFightersAction(function(_fighter) {
 					_fighter.DEXValue -= 20;
 				});
@@ -1231,6 +1237,7 @@ class Fighter {
 			else if (attack == EMOTE_PP31) {
 				// Save Me Sign
 				this.duel.addMessage(this.getName() + " wants to be saved !");
+				this.heal(50);
 			}
 			else if (attack == EMOTE_PP32) {
 				// High Five Emote
@@ -1314,7 +1321,6 @@ class Fighter {
 					this.isFastPP = true;
 					this.duel.addMessage("...and now he got it !");
 					this.DEXValue += 10;
-					this.ultimatePPBuff = true;
 				}
 			}
 			else if (attack == EMOTE_PP39) {
@@ -1337,7 +1343,6 @@ class Fighter {
 					this.isBigPP = true;
 					this.duel.addMessage("...and now he got it !");
 					this.DEXValue += 10;
-					this.ultimatePPBuff = true;
 				}
 			}
 			else if (attack == EMOTE_PP41) {
@@ -1350,7 +1355,6 @@ class Fighter {
 					this.isDrunkPP = true;
 					this.duel.addMessage("...and now he got it !");
 					this.DEXValue += 10;
-					this.ultimatePPBuff = true;
 				}
 			}
 			else if (attack == EMOTE_PP42) {
@@ -1529,9 +1533,7 @@ class Fighter {
 				}
 				if (this.godList.indexOf(GOD_PP2.name) > -1) { // Dr Phil
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage("Dr. Phil answers his calls !");
-					this.duel.addMessage("You suddenly all wonder about life...");
-					this.duel.FORCE_PERHAPS = true;
+					this.duel.addMessage("TODO answers his calls !");
 				}
 				if (this.godList.indexOf(GOD_PP3.name) > -1) { // LeprePuds
 					this.duel.addMessage("-----------------");
@@ -1667,12 +1669,18 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP19.name) > -1) { // Chad Brenn
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Chad Brenn answers his calls !");
-					if (this.legAimer) {
-						this.duel.addMessage("But " + this.getName() + " already aims for legs !");
+					var randomGod = randomFromList(GOD_LIST);
+					var nbTries = 0;
+					while (this.godList.indexOf(randomGod.name) > -1 && randomGod.type != "waifu" && nbTries < 100) {
+						randomGod = randomFromList(GOD_LIST);
+						nbTries += 1;
+					}
+					if (nbTries < 100) {
+						this.godList.push(randomGod.name);
+						this.duel.addMessage(this.getName() + " becomes a " + randomGod.name + " Priest !");
 					}
 					else {
-						this.duel.addMessage(this.getName() + " now aims for legs !");
-						this.legAimer = true;
+						this.duel.addMessage(this.getName() + " is already a filthy weeb !");
 					}
 				}
 				if (this.godList.indexOf(GOD_PP20.name) > -1) { // Mikasa
@@ -1764,9 +1772,7 @@ class Fighter {
 				}
 				if (this.godList.indexOf(GOD_PP2.name) > -1) { // Dr Phil
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage("Dr. Phil answers his calls !");
-					this.duel.addMessage("Dr Phil sends " + this.duel.getOppOf(this).getName() + "'s will to fight to the ranch for 1 turn...");
-					this.duel.getOppOf(this).turnSkip = 2;
+					this.duel.addMessage("TODO answers his calls !");
 				}
 				if (this.godList.indexOf(GOD_PP3.name) > -1) { // LeprePuds
 					this.duel.addMessage("-----------------");
@@ -1793,7 +1799,20 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Hello There Puds answers his calls !");
 					this.duel.addMessage(this.getName() + " gets a sudden body change !");
-					this.DEXValue = this.STRValue;
+					if (this.STR < this.duel.getOppOf(this).STR) {
+						this.duel.addMessage(this.getName() + " gets as much STR as " + this.duel.getOppOf(this).getName());
+						this.STRValue -= this.STR-this.duel.getOppOf(this).STR; 
+					}
+					else {
+						this.duel.addMessage(this.getName() + " is already the strongest !");
+					}
+					if (this.DEX < this.duel.getOppOf(this).DEX) {
+						this.duel.addMessage(this.getName() + " gets as much DEX as " + this.duel.getOppOf(this).getName());
+						this.DEXValue -= this.DEX-this.duel.getOppOf(this).DEX; 
+					}
+					else {
+						this.duel.addMessage(this.getName() + " is already the fastest !");
+					}
 				}
 				if (this.godList.indexOf(GOD_PP6.name) > -1) { // Dickdickson666
 					this.duel.addMessage("-----------------");
@@ -1913,20 +1932,12 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP19.name) > -1) { // Chad Brenn
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Chad Brenn answers his calls !");
-					this.duel.addMessage(this.getName() + " dabs on the haters");
-					if (this.STR < this.duel.getOppOf(this).STR) {
-						this.duel.addMessage(this.getName() + " gets as much STR as " + this.duel.getOppOf(this).getName());
-						this.STRValue -= this.STR-this.duel.getOppOf(this).STR; 
+					if (this.legAimer) {
+						this.duel.addMessage("But " + this.getName() + " already aims for legs !");
 					}
 					else {
-						this.duel.addMessage(this.getName() + " is already the strongest !");
-					}
-					if (this.DEX < this.duel.getOppOf(this).DEX) {
-						this.duel.addMessage(this.getName() + " gets as much DEX as " + this.duel.getOppOf(this).getName());
-						this.DEXValue -= this.DEX-this.duel.getOppOf(this).DEX; 
-					}
-					else {
-						this.duel.addMessage(this.getName() + " is already the fastest !");
+						this.duel.addMessage(this.getName() + " now aims for legs !");
+						this.legAimer = true;
 					}
 				}
 				if (this.godList.indexOf(GOD_PP20.name) > -1) { // Mikasa
@@ -3535,7 +3546,7 @@ class Duel {
 
 				this.STEEL_PROTECTION = false;
 				this.BARREL_DAMAGE = false;
-				this.SAVE_LIST = [];
+				this.SAVE_LIST = [FIGHTER1, FIGHTER2];
 				this.BLIND_COUNTDOWN -= 1;
 				this.INFINITE_DAMAGE = 0;
 				this.DISABLE_ABANDON = false;
@@ -4734,7 +4745,11 @@ class Duel {
 				this.getOppOf(winner).playMove();
 			}
 			// Intimidates
-			if (this.getOppOf(winner).attack == EMOTE_PP28 && getRandomPercent() <= 25) {
+			if (this.getOppOf(winner).attack == EMOTE_PP28) {
+				this.getOppOf(winner).playMove();
+			}
+			// LivingGod
+			if (this.getOppOf(winner).attack == EMOTE_PP49) {
 				this.getOppOf(winner).playMove();
 			}
 			// High Five Emote
@@ -4993,6 +5008,7 @@ class Duel {
 			case EMOTE_PP6:
 			case EMOTE_PP78:
 			case EMOTE_PP34:
+			case EMOTE_PP27:
 				return -20;
 			case EMOTE_PP2:
 			case EMOTE_PP16:
@@ -5001,8 +5017,6 @@ class Duel {
 			case EMOTE_PP12:
 			case EMOTE_PP22:
 				return 20;
-			case EMOTE_PP49:
-				return 1000;
 		}
 		return 0;
 	}
