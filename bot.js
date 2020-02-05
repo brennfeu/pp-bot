@@ -870,55 +870,55 @@ class Fighter {
 			}
 			else {
 				if (this.hasSynergy(SYNERGY_PP1)) {
-					txt += " - A Sad Witness";
+					txt += " - A Sad Witness\n";
 				}
 				if (this.hasSynergy(SYNERGY_PP2)) {
-					txt += " - Holy Brenn Trinity";
+					txt += " - Holy Brenn Trinity\n";
 				}
 				if (this.hasSynergy(SYNERGY_PP3)) {
-					txt += " - Unholy Pudding Trinity";
+					txt += " - Unholy Pudding Trinity\n";
 				}
 				if (this.hasSynergy(SYNERGY_PP4)) {
-					txt += " - Roleplay Group";
+					txt += " - Roleplay Group\n";
 				}
 				if (this.hasSynergy(SYNERGY_PP5)) {
-					txt += " - Jew-Hitler Paradox";
+					txt += " - Jew-Hitler Paradox\n";
 				}
 				if (this.hasSynergy(SYNERGY_PP6)) {
-					txt += " - Garbage Music Maker";
+					txt += " - Garbage Music Maker\n";
 				}
 				if (this.hasSynergy(SYNERGY_PP7)) {
-					txt += " - Yaoi Fan";
+					txt += " - Yaoi Fan\n";
 				}
 				if (this.hasSynergy(SYNERGY_PP8)) {
-					txt += " - Super Predator";
+					txt += " - Super Predator\n";
 				}
 				if (this.hasSynergy(SYNERGY_PP9)) {
-					txt += " - Too Smart and Too Powerful";
+					txt += " - Too Smart and Too Powerful\n";
 				}
 				if (this.hasSynergy(SYNERGY_PP10)) {
-					txt += " - Salt Master";
+					txt += " - Salt Master\n";
 				}
 				if (this.hasSynergy(SYNERGY_PP11)) {
-					txt += " - Debilus Team Member";
+					txt += " - Debilus Team Member\n";
 				}
 				if (this.hasSynergy(SYNERGY_PP12)) {
-					txt += " - Waifu Body Pillow";
+					txt += " - Waifu Body Pillow\n";
 				}
 				if (this.hasSynergy(SYNERGY_PP13)) {
-					txt += " - Infinite Intellect";
+					txt += " - Infinite Intellect\n";
 				}
 				if (this.hasSynergy(SYNERGY_PP14)) {
-					txt += " - Wild Mage";
+					txt += " - Wild Mage\n";
 				}
 				if (this.hasSynergy(SYNERGY_PP15)) {
-					txt += " - Guerrier de l'Enfer";
+					txt += " - Guerrier de l'Enfer\n";
 				}
 				if (this.hasSynergy(SYNERGY_PP16)) {
-					txt += " - Too Much Dicks";
+					txt += " - Too Much Dicks\n";
 				}
 				if (this.hasSynergy(SYNERGY_PP17)) {
-					txt += " - Avatar of Tz'arkan";
+					txt += " - Avatar of Tz'arkan\n";
 				}
 			}
 		}
@@ -1810,10 +1810,10 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Hermit answers his calls !");
 					if (this.standPower != null) {
-						this.duel.addMessage("The Hermit changes " + this.getName() + "'s power !");
+						this.duel.addMessage(this.getName() + " drinks a potion that was found in the Immaterial Plane !");
 					}
 					else {
-						this.duel.addMessage("The Hermit gives " + this.getName() + " new powers !");
+						this.duel.addMessage(this.getName() + " drinks a Lyrium potion !");
 					}
 					var liste = Object.keys(STAND_SUMMONS);
 					this.currentStand = liste[Math.floor(Math.random()*liste.length)];
@@ -2898,12 +2898,13 @@ class Fighter {
 		}
 		
 		// Espinoza Waifu Stealer
-		if (this.duel.MOVE_COUNT > 10 && this.godList.indexOf(GOD_PP12.name) > -1) {
+		if (this.duel.MOVE_COUNT > 30 && this.godList.indexOf(GOD_PP12.name) > -1) {
 			for (var i in this.duel.getOppOf(this).godList) {
 				if (this.duel.getOppOf(this).godList[i].type == "waifu") {
 					this.duel.addMessage(this.getName() + " uses Espinoza sniff on " + this.duel.getOppOf(this).getName() + " !");
 					this.duel.addMessage(this.duel.getOppOf(this).godList[i].name + " leaves " + this.duel.getOppOf(this).getName() + " for " + this.getName() + " !");
 					this.duel.addMessage("Espinoza truly is a waifu stealer !");
+					
 					this.duel.getOppOf(this).godList.splice(this.duel.getOppOf(this).godList.indexOf(this.duel.getOppOf(this).godList[i].name), 1);
 					this.godList.push(this.duel.getOppOf(this).godList[i].name);
 					this.duel.addMessage("-----------------");
@@ -4895,7 +4896,7 @@ class Duel {
 			var commonMoves = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5];
 			
 			for (var i in commonMoves) {
-				if (this.KIDNEY_CURSE <= i) {
+				if (this.KIDNEY_CURSE <= i && this.KIDNEY_CURSE > 0) {
 					emote = this.getRandomEmote();
 					if (this.MOVE_COUNT == 0 && getRandomPercent() <= 33 && i == 0) {
 						listeAttaques.push(EMOTE_PP81); // Melodia
