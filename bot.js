@@ -414,7 +414,7 @@ class Fighter {
 			}
 			while (this.godList.length < 3) {
 				var r = randomFromList(GOD_LIST);
-				if (this.godList.indexOf(r.name) <= -1) {
+				if (this.godList.indexOf(r.name) <= -1 && r.type == "normal") {
 					this.godList.push(r.name);
 				}
 			}
@@ -5169,7 +5169,7 @@ function getPriestRoleName(_god) {
 }
 
 function setBotActivity() {
-	var texte = "Lonely PP :(";
+	var texte = "PP Squeezing";
 	if (DUEL_LIST.length > 0) {
 		if (DUEL_LIST.length == 1) {
 			texte = DUEL_LIST.length + " duel of PP Punching :)";
@@ -5203,6 +5203,11 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 				return;
 			}
 			user.addRole(role);
+			
+			if (getNumberOfGods(user, false) >= 2) {
+				user.removeRole(role);
+				return;
+			}
 		}
 	}
 	catch(e) {
@@ -5210,10 +5215,10 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 		user.send("Looks like there is no " + _nomRole + " role there...");
 	}
 }
-function getNumberOfGods(_guildUser) {
+function getNumberOfGods(_guildUser, _includeNormalOnes = true) {
 	var counter = 0;
 	for (var i in GOD_LIST) {
-		if (_guildUser.roles.find(r => r.name == getPriestRoleName(GOD_LIST[i]))) {
+		if (_guildUser.roles.find(r => r.name == getPriestRoleName(GOD_LIST[i])) && (_includeNormalOnes || i.type != "normal")) {
 			counter++;
 		}
 	}
