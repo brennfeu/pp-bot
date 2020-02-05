@@ -154,6 +154,24 @@ const GOD_LIST = [GOD_PP1, GOD_PP3, GOD_PP4, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8,
 		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
 		 GOD_PP22, GOD_PP23, GOD_PP24, GOD_PP25, GOD_PP26, GOD_PP27];
 
+const SYNERGY_PP1 = [GOD_PP15, GOD_PP12, GOD_PP14] // A Sad Witness
+const SYNERGY_PP2 = [GOD_PP9, GOD_PP11, GOD_PP19] // Holy Brenn Trinity
+const SYNERGY_PP3 = [GOD_PP5, GOD_PP6, GOD_PP14] // Unholy Pudding Trinity
+const SYNERGY_PP4 = [GOD_PP2, GOD_PP18, GOD_PP9] // Roleplay Group
+const SYNERGY_PP5 = [GOD_PP7, GOD_PP17] // Jew-Hitler Paradox
+const SYNERGY_PP6 = [GOD_PP11, GOD_PP9] // Garbage Music Maker
+const SYNERGY_PP7 = [GOD_PP10, GOD_PP8] // Yaoi Fan
+const SYNERGY_PP8 = [GOD_PP13, GOD_PP12] // Super Predator
+const SYNERGY_PP9 = [GOD_PP16, GOD_PP13] // Too Smart and Too Powerful
+const SYNERGY_PP10 = [GOD_PP16, GOD_PP18] // Salt Master
+const SYNERGY_PP11 = [GOD_PP9, GOD_PP18] // Debilus Team Member
+const SYNERGY_PP12 = [GOD_PP19, "waifu"] // Waifu Body Pillow
+const SYNERGY_PP13 = [GOD_PP13, GOD_PP24] // Infinite Intellect
+const SYNERGY_PP14 = [GOD_PP9, GOD_PP25] // Wild Mage
+const SYNERGY_PP15 = [GOD_PP1, GOD_PP22] // Guerrier de l'Enfer
+const SYNERGY_PP16 = [GOD_PP6, GOD_PP21] // Too Much Dicks
+const SYNERGY_PP17 = [GOD_PP2, GOD_PP22] // Avatar of Tz'arkan
+
 const STAND_PP1 = "Iron Maiden";
 const STAND_PP2 = "The Boreal Flame";
 const STAND_PP3 = "Shadow Gallery";
@@ -327,6 +345,7 @@ class Fighter {
 		this.redPillAddiction = 0;
 		this.satanicMoveMultiplier = false;
 		this.ultimatePPBuff = true;
+		this.goldenSpoons = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -546,7 +565,7 @@ class Fighter {
 		if (this.requiemPower != null && this.duel.STAND_BATTLE) {
 			dex += 30;
 		}
-		if (this.godList.indexOf(GOD_PP12.name) > -1 && this.godList.indexOf(GOD_PP13.name) > -1) {
+		if (this.hasSynergy(SYNERGY_PP8)) {
 			dex += 10;
 		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
@@ -559,7 +578,7 @@ class Fighter {
 			dex += 200;
 		}
 		
-		if (this.godList.indexOf(GOD_PP9.name) > -1 && this.godList.indexOf(GOD_PP18.name) > -1 && dex <= 0) {
+		if (this.hasSynergy(SYNERGY_PP11) && dex <= 0) {
 			return 0;
 		}
 		return dex;
@@ -646,7 +665,7 @@ class Fighter {
 				}
 				
 				for (var i in this.godList) {
-					if (!GOD_LIST.find(r => r.name == this.godList[i])) {
+					if (!GOD_LIST.includes(r => r.name == this.godList[i])) {
 						txt += "\n - " + this.godList[i] + " Priest";
 					}
 				}
@@ -761,6 +780,9 @@ class Fighter {
 		if (this.meltingDamage > 0) {
 			txt += " - Acid : " + this.meltingDamage + "\n";
 		}
+		if (this.goldenSpoons > 0) {
+			txt += " - Golden Spoons : " + this.goldenSpoons + "\n";
+		}
 		if (this.xenoMask) {
 			txt += " - Mask : Xeno\n";
 		}
@@ -847,50 +869,56 @@ class Fighter {
 				txt += " - *All of them*\n";
 			}
 			else {
-				if (this.godList.indexOf(GOD_PP9.name) > -1 && this.godList.indexOf(GOD_PP11.name) > -1 && this.godList.indexOf(GOD_PP19.name) > -1) {
-					txt += " - Holy Brenn Trinity\n";
+				if (this.hasSynergy(SYNERGY_PP1)) {
+					txt += " - A Sad Witness";
 				}
-				if (this.godList.indexOf(GOD_PP5.name) > -1 && this.godList.indexOf(GOD_PP6.name) > -1 && this.godList.indexOf(GOD_PP14.name) > -1) {
-					txt += " - Unholy Pudding Trinity\n";
+				if (this.hasSynergy(SYNERGY_PP2)) {
+					txt += " - Holy Brenn Trinity";
 				}
-				if (this.godList.indexOf(GOD_PP15.name) > -1 && this.godList.indexOf(GOD_PP12.name) > -1 && this.godList.indexOf(GOD_PP14.name) > -1) {
-					txt += " - A Sad Witness\n";
+				if (this.hasSynergy(SYNERGY_PP3)) {
+					txt += " - Unholy Pudding Trinity";
 				}
-				if (this.godList.indexOf(GOD_PP7.name) > -1 && this.godList.indexOf(GOD_PP17.name) > -1) {
-					txt += " - Jew-Hitler Paradox\n";
+				if (this.hasSynergy(SYNERGY_PP4)) {
+					txt += " - Roleplay Group";
 				}
-				if (this.godList.indexOf(GOD_PP11.name) > -1 && this.godList.indexOf(GOD_PP9.name) > -1) {
-					txt += " - Garbage Music Maker\n";
+				if (this.hasSynergy(SYNERGY_PP5)) {
+					txt += " - Jew-Hitler Paradox";
 				}
-				if (this.godList.indexOf(GOD_PP12.name) > -1 && this.godList.indexOf(GOD_PP13.name) > -1) {
-					txt += " - Too Smart and Too Powerful\n";
+				if (this.hasSynergy(SYNERGY_PP6)) {
+					txt += " - Garbage Music Maker";
 				}
-				if (this.godList.indexOf(GOD_PP16.name) > -1 && this.godList.indexOf(GOD_PP13.name) > -1) {
-					txt += " - Super Predator\n";
+				if (this.hasSynergy(SYNERGY_PP7)) {
+					txt += " - Yaoi Fan";
 				}
-				if (this.godList.indexOf(GOD_PP10.name) > -1 && this.godList.indexOf(GOD_PP8.name) > -1) {
-					txt += " - Yaoi fan\n";
+				if (this.hasSynergy(SYNERGY_PP8)) {
+					txt += " - Super Predator";
 				}
-				if (this.godList.indexOf(GOD_PP16.name) > -1 && this.godList.indexOf(GOD_PP18.name) > -1) {
-					txt += " - Salt Master\n";
+				if (this.hasSynergy(SYNERGY_PP9)) {
+					txt += " - Too Smart and Too Powerful";
 				}
-				if (this.godList.indexOf(GOD_PP9.name) > -1 && this.godList.indexOf(GOD_PP18.name) > -1) {
-					txt += " - Debilus Team Member\n";
+				if (this.hasSynergy(SYNERGY_PP10)) {
+					txt += " - Salt Master";
 				}
-				if (this.godList.indexOf(GOD_PP19.name) > -1 && this.godList.find(r => r.type == "waifu")) {
-					txt += " - Waifu Body Pillow\n";
+				if (this.hasSynergy(SYNERGY_PP11)) {
+					txt += " - Debilus Team Member";
 				}
-				if (this.godList.indexOf(GOD_PP13.name) > -1 && this.godList.indexOf(GOD_PP24.name) > -1) {
-					txt += " - Infinite Intellect\n";
+				if (this.hasSynergy(SYNERGY_PP12)) {
+					txt += " - Waifu Body Pillow";
 				}
-				if (this.godList.indexOf(GOD_PP9.name) > -1 && this.godList.indexOf(GOD_PP25.name) > -1) {
-					txt += " - Wild Mage\n";
+				if (this.hasSynergy(SYNERGY_PP13)) {
+					txt += " - Infinite Intellect";
 				}
-				if (this.godList.indexOf(GOD_PP1.name) > -1 && this.godList.indexOf(GOD_PP22.name) > -1) {
-					txt += " - Guerrier de l'Enfer\n";
+				if (this.hasSynergy(SYNERGY_PP14)) {
+					txt += " - Wild Mage";
 				}
-				if (this.godList.indexOf(GOD_PP6.name) > -1 && this.godList.indexOf(GOD_PP21.name) > -1) {
-					txt += " - Too Much Dicks\n";
+				if (this.hasSynergy(SYNERGY_PP15)) {
+					txt += " - Guerrier de l'Enfer";
+				}
+				if (this.hasSynergy(SYNERGY_PP16)) {
+					txt += " - Too Much Dicks";
+				}
+				if (this.hasSynergy(SYNERGY_PP17)) {
+					txt += " - Avatar of Tz'arkan";
 				}
 			}
 		}
@@ -1402,10 +1430,10 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP47) {
 				// Pudding
-				if (this.godList.indexOf(GOD_PP13.name) > -1 && this.godList.indexOf(GOD_PP24.name) > -1 && _newMove == this.attack) {
+				if (this.hasSynergy(SYNERGY_PP13) && _newMove == this.attack) {
 					// Infinite Intellect
 					this.duel.addMessage(this.getName() + " proves with his high intellectual abilities that he shouldn't play this move but " + this.duel.getOppOf(this).getName() + " should !");
-					if (this.duel.getOppOf(this).godList.indexOf(GOD_PP13.name) > -1 && this.duel.getOppOf(this).godList.indexOf(GOD_PP24.name) > -1) {
+					if (this.duel.getOppOf(this).hasSynergy(SYNERGY_PP13)) {
 						this.duel.addMessage("-----------------");
 						this.duel.addMessage("*Both fighters then debated on the use of this move ! The intellectual intercourse between " + this.getName() + " and " + this.duel.getOppOf(this).getName() + " lasted for 11 years. They both killed themselves at the end, no one knows what happened there... Let's go back in time to see what happened.*");
 						this.duel.addMessage("-----------------");
@@ -1531,6 +1559,23 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP2.name) > -1) { // Hermit
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Hermit answers his calls !");
+					this.duel.addMessage(this.getName() + " gets a golden spoon.");
+					this.goldenSpoons += 1;
+					if (this.goldenSpoons%2 == 0) {
+						var randomGod = randomFromList(GOD_LIST);
+						var nbTries = 0;
+						while ((this.godList.indexOf(randomGod.name) > -1 || randomGod.type != "eldritch") && nbTries < 100) {
+							randomGod = randomFromList(GOD_LIST);
+							nbTries += 1;
+							if (nbTries < 100) {
+								this.godList.push(randomGod.name);
+								this.duel.addMessage(this.getName() + " becomes a " + randomGod.name + " Priest !");
+							}
+							else {
+								this.duel.addMessage(this.getName() + " has all the eldritch gods on his side !");
+							}
+						}
+					}
 				}
 				if (this.godList.indexOf(GOD_PP3.name) > -1) { // LeprePuds
 					this.duel.addMessage("-----------------");
@@ -2552,7 +2597,7 @@ class Fighter {
 			// Steel
 			_amount -= Math.floor(_amount/10);
 		}
-		if (this.duel.getOppOf(this).godList.indexOf(GOD_PP6.name) > -1 && this.duel.getOppOf(this).godList.indexOf(GOD_PP21.name) > -1 && _punch) {
+		if (this.duel.getOppOf(this).hasSynergy(SYNERGY_PP16) && _punch) {
 			// Too Much Dicks
 			_amount += 10;
 		}
@@ -2573,7 +2618,7 @@ class Fighter {
 			// Iron Maiden
 			_amount -= 10;
 		}
-		if (this.godList.indexOf(GOD_PP19.name) > -1 && this.godList.find(r => r.type == "waifu") && _punch) {
+		if (this.hasSynergy(SYNERGY_PP12) && _punch) {
 			// Waifu Body Pillow
 			_amount -= 10;
 		}
@@ -2808,7 +2853,7 @@ class Fighter {
 		if (this.tearDrinker > 0) {
 			this.duel.addMessage(this.getName() + " drinks salty tears !");
 			this.heal(this.tearDrinker);
-			if (this.godList.indexOf(GOD_PP16.name) > -1 && this.godList.indexOf(GOD_PP18.name) > -1) {
+			if (this.hasSynergy(SYNERGY_PP10)) {
 				this.duel.getOppOf(this).damage(this.tearDrinker);
 			}
 			this.duel.addMessage("-----------------");
@@ -2867,28 +2912,28 @@ class Fighter {
 		}
 		
 		// Synergies
-		if (this.godList.indexOf(GOD_PP9.name) > -1 && this.godList.indexOf(GOD_PP11.name) > -1 && this.godList.indexOf(GOD_PP19.name) > -1) {
+		if (this.hasSynergy(SYNERGY_PP2)) {
 			this.duel.addMessage(this.getName() + " gets healed by the Holy Brenn Trinity !");
 			this.heal(5);
 			this.duel.addMessage("-----------------");
 		}
-		if (this.godList.indexOf(GOD_PP5.name) > -1 && this.godList.indexOf(GOD_PP6.name) > -1 && this.godList.indexOf(GOD_PP14.name) > -1) {
+		if (this.hasSynergy(SYNERGY_PP3)) {
 			this.duel.addMessage(this.getOppName() + " gets hurt by the Unholy Pudding Trinity !");
 			this.duel.getOppOf(this).damage(5);
 			this.duel.addMessage("-----------------");
 		}
-		if (this.godList.indexOf(GOD_PP15.name) > -1 && this.godList.indexOf(GOD_PP12.name) > -1 && this.godList.indexOf(GOD_PP14.name) > -1) {
+		if (this.hasSynergy(SYNERGY_PP1)) {
 			this.duel.addMessage(this.getName() + " remembers haunting memories...");
 			this.playMove(EMOTE_PP42);
 			this.duel.addMessage("-----------------");
 		}
-		if (this.godList.indexOf(GOD_PP11.name) > -1 && this.godList.indexOf(GOD_PP9.name) > -1) {
+		if (this.hasSynergy(SYNERGY_PP6)) {
 			this.duel.addMessage(this.getName() + " plays garbage music");
 			this.duel.addMessage(this.duel.getOppOf(this).getName() + "'s ears starts bleeding");
 			this.duel.getOppOf(this).bleedDamage++;
 			this.duel.addMessage("-----------------");
 		}
-		if (this.godList.indexOf(GOD_PP10.name) > -1 && this.godList.indexOf(GOD_PP8.name) > -1 && getRandomPercent() <= 10) {
+		if (this.hasSynergy(SYNERGY_PP7) && getRandomPercent() <= 10) {
 			this.duel.addMessage(this.getName() + "'s Yaoi starts !");
 			if (this.duel.GAY_TURNS < 2) {
 				this.duel.GAY_TURNS = 0;
@@ -2953,6 +2998,20 @@ class Fighter {
 			return this.duel.CURRENT_BOSS;
 		}
 		return this.duel.getOppOf(this).getName();
+	}
+	
+	hasSynergy(_synergy) {
+		for (var i in _synergy) {
+			for (var j in this.godList) {
+				if (this.godList[j].type == _synergy[i]) {
+					continue;
+				}
+			}
+			if (this.godList.indexOf(_synergy[i].name) < 0) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	resetBattleVariables() {
@@ -4365,14 +4424,6 @@ class Duel {
 			// High Five Emote
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP32).name, fighter.user);
 		}
-		if (!(fighter.godList.indexOf(GOD_PP15.name) > -1 && fighter.godList.indexOf(GOD_PP2.name) > -1) && fighter.bleedDamage * 5 > fighter.STR && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP12) > -1) {
-			// Overcircumcise
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP12).name, fighter.user);
-		}
-		if (!(fighter.godList.indexOf(GOD_PP15.name) > -1 && fighter.godList.indexOf(GOD_PP2.name) > -1) && fighter.bleedDamage * 5 > fighter.STR && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP22) > -1) {
-			// Circumcise
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP22).name, fighter.user);
-		}
 		if (fighter.STR < this.getOppOf(fighter).STR && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP24) > -1) {
 			// Knockback
 			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP24).name, fighter.user);
@@ -4567,7 +4618,7 @@ class Duel {
 			}
 			
 			// Guerrier de l'Enfer
-			if (_fighter.attack == EMOTE_PP74 && _fighter.godList.indexOf(GOD_PP1.name) > -1 && _fighter.godList.indexOf(GOD_PP22.name) > -1) {
+			if (_fighter.attack == EMOTE_PP74 && _fighter.hasSynergy(SYNERGY_PP15)) {
 				caught1 = false;
 			}
 
@@ -4591,7 +4642,7 @@ class Duel {
 			}
 
 			// Caught cheating --> test si malus dex
-			if (caught1 && (getRandomPercent() >= 33 || _fighter.godList.indexOf(GOD_PP16.name) > -1 && _fighter.godList.indexOf(GOD_PP13.name) > -1)) {
+			if (caught1 && (getRandomPercent() >= 33 || _fighter.hasSynergy(SYNERGY_PP9))) {
 				duel.addMessage(_fighter.getName() + " is doing illegal stuff ! He loses 20 DEX and 10 STR.");
 				duel.sendMessages();
 				_fighter.STRValue -= 10;
@@ -4613,14 +4664,14 @@ class Duel {
 
 		this.bothFightersAction(function(_fighter) {
 			// Jew Hitler Paradox
-			if (_fighter.godList.indexOf(GOD_PP7.name) > -1 && _fighter.godList.indexOf(GOD_PP17.name) > -1 && getRandomPercent() <= 10) {
+			if (_fighter.hasSynergy(SYNERGY_PP5) > -1 && getRandomPercent() <= 10) {
 				_fighter.duel.addMessage(_fighter.getName() + " gets the Jew-Hitler Paradox Effect !");
 				_fighter.duel.sendMessages();
 				_fighter.attack = _fighter.duel.getRandomEmote(false);
 			}
 			
 			// Wild Mage
-			if (_fighter.godList.indexOf(GOD_PP9.name) > -1 && _fighter.godList.indexOf(GOD_PP25.name) > -1 && getRandomPercent() <= 10) {
+			if (_fighter.hasSynergy(SYNERGY_PP14) > -1 && getRandomPercent() <= 10) {
 				_fighter.duel.addMessage(_fighter.getName() + " feels the wild magic kicking in !");
 				_fighter.duel.sendMessages();
 				_fighter.attack = EMOTE_LIST[Math.floor(Math.random()*EMOTE_LIST.length)];
