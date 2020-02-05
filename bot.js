@@ -519,8 +519,12 @@ class Fighter {
 	get DEX() {
 		var dex = this.DEXValue;
 		// Burst
-		if (this.hasBurst == 1 || this.megaBuildUp) {
+		if (this.hasBurst == 1) {
 			return 0;
+		}
+		// BronanSlam
+		if (this.megaBuildUp) {
+			return this.bonusDamage;
 		}
 		
 		dex -= this.dexMalus;
@@ -750,6 +754,9 @@ class Fighter {
 		if (this.pigHeal > 0) {
 			txt += " - Hog Squeezer : " + this.pigHeal + "\n";
 		}
+		if (this.megaBuildUp) {
+			txt += " - Mega Build-Up\n";
+		}
 		if (this.bonusDamage > 0) {
 			txt += " - Build up damages : " + this.bonusDamage + "\n";
 		}
@@ -776,7 +783,7 @@ class Fighter {
 			txt += " - Mask : Intimidation\n";
 		}
 		if (this.satanicMoveMultiplier) {
-			txt += " - Satanic Move Multiplier\n"
+			txt += " - Satanic Move Multiplier\n";
 		}
 		if (this.isOverCircumcised) {
 			txt += " - Overcircumcised\n";
@@ -1369,6 +1376,7 @@ class Fighter {
 				// Bronan Slam
 				this.duel.addMessage(this.getName() + " builds up for his next attack...");
 				this.bonusDamage += 20;
+				this.megaBuildUp = true;
 			}
 			else if (attack == EMOTE_PP43) {
 				// BrocketeerDive
@@ -5768,3 +5776,4 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 });
 
 CLIENT.login(process.env.BOT_TOKEN);
+CLIENT.user.setPresence({ game: { name: "New Update of PP Punching" } })
