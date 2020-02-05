@@ -692,6 +692,9 @@ class Fighter {
 		if (this.randomizedStand) {
 			txt += " - **Perfect Stånd Power**\n";
 		}
+		if (this.livingGod) {
+			txt += " - **Living God**\n";
+		}
 		if (this.hasBoomerang > 0) {
 			txt += " - With a Boomerang (for " + this.hasBoomerang + " turns)\n";
 		}
@@ -1447,13 +1450,18 @@ class Fighter {
 			else if (attack == EMOTE_PP49) {
 				// Soup
 				this.duel.addMessage(this.getName() + " ascends !");
-				if (this.duel.UWU_TEXT) {
-					this.duel.GOD_TEXT = 3;
+				if (!this.livingGod) {
+					if (this.duel.UWU_TEXT) {
+						this.duel.GOD_TEXT = 3;
+					}
+					this.duel.addMessage("Behold " + this.getName() + " the living God !");
+					this.STRValue += 10000;
+					this.DEXValue += 10000;
+					this.livingGod = true;
 				}
-				this.duel.addMessage("Behold " + this.getName() + " the living God !");
-				this.STRValue += 10000;
-				this.DEXValue += 10000;
-				this.livingGod = true;
+				else {
+					this.duel.addMessage("But " + this.getName() + " already was a living god...");
+				}
 			}
 			else if (attack == EMOTE_PP50) {
 				// Perhaps
@@ -4655,14 +4663,14 @@ class Duel {
 
 		this.bothFightersAction(function(_fighter) {
 			// Jew Hitler Paradox
-			if (_fighter.hasSynergy(SYNERGY_PP5) > -1 && getRandomPercent() <= 10) {
+			if (_fighter.hasSynergy(SYNERGY_PP5) && getRandomPercent() <= 10) {
 				_fighter.duel.addMessage(_fighter.getName() + " gets the Jew-Hitler Paradox Effect !");
 				_fighter.duel.sendMessages();
 				_fighter.attack = _fighter.duel.getRandomEmote(false);
 			}
 			
 			// Wild Mage
-			if (_fighter.hasSynergy(SYNERGY_PP14) > -1 && getRandomPercent() <= 10) {
+			if (_fighter.hasSynergy(SYNERGY_PP14) && getRandomPercent() <= 10) {
 				_fighter.duel.addMessage(_fighter.getName() + " feels the wild magic kicking in !");
 				_fighter.duel.sendMessages();
 				_fighter.attack = EMOTE_LIST[Math.floor(Math.random()*EMOTE_LIST.length)];
