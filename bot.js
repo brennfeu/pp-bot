@@ -641,7 +641,7 @@ class Fighter {
 				}
 				
 				for (var i in this.godList) {
-					if (!GOD_LIST.includes(r => r.name == this.godList[i])) {
+					if (!GOD_LIST.find(r => r.name == this.godList[i])) {
 						txt += "\n - " + this.godList[i] + " Priest";
 					}
 				}
