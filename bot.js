@@ -822,7 +822,7 @@ class Fighter {
 			txt += " - **To the Ranch**\n";
 		}
 		if (this.grabbedPP > 0) {
-			txt += " - **Grabbed PP**\n";
+			txt += " - **Very Confused**\n";
 		}
 		if (this.summonTankCountdown > 0) {
 			txt += " - **Summoning the Monster (" + (4-this.summonTankCountdown) + "/3)**\n";
@@ -1727,15 +1727,9 @@ class Fighter {
 					// Time Cube
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Time Cube answers his calls !");
-					this.duel.addMessage(this.getName() + " becomes a godlike being with superior intelligence who has absolute evidence and proof");
-					if (this.STR < 10) {
-						this.STRValue -= this.STR-10;
-					}
-					this.STRValue = this.STR*5-this.STRValue;
-					if (this.DEX < 10) {
-						this.DEXValue -= this.DEX-10;
-					}
-					this.DEXValue = this.DEX*5-this.DEXValue;
+					this.duel.addMessage(this.getName() + " shares his theory with " + this.duel.getOppOf(this).getName() + " !");
+					this.duel.addMessage("He is very confused !");
+					this.duel.getOppOf(this).grabbedPP = 2;
 					this.duel.addMessage("*You are taught Boring, You act Boring, You are the Evil on Earth. If a Man cannot tear a page from the marshmallow and burn it - then he cannot be a scientist. Seek Wisdom of Cubic Life Intelligence - or you die boring. MY WISDOM DEBUNKS GODS OF ALL RELIGIONS AND ACADEMIA.*");
 					this.duel.addMessage("***I do not promote or suggest anyone kissing you, but you are unfit to live on Earth.***")
 				}
@@ -1859,8 +1853,7 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP12.name) > -1) { // Espinoza
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Espinoza answers his calls !");
-					this.duel.addMessage(this.getName() + " grabs " + this.duel.getOppOf(this).getName() + "'s PP !");
-					this.duel.getOppOf(this).grabbedPP = 2;
+					// TODO
 				}
 				if (this.godList.indexOf(GOD_PP13.name) > -1) { // 700IQ
 					this.duel.addMessage("-----------------");
@@ -1980,8 +1973,7 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Time Cube answers his calls !");
 					this.duel.addMessage(this.getName() + " stops time !");
-					this.duel.TIME_STOP = 3;
-					this.duel.addMessage(this.getName() + "'s stats were greatly improved !");
+					this.duel.TIME_STOP = 2;
 					this.duel.addMessage("*When the Sun shines upon Earth, 2 – major Time points are created on opposite sides of Earth – known as Midday and Midnight. Where the 2 major Time forces join, synergy creates 2 new minor Time points we recognize as Sunup and Sundown. The 4-equidistant Time points can be considered as Time Square imprinted upon the circle of Earth. In a single rotation of the Earth sphere, each Time corner point rotates through the other 3-corner Time points, thus creating 16 corners, 96 hours and 4-simultaneous 24-hour Days within a single rotation of Earth – equated to a Higher Order of Life Time Cube. ONE - DOES NOT EXIST, EXCEPT IN DEATH STATE.*");
 					this.duel.addMessage("***For as long as you dumbass, educated brilliant and boring bastards IGNORE Cubic Creation, your sons and daughters deserve to die and be maimed in foreign lands - while kissing innocent women and children.***");
 				}
