@@ -121,7 +121,7 @@ const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
 const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST);
 
 const GOD_PP1 = {"name" : "Mongo", "emote": "644643782888783892", "type": "normal"};
-const GOD_PP2 = {"name" : "", "emote": "", "type": "normal"}; // put back to GOD_LIST
+const GOD_PP2 = {"name" : "The Hermit", "emote": "", "type": "normal"}; // Add to God List
 const GOD_PP3 = {"name" : "LeprePuds", "emote": "616332243337609257", "type": "normal"};
 const GOD_PP4 = {"name" : "DickHead Pudding", "emote": "614823752492122156", "type": "normal"};
 const GOD_PP5 = {"name" : "Hello There Puds", "emote": "614823329731313670", "type": "normal"};
@@ -862,9 +862,6 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP11.name) > -1 && this.godList.indexOf(GOD_PP9.name) > -1) {
 					txt += " - Garbage Music Maker\n";
 				}
-				if (this.godList.indexOf(GOD_PP15.name) > -1 && this.godList.indexOf(GOD_PP2.name) > -1) {
-					txt += " - Therapy Time\n";
-				}
 				if (this.godList.indexOf(GOD_PP12.name) > -1 && this.godList.indexOf(GOD_PP13.name) > -1) {
 					txt += " - Too Smart and Too Powerful\n";
 				}
@@ -1512,13 +1509,13 @@ class Fighter {
 					this.duel.addMessage("Fabulous Toast Man answers his calls !");
 					var randomGod = randomFromList(GOD_LIST);
 					var nbTries = 0;
-					while (this.godList.indexOf(randomGod.name) > -1 && nbTries < 100) {
+					while ((this.godList.indexOf(randomGod.name) > -1 || randomGod.type != "normal") && nbTries < 100) {
 						randomGod = randomFromList(GOD_LIST);
 						nbTries += 1;
 					}
 					if (nbTries < 100) {
 						this.godList.push(randomGod.name);
-						this.duel.addMessage(this.getName() + " becomes a " + randomGod.name + " Priest thanks to his charisma !");
+						this.duel.addMessage(this.getName() + " becomes a " + randomGod.name + " Priest !");
 					}
 					else {
 						this.duel.addMessage(this.getName() + " has no more god to worship !");
@@ -1531,9 +1528,9 @@ class Fighter {
 					this.duel.addMessage(this.getName() + " gains some barbarian strength");
 					this.heal(50);
 				}
-				if (this.godList.indexOf(GOD_PP2.name) > -1) { // Dr Phil
+				if (this.godList.indexOf(GOD_PP2.name) > -1) { // Hermit
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage("TODO answers his calls !");
+					this.duel.addMessage("The Hermit answers his calls !");
 				}
 				if (this.godList.indexOf(GOD_PP3.name) > -1) { // LeprePuds
 					this.duel.addMessage("-----------------");
@@ -1764,9 +1761,18 @@ class Fighter {
 						this.trueBarbarian = true;
 					}
 				}
-				if (this.godList.indexOf(GOD_PP2.name) > -1) { // Dr Phil
+				if (this.godList.indexOf(GOD_PP2.name) > -1) { // Hermit
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage("TODO answers his calls !");
+					this.duel.addMessage("The Hermit answers his calls !");
+					if (this.standPower != null) {
+						this.duel.addMessage("The Hermit changes " + this.getName() + "'s power !");
+					}
+					else {
+						this.duel.addMessage("The Hermit gives " + this.getName() + " new powers !");
+					}
+					var liste = Object.keys(STAND_SUMMONS);
+					this.currentStand = liste[Math.floor(Math.random()*liste.length)];
+					this.duel.addMessage(this.getName() + " gets " + this.currentStand + "'s abilities.");
 				}
 				if (this.godList.indexOf(GOD_PP3.name) > -1) { // LeprePuds
 					this.duel.addMessage("-----------------");
@@ -2696,13 +2702,7 @@ class Fighter {
 		// Acid
 		if (this.acidArmor >= 1 && _punch) {
 			this.duel.addMessage(this.getName() + " has an acid armor !");
-			if (this.godList.indexOf(GOD_PP15.name) > -1 && this.godList.indexOf(GOD_PP2.name) > -1) {
-				this.duel.addMessage(this.duel.getOppOf(this).getName() + " therapy helps !");
-				this.duel.getOppOf(this).heal(10);
-			}
-			else {
-				this.duel.getOppOf(this).damage(10, false);
-			}
+			this.duel.getOppOf(this).damage(10, false);
 		}
 
 		// DoomReverse
@@ -2768,30 +2768,18 @@ class Fighter {
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
 			this.duel.addMessage(this.getName() + " bleeds !");
-			if (this.godList.indexOf(GOD_PP15.name) > -1 && this.godList.indexOf(GOD_PP2.name) > -1) {
-				this.duel.addMessage(this.getName() + " therapy helps !");
-				this.heal(this.bleedDamage);
+			if (this.isSalty) {
+				this.damage(this.bleedDamage*5, false);
 			}
 			else {
-				if (this.isSalty) {
-					this.damage(this.bleedDamage*5, false);
-				}
-				else {
-					this.damage(this.bleedDamage, false);
-				}
+				this.damage(this.bleedDamage, false);
 			}
 			this.duel.addMessage("-----------------");
 		}
 		// Melt
 		if (this.meltingDamage > 0) {
 			this.duel.addMessage(this.getName() + " melts !");
-			if (this.godList.indexOf(GOD_PP15.name) > -1 && this.godList.indexOf(GOD_PP2.name) > -1) {
-				this.duel.addMessage(this.getName() + " therapy helps !");
-				this.heal(this.meltingDamage);
-			}
-			else {
-				this.damage(this.meltingDamage, false);
-			}
+			this.damage(this.meltingDamage, false);
 			this.duel.addMessage("-----------------");
 		}
 
@@ -4460,11 +4448,6 @@ class Duel {
 		if (fighter.STR < 25) {
 			// Disembowled
 			dont.push(EMOTE_PP37);
-		}
-		if (fighter.godList.indexOf(GOD_PP15.name) > -1 && fighter.godList.indexOf(GOD_PP2.name) > -1) {
-			// Therapy --> (Over)Curcumcise
-			dont.push(EMOTE_PP22);
-			dont.push(EMOTE_PP12);
 		}
 		if (fighter.STR/10 > this.getOppOf(fighter).missedMoves*50) {
 			// LaughSoul
