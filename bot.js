@@ -1671,7 +1671,7 @@ class Fighter {
 					this.duel.addMessage("Chad Brenn answers his calls !");
 					var randomGod = randomFromList(GOD_LIST);
 					var nbTries = 0;
-					while (this.godList.indexOf(randomGod.name) > -1 && randomGod.type != "waifu" && nbTries < 100) {
+					while ((this.godList.indexOf(randomGod.name) > -1 || randomGod.type != "waifu") && nbTries < 100) {
 						randomGod = randomFromList(GOD_LIST);
 						nbTries += 1;
 					}
