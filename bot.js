@@ -3546,7 +3546,7 @@ class Duel {
 
 				this.STEEL_PROTECTION = false;
 				this.BARREL_DAMAGE = false;
-				this.SAVE_LIST = [FIGHTER1, FIGHTER2];
+				this.SAVE_LIST = [this.FIGHTER1, this.FIGHTER2];
 				this.BLIND_COUNTDOWN -= 1;
 				this.INFINITE_DAMAGE = 0;
 				this.DISABLE_ABANDON = false;
