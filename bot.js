@@ -346,6 +346,7 @@ class Fighter {
 		this.satanicMoveMultiplier = false;
 		this.ultimatePPBuff = true;
 		this.goldenSpoons = 0;
+		this.megaBuildUp = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -518,7 +519,7 @@ class Fighter {
 	get DEX() {
 		var dex = this.DEXValue;
 		// Burst
-		if (this.hasBurst == 1) {
+		if (this.hasBurst == 1 || this.megaBuildUp) {
 			return 0;
 		}
 		
@@ -2595,6 +2596,11 @@ class Fighter {
 		if (this.duel.BARREL_DAMAGE) {
 			// Barrel
 			_amount = _amount*2;
+		}
+		if (this.duel.getOppOf(this).megaBuildUp && _punch) {
+			// Bronan Slam
+			_amount = _amount*5;
+			this.duel.getOppOf(this).megaBuildUp = false;
 		}
 		if (this.duel.getOppOf(this).standPower == STAND_PP16 && _punch && this.duel.getOppOf(this).STR <= 15 && _punch) {
 			// Virus
