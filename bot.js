@@ -5186,8 +5186,8 @@ function getPriestRoleName(_god) {
 	return _god.name + " Priest";
 }
 
-function setBotActivity() {
-	var texte = "Lonely PP Squeezing";
+function setBotActivity(_texte = "Lonely PP Squeezing") {
+	var texte = _texte;
 	if (DUEL_LIST.length > 0) {
 		if (DUEL_LIST.length == 1) {
 			texte = DUEL_LIST.length + " duel of PP Punching :)";
@@ -5775,5 +5775,5 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	return;
 });
 
+setBotActivity("New Update of PP Punching");
 CLIENT.login(process.env.BOT_TOKEN);
-CLIENT.user.setPresence({ game: { name: "New Update of PP Punching" } })
