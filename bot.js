@@ -495,6 +495,9 @@ class Fighter {
 		if (this.requiemPower != null && this.duel.STAND_BATTLE) {
 			str += 200;
 		}
+		if (this.hasSynergy(SYNERGY_PP17)) {
+			str += 50;
+		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			str += 50;
 			if (this.ultimatePPBuff) {
@@ -2911,6 +2914,12 @@ class Fighter {
 		}
 		
 		// Synergies
+		if (this.hasSynergy(SYNERGY_PP1)) {
+			this.duel.addMessage(this.getName() + " remembers haunting memories...");
+			this.duel.addMessage("Rage makes him build up 10 damages");
+			this.bonusDamage += 10;
+			this.duel.addMessage("-----------------");
+		}
 		if (this.hasSynergy(SYNERGY_PP2)) {
 			this.duel.addMessage(this.getName() + " gets healed by the Holy Brenn Trinity !");
 			this.heal(5);
@@ -2919,11 +2928,6 @@ class Fighter {
 		if (this.hasSynergy(SYNERGY_PP3)) {
 			this.duel.addMessage(this.getOppName() + " gets hurt by the Unholy Pudding Trinity !");
 			this.duel.getOppOf(this).damage(5);
-			this.duel.addMessage("-----------------");
-		}
-		if (this.hasSynergy(SYNERGY_PP1)) {
-			this.duel.addMessage(this.getName() + " remembers haunting memories...");
-			this.playMove(EMOTE_PP42);
 			this.duel.addMessage("-----------------");
 		}
 		if (this.hasSynergy(SYNERGY_PP6)) {
@@ -5169,7 +5173,7 @@ function getPriestRoleName(_god) {
 }
 
 function setBotActivity() {
-	var texte = "PP Squeezing";
+	var texte = "Lonely PP Squeezing";
 	if (DUEL_LIST.length > 0) {
 		if (DUEL_LIST.length == 1) {
 			texte = DUEL_LIST.length + " duel of PP Punching :)";
