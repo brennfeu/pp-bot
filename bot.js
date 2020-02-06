@@ -347,6 +347,8 @@ class Fighter {
 		this.ultimatePPBuff = true;
 		this.goldenSpoons = 0;
 		this.megaBuildUp = 0;
+		this.futureMemories = -1;
+		this.dodgableDamages = [];
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -567,6 +569,9 @@ class Fighter {
 		if (this.livingGod) {
 			dex += 10000;
 		}
+		if (this.futureMemories > 0) {
+			dex += 15;
+		}
 		if (this.quickeningCharges > 0) {
 			dex += this.quickeningCharges;
 		}
@@ -738,6 +743,9 @@ class Fighter {
 		}
 		if (this.requiemCooldown > 0) {
 			txt += " - Requiem Cooldown : " + this.requiemCooldown + " turns\n";
+		}
+		if (this.futureMemories > 0) {
+			txt += " - Has Memories of the Future : " + this.futureMemories + " turns\n"
 		}
 		if (this.tentacles > 0) {
 			txt += " - Tentacles : " + this.tentacles + "\n";
@@ -1787,6 +1795,13 @@ class Fighter {
 					this.playMove(EMOTE_PP4);
 					this.playMove(EMOTE_PP28);
 				}
+				if (this.godList.indexOf(GOD_PP27.name) > -1) { // Kurisu
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Kurisu answers his calls !");
+					this.duel.addMessage(this.getName() + " recieves a mail from the future !");
+					this.duel.addMessage(this.getName() + " now knows the future of this battle !");
+					this.futureMemories = 6;
+				}
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
@@ -1906,7 +1921,7 @@ class Fighter {
 					this.duel.addMessage(this.getName() + " sniffs " + this.duel.getOppOf(this).getName() + "'s PP so hard it's entirely in " + this.getName() + "'s nose !");
 					this.duel.addMessage("1/3 of " + this.duel.getOppOf(this).getName() + "'s HP are drained !");
 					this.STRValue += Math.floor(this.duel.getOppOf(this).STR/3);
-					this.duel.getOppOf(this).STR -= Math.floor(this.duel.getOppOf(this).STR/3);
+					this.duel.getOppOf(this).STRValue -= Math.floor(this.duel.getOppOf(this).STR/3);
 				}
 				if (this.godList.indexOf(GOD_PP13.name) > -1) { // 700IQ
 					this.duel.addMessage("-----------------");
@@ -2051,7 +2066,12 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP27.name) > -1) { // Kurisu
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Kurisu answers his calls !");
-					
+					this.duel.addMessage(this.getName() + " sends his current mind to his past self !");
+					this.duel.addMessage("Timeline changes ! " + this.getName() + " had in fact dodged the " + this.dodgableDamages.length + " previous attacks !");
+					for (var i in this.dodgableDamages) {
+						this.STRValue += this.dodgableDamages[i];
+					}
+					this.dodgableDamages = [];
 				}
 				if (this.requiemPower != null && this.requiemCooldown <= 0) {
 					this.MOVE_COUNT += 999
@@ -2552,7 +2572,12 @@ class Fighter {
 			}
 			else if (attack == EMOTE_SKIP) {
 				// Skip
-				this.duel.addMessage(this.getName() + " does nothing...");
+				if (this.futureMemories == 0) {
+					this.duel.addMessage(this.getName() + " sends a D-Mail to the past !");
+				}
+				else {
+					this.duel.addMessage(this.getName() + " does nothing...");
+				}
 				return;
 			}
 			else {
@@ -2727,6 +2752,10 @@ class Fighter {
 			
 			this.damageTaken += _amount;
 			this.duel.DAMAGE_COUNT += _amount;
+			this.dodgableDamages.push(_amount);
+			if (this.dodgableDamages.length > 5) {
+				this.dodgableDamages.pop();
+			}
 			if (this.duel.getOppOf(this).standPower == STAND_PP10 && _punch) {
 				// Illud Divinum Insanus
 				this.DEXValue += _amount;
@@ -2799,7 +2828,7 @@ class Fighter {
 		// Turkey
 		if (this.turkeyCountdown != -1) {
 			this.turkeyCountdown -= 1;
-			if (this.turkeyCountdown <= 0) {
+			if (this.turkeyCountdown == 0) {
 				this.duel.addMessage(this.getName() + " explodes !");
 				this.damage(1000, false);
 			}
@@ -2826,6 +2855,7 @@ class Fighter {
 		this.borealSummon -= 1;
 		this.requiemCooldown -= 1;
 		this.impendingDoom -= 1;
+		this.futureMemories -= 1;
 
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
@@ -3001,6 +3031,9 @@ class Fighter {
 			this.duel.addMessage("-----------------");
 		}
 		
+		if (this.futureMemories == 0) {
+			this.attack = EMOTE_SKIP;
+		}
 		if (this.turnSkip > 0) {
 			this.attack = EMOTE_PP50;
 		}
@@ -3920,6 +3953,9 @@ class Duel {
 			if (_fighter.STR <= 0 && !_fighter.duel.EVENT_BOSS) {
 				_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).getName() + " won ! Congrats !");
 				_fighter.duel.getOppOf(_fighter).win();
+				if (_fighter.futureMemories > 0 || _fighter.duel.getOppOf(_fighter).futureMemories > 0 ) {
+					_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).getName() + " sends a D-Mail to the past !");
+				}
 				_fighter.duel.stopDuel();
 			};
 		});
@@ -4747,7 +4783,7 @@ class Duel {
 		
 		var priorityMoves = [EMOTE_PP15, EMOTE_PP29, EMOTE_PP11]; // Hobro / Steel / Barrel
 		
-		if ((dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) || 
+		if ((dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) ||
 		    this.AUTO_MOVES_COUNTDOWN > 0 || this.EVENT_BOSS || this.getOppOf(winner).legAimer ||
 		    this.TIME_STOP > 0) {
 			this.addMessage("Both opponents attack this turn !");
@@ -4824,9 +4860,12 @@ class Duel {
 			if (this.getOppOf(winner).attack == EMOTE_PP52 && this.getOppOf(winner).requiemPower != null) {
 				this.getOppOf(winner).playMove();
 			}
-			
 			// Dual Loop
 			if (this.getOppOf(winner).attack == EMOTE_PP55) {
+				this.getOppOf(winner).playMove();
+			}
+			// D-Mail
+			if (this.getOppOf(winner).attack == EMOTE_SKIP && this.getOppOf(winner).futureMemories == 0) {
 				this.getOppOf(winner).playMove();
 			}
 		}
