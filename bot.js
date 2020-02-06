@@ -2048,6 +2048,11 @@ class Fighter {
 						this.playMove(EMOTE_PP27);
 					}
 				}
+				if (this.godList.indexOf(GOD_PP27.name) > -1) { // Kurisu
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Kurisu answers his calls !");
+					
+				}
 				if (this.requiemPower != null && this.requiemCooldown <= 0) {
 					this.MOVE_COUNT += 999
 					this.duel.addMessage("-----------------");
@@ -4056,7 +4061,7 @@ class Duel {
 				});
 			}
 		}
-		else if ([19, 20, 21].indexOf(randomVar) > -1) {
+		else if ([19, 20, 21].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 15 || forcedEvent)) {
 			// Charge
 			this.addMessage(" -- GODS CHRISTMAS GIFTS --");
 			if (this.STAND_BATTLE) {
@@ -5198,7 +5203,7 @@ function getPriestRoleName(_god) {
 	return _god.name + " Priest";
 }
 
-function setBotActivity(_texte = "Lonely PP Squeezing") {
+function setBotActivity(_texte = "Lonely PP Squeezing :(") {
 	var texte = _texte;
 	if (DUEL_LIST.length > 0) {
 		if (DUEL_LIST.length == 1) {
