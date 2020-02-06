@@ -646,7 +646,7 @@ class Fighter {
 				for (var t in types) {
 					var testAll = true;
 					for (var i in GOD_LIST) {
-						if (GOD_LIST[i].type == types[t] && !GOD_LIST.find(r => r.name == this.godList[i])) {
+						if (GOD_LIST[i].type == types[t] && GOD_LIST.find(r => r.name == this.godList[i]) == undefined) {
 							testAll = false;
 						}
 					}
@@ -656,7 +656,7 @@ class Fighter {
 					}
 					else {
 						for (var i in this.godList) {
-							if (GOD_LIST.find(r => r.name == this.godList[i]).type == types[t]) {
+							if (GOD_LIST.find(r => r.name == this.godList[i]).type == types[t] != undefined) {
 								txt += "\n - " + this.godList[i] + " Priest";
 							}
 						}
@@ -664,7 +664,7 @@ class Fighter {
 				}
 				
 				for (var i in this.godList) {
-					if (!GOD_LIST.find(r => r.name == this.godList[i])) {
+					if (GOD_LIST.find(r => r.name == this.godList[i]) == undefined) {
 						txt += "\n - " + this.godList[i] + " Priest";
 					}
 				}
@@ -4965,16 +4965,22 @@ class Duel {
 			
 			for (var i in commonMoves) {
 				if (this.KIDNEY_CURSE <= i || this.KIDNEY_CURSE <= 0) {
-					emote = this.getRandomEmote();
-					if (this.MOVE_COUNT == 0 && getRandomPercent() <= 33 && i == 0) {
-						listeAttaques.push(EMOTE_PP81); // Melodia
-					}
-					else if (getRandomPercent() > 20) {
+					var currentLength = listeAttaques.length;
+					while (listeAttaques.length <= currentLength) {
 						emote = this.getRandomEmote();
-						listeAttaques.push(emote);
-					}
-					else {
-						listeAttaques.push(commonMoves[i]);
+						if (this.MOVE_COUNT == 0 && getRandomPercent() <= 33 && i == 0) {
+							emote = EMOTE_PP81; // Melodia
+						}
+						else if (getRandomPercent() > 20) {
+							emote = this.getRandomEmote();
+						}
+						else {
+							emote = commonMoves[i];
+						}
+
+						if (listeAttaques.indexOf(emote) < 0) {
+							listeAttaques.push(emote);
+						}
 					}
 				}
 				else if (listeAttaques.indexOf(EMOTE_PP33) < 0) {
