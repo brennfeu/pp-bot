@@ -1656,6 +1656,7 @@ class Fighter {
 					this.duel.addMessage("Espinoza answers his calls !");
 					this.duel.addMessage(this.getName() + " sniffs " + this.duel.getOppOf(this).getName() + "'s PP and becomes faster !");
 					this.DEXValue += 10;
+					this.duel.getOppOf(this).DEXValue -= 10;
 				}
 				if (this.godList.indexOf(GOD_PP13.name) > -1) { // 700IQ
 					this.duel.addMessage("-----------------");
@@ -1902,7 +1903,10 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP12.name) > -1) { // Espinoza
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Espinoza answers his calls !");
-					// TODO
+					this.duel.addMessage(this.getName() + " sniffs " + this.duel.getOppOf(this).getName() + "'s PP so hard it's entirely in " + this.getName() + "'s nose !");
+					this.duel.addMessage("1/3 of " + this.duel.getOppOf(this).getName() + "'s HP are drained !");
+					this.STRValue += Math.floor(this.duel.getOppOf(this).STR/3);
+					this.duel.getOppOf(this).STR -= Math.floor(this.duel.getOppOf(this).STR/3);
 				}
 				if (this.godList.indexOf(GOD_PP13.name) > -1) { // 700IQ
 					this.duel.addMessage("-----------------");
