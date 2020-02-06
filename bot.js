@@ -1815,8 +1815,8 @@ class Fighter {
 						this.duel.addMessage(this.getName() + " drinks a Lyrium potion !");
 					}
 					var liste = Object.keys(STAND_SUMMONS);
-					this.currentStand = liste[Math.floor(Math.random()*liste.length)];
-					this.duel.addMessage(this.getName() + " gets " + this.currentStand + "'s abilities.");
+					this.standPower = liste[Math.floor(Math.random()*liste.length)];
+					this.duel.addMessage(this.getName() + " gets " + this.standPower + "'s abilities.");
 				}
 				if (this.godList.indexOf(GOD_PP3.name) > -1) { // LeprePuds
 					this.duel.addMessage("-----------------");
