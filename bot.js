@@ -139,6 +139,7 @@ const GOD_PP17 = {"name" : "Hitler", "emote": "622395294390157329", "type": "nor
 const GOD_PP18 = {"name" : "Salt King", "emote": "650830165751889935", "type": "normal"};
 const GOD_PP19 = {"name" : "Chad Brenn", "emote": "644634924477055015", "type": "normal"};
 const GOD_PP26 = {"name" : "Ranger", "emote": "673882539328536576", "type": "normal"};
+const GOD_PP28 = {"name" : "", "emote": "", "type": "normal"}; // PUT BACK TO THE GOD LIST
 
 const GOD_PP21 = {"name" : "D.I.C.K.", "emote": "644617343456247829", "type": "eldritch"};
 const GOD_PP22 = {"name" : "Satan", "emote": "671344081841946625", "type": "eldritch"};
@@ -171,6 +172,9 @@ const SYNERGY_PP14 = [GOD_PP9, GOD_PP25] // Wild Mage
 const SYNERGY_PP15 = [GOD_PP1, GOD_PP22] // Guerrier de l'Enfer
 const SYNERGY_PP16 = [GOD_PP6, GOD_PP21] // Too Much Dicks
 const SYNERGY_PP17 = [GOD_PP2, GOD_PP22] // Avatar of Tz'arkan
+const SYNERGY_PP18 = [GOD_PP25, "waifu"] // 
+const SYNERGY_PP19 = [GOD_PP6, "eldritch"] // Obvious tentacle joke
+const SYNERGY_PP20 = [GOD_PP24, GOD_PP27, "normal"] // Master of Time
 
 const STAND_PP1 = "Iron Maiden";
 const STAND_PP2 = "The Boreal Flame";
@@ -923,6 +927,9 @@ class Fighter {
 				}
 				if (this.hasSynergy(SYNERGY_PP17)) {
 					txt += " - Avatar of Tz'arkan\n";
+				}
+				if (this.hasSynergy(SYNERGY_PP19)) {
+					txt += " - Obvious Tentacle Joke\n";
 				}
 			}
 		}
@@ -2930,8 +2937,13 @@ class Fighter {
 		// Eldritch Pudding
 		if (this.tentacles > 0) {
 			this.duel.addMessage(this.getName() + " attacks with tentacles !");
-			this.duel.getOppOf(this).damage(this.tentacles*10);
-			this.duel.addMessage("-----------------");
+			for (var i = 0; i < this.tentacles; i++) {
+				this.duel.getOppOf(this).damage(10);
+				if (this.hasSynergy(SYNERGY_PP19)) {
+					this.meltingDamage += 1;
+				}
+				this.duel.addMessage("-----------------");
+			}
 		}
 		
 		// Ancient Fongus
