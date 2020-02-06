@@ -346,7 +346,7 @@ class Fighter {
 		this.satanicMoveMultiplier = false;
 		this.ultimatePPBuff = true;
 		this.goldenSpoons = 0;
-		this.megaBuildUp = false;
+		this.megaBuildUp = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -523,7 +523,7 @@ class Fighter {
 			return 0;
 		}
 		// BronanSlam
-		if (this.megaBuildUp) {
+		if (this.megaBuildUp > 0) {
 			return this.bonusDamage;
 		}
 		
@@ -754,11 +754,11 @@ class Fighter {
 		if (this.pigHeal > 0) {
 			txt += " - Hog Squeezer : " + this.pigHeal + "\n";
 		}
-		if (this.megaBuildUp) {
-			txt += " - Mega Build-Up\n";
+		if (this.megaBuildUp > 0) {
+			txt += " - Build-Up multiplier : " + this.megaBuildUp + "\n";
 		}
 		if (this.bonusDamage > 0) {
-			txt += " - Build up damages : " + this.bonusDamage + "\n";
+			txt += " - Build-Up damages : " + this.bonusDamage + "\n";
 		}
 		if (this.bleedDamage > 0) {
 			txt += " - Haemorrhage : " + this.bleedDamage;
@@ -1375,8 +1375,8 @@ class Fighter {
 			else if (attack == EMOTE_PP42) {
 				// Bronan Slam
 				this.duel.addMessage(this.getName() + " builds up for his next attack...");
-				this.bonusDamage += 20;
-				this.megaBuildUp = true;
+				this.bonusDamage += 10;
+				this.megaBuildUp += 5;
 			}
 			else if (attack == EMOTE_PP43) {
 				// BrocketeerDive
@@ -2605,10 +2605,10 @@ class Fighter {
 			// Barrel
 			_amount = _amount*2;
 		}
-		if (this.duel.getOppOf(this).megaBuildUp && _punch) {
+		if (this.duel.getOppOf(this).megaBuildUp > 0 && _punch) {
 			// Bronan Slam
-			_amount = _amount*5;
-			this.duel.getOppOf(this).megaBuildUp = false;
+			_amount = _amount*this.duel.getOppOf(this).megaBuildUp;
+			this.duel.getOppOf(this).megaBuildUp = 0;
 		}
 		if (this.duel.getOppOf(this).standPower == STAND_PP16 && _punch && this.duel.getOppOf(this).STR <= 15 && _punch) {
 			// Virus
@@ -4785,6 +4785,10 @@ class Duel {
 
 			// Scout
 			if (this.getOppOf(winner).attack == EMOTE_PP13) {
+				this.getOppOf(winner).playMove();
+			}
+			// BronanSlam
+			if (this.getOppOf(winner).attack == EMOTE_PP42 && (this.getOppOf(winner).megaBuildUp > 0 || this.getOppOf(winner).bonusDamage > 0)) {
 				this.getOppOf(winner).playMove();
 			}
 			// Intimidates
