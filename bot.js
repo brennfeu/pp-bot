@@ -487,6 +487,9 @@ class Fighter {
 		if (this.satanMask) {
 			str += 50;
 		}
+		if (this.livingGod) {
+			str += 10000;
+		}
 		if (this.standPower == STAND_PP8_1) {
 			str += 50;
 		}
@@ -560,6 +563,9 @@ class Fighter {
 		}
 		if (this.kungFu) {
 			dex += 10;
+		}
+		if (this.livingGod) {
+			dex += 10000;
 		}
 		if (this.quickeningCharges > 0) {
 			dex += this.quickeningCharges;
@@ -1174,7 +1180,7 @@ class Fighter {
 				// Bombardment
 				this.duel.addMessage(this.getName() + " calls for a bombardment !!!");
 				this.duel.bothFightersAction(function(_fighter) {
-					_fighter.damage(1000)
+					_fighter.damage(1000, false)
 				});
 			}
 			else if (attack == EMOTE_PP26) {
@@ -1375,7 +1381,6 @@ class Fighter {
 			else if (attack == EMOTE_PP42) {
 				// Bronan Slam
 				this.duel.addMessage(this.getName() + " builds up for his next attack...");
-				this.bonusDamage += 10;
 				this.megaBuildUp += 5;
 			}
 			else if (attack == EMOTE_PP43) {
@@ -1467,8 +1472,6 @@ class Fighter {
 						this.duel.GOD_TEXT = 3;
 					}
 					this.duel.addMessage("Behold " + this.getName() + " the living God !");
-					this.STRValue += 10000;
-					this.DEXValue += 10000;
 					this.livingGod = true;
 				}
 				else {
@@ -1726,7 +1729,6 @@ class Fighter {
 					this.duel.addMessage("Mikasa answers his calls !");
 					this.duel.addMessage(this.getName() + " gets her blessing for 3 turns !");
 					this.mikasaBuff = 4;
-					this.bonusDamage += 50;
 				}
 				if (this.godList.indexOf(GOD_PP21.name) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
 					// D.I.C.K.
@@ -3602,7 +3604,7 @@ class Duel {
 
 				this.STEEL_PROTECTION = false;
 				this.BARREL_DAMAGE = false;
-				this.SAVE_LIST = [this.FIGHTER1, this.FIGHTER2];
+				this.SAVE_LIST = [this.FIGHTER1.user.id, this.FIGHTER2.user.id];
 				this.BLIND_COUNTDOWN -= 1;
 				this.INFINITE_DAMAGE = 0;
 				this.DISABLE_ABANDON = false;
@@ -5027,6 +5029,8 @@ class Duel {
 			case EMOTE_PP23:
 				return 20;
 			case EMOTE_PP25:
+				return 60;
+			case EMOTE_PP35:
 				return 60;
 			case EMOTE_PP36:
 				return 40;
