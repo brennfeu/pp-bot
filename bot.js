@@ -123,7 +123,7 @@ const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE
 const GOD_PP1 = {"name" : "Mongo", "emote": "644643782888783892", "type": "normal"};
 const GOD_PP2 = {"name" : "Hermit", "emote": "674635214005207040", "type": "normal"};
 const GOD_PP3 = {"name" : "LeprePuds", "emote": "616332243337609257", "type": "normal"};
-const GOD_PP4 = {"name" : "DickHead Pudding", "emote": "614823752492122156", "type": "normal"};
+const GOD_PP4 = {"name" : "", "emote": "", "type": "normal"}; // PUT BACK TO THE GOD LIST
 const GOD_PP5 = {"name" : "Hello There Puds", "emote": "614823329731313670", "type": "normal"};
 const GOD_PP6 = {"name" : "DickDickSon666", "emote": "616877566396989451", "type": "normal"};
 const GOD_PP7 = {"name" : "Jew", "emote": "644621040093364283", "type": "normal"};
@@ -150,7 +150,7 @@ const GOD_PP12 = {"name" : "Espinoza", "emote": "615887132157804564", "type": "e
 const GOD_PP20 = {"name" : "Mikasa", "emote": "655523518812913664", "type": "waifu"};
 const GOD_PP27 = {"name" : "Kurisu", "emote": "672543479598940179", "type": "waifu"};
 
-const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP4, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
+const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
 		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
 		 GOD_PP22, GOD_PP23, GOD_PP24, GOD_PP25, GOD_PP26, GOD_PP27];
 
@@ -735,6 +735,9 @@ class Fighter {
 		if (this.bossKiller > 0) {
 			txt += " - Boss Killer Blessing (for " + this.bossKiller + " turns)\n";
 		}
+		if (this.futureMemories > 0) {
+			txt += " - Has Memories of the Future (the next " + this.futureMemories + " turns)\n"
+		}
 		if (this.turkeyCountdown > 0) {
 			txt += " - Turkey Countdown : " + this.turkeyCountdown + " turns\n";
 		}
@@ -743,9 +746,6 @@ class Fighter {
 		}
 		if (this.requiemCooldown > 0) {
 			txt += " - Requiem Cooldown : " + this.requiemCooldown + " turns\n";
-		}
-		if (this.futureMemories > 0) {
-			txt += " - Has Memories of the Future : " + this.futureMemories + " turns\n"
 		}
 		if (this.tentacles > 0) {
 			txt += " - Tentacles : " + this.tentacles + "\n";
@@ -1591,17 +1591,10 @@ class Fighter {
 					this.isLucky = 4;
 					this.badLuck = false;
 				}
-				if (this.godList.indexOf(GOD_PP4.name) > -1) { // DickHead Pudding
+				if (this.godList.indexOf(GOD_PP4.name) > -1) { // 
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage("DickHead Pudding answers his calls !");
-					if (getRandomPercent() < 10) {
-						this.duel.addMessage(this.getName() + " wins !");
-						this.duel.getOppOf(this).playMove(EMOTE_PP47);
-						return;
-					} 
-					else {
-						this.duel.addMessage(this.getName() + " fails to be a complete dickhead !");
-					}
+					this.duel.addMessage(" answers his calls !");
+					// TODO
 				}
 				if (this.godList.indexOf(GOD_PP5.name) > -1) { // Hello There Puds
 					this.duel.addMessage("-----------------");
@@ -1730,7 +1723,7 @@ class Fighter {
 						this.duel.addMessage(this.getName() + " becomes a " + randomGod.name + " Priest !");
 					}
 					else {
-						this.duel.addMessage(this.getName() + " is already a filthy weeb !");
+						this.duel.addMessage(this.getName() + " already is a filthy weeb !");
 					}
 				}
 				if (this.godList.indexOf(GOD_PP20.name) > -1) { // Mikasa
@@ -1842,17 +1835,10 @@ class Fighter {
 					}
 					this.DEXValue += 20;
 				}
-				if (this.godList.indexOf(GOD_PP4.name) > -1) { // DickHead Pudding
+				if (this.godList.indexOf(GOD_PP4.name) > -1) { // 
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage("DickHead Pudding answers his calls !");
-					if (getRandomPercent() <= 33) {
-						this.duel.addMessage(this.getName() + " wins !");
-						this.duel.getOppOf(this).playMove(EMOTE_PP47);
-						return;
-					} 
-					else {
-						this.duel.addMessage(this.getName() + " fails to be a complete dickhead !");
-					}
+					this.duel.addMessage(" answers his calls !");
+					// TODO
 				}
 				if (this.godList.indexOf(GOD_PP5.name) > -1) { // Hello There Puds
 					this.duel.addMessage("-----------------");
