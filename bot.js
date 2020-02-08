@@ -235,6 +235,7 @@ const BOSS_PP7 = "PP Terminator";
 const BOSS_PP8 = "Satan";
 const BOSS_PP9 = "Satan True Form";
 const BOSS_PP10 = "Espinoza Raid Boss";
+const BOSS_PP11 = "Weeb";
 
 // MUSICS
 const MUSIC_PP1 = "none";
@@ -3195,6 +3196,15 @@ class Duel {
 			this.addMessage("Let's be a bit more friendly for Timmy :)");
 			this.CHRISTIAN_TEXT = true;
 		}
+		// Weeb
+		if (getRandomPercent() <= 33) {
+			this.addMessage("**===== WEEB =====**");
+			this.addMessage(BOSS_PP11 + " challenges you !");
+			this.CURRENT_BOSS = BOSS_PP11;
+			this.BOSS_HEALTH = 1;
+			this.BOSS_DAMAGE = 30;
+			this.EVENT_BOSS = true;
+		}
 		
 		this.newTurnDuel();
 	}
@@ -3599,6 +3609,12 @@ class Duel {
 						this.EVENT_BOSS = false;
 						
 						espinozaBoss = getRandomPercent() <= 20;
+					}
+					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP11) {
+						this.addMessage(this.CURRENT_BOSS + " dies lol");
+						this.EVENT_BOSS = false;
+						
+						espinozaBoss = getRandomPercent() <= 1;
 					}
 					if (espinozaBoss) {
 						this.addMessage(this.CURRENT_BOSS + " was only a mimic !");
