@@ -656,7 +656,7 @@ class Fighter {
 					}
 					else {
 						for (var i in this.godList) {
-							if (GOD_LIST.find(r => r.name == this.godList[i]).type == types[t] != undefined) {
+							if (GOD_LIST[i].type == types[t] && GOD_LIST.find(r => r.name == this.godList[i]) != undefined) {
 								txt += "\n - " + this.godList[i] + " Priest";
 							}
 						}
