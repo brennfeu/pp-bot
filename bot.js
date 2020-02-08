@@ -534,7 +534,7 @@ class Fighter {
 		}
 		// BronanSlam
 		if (this.megaBuildUp > 0) {
-			return this.bonusDamage;
+			dex = this.bonusDamage;
 		}
 		
 		dex -= this.dexMalus;
@@ -741,7 +741,7 @@ class Fighter {
 			txt += " - Boss Killer Blessing (for " + this.bossKiller + " turns)\n";
 		}
 		if (this.futureMemories > 0) {
-			txt += " - Has Memories of the Future (the next " + this.futureMemories + " turns)\n"
+			txt += " - Has Knowledge of the Future (the next " + this.futureMemories + " turns)\n"
 		}
 		if (this.turkeyCountdown > 0) {
 			txt += " - Turkey Countdown : " + this.turkeyCountdown + " turns\n";
