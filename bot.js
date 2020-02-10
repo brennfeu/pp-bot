@@ -354,6 +354,8 @@ class Fighter {
 		this.megaBuildUp = 0;
 		this.futureMemories = -1;
 		this.dodgableDamages = [];
+		this.gettingRegularCharge = 0;
+		this.gettingSpecialCharge = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -742,6 +744,12 @@ class Fighter {
 		}
 		if (this.futureMemories > 0) {
 			txt += " - Has Knowledge of the Future (the next " + this.futureMemories + " turns)\n"
+		}
+		if (this.gettingRegularCharge > 0) {
+			txt += " - Getting a regular charge in " + this.gettingRegularCharge + " turns\n"
+		}
+		if (this.gettingSpecialCharge > 0) {
+			txt += " - Getting a regular charge in " + this.gettingSpecialCharge + " turns\n"
 		}
 		if (this.turkeyCountdown > 0) {
 			txt += " - Turkey Countdown : " + this.turkeyCountdown + " turns\n";
@@ -1634,7 +1642,7 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Jew Lord answers his calls !");
 					this.duel.addMessage(this.getName() + " uses his long nose to get a new special charge !");
-					this.specialCharges += 1;
+					this.gettingSpecialCharge = 4;
 				}
 				// GOD 8 IS FIRST
 				if (this.godList.indexOf(GOD_PP9.name) > -1) { // Brenn
@@ -1877,7 +1885,7 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Jew Lord answers his calls !");
 					this.duel.addMessage(this.getName() + " uses his long nose to get a new regular charge !");
-					this.regularCharges += 1;
+					this.gettingRegularCharge = 4;
 				}
 				if (this.godList.indexOf(GOD_PP8.name) > -1) { // Fabulous Toast Man
 					this.duel.addMessage("-----------------");
@@ -2850,6 +2858,8 @@ class Fighter {
 		this.requiemCooldown -= 1;
 		this.impendingDoom -= 1;
 		this.futureMemories -= 1;
+		this.gettingRegularCharge -= 1;
+		this.gettingSpecialCharge -= 1;
 
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
@@ -2888,6 +2898,17 @@ class Fighter {
 				this.duel.addMessage(this.getName() + " squeezes hog !");
 				this.heal(this.pigHeal);
 			}
+			this.duel.addMessage("-----------------");
+		}
+		
+		if (this.gettingRegularCharge == 0) {
+			this.regularCharges += 1;
+			this.duel.addMessage(this.getName() + " uses his long nose to get a regular charge !");
+			this.duel.addMessage("-----------------");
+		}
+		if (this.gettingSpecialCharge == 0) {
+			this.specialCharges += 1;
+			this.duel.addMessage(this.getName() + " uses his long nose to get a special charge !");
 			this.duel.addMessage("-----------------");
 		}
 		
