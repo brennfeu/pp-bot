@@ -143,7 +143,7 @@ const GOD_PP28 = {"name" : "", "emote": "", "type": "normal"}; // PUT BACK TO TH
 
 const GOD_PP21 = {"name" : "D.I.C.K.", "emote": "644617343456247829", "type": "eldritch"};
 const GOD_PP22 = {"name" : "Satan", "emote": "671344081841946625", "type": "eldritch"};
-const GOD_PP23 = {"name" : "Ancient Fongus", "emote": "671347173270618112", "type": "eldritch"};
+const GOD_PP23 = {"name" : "Ancient Fungus", "emote": "671347173270618112", "type": "eldritch"};
 const GOD_PP24 = {"name" : "Time Cube", "emote": "671347614431576065", "type": "eldritch"};
 const GOD_PP25 = {"name" : "Cthulhu", "emote": "672065078144794645", "type": "eldritch"};
 const GOD_PP12 = {"name" : "Espinoza", "emote": "615887132157804564", "type": "eldritch"};
@@ -1427,7 +1427,7 @@ class Fighter {
 			else if (attack == EMOTE_PP46) {
 				// TruffleHistorian
 				this.duel.DISABLE_ABANDON = true;
-				this.duel.addMessage(this.getName() + " calls the Ancient Fongus !");
+				this.duel.addMessage(this.getName() + " calls the Ancient Fungus !");
 				if (this.duel.UWU_TEXT) {
 					this.duel.YES_TEXT = 1;
 				}
@@ -1766,9 +1766,9 @@ class Fighter {
 					this.duel.getOppOf(this).isPossessed = 3;
 				}
 				if (this.godList.indexOf(GOD_PP23.name) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
-					// Ancient Fongus
+					// Ancient Fungus
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage("The Ancient Fongus answers his calls !");
+					this.duel.addMessage("The Ancient Fungus answers his calls !");
 					if (this.duel.getOppOf(this).regularCharges <= 0 && this.duel.getOppOf(this).specialCharges > 0) {
 						this.duel.addMessage(this.duel.getOppOf(this).getName() + " has no charge to loose !");
 					}
@@ -2028,9 +2028,9 @@ class Fighter {
 					this.duel.addMessage(this.getName() + " gets a Satanic Move Multiplier !");
 				}
 				if (this.godList.indexOf(GOD_PP23.name) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
-					// Ancient Fongus
+					// Ancient Fungus
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage("The Ancient Fongus answers his calls !");
+					this.duel.addMessage("The Ancient Fungus answers his calls !");
 					this.duel.DISABLE_ABANDON = true;
 					this.duel.addMessage(this.getName() + " will summon 500 moves !");
 					this.duel.sendMessages();
@@ -2968,7 +2968,7 @@ class Fighter {
 			}
 		}
 		
-		// Ancient Fongus
+		// Ancient Fungus
 		if (this.godList.indexOf(GOD_PP23.name) > -1) {
 			this.eldritchFriend = true;
 		}
@@ -4089,7 +4089,7 @@ class Duel {
 			// Accidental Summoning
 			this.addMessage(" -- ACCIDENTAL SUMMONING --");
 			var winner = this.getRandomFighter();
-			this.addMessage(winner.getName() + " accidentaly plays Psychodiös on his phone and it summons Satan and the Ancient Fongus !");
+			this.addMessage(winner.getName() + " accidentaly plays Psychodiös on his phone and it summons Satan and the Ancient Fungus !");
 			this.sendMessages();
 			winner.playMove(EMOTE_PP26);
 			winner.playMove(EMOTE_PP46);
@@ -5530,7 +5530,7 @@ function changeTextChristian(_texte) {
 	_texte = _texte.replace(/dong/gi, "dog");
 	_texte = _texte.replace(/espinoza/gi, "Uncle");
 	_texte = _texte.replace(/hog/gi, "Teddy Bear");
-	_texte = _texte.replace(/ancient fongus/gi, "Papa Stalin");
+	_texte = _texte.replace(/ancient Fungus/gi, "Papa Stalin");
 	_texte = _texte.replace(/furry/gi, "Hairy Man");
 	_texte = _texte.replace(/fuck/gi, "duck");
 	_texte = _texte.replace(/cum/gi, "milky white substance");
