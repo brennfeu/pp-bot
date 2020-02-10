@@ -176,6 +176,7 @@ const SYNERGY_PP17 = [GOD_PP2, GOD_PP22] // Avatar of Tz'arkan
 const SYNERGY_PP18 = [GOD_PP25, "waifu"] // Obvious tentacle joke
 const SYNERGY_PP19 = [GOD_PP6, "eldritch"] // 
 const SYNERGY_PP20 = [GOD_PP24, GOD_PP27, "normal"] // Master of Time
+const SYNERGY_PP21 = [GOD_PP12, GOD_PP7] // Big Nose
 
 const STAND_PP1 = "Iron Maiden";
 const STAND_PP2 = "The Boreal Flame";
@@ -941,6 +942,9 @@ class Fighter {
 				if (this.hasSynergy(SYNERGY_PP18)) {
 					txt += " - Obvious Tentacle Joke\n";
 				}
+				if (this.hasSynergy(SYNERGY_PP21)) {
+					txt += " - Big Nose\n";
+				}
 			}
 		}
 
@@ -1673,8 +1677,14 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Espinoza answers his calls !");
 					this.duel.addMessage(this.getName() + " sniffs " + this.duel.getOppOf(this).getName() + "'s PP and becomes faster !");
-					this.DEXValue += 10;
-					this.duel.getOppOf(this).DEXValue -= 10;
+					if (this.hasSynergy(SYNERGY_PP21)) {
+						this.DEXValue += 20;
+						this.duel.getOppOf(this).DEXValue -= 20;
+					}
+					else {
+						this.DEXValue += 10;
+						this.duel.getOppOf(this).DEXValue -= 10;
+					}
 				}
 				if (this.godList.indexOf(GOD_PP13.name) > -1) { // 700IQ
 					this.duel.addMessage("-----------------");
@@ -1923,8 +1933,14 @@ class Fighter {
 					this.duel.addMessage("Espinoza answers his calls !");
 					this.duel.addMessage(this.getName() + " sniffs " + this.duel.getOppOf(this).getName() + "'s PP so hard it's entirely in " + this.getName() + "'s nose !");
 					this.duel.addMessage("1/3 of " + this.duel.getOppOf(this).getName() + "'s HP are drained !");
-					this.STRValue += Math.floor(this.duel.getOppOf(this).STR/3);
-					this.duel.getOppOf(this).STRValue -= Math.floor(this.duel.getOppOf(this).STR/3);
+					if (this.hasSynergy(SYNERGY_PP21)) {
+						this.STRValue += Math.floor(this.duel.getOppOf(this).STR*2/3);
+						this.duel.getOppOf(this).STRValue -= Math.floor(this.duel.getOppOf(this).STR*2/3);
+					}
+					else {
+						this.STRValue += Math.floor(this.duel.getOppOf(this).STR/3);
+						this.duel.getOppOf(this).STRValue -= Math.floor(this.duel.getOppOf(this).STR/3);
+					}
 				}
 				if (this.godList.indexOf(GOD_PP13.name) > -1) { // 700IQ
 					this.duel.addMessage("-----------------");
