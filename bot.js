@@ -139,7 +139,7 @@ const GOD_PP17 = {"name" : "Hitler", "emote": "622395294390157329", "type": "nor
 const GOD_PP18 = {"name" : "Salt King", "emote": "650830165751889935", "type": "normal"};
 const GOD_PP19 = {"name" : "Chad Brenn", "emote": "644634924477055015", "type": "normal"};
 const GOD_PP26 = {"name" : "Ranger", "emote": "673882539328536576", "type": "normal"};
-const GOD_PP28 = {"name" : "", "emote": "", "type": "normal"}; // PUT BACK TO THE GOD LIST
+const GOD_PP29 = {"name" : "", "emote": "", "type": "normal"}; // PUT BACK TO THE GOD LIST
 
 const GOD_PP21 = {"name" : "D.I.C.K.", "emote": "644617343456247829", "type": "eldritch"};
 const GOD_PP22 = {"name" : "Satan", "emote": "671344081841946625", "type": "eldritch"};
@@ -150,6 +150,7 @@ const GOD_PP12 = {"name" : "Espinoza", "emote": "615887132157804564", "type": "e
 
 const GOD_PP20 = {"name" : "Mikasa", "emote": "655523518812913664", "type": "waifu"};
 const GOD_PP27 = {"name" : "Kurisu", "emote": "672543479598940179", "type": "waifu"};
+const GOD_PP28 = {"name" : "Miku", "emote": "", "type": "waifu"}; // ADD TO THE LIST
 
 const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
 		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
@@ -172,8 +173,8 @@ const SYNERGY_PP14 = [GOD_PP9, GOD_PP25] // Wild Mage
 const SYNERGY_PP15 = [GOD_PP1, GOD_PP22] // Guerrier de l'Enfer
 const SYNERGY_PP16 = [GOD_PP6, GOD_PP21] // Too Much Dicks
 const SYNERGY_PP17 = [GOD_PP2, GOD_PP22] // Avatar of Tz'arkan
-const SYNERGY_PP18 = [GOD_PP25, "waifu"] // 
-const SYNERGY_PP19 = [GOD_PP6, "eldritch"] // Obvious tentacle joke
+const SYNERGY_PP18 = [GOD_PP25, "waifu"] // Obvious tentacle joke
+const SYNERGY_PP19 = [GOD_PP6, "eldritch"] // 
 const SYNERGY_PP20 = [GOD_PP24, GOD_PP27, "normal"] // Master of Time
 
 const STAND_PP1 = "Iron Maiden";
@@ -937,7 +938,7 @@ class Fighter {
 				if (this.hasSynergy(SYNERGY_PP17)) {
 					txt += " - Avatar of Tz'arkan\n";
 				}
-				if (this.hasSynergy(SYNERGY_PP19)) {
+				if (this.hasSynergy(SYNERGY_PP18)) {
 					txt += " - Obvious Tentacle Joke\n";
 				}
 			}
@@ -2961,7 +2962,7 @@ class Fighter {
 			this.duel.addMessage(this.getName() + " attacks with tentacles !");
 			for (var i = 0; i < this.tentacles; i++) {
 				this.duel.getOppOf(this).damage(10);
-				if (this.hasSynergy(SYNERGY_PP19)) {
+				if (this.hasSynergy(SYNERGY_PP18)) {
 					this.meltingDamage += 1;
 				}
 				this.duel.addMessage("-----------------");
