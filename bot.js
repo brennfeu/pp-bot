@@ -123,7 +123,7 @@ const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE
 const GOD_PP1 = {"name" : "Mongo", "emote": "644643782888783892", "type": "normal"};
 const GOD_PP2 = {"name" : "Hermit", "emote": "674635214005207040", "type": "normal"};
 const GOD_PP3 = {"name" : "LeprePuds", "emote": "616332243337609257", "type": "normal"};
-const GOD_PP4 = {"name" : "", "emote": "", "type": "normal"}; // PUT BACK TO THE GOD LIST
+const GOD_PP4 = {"name" : "", "emote": "", "type": "normal"}; // ADD TO THE LIST
 const GOD_PP5 = {"name" : "Hello There Puds", "emote": "614823329731313670", "type": "normal"};
 const GOD_PP6 = {"name" : "DickDickSon666", "emote": "616877566396989451", "type": "normal"};
 const GOD_PP7 = {"name" : "Jew", "emote": "644621040093364283", "type": "normal"};
@@ -139,7 +139,7 @@ const GOD_PP17 = {"name" : "Hitler", "emote": "622395294390157329", "type": "nor
 const GOD_PP18 = {"name" : "Salt King", "emote": "650830165751889935", "type": "normal"};
 const GOD_PP19 = {"name" : "Chad Brenn", "emote": "644634924477055015", "type": "normal"};
 const GOD_PP26 = {"name" : "Ranger", "emote": "673882539328536576", "type": "normal"};
-const GOD_PP29 = {"name" : "", "emote": "", "type": "normal"}; // PUT BACK TO THE GOD LIST
+const GOD_PP29 = {"name" : "", "emote": "", "type": "normal"}; // ADD TO THE LIST
 
 const GOD_PP21 = {"name" : "D.I.C.K.", "emote": "644617343456247829", "type": "eldritch"};
 const GOD_PP22 = {"name" : "Satan", "emote": "671344081841946625", "type": "eldritch"};
@@ -151,6 +151,7 @@ const GOD_PP12 = {"name" : "Espinoza", "emote": "615887132157804564", "type": "e
 const GOD_PP20 = {"name" : "Mikasa", "emote": "655523518812913664", "type": "waifu"};
 const GOD_PP27 = {"name" : "Kurisu", "emote": "672543479598940179", "type": "waifu"};
 const GOD_PP28 = {"name" : "Miku", "emote": "", "type": "waifu"}; // ADD TO THE LIST
+const GOD_PP30 = {"name" : "Akiho", "emote": "", "type": "waifu"}; // ADD TO THE LIST
 
 const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
 		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
@@ -174,7 +175,7 @@ const SYNERGY_PP15 = [GOD_PP1, GOD_PP22] // Guerrier de l'Enfer
 const SYNERGY_PP16 = [GOD_PP6, GOD_PP21] // Too Much Dicks
 const SYNERGY_PP17 = [GOD_PP2, GOD_PP22] // Avatar of Tz'arkan
 const SYNERGY_PP18 = [GOD_PP25, "waifu"] // Obvious tentacle joke
-const SYNERGY_PP19 = [GOD_PP6, "eldritch"] // 
+const SYNERGY_PP19 = [GOD_PP6, "eldritch"] // Eldritch Gang
 const SYNERGY_PP20 = [GOD_PP24, GOD_PP27, "normal"] // Master of Time
 const SYNERGY_PP21 = [GOD_PP12, GOD_PP7] // Big Nose
 
@@ -358,6 +359,8 @@ class Fighter {
 		this.dodgableDamages = [];
 		this.gettingRegularCharge = 0;
 		this.gettingSpecialCharge = 0;
+		this.robotCountdown = 0;
+		this.robotHP = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -753,6 +756,9 @@ class Fighter {
 		if (this.gettingSpecialCharge > 0) {
 			txt += " - Getting a regular charge in " + this.gettingSpecialCharge + " turns\n"
 		}
+		if (this.robotCountdown > 0) {
+			txt += " - Robot Engineering Countdown : " + this.robotCountdown + " turns\n";
+		}
 		if (this.turkeyCountdown > 0) {
 			txt += " - Turkey Countdown : " + this.turkeyCountdown + " turns\n";
 		}
@@ -855,6 +861,9 @@ class Fighter {
 		}
 		if (this.trueBarbarian) {
 			txt += " - Great Barbarian from the North Seeking New Lands for his Kingdom\n";
+		}
+		if (this.robotHP > 0) {
+			txt += " - **Giant Robot HP : " + this.robotHP + "**\n"
 		}
 		if (this.isPossessed > 0) {
 			txt += " - **Possessed by " + this.duel.getOppOf(this).getName() + "**\n";
@@ -2092,6 +2101,18 @@ class Fighter {
 					}
 					this.dodgableDamages = [];
 				}
+				if (this.godList.indexOf(GOD_PP30.name) > -1) { // Aki
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Akiho answers his calls !");
+					if (this.robotCountdown > 0) {
+						this.duel.addMessage(this.getName() + "'s robot is now complete !");
+						this.robotCountdown = 1;
+					}
+					else {
+						this.duel.addMessage(this.getName() + " starts working on making a giant robot !");
+						this.robotCountdown = 11;
+					}
+				}
 				if (this.requiemPower != null && this.requiemCooldown <= 0) {
 					this.MOVE_COUNT += 999
 					this.duel.addMessage("-----------------");
@@ -2763,26 +2784,53 @@ class Fighter {
 			if (_amount <= 0) {
 				return this.duel.addMessage(this.getName() + " takes no damages !");
 			}
-			
-			this.duel.addMessage(this.getName() + " takes " + _amount + " damages !");
-			if (_amount == 69) {
-				this.duel.addMessage("lmao !");
-			}
-			
-			this.damageTaken += _amount;
-			this.duel.DAMAGE_COUNT += _amount;
-			this.dodgableDamages.push(_amount);
-			if (this.dodgableDamages.length > 5) {
-				this.dodgableDamages.pop();
-			}
-			if (this.duel.getOppOf(this).standPower == STAND_PP10 && _punch) {
-				// Illud Divinum Insanus
-				this.DEXValue += _amount;
+			if (this.robotHP > 0) {
+				this.duel.addMessage(this.getName() + "'s robot takes " + _amount + " damages !");
+				if (_amount == 69) {
+					this.duel.addMessage("lmao !");
+				}
+				
+				// Damage
+				this.robotHP -= _amount;
+				if (this.robotHP <= 0) {
+					this.duel.addMessage(this.getName() + "'s robot breaks !");
+				}
 			}
 			else {
-				// Damage
-				this.STRValue -= _amount;
+				this.duel.addMessage(this.getName() + " takes " + _amount + " damages !");
+				if (_amount == 69) {
+					this.duel.addMessage("lmao !");
+				}
+				
+				this.damageTaken += _amount;
+				this.dodgableDamages.push(_amount);
+				if (this.dodgableDamages.length > 5) {
+					this.dodgableDamages.pop();
+				}
+				
+				if (this.duel.getOppOf(this).standPower == STAND_PP10 && _punch) {
+					// Illud Divinum Insanus
+					this.DEXValue += _amount;
+				}
+				else {
+					// Damage
+					this.STRValue -= _amount;
+				}
+				
+				if (this.duel.getOppOf(this).standPower == STAND_PP12 && _punch) { // Space Metal
+					this.meltingDamage += 2;
+				}
+				if (this.duel.getOppOf(this).standPower == STAND_PP13 && _punch) { // The Scythe of Cosmic Chaos
+					this.madnessStacks += 1;
+				}
+				if (this.madnessStacks > 0 && getRandomPercent() <= 10+this.madnessStacks && _punch) {
+					this.duel.addMessage(this.getName() + " flinched !");
+					this.hasBurst = 2;
+				}
 			}
+			
+			this.duel.DAMAGE_COUNT += _amount;
+			
 			
 			if (this.duel.getOppOf(this).standPower == STAND_PP4 && _punch) { // Above the Light
 				this.duel.getOppOf(this).heal(Math.floor(_amount / 3));
@@ -2791,16 +2839,6 @@ class Fighter {
 				this.duel.getOppOf(this).heal(30);
 				this.duel.getOppOf(this).DEXValue += 10;
 				this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets 10 DEX !");
-			}
-			if (this.duel.getOppOf(this).standPower == STAND_PP12 && _punch) { // Space Metal
-				this.meltingDamage += 2;
-			}
-			if (this.duel.getOppOf(this).standPower == STAND_PP13 && _punch) { // The Scythe of Cosmic Chaos
-				this.madnessStacks += 1;
-			}
-			if (this.madnessStacks > 0 && getRandomPercent() <= 10+this.madnessStacks && _punch) {
-				this.duel.addMessage(this.getName() + " flinched !");
-				this.hasBurst = 2;
 			}
 		}
 		
@@ -2877,6 +2915,7 @@ class Fighter {
 		this.futureMemories -= 1;
 		this.gettingRegularCharge -= 1;
 		this.gettingSpecialCharge -= 1;
+		this.robotCountdown -= 1;
 
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
@@ -2927,6 +2966,17 @@ class Fighter {
 			this.specialCharges += 1;
 			this.duel.addMessage(this.getName() + " uses his long nose to get a special charge !");
 			this.duel.addMessage("-----------------");
+		}
+		
+		if (this.robotHP > 0) {
+			this.duel.addMessage(this.getName() + "'s robot attacks " + this.getOppName() + " !");
+			this.duel.getOppOf(this).damage(25);
+			this.duel.addMessage("-----------------");
+		}
+		if (this.robotCountdown == 0) {
+			this.duel.addMessage(this.getName() + " now has a giant robot !");
+			this.duel.addMessage("-----------------");
+			this.robotHP = 1000;
 		}
 		
 		// Boss Killer
