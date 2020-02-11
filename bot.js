@@ -788,7 +788,11 @@ class Fighter {
 			txt += " - Tear Drinker : " + this.tearDrinker + "\n";
 		}
 		if (this.pigHeal > 0) {
-			txt += " - Hog Squeezer : " + this.pigHeal + "\n";
+			txt += " - Hog Squeezer : " + this.pigHeal;
+			if (this.isCowBoy) {
+				txt += "(**Cowboy**)";
+			}
+			txt += "\n";
 		}
 		if (this.megaBuildUp > 0) {
 			txt += " - Build-Up multiplier : " + this.megaBuildUp + "\n";
@@ -832,9 +836,6 @@ class Fighter {
 		}
 		if (this.eldritchFriend) {
 			txt += " - Eldritch Friendly\n";
-		}
-		if (this.isCowBoy) {
-			txt += " - Cowboy\n";
 		}
 		if (this.legAimer) {
 			txt += " - Leg Aimer\n";
@@ -3765,9 +3766,6 @@ class Duel {
 						_fighter.resetBattleVariables()
 					}
 				});
-				
-				this.checkDeath();
-				if (this.DEAD_DUEL) return;
 
 				this.STEEL_PROTECTION = false;
 				this.BARREL_DAMAGE = false;
