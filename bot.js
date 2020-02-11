@@ -257,6 +257,7 @@ const IMAGE_PP1 = "https://cdn.discordapp.com/attachments/616225633286094852/623
 const IMAGE_PP2 = "https://cdn.discordapp.com/attachments/616228498075549756/668824699551219722/bigboom.gif";
 const IMAGE_PP3 = "https://cdn.discordapp.com/attachments/667337519477817363/668846565284118598/ezgif.com-gif-maker.gif";
 const IMAGE_PP4 = "https://cdn.discordapp.com/attachments/523411977725411373/669513268464975892/image0.jpg";
+const IMAGE_PP5 = "https://cdn.discordapp.com/attachments/668732348040347680/676777375027036160/7lpki.gif";
 
 // IDs
 const ID_BRENNFEU = "234439428372824075";
@@ -1023,6 +1024,9 @@ class Fighter {
 				// Punching PP
 				this.duel.addMessage(this.getName() + " punches " + this.getOppName() + "'s PP !");
 				this.duel.getOppOf(this).damage(Math.floor(10 + this.STR / 10));
+				if (getRandomPercent() <= 2) {
+					this.addMessage(IMAGE_PP5);
+				}
 			}
 			else if (attack == EMOTE_PP2) {
 				// Punching PP Really Hard
