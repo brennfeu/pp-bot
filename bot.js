@@ -952,6 +952,9 @@ class Fighter {
 				if (this.hasSynergy(SYNERGY_PP18)) {
 					txt += " - Obvious Tentacle Joke\n";
 				}
+				if (this.hasSynergy(SYNERGY_PP19)) {
+					txt += " - Eldritch Gang\n";
+				}
 				if (this.hasSynergy(SYNERGY_PP21)) {
 					txt += " - Big Nose\n";
 				}
@@ -2667,6 +2670,8 @@ class Fighter {
 	}
 
 	damage(_amount, _punch = true) {
+		var ogAmount = _amount;
+		
 		if (_punch) {
 			_amount += this.duel.getOppOf(this).quickeningCharges*3;
 			
@@ -2874,6 +2879,12 @@ class Fighter {
 		// Alien PP
 		if (this.isAlienPP && _punch) {
 			this.duel.getOppOf(this).bleedDamage += 3;
+		}
+		
+		// Eldritch Gang
+		if (this.duel.getOppOf(this).hasSynergy(SYNERGY_PP19) && getRandomPercent() <= 10 && _punch) {
+			this.duel.addMessage(this.duel.getOppOf(this).getName() + "'s attack happens again !");
+			this.damage(ogAmount, _punch);
 		}
 	}
 
