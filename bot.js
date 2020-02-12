@@ -121,7 +121,8 @@ const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOT
 const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70,
 			  EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP77, EMOTE_PP78];
 const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
-const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST);
+const OTHER_EMOTE_LIST = [EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE];
+const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST).concat(OTHER_EMOTE_LIST);
 
 const GOD_PP1 = {"name" : "Mongo", "emote": "644643782888783892", "type": "normal"};
 const GOD_PP2 = {"name" : "Hermit", "emote": "674635214005207040", "type": "normal"};
@@ -3899,6 +3900,9 @@ class Duel {
 		if (this.EVENT_PP_EQUALITY) {
 			txt += " - Moves have no DEX modifier for this turn !\n";
 		}
+		if (this.EVENT_BOMB) {
+			txt += " - A bomb will explode next turn !\n";
+		}
 		if (this.BOREAL_WORLD) {
 			txt += " - Boreal Fog is everywhere !\n";
 		}
@@ -4102,12 +4106,14 @@ class Duel {
 		}
 
 		if (this.FIGHTER1.STR <= 0 && this.FIGHTER2.STR <= 0) {
+			this.addMessage("-----------------");
 			this.addMessage("Both of you lost. No one won this time. You losers.");
 			this.stopDuel();
 			return;
 		}
 		this.bothFightersAction(function(_fighter) {
 			if (_fighter.STR <= 0 && !_fighter.duel.EVENT_BOSS) {
+				_fighter.duel.addMessage("-----------------");
 				_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).getName() + " won ! Congrats !");
 				_fighter.duel.getOppOf(_fighter).win();
 				if (_fighter.futureMemories > 0 || _fighter.duel.getOppOf(_fighter).futureMemories > 0 ) {
