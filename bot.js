@@ -1030,7 +1030,7 @@ class Fighter {
 				this.duel.addMessage(this.getName() + " punches " + this.getOppName() + "'s PP !");
 				this.duel.getOppOf(this).damage(Math.floor(10 + this.STR / 10));
 				if (getRandomPercent() <= 2) {
-					this.addMessage(IMAGE_PP5);
+					this.duel.addMessage(IMAGE_PP5);
 				}
 			}
 			else if (attack == EMOTE_PP2) {
