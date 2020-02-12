@@ -3218,6 +3218,76 @@ class Fighter {
 	}
 }
 
+class City extends Fighter {
+	constructor(_idUser, _idDuel, _mayor) {
+		super(_idUser, _idDuel);
+		if (_idUser == undefined) { // default constructor
+			return;
+		}
+		
+		this.mayor = _mayor; // Fighter class
+		this.money = 0;
+		this.customName = super.getName() + " City";
+		this.sciencePower = 0;
+		this.militaryPower = 0;
+		this.stdList = [];
+	}
+	
+	get benefit() {
+		var win = 10;
+		return win;
+	}
+	
+	getName() {
+		return this.customName;
+	}
+	toString() {
+		if (this.duel.MOVE_COUNT >= 10000) {
+			return "**" + this.getName() + "**\n - Wiped out";
+		}
+
+		var txt = "**" + this.getName();
+		txt += "\n(" + this.guildUser.user.username + ")";
+		
+		txt += "\nSTR :** " + this.STR;
+		if (this.STR == 69) {
+			txt += " (lmao)";
+		}
+		txt += "  //  **DEX :** " + this.DEX;
+		if (this.DEX == 69) {
+			txt += " (lmao)";
+		}
+		if (this.dexMalus > 0) {
+			txt += "\n - DEX Malus : **" + this.dexMalus + "**";
+		}
+		
+		// money
+		txt += "\n\n**Sperm :** " + this.money + " liters";
+		txt += "\n**Benefit :** " + this.benefit + " liters/turn";
+		
+		// powers
+		txt += "\n\n**Advancements :**";
+		txt += "\n - Scientific Knowledge : " + this.sciencePower;
+		txt += "\n - Military Power : " + this.militaryPower;
+		
+		// std
+		if (this.stdList.length > 0) {
+			txt += "\n\n**STD :**";
+			for (var i in this.stdList) {
+				txt += "\n - " + this.stdList[i];
+			}
+		}
+ 
+		return txt;
+	}
+	
+	turnChange() {
+		super.turnChange();
+		
+		this.money += this.benefit;
+	}
+}
+
 class Duel {
 	constructor(_easyDuel = false) {
 		this.DEAD_DUEL = false;
