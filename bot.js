@@ -18,6 +18,9 @@ const EMOTE_SKIP = "TURN_SKIP";
 const EMOTE_DEAD = "IS_DEAD_LOL";
 const EMOTE_SKIPPER = "665141844640006156";
 
+const EMOTE_FRIEDESPINOZA = "675077643896356874";
+const EMOTE_ESPINOZE = "675078599673511937";
+
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
 const EMOTE_PP2 = "535240768441548810"; // PunchingPPReallyHard
 const EMOTE_PP3 = "358232421537284109"; // Hologram
@@ -574,9 +577,6 @@ class Fighter {
 			dex -= 20;
 		}
 		if (this.xenoMask) {
-			dex += 10;
-		}
-		if (this.kungFu) {
 			dex += 10;
 		}
 		if (this.livingGod) {
@@ -1323,9 +1323,8 @@ class Fighter {
 			else if (attack == EMOTE_PP33) {
 				// Headless - Big Kidney Stone
 				this.duel.addMessage(this.getName() + " shoots a big kidney stone !");
-				this.duel.bothFightersAction(function(_fighter) {
-					_fighter.damage(50);
-				});
+				this.damage(50, false);
+				this.duel.getOppOf(this).damage(50);
 				this.duel.KIDNEY_CURSE += 1;
 				this.duel.addMessage("The Kidney Curse grows bigger !");
 			}
@@ -1371,10 +1370,8 @@ class Fighter {
 			else if (attack == EMOTE_PP37) {
 				// Disembowled - Kidney Stone
 				this.duel.addMessage(this.getName() + " shoots a kidney stone !");
-				this.duel.bothFightersAction(
-				function(_fighter) {
-					_fighter.damage(25);
-				});
+				this.damage(25, false);
+				this.duel.getOppOf(this).damage(25);
 				this.duel.KIDNEY_CURSE += 1;
 				this.duel.addMessage("The Kidney Curse grows bigger !");
 			}
@@ -2617,6 +2614,23 @@ class Fighter {
 					this.duel.addMessage("UwU Mode Deactivated !");
 				}
 			}
+			else if (attack == EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE) {
+				// Judgement Event
+				if (this.duel.ESPINOZA_CHOICE == attack) {
+					this.duel.addMessage(this.getName() + " guessed right ! :)");
+					if (this.godList.indexOf(GOD_PP12.name) > 0) {
+						this.duel.addMessage("He gets 10 DEX !");
+						this.DEXValue += 10;
+					}
+					else {
+						this.duel.addMessage("He gets Espinoza as a God !");
+						this.godList.push(GOD_PP12.name);
+					}
+				}
+				else {
+					this.duel.addMessage(this.getName() + " guessed wrong ! :(");
+				}
+			}
 			else if (attack == EMOTE_DEAD) {
 				// Dead (Cthulhu battle)
 				if (this.STRValue < 70) {
@@ -2726,7 +2740,11 @@ class Fighter {
 		}
 		this.duel.INFINITE_DAMAGE += 1;
 		
-		if (getRandomPercent() < 10  && _punch) {
+		var critMin = 5;
+		if (this.duel.getOppOf(this).kungFu) {
+			critMin += 15;
+		}
+		if (getRandomPercent() < critMin  && _punch) {
 			_amount += _amount;
 			this.duel.addMessage("**Critical Hit !**");
 		}
@@ -3258,6 +3276,9 @@ class Duel {
 		this.EVENT_BLOOD_MOON = false;
 		this.EVENT_PP_EQUALITY = false;
 		this.EVENT_MEGA_POOL = false;
+		this.EVENT_DEPRESSION = false;
+		this.EVENT_BOMB = false;
+		this.ESPINOZA_CHOICE = "";
 
 		this.FORCE_PERHAPS = false;
 		this.FORCE_SATAN = false;
@@ -3590,8 +3611,17 @@ class Duel {
 				if (this.NUCLEAR_BOMB == 0) {
 					this.addMessage("The Nuclear Bomb explodes now !\n" + IMAGE_PP1);
 					this.bothFightersAction(function(_fighter) {
-						_fighter.damage(1000000000);
+						_fighter.damage(1000000000, false);
 					});
+					this.addMessage("-----------------");
+					this.sendMessages();
+				}
+				if (this.EVENT_BOMB) {
+					this.addMessage("The bomb hits the ground !");
+					this.bothFightersAction(function(_fighter) {
+						_fighter.damage(1000, false);
+					});
+					this.addMessage("-----------------");
 					this.sendMessages();
 				}
 
@@ -3785,6 +3815,10 @@ class Duel {
 				this.EVENT_CONFUSION = false;
 				this.EVENT_BLOOD_MOON = false;
 				this.EVENT_PP_EQUALITY = false;
+				this.EVENT_MEGA_POOL = false;
+				this.EVENT_DEPRESSION = false;
+				this.EVENT_BOMB = false;
+				this.ESPINOZA_CHOICE = "";
 				
 				if (nbTurn+1 < nbTurnChanges) {
 					this.sendMessages();
@@ -4207,7 +4241,7 @@ class Duel {
 				_fighter.playMove(EMOTE_PP49);
 			});
 		}
-		else if ([9, 10, 11, 12, 13, 14, 15, 16, 17, 18].indexOf(randomVar) > -1) {
+		else if ([9, 10, 11, 12, 13, 14, 15, 16, 17, 18].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 10 || forcedEvent)) {
 			// Charge
 			this.addMessage(" -- GODS BIRTHDAY GIFTS --");
 			if (this.STAND_BATTLE) {
@@ -4220,7 +4254,7 @@ class Duel {
 				});
 			}
 		}
-		else if ([19, 20, 21].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 15 || forcedEvent)) {
+		else if ([19, 20, 21].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 25 || forcedEvent)) {
 			// Charge
 			this.addMessage(" -- GODS CHRISTMAS GIFTS --");
 			if (this.STAND_BATTLE) {
@@ -4464,11 +4498,36 @@ class Duel {
 			this.addMessage("You get blessed by the gods and get an extended movepool for this turn !");
 			this.EVENT_MEGA_POOL = true;
 		}
+		else if (randomVar == 37) {
+			// PP Depression
+			this.addMessage(" -- PP DEPRESSION --");
+			this.addMessage("PP Punching is not fun... Maybe you should put a term to this...? It is utter nonsense to punch PP anyway, let's just end what you shouldn't have started...");
+			this.EVENT_DEPRESSION = true;
+			if (this.GAY_TURNS > 0) {
+				this.GAY_TURNS = 0;
+				this.addMessage("You're not even gay anymore...");
+			}
+		}
+		else if (randomVar == 38 && (this.MOVE_COUNT >= 10 || forcedEvent)) {
+			// Impending Bombardment
+			this.addMessage(" -- IMPENDING BOMBARDMENT --");
+			this.addMessage("A missile has been spotted above the battleground ! You have one turn before it hits the ground and explodes !");
+			this.EVENT_BOMB = true;
+		}
+		else if (randomVar == 39) {
+			// Judgement
+			this.addMessage(" -- JUDGEMENT --");
+			this.addMessage("Who do you think is better ? FriedEspinoza or espinoze ? Make your bets !");
+			this.ESPINOZA_CHOICE = EMOTE_FRIEDESPINOZA;
+			if (getRandomPercent() <= 50) {
+				this.ESPINOZA_CHOICE = EMOTE_ESPINOZE;
+			}
+		}
 		else if (randomVar == 90 && (this.MOVE_COUNT >= 50 || forcedEvent)) {
 			// Brenn Ejaculates
 			this.addMessage(" -- BRENN EJACULATES --");
 			this.addMessage("For some reasons, this summons every event !");
-			var idList = shuffleArray([2, 3, 4, 6, 7, 8, 9, 19, 22, 23, 26, 32, 34, 35, 36]);
+			var idList = shuffleArray([2, 3, 4, 6, 7, 8, 9, 19, 22, 23, 26, 32, 34, 35, 36, 37, 38, 39]);
 			for (var i = 0; i < idList.length; i++) {
 				this.FORCE_EVENT_ID = idList[i];
 				this.startRandomEvent();
@@ -5057,6 +5116,12 @@ class Duel {
 		var listeAttaques = [];
 		var emote;
 
+		if (this.ESPINOZA_CHOICE != "") {
+			return this.LIST_AVAILABLE_ATTACKS = [EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE];
+		}
+		if (this.EVENT_DEPRESSION) {
+			return this.LIST_AVAILABLE_ATTACKS = [EMOTE_PP47];
+		}
 		if (this.EVENT_CONFUSION) {
 			return this.LIST_AVAILABLE_ATTACKS = [EMOTE_PP39];
 		}
@@ -5067,8 +5132,7 @@ class Duel {
 					listeAttaques.push(emote);
 				}
 			}
-			this.LIST_AVAILABLE_ATTACKS = listeAttaques;
-			return this.EVENT_MEGA_POOL = false
+			return this.LIST_AVAILABLE_ATTACKS = listeAttaques;
 		}
 		if (this.FORCE_PERHAPS) {
 			this.LIST_AVAILABLE_ATTACKS = [EMOTE_PP50];
