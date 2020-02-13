@@ -2636,7 +2636,7 @@ class Fighter {
 				this.sciencePower += 1;
 			}
 			else if (attack == EMOTE_PP84) {
-				// Melodia
+				// MilitaryTraining
 				this.duel.addMessage(this.getName() + " does some military training !");
 				this.militaryPower += 1;
 			}
@@ -5305,11 +5305,13 @@ class Duel {
 			return this.LIST_AVAILABLE_ATTACKS = [EMOTE_PP26];
 		}
 		if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE || this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
-			while (listeAttaques.length < 5) {
+			var nbTries = 0
+			while (listeAttaques.length < 5 || nbTries > 100) {
 				emote = this.getRandomEmote();
 				if (listeAttaques.indexOf(emote) < 0) {
 					listeAttaques.push(emote);
 				}
+				nbTries += 1;
 			}
 		}
 		else {
