@@ -5306,7 +5306,7 @@ class Duel {
 		}
 		if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE || this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
 			var nbTries = 0
-			while (listeAttaques.length < 5 || nbTries > 100) {
+			while (listeAttaques.length < 5 & nbTries < 100) {
 				emote = this.getRandomEmote();
 				if (listeAttaques.indexOf(emote) < 0) {
 					listeAttaques.push(emote);
