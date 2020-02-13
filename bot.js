@@ -3230,9 +3230,12 @@ class City extends Fighter {
 			return;
 		}
 		
+		this.STRValue = 2000;
+		this.DEXValue = 100;
+		
 		this.mayor = _mayor; // Fighter class
 		this.money = 0;
-		this.customName = super.getName() + " City";
+		this.customName = null;
 		this.sciencePower = 0;
 		this.militaryPower = 0;
 		this.stdList = [];
@@ -3244,6 +3247,9 @@ class City extends Fighter {
 	}
 	
 	getName() {
+		if (this.customName == null) {
+			return super.getName() + " City";
+		}
 		return this.customName;
 	}
 	toString() {
@@ -3307,6 +3313,8 @@ class Duel {
 		this.FORCE_EVENT_ID = 0;
 		this.EASY_DUEL = _easyDuel;
 		this.CURRENT_BATTLE_MODE = NORMAL_BATTLE_MODE;
+		this.CITY_ADVANCEMENT = 0;
+		
 		this.TIME_STOP = 0;
 		this.TIME_COMPRESSION = 0;
 		this.TIME_BREAK = 0;
@@ -3977,6 +3985,9 @@ class Duel {
 		}
 		if (this.EVENT_BOMB) {
 			txt += " - A bomb will explode next turn !\n";
+		}
+		if (this.CITY_ADVANCEMENT > 0) {
+			txt += " - Actual Era : " + this.CITY_ADVANCEMENT + "\n";
 		}
 		if (this.BOREAL_WORLD) {
 			txt += " - Boreal Fog is everywhere !\n";
@@ -5171,11 +5182,11 @@ class Duel {
 			this.sendMessages();
 
 			if (this.FIGHTER1.currentStand != null && this.FIGHTER2.currentStand != null) {
-				this.addMessage("**===== STAND BATTLE MODE =====**");
+				this.addMessage("**===== STÅND BATTLE MODE =====**");
 				this.addMessage("Both fighters already have summoned their Stånd.");
 			}
 			else if (this.FIGHTER1.currentStand != null || this.FIGHTER2.currentStand != null) {
-				this.addMessage("**===== STAND BATTLE MODE =====**");
+				this.addMessage("**===== STÅND BATTLE MODE =====**");
 				this.bothFightersAction(function(_fighter) {
 					if (_fighter.currentStand == null) {
 						var liste = Object.keys(STAND_SUMMONS);
@@ -5206,6 +5217,10 @@ class Duel {
 		this.FIGHTER2 = new City(this.FIGHTER2, this.BATTLE_CHANNEL.id);
 		
 		this.CURRENT_BATTLE_MODE = CITY_BATTLE_MODE;
+		this.CITY_ADVANCEMENT = 1;
+		
+		this.addMessage("**===== CIVILISATION BATTLE MODE =====**");
+		this.addMessage("Both fighters starts a new civilisation as their leader. Your next message will be the name of your city !");
 	}
 	
 	setRandomAttackList() {
@@ -5527,6 +5542,19 @@ function skipWaitingDuels() {
 		}
 	}
 }
+function checkCityNameChange(_message) {
+	for (var i in DUEL_LIST) {
+		if (DUEL_LIST[i].BATTLE_CHANNEL.id == _message.channel.id && DUEL_LIST[i].CURENT_BATTLE_MODE == CITY_BATTLE_MODE) {
+			if (DUEL_LIST[i].FIGHTER1.customName == null && _message.author.id == DUEL_LIST[i].FIGHTER1.id) {
+				DUEL_LIST[i].FIGHTER1.customName = _message.content;
+			}
+			if (DUEL_LIST[i].FIGHTER2.customName == null && _message.author.id == DUEL_LIST[i].FIGHTER2.id) {
+				DUEL_LIST[i].FIGHTER2.customName = _message.content;
+			}
+		}
+	}
+}
+
 function getPriestRoleName(_god) {
 	return _god.name + " Priest";
 }
@@ -5849,6 +5877,7 @@ CLIENT.on("message", async _message => {
 	killDeadDuels();
 	setBotActivity();
 	skipWaitingDuels();
+	checkCityNameChange(_message);
 	
 	// Recuperation commande
 	var argsUser = _message.content.trim().split(" ");
