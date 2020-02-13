@@ -3296,6 +3296,8 @@ class City extends Fighter {
 		super.turnChange();
 		
 		this.money += this.benefit;
+		
+		this.mayor.turnChange();
 	}
 }
 
@@ -5213,6 +5215,10 @@ class Duel {
 	startCityMode() {
 		if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) return;
 		
+		this.bothFightersAction(function(_fighter) {
+			_fighter.resetBattleVariables();
+		});
+		
 		this.FIGHTER1 = new City(this.FIGHTER1, this.BATTLE_CHANNEL.id);
 		this.FIGHTER2 = new City(this.FIGHTER2, this.BATTLE_CHANNEL.id);
 		
@@ -5543,16 +5549,17 @@ function skipWaitingDuels() {
 	}
 }
 function checkCityNameChange(_message) {
-	for (var i in DUEL_LIST) {
-		if (DUEL_LIST[i].BATTLE_CHANNEL.id == _message.channel.id && DUEL_LIST[i].CURENT_BATTLE_MODE == CITY_BATTLE_MODE) {
-			if (DUEL_LIST[i].FIGHTER1.customName == null && _message.author.id == DUEL_LIST[i].FIGHTER1.id) {
-				DUEL_LIST[i].FIGHTER1.customName = _message.content;
-			}
-			if (DUEL_LIST[i].FIGHTER2.customName == null && _message.author.id == DUEL_LIST[i].FIGHTER2.id) {
-				DUEL_LIST[i].FIGHTER2.customName = _message.content;
-			}
-		}
+	if (getDuel(_message.channel.id) == null) {
+		return;
 	}
+	
+	var duel = getDuel(_message.channel.id);
+	duel.bothFightersAction(function(_fighter) {
+		if (_fighter.customName == null && _message.author.id == _fighter.idUser) {
+			_fighter.customName = _message.content;
+			_fighter.duel.addMessage(_fighter.getName() + " changed his city name !");
+		}
+	});
 }
 
 function getPriestRoleName(_god) {
