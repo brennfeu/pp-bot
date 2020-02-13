@@ -244,6 +244,11 @@ const BOSS_PP9 = "Satan True Form";
 const BOSS_PP10 = "Espinoza Raid Boss";
 const BOSS_PP11 = "Weeb";
 
+// BATTLE MODES
+const NORMAL_BATTLE_MODE = 0;
+const STAND_BATTLE_MODE = 1;
+const CITY_BATTLE_MODE = 2;
+
 // MUSICS
 const MUSIC_PP1 = "none";
 const MUSIC_PP2 = "ascend.mp3";
@@ -515,7 +520,7 @@ class Fighter {
 		if (this.BOREAL_WORLD && this.standPower == STAND_PP2) {
 			str += 200;
 		}
-		if (this.requiemPower != null && this.duel.STAND_BATTLE) {
+		if (this.requiemPower != null && this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
 			str += 200;
 		}
 		if (this.hasSynergy(SYNERGY_PP17)) {
@@ -595,7 +600,7 @@ class Fighter {
 		if (this.BOREAL_WORLD && this.standPower == STAND_PP2) {
 			dex += 50;
 		}
-		if (this.requiemPower != null && this.duel.STAND_BATTLE) {
+		if (this.requiemPower != null && this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
 			dex += 30;
 		}
 		if (this.hasSynergy(SYNERGY_PP8)) {
@@ -628,7 +633,7 @@ class Fighter {
 		}
 
 		var txt = "**" + this.getName();
-		if (this.duel.STAND_BATTLE) {
+		if (this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
 			if (this.requiemPower != null) {
 				txt += " Requiem";
 			}
@@ -647,7 +652,7 @@ class Fighter {
 			txt += "\n - DEX Malus : **" + this.dexMalus + "**";
 		}
 
-		if (!this.duel.STAND_BATTLE) {
+		if (!this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
 			if (this.regularCharges > 0 || this.specialCharges > 0 || this.chimera) {
 				txt += "\n\n**Faith :**"
 				
@@ -880,7 +885,7 @@ class Fighter {
 		if (this.summonTankCountdown > 0) {
 			txt += " - **Summoning the Monster (" + (4-this.summonTankCountdown) + "/3)**\n";
 		}
-		if (this.standPower != null && !this.duel.STAND_BATTLE && !this.randomizedStand) {
+		if (this.standPower != null && !this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE && !this.randomizedStand) {
 			txt += " - **Stånd Power : " + this.standPower + "**\n";
 		}
 		if (this.extraLife > 0) {
@@ -894,7 +899,7 @@ class Fighter {
 			txt += " - **Impending Doom : " + this.impendingDoom + " turns**\n";
 		}
 		
-		if (!this.duel.STAND_BATTLE) {
+		if (!this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
 			txt += "\n**Synergies :**\n"
 			if (this.godList.length >= GOD_LIST.length) {
 				txt += " - *All of them*\n";
@@ -3061,7 +3066,7 @@ class Fighter {
 		// House of Atreus
 		if (this.standPower == STAND_PP15 && this.godList.indexOf(STAND_PP15) < 0) {
 			this.godList.push(STAND_PP15);
-			if (this.duel.STAND_BATTLE) {
+			if (this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
 				this.regularCharges = 1;
 			}
 		}
@@ -3219,9 +3224,9 @@ class Fighter {
 }
 
 class City extends Fighter {
-	constructor(_idUser, _idDuel, _mayor) {
-		super(_idUser, _idDuel);
-		if (_idUser == undefined) { // default constructor
+	constructor(_mayor, _idDuel) {
+		super(_mayor.idUser, _idDuel);
+		if (_mayor.idUser == undefined) { // default constructor
 			return;
 		}
 		
@@ -3301,7 +3306,7 @@ class Duel {
 		
 		this.FORCE_EVENT_ID = 0;
 		this.EASY_DUEL = _easyDuel;
-		this.STAND_BATTLE = false;
+		this.CURRENT_BATTLE_MODE = NORMAL_BATTLE_MODE;
 		this.TIME_STOP = 0;
 		this.TIME_COMPRESSION = 0;
 		this.TIME_BREAK = 0;
@@ -4131,7 +4136,7 @@ class Duel {
 				}
 			}
 		});
-		if (this.STAND_BATTLE && !(this.FIGHTER1.STR > 0 && this.FIGHTER2.STR > 0)) {
+		if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE && !(this.FIGHTER1.STR > 0 && this.FIGHTER2.STR > 0)) {
 			if (this.FIGHTER1.STR <= 0) {
 				this.FIGHTER2_SAVE.quickeningCharges += 10;
 				this.addMessage("**" + this.FIGHTER1.getName() + " has been defeated !**");
@@ -4165,7 +4170,7 @@ class Duel {
 				this.FIGHTER2_SAVE.randomizedStand = this.FIGHTER2.randomizedStand;
 			}
 
-			this.STAND_BATTLE = false;
+			this.CURRENT_BATTLE_MODE = NORMAL_BATTLE_MODE;
 			this.FIGHTER1 = this.FIGHTER1_SAVE;
 			this.FIGHTER2 = this.FIGHTER2_SAVE;
 
@@ -4320,7 +4325,7 @@ class Duel {
 		else if ([9, 10, 11, 12, 13, 14, 15, 16, 17, 18].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 10 || forcedEvent)) {
 			// Charge
 			this.addMessage(" -- GODS BIRTHDAY GIFTS --");
-			if (this.STAND_BATTLE) {
+			if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
 				this.addMessage("Stånds are unaffected.");
 			}
 			else {
@@ -4333,7 +4338,7 @@ class Duel {
 		else if ([19, 20, 21].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 25 || forcedEvent)) {
 			// Charge
 			this.addMessage(" -- GODS CHRISTMAS GIFTS --");
-			if (this.STAND_BATTLE) {
+			if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
 				this.addMessage("Stånds are unaffected.");
 			}
 			else {
@@ -4359,7 +4364,7 @@ class Duel {
 		else if (randomVar == 23 && (this.MOVE_COUNT >= 30 || forcedEvent)) {
 			// PP Blessing
 			this.addMessage(" -- PP BLESSING --");
-			if (this.STAND_BATTLE) {
+			if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
 				this.addMessage("Stånds are unaffected.");
 			}
 			else {
@@ -4558,7 +4563,7 @@ class Duel {
 				_fighter.playMove(EMOTE_PP77);
 			});
 		}
-		else if (randomVar == 35 && !this.STAND_BATTLE) {
+		else if (randomVar == 35 && !this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
 			// BIZARRE PP
 			this.addMessage(" -- BIZARRE PP BATTLE --");
 			this.bothFightersAction(function(_fighter) {
@@ -4608,6 +4613,13 @@ class Duel {
 				this.FORCE_EVENT_ID = idList[i];
 				this.startRandomEvent();
 			}
+		}
+		else if (randomVar == 200) {
+			// TEST
+			this.addMessage(" -- DEV TEST EVENT --");
+			this.addMessage("I use this fake event to test things. Don't worry it cannot appear in normal games.");
+			
+			this.startCityMode();
 		}
 		else {
 			this.addMessage("No event this turn...");
@@ -5138,7 +5150,7 @@ class Duel {
 	}
 	
 	checkStandSummon() {
-		if (!this.STAND_BATTLE) {
+		if (!this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
 			this.bothFightersAction(function(_fighter) {
 				var check = false;
 				for (var i in STAND_SUMMONS) {
@@ -5179,13 +5191,21 @@ class Duel {
 				return;
 			}
 			
-			this.STAND_BATTLE = true;
+			this.CURRENT_BATTLE_MODE = STAND_BATTLE_MODE;
 			this.FIGHTER1_SAVE = this.FIGHTER1;
 			this.FIGHTER2_SAVE = this.FIGHTER2;
 			this.FIGHTER1 = new Fighter(this.FIGHTER1.idUser, this.BATTLE_CHANNEL.id, this.FIGHTER1.currentStand);
 			this.FIGHTER2 = new Fighter(this.FIGHTER2.idUser, this.BATTLE_CHANNEL.id, this.FIGHTER2.currentStand);
 		}
 		this.sendMessages();
+	}
+	startCityMode() {
+		if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) return;
+		
+		this.FIGHTER1 = new City(this.FIGHTER1, this.BATTLE_CHANNEL.id);
+		this.FIGHTER2 = new City(this.FIGHTER2, this.BATTLE_CHANNEL.id);
+		
+		this.CURRENT_BATTLE_MODE = CITY_BATTLE_MODE;
 	}
 	
 	setRandomAttackList() {
@@ -5217,7 +5237,7 @@ class Duel {
 		if (this.FORCE_SATAN) {
 			return this.LIST_AVAILABLE_ATTACKS = [EMOTE_PP26];
 		}
-		if (this.STAND_BATTLE) {
+		if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
 			while (listeAttaques.length < 5) {
 				emote = this.getRandomEmote();
 				if (listeAttaques.indexOf(emote) < 0) {
@@ -5301,7 +5321,7 @@ class Duel {
 				EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP21, EMOTE_PP22, EMOTE_PP30, EMOTE_PP31,
 				EMOTE_PP39, EMOTE_PP42, EMOTE_PP45];
 		}
-		if (this.STAND_BATTLE) {
+		if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
 			goodList = STAND_EMOTE_LIST;
 		}
 		if (getRandomPercent() <= 3) {
