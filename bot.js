@@ -107,9 +107,11 @@ const EMOTE_PP79 = "667336163396288522"; // Eye of Truth
 const EMOTE_PP80 = "644617031739768842"; // Fherla
 const EMOTE_PP81 = "650398049126055937"; // Melodia
 
-const EMOTE_PP82 = "623612477942398987"; // SpermProduction
-const EMOTE_PP83 = "674950372707532828"; // ScienceResearch
-const EMOTE_PP84 = "668946953681502248"; // MilitaryTraining
+const EMOTE_PP82 = "677501849699352596"; // SpermProduction
+const EMOTE_PP83 = "677501738512547858"; // ScienceResearch
+const EMOTE_PP84 = "677501736121794602"; // MilitaryTraining
+const EMOTE_PP85 = "677501736499544094"; // IntenseMilitary
+const EMOTE_PP86 = "677501736495218714"; // IntenseScience
 
 // DON'T FORGET TO ADD TO THE CHEAT PANEL
 const NORMAL_EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8,
@@ -125,7 +127,7 @@ const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOT
 const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70,
 			  EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP77, EMOTE_PP78];
 const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
-const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84];
+const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP86];
 const OTHER_EMOTE_LIST = [EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE];
 const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST).concat(CIV_EMOTE_LIST).concat(OTHER_EMOTE_LIST);
 
@@ -2631,14 +2633,28 @@ class Fighter {
 				this.money += this.benefit*2;
 			}
 			else if (attack == EMOTE_PP83) {
-				// Science research
+				// Science Research
+				this.money -= 5;
 				this.duel.addMessage(this.getName() + " does some research in science !");
 				this.sciencePower += 1;
 			}
 			else if (attack == EMOTE_PP84) {
-				// MilitaryTraining
+				// Military Training
+				this.money -= 5;
 				this.duel.addMessage(this.getName() + " does some military training !");
 				this.militaryPower += 1;
+			}
+			else if (attack == EMOTE_PP85) {
+				// Intense Military
+				this.money -= 5;
+				this.duel.addMessage(this.getName() + " increases his military training !");
+				this.intenseMilitary += 1;
+			}
+			else if (attack == EMOTE_PP86) {
+				// Intense Science
+				this.money -= 5;
+				this.duel.addMessage(this.getName() + " increases his scientific researches !");
+				this.intenseScience += 1;
 			}
 			else if (attack == EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE) {
 				// Judgement Event
@@ -3260,39 +3276,12 @@ class City extends Fighter {
 		this.militaryPower = 0;
 		this.stdList = [];
 		
+		this.intenseMilitary = 0;
+		this.intenseScience = 0;
+		
 		this.money = this.benefit*3;
 	}
 	
-	get STR() {
-		var str = super.STR;
-		
-		str += this.militaryPower*500;
-		
-		return str;
-	}
-	
-	get DEX() {
-		var dex = super.DEX;
-		
-		dex += this.militaryPower*5;
-		
-		return dex;
-	}
-	
-	get benefit() {
-		var win = 10;
-		
-		win += this.sciencePower;
-		
-		return win;
-	}
-	
-	getName() {
-		if (this.customName == null) {
-			return super.getName() + " City";
-		}
-		return this.customName;
-	}
 	toString() {
 		if (this.duel.MOVE_COUNT >= 10000) {
 			return "**" + this.getName() + "**\n - Wiped out";
@@ -3322,6 +3311,15 @@ class City extends Fighter {
 		txt += "\n - Scientific Knowledge : " + this.sciencePower;
 		txt += "\n - Military Power : " + this.militaryPower;
 		
+		// status
+		txt += "\n\n**Status :**\n"
+		if (this.intenseScience > 0) {
+			txt += " - Intense Science : " + this.intenseScience + "\n";
+		}
+		if (this.intenseMilitary > 0) {
+			txt += " - Intense Military : " + this.intenseMilitary + "\n";
+		}
+		
 		// std
 		if (this.stdList.length > 0) {
 			txt += "\n\n**STD :**";
@@ -3332,11 +3330,53 @@ class City extends Fighter {
  
 		return txt;
 	}
+	getName() {
+		if (this.customName == null) {
+			return super.getName() + " City";
+		}
+		return this.customName;
+	}
+	
+	get STR() {
+		var str = super.STR;
+		
+		str += this.militaryPower*500;
+		
+		return str;
+	}
+	
+	get DEX() {
+		var dex = super.DEX;
+		
+		dex += this.militaryPower*5;
+		
+		return dex;
+	}
+	
+	get benefit() {
+		var win = 10;
+		
+		win += this.sciencePower;
+		
+		return win;
+	}
 	
 	turnChange() {
 		super.turnChange();
 		
 		this.money += this.benefit;
+		for (var i = 0; i < this.intenseScience; i++) {
+			this.playMove(EMOTE_PP83);
+		}
+		for (var i = 0; i < this.intenseMilitary; i++) {
+			this.playMove(EMOTE_PP84);
+		}
+		
+		if (this.money <= 0) {
+			this.intenseScience = 0;
+			this.intenseMilitary = 0;
+			this.attack = EMOTE_SKIP;
+		}
 		
 		this.mayor.turnChange();
 	}
@@ -5109,7 +5149,7 @@ class Duel {
 		
 		if ((dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) ||
 		    this.AUTO_MOVES_COUNTDOWN > 0 || this.EVENT_BOSS || this.getOppOf(winner).legAimer ||
-		    this.TIME_STOP > 0) {
+		    this.TIME_STOP > 0 || this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
 			this.addMessage("Both opponents attack this turn !");
 			this.sendMessages();
 			
@@ -5192,11 +5232,6 @@ class Duel {
 			if (this.getOppOf(winner).attack == EMOTE_SKIP && this.getOppOf(winner).futureMemories == 0) {
 				this.getOppOf(winner).playMove();
 			}
-			
-			// Civ moves always pass
-			if (CIV_EMOTE_LIST.indexOf(this.getOppOf(winner).attack)) {
-				this.getOppOf(winner).playMove();
-			}
 		}
 		if (this.MOVE_COUNT_TURN >= 500) {
 			this.sendMessages(1);
@@ -5270,6 +5305,7 @@ class Duel {
 		
 		this.CURRENT_BATTLE_MODE = CITY_BATTLE_MODE;
 		this.CITY_ADVANCEMENT = 1;
+		this.KIDNEY_CURSE = 0;
 		
 		this.addMessage("**===== CIVILISATION BATTLE MODE =====**");
 		this.addMessage("Both fighters starts a new civilisation as their leader. Your next message will be the name of your city !");
@@ -5304,7 +5340,7 @@ class Duel {
 		if (this.FORCE_SATAN) {
 			return this.LIST_AVAILABLE_ATTACKS = [EMOTE_PP26];
 		}
-		if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE || this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
+		if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
 			var nbTries = 0
 			while (listeAttaques.length < 5 & nbTries < 100) {
 				emote = this.getRandomEmote();
@@ -5316,6 +5352,9 @@ class Duel {
 		}
 		else {
 			var commonMoves = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5];
+			if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
+				var commonMoves = [EMOTE_PP84, EMOTE_PP85, EMOTE_PP86, EMOTE_PP87, EMOTE_PP88]
+			}
 			
 			for (var i in commonMoves) {
 				if (this.KIDNEY_CURSE <= i || this.KIDNEY_CURSE <= 0) {
