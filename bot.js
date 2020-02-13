@@ -2625,6 +2625,21 @@ class Fighter {
 					this.duel.addMessage("UwU Mode Deactivated !");
 				}
 			}
+			else if (attack == EMOTE_PP82) {
+				// Sperm Production
+				this.duel.addMessage(this.getName() + " products some more sperm !");
+				this.money += this.benefit*2;
+			}
+			else if (attack == EMOTE_PP83) {
+				// Science research
+				this.duel.addMessage(this.getName() + " does some research in science !");
+				this.sciencePower += 1;
+			}
+			else if (attack == EMOTE_PP84) {
+				// Melodia
+				this.duel.addMessage(this.getName() + " does some military training !");
+				this.militaryPower += 1;
+			}
 			else if (attack == EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE) {
 				// Judgement Event
 				if (this.duel.ESPINOZA_CHOICE == attack) {
@@ -5175,6 +5190,11 @@ class Duel {
 			}
 			// D-Mail
 			if (this.getOppOf(winner).attack == EMOTE_SKIP && this.getOppOf(winner).futureMemories == 0) {
+				this.getOppOf(winner).playMove();
+			}
+			
+			// Civ moves always pass
+			if (CIV_EMOTE_LIST.indexOf(this.getOppOf(winner).attack)) {
 				this.getOppOf(winner).playMove();
 			}
 		}
