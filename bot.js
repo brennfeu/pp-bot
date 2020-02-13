@@ -3261,7 +3261,7 @@ class City extends Fighter {
 		
 		dex += this.militaryPower*5;
 		
-		return str;
+		return dex;
 	}
 	
 	get benefit() {
