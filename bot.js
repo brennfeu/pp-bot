@@ -5353,7 +5353,7 @@ class Duel {
 		else {
 			var commonMoves = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5];
 			if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
-				var commonMoves = [EMOTE_PP84, EMOTE_PP85, EMOTE_PP86, EMOTE_PP87, EMOTE_PP88]
+				var commonMoves = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP86]
 			}
 			
 			for (var i in commonMoves) {
