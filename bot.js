@@ -484,7 +484,7 @@ class Fighter {
 		if (this.duel.RUSSIAN_TEXT > 0) {
 			name += "ijov";
 		}
-		return name;
+		return name.secureXSS();
 	}
 
 	// fighter.STR
@@ -5493,6 +5493,10 @@ class Duel {
 
 
 // FONCTIONS
+String.prototype.secureXSS = function(){
+	return this.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+};
+
 function getRandomPercent() {
 	var i = Math.floor(Math.random() * 100 + 1);
 	return i;
@@ -5559,8 +5563,8 @@ function checkCityNameChange(_message) {
 
 	duel.bothFightersAction(function(_fighter) {
 		if (_fighter.customName == null && _message.author.id == _fighter.idUser && _fighter.idUser != CLIENT.user.id) {
-			_fighter.customName = _message.content;
-			_fighter.duel.BATTLE_CHANNEL.send(_fighter.getName() + " changed his city name !");
+			_fighter.customName = _message.content.secureXSS();
+			_fighter.duel.BATTLE_CHANNEL.send(_fighter.mayor.getName() + " changed his city name !");
 		}
 	});
 }
