@@ -5549,14 +5549,14 @@ function skipWaitingDuels() {
 	}
 }
 function checkCityNameChange(_message) {
-	if (getDuel(_message.channel.id) == null) {
+	var duel = getDuel(_message.channel.id);
+	if (duel == null || duel.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
 		return;
 	}
 	if (_message.content.length > 500) {
 		return;
 	}
-	
-	var duel = getDuel(_message.channel.id);
+
 	duel.bothFightersAction(function(_fighter) {
 		if (_fighter.customName == null && _message.author.id == _fighter.idUser && _fighter.idUser != CLIENT.user.id) {
 			_fighter.customName = _message.content;
