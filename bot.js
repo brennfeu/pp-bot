@@ -107,6 +107,10 @@ const EMOTE_PP79 = "667336163396288522"; // Eye of Truth
 const EMOTE_PP80 = "644617031739768842"; // Fherla
 const EMOTE_PP81 = "650398049126055937"; // Melodia
 
+const EMOTE_PP82 = "623612477942398987"; // SpermProduction
+const EMOTE_PP83 = "674950372707532828"; // ScienceResearch
+const EMOTE_PP84 = "668946953681502248"; // MilitaryTraining
+
 // DON'T FORGET TO ADD TO THE CHEAT PANEL
 const NORMAL_EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8,
 		    EMOTE_PP9, EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, 
@@ -121,8 +125,9 @@ const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOT
 const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70,
 			  EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP77, EMOTE_PP78];
 const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
+const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84];
 const OTHER_EMOTE_LIST = [EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE];
-const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST).concat(OTHER_EMOTE_LIST);
+const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST).concat(CIV_EMOTE_LIST).concat(OTHER_EMOTE_LIST);
 
 const GOD_PP1 = {"name" : "Mongo", "emote": "644643782888783892", "type": "normal"};
 const GOD_PP2 = {"name" : "Hermit", "emote": "674635214005207040", "type": "normal"};
@@ -3239,10 +3244,31 @@ class City extends Fighter {
 		this.sciencePower = 0;
 		this.militaryPower = 0;
 		this.stdList = [];
+		
+		this.money = this.benefit*3;
+	}
+	
+	get STR() {
+		var str = super.STR;
+		
+		str += this.militaryPower*500;
+		
+		return str;
+	}
+	
+	get DEX() {
+		var dex = super.DEX;
+		
+		dex += this.militaryPower*5;
+		
+		return str;
 	}
 	
 	get benefit() {
 		var win = 10;
+		
+		win += this.sciencePower;
+		
 		return win;
 	}
 	
@@ -5258,7 +5284,7 @@ class Duel {
 		if (this.FORCE_SATAN) {
 			return this.LIST_AVAILABLE_ATTACKS = [EMOTE_PP26];
 		}
-		if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
+		if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE || this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
 			while (listeAttaques.length < 5) {
 				emote = this.getRandomEmote();
 				if (listeAttaques.indexOf(emote) < 0) {
@@ -5351,6 +5377,10 @@ class Duel {
 		if (goodList.indexOf(EMOTE_PP77) > -1 && (this.FIGHTER1.quickeningCharges < 10 || this.FIGHTER2.quickeningCharges < 10)) {
 			// Satan Hand
 			goodList = goodList.splice(goodList.indexOf(EMOTE_PP77), 1);
+		}
+		
+		if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
+			goodList = CIV_EMOTE_LIST;
 		}
 
 		return randomFromList(goodList);
