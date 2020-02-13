@@ -5552,12 +5552,15 @@ function checkCityNameChange(_message) {
 	if (getDuel(_message.channel.id) == null) {
 		return;
 	}
+	if (_message.content.length > 500) {
+		return;
+	}
 	
 	var duel = getDuel(_message.channel.id);
 	duel.bothFightersAction(function(_fighter) {
-		if (_fighter.customName == null && _message.author.id == _fighter.idUser) {
+		if (_fighter.customName == null && _message.author.id == _fighter.idUser && _fighter.idUser != CLIENT.user.id) {
 			_fighter.customName = _message.content;
-			_fighter.duel.addMessage(_fighter.getName() + " changed his city name !");
+			_fighter.duel.BATTLE_CHANNEL.send(_fighter.getName() + " changed his city name !");
 		}
 	});
 }
