@@ -107,11 +107,15 @@ const EMOTE_PP79 = "667336163396288522"; // Eye of Truth
 const EMOTE_PP80 = "644617031739768842"; // Fherla
 const EMOTE_PP81 = "650398049126055937"; // Melodia
 
-const EMOTE_PP82 = "677501849699352596"; // SpermProduction
-const EMOTE_PP83 = "677501738512547858"; // ScienceResearch
-const EMOTE_PP84 = "677501736121794602"; // MilitaryTraining
-const EMOTE_PP85 = "677501736499544094"; // IntenseMilitary
-const EMOTE_PP86 = "677501736495218714"; // IntenseScience
+const EMOTE_PP82 = "677501849699352596"; // 
+const EMOTE_PP83 = "677501738512547858"; // 
+const EMOTE_PP84 = "677501736121794602"; // 
+const EMOTE_PP85 = "677501736499544094"; // 
+const EMOTE_PP86 = "677501736495218714"; // 
+const EMOTE_PP87 = "677794152095678465"; // 
+const EMOTE_PP88 = ""; // 
+const EMOTE_PP89 = ""; // 
+const EMOTE_PP90 = ""; // 
 
 // DON'T FORGET TO ADD TO THE CHEAT PANEL
 const NORMAL_EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8,
@@ -127,7 +131,7 @@ const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOT
 const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70,
 			  EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP77, EMOTE_PP78];
 const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
-const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP86];
+const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP86, EMOTE_PP87];
 const OTHER_EMOTE_LIST = [EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE];
 const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST).concat(CIV_EMOTE_LIST).concat(OTHER_EMOTE_LIST);
 
@@ -2636,13 +2640,13 @@ class Fighter {
 				// Science Research
 				this.money -= 5;
 				this.duel.addMessage(this.getName() + " does some research in science !");
-				this.sciencePower += 1;
+				this.sciencePower += Math.floor(this.sciencePower/10);
 			}
 			else if (attack == EMOTE_PP84) {
 				// Military Training
 				this.money -= 5;
 				this.duel.addMessage(this.getName() + " does some military training !");
-				this.militaryPower += 1;
+				this.militaryPower += Math.floor(this.militaryPower/10);;
 			}
 			else if (attack == EMOTE_PP85) {
 				// Intense Military
@@ -2655,6 +2659,18 @@ class Fighter {
 				this.money -= 5;
 				this.duel.addMessage(this.getName() + " increases his scientific researches !");
 				this.intenseScience += 1;
+			}
+			else if (attack == EMOTE_PP87) {
+				// Weapon Research
+				this.money -= 30;
+				this.duel.addMessage(this.getName() + " researches in weapons !");
+				if (this.militaryPower >= this.sciencePower) {
+					this.duel.addMessage("But it has no use...");
+				}
+				else {
+					this.duel.addMessage(this.getName () + " get as much Military Power as Scientific Knowledge !");
+					this.militaryPower = this.sciencePower;
+				}
 			}
 			else if (attack == EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE) {
 				// Judgement Event
