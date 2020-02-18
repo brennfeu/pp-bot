@@ -107,7 +107,7 @@ const EMOTE_PP79 = "667336163396288522"; // Eye of Truth
 const EMOTE_PP80 = "644617031739768842"; // Fherla
 const EMOTE_PP81 = "650398049126055937"; // Melodia
 
-const EMOTE_PP82 = ""; // 
+const EMOTE_PP82 = "623612477942398987"; // 
 const EMOTE_PP83 = ""; // 
 const EMOTE_PP84 = ""; // 
 const EMOTE_PP85 = ""; // 
@@ -119,19 +119,20 @@ const EMOTE_PP90 = ""; //
 
 // DON'T FORGET TO ADD TO THE CHEAT PANEL
 const NORMAL_EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8,
-		    EMOTE_PP9, EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, 
-		    EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20, EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, 
-		    EMOTE_PP25, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30, EMOTE_PP31, EMOTE_PP32, 
-		    EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP36, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40, 
-		    EMOTE_PP41, EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP47, EMOTE_PP48, 
-		    EMOTE_PP49, EMOTE_PP50];
+			EMOTE_PP9, EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, 
+			EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20, EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, 
+			EMOTE_PP25, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28, EMOTE_PP29, EMOTE_PP30, EMOTE_PP31, EMOTE_PP32, 
+			EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP36, EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40, 
+			EMOTE_PP41, EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP47, EMOTE_PP48, 
+			EMOTE_PP49, EMOTE_PP50];
 const GOD_EMOTE_LIST = [EMOTE_PP51, EMOTE_PP52];
 const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58, EMOTE_PP59, EMOTE_PP60,
-			   EMOTE_PP61, EMOTE_PP62];
+			EMOTE_PP61, EMOTE_PP62];
 const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70,
-			  EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP77, EMOTE_PP78];
+			EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP77, EMOTE_PP78];
 const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
-const CIV_EMOTE_LIST = [];
+const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP86, EMOTE_PP87, EMOTE_PP88, EMOTE_PP89, 
+			EMOTE_PP90];
 const OTHER_EMOTE_LIST = [EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE];
 const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST).concat(CIV_EMOTE_LIST).concat(OTHER_EMOTE_LIST);
 
@@ -2672,6 +2673,41 @@ class Fighter {
 					this.militaryPower = this.sciencePower;
 				}
 			}
+			else if (attack == EMOTE_PP88) {
+				// Quick Attack
+				this.militaryPower -= 1;
+				this.duel.addMessage(this.getName() + " attacks " + this.getOppName() + " !");
+				if (this.duel.getOppOf(this).militaryPower >= this.militaryPower) {
+					this.duel.addMessage(this.duel.getOppOf(this).getName() + " defended itself !");
+				}
+				else {
+					this.duel.getOppOf(this).damage((this.militaryPower - this.duel.getOppOf(this).militaryPower)*10);
+				}
+			}
+			else if (attack == EMOTE_PP89) {
+				// Science Raid
+				this.militaryPower -= 10;
+				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + " !");
+				if (this.duel.getOppOf(this).militaryPower >= this.militaryPower) {
+					this.duel.addMessage(this.duel.getOppOf(this).getName() + " defended itself !");
+				}
+				else {
+					this.sciencePower += Math.min(this.duel.getOppOf(this).sciencePower, this.militaryPower - this.duel.getOppOf(this).militaryPower);
+					this.duel.getOppOf(this).sciencePower -= Math.min(this.duel.getOppOf(this).sciencePower, this.militaryPower - this.duel.getOppOf(this).militaryPower);
+				}
+			}
+			else if (attack == EMOTE_PP90) {
+				// Sperm Raid
+				this.militaryPower -= 10;
+				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + " !");
+				if (this.duel.getOppOf(this).militaryPower >= this.militaryPower) {
+					this.duel.addMessage(this.duel.getOppOf(this).getName() + " defended itself !");
+				}
+				else {
+					this.money += Math.min(this.duel.getOppOf(this).money, (this.militaryPower - this.duel.getOppOf(this).militaryPower)*10);
+					this.duel.getOppOf(this).money -= Math.min(this.duel.getOppOf(this).money, (this.militaryPower - this.duel.getOppOf(this).militaryPower)*10);
+				}
+			}
 			else if (attack == EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE) {
 				// Judgement Event
 				if (this.duel.ESPINOZA_CHOICE == attack) {
@@ -3394,6 +3430,7 @@ class City extends Fighter {
 			this.attack = EMOTE_SKIP;
 		}
 		
+		this.duel.addMessage("-----------------");
 		this.mayor.turnChange();
 	}
 }
@@ -5086,7 +5123,7 @@ class Duel {
 			}
 
 			// Caught cheating --> test si malus dex
-			if (caught1 && (getRandomPercent() >= 33 || _fighter.hasSynergy(SYNERGY_PP9))) {
+			if (caught1 && (getRandomPercent() >= 10 || _fighter.hasSynergy(SYNERGY_PP9) || _fighter.duel.EVENT_DEPRESSION)) {
 				duel.addMessage(_fighter.getName() + " is doing illegal stuff ! He loses 20 DEX and 10 STR.");
 				duel.sendMessages();
 				_fighter.STRValue -= 10;
@@ -5101,7 +5138,7 @@ class Duel {
 				duel.sendMessages();
 
 				addWinCounter(_fighter, -1);
-				duel.stopDuel();
+				duel.checkDeath();
 			}
 		});
 		if (this.DEAD_DUEL) return;
