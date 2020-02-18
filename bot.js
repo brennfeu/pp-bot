@@ -3550,7 +3550,7 @@ class Duel {
 			this.CHRISTIAN_TEXT = true;
 		}
 		// Weeb
-		if (getRandomPercent() <= 33) {
+		if (getRandomPercent() <= 10) {
 			this.addMessage("**===== WEEB =====**");
 			this.addMessage(BOSS_PP11 + " challenges you !");
 			this.CURRENT_BOSS = BOSS_PP11;
