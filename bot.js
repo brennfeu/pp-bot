@@ -808,7 +808,7 @@ class Fighter {
 		if (this.pigHeal > 0) {
 			txt += " - Hog Squeezer : " + this.pigHeal;
 			if (this.isCowBoy) {
-				txt += "(**Cowboy**)";
+				txt += " (**Cowboy**)";
 			}
 			txt += "\n";
 		}
