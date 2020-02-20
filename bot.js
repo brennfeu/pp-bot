@@ -2793,7 +2793,7 @@ class Fighter {
 		}
 		if (this.duel.STEEL_PROTECTION) {
 			// Steel
-			_amount -= Math.floor(_amount/10);
+			_amount -= Math.floor(_amount/10*9);
 		}
 		if (this.duel.getOppOf(this).hasSynergy(SYNERGY_PP16) && _punch) {
 			// Too Much Dicks
@@ -4288,22 +4288,18 @@ class Duel {
 				this.FIGHTER2_SAVE.quickeningCharges += 10;
 				this.addMessage("**" + this.FIGHTER1.getName() + " has been defeated !**");
 
-				if (this.FIGHTER1.standPower == STAND_PP3) {
-					this.playMove(EMOTE_PP47);
-				}
-				if (this.FIGHTER2.standPower == STAND_PP3) {
-					this.playMove(EMOTE_PP58);
+				if (this.FIGHTER1.standPower == STAND_PP3 || this.FIGHTER2.standPower == STAND_PP3) {
+					this.FIGHTER1_SAVE.playMove(EMOTE_PP47);
+					this.FIGHTER2_SAVE.playMove(EMOTE_PP58);
 				}
 			}
 			if (this.FIGHTER2.STR <= 0) {
 				this.FIGHTER1_SAVE.quickeningCharges += 10;
 				this.addMessage("**" + this.FIGHTER2.getName() + " has been defeated !**");
 
-				if (this.FIGHTER2.standPower == STAND_PP3) {
-					this.playMove(EMOTE_PP47);
-				}
-				if (this.FIGHTER1.standPower == STAND_PP3) {
-					this.playMove(EMOTE_PP58);
+				if (this.FIGHTER1.standPower == STAND_PP3 || this.FIGHTER2.standPower == STAND_PP3) {
+					this.FIGHTER2_SAVE.playMove(EMOTE_PP47);
+					this.FIGHTER1_SAVE.playMove(EMOTE_PP58);
 				}
 			}
 			if (this.FIGHTER1.STR > 0) {
