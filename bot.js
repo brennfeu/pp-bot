@@ -5792,6 +5792,16 @@ function sendCheatPanel(_channel) {
 	}).catch(function(e) {
 		console.log(e);
 	});
+	_channel.send("Cheat Panel : Civilisation Moves I").then(function (_message2) {
+		_message2.react(EMOTE_PP82); _message2.react(EMOTE_PP83);
+		_message2.react(EMOTE_PP84); _message2.react(EMOTE_PP85);
+		_message2.react(EMOTE_PP86); _message2.react(EMOTE_PP87);
+		_message2.react(EMOTE_PP88); _message2.react(EMOTE_PP89);
+		_message2.react(EMOTE_PP90); _message2.react(EMOTE_PP91);
+		_message2.react(EMOTE_PP92); _message2.react(EMOTE_PP93);
+	}).catch(function(e) {
+		console.log(e);
+	});
 	_channel.send("Cheat Panel : Gods I").then(function (_message2) {
 		for (var i in GOD_LIST) {
 			if (GOD_LIST[i].type == "normal") {
