@@ -108,14 +108,17 @@ const EMOTE_PP80 = "644617031739768842"; // Fherla
 const EMOTE_PP81 = "650398049126055937"; // Melodia
 
 const EMOTE_PP82 = "680064464883548279"; // Familiar Shrine
-const EMOTE_PP83 = ""; // 
-const EMOTE_PP84 = ""; // 
-const EMOTE_PP85 = ""; // 
-const EMOTE_PP86 = ""; // 
-const EMOTE_PP87 = ""; // 
-const EMOTE_PP88 = ""; // 
-const EMOTE_PP89 = ""; // 
-const EMOTE_PP90 = ""; // 
+const EMOTE_PP83 = "680064464648798213"; // Junk Shrine
+const EMOTE_PP84 = "680064464619569185"; // Glass Shrine
+const EMOTE_PP85 = "680064464250208277"; // Dice Shrine
+const EMOTE_PP86 = "680064464401465365"; // Angel Shrine
+const EMOTE_PP87 = "680064464653123605"; // Peace Shrine
+const EMOTE_PP88 = "680064464460054552"; // YV Shrine
+const EMOTE_PP89 = "680064464670032050"; // Hero Shrine
+const EMOTE_PP90 = "680064464686809094"; // Cleanse Shrine
+const EMOTE_PP91 = "680064464728358920"; // Blood Shrine
+const EMOTE_PP92 = "680064464691003400"; // Beholster Shrine
+const EMOTE_PP93 = "680064464695066642"; // Ammo Shrine
 
 // DON'T FORGET TO ADD TO THE CHEAT PANEL
 const NORMAL_EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8,
@@ -132,7 +135,7 @@ const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_
 			EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP77, EMOTE_PP78];
 const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
 const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP86, EMOTE_PP87, EMOTE_PP88, EMOTE_PP89, 
-			EMOTE_PP90];
+			EMOTE_PP90, EMOTE_PP91, EMOTE_PP92, EMOTE_PP93];
 const OTHER_EMOTE_LIST = [EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE];
 const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST).concat(CIV_EMOTE_LIST).concat(OTHER_EMOTE_LIST);
 
@@ -2633,80 +2636,16 @@ class Fighter {
 				}
 			}
 			else if (attack == EMOTE_PP82) {
-				// Sperm Production
-				this.duel.addMessage(this.getName() + " products some more sperm !");
-				this.money += this.benefit*2;
-			}
-			else if (attack == EMOTE_PP83) {
-				// Science Research
-				this.money -= 5;
-				this.duel.addMessage(this.getName() + " does some research in science !");
-				this.sciencePower += Math.floor(this.sciencePower/10);
-			}
-			else if (attack == EMOTE_PP84) {
-				// Military Training
-				this.money -= 5;
-				this.duel.addMessage(this.getName() + " does some military training !");
-				this.militaryPower += Math.floor(this.militaryPower/10);;
-			}
-			else if (attack == EMOTE_PP85) {
-				// Intense Military
-				this.money -= 5;
-				this.duel.addMessage(this.getName() + " increases his military training !");
-				this.intenseMilitary += 1;
-			}
-			else if (attack == EMOTE_PP86) {
-				// Intense Science
-				this.money -= 5;
-				this.duel.addMessage(this.getName() + " increases his scientific researches !");
-				this.intenseScience += 1;
-			}
-			else if (attack == EMOTE_PP87) {
-				// Weapon Research
-				this.money -= 30;
-				this.duel.addMessage(this.getName() + " researches in weapons !");
-				if (this.militaryPower >= this.sciencePower) {
-					this.duel.addMessage("But it has no use...");
+				// Familiar Shrine
+				if (!this.familiarShrine) {
+					this.duel.addMessage(this.getName() + " now has a Familiar Shrine !");
+					this.familiarShrine = true;
+					this.money -= 30;
 				}
 				else {
-					this.duel.addMessage(this.getName () + " get as much Military Power as Scientific Knowledge !");
-					this.militaryPower = this.sciencePower;
+					this.duel.addMessage(this.getName() + " already had a Familiar Shrine !");
 				}
-			}
-			else if (attack == EMOTE_PP88) {
-				// Quick Attack
-				this.militaryPower -= 1;
-				this.duel.addMessage(this.getName() + " attacks " + this.getOppName() + " !");
-				if (this.duel.getOppOf(this).militaryPower >= this.militaryPower) {
-					this.duel.addMessage(this.duel.getOppOf(this).getName() + " defended itself !");
-				}
-				else {
-					this.duel.getOppOf(this).damage((this.militaryPower - this.duel.getOppOf(this).militaryPower)*10);
-				}
-			}
-			else if (attack == EMOTE_PP89) {
-				// Science Raid
-				this.militaryPower -= 10;
-				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + " !");
-				if (this.duel.getOppOf(this).militaryPower >= this.militaryPower) {
-					this.duel.addMessage(this.duel.getOppOf(this).getName() + " defended itself !");
-				}
-				else {
-					this.sciencePower += Math.min(this.duel.getOppOf(this).sciencePower, this.militaryPower - this.duel.getOppOf(this).militaryPower);
-					this.duel.getOppOf(this).sciencePower -= Math.min(this.duel.getOppOf(this).sciencePower, this.militaryPower - this.duel.getOppOf(this).militaryPower);
-				}
-			}
-			else if (attack == EMOTE_PP90) {
-				// Sperm Raid
-				this.militaryPower -= 10;
-				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + " !");
-				if (this.duel.getOppOf(this).militaryPower >= this.militaryPower) {
-					this.duel.addMessage(this.duel.getOppOf(this).getName() + " defended itself !");
-				}
-				else {
-					this.money += Math.min(this.duel.getOppOf(this).money, (this.militaryPower - this.duel.getOppOf(this).militaryPower)*10);
-					this.duel.getOppOf(this).money -= Math.min(this.duel.getOppOf(this).money, (this.militaryPower - this.duel.getOppOf(this).militaryPower)*10);
-				}
+				
 			}
 			else if (attack == EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE) {
 				// Judgement Event
@@ -3324,12 +3263,19 @@ class City extends Fighter {
 		this.mayor = _mayor; // Fighter class
 		this.money = 0;
 		this.customName = null;
-		this.sciencePower = 0;
-		this.militaryPower = 0;
-		this.stdList = [];
 		
-		this.intenseMilitary = 0;
-		this.intenseScience = 0;
+		this.familiarShrine = false;
+		this.junkShrine = false;
+		this.glassShrine = false;
+		this.diceShrine = false;
+		this.angelShrine = false;
+		this.peaceShrine = false;
+		this.yvShrine = false;
+		this.heroShrine = false;
+		this.cleanseShrine = false;
+		this.bloodShrine = false;
+		this.beholsterShrine = false;
+		this.ammoShrine = false;
 		
 		this.money = this.benefit*3;
 	}
@@ -3359,26 +3305,46 @@ class City extends Fighter {
 		txt += "\n**Benefit :** " + this.benefit + " liters/turn";
 		
 		// powers
-		txt += "\n\n**Advancements :**";
-		txt += "\n - Scientific Knowledge : " + this.sciencePower;
-		txt += "\n - Military Power : " + this.militaryPower;
+		txt += "\n\n**Buildings :**";
+		if (this.familiarShrine) {
+			txt += "\n - Familiar Shrine";
+		}
+		if (this.junkShrine) {
+			txt += "\n - Junk Shrine";
+		}
+		if (this.glassShrine) {
+			txt += "\n - Glass Shrine";
+		}
+		if (this.diceShrine) {
+			txt += "\n - Dice Shrine";
+		}
+		if (this.angelShrine) {
+			txt += "\n - Angel Shrine";
+		}
+		if (this.peaceShrine) {
+			txt += "\n - Peace Shrine";
+		}
+		if (this.yvShrine) {
+			txt += "\n - YV Shrine";
+		}
+		if (this.heroShrine) {
+			txt += "\n - Hero Shrine";
+		}
+		if (this.cleanseShrine) {
+			txt += "\n - Cleanse Shrine";
+		}
+		if (this.bloodShrine) {
+			txt += "\n - Blood Shrine";
+		}
+		if (this.beholsterShrine) {
+			txt += "\n - Beholster Shrine";
+		}
+		if (this.ammoShrine) {
+			txt += "\n - Ammo Shrine";
+		}
 		
 		// status
 		txt += "\n\n**Status :**\n"
-		if (this.intenseScience > 0) {
-			txt += " - Intense Science : " + this.intenseScience + "\n";
-		}
-		if (this.intenseMilitary > 0) {
-			txt += " - Intense Military : " + this.intenseMilitary + "\n";
-		}
-		
-		// std
-		if (this.stdList.length > 0) {
-			txt += "\n\n**STD :**";
-			for (var i in this.stdList) {
-				txt += "\n - " + this.stdList[i];
-			}
-		}
  
 		return txt;
 	}
@@ -3392,23 +3358,17 @@ class City extends Fighter {
 	get STR() {
 		var str = super.STR;
 		
-		str += this.militaryPower*500;
-		
 		return str;
 	}
 	
 	get DEX() {
 		var dex = super.DEX;
 		
-		dex += this.militaryPower*5;
-		
 		return dex;
 	}
 	
 	get benefit() {
 		var win = 10;
-		
-		win += this.sciencePower;
 		
 		return win;
 	}
@@ -3417,16 +3377,8 @@ class City extends Fighter {
 		super.turnChange();
 		
 		this.money += this.benefit;
-		for (var i = 0; i < this.intenseScience; i++) {
-			this.playMove(EMOTE_PP83);
-		}
-		for (var i = 0; i < this.intenseMilitary; i++) {
-			this.playMove(EMOTE_PP84);
-		}
 		
 		if (this.money <= 0) {
-			this.intenseScience = 0;
-			this.intenseMilitary = 0;
 			this.attack = EMOTE_SKIP;
 		}
 		
