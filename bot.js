@@ -107,7 +107,7 @@ const EMOTE_PP79 = "667336163396288522"; // Eye of Truth
 const EMOTE_PP80 = "644617031739768842"; // Fherla
 const EMOTE_PP81 = "650398049126055937"; // Melodia
 
-const EMOTE_PP82 = "623612477942398987"; // 
+const EMOTE_PP82 = "680064464883548279"; // Familiar Shrine
 const EMOTE_PP83 = ""; // 
 const EMOTE_PP84 = ""; // 
 const EMOTE_PP85 = ""; // 
