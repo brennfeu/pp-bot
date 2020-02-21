@@ -119,6 +119,25 @@ const EMOTE_PP90 = "680064464686809094"; // Cleanse Shrine
 const EMOTE_PP91 = "680064464728358920"; // Blood Shrine
 const EMOTE_PP92 = "680064464691003400"; // Beholster Shrine
 const EMOTE_PP93 = "680064464695066642"; // Ammo Shrine
+const EMOTE_PP94 = "484385069591429120"; // Bullet Kin
+const EMOTE_PP95 = "680155715700129804"; // Bandana Bullet Kin
+const EMOTE_PP96 = "680155715494871045"; // Agonizer
+const EMOTE_PP97 = "680155715788079224"; // Gunreaper
+const EMOTE_PP98 = "680155715704586253"; // Lord of the Jammed
+const EMOTE_PP99 = "680158074333429760"; // Shelleton
+const EMOTE_PP100 = "680156340525728010"; // Chain Gunner
+const EMOTE_PP101 = "680155715855581197"; // Chancebulon
+const EMOTE_PP102 = "680155715796467712"; // Confirmed
+const EMOTE_PP103 = "680155715792404506"; // Cubelead
+const EMOTE_PP104 = "680155715507322942"; // Cubulon
+const EMOTE_PP105 = "680156340722729097"; // Gun Nut
+const EMOTE_PP106 = "680155715721101333"; // Killithid
+const EMOTE_PP107 = "680155715540746241"; // MuzzleFlare
+const EMOTE_PP108 = "680155715775889426"; // MuzzleWisp
+const EMOTE_PP109 = "680155715557785661"; // Phaser Spider
+const EMOTE_PP110 = "680155715859513404"; // Skullet
+const EMOTE_PP111 = "680155715524100164"; // Skullmet
+const EMOTE_PP112 = "680156340055965822"; // Spectral Gun Nut
 
 // DON'T FORGET TO ADD TO THE CHEAT PANEL
 const NORMAL_EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8,
@@ -135,7 +154,9 @@ const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_
 			EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP77, EMOTE_PP78];
 const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
 const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP86, EMOTE_PP87, EMOTE_PP88, EMOTE_PP89, 
-			EMOTE_PP90, EMOTE_PP91, EMOTE_PP92, EMOTE_PP93];
+			EMOTE_PP90, EMOTE_PP91, EMOTE_PP92, EMOTE_PP93, EMOTE_PP94, EMOTE_PP95, EMOTE_PP96, EMOTE_PP97,
+			EMOTE_PP98, EMOTE_PP99, EMOTE_PP100, EMOTE_PP101, EMOTE_PP102, EMOTE_PP103, EMOTE_PP104, EMOTE_PP105,
+			EMOTE_PP106, EMOTE_PP107, EMOTE_PP108, EMOTE_PP109, EMOTE_PP110, EMOTE_PP111, EMOTE_PP112];
 const OTHER_EMOTE_LIST = [EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE];
 const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST).concat(CIV_EMOTE_LIST).concat(OTHER_EMOTE_LIST);
 
@@ -2636,7 +2657,7 @@ class Fighter {
 				}
 			}
 			else if ([EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP86, EMOTE_PP87, EMOTE_PP88, EMOTE_PP89, 
-					EMOTE_PP90, EMOTE_PP91, EMOTE_PP92, EMOTE_PP93].indexOf(attack) > 0) {
+					EMOTE_PP90, EMOTE_PP91, EMOTE_PP92, EMOTE_PP93].indexOf(attack) > -1) {
 				// Shrines
 				var shrines = {};
 				shrines[EMOTE_PP82] = "familiar";
@@ -5827,6 +5848,20 @@ function sendCheatPanel(_channel) {
 		_message2.react(EMOTE_PP88); _message2.react(EMOTE_PP89);
 		_message2.react(EMOTE_PP90); _message2.react(EMOTE_PP91);
 		_message2.react(EMOTE_PP92); _message2.react(EMOTE_PP93);
+	}).catch(function(e) {
+		console.log(e);
+	});
+	_channel.send("Cheat Panel : Civilisation Moves II").then(function (_message2) {
+		_message2.react(EMOTE_PP94); _message2.react(EMOTE_PP95);
+		_message2.react(EMOTE_PP96); _message2.react(EMOTE_PP97);
+		_message2.react(EMOTE_PP98); _message2.react(EMOTE_PP99);
+		_message2.react(EMOTE_PP100); _message2.react(EMOTE_PP101);
+		_message2.react(EMOTE_PP102); _message2.react(EMOTE_PP103);
+		_message2.react(EMOTE_PP104); _message2.react(EMOTE_PP105);
+		_message2.react(EMOTE_PP106); _message2.react(EMOTE_PP107);
+		_message2.react(EMOTE_PP108); _message2.react(EMOTE_PP109);
+		_message2.react(EMOTE_PP110); _message2.react(EMOTE_PP111);
+		_message2.react(EMOTE_PP112); 
 	}).catch(function(e) {
 		console.log(e);
 	});
