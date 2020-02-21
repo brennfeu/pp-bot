@@ -3293,7 +3293,7 @@ class City extends Fighter {
 		}
 		
 		this.STRValue = 2000;
-		this.DEXValue = 100;
+		this.DEXValue = 0;
 		
 		this.mayor = _mayor; // Fighter class
 		this.money = 0;
@@ -3326,13 +3326,6 @@ class City extends Fighter {
 		txt += "\nSTR :** " + this.STR;
 		if (this.STR == 69) {
 			txt += " (lmao)";
-		}
-		txt += "  //  **DEX :** " + this.DEX;
-		if (this.DEX == 69) {
-			txt += " (lmao)";
-		}
-		if (this.dexMalus > 0) {
-			txt += "\n - DEX Malus : **" + this.dexMalus + "**";
 		}
 		
 		// money
@@ -3436,8 +3429,7 @@ class Duel {
 		this.FORCE_EVENT_ID = 0;
 		this.EASY_DUEL = _easyDuel;
 		this.CURRENT_BATTLE_MODE = NORMAL_BATTLE_MODE;
-		this.CITY_ADVANCEMENT = 0;
-		
+	
 		this.TIME_STOP = 0;
 		this.TIME_COMPRESSION = 0;
 		this.TIME_BREAK = 0;
@@ -4108,9 +4100,6 @@ class Duel {
 		}
 		if (this.EVENT_BOMB) {
 			txt += " - A bomb will explode next turn !\n";
-		}
-		if (this.CITY_ADVANCEMENT > 0) {
-			txt += " - Actual Era : " + this.CITY_ADVANCEMENT + "\n";
 		}
 		if (this.BOREAL_WORLD) {
 			txt += " - Boreal Fog is everywhere !\n";
@@ -5344,7 +5333,6 @@ class Duel {
 		this.FIGHTER2 = new City(this.FIGHTER2, this.BATTLE_CHANNEL.id);
 		
 		this.CURRENT_BATTLE_MODE = CITY_BATTLE_MODE;
-		this.CITY_ADVANCEMENT = 1;
 		this.KIDNEY_CURSE = 0;
 		
 		this.addMessage("**===== CIVILISATION BATTLE MODE =====**");
