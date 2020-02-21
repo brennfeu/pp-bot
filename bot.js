@@ -2635,17 +2635,31 @@ class Fighter {
 					this.duel.addMessage("UwU Mode Deactivated !");
 				}
 			}
-			else if (attack == EMOTE_PP82) {
-				// Familiar Shrine
-				if (!this.familiarShrine) {
-					this.duel.addMessage(this.getName() + " now has a Familiar Shrine !");
-					this.familiarShrine = true;
-					this.money -= 30;
+			else if ([EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP86, EMOTE_PP87, EMOTE_PP88, EMOTE_PP89, 
+					EMOTE_PP90, EMOTE_PP91, EMOTE_PP92, EMOTE_PP93].indexOf(attack) > 0) {
+				// Shrines
+				var shrines = {};
+				shrines[EMOTE_PP82] = "familiar";
+				shrines[EMOTE_PP83] = "junk";
+				shrines[EMOTE_PP84] = "glass";
+				shrines[EMOTE_PP85] = "dice";
+				shrines[EMOTE_PP86] = "angel";
+				shrines[EMOTE_PP87] = "peace";
+				shrines[EMOTE_PP88] = "yv";
+				shrines[EMOTE_PP89] = "hero";
+				shrines[EMOTE_PP90] = "cleanse";
+				shrines[EMOTE_PP91] = "blood";
+				shrines[EMOTE_PP92] = "beholster";
+				shrines[EMOTE_PP93] = "ammo";
+				
+				if (!this[shrines[attack] + "Shrine"]) {
+					this.duel.addMessage(this.getName() + " now has a " + shrines[attack] + " Shrine !");
+					this[shrines[attack] + "Shrine"] = true;
 				}
 				else {
-					this.duel.addMessage(this.getName() + " already had a Familiar Shrine !");
+					this.duel.addMessage(this.getName() + " already had a " + shrines[attack] + " Shrine !");
+					this.money += this.duel.getSpermCost(attack);
 				}
-				
 			}
 			else if (attack == EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE) {
 				// Judgement Event
@@ -5162,6 +5176,10 @@ class Duel {
 			}
 
 			this.bothFightersAction(function(_fighter) {
+				if (_fighter.duel.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
+					_fighter.money -= _fighter.duel.getSpermCost(_fighter.attack);
+				}
+				
 				_fighter.duel.addMessage("-----------------");
 				_fighter.playMove();
 				_fighter.duel.sendMessages();
@@ -5354,7 +5372,7 @@ class Duel {
 		else {
 			var commonMoves = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5];
 			if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
-				var commonMoves = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP86]
+				var commonMoves = [this.getRandomEmote(), this.getRandomEmote(), this.getRandomEmote(), this.getRandomEmote(), this.getRandomEmote()]
 			}
 			
 			for (var i in commonMoves) {
@@ -5433,7 +5451,7 @@ class Duel {
 		if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
 			goodList = STAND_EMOTE_LIST;
 		}
-		if (getRandomPercent() <= 3) {
+		if (getRandomPercent() <= 3 && !this.EASY_DUEL) {
 			goodList = goodList.concat(RARE_EMOTE_LIST);
 		}
 		if (goodList.indexOf(EMOTE_PP77) > -1 && (this.FIGHTER1.quickeningCharges < 10 || this.FIGHTER2.quickeningCharges < 10)) {
@@ -5518,6 +5536,16 @@ class Duel {
 			case EMOTE_PP12:
 			case EMOTE_PP22:
 				return 20;
+		}
+		return 0;
+	}
+	getSpermCost(_move) {
+		switch(_move) {
+			case EMOTE_PP82:
+			case EMOTE_PP83:
+				return 30;
+			case EMOTE_PP84:
+				return 40;
 		}
 		return 0;
 	}
