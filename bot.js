@@ -4808,8 +4808,8 @@ class Duel {
 
 						duel.showMovepool();
 
-						if (this.CURRENT_FIGHTER.user.id == CLIENT.user.id) {
-							this.botReacts();
+						if (duel.CURRENT_FIGHTER.user.id == CLIENT.user.id) {
+							duel.botReacts();
 						}
 					}
 					else {
