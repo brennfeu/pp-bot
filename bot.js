@@ -5428,11 +5428,21 @@ class Duel {
 				nbTries += 1;
 			}
 		}
+		else if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
+			for (var i = 0; i < 5; i++) {
+				var currentLength = listeAttaques.length;
+				while (listeAttaques.length <= currentLength) {
+					emote = this.getRandomCivEmote(this.CURRENT_FIGHTER);
+
+					if (listeAttaques.indexOf(emote) < 0) {
+						listeAttaques.push(emote);
+					}
+				}
+			}
+			
+		}
 		else {
 			var commonMoves = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5];
-			if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
-				var commonMoves = [this.getRandomEmote(), this.getRandomEmote(), this.getRandomEmote(), this.getRandomEmote(), this.getRandomEmote()]
-			}
 			
 			for (var i in commonMoves) {
 				if (this.KIDNEY_CURSE <= i || this.KIDNEY_CURSE <= 0) {
@@ -5523,6 +5533,18 @@ class Duel {
 		}
 
 		return randomFromList(goodList);
+	}
+	getRandomCivEmote(_city) {
+		var listeEmote = [EMOTE_PP82, EMOTE_PP92, EMOTE_PP93, EMOTE_PP83, EMOTE_PP85];
+		
+		if (_city.familiarShrine) {
+			listeEmote = listeEmote.concat([EMOTE_PP94, EMOTE_PP95]);
+		}
+		if (_city.ammoShrine) {
+			listeEmote = listeEmote.concat([EMOTE_PP96, EMOTE_PP97, EMOTE_PP98, EMOTE_PP99]);
+		}
+		
+		return randomFromList(listeEmote);
 	}
 	getAttackFromEmote(_emote) {
 		for (var i in EMOTE_LIST) {
