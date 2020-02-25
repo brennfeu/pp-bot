@@ -3298,6 +3298,7 @@ class City extends Fighter {
 		this.mayor = _mayor; // Fighter class
 		this.money = 0;
 		this.customName = null;
+		this.attackedThisTurn = false;
 		
 		this.familiarShrine = false;
 		this.junkShrine = false;
