@@ -4780,29 +4780,29 @@ class Duel {
 			});
 		}
 		
-		if (duel.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
-			if (duel.CURRENT_FIGHTER.user.id == _user.id) {
-				duel.CURRENT_FIGHTER.attack = duel.getAttackFromEmote(_emote);
-				duel.addMessage(duel.CURRENT_FIGHTER.getName() + " : " + _emote, true);
-				duel.sendMessages();
+		if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
+			if (this.CURRENT_FIGHTER.user.id == _user.id) {
+				this.CURRENT_FIGHTER.attack = this.getAttackFromEmote(_emote);
+				this.addMessage(this.CURRENT_FIGHTER.getName() + " : " + _emote, true);
+				this.sendMessages();
 
-				duel.CURRENT_FIGHTER.playMove();
+				this.CURRENT_FIGHTER.playMove();
 
-				if (!duel.getOppOf(duel.CURRENT_FIGHTER).attackedThisTurn) {
-					duel.CURRENT_FIGHTER = duel.getOppOf(duel.CURRENT_FIGHTER);
-					duel.setRandomAttackList();
+				if (!this.getOppOf(this.CURRENT_FIGHTER).attackedThisTurn) {
+					this.CURRENT_FIGHTER = this.getOppOf(this.CURRENT_FIGHTER);
+					this.setRandomAttackList();
 
-					duel.addMessage("**=== " + duel.CURRENT_FIGHTER.getName() + " ===**", true);
-					duel.sendMessages();
+					this.addMessage("**=== " + this.CURRENT_FIGHTER.getName() + " ===**", true);
+					this.sendMessages();
 
-					duel.showMovepool();
+					this.showMovepool();
 
-					if (duel.CURRENT_FIGHTER.user.id == CLIENT.user.id) {
-						duel.botReacts();
+					if (this.CURRENT_FIGHTER.user.id == CLIENT.user.id) {
+						this.botReacts();
 					}
 				}
 				else {
-					duel.newTurnDuel();
+					this.newTurnDuel();
 				}
 			}
 			
