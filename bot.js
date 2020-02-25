@@ -4195,7 +4195,7 @@ class Duel {
 					this.setRandomAttackList();
 				}
 				
-				this.showMovepool();
+				this.showMovepool(gay);
 
 				if (this.FIGHTER2.user.id == CLIENT.user.id) {
 					this.botReacts();
@@ -4208,7 +4208,7 @@ class Duel {
 				this.addMessage("**=== " + this.CURRENT_FIGHTER.getName() + " ===**", true);
 				this.sendMessages();
 				
-				this.showMovepool();
+				this.showMovepool(gay);
 				
 				if (this.CURRENT_FIGHTER.user.id == CLIENT.user.id) {
 					this.botReacts();
@@ -4221,8 +4221,8 @@ class Duel {
 			this.FORCE_SATAN = false;
 		}
 	}
-	showMovepool() {
-		this.BATTLE_CHANNEL.send("\n\nChoose your " + gay + "attack with a reaction !").then(function (_message2) {
+	showMovepool(_gay) {
+		this.BATTLE_CHANNEL.send("\n\nChoose your " + _gay + "attack with a reaction !").then(function (_message2) {
 			var duel = getDuel(_message2.channel.id);
 			for (var i in duel.LIST_AVAILABLE_ATTACKS) {
 				if (duel.LIST_AVAILABLE_ATTACKS[i] != EMOTE_DEAD && duel.LIST_AVAILABLE_ATTACKS[i] != EMOTE_SKIP) {
