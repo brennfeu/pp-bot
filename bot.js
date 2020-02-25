@@ -3402,6 +3402,10 @@ class City extends Fighter {
 	get benefit() {
 		var win = 10;
 		
+		if (this.cleanseShrine) {
+			win = Math.floor(win*1.5);
+		}
+		
 		return win;
 	}
 	
@@ -5433,7 +5437,11 @@ class Duel {
 			}
 		}
 		else if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
-			for (var i = 0; i < 10; i++) {
+			var max = 10;
+			if (this.CURRENT_FIGHTER.diceShrine) {
+				max = 15;
+			}
+			for (var i = 0; i < max; i++) {
 				var currentLength = listeAttaques.length;
 				var nbTries = 0;
 				
@@ -5542,7 +5550,7 @@ class Duel {
 		return randomFromList(goodList);
 	}
 	getRandomCivEmote(_city) {
-		var listeEmote = [EMOTE_PP82, EMOTE_PP93];
+		var listeEmote = [EMOTE_PP82, EMOTE_PP93, EMOTE_PP85, EMOTE_PP90];
 		
 		if (_city.familiarShrine) {
 			listeEmote = listeEmote.concat([EMOTE_PP94, EMOTE_PP95]);
