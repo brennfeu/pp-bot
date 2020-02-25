@@ -1014,7 +1014,7 @@ class Fighter {
 		
 		// Cybion
 		if (this.standPower == STAND_PP9 && getRandomPercent() <= 25) {
-			this.duel.addMessage(this.getName() + " can perform his move twice !");
+			this.duel.addMessage(this.getName() + " performs his move twice !");
 			numberAttacks += numberAttacks;
 		}
 		if (this.duel.getOppOf(this).standPower == STAND_PP9 && getRandomPercent() <= 25) {
@@ -3425,6 +3425,7 @@ class Duel {
 		
 		this.FIGHTER1_SAVE = null;
 		this.FIGHTER2_SAVE = null;
+		this.CURRENT_FIGHTER = null;
 		
 		this.FORCE_EVENT_ID = 0;
 		this.EASY_DUEL = _easyDuel;
@@ -4122,15 +4123,6 @@ class Duel {
 		txt = txt.slice(0, -1);
 		this.addMessage(txt);
 
-		// HighFiveEmote - Stop move_list
-		if (this.STOPPED_MOVE_LIST.length >= 1) {
-			this.LIST_AVAILABLE_ATTACKS = this.STOPPED_MOVE_LIST;
-			this.STOPPED_MOVE_LIST = [];
-		}
-		else {
-			this.setRandomAttackList();
-		}
-
 		this.bothFightersAction(function(_fighter) {
 			if (_fighter.STR <= 0) { // Stop if dead (cthulhu battle)
 				_fighter.attack = EMOTE_DEAD;
@@ -4192,19 +4184,35 @@ class Duel {
 			}
 			this.addMessage("**=== MOVE SELECT ===**", true);
 			this.sendMessages();
-			this.BATTLE_CHANNEL.send("\n\nChoose your " + gay + "attack with a reaction !").then(function (_message2) {
-				var duel = getDuel(_message2.channel.id);
-				for (var i in duel.LIST_AVAILABLE_ATTACKS) {
-					if (duel.LIST_AVAILABLE_ATTACKS[i] != EMOTE_DEAD && duel.LIST_AVAILABLE_ATTACKS[i] != EMOTE_SKIP) {
-						_message2.react(duel.LIST_AVAILABLE_ATTACKS[i]);
-					}
-				}
-			}).catch(function(e) {
-				// LEVEL ALREADY DEAD
-			});
 			
-			if (this.FIGHTER2.user.id == CLIENT.user.id) {
-				this.botReacts();
+			if (this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
+				// HighFiveEmote - Stop move_list
+				if (this.STOPPED_MOVE_LIST.length >= 1) {
+					this.LIST_AVAILABLE_ATTACKS = this.STOPPED_MOVE_LIST;
+					this.STOPPED_MOVE_LIST = [];
+				}
+				else {
+					this.setRandomAttackList();
+				}
+				
+				this.showMovepool();
+
+				if (this.FIGHTER2.user.id == CLIENT.user.id) {
+					this.botReacts();
+				}
+			}
+			else {
+				this.CURRENT_FIGHTER = this.getRandomFighter();
+				this.setRandomAttackList();
+				
+				this.addMessage("**=== " + this.CURRENT_FIGHTER.getName() + " ===**", true);
+				this.sendMessages();
+				
+				this.showMovepool();
+				
+				if (this.CURRENT_FIGHTER.user.id == CLIENT.user.id) {
+					this.botReacts();
+				}
 			}
 		}
 		
@@ -4212,6 +4220,18 @@ class Duel {
 		if (getRandomPercent() <= 25) {
 			this.FORCE_SATAN = false;
 		}
+	}
+	showMovepool() {
+		this.BATTLE_CHANNEL.send("\n\nChoose your " + gay + "attack with a reaction !").then(function (_message2) {
+			var duel = getDuel(_message2.channel.id);
+			for (var i in duel.LIST_AVAILABLE_ATTACKS) {
+				if (duel.LIST_AVAILABLE_ATTACKS[i] != EMOTE_DEAD && duel.LIST_AVAILABLE_ATTACKS[i] != EMOTE_SKIP) {
+					_message2.react(duel.LIST_AVAILABLE_ATTACKS[i]);
+				}
+			}
+		}).catch(function(e) {
+			// LEVEL ALREADY DEAD
+		});
 	}
 	
 	checkDeath() {
@@ -4770,8 +4790,34 @@ class Duel {
 				return;
 			}
 			
-			// GAY_TURNS
-			if (duel.GAY_TURNS > 0 && duel.TIME_STOP <= 0) {
+			
+			if (duel.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
+				if (duel.CURRENT_FIGHTER.user.id == _user.id) {
+					_fighter.attack = duel.getAttackFromEmote(_emote);
+					duel.addMessage(_fighter.getName() + " : " + _emote, true);
+					duel.sendMessages();
+					
+					_fighter.playMove();
+					
+					if (!duel.getOppOf(_fighter).attackedThisTurn) {
+						duel.CURRENT_FIGHTER = duel.getOppOf(_fighter);
+						duel.setRandomAttackList();
+
+						duel.addMessage("**=== " + duel.CURRENT_FIGHTER.getName() + " ===**", true);
+						duel.sendMessages();
+
+						duel.showMovepool();
+
+						if (this.CURRENT_FIGHTER.user.id == CLIENT.user.id) {
+							this.botReacts();
+						}
+					}
+					else {
+						duel.newTurnDuel();
+					}
+				}
+			}
+			else if (duel.GAY_TURNS > 0 && duel.TIME_STOP <= 0) {
 				if (_user.id == _fighter.user.id) {
 					if (duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.getAttackFromEmote(_emote)) < 0) {
 						duel.addMessage("Gay people can't cheat...");
@@ -4801,6 +4847,8 @@ class Duel {
 		if (this.FIGHTER1.attack != "" && this.TUTORIAL) {
 			return this.tutorialNextTurn();
 		}
+		
+		if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) return this.sendMessages();
 
 		// Deux attaques sont faites
 		if (this.FIGHTER1.attack != "" && this.FIGHTER2.attack != "") {
