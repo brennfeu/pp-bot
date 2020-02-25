@@ -4779,6 +4779,36 @@ class Duel {
 				_fighter.heal(50);
 			});
 		}
+		
+		if (duel.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
+			if (duel.CURRENT_FIGHTER.user.id == _user.id) {
+				duel.CURRENT_FIGHTER.attack = duel.getAttackFromEmote(_emote);
+				duel.addMessage(duel.CURRENT_FIGHTER.getName() + " : " + _emote, true);
+				duel.sendMessages();
+
+				duel.CURRENT_FIGHTER.playMove();
+
+				if (!duel.getOppOf(duel.CURRENT_FIGHTER).attackedThisTurn) {
+					duel.CURRENT_FIGHTER = duel.getOppOf(duel.CURRENT_FIGHTER);
+					duel.setRandomAttackList();
+
+					duel.addMessage("**=== " + duel.CURRENT_FIGHTER.getName() + " ===**", true);
+					duel.sendMessages();
+
+					duel.showMovepool();
+
+					if (duel.CURRENT_FIGHTER.user.id == CLIENT.user.id) {
+						duel.botReacts();
+					}
+				}
+				else {
+					duel.newTurnDuel();
+				}
+			}
+			
+			this.sendMessages();
+			return;
+		}
 
 		// Assigne attaque
 		this.bothFightersAction(function(_fighter) {
@@ -4791,34 +4821,7 @@ class Duel {
 				return;
 			}
 			
-			
-			if (duel.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
-				if (duel.CURRENT_FIGHTER.user.id == _user.id) {
-					_fighter.attack = duel.getAttackFromEmote(_emote);
-					duel.addMessage(_fighter.getName() + " : " + _emote, true);
-					duel.sendMessages();
-					
-					_fighter.playMove();
-					
-					if (!duel.getOppOf(_fighter).attackedThisTurn) {
-						duel.CURRENT_FIGHTER = duel.getOppOf(_fighter);
-						duel.setRandomAttackList();
-
-						duel.addMessage("**=== " + duel.CURRENT_FIGHTER.getName() + " ===**", true);
-						duel.sendMessages();
-
-						duel.showMovepool();
-
-						if (duel.CURRENT_FIGHTER.user.id == CLIENT.user.id) {
-							duel.botReacts();
-						}
-					}
-					else {
-						duel.newTurnDuel();
-					}
-				}
-			}
-			else if (duel.GAY_TURNS > 0 && duel.TIME_STOP <= 0) {
+			if (duel.GAY_TURNS > 0 && duel.TIME_STOP <= 0) {
 				if (_user.id == _fighter.user.id) {
 					if (duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.getAttackFromEmote(_emote)) < 0) {
 						duel.addMessage("Gay people can't cheat...");
@@ -4848,8 +4851,6 @@ class Duel {
 		if (this.FIGHTER1.attack != "" && this.TUTORIAL) {
 			return this.tutorialNextTurn();
 		}
-		
-		if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) return this.sendMessages();
 
 		// Deux attaques sont faites
 		if (this.FIGHTER1.attack != "" && this.FIGHTER2.attack != "") {
