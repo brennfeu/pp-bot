@@ -107,6 +107,8 @@ const EMOTE_PP79 = "667336163396288522"; // Eye of Truth
 const EMOTE_PP80 = "644617031739768842"; // Fherla
 const EMOTE_PP81 = "650398049126055937"; // Melodia
 
+// -- CIVILISATION MOVES -- //
+
 const EMOTE_PP82 = "680064464883548279"; // Familiar Shrine
 const EMOTE_PP83 = "680064464648798213"; // Junk Shrine
 const EMOTE_PP84 = "680064464619569185"; // Glass Shrine
@@ -119,6 +121,7 @@ const EMOTE_PP90 = "680064464686809094"; // Cleanse Shrine
 const EMOTE_PP91 = "680064464728358920"; // Blood Shrine
 const EMOTE_PP92 = "680064464691003400"; // Beholster Shrine
 const EMOTE_PP93 = "680064464695066642"; // Ammo Shrine
+
 const EMOTE_PP94 = "680155715838804002"; // Bullet Kin
 const EMOTE_PP95 = "680155715700129804"; // Bandana Bullet Kin
 const EMOTE_PP96 = "680155715494871045"; // Agonizer
@@ -132,8 +135,8 @@ const EMOTE_PP103 = "680155715792404506"; // Cubelead
 const EMOTE_PP104 = "680155715507322942"; // Cubulon
 const EMOTE_PP105 = "680156340722729097"; // Gun Nut
 const EMOTE_PP106 = "680155715721101333"; // Killithid
-const EMOTE_PP107 = "680155715540746241"; // MuzzleFlare
-const EMOTE_PP108 = "680155715775889426"; // MuzzleWisp
+const EMOTE_PP107 = "680155715540746241"; // Muzzle Flare
+const EMOTE_PP108 = "680155715775889426"; // Muzzle Wisp
 const EMOTE_PP109 = "680155715557785661"; // Phaser Spider
 const EMOTE_PP110 = "680155715859513404"; // Skullet
 const EMOTE_PP111 = "680155715524100164"; // Skullmet
@@ -5430,9 +5433,12 @@ class Duel {
 			}
 		}
 		else if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
-			for (var i = 0; i < 5; i++) {
+			for (var i = 0; i < 10; i++) {
 				var currentLength = listeAttaques.length;
-				while (listeAttaques.length <= currentLength) {
+				var nbTries = 0;
+				
+				while (listeAttaques.length <= currentLength && nbTries < 100) {
+					nbTries += 1;
 					emote = this.getRandomCivEmote(this.CURRENT_FIGHTER);
 
 					if (listeAttaques.indexOf(emote) < 0) {
@@ -5536,13 +5542,19 @@ class Duel {
 		return randomFromList(goodList);
 	}
 	getRandomCivEmote(_city) {
-		var listeEmote = [EMOTE_PP82, EMOTE_PP92, EMOTE_PP93, EMOTE_PP83, EMOTE_PP85];
+		var listeEmote = [EMOTE_PP82, EMOTE_PP93];
 		
 		if (_city.familiarShrine) {
 			listeEmote = listeEmote.concat([EMOTE_PP94, EMOTE_PP95]);
 		}
 		if (_city.ammoShrine) {
 			listeEmote = listeEmote.concat([EMOTE_PP96, EMOTE_PP97, EMOTE_PP98, EMOTE_PP99]);
+		}
+		
+		for (var i = listeEmote.length - 1; i >= 0; i--) {
+			if (_city.money < this.getSpermCost(listeEmote[i])) {
+				listeEmote.splice(i, 1);
+			}
 		}
 		
 		return randomFromList(listeEmote);
