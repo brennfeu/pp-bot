@@ -5480,9 +5480,9 @@ class Duel {
 			}
 		}
 		else if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
-			var max = 10;
+			var max = 5;
 			if (this.CURRENT_FIGHTER.diceShrine) {
-				max = 15;
+				max = 10;
 			}
 			for (var i = 0; i < max; i++) {
 				var currentLength = listeAttaques.length;
