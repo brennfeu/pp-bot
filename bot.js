@@ -21,11 +21,14 @@ const EMOTE_SKIPPER = "665141844640006156";
 const EMOTE_FRIEDESPINOZA = "675077643896356874";
 const EMOTE_ESPINOZE = "675078599673511937";
 
+// COMMON MOVES
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
 const EMOTE_PP2 = "535240768441548810"; // PunchingPPReallyHard
 const EMOTE_PP3 = "358232421537284109"; // Hologram
 const EMOTE_PP4 = "358018762991075328"; // Flex
 const EMOTE_PP5 = "358018763020435456"; // High Five
+
+// NORMAL MOVES
 const EMOTE_PP6 = "358205593712066560"; // Kick
 const EMOTE_PP7 = "358018762739548162"; // Turkey
 const EMOTE_PP8 = "358018763095801866"; // TrapSign
@@ -72,9 +75,11 @@ const EMOTE_PP48 = "340516123210547201"; // Brennfeu
 const EMOTE_PP49 = "358188173651607552"; // Soup
 const EMOTE_PP50 = "342313262651670528"; // Perhaps
 
+// GOD MOVES
 const EMOTE_PP51 = "615518949110448129"; // Priest move
 const EMOTE_PP52 = "615516249912508419"; // Special Priest Move
 
+// ANIMATED MOVES
 const EMOTE_PP53 = "645196083516932107"; // Singular Explosion
 const EMOTE_PP54 = "644881329116413972"; // Explosion Loop
 const EMOTE_PP55 = "644880197123833856"; // Dual Explosion Loop
@@ -86,6 +91,7 @@ const EMOTE_PP60 = "644880194959704085"; // PP Duel
 const EMOTE_PP61 = "644880195903553536"; // Flag
 const EMOTE_PP62 = "644881329317478411"; // SuperCheckpoint
 
+// STAND MOVES
 const EMOTE_PP63 = "662651475515670534"; // Xenomorph
 const EMOTE_PP64 = "662651475524321330"; // XenoHead
 const EMOTE_PP65 = "662651475503218688"; // Signpost
@@ -103,12 +109,12 @@ const EMOTE_PP76 = "664845944252137494"; // EldritchPudding
 const EMOTE_PP77 = "668790615902912514"; // SatanHand
 const EMOTE_PP78 = "669581624026988578"; // SatanSkull
 
+// RARE MOVES
 const EMOTE_PP79 = "667336163396288522"; // Eye of Truth
 const EMOTE_PP80 = "644617031739768842"; // Fherla
 const EMOTE_PP81 = "650398049126055937"; // Melodia
 
-// -- CIVILISATION MOVES -- //
-
+// CIV SHRINE MOVES
 const EMOTE_PP82 = "680064464883548279"; // Familiar Shrine
 const EMOTE_PP83 = "680064464648798213"; // Junk Shrine
 const EMOTE_PP84 = "680064464619569185"; // Glass Shrine
@@ -122,6 +128,7 @@ const EMOTE_PP91 = "680064464728358920"; // Blood Shrine
 const EMOTE_PP92 = "680064464691003400"; // Beholster Shrine
 const EMOTE_PP93 = "680064464695066642"; // Ammo Shrine
 
+// CIV UNIT MOVES
 const EMOTE_PP94 = "680155715838804002"; // Bullet Kin
 const EMOTE_PP95 = "680155715700129804"; // Bandana Bullet Kin
 const EMOTE_PP96 = "680155715494871045"; // Agonizer
@@ -141,6 +148,12 @@ const EMOTE_PP109 = "680155715557785661"; // Phaser Spider
 const EMOTE_PP110 = "680155715859513404"; // Skullet
 const EMOTE_PP111 = "680155715524100164"; // Skullmet
 const EMOTE_PP112 = "680156340055965822"; // Spectral Gun Nut
+
+// CIV EFFECTS MOVES
+const EMOTE_PP113 = "682195587286040576"; // Junk
+const EMOTE_PP114 = "682195587034382338"; // Gold Junk
+const EMOTE_PP115 = "682195587319201840"; // Ser Junkan
+const EMOTE_PP116 = "682195587319332870"; // Lies
 
 // DON'T FORGET TO ADD TO THE CHEAT PANEL
 const NORMAL_EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8,
@@ -2690,6 +2703,23 @@ class Fighter {
 				  	EMOTE_PP109, EMOTE_PP110, EMOTE_PP111, EMOTE_PP112].indexOf(attack) > -1) {
 				this.duel.addMessage(this.getName() + " gets a new unit ! ***[TODO]***");
 			}
+			else if (attack == EMOTE_PP113) {
+				// Junk
+				this.duel.addMessage(this.getName() + " picks up some junk.");
+				this.junkCount += 1;
+			}
+			else if (attack == EMOTE_PP114) {
+				// Gold Junk
+				this.playMove(EMOTE_PP113);
+				this.duel.addMessage("This looks like gold junk !");
+				this.money += this.junkCount*10;
+			}
+			else if (attack == EMOTE_PP116) {
+				// Lies
+				this.duel.addMessage(this.getName() + " picks up some junk !");
+				this.junkCount += this.duel.getOppOf(this).junkCount;
+				this.duel.getOppOf(this).junkCount = 0;
+			}
 			else if (attack == EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE) {
 				// Judgement Event
 				if (this.duel.ESPINOZA_CHOICE == attack) {
@@ -3321,6 +3351,8 @@ class City extends Fighter {
 		this.beholsterShrine = false;
 		this.ammoShrine = false;
 		
+		this.junkCount = 0;
+		
 		this.money = this.benefit*3;
 	}
 	
@@ -3381,7 +3413,10 @@ class City extends Fighter {
 		}
 		
 		// status
-		txt += "\n\n**Status :**\n"
+		txt += "\n\n**Status :**"
+		if (this.junkCount > 0) {
+			txt += "\n - Junks : " + this.junkCount;
+		}
  
 		return txt;
 	}
@@ -3394,6 +3429,8 @@ class City extends Fighter {
 	
 	get STR() {
 		var str = super.STR;
+		
+		str += this.junkCount*100;
 		
 		return str;
 	}
@@ -5555,13 +5592,19 @@ class Duel {
 		return randomFromList(goodList);
 	}
 	getRandomCivEmote(_city) {
-		var listeEmote = [EMOTE_PP82, EMOTE_PP93, EMOTE_PP85, EMOTE_PP90];
+		var listeEmote = [EMOTE_PP82, EMOTE_PP93, EMOTE_PP85, EMOTE_PP90, EMOTE_PP83];
 		
 		if (_city.familiarShrine) {
 			listeEmote = listeEmote.concat([EMOTE_PP94, EMOTE_PP95]);
 		}
 		if (_city.ammoShrine) {
 			listeEmote = listeEmote.concat([EMOTE_PP96, EMOTE_PP97, EMOTE_PP98, EMOTE_PP99]);
+		}
+		if (_city.junkShrine) {
+			listeEmote = listeEmote.concat([EMOTE_PP113, EMOTE_PP114, EMOTE_PP115]);
+			if (getRandomPercent() <= 5) {
+				listeEmote = listeEmote.concat([EMOTE_PP116]);
+			}
 		}
 		
 		for (var i = listeEmote.length - 1; i >= 0; i--) {
