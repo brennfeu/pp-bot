@@ -209,10 +209,11 @@ const GOD_PP20 = {"name" : "Mikasa", "emote": "655523518812913664", "type": "wai
 const GOD_PP27 = {"name" : "Kurisu", "emote": "672543479598940179", "type": "waifu"};
 const GOD_PP28 = {"name" : "Miku", "emote": "", "type": "waifu"}; // ADD TO THE LIST
 const GOD_PP30 = {"name" : "Akiho", "emote": "676770456413667328", "type": "waifu"};
+const GOD_PP31 = {"name" : "Ryuko", "emote": "682236903600422925", "type": "waifu"};
 
 const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
 		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
-		 GOD_PP22, GOD_PP23, GOD_PP24, GOD_PP25, GOD_PP26, GOD_PP27, GOD_PP30];
+		 GOD_PP22, GOD_PP23, GOD_PP24, GOD_PP25, GOD_PP26, GOD_PP27, GOD_PP30, GOD_PP31];
 
 const SYNERGY_PP1 = [GOD_PP15, GOD_PP12, GOD_PP14] // A Sad Witness
 const SYNERGY_PP2 = [GOD_PP9, GOD_PP11, GOD_PP19] // Holy Brenn Trinity
@@ -424,6 +425,8 @@ class Fighter {
 		this.gettingSpecialCharge = 0;
 		this.robotCountdown = 0;
 		this.robotHP = 0;
+		this.hasKamui = false;
+		this.lifeFibers = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -567,6 +570,9 @@ class Fighter {
 		if (this.livingGod) {
 			str += 10000;
 		}
+		if (this.hasKamui) {
+			str += 200;
+		}
 		if (this.standPower == STAND_PP8_1) {
 			str += 50;
 		}
@@ -643,6 +649,9 @@ class Fighter {
 		}
 		if (this.futureMemories > 0) {
 			dex += 15;
+		}
+		if (this.hasKamui) {
+			dex += 20;
 		}
 		if (this.quickeningCharges > 0) {
 			dex += this.quickeningCharges;
@@ -872,6 +881,9 @@ class Fighter {
 		if (this.goldenSpoons > 0) {
 			txt += " - Golden Spoons : " + this.goldenSpoons + "\n";
 		}
+		if (this.lifeFibers > 0) {
+			txt += " - Life Fiber : " + (this.lifeFibers*5) + "%\n";
+		}
 		if (this.xenoMask) {
 			txt += " - Mask : Xeno\n";
 		}
@@ -883,6 +895,9 @@ class Fighter {
 		}
 		if (this.satanicMoveMultiplier) {
 			txt += " - Satanic Move Multiplier\n";
+		}
+		if (this.hasKamui) {
+			txt += " - Wearing a Kamui\n";
 		}
 		if (this.isOverCircumcised) {
 			txt += " - Overcircumcised\n";
@@ -1903,6 +1918,21 @@ class Fighter {
 					this.duel.addMessage(this.duel.getOppOf(this).getName() + "'s time will appear way faster than it really is !");
 					this.duel.getOppOf(this).hasBurst = 2;
 				}
+				if (this.godList.indexOf(GOD_PP31.name) > -1) { // Ryuko
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Ryuko answers his calls !");
+					this.lifeFibers += 1;
+					if (this.lifeFibers >= 20) {
+						this.duel.addMessage(this.getName() + " already is completely fused with life fiber !");
+						this.lifeFibers -= 1;
+					}
+					if (this.lifeFibers > 0) {
+						this.duel.addMessage(this.getName() + "'s body fuses with more life fibers !");
+					}
+					else {
+						this.duel.addMessage(this.getName() + "'s body fuses with life fibers !");
+					}
+				}
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
@@ -2183,6 +2213,17 @@ class Fighter {
 					else {
 						this.duel.addMessage(this.getName() + " starts working on making a giant robot !");
 						this.robotCountdown = 11;
+					}
+				}
+				if (this.godList.indexOf(GOD_PP31.name) > -1) { // Ryuko
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Ryuko answers his calls !");
+					if (this.hasKamui) {
+						this.duel.addMessage(this.getName() + " gets a Kamui !");
+						this.hasKamui = true;
+					}
+					else {
+						this.duel.addMessage(this.getName() + " already has a Kamui !");
 					}
 				}
 				if (this.requiemPower != null && this.requiemCooldown <= 0) {
@@ -2851,6 +2892,7 @@ class Fighter {
 		if (this.duel.getOppOf(this).kungFu) {
 			critMin += 15;
 		}
+		critMin += this.lifeFibers*5;
 		if (getRandomPercent() < critMin  && _punch) {
 			_amount += _amount;
 			this.duel.addMessage("**Critical Hit !**");
@@ -3249,6 +3291,17 @@ class Fighter {
 		// PP Armageddon
 		if (this.duel.PP_ARMAGEDDON) {
 			this.STRValue -= 5000;
+		}
+		
+		// Ryuko Special
+		if (this.hasKamui) {
+			this.duel.addMessage(this.getName() + "'s Kamui drains his blood !");
+			this.damage(20, false);
+			if (this.STR <= 40) {
+				this.hasKamui = false;
+				this.duel.addMessage(this.getName() + "'s Kamui leaves him to prevent his death !");
+			}
+			this.duel.addMessage("-----------------");
 		}
 		
 		// ImpendingDoom
@@ -4488,7 +4541,7 @@ class Duel {
 			winner.playMove(EMOTE_PP26);
 			winner.playMove(EMOTE_PP46);
 		}
-		else if (randomVar == 7) {
+		else if (randomVar == 7 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
 			// Blood Moon
 			this.EVENT_BLOOD_MOON = true;
 			this.addMessage(" -- BLOOD MOON --");
@@ -4504,7 +4557,7 @@ class Duel {
 				this.addMessage("The Moon Lord is blessed by the Blood Moon.");
 			}
 		}
-		else if (randomVar == 8) {
+		else if (randomVar == 8 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
 			// Ascension
 			this.addMessage(" -- ASCENSION --");
 			var winner = this.getRandomFighter();
@@ -4513,31 +4566,21 @@ class Duel {
 				_fighter.playMove(EMOTE_PP49);
 			});
 		}
-		else if ([9, 10, 11, 12, 13, 14, 15, 16, 17, 18].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 10 || forcedEvent)) {
+		else if ([9, 10, 11, 12, 13, 14, 15, 16, 17, 18].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 10 || forcedEvent) && this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
 			// Charge
 			this.addMessage(" -- GODS BIRTHDAY GIFTS --");
-			if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
-				this.addMessage("Stånds are unaffected.");
-			}
-			else {
-				this.addMessage("Gods decide to give you a regular charge each");
-				this.bothFightersAction(function(_fighter) {
-					_fighter.regularCharges++;
-				});
-			}
+			this.addMessage("Gods decide to give you a regular charge each");
+			this.bothFightersAction(function(_fighter) {
+				_fighter.regularCharges++;
+			});
 		}
-		else if ([19, 20, 21].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 25 || forcedEvent)) {
+		else if ([19, 20, 21].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 25 || forcedEvent) && this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
 			// Charge
 			this.addMessage(" -- GODS CHRISTMAS GIFTS --");
-			if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
-				this.addMessage("Stånds are unaffected.");
-			}
-			else {
-				this.addMessage("Gods decide to give you a special charge each");
-				this.bothFightersAction(function(_fighter) {
-					_fighter.specialCharges++;
-				});
-			}
+			this.addMessage("Gods decide to give you a special charge each");
+			this.bothFightersAction(function(_fighter) {
+				_fighter.specialCharges++;
+			});
 		}
 		else if (randomVar == 22) {
 			// Huge Gay Night
@@ -4552,29 +4595,24 @@ class Duel {
 			}
 
 		}
-		else if (randomVar == 23 && (this.MOVE_COUNT >= 30 || forcedEvent)) {
+		else if (randomVar == 23 && (this.MOVE_COUNT >= 30 || forcedEvent) && this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
 			// PP Blessing
 			this.addMessage(" -- PP BLESSING --");
-			if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
-				this.addMessage("Stånds are unaffected.");
-			}
-			else {
-				this.addMessage("You suddenly feel new powers in your PP !");
-				this.bothFightersAction(function(_fighter) {
-					_fighter.godList = [];
-					for (var i in GOD_LIST) {
-						_fighter.godList.push(GOD_LIST[i].name);
-					}
+			this.addMessage("You suddenly feel new powers in your PP !");
+			this.bothFightersAction(function(_fighter) {
+				_fighter.godList = [];
+				for (var i in GOD_LIST) {
+					_fighter.godList.push(GOD_LIST[i].name);
+				}
 
-					_fighter.isBigPP = true;
-					_fighter.isFastPP = true;
-					_fighter.isDrunkPP = true;
-					_fighter.isHockeyPuckPP = true;
-					_fighter.isAlienPP = true;
-				});
-			}
+				_fighter.isBigPP = true;
+				_fighter.isFastPP = true;
+				_fighter.isDrunkPP = true;
+				_fighter.isHockeyPuckPP = true;
+				_fighter.isAlienPP = true;
+			});
 		}
-		else if ([24, 25].indexOf(randomVar) > -1) {
+		else if ([24, 25].indexOf(randomVar) > -1 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
 			// Free Lives
 			if (this.EVENT_BOSS) {
 				this.addMessage(" -- FREE LIVES GOOD UPDATES --");
@@ -4754,7 +4792,7 @@ class Duel {
 				_fighter.playMove(EMOTE_PP77);
 			});
 		}
-		else if (randomVar == 35 && !this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
+		else if (randomVar == 35 && && this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
 			// BIZARRE PP
 			this.addMessage(" -- BIZARRE PP BATTLE --");
 			this.bothFightersAction(function(_fighter) {
@@ -4786,7 +4824,7 @@ class Duel {
 			this.addMessage("A missile has been spotted above the battleground ! You have one turn before it hits the ground and explodes !");
 			this.EVENT_BOMB = true;
 		}
-		else if (randomVar == 39) {
+		else if (randomVar == 39 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
 			// Judgement
 			this.addMessage(" -- JUDGEMENT --");
 			this.addMessage("Who do you think is better ? FriedEspinoza or espinoze ? Make your bets !");
