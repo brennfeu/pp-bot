@@ -5767,9 +5767,14 @@ class Duel {
 String.prototype.secureXSS = function(){
 	return this.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 };
+function sleep(_sleepDuration = 1){
+	    var now = new Date().getTime();
+	    while(new Date().getTime() < now + _sleepDuration){ /* nothing */ } 
+}
 
 function getRandomPercent() {
 	var i = Math.floor(Math.random() * 100 + 1);
+	sleep();
 	return i;
 }
 function getDuel(_id) {
@@ -5916,6 +5921,7 @@ function sendCheatPanel(_channel) {
 	}).catch(function(e) {
 		console.log(e);
 	});
+	sleep(100);
 	_channel.send("Cheat Panel : Normal Moves II").then(function (_message2) {
 		_message2.react(EMOTE_PP21); _message2.react(EMOTE_PP22);
 		_message2.react(EMOTE_PP23); _message2.react(EMOTE_PP24);
@@ -5930,6 +5936,7 @@ function sendCheatPanel(_channel) {
 	}).catch(function(e) {
 		console.log(e);
 	});
+	sleep(100);
 	_channel.send("Cheat Panel : Normal Moves III").then(function (_message2) {
 		_message2.react(EMOTE_PP41); _message2.react(EMOTE_PP42);
 		_message2.react(EMOTE_PP43); _message2.react(EMOTE_PP44);
@@ -5939,6 +5946,7 @@ function sendCheatPanel(_channel) {
 	}).catch(function(e) {
 		console.log(e);
 	});
+	sleep(100);
 	_channel.send("Cheat Panel : Priest Moves").then(function (_message2) {
 		_message2.react(EMOTE_PP51); _message2.react(EMOTE_PP52);
 	}).catch(function(e) {
@@ -5953,6 +5961,7 @@ function sendCheatPanel(_channel) {
 	}).catch(function(e) {
 		console.log(e);
 	});
+	sleep(100);
 	_channel.send("Cheat Panel : Stånds Moves").then(function (_message2) {
 		_message2.react(EMOTE_PP63); _message2.react(EMOTE_PP64);
 		_message2.react(EMOTE_PP65); _message2.react(EMOTE_PP66);
@@ -5965,12 +5974,14 @@ function sendCheatPanel(_channel) {
 	}).catch(function(e) {
 		console.log(e);
 	});
+	sleep(100);
 	_channel.send("Cheat Panel : Rare Moves").then(function (_message2) {
 		_message2.react(EMOTE_PP79); _message2.react(EMOTE_PP80);
 		_message2.react(EMOTE_PP81);
 	}).catch(function(e) {
 		console.log(e);
 	});
+	sleep(100);
 	_channel.send("Cheat Panel : Civilisation Moves I").then(function (_message2) {
 		_message2.react(EMOTE_PP82); _message2.react(EMOTE_PP83);
 		_message2.react(EMOTE_PP84); _message2.react(EMOTE_PP85);
@@ -5981,6 +5992,7 @@ function sendCheatPanel(_channel) {
 	}).catch(function(e) {
 		console.log(e);
 	});
+	sleep(100);
 	_channel.send("Cheat Panel : Civilisation Moves II").then(function (_message2) {
 		_message2.react(EMOTE_PP94); _message2.react(EMOTE_PP95);
 		_message2.react(EMOTE_PP96); _message2.react(EMOTE_PP97);
@@ -5995,12 +6007,14 @@ function sendCheatPanel(_channel) {
 	}).catch(function(e) {
 		console.log(e);
 	});
+	sleep(100);
 	_channel.send("Cheat Panel : Civilisation Moves III").then(function (_message2) {
 		_message2.react(EMOTE_PP113); _message2.react(EMOTE_PP114);
 		_message2.react(EMOTE_PP115); _message2.react(EMOTE_PP116);
 	}).catch(function(e) {
 		console.log(e);
 	});
+	sleep(100);
 	_channel.send("Cheat Panel : Gods I").then(function (_message2) {
 		for (var i in GOD_LIST) {
 			if (GOD_LIST[i].type == "normal") {
@@ -6010,6 +6024,7 @@ function sendCheatPanel(_channel) {
 	}).catch(function(e) {
 		console.log(e);
 	});
+	sleep(100);
 	_channel.send("Cheat Panel : Gods II").then(function (_message2) {
 		for (var i in GOD_LIST) {
 			if (GOD_LIST[i].type == "eldritch") {
@@ -6019,6 +6034,7 @@ function sendCheatPanel(_channel) {
 	}).catch(function(e) {
 		console.log(e);
 	});
+	sleep(100);
 	_channel.send("Cheat Panel : Gods III").then(function (_message2) {
 		for (var i in GOD_LIST) {
 			if (GOD_LIST[i].type == "waifu") {
