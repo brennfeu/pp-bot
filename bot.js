@@ -2685,6 +2685,11 @@ class Fighter {
 					this.money += this.duel.getSpermCost(attack);
 				}
 			}
+			else if ([EMOTE_PP94, EMOTE_PP95, EMOTE_PP96, EMOTE_PP97, EMOTE_PP98, EMOTE_PP99, EMOTE_PP100, EMOTE_PP101,
+				 	EMOTE_PP102, EMOTE_PP103, EMOTE_PP104, EMOTE_PP105, EMOTE_PP106, EMOTE_PP107, EMOTE_PP108,
+				  	EMOTE_PP109, EMOTE_PP110, EMOTE_PP111, EMOTE_PP112].indexOf(attack) > -1) {
+				this.duel.addMessage(this.getName() + " gets a new unit ! ***[TODO]***");
+			}
 			else if (attack == EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE) {
 				// Judgement Event
 				if (this.duel.ESPINOZA_CHOICE == attack) {
