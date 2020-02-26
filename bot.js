@@ -4792,7 +4792,7 @@ class Duel {
 				_fighter.playMove(EMOTE_PP77);
 			});
 		}
-		else if (randomVar == 35 && && this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
+		else if (randomVar == 35 && this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
 			// BIZARRE PP
 			this.addMessage(" -- BIZARRE PP BATTLE --");
 			this.bothFightersAction(function(_fighter) {
