@@ -127,6 +127,7 @@ const EMOTE_PP90 = "680064464686809094"; // Cleanse Shrine
 const EMOTE_PP91 = "680064464728358920"; // Blood Shrine
 const EMOTE_PP92 = "680064464691003400"; // Beholster Shrine
 const EMOTE_PP93 = "680064464695066642"; // Ammo Shrine
+const EMOTE_PP117 = "680064464657055747"; // Challenge Shrine
 
 // CIV UNIT MOVES
 const EMOTE_PP94 = "680155715838804002"; // Bullet Kin
@@ -173,7 +174,7 @@ const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP
 			EMOTE_PP90, EMOTE_PP91, EMOTE_PP92, EMOTE_PP93, EMOTE_PP94, EMOTE_PP95, EMOTE_PP96, EMOTE_PP97,
 			EMOTE_PP98, EMOTE_PP99, EMOTE_PP100, EMOTE_PP101, EMOTE_PP102, EMOTE_PP103, EMOTE_PP104, EMOTE_PP105,
 			EMOTE_PP106, EMOTE_PP107, EMOTE_PP108, EMOTE_PP109, EMOTE_PP110, EMOTE_PP111, EMOTE_PP112, EMOTE_PP113,
-		        EMOTE_PP114, EMOTE_PP115, EMOTE_PP116];
+		        EMOTE_PP114, EMOTE_PP115, EMOTE_PP116, EMOTE_PP117];
 const OTHER_EMOTE_LIST = [EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE];
 const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST).concat(CIV_EMOTE_LIST).concat(OTHER_EMOTE_LIST);
 
@@ -2715,7 +2716,7 @@ class Fighter {
 				}
 			}
 			else if ([EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP86, EMOTE_PP87, EMOTE_PP88, EMOTE_PP89, 
-					EMOTE_PP90, EMOTE_PP91, EMOTE_PP92, EMOTE_PP93].indexOf(attack) > -1) {
+					EMOTE_PP90, EMOTE_PP91, EMOTE_PP92, EMOTE_PP93, EMOTE_PP117].indexOf(attack) > -1) {
 				// Shrines
 				var shrines = {};
 				shrines[EMOTE_PP82] = "familiar";
@@ -2730,6 +2731,7 @@ class Fighter {
 				shrines[EMOTE_PP91] = "blood";
 				shrines[EMOTE_PP92] = "beholster";
 				shrines[EMOTE_PP93] = "ammo";
+				shrines[EMOTE_PP117] = "challenge"
 				
 				if (!this[shrines[attack] + "Shrine"]) {
 					this.duel.addMessage(this.getName() + " now has a " + shrines[attack] + " Shrine !");
@@ -2760,7 +2762,7 @@ class Fighter {
 				units[EMOTE_PP106] = ["Killithid", 20, []];
 				units[EMOTE_PP107] = ["Muzzle Flare", 20, []];
 				units[EMOTE_PP108] = ["Muzzle Whisp", 20, []];
-				units[EMOTE_PP109] = ["Phaser Spider", 20, []];
+				units[EMOTE_PP109] = ["Phaser Spider", 20, ["armyPiercing"]];
 				units[EMOTE_PP110] = ["Skullet", 20, []];
 				units[EMOTE_PP111] = ["Skullmet", 20, []];
 				units[EMOTE_PP112] = ["Spectral Gun Nut", 20, []];
@@ -3435,6 +3437,7 @@ class City extends Fighter {
 		this.bloodShrine = false;
 		this.beholsterShrine = false;
 		this.ammoShrine = false;
+		this.challengeShrine = false;
 		
 		this.junkCount = 0;
 		
@@ -3498,6 +3501,9 @@ class City extends Fighter {
 		if (this.ammoShrine) {
 			txt += "\n - Ammo Shrine";
 		}
+		if (this.challengeShrine) {
+			txt += "\n - Challenge Shrine"
+		}
 		
 		// status
 		txt += "\n\n**Status :**"
@@ -3509,10 +3515,13 @@ class City extends Fighter {
 		if (this.militaryPower > 0) {
 			txt += "\n\n**Military Power : **" + this.militaryPower;
 			if (this.armyJammed) {
-				txt += "\n - **Jammed**"
+				txt += "\n - **Jammed**";
 			}
 			if (this.armyResurrects) {
-				txt += "\n - Undead"
+				txt += "\n - Undead Army";
+			}
+			if (this.armyPiercing) {
+				txt += "\n - Phasing Damages";
 			}
 		}
  
@@ -3567,6 +3576,7 @@ class City extends Fighter {
 		
 		this.armyResurrects = false;
 		this.armyJammed = false;
+		this.armyPiercing = false;
 	}
 }
 
@@ -5682,19 +5692,33 @@ class Duel {
 		return randomFromList(goodList);
 	}
 	getRandomCivEmote(_city) {
-		var listeEmote = [EMOTE_PP82, EMOTE_PP93, EMOTE_PP85, EMOTE_PP90, EMOTE_PP83];
+		var listeEmote = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP85, EMOTE_PP90, EMOTE_PP93, EMOTE_PP117];
 		
 		if (_city.familiarShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP94, EMOTE_PP95]);
-		}
-		if (_city.ammoShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP96, EMOTE_PP97, EMOTE_PP98, EMOTE_PP99]);
+			listeEmote = listeEmote.concat([EMOTE_PP94, EMOTE_PP95])
+				.splice(listeEmote.indexOf(EMOTE_PP82), 1);
 		}
 		if (_city.junkShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP113, EMOTE_PP114, EMOTE_PP115]);
+			listeEmote = listeEmote.concat([EMOTE_PP113, EMOTE_PP114, EMOTE_PP115])
+				.splice(listeEmote.indexOf(EMOTE_PP83), 1);
 			if (getRandomPercent() <= 5) {
 				listeEmote = listeEmote.concat([EMOTE_PP116]);
 			}
+		}
+		if (_city.diceShrine) {
+			listeEmote = listeEmote.splice(listeEmote.indexOf(EMOTE_PP85), 1);
+		}
+		if (_city.cleanseShrine) {
+			listeEmote = listeEmote.concat([])
+				.splice(listeEmote.indexOf(EMOTE_PP90), 1);
+		}
+		if (_city.ammoShrine) {
+			listeEmote = listeEmote.concat([EMOTE_PP96, EMOTE_PP97, EMOTE_PP98, EMOTE_PP99])
+				.splice(listeEmote.indexOf(EMOTE_PP93), 1);
+		}
+		if (_city.challengeShrine) {
+			listeEmote = listeEmote.concat([EMOTE_PP102])
+				.splice(listeEmote.indexOf(EMOTE_PP117), 1);
 		}
 		
 		for (var i = listeEmote.length - 1; i >= 0; i--) {
@@ -6021,7 +6045,7 @@ async function sendCheatPanel(_channel) {
 		],
 		"Cheat Panel : Civilisation Moves I" : [
 			EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP86, EMOTE_PP87, EMOTE_PP88, EMOTE_PP89, 
-			EMOTE_PP90, EMOTE_PP91, EMOTE_PP92, EMOTE_PP93
+			EMOTE_PP90, EMOTE_PP91, EMOTE_PP92, EMOTE_PP93, EMOTE_PP117
 		],
 		"Cheat Panel : Civilisation Moves II" : [
 			EMOTE_PP94, EMOTE_PP95, EMOTE_PP96, EMOTE_PP97, EMOTE_PP98, EMOTE_PP99, EMOTE_PP100, EMOTE_PP101, 
