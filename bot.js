@@ -3617,6 +3617,9 @@ class City extends Fighter {
 	get benefit() {
 		var win = 10;
 		
+		if (this.peaceShrine && this.militaryPower == 0) {
+			win = win*3;
+		}
 		if (this.cleanseShrine) {
 			win = Math.floor(win*1.5);
 		}
@@ -5759,10 +5762,11 @@ class Duel {
 		return randomFromList(goodList);
 	}
 	getRandomCivEmote(_city) {
-		var listeEmote = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP85, EMOTE_PP90, EMOTE_PP93, EMOTE_PP117, EMOTE_PP122];
+		var listeEmote = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP85, EMOTE_PP87, EMOTE_PP90];
 		
 		if (_city.familiarShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP94, EMOTE_PP95]);
+			listeEmote = listeEmote.concat([EMOTE_PP94, EMOTE_PP95, 
+							EMOTE_PP93, EMOTE_PP122]);
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP82), 1);
 		}
 		if (_city.junkShrine) {
@@ -5775,11 +5779,15 @@ class Duel {
 		if (_city.diceShrine) {
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP85), 1);
 		}
+		if (_city.peaceShrine) {
+			listeEmote.splice(listeEmote.indexOf(EMOTE_PP87), 1);
+		}
 		if (_city.cleanseShrine) {
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP90), 1);
 		}
 		if (_city.ammoShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP96, EMOTE_PP97, EMOTE_PP98, EMOTE_PP99]);
+			listeEmote = listeEmote.concat([EMOTE_PP96, EMOTE_PP97, EMOTE_PP98, EMOTE_PP99, 
+							EMOTE_PP117]);
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP93), 1);
 		}
 		if (_city.challengeShrine) {
