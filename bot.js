@@ -2768,7 +2768,7 @@ class Fighter {
 				units[EMOTE_PP98] = ["Lord of the Jammed", 20, ["armyResurrects", "armyJammed"]];
 				units[EMOTE_PP99] = ["Shelleton", 20, []];
 				units[EMOTE_PP100] = ["Chain Gunner", 100, []];
-				units[EMOTE_PP101] = ["Chancebulon", Math.floor(Math.random() * 20 + 1), []];
+				units[EMOTE_PP101] = ["Chancebulon", Math.floor(Math.random() * 20 + 1)*10, []];
 				units[EMOTE_PP102] = ["Confirmed", 20, []];
 				units[EMOTE_PP103] = ["Cubelead", 20, []];
 				units[EMOTE_PP104] = ["Cubulon", 20, []];
@@ -5807,6 +5807,8 @@ class Duel {
 		var _target = this.getOppOf(_city);
 		var attackPower = _city.militaryPower;
 		var defencePower = _target.militaryPower;
+		console.log(_city.getName() + " " + _target.getName());
+		console.log(attackPower + " " + defencePower);
 		
 		if (_city.silverBullets && _target.armyJammed) {
 			attackPower += attackPower;
