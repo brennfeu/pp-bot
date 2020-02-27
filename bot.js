@@ -5733,7 +5733,7 @@ class Duel {
 		
 		if (_city.familiarShrine) {
 			listeEmote = listeEmote.concat([EMOTE_PP94, EMOTE_PP95, 
-							EMOTE_PP93, EMOTE_PP122]);
+							EMOTE_PP93, EMOTE_PP122, EMOTE_PP92]);
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP82), 1);
 		}
 		if (_city.junkShrine) {
@@ -5744,6 +5744,7 @@ class Duel {
 			}
 		}
 		if (_city.diceShrine) {
+			listeEmote = listeEmote.concat([EMOTE_PP101]);
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP85), 1);
 		}
 		if (_city.peaceShrine) {
@@ -5755,7 +5756,7 @@ class Duel {
 		}
 		if (_city.ammoShrine) {
 			listeEmote = listeEmote.concat([EMOTE_PP96, EMOTE_PP97, EMOTE_PP98, EMOTE_PP99, 
-							EMOTE_PP117]);
+							EMOTE_PP117, EMOTE_PP91]);
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP93), 1);
 		}
 		if (_city.challengeShrine) {
@@ -5768,6 +5769,14 @@ class Duel {
 		}
 		if (_city.angelShrine) {
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP86), 1);
+		}
+		if (_city.bloodShrine) {
+			listeEmote = listeEmote.concat([EMOTE_PP100, EMOTE_PP105, EMOTE_PP112]);
+			listeEmote.splice(listeEmote.indexOf(EMOTE_PP91), 1);
+		}
+		if (_city.beholderShrine) {
+			listeEmote = listeEmote.concat([EMOTE_PP106, EMOTE_PP109]);
+			listeEmote.splice(listeEmote.indexOf(EMOTE_PP92), 1);
 		}
 		
 		return randomFromList(listeEmote);
