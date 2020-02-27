@@ -2782,9 +2782,11 @@ class Fighter {
 				units[EMOTE_PP112] = ["Spectral Gun Nut", 20, []];
 				
 				this.duel.addMessage(this.getName() + " summons a " + units[attack][0] + " for his army !");
+				this.lastSummonValue = units[attack][1];
 				
 				if (this.alphaBullets && this.militaryPower == 0) {
 					this.militaryPower += units[attack][1];
+					this.lastSummonValue += units[attack][1];
 					this.duel.addMessage("Alpha Bullets doubles the military power gained !");
 				}
 				
@@ -3496,6 +3498,11 @@ class City extends Fighter {
 		this.ghostBullets = false;
 		this.silverBullets = false;
 		
+		this.lastSummonValue = 0;
+		this.debuffFire = 0;
+		this.armyResurectionCountdown = 0;
+		
+		this.militaryPower = 0;
 		this.resetArmy();
 	}
 	
@@ -3567,6 +3574,12 @@ class City extends Fighter {
 		
 		// status
 		txt += "\n\n**Status :**"
+		if (this.debuffFire > 0) {
+			txt += "\n - Burning (for " + this.debuffFire + " turns)";
+		}
+		if (this.armyResurectionCountdown > 0) {
+			txt += "\n - Army Resurection in " + this.armyResurectionCountdown + " turns";
+		}
 		if (this.junkCount > 0) {
 			txt += "\n - Junks : " + this.junkCount;
 		}
@@ -3615,12 +3628,30 @@ class City extends Fighter {
 	turnChange() {
 		super.turnChange();
 		
+		this.debuffFire -= 1;
+		this.armyResurectionCountdown -= 1;
+		
+		if (this.debuffFire > 0) {
+			this.duel.addMessage(this.getName() + " burns !");
+			this.damage(100, false);
+		}
+		if (this.armyResurectionCountdown == 1) {
+			this.duel.addMessage(this.getName() + " gets back his undead army !");
+			this.militaryPower += this.militaryPowerSave;
+			this.militaryPowerSave = 0;
+		}
+		
 		this.duel.addMessage("-----------------");
 		this.mayor.turnChange();
 	}
 	
 	resetArmy() {
+		this.militaryPowerSave = this.militaryPower;
 		this.militaryPower = 0;
+		
+		if (this.armyResurrects) {
+			this.armyResurectionCountdown = 4;
+		}
 		
 		this.armyResurrects = false;
 		this.armyJammed = false;
@@ -5807,11 +5838,22 @@ class Duel {
 		var _target = this.getOppOf(_city);
 		var attackPower = _city.militaryPower;
 		var defencePower = _target.militaryPower;
-		console.log(_city.getName() + " " + _target.getName());
-		console.log(attackPower + " " + defencePower);
 		
+		if (_city.omegaBullets) {
+			attackPower += _city.lastSummonValue;
+		}
 		if (_city.silverBullets && _target.armyJammed) {
 			attackPower += attackPower;
+		}
+		if (_city.armyMindControl) {
+			attackPower += Math.min(100, _target.militaryPower);
+			_target.militaryPower -= Math.min(100, _target.militaryPower);
+		}
+		
+		if (_city.armyPiercing) {
+			this.addMessage("A part of " + _city.getName() + " phases in the city and attacks it !");
+			_target.damage(Math.floor(attackPower/4));
+			attackPower -= Math.floor(attackPower/4);
 		}
 		
 		if (attackPower <= defencePower) {
@@ -5822,6 +5864,11 @@ class Duel {
 		else {
 			this.addMessage("The raid is a success !");
 			_target.damage(attackPower - defencePower);
+			
+			if (_city.hotLead) {
+				_target.debuffFire = 4;
+			}
+			
 			_target.resetArmy();
 			_city.resetArmy();
 		}
