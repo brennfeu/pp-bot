@@ -128,6 +128,7 @@ const EMOTE_PP91 = "680064464728358920"; // Blood Shrine
 const EMOTE_PP92 = "680064464691003400"; // Beholster Shrine
 const EMOTE_PP93 = "680064464695066642"; // Ammo Shrine
 const EMOTE_PP117 = "680064464657055747"; // Challenge Shrine
+const EMOTE_PP122 = "680064464745267217"; // Blank Shrine
 
 // CIV UNIT MOVES
 const EMOTE_PP94 = "680155715838804002"; // Bullet Kin
@@ -155,6 +156,10 @@ const EMOTE_PP113 = "682195587286040576"; // Junk
 const EMOTE_PP114 = "682195587034382338"; // Gold Junk
 const EMOTE_PP115 = "682195587319201840"; // Ser Junkan
 const EMOTE_PP116 = "682195587319332870"; // Lies
+const EMOTE_PP118 = "682571228791308288"; // Alpha Bullet
+const EMOTE_PP119 = "682571229034577932"; // Omega Bullets
+const EMOTE_PP120 = "682571228875063314"; // Hot Lead
+const EMOTE_PP121 = "682571228535455785"; // Ghost Bullets
 
 // DON'T FORGET TO ADD TO THE CHEAT PANEL
 const NORMAL_EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8,
@@ -174,7 +179,8 @@ const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP
 			EMOTE_PP90, EMOTE_PP91, EMOTE_PP92, EMOTE_PP93, EMOTE_PP94, EMOTE_PP95, EMOTE_PP96, EMOTE_PP97,
 			EMOTE_PP98, EMOTE_PP99, EMOTE_PP100, EMOTE_PP101, EMOTE_PP102, EMOTE_PP103, EMOTE_PP104, EMOTE_PP105,
 			EMOTE_PP106, EMOTE_PP107, EMOTE_PP108, EMOTE_PP109, EMOTE_PP110, EMOTE_PP111, EMOTE_PP112, EMOTE_PP113,
-		        EMOTE_PP114, EMOTE_PP115, EMOTE_PP116, EMOTE_PP117];
+		        EMOTE_PP114, EMOTE_PP115, EMOTE_PP116, EMOTE_PP117, EMOTE_PP118, EMOTE_PP119, EMOTE_PP120, EMOTE_PP121,
+		        EMOTE_PP122];
 const OTHER_EMOTE_LIST = [EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE];
 const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST).concat(CIV_EMOTE_LIST).concat(OTHER_EMOTE_LIST);
 
@@ -2716,7 +2722,7 @@ class Fighter {
 				}
 			}
 			else if ([EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP86, EMOTE_PP87, EMOTE_PP88, EMOTE_PP89, 
-					EMOTE_PP90, EMOTE_PP91, EMOTE_PP92, EMOTE_PP93, EMOTE_PP117].indexOf(attack) > -1) {
+					EMOTE_PP90, EMOTE_PP91, EMOTE_PP92, EMOTE_PP93, EMOTE_PP117, EMOTE_PP122].indexOf(attack) > -1) {
 				// Shrines
 				var shrines = {};
 				shrines[EMOTE_PP82] = "familiar";
@@ -2732,6 +2738,7 @@ class Fighter {
 				shrines[EMOTE_PP92] = "beholster";
 				shrines[EMOTE_PP93] = "ammo";
 				shrines[EMOTE_PP117] = "challenge"
+				shrines[EMOTE_PP122] = "blank"
 				
 				if (!this[shrines[attack] + "Shrine"]) {
 					this.duel.addMessage(this.getName() + " now has a " + shrines[attack] + " Shrine !");
@@ -2754,12 +2761,12 @@ class Fighter {
 				units[EMOTE_PP98] = ["Lord of the Jammed", 20, ["armyResurrects", "armyJammed"]];
 				units[EMOTE_PP99] = ["Shelleton", 20, []];
 				units[EMOTE_PP100] = ["Chain Gunner", 100, []];
-				units[EMOTE_PP101] = ["Chancebulon", 20, []];
+				units[EMOTE_PP101] = ["Chancebulon", Math.floor(Math.random() * 20 + 1), []];
 				units[EMOTE_PP102] = ["Confirmed", 20, []];
 				units[EMOTE_PP103] = ["Cubelead", 20, []];
 				units[EMOTE_PP104] = ["Cubulon", 20, []];
 				units[EMOTE_PP105] = ["Gun Nut", 100, []];
-				units[EMOTE_PP106] = ["Killithid", 20, []];
+				units[EMOTE_PP106] = ["Killithid", 0, ["armyMindControl"]];
 				units[EMOTE_PP107] = ["Muzzle Flare", 20, []];
 				units[EMOTE_PP108] = ["Muzzle Whisp", 20, []];
 				units[EMOTE_PP109] = ["Phaser Spider", 20, ["armyPiercing"]];
@@ -2768,11 +2775,18 @@ class Fighter {
 				units[EMOTE_PP112] = ["Spectral Gun Nut", 20, []];
 				
 				this.duel.addMessage(this.getName() + " summons a " + units[attack][0] + " for his army !");
+				
+				if (this.alphaBullets && this.militaryPower == 0) {
+					this.militaryPower += units[attack][1];
+					this.duel.addMessage("Alpha Bullets doubles the military power gained !");
+				}
+				
 				if (getRandomPercent() <= 5 && units[attack][2].indexOf("armyJammed") < 0) {
 					this.duel.addMessage("This one looks jammed !");
 					this.militaryPower += units[attack][1];
 					this.armyJammed = true;
 				}
+				
 				this.militaryPower += units[attack][1];
 				for (var i in units[attack][2]) {
 					this[units[attack][2][i]] = true;
@@ -2794,6 +2808,26 @@ class Fighter {
 				this.duel.addMessage(this.getName() + " picks up some junk !");
 				this.junkCount += this.duel.getOppOf(this).junkCount;
 				this.duel.getOppOf(this).junkCount = 0;
+			}
+			else if (attack == EMOTE_PP118) {
+				// Alpha Bullets
+				this.duel.addMessage(this.getName() + " gets Alpha Bullets !");
+				this.alphaBullets = true;
+			}
+			else if (attack == EMOTE_PP119) {
+				// Omega Bullets
+				this.duel.addMessage(this.getName() + " gets Omega Bullets !");
+				this.omegaBullets = true;
+			}
+			else if (attack == EMOTE_PP120) {
+				// Hot Lead
+				this.duel.addMessage(this.getName() + " gets Hot Lead !");
+				this.hotLead = true;
+			}
+			else if (attack == EMOTE_PP121) {
+				// Ghost Bullets
+				this.duel.addMessage(this.getName() + " gets Ghost Bullets !");
+				this.ghostBullets = true;
 			}
 			else if (attack == EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE) {
 				// Judgement Event
@@ -3438,11 +3472,15 @@ class City extends Fighter {
 		this.beholsterShrine = false;
 		this.ammoShrine = false;
 		this.challengeShrine = false;
+		this.blankShrine = false;
 		
 		this.junkCount = 0;
+		this.alphaBullets = false;
+		this.omegaBullets = false;
+		this.hotLead = false;
+		this.ghostBullets = false;
 		
 		this.money = this.benefit*3;
-		
 		this.resetArmy();
 	}
 	
@@ -3502,13 +3540,28 @@ class City extends Fighter {
 			txt += "\n - Ammo Shrine";
 		}
 		if (this.challengeShrine) {
-			txt += "\n - Challenge Shrine"
+			txt += "\n - Challenge Shrine";
+		}
+		if (this.blankShrine) {
+			txt += "\n - Blank Shrine";
 		}
 		
 		// status
 		txt += "\n\n**Status :**"
 		if (this.junkCount > 0) {
 			txt += "\n - Junks : " + this.junkCount;
+		}
+		if (this.alphaBullets) {
+			txt += "\n - Alpha Bullet";
+		}
+		if (this.omegaBullets) {
+			txt += "\n - Omega Bullets";
+		}
+		if (this.hotLead) {
+			txt += "\n - Hot Lead";
+		}
+		if (this.ghostBullets) {
+			txt += "\n - Ghost Bullets";
 		}
 		
 		// Army
@@ -3522,6 +3575,9 @@ class City extends Fighter {
 			}
 			if (this.armyPiercing) {
 				txt += "\n - Phasing Damages";
+			}
+			if (this.armyMindControl) {
+				txt += "\n - Mind Control"
 			}
 		}
  
@@ -3577,6 +3633,7 @@ class City extends Fighter {
 		this.armyResurrects = false;
 		this.armyJammed = false;
 		this.armyPiercing = false;
+		this.armyMindControl = false;
 	}
 }
 
@@ -5692,7 +5749,7 @@ class Duel {
 		return randomFromList(goodList);
 	}
 	getRandomCivEmote(_city) {
-		var listeEmote = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP85, EMOTE_PP90, EMOTE_PP93, EMOTE_PP117];
+		var listeEmote = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP85, EMOTE_PP90, EMOTE_PP93, EMOTE_PP117, EMOTE_PP122];
 		
 		if (_city.familiarShrine) {
 			listeEmote = listeEmote.concat([EMOTE_PP94, EMOTE_PP95]);
@@ -5718,6 +5775,10 @@ class Duel {
 		if (_city.challengeShrine) {
 			listeEmote = listeEmote.concat([EMOTE_PP102]);
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP117), 1);
+		}
+		if (_city.blankShrine) {
+			listeEmote = listeEmote.concat([EMOTE_PP118, EMOTE_PP119, EMOTE_PP120, EMOTE_PP121]);
+			listeEmote.splice(listeEmote.indexOf(EMOTE_PP122), 1);
 		}
 		
 		for (var i = listeEmote.length - 1; i >= 0; i--) {
@@ -6052,7 +6113,8 @@ async function sendCheatPanel(_channel) {
 			EMOTE_PP109, EMOTE_PP110, EMOTE_PP111, EMOTE_PP112
 		],
 		"Cheat Panel : Civilisation Moves III" : [
-			EMOTE_PP113, EMOTE_PP114, EMOTE_PP115, EMOTE_PP116
+			EMOTE_PP113, EMOTE_PP114, EMOTE_PP115, EMOTE_PP116, EMOTE_PP118, EMOTE_PP119, EMOTE_PP120, 
+			EMOTE_PP121
 		],
 		"Cheat Panel : Gods I" : [], // filled later in a loop
 		"Cheat Panel : Gods II" : [],
