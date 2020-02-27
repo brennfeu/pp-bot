@@ -162,6 +162,9 @@ const EMOTE_PP120 = "682571228875063314"; // Hot Lead
 const EMOTE_PP121 = "682571228535455785"; // Ghost Bullets
 const EMOTE_PP123 = "682571228804022287"; // Silver Bullets
 
+// CIV RAID MOVES
+const EMOTE_PP124 = "682612520992768088"; // Rusty Sidearm
+
 // DON'T FORGET TO ADD TO THE CHEAT PANEL
 const NORMAL_EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8,
 			EMOTE_PP9, EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16, 
@@ -181,7 +184,7 @@ const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP
 			EMOTE_PP98, EMOTE_PP99, EMOTE_PP100, EMOTE_PP101, EMOTE_PP102, EMOTE_PP103, EMOTE_PP104, EMOTE_PP105,
 			EMOTE_PP106, EMOTE_PP107, EMOTE_PP108, EMOTE_PP109, EMOTE_PP110, EMOTE_PP111, EMOTE_PP112, EMOTE_PP113,
 		        EMOTE_PP114, EMOTE_PP115, EMOTE_PP116, EMOTE_PP117, EMOTE_PP118, EMOTE_PP119, EMOTE_PP120, EMOTE_PP121,
-		        EMOTE_PP122, EMOTE_PP123];
+		        EMOTE_PP122, EMOTE_PP123, EMOTE_PP124];
 const OTHER_EMOTE_LIST = [EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE];
 const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST).concat(CIV_EMOTE_LIST).concat(OTHER_EMOTE_LIST);
 
@@ -2836,6 +2839,11 @@ class Fighter {
 				// Silver Bullets
 				this.duel.addMessage(this.getName() + " gets Silver Bullets !");
 				this.silverBullets = true;
+			}
+			else if (attack == EMOTE_PP124) {
+				// Rusty Sidearm
+				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + " !");
+				this.duel.launchRaid(this);
 			}
 			else if (attack == EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE) {
 				// Judgement Event
@@ -5729,7 +5737,7 @@ class Duel {
 		return randomFromList(goodList);
 	}
 	getRandomCivEmote(_city) {
-		var listeEmote = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP85, EMOTE_PP87, EMOTE_PP90];
+		var listeEmote = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP85, EMOTE_PP87, EMOTE_PP90, EMOTE_PP124];
 		
 		if (_city.familiarShrine) {
 			listeEmote = listeEmote.concat([EMOTE_PP94, EMOTE_PP95, 
@@ -5793,6 +5801,28 @@ class Duel {
 			}
 		}
 		return EMOTE_SKIP;
+	}
+	
+	launchRaid(_city) {
+		var _target = this.getOppOf(_city);
+		var attackPower = _city.militaryPower;
+		var defencePower = _target.militaryPower;
+		
+		if (_city.silverBullets && _target.armyJammed) {
+			attackPower += attackPower;
+		}
+		
+		if (attackPower <= defencePower) {
+			this.addMessage("The raid fails !");
+			_target.militaryPower -= defencePower;
+			_city.militaryPower = 0;
+		}
+		else {
+			this.addMessage("The raid is a success !");
+			_target.damage(0);
+			_city.militaryPower -= attackPower;
+			_target.militaryPower = 0;
+		}
 	}
 	
 	illegalGetCaught(_percentage) {
@@ -6097,6 +6127,9 @@ async function sendCheatPanel(_channel) {
 		"Cheat Panel : Civilisation Moves III" : [
 			EMOTE_PP113, EMOTE_PP114, EMOTE_PP115, EMOTE_PP116, EMOTE_PP118, EMOTE_PP119, EMOTE_PP120, 
 			EMOTE_PP121, EMOTE_PP123
+		],
+		"Cheat Panel : Civilisation Moves IV" : [
+			EMOTE_PP124
 		],
 		"Cheat Panel : Gods I" : [], // filled later in a loop
 		"Cheat Panel : Gods II" : [],
