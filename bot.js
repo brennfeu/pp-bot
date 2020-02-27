@@ -5839,6 +5839,8 @@ class Duel {
 		var attackPower = _city.militaryPower;
 		var defencePower = _target.militaryPower;
 		
+		var phaseLevel = 0;
+		
 		if (_city.omegaBullets) {
 			attackPower += _city.lastSummonValue;
 		}
@@ -5851,9 +5853,15 @@ class Duel {
 		}
 		
 		if (_city.armyPiercing) {
+			phaseLevel += 0.25;
+		}
+		if (_city.ghostBullets) {
+			phaseLevel += 0.25;
+		}
+		if (phaseLevel > 0) {
 			this.addMessage("A part of " + _city.getName() + " phases in the city and attacks it !");
-			_target.damage(Math.floor(attackPower/4));
-			attackPower -= Math.floor(attackPower/4);
+			_target.damage(Math.floor(attackPower*phaseLevel));
+			attackPower -= Math.floor(attackPower*phaseLevel);
 		}
 		
 		if (attackPower <= defencePower) {
