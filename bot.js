@@ -2722,6 +2722,10 @@ class Fighter {
 					this.duel.addMessage("UwU Mode Deactivated !");
 				}
 			}
+			else if (CIV_EMOTE_LIST.indexOf(attack) > -1 && this.duel.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
+				this.duel.startCityMode();
+				this.playMove(attack);
+			}
 			else if ([EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP86, EMOTE_PP87, EMOTE_PP88, EMOTE_PP89, 
 					EMOTE_PP90, EMOTE_PP91, EMOTE_PP92, EMOTE_PP93, EMOTE_PP117, EMOTE_PP122].indexOf(attack) > -1) {
 				// Shrines
@@ -6087,7 +6091,8 @@ async function sendCheatPanel(_channel) {
 		],
 		"Cheat Panel : Gods I" : [], // filled later in a loop
 		"Cheat Panel : Gods II" : [],
-		"Cheat Panel : Gods III" : []
+		"Cheat Panel : Gods III" : [],
+		"Cheat Panel : Other" : [EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE, EMOTE_SKIPPER]
 	}
 	
 	for (var i in GOD_LIST) {
