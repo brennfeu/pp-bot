@@ -2747,7 +2747,6 @@ class Fighter {
 				}
 				else {
 					this.duel.addMessage(this.getName() + " already had a " + shrines[attack] + " Shrine !");
-					this.money += this.duel.getSpermCost(attack);
 				}
 			}
 			else if ([EMOTE_PP94, EMOTE_PP95, EMOTE_PP96, EMOTE_PP97, EMOTE_PP98, EMOTE_PP99, EMOTE_PP100, EMOTE_PP101,
@@ -2802,7 +2801,6 @@ class Fighter {
 				// Gold Junk
 				this.playMove(EMOTE_PP113);
 				this.duel.addMessage("This looks like gold junk !");
-				this.money += this.junkCount*10;
 			}
 			else if (attack == EMOTE_PP116) {
 				// Lies
@@ -3461,7 +3459,6 @@ class City extends Fighter {
 		this.DEXValue = 0;
 		
 		this.mayor = _mayor; // Fighter class
-		this.money = 0;
 		this.customName = null;
 		this.attackedThisTurn = false;
 		
@@ -3487,8 +3484,15 @@ class City extends Fighter {
 		this.ghostBullets = false;
 		this.silverBullets = false;
 		
-		this.money = this.benefit*3;
 		this.resetArmy();
+	}
+	
+	get STR() {
+		var str = super.STR;
+		
+		str += this.junkCount*100;
+		
+		return str;
 	}
 	
 	toString() {
@@ -3503,10 +3507,6 @@ class City extends Fighter {
 		if (this.STR == 69) {
 			txt += " (lmao)";
 		}
-		
-		// money
-		txt += "\n\n**Sperm :** " + this.money + " liters";
-		txt += "\n**Benefit :** " + this.benefit + " liters/turn";
 		
 		// powers
 		txt += "\n\n**Buildings :**";
@@ -3600,41 +3600,8 @@ class City extends Fighter {
 		return this.customName;
 	}
 	
-	get STR() {
-		var str = super.STR;
-		
-		str += this.junkCount*100;
-		
-		return str;
-	}
-	
-	get DEX() {
-		var dex = super.DEX;
-		
-		return dex;
-	}
-	
-	get benefit() {
-		var win = 10;
-		
-		if (this.peaceShrine && this.militaryPower == 0) {
-			win = win*3;
-		}
-		if (this.cleanseShrine) {
-			win = Math.floor(win*1.5);
-		}
-		
-		return win;
-	}
-	
 	turnChange() {
 		super.turnChange();
-		
-		this.money += this.benefit;
-		
-		if (this.money <= 0) {
-			this.attack = EMOTE_SKIP;
-		}
 		
 		this.duel.addMessage("-----------------");
 		this.mayor.turnChange();
@@ -5456,10 +5423,6 @@ class Duel {
 			}
 
 			this.bothFightersAction(function(_fighter) {
-				if (_fighter.duel.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
-					_fighter.money -= _fighter.duel.getSpermCost(_fighter.attack);
-				}
-				
 				_fighter.duel.addMessage("-----------------");
 				_fighter.playMove();
 				_fighter.duel.sendMessages();
@@ -5780,6 +5743,7 @@ class Duel {
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP85), 1);
 		}
 		if (_city.peaceShrine) {
+			listeEmote = listeEmote.concat([EMOTE_PP86]);
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP87), 1);
 		}
 		if (_city.cleanseShrine) {
@@ -5798,11 +5762,8 @@ class Duel {
 			listeEmote = listeEmote.concat([EMOTE_PP118, EMOTE_PP119, EMOTE_PP120, EMOTE_PP121, EMOTE_PP123]);
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP122), 1);
 		}
-		
-		for (var i = listeEmote.length - 1; i >= 0; i--) {
-			if (_city.money < this.getSpermCost(listeEmote[i])) {
-				listeEmote.splice(i, 1);
-			}
+		if (_city.angelShrine) {
+			listeEmote.splice(listeEmote.indexOf(EMOTE_PP86), 1);
 		}
 		
 		return randomFromList(listeEmote);
@@ -5878,16 +5839,6 @@ class Duel {
 			case EMOTE_PP12:
 			case EMOTE_PP22:
 				return 20;
-		}
-		return 0;
-	}
-	getSpermCost(_move) {
-		switch(_move) {
-			case EMOTE_PP82:
-			case EMOTE_PP83:
-				return 30;
-			case EMOTE_PP84:
-				return 40;
 		}
 		return 0;
 	}
