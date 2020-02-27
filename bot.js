@@ -5695,30 +5695,29 @@ class Duel {
 		var listeEmote = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP85, EMOTE_PP90, EMOTE_PP93, EMOTE_PP117];
 		
 		if (_city.familiarShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP94, EMOTE_PP95])
-				.splice(listeEmote.indexOf(EMOTE_PP82), 1);
+			listeEmote = listeEmote.concat([EMOTE_PP94, EMOTE_PP95]);
+			listeEmote.splice(listeEmote.indexOf(EMOTE_PP82), 1);
 		}
 		if (_city.junkShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP113, EMOTE_PP114, EMOTE_PP115])
-				.splice(listeEmote.indexOf(EMOTE_PP83), 1);
+			listeEmote = listeEmote.concat([EMOTE_PP113, EMOTE_PP114, EMOTE_PP115]);
+			listeEmote.splice(listeEmote.indexOf(EMOTE_PP83), 1);
 			if (getRandomPercent() <= 5) {
 				listeEmote = listeEmote.concat([EMOTE_PP116]);
 			}
 		}
 		if (_city.diceShrine) {
-			listeEmote = listeEmote.splice(listeEmote.indexOf(EMOTE_PP85), 1);
+			listeEmote.splice(listeEmote.indexOf(EMOTE_PP85), 1);
 		}
 		if (_city.cleanseShrine) {
-			listeEmote = listeEmote.concat([])
-				.splice(listeEmote.indexOf(EMOTE_PP90), 1);
+			listeEmote.splice(listeEmote.indexOf(EMOTE_PP90), 1);
 		}
 		if (_city.ammoShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP96, EMOTE_PP97, EMOTE_PP98, EMOTE_PP99])
-				.splice(listeEmote.indexOf(EMOTE_PP93), 1);
+			listeEmote = listeEmote.concat([EMOTE_PP96, EMOTE_PP97, EMOTE_PP98, EMOTE_PP99]);
+			listeEmote.splice(listeEmote.indexOf(EMOTE_PP93), 1);
 		}
 		if (_city.challengeShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP102])
-				.splice(listeEmote.indexOf(EMOTE_PP117), 1);
+			listeEmote = listeEmote.concat([EMOTE_PP102]);
+			listeEmote.splice(listeEmote.indexOf(EMOTE_PP117), 1);
 		}
 		
 		for (var i = listeEmote.length - 1; i >= 0; i--) {
