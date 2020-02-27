@@ -5814,14 +5814,14 @@ class Duel {
 		
 		if (attackPower <= defencePower) {
 			this.addMessage("The raid fails !");
-			_target.militaryPower -= defencePower;
-			_city.militaryPower = 0;
+			_city.resetArmy();
+			_target.militaryPower -= defencePower - attackPower
 		}
 		else {
 			this.addMessage("The raid is a success !");
-			_target.damage(0);
-			_city.militaryPower -= attackPower;
-			_target.militaryPower = 0;
+			_target.damage(attackPower - defencePower);
+			_target.resetArmy();
+			_city.resetArmy();
 		}
 	}
 	
