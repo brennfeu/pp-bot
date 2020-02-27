@@ -160,6 +160,7 @@ const EMOTE_PP118 = "682571228791308288"; // Alpha Bullet
 const EMOTE_PP119 = "682571229034577932"; // Omega Bullets
 const EMOTE_PP120 = "682571228875063314"; // Hot Lead
 const EMOTE_PP121 = "682571228535455785"; // Ghost Bullets
+const EMOTE_PP123 = "682571228804022287"; // Silver Bullets
 
 // DON'T FORGET TO ADD TO THE CHEAT PANEL
 const NORMAL_EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8,
@@ -180,7 +181,7 @@ const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP
 			EMOTE_PP98, EMOTE_PP99, EMOTE_PP100, EMOTE_PP101, EMOTE_PP102, EMOTE_PP103, EMOTE_PP104, EMOTE_PP105,
 			EMOTE_PP106, EMOTE_PP107, EMOTE_PP108, EMOTE_PP109, EMOTE_PP110, EMOTE_PP111, EMOTE_PP112, EMOTE_PP113,
 		        EMOTE_PP114, EMOTE_PP115, EMOTE_PP116, EMOTE_PP117, EMOTE_PP118, EMOTE_PP119, EMOTE_PP120, EMOTE_PP121,
-		        EMOTE_PP122];
+		        EMOTE_PP122, EMOTE_PP123];
 const OTHER_EMOTE_LIST = [EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE];
 const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST).concat(CIV_EMOTE_LIST).concat(OTHER_EMOTE_LIST);
 
@@ -2829,6 +2830,11 @@ class Fighter {
 				this.duel.addMessage(this.getName() + " gets Ghost Bullets !");
 				this.ghostBullets = true;
 			}
+			else if (attack == EMOTE_PP123) {
+				// Silver Bullets
+				this.duel.addMessage(this.getName() + " gets Silver Bullets !");
+				this.silverBullets = true;
+			}
 			else if (attack == EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE) {
 				// Judgement Event
 				if (this.duel.ESPINOZA_CHOICE == attack) {
@@ -3479,6 +3485,7 @@ class City extends Fighter {
 		this.omegaBullets = false;
 		this.hotLead = false;
 		this.ghostBullets = false;
+		this.silverBullets = false;
 		
 		this.money = this.benefit*3;
 		this.resetArmy();
@@ -3562,6 +3569,9 @@ class City extends Fighter {
 		}
 		if (this.ghostBullets) {
 			txt += "\n - Ghost Bullets";
+		}
+		if (this.silverBullets) {
+			txt += "\n - Silver Bullets";
 		}
 		
 		// Army
@@ -5777,7 +5787,7 @@ class Duel {
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP117), 1);
 		}
 		if (_city.blankShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP118, EMOTE_PP119, EMOTE_PP120, EMOTE_PP121]);
+			listeEmote = listeEmote.concat([EMOTE_PP118, EMOTE_PP119, EMOTE_PP120, EMOTE_PP121, EMOTE_PP123]);
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP122), 1);
 		}
 		
@@ -6114,7 +6124,7 @@ async function sendCheatPanel(_channel) {
 		],
 		"Cheat Panel : Civilisation Moves III" : [
 			EMOTE_PP113, EMOTE_PP114, EMOTE_PP115, EMOTE_PP116, EMOTE_PP118, EMOTE_PP119, EMOTE_PP120, 
-			EMOTE_PP121
+			EMOTE_PP121, EMOTE_PP123
 		],
 		"Cheat Panel : Gods I" : [], // filled later in a loop
 		"Cheat Panel : Gods II" : [],
