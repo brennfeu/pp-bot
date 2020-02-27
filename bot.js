@@ -5774,7 +5774,7 @@ class Duel {
 			listeEmote = listeEmote.concat([EMOTE_PP100, EMOTE_PP105, EMOTE_PP112]);
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP91), 1);
 		}
-		if (_city.beholderShrine) {
+		if (_city.beholsterShrine) {
 			listeEmote = listeEmote.concat([EMOTE_PP106, EMOTE_PP109]);
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP92), 1);
 		}
