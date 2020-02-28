@@ -167,6 +167,8 @@ const EMOTE_PP127 = "682882390254944257"; // Green Guon Stone
 
 // CIV RAID MOVES
 const EMOTE_PP124 = "682612520992768088"; // Rusty Sidearm
+const EMOTE_PP128 = "682896260105240628"; // Makeshift Cannon
+const EMOTE_PP129 = "682898924096585728"; // Face Melter
 
 // DON'T FORGET TO ADD TO THE CHEAT PANEL
 const NORMAL_EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8,
@@ -187,7 +189,7 @@ const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP
 			EMOTE_PP98, EMOTE_PP99, EMOTE_PP100, EMOTE_PP101, EMOTE_PP102, EMOTE_PP103, EMOTE_PP104, EMOTE_PP105,
 			EMOTE_PP106, EMOTE_PP107, EMOTE_PP108, EMOTE_PP109, EMOTE_PP110, EMOTE_PP111, EMOTE_PP112, EMOTE_PP113,
 		        EMOTE_PP114, EMOTE_PP115, EMOTE_PP116, EMOTE_PP117, EMOTE_PP118, EMOTE_PP119, EMOTE_PP120, EMOTE_PP121,
-		        EMOTE_PP122, EMOTE_PP123, EMOTE_PP124, EMOTE_PP125, EMOTE_PP126, EMOTE_PP127];
+		        EMOTE_PP122, EMOTE_PP123, EMOTE_PP124, EMOTE_PP125, EMOTE_PP126, EMOTE_PP127, EMOTE_PP128, EMOTE_PP129];
 const OTHER_EMOTE_LIST = [EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE];
 const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST).concat(CIV_EMOTE_LIST).concat(OTHER_EMOTE_LIST);
 
@@ -2869,6 +2871,17 @@ class Fighter {
 				this.duel.addMessage(this.getName() + " gets a Green Guon Stone !");
 				this.greenGuonStones += 1;
 			}
+			else if (attack == EMOTE_PP128) {
+				// Makeshift Cannon
+				this.duel.addMessage(this.getName() + " shoots " + this.getOppName() + " with a Makeshift Cannon !");
+				this.militaryPower = 500;
+				this.duel.launchRaid(this);
+			}
+			else if (attack == EMOTE_PP129) {
+				// Face Melter
+				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + " !");
+				this.duel.launchRaid(this);
+			}
 			else if (attack == EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE) {
 				// Judgement Event
 				if (this.duel.ESPINOZA_CHOICE == attack) {
@@ -3518,6 +3531,7 @@ class City extends Fighter {
 		
 		this.STRValue = 2000;
 		this.DEXValue = 0;
+		this.godList = [];
 		
 		this.mayor = _mayor; // Fighter class
 		this.customName = null;
@@ -5899,7 +5913,8 @@ class Duel {
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP86), 1);
 		}
 		if (_city.bloodShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP100, EMOTE_PP105, EMOTE_PP112]);
+			listeEmote = listeEmote.concat([EMOTE_PP100, EMOTE_PP105, EMOTE_PP112,
+						       EMOTE_PP128]);
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP91), 1);
 		}
 		if (_city.beholsterShrine) {
@@ -6289,7 +6304,7 @@ async function sendCheatPanel(_channel) {
 			EMOTE_PP121, EMOTE_PP123, EMOTE_PP125, EMOTE_PP126, EMOTE_PP127
 		],
 		"Cheat Panel : Civilisation Moves IV" : [
-			EMOTE_PP124
+			EMOTE_PP124, EMOTE_PP128, EMOTE_PP129
 		],
 		"Cheat Panel : Gods I" : [], // filled later in a loop
 		"Cheat Panel : Gods II" : [],
