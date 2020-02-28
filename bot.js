@@ -4787,14 +4787,20 @@ class Duel {
 			}
 			else {
 				var brennUwu = CLIENT.emojis.get("655449555873038337");
-				var mikasa = CLIENT.emojis.get("655523518812913664");
 				var espinoza = CLIENT.emojis.get("615887132157804564");
 				var rageBrenn = CLIENT.emojis.get("668946953681502248");
+				var waifu = null;
+				while (waifu == null) {
+					var g = randomGod = randomFromList(GOD_LIST);
+					if (g.type == "waifu") {
+						waifu = CLIENT.emojis.get(g.emote);
+					}
+				}
 				
 				this.addMessage("*Dispair in IV acts.*");
 				this.sendMessages();
-				this.BATTLE_CHANNEL.send(`${brennUwu} ${mikasa}`);
-				this.BATTLE_CHANNEL.send(`${brennUwu} ${mikasa} ${espinoza}`);
+				this.BATTLE_CHANNEL.send(`${brennUwu} ${waifu}`);
+				this.BATTLE_CHANNEL.send(`${brennUwu} ${waifu} ${espinoza}`);
 				this.BATTLE_CHANNEL.send(`${brennUwu}`);
 				this.BATTLE_CHANNEL.send(`${rageBrenn}`);
 			}
