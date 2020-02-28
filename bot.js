@@ -438,6 +438,7 @@ class Fighter {
 		this.robotHP = 0;
 		this.hasKamui = false;
 		this.lifeFibers = 0;
+		this.hasSupplyDrops = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -805,6 +806,9 @@ class Fighter {
 		}
 		if (this.livingGod) {
 			txt += " - **Living God**\n";
+		}
+		if (this.hasSupplyDrops) {
+			txt += " - **Gets Supply Drops**\n";
 		}
 		if (this.hasBoomerang > 0) {
 			txt += " - With a Boomerang (for " + this.hasBoomerang + " turns)\n";
@@ -3372,6 +3376,31 @@ class Fighter {
 			
 			this.guildUser.send("Current Stånd Ability : " + this.standPower);
 		}
+		if (this.hasSupplyDrops) {
+			var r = getRandomPercent();
+			if (r <= 50) {
+				this.duel.addMessage(this.getName() + " gets a supply drop !");
+				
+				if (r <= 10) { // Pill
+					this.playMove(EMOTE_PP18);
+				}
+				else if (r <= 20) { // RiotShield
+					this.playMove(EMOTE_PP17);
+				}
+				else if (r <= 30) { // Boomerang
+					this.playMove(EMOTE_PP45);
+				}
+				else if (r <= 40) { // AmmoCrate
+					this.playMove(EMOTE_PP72);
+				}
+				else if (r <= 50) { // Scout
+					this.duel.addMessage(this.getName() + " gets binoculars !");
+					this.playMove(EMOTE_PP44);
+				}
+
+				this.duel.addMessage("-----------------");
+			}
+		}
 		
 		// PP Armageddon
 		if (this.duel.PP_ARMAGEDDON) {
@@ -4525,13 +4554,33 @@ class Duel {
 				}
 			}
 		});
-		if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE && !(this.FIGHTER1.STR > 0 && this.FIGHTER2.STR > 0)) {
+		if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE && !(this.FIGHTER1.STR > 0 && this.FIGHTER2.STR > 0)) {
+			if (this.FIGHTER1.STR <= 0) {
+				this.FIGHTER2.mayor.hasSupplyDrops = true;
+				this.addMessage("**" + this.FIGHTER1.getName() + " has been destroyed !**");
+			}
+			if (this.FIGHTER2.STR <= 0) {
+				this.FIGHTER1.mayor.hasSupplyDrops = true;
+				this.addMessage("**" + this.FIGHTER2.getName() + " has been destroyed !**");
+			}
+			
+			var f1 = this.FIGHTER1.mayor;
+			var f2 = this.FIGHTER2.mayor
+			this.FIGHTER1 = f1;
+			this.FIGHTER2 = f2;
+			
+			this.CURRENT_BATTLE_MODE = NORMAL_BATTLE_MODE;
+
+			this.bothFightersAction(function(_fighter) {
+				_fighter.attack = "";
+			});
+		}
+		else if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE && !(this.FIGHTER1.STR > 0 && this.FIGHTER2.STR > 0)) {
 			if (this.FIGHTER1.STR <= 0) {
 				this.FIGHTER2_SAVE.quickeningCharges += 10;
 				this.addMessage("**" + this.FIGHTER1.getName() + " has been defeated !**");
 
 				if (this.FIGHTER1.standPower == STAND_PP3 || this.FIGHTER2.standPower == STAND_PP3) {
-					this.FIGHTER1_SAVE.playMove(EMOTE_PP47);
 					this.FIGHTER2_SAVE.playMove(EMOTE_PP58);
 				}
 			}
@@ -4540,7 +4589,6 @@ class Duel {
 				this.addMessage("**" + this.FIGHTER2.getName() + " has been defeated !**");
 
 				if (this.FIGHTER1.standPower == STAND_PP3 || this.FIGHTER2.standPower == STAND_PP3) {
-					this.FIGHTER2_SAVE.playMove(EMOTE_PP47);
 					this.FIGHTER1_SAVE.playMove(EMOTE_PP58);
 				}
 			}
