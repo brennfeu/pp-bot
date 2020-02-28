@@ -162,7 +162,7 @@ const EMOTE_PP120 = "682571228875063314"; // Hot Lead
 const EMOTE_PP121 = "682571228535455785"; // Ghost Bullets
 const EMOTE_PP123 = "682571228804022287"; // Silver Bullets
 const EMOTE_PP125 = "682882390284304385"; // Glass Guon Stone
-const EMOTE_PP126 = "682882390783164568"; // White Guon Stone
+const EMOTE_PP126 = "682883862061514763"; // Red Guon Stone
 const EMOTE_PP127 = "682882390254944257"; // Green Guon Stone
 
 // CIV RAID MOVES
@@ -3718,6 +3718,10 @@ class City extends Fighter {
 		this.redGuonStones = 0;
 		this.greenGuonStones = 0;
 	}
+	
+	getTotalDefBonus() {
+		return this.glassGuonStones*20 + this.redGuonStones*10 + this.greenGuonStones*10
+	}
 }
 
 class Duel {
@@ -5927,12 +5931,13 @@ class Duel {
 	launchRaid(_city) {
 		var _target = this.getOppOf(_city);
 		var attackPower = _city.militaryPower;
-		var defencePower = _target.militaryPower + this.glassGuonStones*20 + this.redGuonStones*10 + this.greenGuonStones*10;
+		var defencePower = _target.militaryPower + _target.getTotalDefBonus();
 		
 		var phaseLevel = 0;
 		
 		if (_city.omegaBullets) {
 			attackPower += _city.lastSummonValue;
+			this.duel.addMessage("Omega Bullets doubles the last unit's military power !");
 		}
 		if (_city.silverBullets && _target.armyJammed) {
 			attackPower += attackPower;
@@ -5957,7 +5962,9 @@ class Duel {
 		if (attackPower <= defencePower) {
 			this.addMessage("The raid fails !");
 			_city.resetArmy();
-			_target.militaryPower -= defencePower - attackPower
+			if (attackPower > defencePower - _target.militaryPower) {
+				_target.militaryPower -= defencePower - _target.militaryPower - attackPower;
+			}
 		}
 		else {
 			this.addMessage("The raid is a success !");
