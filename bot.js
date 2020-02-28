@@ -6151,7 +6151,7 @@ class Duel {
 			
 			if (_city.armyBouncing) {
 				_city.armyBouncing = false;
-				this.raid(_city);
+				this.launchRaid(_city);
 			}
 			
 			_target.resetArmy();
