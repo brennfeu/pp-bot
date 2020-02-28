@@ -2912,6 +2912,10 @@ class Fighter {
 			else if (attack == EMOTE_PP132) {
 				// Rad Gun
 				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + " !");
+				if (this.serJunkan) {
+					this.duel.addMessage("Ser Junkan joins the raid !");
+					this.militaryPower += 40*this.junkCount;
+				}
 				this.duel.launchRaid(this);
 			}
 			else if (attack == EMOTE_PP133) {
@@ -2926,7 +2930,7 @@ class Fighter {
 			else if (attack == EMOTE_PP134) {
 				// Hyper Light Blaster
 				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + " !");
-				this.duel.launchRaid(this);
+				this.duel.launchRaid(this, "light");
 			}
 			else if (attack == EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE) {
 				// Judgement Event
@@ -5978,7 +5982,8 @@ class Duel {
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP82), 1);
 		}
 		if (_city.junkShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP113]);
+			listeEmote = listeEmote.concat([EMOTE_PP113,
+						       EMOTE_PP132]);
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP83), 1);
 			if (getRandomPercent() <= 5) {
 				listeEmote = listeEmote.concat([EMOTE_PP114, EMOTE_PP115, EMOTE_PP116]);
@@ -5994,7 +5999,8 @@ class Duel {
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP87), 1);
 		}
 		if (_city.cleanseShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP110, EMOTE_PP111]);
+			listeEmote = listeEmote.concat([EMOTE_PP110, EMOTE_PP111,
+						       EMOTE_PP134]);
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP90), 1);
 		}
 		if (_city.ammoShrine) {
@@ -6097,6 +6103,10 @@ class Duel {
 		}
 		else {
 			this.addMessage("The raid is a success !");
+			
+			if (_special == "light") {
+				attackPower += Math.floor(defencePower/2);
+			}
 			_target.damage(attackPower - defencePower);
 			
 			if (_city.hotLead) {
