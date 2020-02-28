@@ -5944,7 +5944,7 @@ class Duel {
 		}
 		if (_city.armyMindControl) {
 			attackPower += Math.min(100, _target.militaryPower);
-			_target.militaryPower -= Math.min(100, _target.militaryPower);
+			defencePower -= Math.min(100, _target.militaryPower);
 		}
 		
 		if (_city.armyPiercing) {
@@ -5963,7 +5963,7 @@ class Duel {
 			this.addMessage("The raid fails !");
 			_city.resetArmy();
 			if (attackPower > defencePower - _target.militaryPower) {
-				_target.militaryPower -= defencePower - _target.militaryPower - attackPower;
+				_target.militaryPower -= attackPower - defencePower + _target.militaryPower;
 			}
 		}
 		else {
