@@ -1332,7 +1332,7 @@ class Fighter {
 				// Bombardment
 				this.duel.addMessage(this.getName() + " calls for a bombardment !!!");
 				this.duel.bothFightersAction(function(_fighter) {
-					_fighter.damage(1000, this.duel.BOSS_FIGHT)
+					_fighter.damage(1000, _fighter.duel.BOSS_FIGHT)
 				});
 			}
 			else if (attack == EMOTE_PP26) {
