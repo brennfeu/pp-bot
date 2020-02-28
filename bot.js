@@ -3586,9 +3586,14 @@ class City extends Fighter {
 	}
 	
 	get STR() {
-		var str = super.STR;
+		var str = super.STR + this.junkCount*100;
 		
-		str += this.junkCount*100;
+		if (this.peaceShrine) {
+			str += 500;
+		}
+		if (this.angelShrine) {
+			str += 500;
+		}
 		
 		return str;
 	}
@@ -3733,17 +3738,24 @@ class City extends Fighter {
 		this.armyAgony -= 1;
 		
 		if (this.debuffFire > 0) {
+			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " burns !");
 			this.damage(100, false);
 		}
 		if (this.armyAgony == 1) {
+			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + "'s agony has ended !");
 			this.resetArmy();
 		}
 		if (this.armyResurectionCountdown == 1) {
+			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " gets back his undead army !");
 			this.militaryPower += this.militaryPowerSave;
 			this.militaryPowerSave = 0;
+		}
+		if (this.yvShrine && getRandomPercent() <= 25) {
+			this.duel.addMessage("-----------------");
+			this.heal(100);
 		}
 		
 		this.duel.addMessage("-----------------");
@@ -6003,7 +6015,7 @@ class Duel {
 		
 		if (_city.omegaBullets) {
 			attackPower += _city.lastSummonValue;
-			this.duel.addMessage("Omega Bullets doubles the last unit's military power !");
+			this.addMessage("Omega Bullets doubles the last unit's military power !");
 		}
 		if (_city.silverBullets && _target.armyJammed) {
 			attackPower += attackPower;
@@ -6013,7 +6025,7 @@ class Duel {
 			defencePower -= Math.min(100, _target.militaryPower);
 		}
 		if (_city.armyBlessing && getRandomPercent() <= 50) {
-			this.duel.addMessage("The army has been blessed by the eldritch gods !");
+			this.addMessage("The army has been blessed by the eldritch gods !");
 			attackPower += attackPower;
 		}
 		
