@@ -4136,7 +4136,7 @@ class Duel {
 	addMessage(_texte, _forceAppear = false) {
 		var uwu = this.UWU_TEXT;
 		for (var i in IMAGE_LIST) {
-			if (_texte.include(IMAGE_LIST[i])) {
+			if (_texte.includes(IMAGE_LIST[i])) {
 				uwu = false;
 			}
 		}
