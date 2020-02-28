@@ -400,6 +400,7 @@ class Fighter {
 		this.isPossessed = 0;
 		this.isCircumcised = false;
 		this.isOverCircumcised = false;
+		this.isProtected = false;
 		this.acidArmor = 0;
 		this.missedMoves = 0;
 		this.bonusDamage = 0;
@@ -417,6 +418,7 @@ class Fighter {
 		this.doomReverse = 0;
 		this.hasExamined = 0;
 		this.extraLife = 0;
+		this.grabbedPP = 0;
 		this.legAimer = false;
 		this.livingGod = false;
 		this.liberatedPP = false;
@@ -932,6 +934,9 @@ class Fighter {
 		else if (this.isCircumcised) {
 			txt += " - Circumcised\n";
 		}
+		if (this.isProtected) {
+			txt += " - Shield Protection\n";
+		}
 		if (this.isTerrorist) {
 			txt += " - Planning a Terrorist Move\n";
 		}
@@ -1327,7 +1332,7 @@ class Fighter {
 				// Bombardment
 				this.duel.addMessage(this.getName() + " calls for a bombardment !!!");
 				this.duel.bothFightersAction(function(_fighter) {
-					_fighter.damage(1000, false)
+					_fighter.damage(1000, this.duel.BOSS_FIGHT)
 				});
 			}
 			else if (attack == EMOTE_PP26) {
@@ -1531,7 +1536,7 @@ class Fighter {
 				// BrocketeerDive
 				this.duel.addMessage(this.getName() + " punches " + this.getOppName() + "'s PP with his head !");
 				this.duel.getOppOf(this).damage(Math.floor(10 + this.STR / 10));
-				this.duel.getOppOf(this).hasBurst = 2;
+				if (!this.duel.BOSS_FIGHT) this.duel.getOppOf(this).hasBurst = 2;
 			}
 			else if (attack == EMOTE_PP44) {
 				// Kamikaze
@@ -3242,7 +3247,8 @@ class Fighter {
 		this.attackedThisTurn = false;
 
 		// Overcircumcised / Perfect Machine / Cybion = immune to status effects
-		if (this.isOverCircumcised || this.randomizedStand || this.standPower == STAND_PP12) {
+		if (this.isOverCircumcised || this.randomizedStand || 
+		    this.standPower == STAND_PP12 || this.standPower == STAND_PP9) {
 			this.resetBattleVariables()
 		}
 
@@ -3565,7 +3571,6 @@ class Fighter {
 	resetBattleVariables() {
 		this.bleedDamage = 0;
 		this.turnSkip = 0;
-		this.grabbedPP = 0;
 		this.hasBoner = false;
 		this.badLuck = false;
 		this.isSalty = false;
