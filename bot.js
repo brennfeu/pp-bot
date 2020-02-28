@@ -171,6 +171,9 @@ const EMOTE_PP128 = "682896260105240628"; // Makeshift Cannon
 const EMOTE_PP129 = "682898924096585728"; // Face Melter
 const EMOTE_PP130 = "682917291591073876"; // Abyssal Tentacle
 const EMOTE_PP131 = "682955927388946499"; // Yari Launcher
+const EMOTE_PP132 = "682970802932809739"; // Rad Gun
+const EMOTE_PP133 = "682971681182187524"; // Vorpal Gun
+const EMOTE_PP134 = "682972042500505670"; // Hyper Light Blaster
 
 // DON'T FORGET TO ADD TO THE CHEAT PANEL
 const NORMAL_EMOTE_LIST = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8,
@@ -192,7 +195,7 @@ const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP
 			EMOTE_PP106, EMOTE_PP107, EMOTE_PP108, EMOTE_PP109, EMOTE_PP110, EMOTE_PP111, EMOTE_PP112, EMOTE_PP113,
 		        EMOTE_PP114, EMOTE_PP115, EMOTE_PP116, EMOTE_PP117, EMOTE_PP118, EMOTE_PP119, EMOTE_PP120, EMOTE_PP121,
 		        EMOTE_PP122, EMOTE_PP123, EMOTE_PP124, EMOTE_PP125, EMOTE_PP126, EMOTE_PP127, EMOTE_PP128, EMOTE_PP129,
-		        EMOTE_PP130, EMOTE_PP131];
+		        EMOTE_PP130, EMOTE_PP131, EMOTE_PP132, EMOTE_PP133, EMOTE_PP134];
 const OTHER_EMOTE_LIST = [EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE];
 const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST).concat(RARE_EMOTE_LIST).concat(CIV_EMOTE_LIST).concat(OTHER_EMOTE_LIST);
 
@@ -2790,8 +2793,8 @@ class Fighter {
 				units[EMOTE_PP107] = ["Muzzle Flare", 20, []];
 				units[EMOTE_PP108] = ["Muzzle Whisp", 20, []];
 				units[EMOTE_PP109] = ["Phaser Spider", 20, ["armyPiercing"]];
-				units[EMOTE_PP110] = ["Skullet", 20, []];
-				units[EMOTE_PP111] = ["Skullmet", 30, []];
+				units[EMOTE_PP110] = ["Skullet", 20, ["armyDefence"]];
+				units[EMOTE_PP111] = ["Skullmet", 50, []];
 				units[EMOTE_PP112] = ["Spectral Gun Nut", 20, ["armyPiercing"]];
 				
 				this.duel.addMessage(this.getName() + " summons a " + units[attack][0] + " for his army !");
@@ -2905,6 +2908,25 @@ class Fighter {
 				// Yari Launcher
 				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + " !");
 				this.duel.launchRaid(this, "destroy");
+			}
+			else if (attack == EMOTE_PP132) {
+				// Rad Gun
+				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + " !");
+				this.duel.launchRaid(this);
+			}
+			else if (attack == EMOTE_PP133) {
+				// Vorpal Gun
+				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + " !");
+				if (getRandomPercent() <= 20) {
+					this.duel.addMessage("Critical raid !");
+					this.militaryPower += this.militaryPower;
+				}
+				this.duel.launchRaid(this);
+			}
+			else if (attack == EMOTE_PP134) {
+				// Hyper Light Blaster
+				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + " !");
+				this.duel.launchRaid(this);
 			}
 			else if (attack == EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE) {
 				// Judgement Event
@@ -3724,7 +3746,10 @@ class City extends Fighter {
 				txt += "\n - Eldritch Blessing";
 			}
 			if (this.armyBouncing) {
-				txt += "\n - Jelly Protection";
+				txt += "\n - Bouncing Attacks";
+			}
+			if (this.armyDefence) {
+				txt += "\n - Highly Defensive";
 			}
 		}
  
@@ -3783,7 +3808,8 @@ class City extends Fighter {
 		this.armyMindControl = false;
 		this.armyBlessing = false;
 		this.armyAgony = 0;
-		this.armyBouncing = false
+		this.armyBouncing = false;
+		this.armyDefence = false;
 		
 		this.glassGuonStones = 0;
 		this.redGuonStones = 0;
@@ -5943,7 +5969,8 @@ class Duel {
 		return randomFromList(goodList);
 	}
 	getRandomCivEmote(_city) {
-		var listeEmote = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP87, EMOTE_PP88, EMOTE_PP90, EMOTE_PP124];
+		var listeEmote = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP87, EMOTE_PP88, EMOTE_PP90, 
+				  EMOTE_PP124, EMOTE_PP129];
 		
 		if (_city.familiarShrine) {
 			listeEmote = listeEmote.concat([EMOTE_PP94, EMOTE_PP95, 
@@ -5958,7 +5985,8 @@ class Duel {
 			}
 		}
 		if (_city.diceShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP101]);
+			listeEmote = listeEmote.concat([EMOTE_PP101,
+						       EMOTE_PP133]);
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP85), 1);
 		}
 		if (_city.peaceShrine) {
@@ -5966,6 +5994,7 @@ class Duel {
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP87), 1);
 		}
 		if (_city.cleanseShrine) {
+			listeEmote = listeEmote.concat([EMOTE_PP110, EMOTE_PP111]);
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP90), 1);
 		}
 		if (_city.ammoShrine) {
@@ -6042,6 +6071,9 @@ class Duel {
 		if (_city.armyBlessing && getRandomPercent() <= 50) {
 			this.addMessage("The army has been blessed by the eldritch gods !");
 			attackPower += attackPower;
+		}
+		if (_target.armyDefence) {
+			defencePower += Math.floor(_target.militaryPower/2);
 		}
 		
 		if (_city.armyPiercing) {
@@ -6405,7 +6437,8 @@ async function sendCheatPanel(_channel) {
 			EMOTE_PP121, EMOTE_PP123, EMOTE_PP125, EMOTE_PP126, EMOTE_PP127
 		],
 		"Cheat Panel : Civilisation Moves IV" : [
-			EMOTE_PP124, EMOTE_PP128, EMOTE_PP129, EMOTE_PP130, EMOTE_PP131
+			EMOTE_PP124, EMOTE_PP128, EMOTE_PP129, EMOTE_PP130, EMOTE_PP131, EMOTE_PP132, EMOTE_PP133, 
+			EMOTE_PP134
 		],
 		"Cheat Panel : Gods I" : [], // filled later in a loop
 		"Cheat Panel : Gods II" : [],
