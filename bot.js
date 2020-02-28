@@ -2780,9 +2780,9 @@ class Fighter {
 				units[EMOTE_PP94] = ["Bullet Kin", 20, []];
 				units[EMOTE_PP95] = ["Bandana Bullet Kin", 30, []];
 				units[EMOTE_PP96] = ["Agonizer", 500, ["armyAgony"]];
-				units[EMOTE_PP97] = ["Gunreaper", 50, ["armyResurrects"]];
-				units[EMOTE_PP98] = ["Lord of the Jammed", 70, ["armyResurrects", "armyJammed"]];
-				units[EMOTE_PP99] = ["Shelleton", 20, []];
+				units[EMOTE_PP97] = ["Gunreaper", 30, ["armyResurrects"]];
+				units[EMOTE_PP98] = ["Lord of the Jammed", 50, ["armyResurrects", "armyJammed"]];
+				units[EMOTE_PP99] = ["Shelleton", 50, ["armyDefence"]];
 				units[EMOTE_PP100] = ["Chain Gunner", 100, []];
 				units[EMOTE_PP101] = ["Chancebulon", Math.floor(Math.random() * 20 + 1)*10, ["armyBouncing"]];
 				units[EMOTE_PP102] = ["Confirmed", 20, ["armyBlessing"]];
@@ -2790,12 +2790,12 @@ class Fighter {
 				units[EMOTE_PP104] = ["Cubulon", 100, ["armyBouncing"]];
 				units[EMOTE_PP105] = ["Gun Nut", 100, []];
 				units[EMOTE_PP106] = ["Killithid", 0, ["armyMindControl"]];
-				units[EMOTE_PP107] = ["Muzzle Flare", 20, []];
-				units[EMOTE_PP108] = ["Muzzle Whisp", 20, []];
+				units[EMOTE_PP107] = ["Muzzle Flare", 100, []];
+				units[EMOTE_PP108] = ["Muzzle Whisp", 500, ["armyUnstable"]];
 				units[EMOTE_PP109] = ["Phaser Spider", 20, ["armyPiercing"]];
 				units[EMOTE_PP110] = ["Skullet", 20, ["armyDefence"]];
 				units[EMOTE_PP111] = ["Skullmet", 50, []];
-				units[EMOTE_PP112] = ["Spectral Gun Nut", 20, ["armyPiercing"]];
+				units[EMOTE_PP112] = ["Spectral Gun Nut", 50, ["armyPiercing"]];
 				
 				this.duel.addMessage(this.getName() + " summons a " + units[attack][0] + " for his army !");
 				this.lastSummonValue = units[attack][1];
@@ -2815,6 +2815,9 @@ class Fighter {
 				this.militaryPower += units[attack][1];
 				for (var i in units[attack][2]) {
 					this[units[attack][2][i]] = true;
+					if (units[attack][2] == "armyAgony") {
+						this[units[attack][2][i]] = 4;
+					}
 				}
 			}
 			else if (attack == EMOTE_PP113) {
@@ -3755,6 +3758,9 @@ class City extends Fighter {
 			if (this.armyDefence) {
 				txt += "\n - Highly Defensive";
 			}
+			if (this.armyUnstable) {
+				txt += "\n - Unstable";
+			}
 		}
  
 		return txt;
@@ -3814,6 +3820,7 @@ class City extends Fighter {
 		this.armyAgony = 0;
 		this.armyBouncing = false;
 		this.armyDefence = false;
+		this.armyUnstable = false;
 		
 		this.glassGuonStones = 0;
 		this.redGuonStones = 0;
@@ -6078,6 +6085,10 @@ class Duel {
 			this.addMessage("The army has been blessed by the eldritch gods !");
 			attackPower += attackPower;
 		}
+		if (_city.armyUnstable && getRandomPercent() <= 25) {
+			this.addMessage("The army explodes !");
+			attackPower += 0;
+		}
 		if (_target.armyDefence) {
 			defencePower += Math.floor(_target.militaryPower/2);
 		}
@@ -6089,7 +6100,7 @@ class Duel {
 			phaseLevel += 0.25;
 		}
 		if (phaseLevel > 0) {
-			this.addMessage("A part of " + _city.getName() + " phases in the city and attacks it !");
+			this.addMessage("A part of " + _city.getName() + "'s army is in the city and attacks it !");
 			_target.damage(Math.floor(attackPower*phaseLevel));
 			attackPower -= Math.floor(attackPower*phaseLevel);
 		}
