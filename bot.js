@@ -3493,10 +3493,10 @@ class Fighter {
 
 class City extends Fighter {
 	constructor(_mayor, _idDuel) {
-		super(_mayor.idUser, _idDuel);
-		if (_mayor.idUser == undefined) { // default constructor
+		if (_mayor == undefined) { // default constructor
 			return;
 		}
+		super(_mayor.idUser, _idDuel);
 		
 		this.STRValue = 2000;
 		this.DEXValue = 0;
