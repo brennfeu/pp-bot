@@ -2820,11 +2820,13 @@ class Fighter {
 			else if (attack == EMOTE_PP114) {
 				// Gold Junk
 				this.playMove(EMOTE_PP113);
-				this.duel.addMessage("This looks like gold junk !");
+				this.duel.addMessage("This looks like gold junk ! This is worth 10 Junks !");
+				this.junkCount += 9;
 			}
 			else if (attack == EMOTE_PP115) {
 				// Ser Junkan
-				this.duel.addMessage(this.getName() + " trains Ser Junkan !");
+				this.playMove(EMOTE_PP113);
+				this.duel.addMessage("It is Ser Junkan !");
 				this.serJunkan = true;
 			}
 			else if (attack == EMOTE_PP116) {
@@ -4928,7 +4930,7 @@ class Duel {
 				var rageBrenn = CLIENT.emojis.get("668946953681502248");
 				var waifu = null;
 				while (waifu == null) {
-					var g = randomGod = randomFromList(GOD_LIST);
+					var g = randomFromList(GOD_LIST);
 					if (g.type == "waifu") {
 						waifu = CLIENT.emojis.get(g.emote);
 					}
@@ -5923,10 +5925,10 @@ class Duel {
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP82), 1);
 		}
 		if (_city.junkShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP113, EMOTE_PP114, EMOTE_PP115]);
+			listeEmote = listeEmote.concat([EMOTE_PP113]);
 			listeEmote.splice(listeEmote.indexOf(EMOTE_PP83), 1);
 			if (getRandomPercent() <= 5) {
-				listeEmote = listeEmote.concat([EMOTE_PP116]);
+				listeEmote = listeEmote.concat([EMOTE_PP114, EMOTE_PP115, EMOTE_PP116]);
 			}
 		}
 		if (_city.diceShrine) {
