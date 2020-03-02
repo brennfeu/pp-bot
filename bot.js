@@ -4102,7 +4102,7 @@ class Duel {
 				this.addMessage("Come on, there's no point cheating, it's the tutorial !");
 				this.addMessage("-----------------");
 			}
-			this.addMessage("One last game mechanic to learn : **Stånds** !");
+			this.addMessage("The game also features different game modes, including this one : **Stånds** !");
 			this.addMessage("When performing specific move combos, you summon a stånd. This will trigger the **Stånds Battle Mode** and the opponent will get a random stånd.");
 			this.addMessage("Your respective **stånds** will replace you in the battle, and the winner of the battle will keep his stånd's powers and get stat buffs. Both fighter are then able to continue the fight.");
 			this.addMessage("-----------------");
@@ -4124,6 +4124,34 @@ class Duel {
 		else if (this.NB_TURNS == 4) {
 			this.addMessage("-----------------");
 			if ([EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP73, EMOTE_PP74].indexOf(this.FIGHTER1.attack) < 0) {
+				this.addMessage("Come on, there's no point cheating, it's the tutorial !");
+				this.addMessage("-----------------");
+			}
+			this.addMessage("The most complex side-gamemode is the **Civilisation Gamemode** !");
+			this.addMessage("In this mode, each fighter play simustaneously, each having his own movepool.");
+			this.addMessage("Both fighters are the rulers of a **city**, and must raid the other city until its destruction.");
+			this.addMessage("-----------------");
+			this.addMessage("In order to do that, one must build shrines to unlock other moves or abilities. There are 4 types of moves in this mode.");
+			this.addMessage("**Shrines** allow you to gain access to other moves or grants special effects.");
+			this.addMessage("**Units** increases your military power, and may give your army special powers. This is what is used to attack the enemy.");
+			this.addMessage("**Effects** grants you bonuses.");
+			this.addMessage("**Raids** are the different attack moves.");
+			this.addMessage("-----------------");
+			this.addMessage("Here are some moves specific to the civilisation gamemode :");
+			this.sendMessages();
+			
+			this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction !").then(function (_message2) {
+				_message2.react(EMOTE_PP85);
+				_message2.react(EMOTE_PP103);
+				_message2.react(EMOTE_PP119);
+				_message2.react(EMOTE_PP128);
+				_message2.react(EMOTE_PP98);
+			}).catch(function(e) {console.log(e);});
+			
+		}
+		else if (this.NB_TURNS == 5) {
+			this.addMessage("-----------------");
+			if ([EMOTE_PP85, EMOTE_PP103, EMOTE_PP119, EMOTE_PP128, EMOTE_PP98].indexOf(this.FIGHTER1.attack) < 0) {
 				this.addMessage("Come on, there's no point cheating, it's the tutorial !");
 				this.addMessage("-----------------");
 			}
