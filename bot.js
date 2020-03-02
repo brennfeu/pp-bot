@@ -4014,7 +4014,7 @@ class Duel {
 		
 
 		this.addMessage("**TIME FOR A TUTORIAL**");
-		this.addMessage("Welcome to the PP Punch Arena !");
+		this.addMessage("Welcome to the PP Punch Arena !\nThis bot allows you to play PP Punch Duels in discord. It's actually an rpg strategy fighting game");
 		this.addMessage("First, let me teach you about the fighters !");
 		this.addMessage("-----------------");
 		this.addMessage(this.FIGHTER1.toString());
@@ -4127,15 +4127,14 @@ class Duel {
 				this.addMessage("Come on, there's no point cheating, it's the tutorial !");
 				this.addMessage("-----------------");
 			}
-			this.addMessage("The most complex side-gamemode is the **Civilisation Gamemode** !");
-			this.addMessage("In this mode, each fighter play simustaneously, each having his own movepool.");
-			this.addMessage("Both fighters are the rulers of a **city**, and must raid the other city until its destruction.");
+			this.addMessage("The most complex side-gamemode is the **Civilisation Game Mode** !");
+			this.addMessage("In this mode, each fighter play simustaneously, each having his own movepool. Both fighters are the rulers of a **city**, and must raid the other city until its destruction.");
 			this.addMessage("-----------------");
-			this.addMessage("In order to do that, one must build shrines to unlock other moves or abilities. There are 4 types of moves in this mode.");
-			this.addMessage("**Shrines** allow you to gain access to other moves or grants special effects.");
+			this.addMessage("In order to do that, 4 types of moves will be available.");
+			this.addMessage("**Shrines** allow you to gain access to other moves or grants special effects. They don't appear anymore once used.");
 			this.addMessage("**Units** increases your military power, and may give your army special powers. This is what is used to attack the enemy.");
-			this.addMessage("**Effects** grants you bonuses.");
-			this.addMessage("**Raids** are the different attack moves.");
+			this.addMessage("**Effects** grants you bonuses regarding your army, your defence, or other useful stuff.");
+			this.addMessage("**Raids** moves are the different raid moves. When a raid happens, military power is used to attack/defend, and if military power is at 0, its properties are nullified. Raiding your opponent also nullify your army.");
 			this.addMessage("-----------------");
 			this.addMessage("Here are some moves specific to the civilisation gamemode :");
 			this.sendMessages();
