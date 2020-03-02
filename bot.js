@@ -1127,6 +1127,7 @@ class Fighter {
 				}
 				if (attack != EMOTE_PP33 && attack != EMOTE_PP37 && this.duel.KIDNEY_CURSE > 0) {
 					this.duel.KIDNEY_CURSE -= 1;
+					this.duel.addMessage("The Kidney Curse diminushes...");
 				}
 			}
 			
@@ -1431,8 +1432,10 @@ class Fighter {
 				this.duel.addMessage(this.getName() + " shoots a big kidney stone !");
 				this.damage(50, false);
 				this.duel.getOppOf(this).damage(50);
-				this.duel.KIDNEY_CURSE += 1;
-				this.duel.addMessage("The Kidney Curse grows bigger !");
+				if (this.attack == attack) {
+					this.duel.KIDNEY_CURSE += 1;
+					this.duel.addMessage("The Kidney Curse grows bigger !");
+				}
 			}
 			else if (attack == EMOTE_PP34) {
 				// Facehugger
@@ -1478,8 +1481,10 @@ class Fighter {
 				this.duel.addMessage(this.getName() + " shoots a kidney stone !");
 				this.damage(25, false);
 				this.duel.getOppOf(this).damage(25);
-				this.duel.KIDNEY_CURSE += 1;
-				this.duel.addMessage("The Kidney Curse grows bigger !");
+				if (this.attack == attack) {
+					this.duel.KIDNEY_CURSE += 1;
+					this.duel.addMessage("The Kidney Curse grows bigger !");
+				}
 			}
 			else if (attack == EMOTE_PP38) {
 				// DeadBro
@@ -1558,12 +1563,9 @@ class Fighter {
 				}
 				var chaosNumber = getRandomPercent();
 				var winner = this.duel.getRandomFighter();
-				this.duel.bothFightersAction(function(_fighter) {
-					if (_fighter.eldritchFriend && !_fighter.duel.getOppOf(_fighter).eldritchFriend) {
-						chaosNumber = 100;
-						winner = _fighter;
-					}
-				}, this.duel.getOppOf(this));
+				if (winner.eldritchFriend) {
+					chaosNumber += 20;
+				}
 				this.duel.addMessage("He will use " + chaosNumber + "% of his power in " + winner.getName() + " !");
 				this.duel.sendMessages(1);
 				chaosNumber = Math.floor(chaosNumber/4);
