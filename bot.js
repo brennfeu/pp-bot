@@ -2782,25 +2782,25 @@ class Fighter {
 				  	EMOTE_PP109, EMOTE_PP110, EMOTE_PP111, EMOTE_PP112].indexOf(attack) > -1) {
 				// Units
 				var units = {};
-				units[EMOTE_PP94] = ["Bullet Kin", 20, []];
-				units[EMOTE_PP95] = ["Bandana Bullet Kin", 30, []];
-				units[EMOTE_PP96] = ["Agonizer", 500, ["armyAgony"]];
-				units[EMOTE_PP97] = ["Gunreaper", 30, ["armyResurrects"]];
-				units[EMOTE_PP98] = ["Lord of the Jammed", 50, ["armyResurrects", "armyJammed"]];
-				units[EMOTE_PP99] = ["Shelleton", 50, ["armyDefence"]];
-				units[EMOTE_PP100] = ["Chain Gunner", 100, []];
-				units[EMOTE_PP101] = ["Chancebulon", Math.floor(Math.random() * 20 + 1)*10, ["armyBouncing"]];
-				units[EMOTE_PP102] = ["Confirmed", 20, ["armyBlessing"]];
-				units[EMOTE_PP103] = ["Cubelead", 120, []];
-				units[EMOTE_PP104] = ["Cubulon", 100, ["armyBouncing"]];
-				units[EMOTE_PP105] = ["Gun Nut", 100, []];
+				units[EMOTE_PP94] = ["Bullet Kin", 40, []];
+				units[EMOTE_PP95] = ["Bandana Bullet Kin", 60, []];
+				units[EMOTE_PP96] = ["Agonizer", 1000, ["armyAgony"]];
+				units[EMOTE_PP97] = ["Gunreaper", 60, ["armyResurrects"]];
+				units[EMOTE_PP98] = ["Lord of the Jammed", 100, ["armyResurrects", "armyJammed"]];
+				units[EMOTE_PP99] = ["Shelleton", 100, ["armyDefence"]];
+				units[EMOTE_PP100] = ["Chain Gunner", 200, []];
+				units[EMOTE_PP101] = ["Chancebulon", Math.floor(Math.random() * 20 + 1)*20, ["armyBouncing"]];
+				units[EMOTE_PP102] = ["Confirmed", 500, ["armyBlessing"]];
+				units[EMOTE_PP103] = ["Cubelead", 240, []];
+				units[EMOTE_PP104] = ["Cubulon", 200, ["armyBouncing"]];
+				units[EMOTE_PP105] = ["Gun Nut", 200, []];
 				units[EMOTE_PP106] = ["Killithid", 0, ["armyMindControl"]];
-				units[EMOTE_PP107] = ["Muzzle Flare", 100, []];
-				units[EMOTE_PP108] = ["Muzzle Whisp", 500, ["armyUnstable"]];
-				units[EMOTE_PP109] = ["Phaser Spider", 20, ["armyPiercing"]];
-				units[EMOTE_PP110] = ["Skullet", 20, ["armyDefence"]];
-				units[EMOTE_PP111] = ["Skullmet", 50, []];
-				units[EMOTE_PP112] = ["Spectral Gun Nut", 50, ["armyPiercing"]];
+				units[EMOTE_PP107] = ["Muzzle Flare", 200, []];
+				units[EMOTE_PP108] = ["Muzzle Whisp", 1000, ["armyUnstable"]];
+				units[EMOTE_PP109] = ["Phaser Spider", 40, ["armyPiercing"]];
+				units[EMOTE_PP110] = ["Skullet", 40, ["armyDefence"]];
+				units[EMOTE_PP111] = ["Skullmet", 100, []];
+				units[EMOTE_PP112] = ["Spectral Gun Nut", 100, ["armyPiercing"]];
 				
 				this.duel.addMessage(this.getName() + " summons a " + units[attack][0] + " for his army !");
 				this.lastSummonValue = units[attack][1];
@@ -2922,7 +2922,7 @@ class Fighter {
 				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + " !");
 				if (this.serJunkan) {
 					this.duel.addMessage("Ser Junkan joins the raid !");
-					this.militaryPower += 40*this.junkCount;
+					this.militaryPower += 80*this.junkCount;
 				}
 				this.duel.launchRaid(this);
 			}
@@ -6083,8 +6083,8 @@ class Duel {
 			attackPower += attackPower;
 		}
 		if (_city.armyMindControl) {
-			attackPower += Math.min(100, _target.militaryPower);
-			defencePower -= Math.min(100, _target.militaryPower);
+			attackPower += Math.min(200, _target.militaryPower);
+			defencePower -= Math.min(200, _target.militaryPower);
 		}
 		if (_city.armyBlessing && getRandomPercent() <= 50) {
 			this.addMessage("The army has been blessed by the eldritch gods !");
