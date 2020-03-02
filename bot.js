@@ -3625,6 +3625,7 @@ class City extends Fighter {
 		this.serJunkan = false;
 		
 		this.militaryPower = 0;
+		this.militaryPowerSave = 0;
 		this.resetArmy();
 	}
 	
@@ -3812,7 +3813,7 @@ class City extends Fighter {
 	}
 	
 	resetArmy() {
-		this.militaryPowerSave = this.militaryPower;
+		this.militaryPowerSave += this.militaryPower;
 		this.militaryPower = 0;
 		
 		if (this.armyResurrects) {
@@ -4128,13 +4129,13 @@ class Duel {
 				this.addMessage("-----------------");
 			}
 			this.addMessage("The most complex side-gamemode is the **Civilisation Game Mode** !");
-			this.addMessage("In this mode, each fighter play simustaneously, each having his own movepool. Both fighters are the rulers of a **city**, and must raid the other city until its destruction.");
+			this.addMessage("In this mode, each fighter are the rulers of a **city**, and must raid the other city until its destruction. Both fighters play simustaneously, each having his own movepool.");
 			this.addMessage("-----------------");
 			this.addMessage("In order to do that, 4 types of moves will be available.");
 			this.addMessage("**Shrines** allow you to gain access to other moves or grants special effects. They don't appear anymore once used.");
 			this.addMessage("**Units** increases your military power, and may give your army special powers. This is what is used to attack the enemy.");
 			this.addMessage("**Effects** grants you bonuses regarding your army, your defence, or other useful stuff.");
-			this.addMessage("**Raids** moves are the different raid moves. When a raid happens, military power is used to attack/defend, and if military power is at 0, its properties are nullified. Raiding your opponent also nullify your army.");
+			this.addMessage("**Raids** moves are the different attack moves. When a raid happens, military power is used to attack the opponent or defend yourself. The one with the highest military power wins the battle, and damages the opponent with the remaining of the army if the remaining army is the one attacking.");
 			this.addMessage("-----------------");
 			this.addMessage("Here are some moves specific to the civilisation gamemode :");
 			this.sendMessages();
