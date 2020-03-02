@@ -4130,6 +4130,7 @@ class Duel {
 			}
 			this.addMessage("The most complex side-gamemode is the **Civilisation Game Mode** !");
 			this.addMessage("In this mode, each fighter are the rulers of a **city**, and must raid the other city until its destruction. Both fighters play simustaneously, each having his own movepool.");
+			this.addMessage("When winning this battle mode, both fighter are then able to continue the fight and the winner gets 50% chance to get a random bonus every turn.");
 			this.addMessage("-----------------");
 			this.addMessage("In order to do that, 4 types of moves will be available.");
 			this.addMessage("**Shrines** allow you to gain access to other moves or grants special effects. They don't appear anymore once used.");
