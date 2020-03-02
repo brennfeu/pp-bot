@@ -1127,7 +1127,7 @@ class Fighter {
 				}
 				if (attack != EMOTE_PP33 && attack != EMOTE_PP37 && this.duel.KIDNEY_CURSE > 0) {
 					this.duel.KIDNEY_CURSE -= 1;
-					this.duel.addMessage("The Kidney Curse diminushes...");
+					this.duel.addMessage("The Kidney Curse diminishes...");
 				}
 			}
 			
@@ -2898,7 +2898,7 @@ class Fighter {
 			else if (attack == EMOTE_PP128) {
 				// Makeshift Cannon
 				this.duel.addMessage(this.getName() + " shoots " + this.getOppName() + " with a Makeshift Cannon !");
-				this.militaryPower = 500;
+				this.militaryPower = 750;
 				this.duel.launchRaid(this);
 			}
 			else if (attack == EMOTE_PP129) {
@@ -3629,7 +3629,7 @@ class City extends Fighter {
 	}
 	
 	get STR() {
-		var str = super.STR + this.junkCount*100;
+		var str = super.STR + this.junkCount*200;
 		
 		if (this.peaceShrine) {
 			str += 500;
@@ -3835,9 +3835,9 @@ class City extends Fighter {
 	}
 	
 	getTotalDefBonus() {
-		var def = this.glassGuonStones*20 + this.redGuonStones*10 + this.greenGuonStones*10;
+		var def = this.glassGuonStones*40 + this.redGuonStones*20 + this.greenGuonStones*20;
 		if (this.serJunkan) {
-			def += 20*this.junkCount;
+			def += 40*this.junkCount;
 		}
 		return def;
 	}
