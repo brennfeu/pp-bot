@@ -1535,7 +1535,7 @@ class Fighter {
 				else {
 					this.duel.addMessage(this.getName() + " is gonna say the N-Word !");
 					if (this.isTerrorist) {
-						this.duel.addMessage("MR " + this.getOppName().toUpperCase() + " GET DOWN !");
+						this.duel.addMessage("MR " + this.getOppName().toUpperCase() + " GET DOWN !\n" + IMAGE_PP1);
 						this.duel.getOppOf(this).damage(5000);
 					}
 					else {
