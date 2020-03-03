@@ -4610,6 +4610,9 @@ class Duel {
 		if (this.PP_NET > 0 && this.PP_NET < 200) {
 			txt += " - PP-Net Rising : Step " + this.PP_NET + "\n";
 		}
+		if (this.ALTERNATE_MOVES) {
+			txt += " - **ALTERNATE PP UNIVERSE**\n";
+		}
 		if (this.PP_ARMAGEDDON) {
 			txt += " - **PP ARMAGEDDON**\n";
 		}
@@ -5305,7 +5308,7 @@ class Duel {
 		else if (randomVar == 43 && (this.MOVE_COUNT >= 200 || forcedEvent)) {
 			// Alternate Universe
 			this.addMessage(" -- ALTERNATE PP UNIVERSE --");
-			this.addMessage("Your PP Punching is breaking the laws of space and time ! You both get teleported into an alternate universe !");
+			this.addMessage("Your PP Punching is breaking the laws of space and time ! You both get teleported into an alternate universe and bring with you elements of demise !");
 			this.addMessage("Each moves has the same DEX modifier, illegal chances et ability to always pass, but their effect may have slightly changed !");
 			this.ALTERNATE_MOVES = !this.ALTERNATE_MOVES;
 			this.ALTERNATE_MOVE_COUNT = this.MOVE_COUNT;
