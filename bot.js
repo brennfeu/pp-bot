@@ -453,6 +453,7 @@ class Fighter {
 		this.hasKamui = false;
 		this.lifeFibers = 0;
 		this.hasSupplyDrops = false;
+		this.satanicReverse = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -832,6 +833,9 @@ class Fighter {
 		}
 		if (this.doomReverse > 0) {
 			txt += " - DOOM-REVERSE(tm) (for " + this.doomReverse + " turns)\n";
+		}
+		if (this.satanicReverse > 0) {
+			txt += " - Satanic Protection (for " + this.satanicReverse + " turns)\n";
 		}
 		if (this.ironProtection > 0) {
 			txt += " - Iron Protection (for " + this.ironProtection + " turns)\n";
@@ -1314,12 +1318,21 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP20) {
 				// DoomReverse (MookGrenade)
-				this.duel.addMessage(this.getName() + " sets up a DOOM-REVERSE(tm) !");
-				this.doomReverse = 4;
-				if (this.STR <= 0) {
-					this.duel.addMessage(this.getName() + " uses DOOM-REVERSE(tm) !");
-					this.STRValue += (0 - this.STR) + 10;
-					this.doomReverse = 0;
+				if (!this.duel.ALTERNATE_MOVES) {
+					this.duel.addMessage(this.getName() + " sets up a DOOM-REVERSE(tm) !");
+					this.doomReverse = 4;
+					if (this.STR <= 0) {
+						this.duel.addMessage(this.getName() + " uses DOOM-REVERSE(tm) !");
+						this.STRValue += (0 - this.STR) + 10;
+						this.doomReverse = 0;
+					}
+				}
+				else {
+					this.duel.addMessage(this.getName() + " throws a grenade at " + this.getOppName() + "'s PP !");
+					this.duel.getOppOf(this).damage(Math.floor(10 + this.STR / 10));
+					if (!this.duel.BOSS_FIGHT) {
+						this.duel.getOppOf(this).hasBurst = 2;
+					}
 				}
 			}
 			else if (attack == EMOTE_PP21) {
@@ -1360,42 +1373,48 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP26) {
 				// Big Satan
-				this.duel.addMessage(this.getName() + " summons Satan chaotic powers !!!");
-				this.duel.DISABLE_ABANDON = true;
-				if (this.duel.BOSS_FIGHT && (this.CURRENT_BOSS == BOSS_PP8 || this.CURRENT_BOSS == BOSS_PP9)) {
-					// Satan Boss
-					this.duel.addMessage("But nothing happens...");
-				}
-				else if (this.godList.indexOf(GOD_PP22.name) > -1) {
-					// Satan God
-					this.duel.sendMessages(1);
-					for (var i = 0; i < 10; i++) {
-						this.duel.addMessage("-----------------");
-						this.playMove(this.duel.getRandomEmote());
+				if (!this.duel.ALTERNATE_MOVES) {
+					this.duel.addMessage(this.getName() + " summons Satan chaotic powers !!!");
+					this.duel.DISABLE_ABANDON = true;
+					if (this.duel.BOSS_FIGHT && (this.CURRENT_BOSS == BOSS_PP8 || this.CURRENT_BOSS == BOSS_PP9)) {
+						// Satan Boss
+						this.duel.addMessage("But nothing happens...");
 					}
-				}
-				else if (this.duel.getOppOf(this).godList.indexOf(GOD_PP22.name) > -1) {
-					// Satan God
-					this.duel.sendMessages(1);
-					for (var i = 0; i < 10; i++) {
-						this.duel.addMessage("-----------------");
-						this.duel.getOppOf(this).playMove(this.duel.getRandomEmote());
+					else if (this.godList.indexOf(GOD_PP22.name) > -1) {
+						// Satan God
+						this.duel.sendMessages(1);
+						for (var i = 0; i < 10; i++) {
+							this.duel.addMessage("-----------------");
+							this.playMove(this.duel.getRandomEmote());
+						}
+					}
+					else if (this.duel.getOppOf(this).godList.indexOf(GOD_PP22.name) > -1) {
+						// Satan God
+						this.duel.sendMessages(1);
+						for (var i = 0; i < 10; i++) {
+							this.duel.addMessage("-----------------");
+							this.duel.getOppOf(this).playMove(this.duel.getRandomEmote());
+						}
+					}
+					else {
+						this.duel.bothFightersAction(function(_fighter) {
+							_fighter.duel.addMessage("-----------------");
+							_fighter.playMove(_fighter.duel.getRandomEmote(false));
+							_fighter.duel.addMessage("-----------------");
+							_fighter.playMove(_fighter.duel.getRandomEmote(false));
+							_fighter.duel.addMessage("-----------------");
+							_fighter.playMove(_fighter.duel.getRandomEmote(false));
+							_fighter.duel.addMessage("-----------------");
+							_fighter.playMove(_fighter.duel.getRandomEmote());
+							_fighter.duel.addMessage("-----------------");
+							_fighter.playMove(_fighter.duel.getRandomEmote());
+						});
+						this.duel.sendMessages(1);
 					}
 				}
 				else {
-					this.duel.bothFightersAction(function(_fighter) {
-						_fighter.duel.addMessage("-----------------");
-						_fighter.playMove(_fighter.duel.getRandomEmote(false));
-						_fighter.duel.addMessage("-----------------");
-						_fighter.playMove(_fighter.duel.getRandomEmote(false));
-						_fighter.duel.addMessage("-----------------");
-						_fighter.playMove(_fighter.duel.getRandomEmote(false));
-						_fighter.duel.addMessage("-----------------");
-						_fighter.playMove(_fighter.duel.getRandomEmote());
-						_fighter.duel.addMessage("-----------------");
-						_fighter.playMove(_fighter.duel.getRandomEmote());
-					});
-					this.duel.sendMessages(1);
+					this.duel.addMessage(this.getName() + " performs a Satanic Rite !");
+					this.satanicReverse = 4;
 				}
 			}
 			else if (attack == EMOTE_PP27) {
@@ -1415,12 +1434,21 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP29) {
 				// Barrel
-				if (!this.duel.BARREL_DAMAGE) {
-					this.duel.BARREL_DAMAGE = true;
-					this.duel.addMessage(this.getName() + " sets up a barrel !");
+				if (!this.duel.ALTERNATE_MOVES) {
+					if (!this.duel.BARREL_DAMAGE) {
+						this.duel.BARREL_DAMAGE = true;
+						this.duel.addMessage(this.getName() + " sets up a barrel !");
+					}
+					else {
+						this.duel.addMessage(this.getName() + " sets up a barrel for nothing...");
+					}
 				}
 				else {
-					this.duel.addMessage(this.getName() + " sets up a barrel for nothing...");
+					this.duel.addMessage(this.getName() + " sets up a barrel !");
+					this.duel.addMessage("It explodes !");
+					this.duel.bothFightersAction(function(_fighter) {
+						_fighter.damage(200, false);
+					});
 				}
 			}
 			else if (attack == EMOTE_PP30) {
@@ -1563,7 +1591,9 @@ class Fighter {
 				// BrocketeerDive
 				this.duel.addMessage(this.getName() + " punches " + this.getOppName() + "'s PP with his head !");
 				this.duel.getOppOf(this).damage(Math.floor(10 + this.STR / 10));
-				if (!this.duel.BOSS_FIGHT) this.duel.getOppOf(this).hasBurst = 2;
+				if (!this.duel.BOSS_FIGHT) {
+					this.duel.getOppOf(this).hasBurst = 2;
+				}
 			}
 			else if (attack == EMOTE_PP44) {
 				// Kamikaze
@@ -1578,23 +1608,35 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP46) {
 				// TruffleHistorian
-				this.duel.DISABLE_ABANDON = true;
-				this.duel.addMessage(this.getName() + " calls the Ancient Fungus !");
-				if (this.duel.UWU_TEXT) {
-					this.duel.YES_TEXT = 1;
+				if (!this.duel.ALTERNATE_MOVES) {
+					this.duel.DISABLE_ABANDON = true;
+					this.duel.addMessage(this.getName() + " calls the Ancient Fungus !");
+					if (this.duel.UWU_TEXT) {
+						this.duel.YES_TEXT = 1;
+					}
+					var chaosNumber = getRandomPercent();
+					var winner = this.duel.getRandomFighter();
+					if (winner.eldritchFriend) {
+						chaosNumber += 20;
+					}
+					this.duel.addMessage("He will use " + chaosNumber + "% of his power in " + winner.getName() + " !");
+					this.duel.sendMessages(1);
+					chaosNumber = Math.floor(chaosNumber/4);
+					var i;
+					for (i = 0; i < chaosNumber; i++) {
+						this.duel.addMessage("-----------------");
+						winner.playMove(this.duel.getRandomEmote());
+					}
 				}
-				var chaosNumber = getRandomPercent();
-				var winner = this.duel.getRandomFighter();
-				if (winner.eldritchFriend) {
-					chaosNumber += 20;
-				}
-				this.duel.addMessage("He will use " + chaosNumber + "% of his power in " + winner.getName() + " !");
-				this.duel.sendMessages(1);
-				chaosNumber = Math.floor(chaosNumber/4);
-				var i;
-				for (i = 0; i < chaosNumber; i++) {
-					this.duel.addMessage("-----------------");
-					winner.playMove(this.duel.getRandomEmote());
+				else {
+					var currentSize = this.godList.length;
+					while (this.godList.length < currentSize+1) {
+						r = randomFromList(GOD_LIST).name;
+						if (this.godList.indexOf(r) < 0) {
+							this.godList.push(r);
+							this.duel.addMessage(this.getName() + " becomes a " + r + " !");
+						}
+					}
 				}
 			}
 			else if (attack == EMOTE_PP47) {
@@ -1639,16 +1681,22 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP49) {
 				// Soup
-				this.duel.addMessage(this.getName() + " ascends !");
-				if (!this.livingGod) {
-					if (this.duel.UWU_TEXT) {
-						this.duel.GOD_TEXT = 3;
+				if (!this.duel.ALTERNATE_MOVES) {
+					this.duel.addMessage(this.getName() + " ascends !");
+					if (!this.livingGod) {
+						if (this.duel.UWU_TEXT) {
+							this.duel.GOD_TEXT = 3;
+						}
+						this.duel.addMessage("Behold " + this.getName() + " the living God !");
+						this.livingGod = true;
 					}
-					this.duel.addMessage("Behold " + this.getName() + " the living God !");
-					this.livingGod = true;
+					else {
+						this.duel.addMessage("But " + this.getName() + " already was a living god...");
+					}
 				}
 				else {
-					this.duel.addMessage("But " + this.getName() + " already was a living god...");
+					this.quickeningCharges += 10;
+					this.playMove(EMOTE_PP77);
 				}
 			}
 			else if (attack == EMOTE_PP50) {
@@ -3161,6 +3209,11 @@ class Fighter {
 			// Iron Maiden
 			this.duel.addMessage(this.getName() + " felt nothing !");
 		}
+		else if (this.satanicReverse > 0 && _punch) {
+			// BigSatan Alternative Move
+			this.duel.addMessage(this.getName() + "'s satanic rite protects him !");
+			this.duel.getOppOf(this).damage(_amount);
+		}
 		else if (this.isProtected && _punch) {
 			// RiotShield
 			this.duel.addMessage(this.getName() + " reflects the damages !");
@@ -3316,6 +3369,7 @@ class Fighter {
 		this.gettingRegularCharge -= 1;
 		this.gettingSpecialCharge -= 1;
 		this.robotCountdown -= 1;
+		this.satanicReverse -= 1;
 
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
