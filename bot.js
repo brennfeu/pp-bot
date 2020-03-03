@@ -942,7 +942,12 @@ class Fighter {
 			txt += " - Shield Protection\n";
 		}
 		if (this.isTerrorist) {
-			txt += " - Planning a Terrorist Move\n";
+			if (!this.duel.ALTERNATE_MOVES) {
+				txt += " - Planning a Terrorist Move\n";
+			}
+			else {
+				txt += " - N-Word Pass\n";
+			}
 		}
 		if (this.eldritchFriend) {
 			txt += " - Eldritch Friendly\n";
@@ -1518,12 +1523,25 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP36) {
 				// Explosion
-				this.duel.addMessage(this.getName() + " plays the terrorist move !");
-				if (this.isTerrorist) {
-					this.duel.getOppOf(this).damage(5000);
+				if (!this.duel.ALTERNATE_MOVES) {
+					this.duel.addMessage(this.getName() + " plays the terrorist move !");
+					if (this.isTerrorist) {
+						this.duel.getOppOf(this).damage(5000);
+					}
+					else {
+						this.duel.addMessage("But no terrorist move was planned !");
+					}
 				}
 				else {
-					this.duel.addMessage("But no terrorist move was planned !");
+					this.duel.addMessage(this.getName() + " is gonna say the N-Word !");
+					if (this.isTerrorist) {
+						this.duel.addMessage("MR " + this.getOppName().toUpperCase() + " GET DOWN !");
+						this.duel.getOppOf(this).damage(5000);
+					}
+					else {
+						this.duel.addMessage("YOU CAN'T SAY THAT IT'S RACIST !");
+						this.damage(5000, false)
+					}
 				}
 			}
 			else if (attack == EMOTE_PP37) {
@@ -1597,7 +1615,12 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP44) {
 				// Kamikaze
-				this.duel.addMessage(this.getName() + " plans a suicide move !");
+				if (!this.duel.ALTERNATE_MOVES) {
+					this.duel.addMessage(this.getName() + " plans a suicide move !");
+				}
+				else {
+					this.duel.addMessage(this.getName() + " gets a N-Word Pass !");
+				}
 				this.duel.ILLEGAL_BOMBING = true;
 				this.isTerrorist = true;
 			}
