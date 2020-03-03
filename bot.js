@@ -6106,10 +6106,10 @@ class Duel {
 			attackPower += _city.lastSummonValue;
 			this.addMessage("Omega Bullets doubles the last unit's military power !");
 		}
-		if (_city.silverBullets && _target.armyJammed) {
+		if (_city.silverBullets && _target.armyJammed && !_city.duel.BOSS_FIGHT) {
 			attackPower += attackPower;
 		}
-		if (_city.armyMindControl) {
+		if (_city.armyMindControl && !_city.duel.BOSS_FIGHT) {
 			attackPower += Math.min(200, _target.militaryPower);
 			defencePower -= Math.min(200, _target.militaryPower);
 		}
@@ -6119,10 +6119,14 @@ class Duel {
 		}
 		if (_city.armyUnstable && getRandomPercent() <= 25) {
 			this.addMessage("The army explodes !");
-			attackPower += 0;
+			attackPower = 0;
 		}
-		if (_target.armyDefence) {
+		if (_target.armyDefence && !_city.duel.BOSS_FIGHT) {
 			defencePower += Math.floor(_target.militaryPower/2);
+		}
+		
+		if (_city.duel.BOSS_FIGHT) {
+			return _target.damage(attackPower);
 		}
 		
 		if (_city.armyPiercing) {
