@@ -1146,7 +1146,12 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP3) {
 				// Hologram
-				this.duel.addMessage(this.getName() + " touches " + this.getOppName() + "'s PP vital point !");
+				if (!this.duel.ALTERNATE_MOVES) {
+					this.duel.addMessage(this.getName() + " touches " + this.getOppName() + "'s PP vital point !");
+				}
+				else {
+					this.duel.addMessage(this.getName() + " insults " + this.getOppName() + " with all his power !");
+				}
 				this.duel.getOppOf(this).damage(500);
 			}
 			else if (attack == EMOTE_PP4) {
@@ -1156,7 +1161,13 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP5) {
 				// High Five
-				this.duel.addMessage(this.getName() + " is feeling lonely... :(");
+				if (!this.duel.ALTERNATE_MOVES) {
+					this.duel.addMessage(this.getName() + " is feeling lonely... :(");
+				}
+				else {
+					this.duel.addMessage(this.getName() + " slaps " + this.getOppName());
+					this.duel.getOppOf(this).damage(Math.floor(10 + this.STR / 10));
+				}
 			}
 			else if (attack == EMOTE_PP6) {
 				// Kick
@@ -1185,9 +1196,20 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP8) {
 				// Trap Sign
-				this.duel.addMessage(this.getName() + " is ready to burst !");
-				this.duel.addMessage("...");
-				this.duel.addMessage("Well...");
+				if (!this.duel.ALTERNATE_MOVES) {
+					this.duel.addMessage(this.getName() + " is ready to burst !");
+					this.duel.addMessage("...");
+					this.duel.addMessage("Well...");
+				}
+				else {
+					this.duel.addMessage(this.getName() + " sets up a DOOM-REVERSE(tm) !");
+					this.doomReverse = 4;
+					if (this.STR <= 0) {
+						this.duel.addMessage(this.getName() + " uses DOOM-REVERSE(tm) !");
+						this.STRValue += (0 - this.STR) + 10;
+						this.doomReverse = 0;
+					}
+				}
 			}
 			else if (attack == EMOTE_PP9) {
 				// Time Kick
@@ -3911,6 +3933,7 @@ class Duel {
 		this.PP_NET = 0;
 		this.CHECKPOINT_DUEL = null;
 		this.KIDNEY_CURSE = 0;
+		this.ALTERNATE_MOVES = false;
 
 		this.PP_ARMAGEDDON = false;
 		this.EVENT_PP_ENLIGHTENMENT = false;
@@ -4851,6 +4874,12 @@ class Duel {
 			// Heat death of the universe
 			this.addMessage(" -- HEAT DEATH OF THE UNIVERSE --");
 			this.addMessage("*You punched PP so much, the world collapses. Good job ! You don’t get to go to work tomorrow. Or school. Or anything else. You wanna know why ? Well... you see... YOU FUCKED IT ALL UP !!!*\n" + IMAGE_PP2);
+			if (this.ALTERNATE_MOVES) {
+				this.addMessage("You are sent back to your original reality !");
+				this.MOVE_COUNT = this.ALTERNATE_MOVE_COUNT;
+				this.ALTERNATE_MOVES = false;
+				return;
+			}
 			this.stopDuel();
 			for (var i in DUEL_LIST) {
 				if (DUEL_LIST[i].BATTLE_CHANNEL.id != this.BATTLE_CHANNEL.id) {
@@ -5273,11 +5302,19 @@ class Duel {
 				_fighter.resetBattleVariables();
 			});
 		}
+		else if (randomVar == 43 && (this.MOVE_COUNT >= 200 || forcedEvent)) {
+			// Alternate Universe
+			this.addMessage(" -- ALTERNATE PP UNIVERSE --");
+			this.addMessage("Your PP Punching is breaking the laws of space and time ! You both get teleported into an alternate universe !");
+			this.addMessage("Each moves has the same DEX modifier, illegal chances et ability to always pass, but their effect may have slightly changed !");
+			this.ALTERNATE_MOVES = !this.ALTERNATE_MOVES;
+			this.ALTERNATE_MOVE_COUNT = this.MOVE_COUNT;
+		}
 		else if (randomVar == 90 && (this.MOVE_COUNT >= 50 || forcedEvent)) {
 			// Brenn Ejaculates
 			this.addMessage(" -- BRENN EJACULATES --");
 			this.addMessage("For some reasons, this summons every event !");
-			var idList = shuffleArray([2, 3, 4, 6, 7, 8, 9, 19, 22, 23, 26, 32, 34, 35, 36, 37, 38, 39, 40, 41, 42]);
+			var idList = shuffleArray([2, 3, 4, 6, 7, 8, 9, 19, 22, 23, 26, 32, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43]);
 			for (var i = 0; i < idList.length; i++) {
 				this.FORCE_EVENT_ID = idList[i];
 				this.startRandomEvent();
