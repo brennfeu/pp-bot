@@ -2822,6 +2822,16 @@ class Fighter {
 						this[units[attack][2][i]] = 4;
 					}
 				}
+				
+				if (this.kaijuHP > 0) {
+					this.kaijuHP -= this.militaryPower;
+					this.duel.addMessage("It attacks the kaiju !");
+					this.resetArmy();
+					if (this.kaijuHP <= 0) {
+						this.duel.addMessage("And The kaiju dies !");
+						this.bossKiller = 11;
+					}
+				}
 			}
 			else if (attack == EMOTE_PP113) {
 				// Junk
@@ -3619,6 +3629,7 @@ class City extends Fighter {
 		this.debuffFire = 0;
 		this.armyResurectionCountdown = 0;
 		this.serJunkan = false;
+		this.kaijuHP = 0;
 		
 		this.militaryPower = 0;
 		this.militaryPowerSave = 0;
@@ -3698,6 +3709,9 @@ class City extends Fighter {
 		
 		// status
 		txt += "\n\n**Status :**"
+		if (this.kaijuHP > 0) {
+			txt += "\n - **Kaiju HP : " + this.kaijuHP + "**";
+		}
 		if (this.debuffFire > 0) {
 			txt += "\n - Burning (for " + this.debuffFire + " turns)";
 		}
@@ -3783,6 +3797,11 @@ class City extends Fighter {
 		this.armyResurectionCountdown -= 1;
 		this.armyAgony -= 1;
 		
+		if (this.kaijuHP > 0) {
+			this.duel.addMessage("-----------------");
+			this.duel.addMessage(this.getName() + " is damaged by the kaiju !");
+			this.damage(150, false);
+		}
 		if (this.debuffFire > 0) {
 			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " burns !");
@@ -5214,11 +5233,51 @@ class Duel {
 				this.ESPINOZA_CHOICE = EMOTE_ESPINOZE;
 			}
 		}
+		else if (randomVar == 40) {
+			// Spanish Inquisition
+			this.addMessage(" -- SPANISH INQUISITION --");
+			this.addMessage("Nobody expected them, but here they are !");
+			var winner = this.getRandomFighter();
+			if (this.getOppOf(winner).STR > winner.STR) {
+				winner = this.getOppOf(winner);
+			}
+			this.addMessage("They both attack " + winner.getName() + " as he seems to be the toughest opponent.");
+			winner.damage(Math.floor(winner.STR/10));
+		}
+		else if (randomVar == 41 && (this.MOVE_COUNT >= 30 || forcedEvent)) {
+			// Kaiju Attack
+			this.addMessage(" -- KAIJU ATTACK --");
+			if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
+				var winner = this.getRandomFighter();
+				if (winner.kaijuHP > 0) {
+					this.addMessage(winner.getName() + "'s kaiju gets stronger !");
+					winner.kaijuHP += 1000;
+				}
+				else {
+					this.addMessage(winner.getName() + " gets attacked by a kaiju !");
+					winner.kaijuHP = 1000 - winner.getTotalDefBonus() - winner.militaryPower;
+					winner.resetArmy();
+				}
+			}
+			else {
+				var winner = this.getRandomFighter();
+				this.addMessage(winner.getName() + " gets attacked by a kaiju that happened to be there !");
+				winner.damage(150);
+			}
+		}
+		else if (randomVar == 42) {
+			// Nudist Beach
+			this.addMessage(" -- NUDIST BEACH --");
+			this.addMessage("Fear is freedom ! Subjugation is liberation ! Contradiction is truth ! Those are the facts of this world ! And you will all surrender to them, you pigs in human clothing !");
+			this.bothFightersAction(function(_fighter) {
+				_fighter.resetBattleVariables();
+			});
+		}
 		else if (randomVar == 90 && (this.MOVE_COUNT >= 50 || forcedEvent)) {
 			// Brenn Ejaculates
 			this.addMessage(" -- BRENN EJACULATES --");
 			this.addMessage("For some reasons, this summons every event !");
-			var idList = shuffleArray([2, 3, 4, 6, 7, 8, 9, 19, 22, 23, 26, 32, 34, 35, 36, 37, 38, 39]);
+			var idList = shuffleArray([2, 3, 4, 6, 7, 8, 9, 19, 22, 23, 26, 32, 34, 35, 36, 37, 38, 39, 40, 41, 42]);
 			for (var i = 0; i < idList.length; i++) {
 				this.FORCE_EVENT_ID = idList[i];
 				this.startRandomEvent();
@@ -5231,7 +5290,7 @@ class Duel {
 			
 			this.startCityMode();
 		}
-		else {
+		else if (!forcedEvent) {
 			this.addMessage("No event this turn...");
 		}
 	}
