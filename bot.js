@@ -2533,7 +2533,7 @@ class Fighter {
 				this.ragingSpirit += 1;
 				this.duel.addMessage(this.getName() + " summons " + this.ragingSpirit + " Lost Souls !");
 				for (var j = 0; j < this.ragingSpirit; j++) {
-					this.duel.getOppOf(this).damage(1 + Math.floor(this.STR / 10));
+					this.duel.getOppOf(this).damage(5 + Math.floor(this.STR / 10));
 				}
 			}
 			else if (attack == EMOTE_PP70) {
@@ -2582,15 +2582,11 @@ class Fighter {
 			else if (attack == EMOTE_PP76) {
 				// EldritchPudding
 				this.duel.addMessage(this.getName() + " eats some Eldritch Pudding !");
-				this.damage(50, false);
-				if (getRandomPercent() <= 10) {
-					this.duel.addMessage(this.getName() + " gets 100 tentacles !");
-					this.tentacles += 100;
+				if (getRandomPercent() < 90) {
+					this.damage(50, false);
 				}
-				else {
-					this.duel.addMessage(this.getName() + " gets a new tentacle !");
-					this.tentacles += 1;
-				}
+				this.duel.addMessage(this.getName() + " gets a new tentacle !");
+				this.tentacles += 1;
 			}
 			else if (attack == EMOTE_PP77) {
 				// SatanHand
@@ -5771,7 +5767,7 @@ class Duel {
 			if (this.getOppOf(winner).attack == EMOTE_PP68) {
 				this.addMessage(winner.getName() + " triggers " + this.getOppOf(winner).getName() + "'s Mech !");
 				this.addMessage(this.getOppOf(winner).getName() + " shoots !");
-				winner.damage(30);
+				winner.damage(50);
 			}
 			// Requiem
 			if (this.getOppOf(winner).attack == EMOTE_PP52 && this.getOppOf(winner).requiemPower != null) {
