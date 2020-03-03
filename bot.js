@@ -5359,7 +5359,7 @@ class Duel {
 				_fighter.resetBattleVariables();
 			});
 		}
-		else if (randomVar == 43 && (this.MOVE_COUNT >= 200 || forcedEvent)) {
+		else if (randomVar == 43) {
 			// Alternate Universe
 			this.addMessage(" -- ALTERNATE PP UNIVERSE --");
 			this.addMessage("Your PP Punching is breaking the laws of space and time ! You both get teleported into an alternate universe and bring with you elements of demise !");
