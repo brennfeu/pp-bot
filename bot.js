@@ -1362,7 +1362,7 @@ class Fighter {
 					this.duel.addMessage(this.getName() + " changes his gods for a bit !");
 					var godListMemory = this.godList.slice();
 					this.godList = []
-					this.godList.push(shuffleArray(GOD_LIST)[0]);
+					this.godList.push(shuffleArray(GOD_LIST)[0].name);
 
 					this.playMove(EMOTE_PP51);
 					this.duel.addMessage("-----------------");
