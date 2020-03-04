@@ -1358,9 +1358,21 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP23) {
 				// LaughSoul
-				this.duel.addMessage(this.getName() + " laughs at " + this.duel.getOppOf(this).getName() + " !");
-				this.duel.addMessage("He gets " + this.duel.getOppOf(this).missedMoves*50 + " STR !");
-				this.STRValue += this.duel.getOppOf(this).missedMoves*50;
+				if (!this.duel.ALTERNATE_MOVES) {
+					this.duel.addMessage(this.getName() + " changes his gods for a bit !");
+					var godListMemory = this.godList.slice();
+					this.godList = shuffleArray(GOD_LIST)[0];
+
+					this.playMove(EMOTE_PP51);
+					this.duel.addMessage("-----------------");
+					this.playMove(EMOTE_PP52);
+					this.godList = godListMemory.slice();
+				}
+				else {
+					this.duel.addMessage(this.getName() + " laughs at " + this.duel.getOppOf(this).getName() + " !");
+					this.duel.addMessage("He gets " + this.duel.getOppOf(this).missedMoves*50 + " STR !");
+					this.STRValue += this.duel.getOppOf(this).missedMoves*50;
+				}
 			}
 			else if (attack == EMOTE_PP24) {
 				// KnockBack
@@ -5426,6 +5438,23 @@ class Duel {
 			this.sendMessages();
 			this.bothFightersAction(function(_fighter) {
 				_fighter.heal(50);
+			});
+		}
+		
+		// Laughing Skull Move
+		if (this.getAttackFromEmote(_emote) == EMOTE_PP23 && this.SAVE_LIST.indexOf(_user.id) < 0 && !_user.bot) {
+			this.SAVE_LIST.push(_user.id);
+			this.addMessage(_user.username + " prays for the fighters !");
+			this.sendMessages();
+			this.bothFightersAction(function(_fighter) {
+				var godListMemory = this.godList.slice();
+				this.godList = shuffleArray(GOD_LIST)[0];
+
+				this.duel.addMessage("-----------------");
+				this.playMove(EMOTE_PP51);
+				this.duel.addMessage("-----------------");
+				this.playMove(EMOTE_PP52);
+				this.godList = godListMemory.slice();
 			});
 		}
 		
