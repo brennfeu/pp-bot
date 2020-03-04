@@ -326,7 +326,7 @@ const STAND_BATTLE_MODE = 1;
 const CITY_BATTLE_MODE = 2;
 
 // MUSICS
-const MUSIC_PP1 = "none";
+const MUSIC_PP1 = "pp_puncher.mp3";
 const MUSIC_PP2 = "ascend.mp3";
 const MUSIC_PP3 = "psychodios.mp3";
 const MUSIC_PP4 = "huge_gay_night.mp3";
@@ -3361,19 +3361,6 @@ class Fighter {
 			this.resetBattleVariables()
 		}
 
-		// Turkey
-		if (this.turkeyCountdown != -1) {
-			this.turkeyCountdown -= 1;
-			if (this.turkeyCountdown == 0) {
-				this.duel.addMessage(this.getName() + " explodes !");
-				this.damage(1000, false);
-			}
-			else {
-				this.duel.addMessage(this.getName() + " has " + this.turkeyCountdown + " turn(s) left !");
-			}
-			this.duel.addMessage("-----------------");
-		}
-
 		// Trap Sign, Examine, SatanPossess etc..
 		this.hasBurst -= 1;
 		this.hasExamined -= 1;
@@ -3396,6 +3383,19 @@ class Fighter {
 		this.gettingSpecialCharge -= 1;
 		this.robotCountdown -= 1;
 		this.satanicReverse -= 1;
+		this.turkeyCountdown -= 1;
+		
+		// Turkey
+		if (this.turkeyCountdown >= 0) {
+			if (this.turkeyCountdown == 0) {
+				this.duel.addMessage(this.getName() + " explodes !");
+				this.damage(1000, false);
+			}
+			else {
+				this.duel.addMessage(this.getName() + " has " + this.turkeyCountdown + " turn(s) left !");
+			}
+			this.duel.addMessage("-----------------");
+		}
 
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
@@ -4747,7 +4747,7 @@ class Duel {
 			this.setMusic(MUSIC_PP2); // Ascend
 		}
 		else {
-			this.setMusic(MUSIC_PP1); // Silence
+			this.setMusic(MUSIC_PP1); // PP Puncher
 		}
 		
 		if ((this.FIGHTER1.turnSkip > 0 || this.FIGHTER1.grabbedPP > 0 || this.FIGHTER1.summonTankCountdown == 1 || this.FIGHTER1.isPossessed > 0 || this.FIGHTER1.STR <= 0) && 
@@ -6482,7 +6482,6 @@ class Duel {
 		this.CURRENT_THEME = _music;
 		this.AUDIO_CHANNEL.leave();
 		
-		if (this.CURRENT_THEME = MUSIC_PP1) return;
 		this.AUDIO_CHANNEL.join().then(function(_connection) {
 			const dispatcher = _connection.playFile("./music/" + _music);
 			dispatcher.resume();
