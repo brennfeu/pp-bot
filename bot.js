@@ -1654,7 +1654,7 @@ class Fighter {
 				else {
 					var currentSize = this.godList.length;
 					while (this.godList.length < currentSize+1) {
-						r = randomFromList(GOD_LIST).name;
+						var r = randomFromList(GOD_LIST).name;
 						if (this.godList.indexOf(r) < 0) {
 							this.godList.push(r);
 							this.duel.addMessage(this.getName() + " becomes a " + r + " !");
@@ -3096,18 +3096,20 @@ class Fighter {
 		_amount += this.quickeningCharges*3;
 		if (this.duel.REVERSE_DAMAGE <= 0) {
 			this.STRValue += _amount;
-			return this.duel.addMessage(this.getName() + " gets healed by " + _amount + " HP");
+			this.duel.addMessage(this.getName() + " gets healed by " + _amount + " HP");
 			if (_amount == 69) {
 				this.duel.addMessage("nice !");
 			}
+			return;
 		}
 		else {
 			this.STRValue -= _amount;
-			return this.duel.addMessage(this.getName() + " takes " + _amount + " damages !");
+			this.duel.addMessage(this.getName() + " takes " + _amount + " damages !");
 			if (_amount == 69) {
 				this.duel.addMessage("lmao !");
 			}
 			this.damageTaken += _amount;
+			return;
 		}
 	}
 
@@ -3172,17 +3174,18 @@ class Fighter {
 			critMin += 15;
 		}
 		critMin += this.lifeFibers*5;
-		if (getRandomPercent() < critMin  && _punch) {
+		if (getRandomPercent() < critMin && _punch) {
 			_amount += _amount;
 			this.duel.addMessage("**Critical Hit !**");
 		}
 
 		if (this.duel.REVERSE_DAMAGE > 0) {
 			this.STRValue += _amount;
-			return this.duel.addMessage(this.getName() + " gets healed by " + _amount + " HP");
+			this.duel.addMessage(this.getName() + " gets healed by " + _amount + " HP");
 			if (_amount == 69) {
 				this.duel.addMessage("nice !");
 			}
+			return;
 		}
 
 		if (getRandomPercent() <= this.madnessStacks*3 && _punch) { // Scythe of Cosmic Chaos
@@ -6066,7 +6069,7 @@ class Duel {
 		}
 		if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
 			var nbTries = 0
-			while (listeAttaques.length < 5 & nbTries < 100) {
+			while (listeAttaques.length < 5 && nbTries < 100) {
 				emote = this.getRandomEmote();
 				if (listeAttaques.indexOf(emote) < 0) {
 					listeAttaques.push(emote);
