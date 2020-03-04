@@ -2713,7 +2713,7 @@ class Fighter {
 				this.duel.addMessage("The Eye of Truth will reveal the moves of " + this.getName() + "'s soul !");
 				var moveId = parseInt(this.guildUser.user.id.slice(9, this.guildUser.user.id.length));
 				var effectId = moveId%6;
-				var subEffectId = moveId + effectId;
+				var subEffectId;
 				var value = 0;
 				var debuffList = ["bleedDamage", "meltingDamage", "madnessStack"];
 				var buffList = ["bonusDamage", "tearDrinker", "pigHeal", "quickeningCharges", "tentacles"];
@@ -3147,7 +3147,7 @@ class Fighter {
 			_amount = _amount*this.duel.getOppOf(this).megaBuildUp;
 			this.duel.getOppOf(this).megaBuildUp = 0;
 		}
-		if (this.duel.getOppOf(this).standPower == STAND_PP16 && _punch && this.duel.getOppOf(this).STR <= 15 && _punch) {
+		if (this.duel.getOppOf(this).standPower == STAND_PP16 && this.duel.getOppOf(this).STR <= 15 && _punch) {
 			// Virus
 			this.duel.addMessage("Virus effect starts !");
 			_amount = _amount*100;
@@ -5690,7 +5690,7 @@ class Duel {
 		}
 		if (fighter.isBigPP && fighter.isFastPP && fighter.isAlienPP && fighter.isDrunkPP && fighter.isHockeyPuckPP) {
 			// Perhaps
-			dont.slice(dont.indexOf(EMOTE_PP50), 1);
+			dont = dont.slice(dont.indexOf(EMOTE_PP50), 1);
 		}
 		if (this.quickeningCharges < 10) {
 			// Satan Hand
@@ -5752,8 +5752,8 @@ class Duel {
 
 			// Move non autorisé (movepool)
 			if (duel.LIST_AVAILABLE_ATTACKS.indexOf(_fighter.attack) < 0 && 
-			    !(_fighter.attack == EMOTE_DEAD) &&
-			    !(_fighter.attack == EMOTE_SKIP) &&
+			    _fighter.attack != EMOTE_DEAD &&
+			    _fighter.attack != EMOTE_SKIP &&
 			    !(_fighter.attack == EMOTE_PP50 && _fighter.turnSkip) && 
 			    !(_fighter.attack == EMOTE_PP39 && _fighter.grabbedPP) && 
 			    !(_fighter.attack == EMOTE_PP10 && _fighter.summonTankCountdown == 1)) {
@@ -6104,7 +6104,6 @@ class Duel {
 				if (this.KIDNEY_CURSE <= i || this.KIDNEY_CURSE <= 0) {
 					var currentLength = listeAttaques.length;
 					while (listeAttaques.length <= currentLength) {
-						emote = this.getRandomEmote();
 						if (this.MOVE_COUNT == 0 && getRandomPercent() <= 33 && i == 0) {
 							emote = EMOTE_PP81; // Melodia
 						}
@@ -6975,7 +6974,6 @@ CLIENT.on("message", async _message => {
 		// STYLE
 		var guild = _message.channel.guild;
 		var user = guild.members.get(_message.author.id);
-		var role = guild.roles.find(r => r.name == GOD_PP21.name);
 		
 		_message.reply("change your style with a reaction.").then(function (_message2) {
 			_message2.react(EMOTE_PP38); // Fast PP
