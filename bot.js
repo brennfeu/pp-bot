@@ -6956,6 +6956,10 @@ CLIENT.on("message", async _message => {
 		if (_message.author.id == _message.mentions.users.last().id) {
 			return _message.reply("you can't battle yourself !");
 		}
+		
+		if (_message.mentions.users.last().bot) {
+			return _message.reply("u is a big dumby dumb dumb, you can't battle a bot !");
+		}
 
 		var duel = new Duel(argsUser[1] == "simpleduel");
 		duel.CHRISTIAN_TEXT = argsUser[1] == "hug";
