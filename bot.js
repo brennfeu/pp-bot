@@ -5372,7 +5372,7 @@ class Duel {
 			if (this.getOppOf(winner).STR > winner.STR) {
 				winner = this.getOppOf(winner);
 			}
-			this.addMessage("They both attack " + winner.getName() + " as he seems to be the toughest opponent.");
+			this.addMessage("They attack " + winner.getName() + " as he seems to be the toughest opponent.");
 			winner.damage(Math.floor(winner.STR/10));
 		}
 		else if (randomVar == 41 && (this.MOVE_COUNT >= 30 || forcedEvent)) {
