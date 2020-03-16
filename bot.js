@@ -862,7 +862,7 @@ class Fighter {
 			txt += " - Getting a regular charge in " + this.gettingRegularCharge + " turns\n"
 		}
 		if (this.gettingSpecialCharge > 0) {
-			txt += " - Getting a regular charge in " + this.gettingSpecialCharge + " turns\n"
+			txt += " - Getting a special charge in " + this.gettingSpecialCharge + " turns\n"
 		}
 		if (this.robotCountdown > 0) {
 			txt += " - Robot Engineering Countdown : " + this.robotCountdown + " turns\n";
@@ -6980,6 +6980,13 @@ CLIENT.on("message", async _message => {
 		duel.startDuel(_message);
 
 		return;
+	}
+	if (argsUser[1] == "punch") {
+		if (_message.mentions.users.array().length <= 1) {
+			return _message.reply("you need to tag the person you want to punch in the command !\nSee the help command for more help !");
+		}
+		
+		return _message.channel.send("Video proof of " + _message.author.username + " punching " + _message.mentions.users.last().username + "'s PP :\n" + IMAGE_PP5);
 	}
 	if (argsUser[1] == "quit") {
 		if (getDuel(_message.channel.id) != null) {
