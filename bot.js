@@ -21,6 +21,10 @@ const EMOTE_SKIPPER = "665141844640006156";
 const EMOTE_FRIEDESPINOZA = "675077643896356874";
 const EMOTE_ESPINOZE = "675078599673511937";
 
+const EMOTE_OBAMAHEDRON = "693153845437530195";
+const EMOTE_OBAMASPHERE = "693158025325707274";
+const EMOTE_OBOMBA = "693158300698673193";
+
 // COMMON MOVES
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
 const EMOTE_PP2 = "535240768441548810"; // PunchingPPReallyHard
@@ -188,7 +192,7 @@ const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOT
 			EMOTE_PP61, EMOTE_PP62];
 const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70,
 			EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP77, EMOTE_PP78];
-const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
+const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81, EMOTE_PP135];
 const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP86, EMOTE_PP87, EMOTE_PP88, EMOTE_PP89, 
 			EMOTE_PP90, EMOTE_PP91, EMOTE_PP92, EMOTE_PP93, EMOTE_PP94, EMOTE_PP95, EMOTE_PP96, EMOTE_PP97,
 			EMOTE_PP98, EMOTE_PP99, EMOTE_PP100, EMOTE_PP101, EMOTE_PP102, EMOTE_PP103, EMOTE_PP104, EMOTE_PP105,
@@ -198,7 +202,7 @@ const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP
 		        EMOTE_PP130, EMOTE_PP131, EMOTE_PP132, EMOTE_PP133, EMOTE_PP134];
 const MECH_EMOTE_LIST = [];
 const SUPER_EMOTE_LIST = [];
-const OTHER_EMOTE_LIST = [EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE];
+const OTHER_EMOTE_LIST = [EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE, EMOTE_OBAMAHEDRON, EMOTE_OBAMASPHERE, EMOTE_OBOMBA];
 const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST)
 	.concat(RARE_EMOTE_LIST).concat(CIV_EMOTE_LIST).concat(MECH_EMOTE_LIST).concat(SUPER_EMOTE_LIST)
 	.concat(OTHER_EMOTE_LIST);
@@ -3077,6 +3081,29 @@ class Fighter {
 					this.duel.addMessage(this.getName() + " guessed wrong ! :(");
 				}
 			}
+			else if (attack == EMOTE_OBOMBA) {
+				// Obama Event
+				this.duel.addMessage(this.getName() + " summons the **Obomba** !");
+				this.duel.bothFightersAction(function(_fighter) {
+					_fighter.damage(_fighter.STR, false);
+				});
+			}
+			else if (attack == EMOTE_OBAMAHEDRON) {
+				// Obama Event
+				this.duel.addMessage(this.getName() + " summons the **Obamahedron** !");
+				this.duel.addMessage("Both fighters gets some random bonus STR !");
+				this.duel.bothFightersAction(function(_fighter) {
+					_fighter.STRValue += Math.floor(Math.random() * 10*getRandomPercent());
+				});
+			}
+			else if (attack == EMOTE_OBAMASPHERE) {
+				// Obama Event
+				this.duel.addMessage(this.getName() + " summons the **Obamasphere** !");
+				this.duel.addMessage("Both fighters gets some random bonus DEX !");
+				this.duel.bothFightersAction(function(_fighter) {
+					_fighter.DEXValue += Math.floor(Math.random() * 10*getRandomPercent());
+				});
+			}
 			else if (attack == EMOTE_DEAD) {
 				// Dead (Cthulhu battle)
 				if (this.STRValue < 70) {
@@ -4045,6 +4072,7 @@ class Duel {
 		this.EVENT_DEPRESSION = false;
 		this.EVENT_BOMB = false;
 		this.ESPINOZA_CHOICE = "";
+		this.OBAMIUM = false
 
 		this.FORCE_PERHAPS = false;
 		this.FORCE_SATAN = false;
@@ -5412,11 +5440,17 @@ class Duel {
 			this.ALTERNATE_MOVES = !this.ALTERNATE_MOVES;
 			this.ALTERNATE_MOVE_COUNT = this.MOVE_COUNT;
 		}
+		else if (randomVar == 44) {
+			// Obama
+			this.addMessage(" -- OBAMIUM --");
+			this.addMessage("Thanks to your PP Punching, a new Obamium source has been found ! Scientists are giving you some !");
+			this.OBAMIUM = true
+		}
 		else if (randomVar == 90 && (this.MOVE_COUNT >= 50 || forcedEvent)) {
 			// Brenn Ejaculates
 			this.addMessage(" -- BRENN EJACULATES --");
 			this.addMessage("For some reasons, this summons every event !");
-			var idList = shuffleArray([2, 3, 4, 6, 7, 8, 9, 19, 22, 23, 26, 32, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43]);
+			var idList = shuffleArray([2, 3, 4, 6, 7, 8, 9, 19, 22, 23, 26, 32, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44]);
 			for (var i = 0; i < idList.length; i++) {
 				this.FORCE_EVENT_ID = idList[i];
 				this.startRandomEvent();
@@ -6079,31 +6113,30 @@ class Duel {
 		var emote;
 
 		if (this.ESPINOZA_CHOICE != "") {
-			return this.LIST_AVAILABLE_ATTACKS = [EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE];
+			listeAttaques = [EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE];
 		}
-		if (this.EVENT_DEPRESSION) {
-			return this.LIST_AVAILABLE_ATTACKS = [EMOTE_PP47];
+		else if (this.EVENT_DEPRESSION) {
+			listeAttaques = [EMOTE_PP47];
 		}
-		if (this.EVENT_CONFUSION) {
-			return this.LIST_AVAILABLE_ATTACKS = [EMOTE_PP39];
+		else if (this.EVENT_CONFUSION) {
+			listeAttaques = [EMOTE_PP39];
 		}
-		if (this.EVENT_MEGA_POOL) {
+		else if (this.EVENT_MEGA_POOL) {
 			while (listeAttaques.length < 20) {
 				emote = EMOTE_LIST[Math.floor(Math.random()*EMOTE_LIST.length)];
 				if (listeAttaques.indexOf(emote) < 0) {
 					listeAttaques.push(emote);
 				}
 			}
-			return this.LIST_AVAILABLE_ATTACKS = listeAttaques;
 		}
-		if (this.FORCE_PERHAPS) {
-			this.LIST_AVAILABLE_ATTACKS = [EMOTE_PP50];
-			return this.FORCE_PERHAPS = false;
+		else if (this.FORCE_PERHAPS) {
+			listeAttaques = [EMOTE_PP50];
+			this.FORCE_PERHAPS = false;
 		}
-		if (this.FORCE_SATAN) {
-			return this.LIST_AVAILABLE_ATTACKS = [EMOTE_PP26];
+		else if (this.FORCE_SATAN) {
+			listeAttaques = [EMOTE_PP26];
 		}
-		if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
+		else if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
 			var nbTries = 0
 			while (listeAttaques.length < 5 && nbTries < 100) {
 				emote = this.getRandomEmote();
@@ -6169,6 +6202,13 @@ class Duel {
 		    (this.FIGHTER1.requiemPower != null && this.FIGHTER1.requiemCountdown <= 0) ||
 		    (this.FIGHTER2.requiemPower != null && this.FIGHTER2.requiemCountdown <= 0)) {
 			listeAttaques.push(EMOTE_PP52);
+		}
+		
+		if (this.OBAMIUM && !this.EVENT_MEGA_POOL) {
+			listeAttaques.push(EMOTE_OBAMAHEDRON);
+			listeAttaques.push(EMOTE_OBAMASPHERE);
+			listeAttaques.push(EMOTE_OBOMBA);
+			this.OBAMIUM = false
 		}
 
 		this.LIST_AVAILABLE_ATTACKS = listeAttaques;
@@ -6719,7 +6759,10 @@ async function sendCheatPanel(_channel) {
 		"Cheat Panel : Gods I" : [], // filled later in a loop
 		"Cheat Panel : Gods II" : [],
 		"Cheat Panel : Gods III" : [],
-		"Cheat Panel : Other" : [EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE, EMOTE_SKIPPER]
+		"Cheat Panel : Other" : [
+			EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE, EMOTE_OBAMAHEDRON, EMOTE_OBAMASPHERE, EMOTE_OBOMBA, 
+			EMOTE_SKIPPER
+		]
 	}
 	
 	for (var i in GOD_LIST) {
