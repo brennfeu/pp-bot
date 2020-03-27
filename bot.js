@@ -2368,7 +2368,7 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP31.name) > -1) { // Ryuko
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Ryuko answers his calls !");
-					if (this.hasKamui) {
+					if (!this.hasKamui) {
 						this.duel.addMessage(this.getName() + " gets a Kamui !");
 						this.hasKamui = true;
 					}
