@@ -3093,7 +3093,7 @@ class Fighter {
 				this.duel.addMessage(this.getName() + " summons the **Obamahedron** !");
 				this.duel.addMessage("Both fighters gets some random bonus STR !");
 				this.duel.bothFightersAction(function(_fighter) {
-					_fighter.STRValue += Math.floor(Math.random() * pow(10, getRandomPercent()));
+					_fighter.STRValue += Math.floor(Math.random() * Math.pow(10, getRandomPercent()));
 				});
 			}
 			else if (attack == EMOTE_OBAMASPHERE) {
@@ -3101,7 +3101,7 @@ class Fighter {
 				this.duel.addMessage(this.getName() + " summons the **Obamasphere** !");
 				this.duel.addMessage("Both fighters gets some random bonus DEX !");
 				this.duel.bothFightersAction(function(_fighter) {
-					_fighter.DEXValue += Math.floor(Math.random() * pow(10, getRandomPercent()));
+					_fighter.DEXValue += Math.floor(Math.random() * Math.pow(10, getRandomPercent()));
 				});
 			}
 			else if (attack == EMOTE_DEAD) {
