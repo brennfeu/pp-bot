@@ -362,6 +362,24 @@ const ID_PUDDING = "253197709249347595";
 const ID_PEPIN = "252878033436803072";
 const ADMIN_LIST = [ID_BRENNFEU, ID_COUNTRYMUSICBRENN, ID_PUDDING, ID_PEPIN];
 
+// DATABASE
+const MYSQL = require('mysql');
+var DB_CONNECTION = MYSQL.createConnection({
+	host: process.env.DB_HOST,
+	user: process.env.DB_LOGIN,
+	password: process.env.DB_PASSWORD,
+	database: "brennfeu_pp_punch"
+});
+
+// DB TEST
+DB_CONNECTION.connect(function(err) {
+	if (err) {
+		console.log("DB Connection Error :(");
+		console.log(err);
+	}
+	console.log("DB Connected :)");
+});
+
 // Variables
 var DUEL_LIST = [];
 
