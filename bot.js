@@ -385,6 +385,7 @@ DB_CONNECTION.connect(function(err) {
 // Variables
 var DUEL_LIST = [];
 var GLOBAL_DATA = null;
+var QUERY_DONE = false;
 
 // CLASSES
 class Fighter {
@@ -6695,18 +6696,22 @@ function setBotActivity(_texte = "Lonely PP Squeezing :(") {
 }
 
 function executeQuery(_str) {
+	QUERY_DONE = false
+
 	DB_CONNECTION.query(_str, function (err, result, fields) {
 		if (err) {
 			console.log("QUERY ERROR : ");
 			console.log(err);
 			GLOBAL_DATA = null;
+			QUERY_DONE = true;
 			return;
 		}
 
 		GLOBAL_DATA = result
+		QUERY_DONE = true;
 	});
 
-  sleep(100)
+  while(!QUERY_DONE) {}
 	return GLOBAL_DATA;
 }
 
@@ -6719,7 +6724,7 @@ function getWinCounter(_fighterID) {
 		return 0;
 	}
 
-	return result;
+	return result[0].points;
 }
 function getRank(_fighterID) {
 	var result = executeQuery("SELECT num FROM ( SELECT (@row_number:=@row_number + 1) AS num, id FROM Player, (SELECT @row_number:=0) AS t ORDER BY points ) AS t2 WHERE id = " + _fighterID)
@@ -7005,11 +7010,6 @@ function cloneObject(obj) {
 	}
 
 	throw new Error("Unable to copy obj! Its type isn't supported.");
-}
-function sleep(ms) {
-  var start = new Date().getTime(), expire = start + ms;
-  while (new Date().getTime() < expire) { }
-  return;
 }
 
 CLIENT.on('ready', () => {
