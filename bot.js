@@ -6743,7 +6743,7 @@ function addWinCounter(_fighter, _number) {
 	// negative number of wins for cheaters
 	console.log(_fighter.getName() + " wins : " + _number);
 
-	DB_CONNECTION.query("UPDATE Player SET points = " + (_number+ await getWinCounter(_fighter.user.id)) + " WHERE id = " + _fighter.user.id, function (err, result) {
+	DB_CONNECTION.query("UPDATE Player SET points = " + (_number+getWinCounter(_fighter.user.id)) + " WHERE id = " + _fighter.user.id, function (err, result) {
 		if (err) {
 			console.log("UPDATE Error");
 			console.log(err);
@@ -7053,7 +7053,7 @@ CLIENT.on("message", async _message => {
 
 	if (argsUser[1] == "rank") {
 		// RANK
-		_message.channel.send("You have " + await getWinCounter(_message.author.id) + " PP Points\nYour Rank is #" + await getRank(_message.author.id));
+		_message.channel.send("You have " + getWinCounter(_message.author.id) + " PP Points\nYour Rank is #" + getRank(_message.author.id));
 		return;
 	}
 	if (argsUser[1] == "ranks") {
