@@ -6692,12 +6692,26 @@ function addWinCounter(_fighter, _number) {
 	console.log(_fighter.getName() + " wins : " + _number);
 
 	DB_CONNECTION.query("SELECT points FROM Player WHERE id == " + _fighter.user.id, function (err, result, fields) {
+		if (err) {
+			console.log("SELECT Error");
+			console.log(err);
+			return;
+		}
+
 		console.log("Result : ")
 		console.log(result)
+		console.log("Fields : ")
+		console.log(fields)
 
 		// check if in the table
 		if (result == null) {
-			DB_CONNECTION.query("INSERT INTO Player (id) VALUES (" + _fighter.user.id + ")", function (err, result) {});
+			DB_CONNECTION.query("INSERT INTO Player (id) VALUES (" + _fighter.user.id + ")", function (err, result) {
+				if (err) {
+					console.log("SELECT Error");
+					console.log(err);
+					return;
+				}
+			});
 			console.log("Added " + _fighter.getName() + " to the DB !")
 		}
 
