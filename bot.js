@@ -6709,7 +6709,7 @@ function addWinCounter(_fighter, _number) {
 	executeQuery("UPDATE Player SET points = " + (_number+getWinCounter(_fighter.user.id)) + " WHERE id = " + _fighter.user.id);
 }
 function getTopFighters() {
-	return executeQuery("SELECT id FROM Player ORDER BY points DESC LIMIT 10");
+	return executeQuery("SELECT id, points FROM Player ORDER BY points DESC LIMIT 10");
 }
 
 function changeRoleToStyler(_nomRole, _styler, _guild) {
@@ -7019,7 +7019,9 @@ CLIENT.on("message", async _message => {
 	if (argsUser[1] == "ranks") {
 		// RANKS
 		var topFighters = getTopFighters();
+		_message.channel.send("TOP 10 PP PUNCHERS :")
 		for (var i in topFighters) {
+			console.log(topFighters[i])
 			_message.channel.send("#" + (i+1) + " : " + CLIENT.users.get(topFighters[i].id).username) + " (" + topFighters[i].points + " PP Points)";
 		}
 		return;
