@@ -5467,14 +5467,21 @@ class Duel {
 			this.addMessage("Thanks to your PP Punching, a new Obamium source has been found ! Scientists are giving you some !");
 			this.OBAMIUM = true
 		}
+		else if ([45, 46, 47, 48, 49].indexOf(randomVar) > -1) {
+			// PP Net more likely to happen
+			this.FORCE_EVENT_ID = 27;
+			this.startRandomEvent();
+		}
 		else if (randomVar == 90 && (this.MOVE_COUNT >= 50 || forcedEvent)) {
 			// Brenn Ejaculates
 			this.addMessage(" -- BRENN EJACULATES --");
 			this.addMessage("For some reasons, this summons every event !");
-			var idList = shuffleArray([2, 3, 4, 6, 7, 8, 9, 19, 22, 23, 26, 32, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44]);
+			this.sendMessages();
+			var idList = shuffleArray([2, 3, 4, 6, 7, 8, 9, 19, 22, 23, 32, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44]);
 			for (var i = 0; i < idList.length; i++) {
 				this.FORCE_EVENT_ID = idList[i];
 				this.startRandomEvent();
+				this.sendMessages();
 			}
 		}
 		else if (randomVar == 200) {
@@ -6687,8 +6694,8 @@ function setBotActivity(_texte = "Lonely PP Squeezing :(") {
 	CLIENT.user.setPresence({ game: { name: texte } })
 }
 
-function getWinCounter(_fighterID) {
-	DB_CONNECTION.query("SELECT points FROM Player WHERE id = " + _fighterID, function (err, result, fields) {
+async function getWinCounter(_fighterID) {
+	await DB_CONNECTION.query("SELECT points FROM Player WHERE id = " + _fighterID, async function (err, result, fields) {
 		if (err) {
 			console.log("SELECT Error");
 			console.log(err);
@@ -6698,7 +6705,7 @@ function getWinCounter(_fighterID) {
 
 		// check if in the table
 		if (result.length == 0) {
-			DB_CONNECTION.query("INSERT INTO Player (id) VALUES (" + _fighterID + ")", function (err, result) {
+			await DB_CONNECTION.query("INSERT INTO Player (id) VALUES (" + _fighterID + ")", function (err, result) {
 				if (err) {
 					console.log("INSERT Error");
 					console.log(err);
@@ -6707,7 +6714,7 @@ function getWinCounter(_fighterID) {
 				}
 			});
 
-			console.log("Added " + _fighter.getName() + " to the DB !");
+			console.log("Added a new fighter to the DB !");
 			GLOBAL_DATA = 0;
 			return;
 		}
@@ -6717,8 +6724,8 @@ function getWinCounter(_fighterID) {
 
 	return GLOBAL_DATA;
 }
-function getRank(_fighterID) {
-	DB_CONNECTION.query("SELECT num FROM ( SELECT (@row_number:=@row_number + 1) AS num, id FROM Player, (SELECT @row_number:=0) AS t ORDER BY points ) AS t2 WHERE id = " + _fighterID, function (err, result, fields) {
+async function getRank(_fighterID) {
+	await DB_CONNECTION.query("SELECT num FROM ( SELECT (@row_number:=@row_number + 1) AS num, id FROM Player, (SELECT @row_number:=0) AS t ORDER BY points ) AS t2 WHERE id = " + _fighterID, function (err, result, fields) {
 		if (err) {
 			console.log("SELECT Error");
 			console.log(err);
