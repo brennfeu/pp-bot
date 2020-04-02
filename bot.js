@@ -6700,11 +6700,9 @@ function addWinCounter(_fighter, _number) {
 
 		console.log("Result : ")
 		console.log(result)
-		console.log("Fields : ")
-		console.log(fields)
 
 		// check if in the table
-		if (result == null) {
+		if (result.length == 0) {
 			DB_CONNECTION.query("INSERT INTO Player (id) VALUES (" + _fighter.user.id + ")", function (err, result) {
 				if (err) {
 					console.log("SELECT Error");
