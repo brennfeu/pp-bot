@@ -6691,13 +6691,13 @@ function addWinCounter(_fighter, _number) {
 	// negative number of wins for cheaters
 	console.log(_fighter.getName() + " wins : " + _number);
 
-	con.query("SELECT points FROM Player WHERE id == " + _fighter.user.id, function (err, result, fields) {
+	DB_CONNECTION.query("SELECT points FROM Player WHERE id == " + _fighter.user.id, function (err, result, fields) {
 		console.log("Result : ")
 		console.log(result)
 
 		// check if in the table
 		if (result == null) {
-			con.query("INSERT INTO Player (id) VALUES (" + _fighter.user.id + ")", function (err, result) {});
+			DB_CONNECTION.query("INSERT INTO Player (id) VALUES (" + _fighter.user.id + ")", function (err, result) {});
 			console.log("Added " + _fighter.getName() + " to the DB !")
 		}
 
