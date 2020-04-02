@@ -6694,8 +6694,10 @@ function setBotActivity(_texte = "Lonely PP Squeezing :(") {
 	CLIENT.user.setPresence({ game: { name: texte } })
 }
 
-async function getWinCounter(_fighterID) {
-	await DB_CONNECTION.query("SELECT points FROM Player WHERE id = " + _fighterID, async function (err, result, fields) {
+function getWinCounter(_fighterID) {
+	GLOBAL_DATA = null
+
+	DB_CONNECTION.query("SELECT points FROM Player WHERE id = " + _fighterID, async function (err, result, fields) {
 		if (err) {
 			console.log("SELECT Error");
 			console.log(err);
@@ -6705,7 +6707,7 @@ async function getWinCounter(_fighterID) {
 
 		// check if in the table
 		if (result.length == 0) {
-			await DB_CONNECTION.query("INSERT INTO Player (id) VALUES (" + _fighterID + ")", function (err, result) {
+			DB_CONNECTION.query("INSERT INTO Player (id) VALUES (" + _fighterID + ")", function (err, result) {
 				if (err) {
 					console.log("INSERT Error");
 					console.log(err);
@@ -6719,13 +6721,17 @@ async function getWinCounter(_fighterID) {
 			return;
 		}
 
+		while (GLOBAL_DATA == null) {} // WAIT
+
 		GLOBAL_DATA = result[0].points;
 	});
 
 	return GLOBAL_DATA;
 }
-async function getRank(_fighterID) {
-	await DB_CONNECTION.query("SELECT num FROM ( SELECT (@row_number:=@row_number + 1) AS num, id FROM Player, (SELECT @row_number:=0) AS t ORDER BY points ) AS t2 WHERE id = " + _fighterID, function (err, result, fields) {
+function getRank(_fighterID) {
+	GLOBAL_DATA = null
+
+	DB_CONNECTION.query("SELECT num FROM ( SELECT (@row_number:=@row_number + 1) AS num, id FROM Player, (SELECT @row_number:=0) AS t ORDER BY points ) AS t2 WHERE id = " + _fighterID, function (err, result, fields) {
 		if (err) {
 			console.log("SELECT Error");
 			console.log(err);
@@ -6735,6 +6741,8 @@ async function getRank(_fighterID) {
 
 		GLOBAL_DATA = result[0].num;
 	});
+
+	while (GLOBAL_DATA == null) {} // WAIT
 
 	return GLOBAL_DATA;
 }
