@@ -6,6 +6,7 @@
     "discord.js": "11.5.1",
     "request": "2.81.0",
     "ytdl-core": "^1.0.3",
-    "opusscript": "0.0.7"
+    "opusscript": "0.0.7",
+    "mysql": "2.18.1"
   }
 }
