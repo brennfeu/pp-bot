@@ -6692,7 +6692,8 @@ function getWinCounter(_fighterID) {
 		if (err) {
 			console.log("SELECT Error");
 			console.log(err);
-			return GLOBAL_DATA = 0;
+			GLOBAL_DATA = 0;
+			return;
 		}
 
 		// check if in the table
@@ -6701,28 +6702,31 @@ function getWinCounter(_fighterID) {
 				if (err) {
 					console.log("INSERT Error");
 					console.log(err);
-					return GLOBAL_DATA = 0;
+					GLOBAL_DATA = 0;
+					return;
 				}
 			});
 
 			console.log("Added " + _fighter.getName() + " to the DB !");
-			return GLOBAL_DATA = 0;
+			GLOBAL_DATA = 0;
+			return;
 		}
 
-		return GLOBAL_DATA = result[0].points;
+		GLOBAL_DATA = result[0].points;
 	});
 
 	return GLOBAL_DATA;
 }
 function getRank(_fighterID) {
-	DB_CONNECTION.query("SELECT num FROM ( SELECT (@row_number:=@row_number + 1) AS num, id FROM Player, (SELECT @row_number:=0) AS t ORDER BY points WHERE id = " + _fighterID, function (err, result, fields) {
+	DB_CONNECTION.query("SELECT num FROM ( SELECT (@row_number:=@row_number + 1) AS num, id FROM Player, (SELECT @row_number:=0) AS t ORDER BY points ) WHERE id = " + _fighterID, function (err, result, fields) {
 		if (err) {
 			console.log("SELECT Error");
 			console.log(err);
-			return GLOBAL_DATA = 0;
+			GLOBAL_DATA = 0;
+			return;
 		}
 
-		return GLOBAL_DATA = result[0].num;
+		GLOBAL_DATA = result[0].num;
 	});
 
 	return GLOBAL_DATA;
@@ -7042,7 +7046,7 @@ CLIENT.on("message", async _message => {
 
 	if (argsUser[1] == "rank") {
 		// RANK
-		return _message.reply("'s PP Points : " + getWinCounter(_message.author.id) + "\nRank : #" + getRank(_message.author.id));
+		return _message.channel.send("You have " + getWinCounter(_message.author.id) + " PP Points\nYour Rank is #" + getRank(_message.author.id));
 	}
 	if (argsUser[1] == "ranks") {
 		// RANKS
