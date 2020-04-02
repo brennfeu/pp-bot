@@ -6705,13 +6705,21 @@ function addWinCounter(_fighter, _number) {
 		if (result.length == 0) {
 			DB_CONNECTION.query("INSERT INTO Player (id) VALUES (" + _fighter.user.id + ")", function (err, result) {
 				if (err) {
-					console.log("SELECT Error");
+					console.log("INSERT Error");
 					console.log(err);
 					return;
 				}
 			});
 			console.log("Added " + _fighter.getName() + " to the DB !")
 		}
+
+		DB_CONNECTION.query("UPDATE Player SET points = " + (_number+result[0][0]) + " WHERE id = " + _fighter.user.id, function (err, result) {
+			if (err) {
+				console.log("UPDATE Error");
+				console.log(err);
+				return;
+			}
+		});
 
 
 	});
