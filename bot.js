@@ -6691,7 +6691,7 @@ function addWinCounter(_fighter, _number) {
 	// negative number of wins for cheaters
 	console.log(_fighter.getName() + " wins : " + _number);
 
-	DB_CONNECTION.query("SELECT points FROM Player WHERE id == " + _fighter.user.id, function (err, result, fields) {
+	DB_CONNECTION.query("SELECT points FROM Player WHERE id = " + _fighter.user.id, function (err, result, fields) {
 		if (err) {
 			console.log("SELECT Error");
 			console.log(err);
