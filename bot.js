@@ -6706,7 +6706,7 @@ function updatePlayer(_fighterID, _username) {
 		executeQuery("UPDATE Player SET username = '" + _username + "' WHERE id = " + result[0].id);
 	}
 }
-function getWinCounter(_fighterID, _username) {
+function getWinCounter(_fighterID) {
 	var result = executeQuery("SELECT points FROM Player WHERE id = " + _fighterID)
 	return result[0].points;
 }
@@ -7027,7 +7027,7 @@ CLIENT.on("message", async _message => {
 
 	if (argsUser[1] == "rank") {
 		// RANK
-		_message.channel.send("You have " + getWinCounter(_message.author.id, _username) + " PP Points\nYour Rank is #" + getRank(_message.author.id));
+		_message.channel.send("You have " + getWinCounter(_message.author.id) + " PP Points\nYour Rank is #" + getRank(_message.author.id));
 		return;
 	}
 	if (argsUser[1] == "ranks") {
@@ -7035,7 +7035,8 @@ CLIENT.on("message", async _message => {
 		var topFighters = getTopFighters();
 		_message.channel.send("TOP 10 PP PUNCHERS :")
 		for (var i in topFighters) {
-			_message.channel.send("#" + (i+1) + " : " + CLIENT.users.fetch(topFighters[i].id.toString()).username) + " (" + topFighters[i].points + " PP Points)";
+			var fighterName = await CLIENT.fetchUser(topFighters[i].id.toString()).username)
+			_message.channel.send("#" + (i+1) + " : " + fighterName + " (" + topFighters[i].points + " PP Points)";
 		}
 		return;
 	}
