@@ -6722,7 +6722,7 @@ function addWinCounter(_fighter, _number) {
 	executeQuery("UPDATE Player SET points = " + (_number+getWinCounter(_fighter.user.id)) + " WHERE id = " + _fighter.user.id);
 }
 function getTopFighters() {
-	return executeQuery("SELECT id, points FROM Player ORDER BY points DESC LIMIT 10");
+	return executeQuery("SELECT * FROM Player ORDER BY points DESC LIMIT 10");
 }
 
 function changeRoleToStyler(_nomRole, _styler, _guild) {
