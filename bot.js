@@ -363,29 +363,16 @@ const ID_PEPIN = "252878033436803072";
 const ADMIN_LIST = [ID_BRENNFEU, ID_COUNTRYMUSICBRENN, ID_PUDDING, ID_PEPIN];
 
 // DATABASE
-const MYSQL = require('mysql');
-var DB_CONNECTION = MYSQL.createConnection({
+const MYSQL = require('sync-mysql');
+var DB_CONNECTION = new MYSQL({
 	host: process.env.DB_HOST,
 	user: process.env.DB_LOGIN,
 	password: process.env.DB_PASSWORD,
 	database: "brennfeu_pp_punch"
 });
 
-// DB TEST
-DB_CONNECTION.connect(function(err) {
-	if (err) {
-		console.log("DB Connection Error :(");
-		console.log(err);
-	}
-	else {
-		console.log("DB Connected :)");
-	}
-});
-
 // Variables
 var DUEL_LIST = [];
-var GLOBAL_DATA = null;
-var QUERY_DONE = false;
 
 // CLASSES
 class Fighter {
@@ -6696,23 +6683,7 @@ function setBotActivity(_texte = "Lonely PP Squeezing :(") {
 }
 
 function executeQuery(_str) {
-	QUERY_DONE = false
-
-	DB_CONNECTION.query(_str, function (err, result, fields) {
-		if (err) {
-			console.log("QUERY ERROR : ");
-			console.log(err);
-			GLOBAL_DATA = null;
-			QUERY_DONE = true;
-			return;
-		}
-
-		GLOBAL_DATA = result
-		QUERY_DONE = true;
-	});
-
-  while(!QUERY_DONE) {}
-	return GLOBAL_DATA;
+	return DB_CONNECTION.query(_str)
 }
 
 function getWinCounter(_fighterID) {
@@ -6735,13 +6706,7 @@ function addWinCounter(_fighter, _number) {
 	// negative number of wins for cheaters
 	console.log(_fighter.getName() + " wins : " + _number);
 
-	DB_CONNECTION.query("UPDATE Player SET points = " + (_number+getWinCounter(_fighter.user.id)) + " WHERE id = " + _fighter.user.id, function (err, result) {
-		if (err) {
-			console.log("UPDATE Error");
-			console.log(err);
-			return;
-		}
-	});
+	executeQuery("UPDATE Player SET points = " + (_number+getWinCounter(_fighter.user.id)) + " WHERE id = " + _fighter.user.id);
 }
 
 function changeRoleToStyler(_nomRole, _styler, _guild) {
