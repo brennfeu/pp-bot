@@ -6694,10 +6694,8 @@ function setBotActivity(_texte = "Lonely PP Squeezing :(") {
 	CLIENT.user.setPresence({ game: { name: texte } })
 }
 
-function getWinCounter(_fighterID) {
-	GLOBAL_DATA = null
-
-	DB_CONNECTION.query("SELECT points FROM Player WHERE id = " + _fighterID, function (err, result, fields) {
+async function getWinCounter(_fighterID) {
+	await DB_CONNECTION.query("SELECT points FROM Player WHERE id = " + _fighterID, function (err, result, fields) {
 		if (err) {
 			console.log("SELECT Error");
 			console.log(err);
@@ -6707,12 +6705,10 @@ function getWinCounter(_fighterID) {
 
 		// check if in the table
 		if (result.length == 0) {
-			DB_CONNECTION.query("INSERT INTO Player (id) VALUES (" + _fighterID + ")", function (err, result) {
+			await DB_CONNECTION.query("INSERT INTO Player (id) VALUES (" + _fighterID + ")", function (err, result) {
 				if (err) {
 					console.log("INSERT Error");
 					console.log(err);
-					GLOBAL_DATA = 0;
-					return;
 				}
 			});
 
@@ -6725,13 +6721,10 @@ function getWinCounter(_fighterID) {
 		console.log(GLOBAL_DATA)
 	});
 
-	while (GLOBAL_DATA == null) {} // WAIT
 	return GLOBAL_DATA;
 }
-function getRank(_fighterID) {
-	GLOBAL_DATA = null
-
-	DB_CONNECTION.query("SELECT num FROM ( SELECT (@row_number:=@row_number + 1) AS num, id FROM Player, (SELECT @row_number:=0) AS t ORDER BY points ) AS t2 WHERE id = " + _fighterID, function (err, result, fields) {
+async function getRank(_fighterID) {
+	await DB_CONNECTION.query("SELECT num FROM ( SELECT (@row_number:=@row_number + 1) AS num, id FROM Player, (SELECT @row_number:=0) AS t ORDER BY points ) AS t2 WHERE id = " + _fighterID, function (err, result, fields) {
 		if (err) {
 			console.log("SELECT Error");
 			console.log(err);
@@ -6743,7 +6736,6 @@ function getRank(_fighterID) {
 		console.log(GLOBAL_DATA)
 	});
 
-	while (GLOBAL_DATA == null) {} // WAIT
 	return GLOBAL_DATA;
 }
 function addWinCounter(_fighter, _number) {
@@ -7061,7 +7053,9 @@ CLIENT.on("message", async _message => {
 
 	if (argsUser[1] == "rank") {
 		// RANK
-		_message.channel.send("You have " + getWinCounter(_message.author.id) + " PP Points\nYour Rank is #" + getRank(_message.author.id));
+		var nbWin = await getWinCounter(_message.author.id);
+		var rank = await getRank(_message.author.id);
+		_message.channel.send("You have " + nbWin + " PP Points\nYour Rank is #" + rank);
 		return;
 	}
 	if (argsUser[1] == "ranks") {
