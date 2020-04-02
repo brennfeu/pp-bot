@@ -7021,7 +7021,7 @@ CLIENT.on("message", async _message => {
 		var topFighters = getTopFighters();
 		_message.channel.send("TOP 10 PP PUNCHERS :")
 		for (var i in topFighters) {
-			_message.channel.send("#" + (i+1) + " : " + CLIENT.users.get(num.toString(topFighters[i].id)).username) + " (" + topFighters[i].points + " PP Points)";
+			_message.channel.send("#" + (i+1) + " : " + CLIENT.users.get(topFighters[i].id.toString()).username) + " (" + topFighters[i].points + " PP Points)";
 		}
 		return;
 	}
