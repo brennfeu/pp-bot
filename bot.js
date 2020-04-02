@@ -6683,14 +6683,21 @@ function setBotActivity(_texte = "Lonely PP Squeezing :(") {
 }
 
 function executeQuery(_str) {
-	return DB_CONNECTION.query(_str)
+	try {
+		return DB_CONNECTION.query(_str)
+	}
+	catch(e) {
+		console.log("QUERY ERROR :")
+		console.log(_str)
+		throw e
+	}
 }
 
 function updatePlayer(_fighterID, _username) {
 	var result = executeQuery("SELECT points FROM Player WHERE id = " + _fighterID)
 
 	if (result.length == 0) {
-		executeQuery("INSERT INTO Player (id, username) VALUES (" + _fighterID + ", " + _username + ")");
+		executeQuery("INSERT INTO Player (id, username) VALUES (" + _fighterID + ", '" + _username + "')");
 		console.log("Added a new fighter to the DB !");
 		return;
 	}
@@ -6708,7 +6715,7 @@ function getRank(_fighterID) {
 	return result[0].num;
 }
 function addWinCounter(_fighter, _number) {
-	updatePlayer(_fighter.user.id, _fighter.user.username)
+	updatePlayer(_fighter.user.id, _fighter.user.username.secureXSS())
 
 	console.log(_fighter.getName() + " wins : " + _number);
 	executeQuery("UPDATE Player SET points = " + (_number+getWinCounter(_fighter.user.id)) + " WHERE id = " + _fighter.user.id);
@@ -6997,7 +7004,7 @@ CLIENT.on("message", async _message => {
 	skipWaitingDuels();
 	checkCityNameChange(_message);
 
-	updatePlayer(_message.author.id, _message.author.username)
+	updatePlayer(_message.author.id, _message.author.username.secureXSS())
 
 	// Recuperation commande
 	var argsUser = _message.content.trim().split(" ");
