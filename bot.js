@@ -6721,11 +6721,10 @@ function getWinCounter(_fighterID) {
 			return;
 		}
 
-		while (GLOBAL_DATA == null) {} // WAIT
-
 		GLOBAL_DATA = result[0].points;
 	});
 
+	while (GLOBAL_DATA == null) {} // WAIT
 	return GLOBAL_DATA;
 }
 function getRank(_fighterID) {
@@ -6743,7 +6742,6 @@ function getRank(_fighterID) {
 	});
 
 	while (GLOBAL_DATA == null) {} // WAIT
-
 	return GLOBAL_DATA;
 }
 function addWinCounter(_fighter, _number) {
