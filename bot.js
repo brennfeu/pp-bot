@@ -6718,7 +6718,7 @@ function getWinCounter(_fighterID) {
 	return GLOBAL_DATA;
 }
 function getRank(_fighterID) {
-	DB_CONNECTION.query("SELECT num FROM ( SELECT (@row_number:=@row_number + 1) AS num, id FROM Player, (SELECT @row_number:=0) AS t ORDER BY points ) WHERE id = " + _fighterID, function (err, result, fields) {
+	DB_CONNECTION.query("SELECT num FROM ( SELECT (@row_number:=@row_number + 1) AS num, id FROM Player, (SELECT @row_number:=0) AS t ORDER BY points ) AS t2 WHERE id = " + _fighterID, function (err, result, fields) {
 		if (err) {
 			console.log("SELECT Error");
 			console.log(err);
