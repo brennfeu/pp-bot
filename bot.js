@@ -6695,7 +6695,7 @@ function setBotActivity(_texte = "Lonely PP Squeezing :(") {
 }
 
 async function getWinCounter(_fighterID) {
-	await DB_CONNECTION.query("SELECT points FROM Player WHERE id = " + _fighterID, function (err, result, fields) {
+	await DB_CONNECTION.query("SELECT points FROM Player WHERE id = " + _fighterID, async function (err, result, fields) {
 		if (err) {
 			console.log("SELECT Error");
 			console.log(err);
