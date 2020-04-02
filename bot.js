@@ -384,7 +384,7 @@ DB_CONNECTION.connect(function(err) {
 
 // Variables
 var DUEL_LIST = [];
-var GLOBAL_DATA = "";
+var GLOBAL_DATA = null;
 
 // CLASSES
 class Fighter {
@@ -6694,49 +6694,36 @@ function setBotActivity(_texte = "Lonely PP Squeezing :(") {
 	CLIENT.user.setPresence({ game: { name: texte } })
 }
 
-async function getWinCounter(_fighterID) {
-	await DB_CONNECTION.query("SELECT points FROM Player WHERE id = " + _fighterID, async function (err, result, fields) {
+function executeQuery(_str) {
+	DB_CONNECTION.query(_str, function (err, result, fields) {
 		if (err) {
-			console.log("SELECT Error");
+			console.log("QUERY ERROR : ");
 			console.log(err);
-			GLOBAL_DATA = 0;
+			GLOBAL_DATA = null;
 			return;
 		}
 
-		// check if in the table
-		if (result.length == 0) {
-			await DB_CONNECTION.query("INSERT INTO Player (id) VALUES (" + _fighterID + ")", function (err, result) {
-				if (err) {
-					console.log("INSERT Error");
-					console.log(err);
-				}
-			});
-
-			console.log("Added a new fighter to the DB !");
-			GLOBAL_DATA = 0;
-			return;
-		}
-
-		GLOBAL_DATA = result[0].points;
-		console.log(GLOBAL_DATA)
+		GLOBAL_DATA = result
 	});
 
+  sleep(100)
 	return GLOBAL_DATA;
 }
-async function getRank(_fighterID) {
-	await DB_CONNECTION.query("SELECT num FROM ( SELECT (@row_number:=@row_number + 1) AS num, id FROM Player, (SELECT @row_number:=0) AS t ORDER BY points ) AS t2 WHERE id = " + _fighterID, function (err, result, fields) {
-		if (err) {
-			console.log("SELECT Error");
-			console.log(err);
-			GLOBAL_DATA = 0;
-			return;
-		}
 
-		GLOBAL_DATA = result[0].num;
-		console.log(GLOBAL_DATA)
-	});
+function getWinCounter(_fighterID) {
+	var result = executeQuery("SELECT points FROM Player WHERE id = " + _fighterID)
 
-	return GLOBAL_DATA;
+	if (result.length == 0) {
+		executeQuery("INSERT INTO Player (id) VALUES (" + _fighterID + ")");
+		console.log("Added a new fighter to the DB !");
+		return 0;
+	}
+
+	return result;
+}
+function getRank(_fighterID) {
+	var result = executeQuery("SELECT num FROM ( SELECT (@row_number:=@row_number + 1) AS num, id FROM Player, (SELECT @row_number:=0) AS t ORDER BY points ) AS t2 WHERE id = " + _fighterID)
+	return result[0].num;
 }
 function addWinCounter(_fighter, _number) {
 	// TODO
@@ -7019,6 +7006,11 @@ function cloneObject(obj) {
 
 	throw new Error("Unable to copy obj! Its type isn't supported.");
 }
+function sleep(ms) {
+  var start = new Date().getTime(), expire = start + ms;
+  while (new Date().getTime() < expire) { }
+  return;
+}
 
 CLIENT.on('ready', () => {
 	console.log(`Logged in as ${CLIENT.user.tag} !`);
@@ -7053,9 +7045,7 @@ CLIENT.on("message", async _message => {
 
 	if (argsUser[1] == "rank") {
 		// RANK
-		var nbWin = await getWinCounter(_message.author.id);
-		var rank = await getRank(_message.author.id);
-		_message.channel.send("You have " + nbWin + " PP Points\nYour Rank is #" + rank);
+		_message.channel.send("You have " + getWinCounter(_message.author.id) + " PP Points\nYour Rank is #" + getRank(_message.author.id));
 		return;
 	}
 	if (argsUser[1] == "ranks") {
