@@ -6686,15 +6686,21 @@ function executeQuery(_str) {
 	return DB_CONNECTION.query(_str)
 }
 
-function getWinCounter(_fighterID) {
+function updatePlayer(_fighterID, _username) {
 	var result = executeQuery("SELECT points FROM Player WHERE id = " + _fighterID)
 
 	if (result.length == 0) {
-		executeQuery("INSERT INTO Player (id) VALUES (" + _fighterID + ")");
+		executeQuery("INSERT INTO Player (id, username) VALUES (" + _fighterID + ", " + _username + ")");
 		console.log("Added a new fighter to the DB !");
-		return 0;
+		return;
 	}
 
+	if (_username != result[0].username) {
+		executeQuery("UPDATE Player SET username = '" + _username + "' WHERE id = " + result[0].id);
+	}
+}
+function getWinCounter(_fighterID, _username) {
+	var result = executeQuery("SELECT points FROM Player WHERE id = " + _fighterID)
 	return result[0].points;
 }
 function getRank(_fighterID) {
@@ -6702,10 +6708,9 @@ function getRank(_fighterID) {
 	return result[0].num;
 }
 function addWinCounter(_fighter, _number) {
-	// TODO
-	// negative number of wins for cheaters
-	console.log(_fighter.getName() + " wins : " + _number);
+	updatePlayer(_fighter.user.id, _fighter.user.username)
 
+	console.log(_fighter.getName() + " wins : " + _number);
 	executeQuery("UPDATE Player SET points = " + (_number+getWinCounter(_fighter.user.id)) + " WHERE id = " + _fighter.user.id);
 }
 function getTopFighters() {
@@ -6992,6 +6997,8 @@ CLIENT.on("message", async _message => {
 	skipWaitingDuels();
 	checkCityNameChange(_message);
 
+	updatePlayer(_message.author.id, _message.author.username)
+
 	// Recuperation commande
 	var argsUser = _message.content.trim().split(" ");
 
@@ -7013,7 +7020,7 @@ CLIENT.on("message", async _message => {
 
 	if (argsUser[1] == "rank") {
 		// RANK
-		_message.channel.send("You have " + getWinCounter(_message.author.id) + " PP Points\nYour Rank is #" + getRank(_message.author.id));
+		_message.channel.send("You have " + getWinCounter(_message.author.id, _username) + " PP Points\nYour Rank is #" + getRank(_message.author.id));
 		return;
 	}
 	if (argsUser[1] == "ranks") {
@@ -7021,7 +7028,7 @@ CLIENT.on("message", async _message => {
 		var topFighters = getTopFighters();
 		_message.channel.send("TOP 10 PP PUNCHERS :")
 		for (var i in topFighters) {
-			_message.channel.send("#" + (i+1) + " : " + _message.guild.members.get("id", topFighters[i].id.toString()).username) + " (" + topFighters[i].points + " PP Points)";
+			_message.channel.send("#" + (i+1) + " : " + CLIENT.users.fetch(topFighters[i].id.toString()).username) + " (" + topFighters[i].points + " PP Points)";
 		}
 		return;
 	}
