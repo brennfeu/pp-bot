@@ -385,6 +385,7 @@ class Fighter {
 		this.idUser = _idUser;
 		this.guildUser = getDuel(_idDuel).GUILD.members.get(_idUser);
 		this.user = this.guildUser.user;
+		updatePlayer(this.user.id, this.user.username.secureXSS())
 
 		this.duel = getDuel(_idDuel);
 
@@ -7004,8 +7005,6 @@ CLIENT.on("message", async _message => {
 	skipWaitingDuels();
 	checkCityNameChange(_message);
 
-	updatePlayer(_message.author.id, _message.author.username.secureXSS())
-
 	// Recuperation commande
 	var argsUser = _message.content.trim().split(" ");
 
@@ -7035,8 +7034,7 @@ CLIENT.on("message", async _message => {
 		var topFighters = getTopFighters();
 		_message.channel.send("TOP 10 PP PUNCHERS :")
 		for (var i in topFighters) {
-			var fighterName = await CLIENT.fetchUser(topFighters[i].id.toString()).username;
-			_message.channel.send("#" + (i+1) + " : " + fighterName + " (" + topFighters[i].points + " PP Points)");
+			_message.channel.send("#" + (1+parseInt(i)) + " : " + topFighters[i].username + " (" + topFighters[i].points + " PP Points)");
 		}
 		return;
 	}
