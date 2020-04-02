@@ -384,6 +384,7 @@ DB_CONNECTION.connect(function(err) {
 
 // Variables
 var DUEL_LIST = [];
+var GLOBAL_DATA = "";
 
 // CLASSES
 class Fighter {
@@ -6686,42 +6687,58 @@ function setBotActivity(_texte = "Lonely PP Squeezing :(") {
 	CLIENT.user.setPresence({ game: { name: texte } })
 }
 
+function getWinCounter(_fighterID) {
+	DB_CONNECTION.query("SELECT points FROM Player WHERE id = " + _fighterID, function (err, result, fields) {
+		if (err) {
+			console.log("SELECT Error");
+			console.log(err);
+			return GLOBAL_DATA = 0;
+		}
+
+		// check if in the table
+		if (result.length == 0) {
+			DB_CONNECTION.query("INSERT INTO Player (id) VALUES (" + _fighterID + ")", function (err, result) {
+				if (err) {
+					console.log("INSERT Error");
+					console.log(err);
+					return GLOBAL_DATA = 0;
+				}
+			});
+
+			console.log("Added " + _fighter.getName() + " to the DB !");
+			return GLOBAL_DATA = 0;
+		}
+
+		return GLOBAL_DATA = result[0].points;
+	});
+
+	return GLOBAL_DATA;
+}
+function getRank(_fighterID) {
+	DB_CONNECTION.query("SELECT num FROM ( SELECT (@row_number:=@row_number + 1) AS num, id FROM Player, (SELECT @row_number:=0) AS t ORDER BY points WHERE id = " + _fighterID, function (err, result, fields) {
+		if (err) {
+			console.log("SELECT Error");
+			console.log(err);
+			return GLOBAL_DATA = 0;
+		}
+
+		return GLOBAL_DATA = result[0].num;
+	});
+
+	return GLOBAL_DATA;
+}
 function addWinCounter(_fighter, _number) {
 	// TODO
 	// negative number of wins for cheaters
 	console.log(_fighter.getName() + " wins : " + _number);
 
-	DB_CONNECTION.query("SELECT points FROM Player WHERE id = " + _fighter.user.id, function (err, result, fields) {
+	DB_CONNECTION.query("UPDATE Player SET points = " + (_number+getWinCounter(_fighter.user.id)) + " WHERE id = " + _fighter.user.id, function (err, result) {
 		if (err) {
-			console.log("SELECT Error");
+			console.log("UPDATE Error");
 			console.log(err);
 			return;
 		}
-
-		// check if in the table
-		if (result.length == 0) {
-			DB_CONNECTION.query("INSERT INTO Player (id) VALUES (" + _fighter.user.id + ")", function (err, result) {
-				if (err) {
-					console.log("INSERT Error");
-					console.log(err);
-					return;
-				}
-			});
-			console.log("Added " + _fighter.getName() + " to the DB !")
-		}
-
-		DB_CONNECTION.query("UPDATE Player SET points = " + (_number+result[0].points) + " WHERE id = " + _fighter.user.id, function (err, result) {
-			if (err) {
-				console.log("UPDATE Error");
-				console.log(err);
-				return;
-			}
-		});
-
-
 	});
-
-
 }
 
 function changeRoleToStyler(_nomRole, _styler, _guild) {
@@ -7024,12 +7041,8 @@ CLIENT.on("message", async _message => {
 	killDeadDuels();
 
 	if (argsUser[1] == "rank") {
-		if (_message.mentions.users.array().length > 1) {
-			// RANK @SOMEONE
-			return _message.reply("sorry " + _message.mentions.users.array()[0].username + "'s rank is not available atm :/");
-		}
 		// RANK
-		return _message.reply("sorry, your rank is not availables atm :/");
+		return _message.reply("'s PP Points : " + getWinCounter(_message.author.id) + "\nRank : #" + getRank(_message.author.id));
 	}
 	if (argsUser[1] == "ranks") {
 		// RANKS
