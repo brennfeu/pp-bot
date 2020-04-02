@@ -6694,7 +6694,7 @@ function executeQuery(_str) {
 }
 
 function updatePlayer(_fighterID, _username) {
-	var result = executeQuery("SELECT points FROM Player WHERE id = " + _fighterID)
+	var result = executeQuery("SELECT id, points FROM Player WHERE id = " + _fighterID)
 
 	if (result.length == 0) {
 		executeQuery("INSERT INTO Player (id, username) VALUES (" + _fighterID + ", '" + _username + "')");
