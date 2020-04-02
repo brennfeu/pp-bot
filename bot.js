@@ -7289,3 +7289,4 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 });
 
 CLIENT.login(process.env.BOT_TOKEN);
+// poo or poop ?
