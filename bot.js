@@ -6708,6 +6708,9 @@ function addWinCounter(_fighter, _number) {
 
 	executeQuery("UPDATE Player SET points = " + (_number+getWinCounter(_fighter.user.id)) + " WHERE id = " + _fighter.user.id);
 }
+function getTopFighters() {
+	return executeQuery("SELECT id FROM Player ORDER BY points DESC LIMIT 10");
+}
 
 function changeRoleToStyler(_nomRole, _styler, _guild) {
 	var role = _guild.roles.find(r => r.name == _nomRole);
@@ -7015,7 +7018,11 @@ CLIENT.on("message", async _message => {
 	}
 	if (argsUser[1] == "ranks") {
 		// RANKS
-		return _message.reply("sorry, global ranks are not availables atm :/");
+		var topFighters = getTopFighters();
+		for (var i in topFighters) {
+			_message.channel.send("#" + (i+1) + " : " + CLIENT.users.get(topFighters[i].id).username) + " (" + topFighters[i].points + " PP Points)";
+		}
+		return;
 	}
 	if (argsUser[1] == "cheatpanel") {
 		sendCheatPanel(_message.channel);
