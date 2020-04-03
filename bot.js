@@ -478,6 +478,7 @@ class Fighter {
 		this.lifeFibers = 0;
 		this.hasSupplyDrops = false;
 		this.satanicReverse = 0;
+		this.infernalInstrument = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -843,11 +844,17 @@ class Fighter {
 		if (this.randomizedStand) {
 			txt += " - **Perfect Stånd Power**\n";
 		}
-		if (this.livingGod) {
-			txt += " - **Living God**\n";
-		}
 		if (this.hasSupplyDrops) {
 			txt += " - **Gets Supply Drops**\n";
+		}
+		if (this.infernalInstrument == 1) {
+			txt += " - **Guitar Player**\n";
+		}
+		if (this.infernalInstrument == 2) {
+			txt += " - **Synth Player**\n";
+		}
+		if (this.livingGod) {
+			txt += " - **Living God**\n";
 		}
 		if (this.hasBoomerang > 0) {
 			txt += " - With a Boomerang (for " + this.hasBoomerang + " turns)\n";
@@ -4082,6 +4089,7 @@ class Duel {
 		this.OBAMIUM_DONE = false;
 
 		this.PP_ARMAGEDDON = false;
+		this.INFERNAL_FIRELAND = true;
 		this.EVENT_PP_ENLIGHTENMENT = false;
 		this.EVENT_PP_PURGE = false;
 		this.EVENT_CONFUSION = false;
@@ -4381,10 +4389,13 @@ class Duel {
 		if (this.CHRISTIAN_TEXT) {
 			_texte = changeTextChristian(_texte);
 		}
+		if (this.INFERNAL_FIRELAND) {
+			_texte += " **IT'S AN INFERNAL FIRELAND**"
+		}
 		if (this.MESSAGE_SKIP && !_forceAppear) {
 			return;
 		}
-		if (this.LIST_MESSAGES.length > 0 && _texte.length + this.LIST_MESSAGES[this.LIST_MESSAGES.length-1].length + "\n".length < 10*this.LIST_MESSAGES.length) {
+		if (this.LIST_MESSAGES.length > 0 && _texte.length + this.LIST_MESSAGES[this.LIST_MESSAGES.length-1].length + "\n".length < 20*this.LIST_MESSAGES.length) {
 			this.LIST_MESSAGES[this.LIST_MESSAGES.length-1] = this.LIST_MESSAGES[this.LIST_MESSAGES.length-1] + "\n" + _texte;
 		}
 		else {
@@ -4772,6 +4783,9 @@ class Duel {
 		if (this.PP_ARMAGEDDON) {
 			txt += " - **PP ARMAGEDDON**\n";
 		}
+		if (this.INFERNAL_FIRELAND) {
+			txt += " - **INFERNAL FIRELAND**\n";
+		}
 		if (this.TIME_STOP > 0) {
 			txt += " - **TIME STOPPED FOR " + this.TIME_STOP + " TURNS**\n";
 		}
@@ -5055,11 +5069,16 @@ class Duel {
 			this.PP_ARMAGEDDON = true;
 			this.addMessage(" -- PP ARMAGEDDON --");
 			this.addMessage("PPs have ascended, the end is near !");
-
-			if (this.FORCE_EVENT_ID == 0) {
-				this.sendMessages();
-				return;
-			}
+		}
+		if (!this.INFERNAL_FIRELAND && this.MOVE_COUNT >= 1000) {
+			// INFERNAL FIRELAND
+			this.INFERNAL_FIRELAND = true;
+			this.addMessage(" -- INFERNAL FIRELAND --");
+			this.addMessage("Plenty of forest fires have been set off as a result of your PP punching, making the nearby 100 square km into an Infernal Fireland !");
+			this.addMessage("The victory will be determined by your proficiency in your instrument. You two dueling souls have to come up with a solo each... the best one crowning the victory !");
+			var winner = this.getRandomFighter();
+			winner.infernalInstrument = 1; // Guitar
+			this.getOppOf(winner).infernalInstrument = 2; // Synth
 		}
 
 		if (this.FORCE_EVENT_ID != 0) {
