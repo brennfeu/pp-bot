@@ -1338,7 +1338,16 @@ class Fighter {
 			else if (attack == EMOTE_PP19) {
 				// Pig
 				this.duel.addMessage(this.getName() + " squeezes hog yeah yeah !");
-				this.pigHeal += 4;
+				if (this.pigHeal < 3) {
+					this.pigHeal = 3;
+				}
+				else {
+					var i = 0;
+					while (fibonacciNumber(i) < this.pigHeal) {
+						i += 1;
+					}
+					this.pigHeal += fibonacciNumber(i-1);
+				}
 				if (this.hasBoner) {
 					this.duel.addMessage(this.getName() + " loses his boner !");
 				}
@@ -1545,8 +1554,8 @@ class Fighter {
 			else if (attack == EMOTE_PP35) {
 				// Facehugged
 				this.duel.addMessage(this.getName() + " impregnates the arbitratory !");
-				if (this.duel.BLIND_COUNTDOWN < 0) {
-					this.duel.BLIND_COUNTDOWN = 0;
+				if (this.duel.BLIND_COUNTDOWN < 1) {
+					this.duel.BLIND_COUNTDOWN = 1;
 				}
 				this.duel.BLIND_COUNTDOWN += 3;
 				if (getRandomPercent() < 33) {
@@ -6980,6 +6989,20 @@ function randomFromList(_list) {
 		return null;
 	}
 	return shuffleArray(_list)[0];
+}
+
+function fibonacciSeries(_n) {
+	if (_n===1) {
+		return [0, 1];
+	} 
+	else {
+		var s = fibonacciSeries(_n - 1);
+		s.push(s[s.length - 1] + s[s.length - 2]);
+		return s;
+	}
+}
+function fibonacciNumber(_n) {
+	return fibonacciSeries(_n).pop();
 }
 
 function cloneObject(obj) {
