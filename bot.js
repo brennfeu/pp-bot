@@ -3711,13 +3711,15 @@ class Fighter {
 		}
 	}
 
-	win() {
+	win(_param) {
+		var nb = 1 + Math.floor(this.duel.MOVE_COUNT/10);
 		if (this.isHockeyPuckPP) {
-			addWinCounter(this, 4 + Math.floor(this.duel.MOVE_COUNT/10));
+			nb += 3;
 		}
-		else {
-			addWinCounter(this, 1 + Math.floor(this.duel.MOVE_COUNT/10));
+		if (_param == "half") {
+			nb = Math.floor(nb/2);
 		}
+		addWinCounter(this, nb);
 	}
 
 	getOppName() {
@@ -5959,6 +5961,9 @@ class Duel {
 			this.addMessage("This is so beautiful...");
 			this.addMessage("I love you all.");
 			this.sendMessages();
+			this.bothFightersAction(function(_fighter) {
+				_fighter.win("half")
+			});
 			this.stopDuel();
 			return;
 		}
@@ -6628,13 +6633,13 @@ function killDeadDuels() {
 	for (var i = DUEL_LIST.length - 1; i >= 0; i--) {
 		if (DUEL_LIST[i].DEAD_DUEL) {
 			if (DUEL_LIST[i].CHECKPOINT_DUEL != null) {
-				var duel = DUEL_LIST[i].CHECKPOINT_DUEL;
-				DUEL_LIST[i] = duel;
-				duel.CHECKPOINT_DUEL = null;
 				duel.addMessage("-----------------");
 				duel.addMessage("**DUEL SAVE STATE USED**");
 				duel.addMessage("-----------------");
 				duel.sendMessages();
+				var duel = DUEL_LIST[i].CHECKPOINT_DUEL;
+				DUEL_LIST[i] = duel;
+				duel.CHECKPOINT_DUEL = null;
 				duel.newTurnDuel();
 			}
 			else {
