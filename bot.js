@@ -328,6 +328,7 @@ const BOSS_PP8 = "Satan";
 const BOSS_PP9 = "Satan True Form";
 const BOSS_PP10 = "Espinoza Raid Boss";
 const BOSS_PP11 = "Weeb";
+const BOSS_PP12 = "Obamium Espinoza";
 
 // BATTLE MODES
 const NORMAL_BATTLE_MODE = 0;
@@ -354,7 +355,8 @@ const IMAGE_PP2 = "https://cdn.discordapp.com/attachments/616228498075549756/668
 const IMAGE_PP3 = "https://cdn.discordapp.com/attachments/667337519477817363/668846565284118598/ezgif.com-gif-maker.gif";
 const IMAGE_PP4 = "https://cdn.discordapp.com/attachments/523411977725411373/669513268464975892/image0.jpg";
 const IMAGE_PP5 = "https://cdn.discordapp.com/attachments/668732348040347680/676777375027036160/7lpki.gif";
-const IMAGE_LIST = [IMAGE_PP1, IMAGE_PP2, IMAGE_PP3, IMAGE_PP4, IMAGE_PP5];
+const IMAGE_PP6 = "https://cdn.discordapp.com/attachments/683397030759891014/695571209894494208/image0.png";
+const IMAGE_LIST = [IMAGE_PP1, IMAGE_PP2, IMAGE_PP3, IMAGE_PP4, IMAGE_PP5, IMAGE_PP6];
 
 // IDs
 const ID_BRENNFEU = "234439428372824075";
@@ -4071,6 +4073,7 @@ class Duel {
 		this.CHECKPOINT_DUEL = null;
 		this.KIDNEY_CURSE = 0;
 		this.ALTERNATE_MOVES = false;
+		this.OBAMIUM_DONE = false;
 
 		this.PP_ARMAGEDDON = false;
 		this.EVENT_PP_ENLIGHTENMENT = false;
@@ -4611,12 +4614,21 @@ class Duel {
 					}
 					if (espinozaBoss) {
 						this.addMessage(this.CURRENT_BOSS + " was only a mimic !");
-						this.addMessage(this.CURRENT_BOSS + " is in fact " + BOSS_PP10 + "\n" + IMAGE_PP4);
-						this.addMessage("-----------------");
-						this.CURRENT_BOSS = BOSS_PP10;
-						this.BOSS_HEALTH = 1000000;
-						this.BOSS_DAMAGE = 1000;
 						this.EVENT_BOSS = true;
+						if (this.OBAMIUM_DONE && getRandomPercent() <= 50) {
+							this.addMessage(this.CURRENT_BOSS + " is in fact " + BOSS_PP12 + "\n" + IMAGE_PP6);
+							this.addMessage("-----------------");
+							this.CURRENT_BOSS = BOSS_PP12;
+							this.BOSS_HEALTH = Math.floor(Math.random() * Math.pow(10, getRandomPercent()));
+							this.BOSS_DAMAGE = 1000000;
+						}
+						else {
+							this.addMessage(this.CURRENT_BOSS + " is in fact " + BOSS_PP10 + "\n" + IMAGE_PP4);
+							this.addMessage("-----------------");
+							this.CURRENT_BOSS = BOSS_PP10;
+							this.BOSS_HEALTH = 1000000;
+							this.BOSS_DAMAGE = 1000;
+						}
 					}
 					if (this.EVENT_BOSS) {
 						var fighter = this.getRandomFighter();
@@ -5457,7 +5469,7 @@ class Duel {
 		else if (randomVar == 43) {
 			// Alternate Universe
 			this.addMessage(" -- ALTERNATE PP UNIVERSE --");
-			this.addMessage("Your PP Punching is breaking the laws of space and time ! You both get teleported into an alternate universe and bring with you elements of demise !");
+			this.addMessage("For some unknown reason, the duel gets teleported into an alternate universe !");
 			this.addMessage("Each moves has the same DEX modifier, illegal chances et ability to always pass, but their effect may have slightly changed !");
 			this.ALTERNATE_MOVES = !this.ALTERNATE_MOVES;
 			this.ALTERNATE_MOVE_COUNT = this.MOVE_COUNT;
@@ -5467,6 +5479,7 @@ class Duel {
 			this.addMessage(" -- OBAMIUM --");
 			this.addMessage("Thanks to your PP Punching, a new Obamium source has been found ! Scientists are giving you some !");
 			this.OBAMIUM = true
+			this.OBAMIUM_DONE = true;
 		}
 		else if ([45, 46, 47, 48, 49].indexOf(randomVar) > -1) {
 			// PP Net more likely to happen
