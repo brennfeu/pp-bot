@@ -1147,7 +1147,6 @@ class Fighter {
 			if (this.duel.MOVE_COUNT_TURN >= 500) {
 				if (this.duel.MOVE_COUNT_TURN == 500) {
 					this.duel.addMessage("**Move cap achieved !**");
-					this.duel.sendMessages(1);
 				}
 				return;
 			}
@@ -1432,7 +1431,6 @@ class Fighter {
 					}
 					else if (this.godList.indexOf(GOD_PP22.name) > -1) {
 						// Satan God
-						this.duel.sendMessages(1);
 						for (var i = 0; i < 10; i++) {
 							this.duel.addMessage("-----------------");
 							this.playMove(this.duel.getRandomEmote());
@@ -1440,7 +1438,6 @@ class Fighter {
 					}
 					else if (this.duel.getOppOf(this).godList.indexOf(GOD_PP22.name) > -1) {
 						// Satan God
-						this.duel.sendMessages(1);
 						for (var i = 0; i < 10; i++) {
 							this.duel.addMessage("-----------------");
 							this.duel.getOppOf(this).playMove(this.duel.getRandomEmote());
@@ -1459,7 +1456,6 @@ class Fighter {
 							_fighter.duel.addMessage("-----------------");
 							_fighter.playMove(_fighter.duel.getRandomEmote());
 						});
-						this.duel.sendMessages(1);
 					}
 				}
 				else {
@@ -1616,9 +1612,6 @@ class Fighter {
 				this.duel.addMessage(this.getName() + " summons a random move !");
 				this.duel.DISABLE_ABANDON = true;
 				var emote = this.duel.getRandomEmote();
-				if (emote == EMOTE_PP26 || emote == EMOTE_PP46) {
-					this.duel.sendMessages(1);
-				}
 				this.playMove(emote);
 			}
 			else if (attack == EMOTE_PP40) {
@@ -1688,7 +1681,6 @@ class Fighter {
 						chaosNumber += 20;
 					}
 					this.duel.addMessage("He will use " + chaosNumber + "% of his power in " + winner.getName() + " !");
-					this.duel.sendMessages(1);
 					chaosNumber = Math.floor(chaosNumber/4);
 					var i;
 					for (i = 0; i < chaosNumber; i++) {
@@ -2333,7 +2325,6 @@ class Fighter {
 					this.duel.addMessage("The Ancient Fungus answers his calls !");
 					this.duel.DISABLE_ABANDON = true;
 					this.duel.addMessage(this.getName() + " will summon 500 moves !");
-					this.duel.sendMessages();
 					for (var i = 0; i < 500; i++) {
 						this.playMove(this.duel.getRandomEmote());
 					}
@@ -2556,7 +2547,6 @@ class Fighter {
 					this.duel.addMessage("Gonna cry ?");
 					this.duel.addMessage("Gonna piss your pant maybe ?");
 					this.duel.addMessage("Maybe shit and cum ?");
-					this.duel.sendMessages();
 				}
 				else {
 					this.duel.addMessage(this.getName() + " needs to get even closer !");
@@ -3718,10 +3708,10 @@ class Fighter {
 
 	win() {
 		if (this.isHockeyPuckPP) {
-			addWinCounter(this, 4);
+			addWinCounter(this, 4 + Math.floor(this.duel.MOVE_COUNT/10));
 		}
 		else {
-			addWinCounter(this, 1);
+			addWinCounter(this, 1 + Math.floor(this.duel.MOVE_COUNT/10));
 		}
 	}
 
@@ -4387,7 +4377,7 @@ class Duel {
 		if (this.MESSAGE_SKIP && !_forceAppear) {
 			return;
 		}
-		if (this.LIST_MESSAGES.length > 0 && _texte.length + this.LIST_MESSAGES[this.LIST_MESSAGES.length-1].length + "\n".length < 100) {
+		if (this.LIST_MESSAGES.length > 0 && _texte.length + this.LIST_MESSAGES[this.LIST_MESSAGES.length-1].length + "\n".length < 10*this.LIST_MESSAGES.length) {
 			this.LIST_MESSAGES[this.LIST_MESSAGES.length-1] = this.LIST_MESSAGES[this.LIST_MESSAGES.length-1] + "\n" + _texte;
 		}
 		else {
@@ -4395,20 +4385,9 @@ class Duel {
 		}
 	}
 	sendMessages(_max = 20) {
-		var counter = 0;
 		this.TIMESTAMP = + new Date();
 
 		if (this.NO_MESSAGE <= 0 || this.TIME_STOP > 0) {
-			if (this.LIST_MESSAGES.length + 2 > _max) {
-				while (this.LIST_MESSAGES.length > _max) {
-					this.LIST_MESSAGES.splice(0, 1);
-					counter += 1;
-				}
-			}
-
-			if (counter > 0) {
-				this.LIST_MESSAGES = ["**-----------------\n" + counter + " messages were cancelled !\n-----------------**"].concat(this.LIST_MESSAGES);
-			}
 			for (var i in this.LIST_MESSAGES) {
 				this.BATTLE_CHANNEL.send(this.LIST_MESSAGES[i]);
 			}
@@ -7188,10 +7167,21 @@ CLIENT.on("message", async _message => {
 		}).catch(function(e) {
 			console.log(e);
 		});
-		if (user.roles.find(r => r.name == PP_EXPERT_ROLE)) {
-			_message.reply("here are your PP expert choices.").then(function (_message2) {
+		if (user.roles.find(r => r.name == WEEB_PP_ROLE)) {
+			_message.reply("here are your Weeb PP choices.").then(function (_message2) {
 				for (var i in GOD_LIST) {
-					if (GOD_LIST[i].type == "eldritch" || GOD_LIST[i].type == "waifu") {
+					if (GOD_LIST[i].type == "waifu") {
+						_message2.react(GOD_LIST[i].emote);
+					}
+				}
+			}).catch(function(e) {
+				console.log(e);
+			});
+		}
+		if (user.roles.find(r => r.name == PP_EXPERT_ROLE)) {
+			_message.reply("here are your PP Expert choices.").then(function (_message2) {
+				for (var i in GOD_LIST) {
+					if (GOD_LIST[i].type == "eldritch") {
 						_message2.react(GOD_LIST[i].emote);
 					}
 				}
