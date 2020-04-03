@@ -13,6 +13,7 @@ const HOCKEY_PUCK_PP_ROLE = "Hockey Puck PP";
 
 const PP_EXPERT_ROLE = "PP Expert";
 const PP_SKIPPER_ROLE = "PP Skipper";
+const WEEB_PP_ROLE = "Weeb PP";
 
 const EMOTE_SKIP = "TURN_SKIP";
 const EMOTE_DEAD = "IS_DEAD_LOL";
@@ -4482,7 +4483,7 @@ class Duel {
 						this.addMessage(this.CURRENT_BOSS + " goes back to sleep to heal his poor PP !");
 						this.addMessage("You both win !");
 						this.bothFightersAction(function(_fighter) {
-							addWinCounter(_fighter, 1);
+							_fighter.win(1);
 						});
 						this.EVENT_BOSS = false;
 						return this.stopDuel();
@@ -4497,7 +4498,7 @@ class Duel {
 						this.addMessage(this.CURRENT_BOSS + " goes back hiding behind the moon !");
 						this.addMessage("You both win !");
 						this.bothFightersAction(function(_fighter) {
-							addWinCounter(_fighter, 1);
+							_fighter.win(1);
 						});
 						this.EVENT_BOSS = false;
 
@@ -4580,7 +4581,7 @@ class Duel {
 						this.addMessage(this.CURRENT_BOSS + " is sent back to his Eldritch Realm !");
 						this.addMessage("You both win !");
 						this.bothFightersAction(function(_fighter) {
-							addWinCounter(_fighter, 1);
+							_fighter.win(1);
 						});
 						this.EVENT_BOSS = false;
 						return this.stopDuel();
@@ -4588,6 +4589,17 @@ class Duel {
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP10) {
 						this.addMessage(this.CURRENT_BOSS + " abandons !");
 						this.EVENT_BOSS = false;
+						
+						var role = this.GUILD.roles.find(r => r.name == WEEB_PP_ROLE);
+						try {
+							this.bothFightersAction(function(_fighter) {
+								_fighter.guildUser.addRole(role).catch(console.error);
+							});
+							this.addMessage("**You now have a Weeb PP.**");
+						}
+						catch(e) {
+							this.addMessage("This server doesn't have the 'Weeb PP' roles, sorry :/");
+						}
 
 						espinozaBoss = getRandomPercent() <= 20;
 					}
