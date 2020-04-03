@@ -6991,18 +6991,15 @@ function randomFromList(_list) {
 	return shuffleArray(_list)[0];
 }
 
-function fibonacciSeries(_n) {
-	if (_n===1) {
-		return [0, 1];
-	} 
-	else {
-		var s = fibonacciSeries(_n - 1);
-		s.push(s[s.length - 1] + s[s.length - 2]);
-		return s;
-	}
-}
 function fibonacciNumber(_n) {
-	return fibonacciSeries(_n).pop();
+	var a = 1, b = 0, temp;
+	while (_n >= 0 ){
+		temp = a;
+		a = a + b;
+		b = temp;
+		_n--;
+	}
+	return b;
 }
 
 function cloneObject(obj) {
