@@ -1694,7 +1694,7 @@ class Fighter {
 						var r = randomFromList(GOD_LIST).name;
 						if (this.godList.indexOf(r) < 0) {
 							this.godList.push(r);
-							this.duel.addMessage(this.getName() + " becomes a " + r + " !");
+							this.duel.addMessage(this.getName() + " becomes a " + r + " Priest !");
 						}
 					}
 				}
@@ -1826,7 +1826,7 @@ class Fighter {
 						this.duel.addMessage(this.getName() + " becomes a " + randomGod.name + " Priest !");
 					}
 					else {
-						this.duel.addMessage(this.getName() + " has no more god to worship !");
+						this.duel.addMessage(this.getName() + " has no more god to worship, so he shall become one !");
 						this.playMove(EMOTE_PP49)
 					}
 				}
@@ -1842,14 +1842,17 @@ class Fighter {
 					this.duel.addMessage(this.getName() + " gets a golden spoon.");
 					this.goldenSpoons += 1;
 					if (this.goldenSpoons%2 == 0) {
-						var randomGod = randomFromList(GOD_LIST);
 						var nbTries = 0;
-						while ((this.godList.indexOf(randomGod.name) > -1 || randomGod.type != "eldritch") && nbTries < 100) {
-							randomGod = randomFromList(GOD_LIST);
+						var test = true;
+						while (test && nbTries < 100) {
+							var randomGod = randomFromList(GOD_LIST);
 							nbTries += 1;
 							if (nbTries < 100) {
-								this.godList.push(randomGod.name);
-								this.duel.addMessage(this.getName() + " becomes a " + randomGod.name + " Priest !");
+								if (this.godList.indexOf(randomGod.name) < 0 && randomGod.type == "eldritch") {
+									test = false;
+									this.godList.push(randomGod.name);
+									this.duel.addMessage(this.getName() + " becomes a " + randomGod.name + " Priest !");
+								}
 							}
 							else {
 								this.duel.addMessage(this.getName() + " has all the eldritch gods on his side !");
@@ -6725,7 +6728,7 @@ function getWinCounter(_fighterID) {
 	return result[0].points;
 }
 function getRank(_fighterID) {
-	var result = executeQuery("SELECT num FROM ( SELECT (@row_number:=@row_number + 1) AS num, id FROM Player, (SELECT @row_number:=0) AS t ORDER BY points ) AS t2 WHERE id = " + _fighterID)
+	var result = executeQuery("SELECT num FROM ( SELECT (@row_number:=@row_number + 1) AS num, id FROM Player, (SELECT @row_number:=0) AS t ORDER BY points DESC ) AS t2 WHERE id = " + _fighterID)
 	return result[0].num;
 }
 function addWinCounter(_fighter, _number) {
