@@ -1690,6 +1690,7 @@ class Fighter {
 					}
 				}
 				else {
+					this.duel.addMessage(this.getName() + " calls the Big Fungus !");
 					var currentSize = this.godList.length;
 					while (this.godList.length < currentSize+1) {
 						var r = randomFromList(GOD_LIST).name;
