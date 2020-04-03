@@ -356,7 +356,8 @@ const IMAGE_PP3 = "https://cdn.discordapp.com/attachments/667337519477817363/668
 const IMAGE_PP4 = "https://cdn.discordapp.com/attachments/523411977725411373/669513268464975892/image0.jpg";
 const IMAGE_PP5 = "https://cdn.discordapp.com/attachments/668732348040347680/676777375027036160/7lpki.gif";
 const IMAGE_PP6 = "https://cdn.discordapp.com/attachments/683397030759891014/695571209894494208/image0.png";
-const IMAGE_LIST = [IMAGE_PP1, IMAGE_PP2, IMAGE_PP3, IMAGE_PP4, IMAGE_PP5, IMAGE_PP6];
+const IMAGE_PP7 = "https://cdn.discordapp.com/attachments/616228498075549756/695714573331726346/weeb.png";
+const IMAGE_LIST = [IMAGE_PP1, IMAGE_PP2, IMAGE_PP3, IMAGE_PP4, IMAGE_PP5, IMAGE_PP6, IMAGE_PP7];
 
 // IDs
 const ID_BRENNFEU = "234439428372824075";
@@ -4142,7 +4143,7 @@ class Duel {
 		// Weeb
 		if (getRandomPercent() <= 10) {
 			this.addMessage("**===== WEEB =====**");
-			this.addMessage(BOSS_PP11 + " challenges you !");
+			this.addMessage(BOSS_PP11 + " challenges you !\n" + IMAGE_PP7);
 			this.CURRENT_BOSS = BOSS_PP11;
 			this.BOSS_HEALTH = 1;
 			this.BOSS_DAMAGE = 30;
