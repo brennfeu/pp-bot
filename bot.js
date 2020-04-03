@@ -7115,11 +7115,13 @@ CLIENT.on("message", async _message => {
 			var duel = getDuel(_message.channel.id);
 			if (_message.author.id == duel.FIGHTER1.user.id) {
 				duel.FIGHTER1.playMove(EMOTE_PP47);
+				duel.FIGHTER2.win()
 				duel.stopDuel();
 				return;
 			}
 			else if (_message.author.id == duel.FIGHTER2.user.id) {
 				duel.FIGHTER2.playMove(EMOTE_PP47);
+				duel.FIGHTER1.win()
 				duel.stopDuel();
 				return;
 			}
