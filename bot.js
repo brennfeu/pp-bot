@@ -6652,14 +6652,14 @@ function killDeadDuels() {
 	for (var i = DUEL_LIST.length - 1; i >= 0; i--) {
 		if (DUEL_LIST[i].DEAD_DUEL) {
 			if (DUEL_LIST[i].CHECKPOINT_DUEL != null) {
-				duel.addMessage("-----------------");
-				duel.addMessage("**DUEL SAVE STATE USED**");
-				duel.addMessage("-----------------");
-				duel.sendMessages();
+				DUEL_LIST[i].addMessage("-----------------");
+				DUEL_LIST[i].addMessage("**DUEL SAVE STATE USED**");
+				DUEL_LIST[i].addMessage("-----------------");
+				DUEL_LIST[i].sendMessages();
 				var duel = DUEL_LIST[i].CHECKPOINT_DUEL;
 				DUEL_LIST[i] = duel;
-				duel.CHECKPOINT_DUEL = null;
-				duel.newTurnDuel();
+				DUEL_LIST[i].CHECKPOINT_DUEL = null;
+				DUEL_LIST[i].newTurnDuel();
 			}
 			else {
 				DUEL_LIST.splice(i, 1);
