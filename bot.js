@@ -4390,7 +4390,7 @@ class Duel {
 		if (this.CHRISTIAN_TEXT) {
 			_texte = changeTextChristian(_texte);
 		}
-		if (this.INFERNAL_FIRELAND) {
+		if (this.INFERNAL_FIRELAND && getRandomPercent() <= 10) {
 			_texte += " **IT'S AN INFERNAL FIRELAND**"
 		}
 		if (this.MESSAGE_SKIP && !_forceAppear) {
