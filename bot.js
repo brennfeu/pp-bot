@@ -118,7 +118,6 @@ const EMOTE_PP78 = "669581624026988578"; // SatanSkull
 const EMOTE_PP79 = "667336163396288522"; // Eye of Truth
 const EMOTE_PP80 = "644617031739768842"; // Fherla
 const EMOTE_PP81 = "650398049126055937"; // Melodia
-const EMOTE_PP135 = "696093812484866110"; // Arm Sniffing
 
 // CIV SHRINE MOVES
 const EMOTE_PP82 = "680064464883548279"; // Familiar Shrine
@@ -194,7 +193,7 @@ const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOT
 			EMOTE_PP61, EMOTE_PP62];
 const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70,
 			EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP77, EMOTE_PP78];
-const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81, EMOTE_PP135];
+const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
 const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP86, EMOTE_PP87, EMOTE_PP88, EMOTE_PP89,
 			EMOTE_PP90, EMOTE_PP91, EMOTE_PP92, EMOTE_PP93, EMOTE_PP94, EMOTE_PP95, EMOTE_PP96, EMOTE_PP97,
 			EMOTE_PP98, EMOTE_PP99, EMOTE_PP100, EMOTE_PP101, EMOTE_PP102, EMOTE_PP103, EMOTE_PP104, EMOTE_PP105,
@@ -360,8 +359,7 @@ const IMAGE_PP4 = "https://cdn.discordapp.com/attachments/523411977725411373/669
 const IMAGE_PP5 = "https://cdn.discordapp.com/attachments/668732348040347680/676777375027036160/7lpki.gif";
 const IMAGE_PP6 = "https://cdn.discordapp.com/attachments/683397030759891014/695571209894494208/image0.png";
 const IMAGE_PP7 = "https://cdn.discordapp.com/attachments/616228498075549756/695714573331726346/weeb.png";
-const IMAGE_PP8 = "https://cdn.discordapp.com/attachments/616228686919892992/696095492471521280/image0.jpg";
-const IMAGE_LIST = [IMAGE_PP1, IMAGE_PP2, IMAGE_PP3, IMAGE_PP4, IMAGE_PP5, IMAGE_PP6, IMAGE_PP7, IMAGE_PP8];
+const IMAGE_LIST = [IMAGE_PP1, IMAGE_PP2, IMAGE_PP3, IMAGE_PP4, IMAGE_PP5, IMAGE_PP6, IMAGE_PP7];
 
 // IDs
 const ID_BRENNFEU = "234439428372824075";
@@ -3091,15 +3089,6 @@ class Fighter {
 				// Hyper Light Blaster
 				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + " !");
 			}
-			else if (attack == EMOTE_PP135) {
-				// Arm Sniffing
-				this.duel.addMessage(this.getName() + " sniffes his own arm !\n" + IMAGE_PP8);
-				this.duel.addMessage("The Universe might be destroyed idk we'll see");
-				this.duel.MOVE_COUNT = 10000;
-				this.duel.bothFightersAction(function(_fighter) {
-					_fighter.win();
-				});
-			}
 			else if (attack == EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE) {
 				// Judgement Event
 				if (this.duel.ESPINOZA_CHOICE == attack) {
@@ -4407,7 +4396,7 @@ class Duel {
 		if (this.MESSAGE_SKIP && !_forceAppear) {
 			return;
 		}
-		if (this.LIST_MESSAGES.length > 0 && _texte.length + this.LIST_MESSAGES[this.LIST_MESSAGES.length-1].length + "\n".length < 20*this.LIST_MESSAGES.length) {
+		if (this.LIST_MESSAGES.length > 0 && _texte.length + this.LIST_MESSAGES[this.LIST_MESSAGES.length-1].length + "\n".length < 20*this.LIST_MESSAGES.length && _texte.length + this.LIST_MESSAGES[this.LIST_MESSAGES.length-1].length + "\n".length < 2000) {
 			this.LIST_MESSAGES[this.LIST_MESSAGES.length-1] = this.LIST_MESSAGES[this.LIST_MESSAGES.length-1] + "\n" + _texte;
 		}
 		else {
@@ -5084,13 +5073,13 @@ class Duel {
 		}
 		if (!this.INFERNAL_FIRELAND && this.MOVE_COUNT >= 1000) {
 			// INFERNAL FIRELAND
-			this.INFERNAL_FIRELAND = true;
 			this.addMessage(" -- INFERNAL FIRELAND --");
 			this.addMessage("Plenty of forest fires have been set off as a result of your PP punching, making the nearby 100 square km into an Infernal Fireland !");
 			this.addMessage("The victory will be determined by your proficiency in your instrument. You two dueling souls have to come up with a solo each... the best one crowning the victory !");
 			var winner = this.getRandomFighter();
 			winner.infernalInstrument = 1; // Guitar
 			this.getOppOf(winner).infernalInstrument = 2; // Synth
+			this.INFERNAL_FIRELAND = true;
 		}
 
 		if (this.FORCE_EVENT_ID != 0) {
