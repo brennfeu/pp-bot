@@ -118,6 +118,7 @@ const EMOTE_PP78 = "669581624026988578"; // SatanSkull
 const EMOTE_PP79 = "667336163396288522"; // Eye of Truth
 const EMOTE_PP80 = "644617031739768842"; // Fherla
 const EMOTE_PP81 = "650398049126055937"; // Melodia
+const EMOTE_PP135 = "696093812484866110"; // Arm Sniffing
 
 // CIV SHRINE MOVES
 const EMOTE_PP82 = "680064464883548279"; // Familiar Shrine
@@ -193,7 +194,7 @@ const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOT
 			EMOTE_PP61, EMOTE_PP62];
 const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70,
 			EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP77, EMOTE_PP78];
-const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
+const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81, EMOTE_PP135];
 const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP86, EMOTE_PP87, EMOTE_PP88, EMOTE_PP89,
 			EMOTE_PP90, EMOTE_PP91, EMOTE_PP92, EMOTE_PP93, EMOTE_PP94, EMOTE_PP95, EMOTE_PP96, EMOTE_PP97,
 			EMOTE_PP98, EMOTE_PP99, EMOTE_PP100, EMOTE_PP101, EMOTE_PP102, EMOTE_PP103, EMOTE_PP104, EMOTE_PP105,
@@ -284,6 +285,8 @@ const STAND_PP13 = "The Scythe of Cosmic Chaos";
 const STAND_PP14 = "Concepts of Maths";
 const STAND_PP15 = "The House of Atreus";
 const STAND_PP16 = "Virus";
+const STAND_PP17 = "Titans of Creation";
+const STAND_PP18 = "Fantasien 1998";
 
 var STAND_SUMMONS = {};
 // THE LISTS MUST BE REVERSED
@@ -357,7 +360,8 @@ const IMAGE_PP4 = "https://cdn.discordapp.com/attachments/523411977725411373/669
 const IMAGE_PP5 = "https://cdn.discordapp.com/attachments/668732348040347680/676777375027036160/7lpki.gif";
 const IMAGE_PP6 = "https://cdn.discordapp.com/attachments/683397030759891014/695571209894494208/image0.png";
 const IMAGE_PP7 = "https://cdn.discordapp.com/attachments/616228498075549756/695714573331726346/weeb.png";
-const IMAGE_LIST = [IMAGE_PP1, IMAGE_PP2, IMAGE_PP3, IMAGE_PP4, IMAGE_PP5, IMAGE_PP6, IMAGE_PP7];
+const IMAGE_PP8 = "https://cdn.discordapp.com/attachments/616228686919892992/696095492471521280/image0.jpg";
+const IMAGE_LIST = [IMAGE_PP1, IMAGE_PP2, IMAGE_PP3, IMAGE_PP4, IMAGE_PP5, IMAGE_PP6, IMAGE_PP7, IMAGE_PP8];
 
 // IDs
 const ID_BRENNFEU = "234439428372824075";
@@ -3086,7 +3090,15 @@ class Fighter {
 			else if (attack == EMOTE_PP134) {
 				// Hyper Light Blaster
 				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + " !");
-				this.duel.launchRaid(this, "light");
+			}
+			else if (attack == EMOTE_PP135) {
+				// Arm Sniffing
+				this.duel.addMessage(this.getName() + " sniffes his own arm !\n" + IMAGE_PP8);
+				this.duel.addMessage("The Universe might be destroyed idk we'll see");
+				this.duel.MOVE_COUNT = 10000;
+				this.duel.bothFightersAction(function(_fighter) {
+					_fighter.win();
+				});
 			}
 			else if (attack == EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE) {
 				// Judgement Event
@@ -6832,7 +6844,7 @@ async function sendCheatPanel(_channel) {
 			EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP77, EMOTE_PP78
 		],
 		"Cheat Panel : Rare Moves" : [
-			EMOTE_PP79, EMOTE_PP80, EMOTE_PP81
+			EMOTE_PP79, EMOTE_PP80, EMOTE_PP81, EMOTE_PP135
 		],
 		"Cheat Panel : Civilisation Moves I" : [
 			EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP86, EMOTE_PP87, EMOTE_PP88, EMOTE_PP89,
