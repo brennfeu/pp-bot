@@ -4089,7 +4089,7 @@ class Duel {
 		this.OBAMIUM_DONE = false;
 
 		this.PP_ARMAGEDDON = false;
-		this.INFERNAL_FIRELAND = true;
+		this.INFERNAL_FIRELAND = false;
 		this.EVENT_PP_ENLIGHTENMENT = false;
 		this.EVENT_PP_PURGE = false;
 		this.EVENT_CONFUSION = false;
