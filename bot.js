@@ -331,6 +331,7 @@ const BOSS_PP9 = "Satan True Form";
 const BOSS_PP10 = "Espinoza Raid Boss";
 const BOSS_PP11 = "Weeb";
 const BOSS_PP12 = "Obamium Espinoza";
+const BOSS_PP13 = "Pudding Blob"
 
 // BATTLE MODES
 const NORMAL_BATTLE_MODE = 0;
@@ -3278,7 +3279,12 @@ class Fighter {
 				this.duel.addMessage("lmao !");
 			}
 			if (this.duel.BOSS_HEALTH + _amount > 0 && this.duel.BOSS_HEALTH <= 0) {
-				this.duel.getOppOf(this).bossKiller = 11;
+				if (this.duel.CURRENT_BOSS == BOSS_PP13) {
+					this.duel.getOppOf(this).bossKiller += 3;
+				}
+				else {
+					this.duel.getOppOf(this).bossKiller += 11;
+				}
 			}
 			this.damageTaken += _amount;
 
@@ -3444,7 +3450,6 @@ class Fighter {
 		this.isLucky -= 1;
 		this.summonTankCountdown -= 1;
 		this.mikasaBuff -= 1;
-		this.bossKiller -= 1;
 		this.ironProtection -= 1;
 		this.borealSummon -= 1;
 		this.requiemCooldown -= 1;
@@ -3536,6 +3541,7 @@ class Fighter {
 			this.DEXValue += 1;
 			this.heal(30);
 			this.duel.addMessage("-----------------");
+			this.bossKiller -= 1;
 		}
 
 		// The Man Who Made a Monster regular move
@@ -4101,7 +4107,8 @@ class Duel {
 		this.EVENT_DEPRESSION = false;
 		this.EVENT_BOMB = false;
 		this.ESPINOZA_CHOICE = "";
-		this.OBAMIUM = false
+		this.OBAMIUM = false;
+		this.PUDDING_NUISANCE = -1;
 
 		this.FORCE_PERHAPS = false;
 		this.FORCE_SATAN = false;
@@ -4160,6 +4167,12 @@ class Duel {
 			this.BOSS_HEALTH = 1;
 			this.BOSS_DAMAGE = 30;
 			this.EVENT_BOSS = true;
+		}
+		// Nuisance
+		if (getRandomPercent() <= 5) {
+			this.addMessage("**===== ROOT OF NUISANCE =====**");
+			this.addMessage("Pudding just wants to harass you during the battle !");
+			this.PUDDING_NUISANCE = Math.floor(getRandomPercent()/10) + 1;
 		}
 
 		this.newTurnDuel();
@@ -4458,6 +4471,8 @@ class Duel {
 				});
 
 				this.NUCLEAR_BOMB -= 1;
+				this.PUDDING_NUISANCE -= 1;
+				
 				if (this.NUCLEAR_BOMB == 0) {
 					this.addMessage("The Nuclear Bomb explodes now !\n" + IMAGE_PP1);
 					this.bothFightersAction(function(_fighter) {
@@ -4473,6 +4488,15 @@ class Duel {
 					});
 					this.addMessage("-----------------");
 					this.sendMessages();
+				}
+				if (this.PUDDING_NUISANCE == 0) {
+					if (this.EVENT_BOSS) {
+						this.addMessage(this.CURRENT_BOSS + "'s boss fight is canceled by Pudding.");
+					}
+					this.CURRENT_BOSS = BOSS_PP13;
+					this.BOSS_HEALTH = 10*this.MOVE_COUNT;
+					this.BOSS_DAMAGE = 2*this.MOVE_COUNT;
+					this.EVENT_BOSS = true;
 				}
 
 				// Blood Moon Save
@@ -4617,7 +4641,22 @@ class Duel {
 						this.addMessage(this.CURRENT_BOSS + " dies lol");
 						this.EVENT_BOSS = false;
 
-						espinozaBoss = getRandomPercent() <= 1;
+						espinozaBoss = getRandomPercent() <= 2;
+					}
+					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP13) {
+						this.addMessage(this.CURRENT_BOSS + " is destroyed !");
+						this.EVENT_BOSS = false;
+
+						espinozaBoss = getRandomPercent() <= 2;
+						if (espinozaBoss) {
+							this.addMessage("You hear Pudding laughing in the distance...");
+						}
+						else if (getRandomPercent() <= 75) {
+							this.PUDDING_NUISANCE = Math.floor(getRandomPercent()/10) + 1;
+						}
+						else {
+							this.addMessage("Pudding is bored of this, he will stop sending you blobs...");
+						}
 					}
 					if (espinozaBoss) {
 						this.addMessage(this.CURRENT_BOSS + " was only a mimic !");
