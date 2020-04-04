@@ -3666,7 +3666,7 @@ class Fighter {
 				}
 				else if (r <= 50) { // Scout
 					this.duel.addMessage(this.getName() + " gets binoculars !");
-					this.playMove(EMOTE_PP44);
+					this.playMove(EMOTE_PP13);
 				}
 
 				this.duel.addMessage("-----------------");
@@ -4596,7 +4596,7 @@ class Duel {
 						this.EVENT_BOSS = false;
 						return this.stopDuel();
 					}
-					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP10) {
+					else if (this.BOSS_HEALTH <= 0 && (this.CURRENT_BOSS == BOSS_PP10 || this.CURRENT_BOSS == BOSS_PP12)) {
 						this.addMessage(this.CURRENT_BOSS + " abandons !");
 						this.EVENT_BOSS = false;
 						
@@ -4622,11 +4622,11 @@ class Duel {
 					if (espinozaBoss) {
 						this.addMessage(this.CURRENT_BOSS + " was only a mimic !");
 						this.EVENT_BOSS = true;
-						if (this.OBAMIUM_DONE && getRandomPercent() <= 50) {
+						if (this.OBAMIUM_DONE) {
 							this.addMessage(this.CURRENT_BOSS + " is in fact " + BOSS_PP12 + "\n" + IMAGE_PP6);
 							this.addMessage("-----------------");
 							this.CURRENT_BOSS = BOSS_PP12;
-							this.BOSS_HEALTH = Math.floor(Math.random() * Math.pow(10, getRandomPercent()));
+							this.BOSS_HEALTH = Math.pow(10, 10);
 							this.BOSS_DAMAGE = 1000000;
 						}
 						else {
