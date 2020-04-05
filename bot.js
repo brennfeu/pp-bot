@@ -6771,7 +6771,7 @@ function checkCityNameChange(_message) {
 }
 function checkMusicLoops() {
 	for (var i = DUEL_LIST.length - 1; i >= 0; i--) {
-		DUEL_LIST[i].setMusic(DUEL_LIST[i].)
+		DUEL_LIST[i].setMusic(DUEL_LIST[i].CURRENT_THEME)
 	}
 }
 
