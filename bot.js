@@ -6675,6 +6675,8 @@ class Duel {
 		for (var i in CLIENT.voiceConnections) {
 			if (i == this.AUDIO_CHANNEL.guild.id) {
 				var isSpeaking = CLIENT.voiceConnections[i].speaking;
+				console.log("Is Speaking : ");
+				console.log(isSpeaking)
 			}
 		}
 
