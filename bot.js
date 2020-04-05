@@ -6680,8 +6680,9 @@ class Duel {
 		}
 		
 		if (this.AUDIO_CHANNEL == null) return;
-		if (_music == this.CURRENT_THEME && isSpeaking) return;
-		if (this.TIMESTAMP + 3000 > +new Date()) return;
+		if (_music == this.CURRENT_THEME && isSpeaking) return console.log(this.CURRENT_THEME);
+		if (this.TIMESTAMP + 3000 > +new Date()) return console.log(this.TIMESTAMP + 3000 + " / " + (+new Date()));
+		
 		console.log("TIMESTAMPS : ")
 		console.log(+new Date() - (TIMESTAMP + 3000));
 
