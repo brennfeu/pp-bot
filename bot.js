@@ -1744,7 +1744,7 @@ class Fighter {
 				this.duel.addMessage(this.getName() + " messes everything !");
 				this.duel.addMessage("As always !");
 				if (this.duel.UWU_TEXT) {
-					this.duel.RUSSIAN_TEXT = 6;
+					this.duel.RUSSIAN_TEXT = 4;
 				}
 				this.duel.bothFightersAction(function(_fighter) {
 					_fighter.STRValue += Math.floor((getRandomPercent() - 50)/2);
@@ -6928,11 +6928,16 @@ function changeTextUwu(_texte) {
 
 	_texte = _texte.split("r").join("w");
 	_texte = _texte.split("R").join("W");
-	if (getRandomPercent() <= 5) {
-		_texte = _texte.split("e").join("fuck");
-		_texte = _texte.split("E").join("FUCK");
+	
+	_texte = _texte.split(" ");
+	for (var i in _texte) {
+		if (getRandomPercent() <= 5) {
+			_texte[i] = "fuck"
+		}
 	}
-	else if (getRandomPercent() <= 15) {
+	_texte = _texte.join(" ")
+	
+	if (getRandomPercent() <= 15) {
 		_texte += " uwu";
 	}
 	else if (getRandomPercent() <= 25) {
