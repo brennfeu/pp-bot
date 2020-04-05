@@ -6679,7 +6679,7 @@ class Duel {
 			return MUSIC_PP9; // Brennijov Von Truffle
 		}
 		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP7) {
-			return MUSIC_PP1); // Brennijov Von Truffle Outro
+			return MUSIC_PP10; // Brennijov Von Truffle Outro
 		}
 		else if (this.PP_ARMAGEDDON) {
 			return MUSIC_PP3; // Psychodios
