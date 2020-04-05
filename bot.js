@@ -6653,6 +6653,7 @@ class Duel {
 
 		this.CURRENT_THEME = _music;
 		this.AUDIO_CHANNEL.leave();
+		this.TIMESTAMP = +new Date();
 
 		this.AUDIO_CHANNEL.join().then(function(_connection) {
 			const dispatcher = _connection.playFile("./music/" + _music);
