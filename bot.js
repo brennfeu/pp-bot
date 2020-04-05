@@ -305,6 +305,8 @@ STAND_SUMMONS[STAND_PP13] = [EMOTE_PP16, EMOTE_PP46, EMOTE_PP14]; // SawBlade, Y
 STAND_SUMMONS[STAND_PP14] = [EMOTE_PP50, EMOTE_PP41, EMOTE_PP18]; // RedPill, CheersBro, Perhaps
 STAND_SUMMONS[STAND_PP15] = [EMOTE_PP30, EMOTE_PP51]; // God Regular Move, Alert
 STAND_SUMMONS[STAND_PP16] = [EMOTE_PP46, EMOTE_PP18, EMOTE_PP22]; // MeatBro, RedPill, YES
+STAND_SUMMONS[STAND_PP17] = [EMOTE_PP11, EMOTE_PP4]; // Flex, Steel
+STAND_SUMMONS[STAND_PP18] = [EMOTE_PP18, EMOTE_PP7, EMOTE_PP2]; // PunchingPPReallyHard, Turkey, RedPill
 
 const REQUIEM_PP1 = "Etrange";
 const REQUIEM_PP2 = "Iamthemorning";
@@ -483,6 +485,7 @@ class Fighter {
 		this.hasSupplyDrops = false;
 		this.satanicReverse = 0;
 		this.infernalInstrument = 0;
+		this.selfReverseDamage = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -521,6 +524,9 @@ class Fighter {
 			}
 			if (this.standPower == STAND_PP12) { // Space Metal
 				this.quickeningCharges = 5;
+			}
+			if (this.standPower == STAND_PP17) { // Titans of Creation
+				this.selfReverseDamage = 4;
 			}
 		}
 		else {
@@ -883,6 +889,9 @@ class Fighter {
 		}
 		if (this.bossKiller > 0) {
 			txt += " - Boss Killer Blessing (for " + this.bossKiller + " turns)\n";
+		}
+		if (this.selfReverseDamage > 0) {
+			txt += " - Damage Reversed (for " + this.selfReverseDamage + " turns)\n";
 		}
 		if (this.futureMemories > 0) {
 			txt += " - Has Knowledge of the Future (the next " + this.futureMemories + " turns)\n"
@@ -2713,6 +2722,9 @@ class Fighter {
 				if (this.STR > this.duel.getOppOf(this).STR) {
 					this.duel.getOppOf(this).damage(this.STR - this.duel.getOppOf(this).STR);
 				}
+				else if (this.standPower == STAND_PP18) { // Fantasien 1998
+					this.duel.getOppOf(this).damage(this.duel.getOppOf(this).STR - this.STR);
+				}
 				else {
 					this.duel.getOppOf(this).damage(Math.floor(10 + this.STR / 10));
 				}
@@ -3167,7 +3179,7 @@ class Fighter {
 
 	heal(_amount) {
 		_amount += this.quickeningCharges*3;
-		if (this.duel.REVERSE_DAMAGE <= 0) {
+		if (this.duel.REVERSE_DAMAGE <= 0 || this.selfReverseDamage > 0) {
 			this.STRValue += _amount;
 			this.duel.addMessage(this.getName() + " gets healed by " + _amount + " HP");
 			if (_amount == 69) {
@@ -3252,7 +3264,7 @@ class Fighter {
 			this.duel.addMessage("**Critical Hit !**");
 		}
 
-		if (this.duel.REVERSE_DAMAGE > 0) {
+		if (this.duel.REVERSE_DAMAGE > 0 || this.selfReverseDamage > 0) {
 			this.STRValue += _amount;
 			this.duel.addMessage(this.getName() + " gets healed by " + _amount + " HP");
 			if (_amount == 69) {
@@ -3461,6 +3473,7 @@ class Fighter {
 		this.robotCountdown -= 1;
 		this.satanicReverse -= 1;
 		this.turkeyCountdown -= 1;
+		this.selfReverseDamage -= 1;
 
 		// Turkey
 		if (this.turkeyCountdown >= 0) {
