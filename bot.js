@@ -6673,11 +6673,11 @@ class Duel {
 			this.AUDIO_CHANNEL = null;
 		}
 		
-		console.log(CLIENT.voiceConnections);
-		for (var i in CLIENT.voiceConnections) {
+		var connections = CLIENT.voiceConnections;
+		for (var i in connections) {
 			console.log(i);
 			if (i == this.AUDIO_CHANNEL.guild.id) {
-				var isSpeaking = CLIENT.voiceConnections[i].speaking;
+				var isSpeaking = connections[i].speaking;
 				console.log("Is Speaking : ");
 				console.log(isSpeaking)
 			}
