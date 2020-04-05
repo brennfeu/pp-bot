@@ -6945,7 +6945,7 @@ function changeTextUwu(_texte) {
 	
 	_texte = _texte.split(" ");
 	for (var i in _texte) {
-		if (getRandomPercent() <= 5) {
+		if (getRandomPercent() <= 5 && /^[a-zA-Z]+$/.test(_texte[i])) {
 			_texte[i] = "fuck"
 		}
 	}
