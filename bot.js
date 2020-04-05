@@ -6670,9 +6670,16 @@ class Duel {
 			}
 			this.AUDIO_CHANNEL = null;
 		}
+		
+		
+		for (var i in CLIENT.voiceConnections) {
+			if (i == this.AUDIO_CHANNEL.guild.id) {
+				var isSpeaking = CLIENT.voiceConnections[i];
+			}
+		}
 
 		if (this.AUDIO_CHANNEL == null) return;
-		if (_music == this.CURRENT_THEME) return;
+		if (_music == this.CURRENT_THEME && isSpeaking) return;
 
 		this.CURRENT_THEME = _music;
 		this.AUDIO_CHANNEL.leave();
