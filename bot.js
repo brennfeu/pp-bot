@@ -6680,7 +6680,7 @@ class Duel {
 		}
 		
 		if (this.AUDIO_CHANNEL == null) return;
-		if (_music == this.CURRENT_THEME && isSpeaking) return;
+		if (_music == this.CURRENT_THEME && isSpeaking && this.TIMESTAMP + (60*1000) < +new Date()) return;
 
 		this.CURRENT_THEME = _music;
 		this.AUDIO_CHANNEL.leave();
@@ -6731,7 +6731,7 @@ function killDeadDuels() {
 }
 function skipWaitingDuels() {
 	for (var i = DUEL_LIST.length - 1; i >= 0; i--) {
-		if (DUEL_LIST[i].TIMESTAMP + (5 * 60*1000) < +new Date()) {
+		if (DUEL_LIST[i].TIMESTAMP + (3 * 60*1000) < +new Date()) {
 			if (DUEL_LIST[i].TUTORIAL) {
 				DUEL_LIST[i].addMessage("Tutoriel cancelled :(")
 				DUEL_LIST[i].sendMessages();
@@ -6739,7 +6739,9 @@ function skipWaitingDuels() {
 			}
 			else if (DUEL_LIST[i].FIGHTER1.attack == "" && DUEL_LIST[i].FIGHTER2.attack == "") {
 				DUEL_LIST[i].FIGHTER1.attack = EMOTE_PP47;
+				DUEL_LIST[i].FIGHTER1.playMove();
 				DUEL_LIST[i].FIGHTER2.attack = EMOTE_PP47;
+				DUEL_LIST[i].FIGHTER2.playMove();
 				DUEL_LIST[i].AUTO_MOVES_COUNTDOWN = 1;
 			}
 			else if (DUEL_LIST[i].FIGHTER1.attack == "") {
