@@ -4511,6 +4511,8 @@ class Duel {
 					this.BOSS_HEALTH = 10*this.MOVE_COUNT;
 					this.BOSS_DAMAGE = 2*this.MOVE_COUNT;
 					this.EVENT_BOSS = true;
+					this.addMessage("A Pudding Blob has been created !");
+					this.addMessage("-----------------");
 				}
 
 				// Blood Moon Save
@@ -6673,6 +6675,7 @@ class Duel {
 		
 		
 		for (var i in CLIENT.voiceConnections) {
+			console.log(i);
 			if (i == this.AUDIO_CHANNEL.guild.id) {
 				var isSpeaking = CLIENT.voiceConnections[i].speaking;
 				console.log("Is Speaking : ");
