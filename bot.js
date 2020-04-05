@@ -4864,38 +4864,6 @@ class Duel {
 			}
 		});
 
-		// SET MUSIC
-		if (this.GAY_TURNS > 0) {
-			this.setMusic(MUSIC_PP4); // Huge Gay Night
-		}
-		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP1) {
-			this.setMusic(MUSIC_PP5); // Lovecraftian Strain 911
-		}
-		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP2) {
-			this.setMusic(MUSIC_PP6); // Gaseous Punk
-		}
-		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP3) {
-			this.setMusic(MUSIC_PP7); // Anomaly-B
-		}
-		else if (this.EVENT_BOSS && (this.CURRENT_BOSS == BOSS_PP4 || this.CURRENT_BOSS == BOSS_PP5)) {
-			this.setMusic(MUSIC_PP8); // Brennijov Von Truffle Intro
-		}
-		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP6) {
-			this.setMusic(MUSIC_PP9); // Brennijov Von Truffle
-		}
-		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP7) {
-			this.setMusic(MUSIC_PP10); // Brennijov Von Truffle Outro
-		}
-		else if (this.PP_ARMAGEDDON) {
-			this.setMusic(MUSIC_PP3); // Psychodios
-		}
-		else if (this.FIGHTER1.livingGod || this.FIGHTER2.livingGod) {
-			this.setMusic(MUSIC_PP2); // Ascend
-		}
-		else {
-			this.setMusic(MUSIC_PP1); // PP Puncher
-		}
-
 		if ((this.FIGHTER1.turnSkip > 0 || this.FIGHTER1.grabbedPP > 0 || this.FIGHTER1.summonTankCountdown == 1 || this.FIGHTER1.isPossessed > 0 || this.FIGHTER1.STR <= 0) &&
 		    (this.FIGHTER2.turnSkip > 0 || this.FIGHTER2.grabbedPP > 0 || this.FIGHTER2.summonTankCountdown == 1 || this.FIGHTER2.isPossessed > 0 || this.FIGHTER2.STR <= 0)) {
 			this.bothFightersAction(function(_fighter) {
@@ -6680,11 +6648,8 @@ class Duel {
 		}
 		
 		if (this.AUDIO_CHANNEL == null) return;
-		if (_music == this.CURRENT_THEME && isSpeaking) return console.log(this.CURRENT_THEME);
-		if (this.TIMESTAMP + 3000 > +new Date()) return console.log(this.TIMESTAMP + 3000 + " / " + (+new Date()));
-		
-		console.log("TIMESTAMPS : ")
-		console.log(+new Date() - (TIMESTAMP + 3000));
+		if (_music == this.CURRENT_THEME && isSpeaking) return;
+		if (this.TIMESTAMP + 3000 > +new Date()) return;
 
 		this.CURRENT_THEME = _music;
 		this.AUDIO_CHANNEL.leave();
@@ -6693,6 +6658,37 @@ class Duel {
 			const dispatcher = _connection.playFile("./music/" + _music);
 			dispatcher.resume();
 		}).catch(err => console.log(err));
+	}
+	getBattleTheme() {
+		if (this.GAY_TURNS > 0) {
+			return MUSIC_PP4; // Huge Gay Night
+		}
+		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP1) {
+			return MUSIC_PP5; // Lovecraftian Strain 911
+		}
+		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP2) {
+			return MUSIC_PP6; // Gaseous Punk
+		}
+		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP3) {
+			return MUSIC_PP7; // Anomaly-B
+		}
+		else if (this.EVENT_BOSS && (this.CURRENT_BOSS == BOSS_PP4 || this.CURRENT_BOSS == BOSS_PP5)) {
+			return MUSIC_PP8; // Brennijov Von Truffle Intro
+		}
+		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP6) {
+			return MUSIC_PP9; // Brennijov Von Truffle
+		}
+		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP7) {
+			return MUSIC_PP1); // Brennijov Von Truffle Outro
+		}
+		else if (this.PP_ARMAGEDDON) {
+			return MUSIC_PP3; // Psychodios
+		}
+		else if (this.FIGHTER1.livingGod || this.FIGHTER2.livingGod) {
+			return MUSIC_PP2; // Ascend
+		}
+		
+		return MUSIC_PP1; // PP Puncher
 	}
 }
 
@@ -6777,7 +6773,7 @@ function checkCityNameChange(_message) {
 }
 function checkMusicLoops() {
 	for (var i = DUEL_LIST.length - 1; i >= 0; i--) {
-		DUEL_LIST[i].setMusic(DUEL_LIST[i].CURRENT_THEME)
+		DUEL_LIST[i].setMusic(DUEL_LIST[i].getBattleTheme())
 	}
 }
 
