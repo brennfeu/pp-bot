@@ -6769,6 +6769,11 @@ function checkCityNameChange(_message) {
 		}
 	});
 }
+function checkMusicLoops() {
+	for (var i = DUEL_LIST.length - 1; i >= 0; i--) {
+		DUEL_LIST[i].setMusic(DUEL_LIST[i].)
+	}
+}
 
 function getPriestRoleName(_god) {
 	return _god.name + " Priest";
@@ -7124,6 +7129,7 @@ CLIENT.on("message", async _message => {
 	setBotActivity();
 	skipWaitingDuels();
 	checkCityNameChange(_message);
+	checkMusicLoops()
 
 	// Recuperation commande
 	var argsUser = _message.content.trim().split(" ");
@@ -7356,6 +7362,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	killDeadDuels();
 	setBotActivity();
 	skipWaitingDuels();
+	checkMusicLoops()
 
 	// DUEL
 	if (getDuel(_reaction.message.channel.id) != null && _user.id != CLIENT.user.id) {
