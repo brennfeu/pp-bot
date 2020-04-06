@@ -2356,8 +2356,8 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Ancient Fungus answers his calls !");
 					this.duel.DISABLE_ABANDON = true;
-					this.duel.addMessage(this.getName() + " will summon 500 moves !");
-					for (var i = 0; i < 500; i++) {
+					this.duel.addMessage(this.getName() + " will summon 50 moves !");
+					for (var i = 0; i < 50; i++) {
 						this.playMove(this.duel.getRandomEmote());
 					}
 				}
@@ -5088,7 +5088,7 @@ class Duel {
 		var forcedEvent = this.FORCE_EVENT;
 
 		if (this.FORCE_EVENT) {
-			while (!(randomVar <= 36 && randomVar >= 2)) {
+			while (!(randomVar <= 49 && randomVar >= 2)) {
 				randomVar = getRandomPercent();
 			}
 		}
@@ -5492,34 +5492,27 @@ class Duel {
 		}
 		else if (randomVar == 40) {
 			// Spanish Inquisition
-			this.addMessage(" -- SPANISH INQUISITION --");
+			this.addMessage(" -- PENIS INQUISITION --");
 			this.addMessage("Nobody expected them, but here they are !");
 			var winner = this.getRandomFighter();
 			if (this.getOppOf(winner).STR > winner.STR) {
 				winner = this.getOppOf(winner);
 			}
-			this.addMessage("They attack " + winner.getName() + " as he seems to be the toughest opponent.");
+			this.addMessage("They bite " + winner.getName() + "'s PP as he seems to have the toughest opponent.");
 			winner.damage(Math.floor(winner.STR/10));
 		}
-		else if (randomVar == 41 && (this.MOVE_COUNT >= 30 || forcedEvent)) {
+		else if (randomVar == 41 && (this.MOVE_COUNT >= 30 || forcedEvent) && this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
 			// Kaiju Attack
 			this.addMessage(" -- KAIJU ATTACK --");
-			if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
-				var winner = this.getRandomFighter();
-				if (winner.kaijuHP > 0) {
-					this.addMessage(winner.getName() + "'s kaiju gets stronger !");
-					winner.kaijuHP += 1000;
-				}
-				else {
-					this.addMessage(winner.getName() + " gets attacked by a kaiju !");
-					winner.kaijuHP = 1000 - winner.getTotalDefBonus() - winner.militaryPower;
-					winner.resetArmy();
-				}
+			var winner = this.getRandomFighter();
+			if (winner.kaijuHP > 0) {
+				this.addMessage(winner.getName() + "'s kaiju gets stronger !");
+				winner.kaijuHP += 1000;
 			}
 			else {
-				var winner = this.getRandomFighter();
-				this.addMessage(winner.getName() + " gets attacked by a kaiju that happened to be there !");
-				winner.damage(150);
+				this.addMessage(winner.getName() + " gets attacked by a kaiju !");
+				winner.kaijuHP = 1000 - winner.getTotalDefBonus() - winner.militaryPower;
+				winner.resetArmy();
 			}
 		}
 		else if (randomVar == 42) {
@@ -5550,6 +5543,7 @@ class Duel {
 			this.FORCE_EVENT_ID = 27;
 			this.startRandomEvent();
 		}
+		// DON'T FORGET TO UPDATE FORCE EVENT IF NEW EVENTS ARE ADDED
 		else if (randomVar == 90 && (this.MOVE_COUNT >= 50 || forcedEvent)) {
 			// Brenn Ejaculates
 			this.addMessage(" -- BRENN EJACULATES --");
