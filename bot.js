@@ -906,7 +906,10 @@ class Fighter {
 			txt += " - Robot Engineering Countdown : " + this.robotCountdown + " turns\n";
 		}
 		if (this.turkeyCountdown > 0) {
-			txt += " - Turkey Countdown : " + this.turkeyCountdown + " turns\n";
+			txt += " - ";
+			if (this.turkeyCountdown == 1) txt += "**";
+			txt += "Turkey Countdown : " + this.turkeyCountdown + " turns\n";
+			if (this.turkeyCountdown == 1) txt += "**";
 		}
 		if (this.borealSummon > 0) {
 			txt += " - Boreal Fog Countdown : " + this.borealSummon + " turns\n";
@@ -1358,8 +1361,8 @@ class Fighter {
 			else if (attack == EMOTE_PP19) {
 				// Pig
 				this.duel.addMessage(this.getName() + " squeezes hog yeah yeah !");
-				if (this.pigHeal < 3) {
-					this.pigHeal = 3;
+				if (this.pigHeal < 5) {
+					this.pigHeal = 5;
 				}
 				else {
 					var i = 0;
@@ -1456,6 +1459,7 @@ class Fighter {
 							this.duel.addMessage("-----------------");
 							this.playMove(this.duel.getRandomEmote());
 						}
+						this.duel.TRIGGERED_CHAOS = true;
 					}
 					else if (this.duel.getOppOf(this).godList.indexOf(GOD_PP22.name) > -1) {
 						// Satan God
@@ -1463,6 +1467,7 @@ class Fighter {
 							this.duel.addMessage("-----------------");
 							this.duel.getOppOf(this).playMove(this.duel.getRandomEmote());
 						}
+						this.duel.TRIGGERED_CHAOS = true;
 					}
 					else {
 						this.duel.bothFightersAction(function(_fighter) {
@@ -1477,6 +1482,7 @@ class Fighter {
 							_fighter.duel.addMessage("-----------------");
 							_fighter.playMove(_fighter.duel.getRandomEmote());
 						});
+						this.duel.TRIGGERED_CHAOS = true;
 					}
 				}
 				else {
@@ -1708,6 +1714,7 @@ class Fighter {
 						this.duel.addMessage("-----------------");
 						winner.playMove(this.duel.getRandomEmote());
 					}
+					this.duel.TRIGGERED_CHAOS = true;
 				}
 				else {
 					this.duel.addMessage(this.getName() + " calls the Big Fungus !");
@@ -3740,7 +3747,13 @@ class Fighter {
 	}
 
 	win(_param) {
-		var nb = 1 + Math.floor(this.duel.MOVE_COUNT/10);
+		var nb = 1;
+		if (this.duel.TRIGGERED_CHAOS) {
+			nb += Math.floor(this.duel.MOVE_COUNT/50)
+		}
+		else {
+			nb += Math.floor(this.duel.MOVE_COUNT/10)
+		}
 		if (this.isHockeyPuckPP) {
 			nb += 3;
 		}
@@ -4108,6 +4121,7 @@ class Duel {
 		this.KIDNEY_CURSE = 0;
 		this.ALTERNATE_MOVES = false;
 		this.OBAMIUM_DONE = false;
+		this.TRIGGERED_CHAOS = false;
 
 		this.PP_ARMAGEDDON = false;
 		this.INFERNAL_FIRELAND = false;
