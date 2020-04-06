@@ -4473,9 +4473,7 @@ class Duel {
 			for (var i in this.LIST_MESSAGES) {
 				this.BATTLE_CHANNEL.send(this.LIST_MESSAGES[i]).then(async function (_message2) {
 					getDuel(_message2.channel.id).TIMESTAMP = + new Date();
-				}).catch(function(e) {
-					console.log(e);
-				});
+				}).catch(function(e) {});
 			}
 		}
 		this.LIST_MESSAGES = [];
