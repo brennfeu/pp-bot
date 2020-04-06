@@ -265,8 +265,9 @@ const SYNERGY_PP16 = [GOD_PP6, GOD_PP21] // Too Much Dicks
 const SYNERGY_PP17 = [GOD_PP2, GOD_PP22] // Avatar of Tz'arkan
 const SYNERGY_PP18 = [GOD_PP25, "waifu"] // Obvious tentacle joke
 const SYNERGY_PP19 = [GOD_PP6, "eldritch"] // Eldritch Gang
-const SYNERGY_PP20 = [GOD_PP24, GOD_PP27, "normal"] // Master of Time
+const SYNERGY_PP20 = [GOD_PP24, GOD_PP27] // Master of Time
 const SYNERGY_PP21 = [GOD_PP12, GOD_PP7] // Big Nose
+const SYNERGY_PP22 = [GOD_PP18, GOD_PP3] // Extreme Karma
 
 const STAND_PP1 = "Iron Maiden";
 const STAND_PP2 = "The Boreal Flame";
@@ -486,6 +487,7 @@ class Fighter {
 		this.satanicReverse = 0;
 		this.infernalInstrument = 0;
 		this.selfReverseDamage = 0;
+		this.forceCritical = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -979,6 +981,9 @@ class Fighter {
 		if (this.hasKamui) {
 			txt += " - Wearing a Kamui\n";
 		}
+		if (this.forceCritical) {
+			txt += " - Ready to Inflict Critical Damages\n";
+		}
 		if (this.isOverCircumcised) {
 			txt += " - Overcircumcised\n";
 		}
@@ -1118,8 +1123,14 @@ class Fighter {
 				if (this.hasSynergy(SYNERGY_PP19)) {
 					txt += " - Eldritch Gang\n";
 				}
+				if (this.hasSynergy(SYNERGY_PP20)) {
+					txt += " - Master of Time\n";
+				}
 				if (this.hasSynergy(SYNERGY_PP21)) {
 					txt += " - Big Nose\n";
+				}
+				if (this.hasSynergy(SYNERGY_PP22)) {
+					txt += " - Extreme Karma\n";
 				}
 			}
 		}
@@ -2367,6 +2378,9 @@ class Fighter {
 					this.duel.addMessage("The Time Cube answers his calls !");
 					this.duel.addMessage(this.getName() + " stops time !");
 					this.duel.TIME_STOP = 2;
+					if (this.hasSynergy(SYNERGY_PP20)) { // Master of Time
+						this.duel.TIME_STOP += this.duel.TIME_STOP - 1;
+					}
 					this.duel.addMessage("*When the Sun shines upon Earth, 2 – major Time points are created on opposite sides of Earth – known as Midday and Midnight. Where the 2 major Time forces join, synergy creates 2 new minor Time points we recognize as Sunup and Sundown. The 4-equidistant Time points can be considered as Time Square imprinted upon the circle of Earth. In a single rotation of the Earth sphere, each Time corner point rotates through the other 3-corner Time points, thus creating 16 corners, 96 hours and 4-simultaneous 24-hour Days within a single rotation of Earth – equated to a Higher Order of Life Time Cube. ONE - DOES NOT EXIST, EXCEPT IN DEATH STATE.*");
 					this.duel.addMessage("***For as long as you dumbass, educated brilliant and boring bastards IGNORE Cubic Creation, your sons and daughters deserve to die and be maimed in foreign lands - while kissing innocent women and children.***");
 				}
@@ -2480,6 +2494,10 @@ class Fighter {
 
 					if (this.requiemPower == REQUIEM_PP7) { // All Traps on Earth
 						this.duel.TIME_STOP = 6;
+					}
+					
+					if (this.hasSynergy(SYNERGY_PP20)) { // Master of Time
+						this.duel.TIME_STOP += this.duel.TIME_STOP - 1;
 					}
 				}
 			}
@@ -3101,7 +3119,7 @@ class Fighter {
 				// Vorpal Gun
 				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + " !");
 				if (getRandomPercent() <= 20) {
-					this.duel.addMessage("Critical raid !");
+					this.duel.addMessage("**Critical raid !**");
 					this.militaryPower += this.militaryPower;
 				}
 				this.duel.launchRaid(this);
@@ -3266,9 +3284,13 @@ class Fighter {
 			critMin += 15;
 		}
 		critMin += this.lifeFibers*5;
-		if (getRandomPercent() < critMin && _punch) {
+		if ((getRandomPercent() < critMin || this.duel.getOppOf(this).forceCritical) && _punch) {
 			_amount += _amount;
+			this.duel.getOppOf(this).forceCritical = false;
 			this.duel.addMessage("**Critical Hit !**");
+			if (this.duel.getOppOf(this).hasSynergy(SYNERGY_PP22)) {
+				this.duel.getOppOf(this).forceCritical = true;
+			}
 		}
 
 		if (this.duel.REVERSE_DAMAGE > 0 || this.selfReverseDamage > 0) {
