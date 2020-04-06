@@ -2312,9 +2312,9 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Salt King answers his calls !");
 					this.duel.addMessage(this.duel.getOppOf(this).getName() + " is Salt King's best friend");
-					this.duel.addMessage(this.getName() + " takes " + Math.floor(this.duel.getOppOf(this).DEX/2) + " DEX from him.");
-					this.DEXValue += Math.floor(this.duel.getOppOf(this).DEX/2);
-					this.duel.getOppOf(this).DEXValue -= Math.floor(this.duel.getOppOf(this).DEX/2);
+					this.duel.addMessage(this.getName() + " takes " + Math.floor(this.duel.getOppOf(this).DEX/4) + " DEX from him.");
+					this.DEXValue += Math.floor(this.duel.getOppOf(this).DEX/4);
+					this.duel.getOppOf(this).DEXValue -= Math.floor(this.duel.getOppOf(this).DEX/4);
 				}
 				if (this.godList.indexOf(GOD_PP19.name) > -1) { // Chad Brenn
 					this.duel.addMessage("-----------------");
