@@ -6668,14 +6668,16 @@ class Duel {
 		}
 
 		
-		if (this.AUDIO_CHANNEL == null) return;		var isSpeaking = true;
+		if (this.AUDIO_CHANNEL == null) return;
+		
+		var isSpeaking = true;
 		var connection = CLIENT.voiceConnections.get(this.AUDIO_CHANNEL.guild.id);
 		if (connection != undefined) {
 			isSpeaking = connection.speaking;
 		}
 		if (_music == this.CURRENT_THEME && isSpeaking) return;
 		if (this.TIMESTAMP + 3000 > +new Date()) return;
-8
+		
 		this.CURRENT_THEME = _music;
 		this.AUDIO_CHANNEL.leave();
 		this.TIMESTAMP = +new Date();
