@@ -4878,8 +4878,8 @@ class Duel {
 			}
 		});
 
-		if ((this.FIGHTER1.turnSkip > 0 || this.FIGHTER1.grabbedPP > 0 || this.FIGHTER1.summonTankCountdown == 1 || this.FIGHTER1.isPossessed > 0 || this.FIGHTER1.STR <= 0 || this.FIGHTER1.attack = EMOTE_SKIP) &&
-		    (this.FIGHTER2.turnSkip > 0 || this.FIGHTER2.grabbedPP > 0 || this.FIGHTER2.summonTankCountdown == 1 || this.FIGHTER2.isPossessed > 0 || this.FIGHTER2.STR <= 0 || this.FIGHTER1.attack = EMOTE_SKIP)) {
+		if ((this.FIGHTER1.turnSkip > 0 || this.FIGHTER1.grabbedPP > 0 || this.FIGHTER1.summonTankCountdown == 1 || this.FIGHTER1.isPossessed > 0 || this.FIGHTER1.STR <= 0 || this.FIGHTER1.attack == EMOTE_SKIP) &&
+		    (this.FIGHTER2.turnSkip > 0 || this.FIGHTER2.grabbedPP > 0 || this.FIGHTER2.summonTankCountdown == 1 || this.FIGHTER2.isPossessed > 0 || this.FIGHTER2.STR <= 0 || this.FIGHTER2.attack == EMOTE_SKIP)) {
 			this.bothFightersAction(function(_fighter) {
 				if (_fighter.summonTankCountdown == 1) {
 					_fighter.playMove(EMOTE_PP10);
