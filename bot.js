@@ -572,7 +572,7 @@ class Fighter {
 				}
 			}
 			if (this.godList.indexOf(GOD_PP24.name) > -1) { // Time Cube Special Effect
-				this.redPillAddiction = 5;
+				this.redPillAddiction = 3;
 			}
 
 			// Natural values
@@ -5031,16 +5031,28 @@ class Duel {
 					this.FIGHTER1_SAVE.playMove(EMOTE_PP58);
 				}
 			}
-			if (this.FIGHTER1.STR > 0) {
-				this.FIGHTER1_SAVE.standPower = this.FIGHTER1.standPower;
-				this.FIGHTER1_SAVE.requiemPower = this.FIGHTER1.requiemPower;
-				this.FIGHTER1_SAVE.randomizedStand = this.FIGHTER1.randomizedStand;
-			}
-			if (this.FIGHTER2.STR > 0) {
-				this.FIGHTER2_SAVE.standPower = this.FIGHTER2.standPower;
-				this.FIGHTER2_SAVE.requiemPower = this.FIGHTER2.requiemPower;
-				this.FIGHTER2_SAVE.randomizedStand = this.FIGHTER2.randomizedStand;
-			}
+			this.bothFightersAction(function(_fighter) {
+				if (_fighter.STR > 0) {
+					var _fighterSave = _fighter.duel.FIGHTER1_SAVE;
+					if (_fighter.duel.FIGHTER2_SAVE.user.id == _fighter.user.id) _fighterSave = _fighter.duel.FIGHTER2_SAVE;
+						
+					_fighterSave.standPower = _fighter.standPower;
+					_fighterSave.requiemPower = _fighter.requiemPower;
+					_fighterSave.randomizedStand = _fighter.randomizedStand; // Perfect Machine
+					if (_fighter.standPower == STAND_PP1) { // Iron Maiden
+						_fighterSave.ironProtection = 4;
+					}
+					if (_fighter.standPower == STAND_PP8) { // Black Clouds & Silver Linings
+						_fighterSave.extraLife = 1;
+					}
+					if (_fighter.standPower == STAND_PP12) { // Space Metal
+						_fighterSave.quickeningCharges += 5;
+					}
+					if (_fighter.standPower == STAND_PP17) { // Titans of Creation
+						_fighterSave.selfReverseDamage = 4;
+					}
+				}
+			});
 
 			this.CURRENT_BATTLE_MODE = NORMAL_BATTLE_MODE;
 			this.FIGHTER1 = this.FIGHTER1_SAVE;
