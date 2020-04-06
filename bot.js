@@ -2368,8 +2368,10 @@ class Fighter {
 					this.duel.addMessage("The Ancient Fungus answers his calls !");
 					this.duel.DISABLE_ABANDON = true;
 					this.duel.addMessage(this.getName() + " will summon 50 moves !");
+					this.duel.addMessage("-----------------");
 					for (var i = 0; i < 50; i++) {
 						this.playMove(this.duel.getRandomEmote());
+						this.duel.addMessage("-----------------");
 					}
 				}
 				if (this.godList.indexOf(GOD_PP24.name) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
@@ -4467,11 +4469,13 @@ class Duel {
 		}
 	}
 	sendMessages(_max = 20) {
-		this.TIMESTAMP = + new Date();
-
 		if (this.NO_MESSAGE <= 0 || this.TIME_STOP > 0) {
 			for (var i in this.LIST_MESSAGES) {
-				this.BATTLE_CHANNEL.send(this.LIST_MESSAGES[i]);
+				this.BATTLE_CHANNEL.send(this.LIST_MESSAGES[i]).then(async function (_message2) {
+					getDuel(_message2.channel.id).TIMESTAMP = + new Date();
+				}).catch(function(e) {
+					console.log(e);
+				});
 			}
 		}
 		this.LIST_MESSAGES = [];
@@ -7053,12 +7057,13 @@ function changeTextRandomCap(_texte) {
 function changeTextRussian(_texte) {
 	var lettres = _texte.split(" ");
 
-	for (var i = 0; i < lettres.length; i++) {
-		if (getRandomPercent() <= 33) {
-			lettres[i] += "ovo";
+	_texte = _texte.split(" ");
+	for (var i in _texte) {
+		if (getRandomPercent() <= 10 && /^[a-zA-Z]+$/.test(_texte[i])) {
+			_texte[i] = _texte[i] + "ovo"
 		}
 	}
-	_texte = lettres.join(" ");
+	_texte = _texte.join(" ")
 
 	return _texte;
 }
