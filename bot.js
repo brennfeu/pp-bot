@@ -6918,6 +6918,7 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 	catch(e) {
 		user.send("I'm sorry I can't do that :(");
 		user.send("Looks like there is no " + _nomRole + " role there...");
+		console.log(e)
 	}
 }
 function getNumberOfGods(_guildUser, _includeNormalOnes = true) {
