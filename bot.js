@@ -6899,11 +6899,11 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 			}
 			
 			if (!user.roles.find(r => r.name == PP_EXPERT_ROLE) && 
-			    GOD_LIST.find(r => getPriestRoleName(r.name) == _nomRole).type == "eldritch") {
+			    GOD_LIST.find(r => getPriestRoleName(r) == _nomRole).type == "eldritch") {
 				return;
 			}
 			if (!user.roles.find(r => r.name == WEEB_PP_ROLE) && 
-			    GOD_LIST.find(r => getPriestRoleName(r.name) == _nomRole).type == "waifu") {
+			    GOD_LIST.find(r => getPriestRoleName(r) == _nomRole).type == "waifu") {
 				return;
 			}
 			
@@ -6916,9 +6916,7 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 		}
 	}
 	catch(e) {
-		user.send("I'm sorry I can't do that :(");
-		user.send("Looks like there is no " + _nomRole + " role there...");
-		console.log(e)
+		user.send("I'm sorry I can't do that :(\nLooks like there is no " + _nomRole + " role there...");
 	}
 }
 function getNumberOfGods(_guildUser, _includeNormalOnes = true) {
