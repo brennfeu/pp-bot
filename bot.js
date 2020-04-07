@@ -6897,6 +6897,16 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 			if (getNumberOfGods(user) >= 3 && !user.roles.find(r => r.name == PP_EXPERT_ROLE) ) {
 				return;
 			}
+			
+			if (!user.roles.find(r => r.name == PP_EXPERT_ROLE) && 
+			    GOD_LIST.find(r => getPriestRoleName(r.name) == _nomRole).type == "eldritch") {
+				return;
+			}
+			if (!user.roles.find(r => r.name == WEEB_PP_ROLE) && 
+			    GOD_LIST.find(r => getPriestRoleName(r.name) == _nomRole).type == "waifu") {
+				return;
+			}
+			
 			user.addRole(role);
 
 			if (getNumberOfGods(user, false) >= 2) {
