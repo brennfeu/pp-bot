@@ -96,6 +96,21 @@ const EMOTE_PP60 = "644880194959704085"; // PP Duel
 const EMOTE_PP61 = "644880195903553536"; // Flag
 const EMOTE_PP62 = "644881329317478411"; // SuperCheckpoint
 
+// INFERNAL MOVES
+const EMOTE_PP135 = "697402138069827605"; // Worm Scarf
+const EMOTE_PP136 = "697402137759711243"; // Hive Pack
+const EMOTE_PP137 = "697402137738739752"; // Suspicious Looking Tentacle
+const EMOTE_PP138 = "697402137726025748"; // 0x33s Aviators
+const EMOTE_PP139 = "697402137688277074"; // Royal Gel
+const EMOTE_PP140 = "697402137684213760"; // Brain of Confusion
+const EMOTE_PP141 = "697402137675694140"; // Shield of Cthulhu
+const EMOTE_PP142 = "697402137646465074"; // Demon Heart
+const EMOTE_PP143 = "697402137642270740"; // Spore Sac
+const EMOTE_PP144 = "697402137440944160"; // Bone Glove
+const EMOTE_PP145 = "697402137340149842"; // Shiny Stone
+const EMOTE_PP146 = "697402137302270035"; // Gravity Globe
+const EMOTE_PP147 = "697402137235292271"; // Shrimpy Truffle
+
 // STAND MOVES
 const EMOTE_PP63 = "662651475515670534"; // Xenomorph
 const EMOTE_PP64 = "662651475524321330"; // XenoHead
@@ -201,12 +216,11 @@ const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP
 		        EMOTE_PP114, EMOTE_PP115, EMOTE_PP116, EMOTE_PP117, EMOTE_PP118, EMOTE_PP119, EMOTE_PP120, EMOTE_PP121,
 		        EMOTE_PP122, EMOTE_PP123, EMOTE_PP124, EMOTE_PP125, EMOTE_PP126, EMOTE_PP127, EMOTE_PP128, EMOTE_PP129,
 		        EMOTE_PP130, EMOTE_PP131, EMOTE_PP132, EMOTE_PP133, EMOTE_PP134];
-const MECH_EMOTE_LIST = [];
-const SUPER_EMOTE_LIST = [];
+const INFERNAL_EMOTE_LIST = [EMOTE_PP135, EMOTE_PP136, EMOTE_PP137, EMOTE_PP138, EMOTE_PP139, EMOTE_PP140, EMOTE_PP141, 
+			     EMOTE_PP142, EMOTE_PP143, EMOTE_PP144, EMOTE_PP145, EMOTE_PP146, EMOTE_PP147];
 const OTHER_EMOTE_LIST = [EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE, EMOTE_OBAMAHEDRON, EMOTE_OBAMASPHERE, EMOTE_OBOMBA];
 const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST)
-	.concat(RARE_EMOTE_LIST).concat(CIV_EMOTE_LIST).concat(MECH_EMOTE_LIST).concat(SUPER_EMOTE_LIST)
-	.concat(OTHER_EMOTE_LIST);
+	.concat(RARE_EMOTE_LIST).concat(CIV_EMOTE_LIST).concat(INFERNAL_EMOTE_LIST).concat(OTHER_EMOTE_LIST);
 
 const GOD_PP1 = {"name" : "Mongo", "emote": "644643782888783892", "type": "normal"};
 const GOD_PP2 = {"name" : "Hermit", "emote": "674635214005207040", "type": "normal"};
@@ -340,8 +354,6 @@ const BOSS_PP13 = "Pudding Blob"
 const NORMAL_BATTLE_MODE = 0;
 const STAND_BATTLE_MODE = 1;
 const CITY_BATTLE_MODE = 2;
-const MECH_BATTLE_MODE = 3;
-const SUPER_BATTLE_MODE = 4;
 
 // MUSICS
 const MUSIC_PP1 = "pp_puncher.mp3";
@@ -5752,7 +5764,11 @@ class Duel {
 				return this.triggerReaction(CLIENT.emojis.get(GOD_LIST[i].emote).name, fighter.user);
 			}
 		}
-		for (i = 0; i < SPECIAL_EMOTE_LIST.length; i++) { // Animated Moves
+		for (i = 0; i < INFERNAL_EMOTE_LIST.length; i++) { // Infernal Moves
+			if (this.LIST_AVAILABLE_ATTACKS.indexOf(INFERNAL_EMOTE_LIST[i]) > -1) {
+				return this.triggerReaction(CLIENT.emojis.get(INFERNAL_EMOTE_LIST[i]).name, fighter.user);
+			}
+		}for (i = 0; i < SPECIAL_EMOTE_LIST.length; i++) { // Animated Moves
 			if (this.LIST_AVAILABLE_ATTACKS.indexOf(SPECIAL_EMOTE_LIST[i]) > -1) {
 				return this.triggerReaction(CLIENT.emojis.get(SPECIAL_EMOTE_LIST[i]).name, fighter.user);
 			}
@@ -5961,9 +5977,13 @@ class Duel {
 			if (_fighter.attack == EMOTE_PP52 && _fighter.specialCharges <= 0 && duel.illegalGetCaught(95) && !duel.EVENT_PP_ENLIGHTENMENT) {
 				caught1 = true;
 			}
-
+			
 			// Triche des emotes animés
 			if (SPECIAL_EMOTE_LIST.indexOf(_fighter.attack) > -1 && duel.LIST_AVAILABLE_ATTACKS.indexOf(_fighter.attack) < 0 && !duel.EVENT_PP_ENLIGHTENMENT) {
+				caught1 = duel.illegalGetCaught(100);
+			}
+			// Triche des emotes infernal fireland
+			if (INFERNAL_EMOTE_LIST.indexOf(_fighter.attack) > -1 && duel.LIST_AVAILABLE_ATTACKS.indexOf(_fighter.attack) < 0 && !duel.EVENT_PP_ENLIGHTENMENT) {
 				caught1 = duel.illegalGetCaught(100);
 			}
 
@@ -6370,6 +6390,9 @@ class Duel {
 		if (this.PP_ARMAGEDDON || getRandomPercent() <= 3) {
 			goodList = goodList.concat(SPECIAL_EMOTE_LIST);
 		}
+		if (this.INFERNAL_FIRELAND || getRandomPercent() <= 3) {
+			goodList = goodList.concat(INFERNAL_EMOTE_LIST);
+		}
 		if (this.PP_NET == 3 || this.EASY_DUEL) {
 			goodList = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP4, EMOTE_PP5, EMOTE_PP8, EMOTE_PP12, EMOTE_PP13,
 				EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP21, EMOTE_PP22, EMOTE_PP30, EMOTE_PP31,
@@ -6377,12 +6400,6 @@ class Duel {
 		}
 		if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
 			goodList = STAND_EMOTE_LIST;
-		}
-		else if (this.CURRENT_BATTLE_MODE == MECH_BATTLE_MODE) {
-			goodList = MECH_EMOTE_LIST;
-		}
-		else if (this.CURRENT_BATTLE_MODE == SUPER_BATTLE_MODE) {
-			goodList = goodList.concat(STAND_EMOTE_LIST).concat(MECH_EMOTE_LIST).concat(SUPER_EMOTE_LIST);
 		}
 		if (getRandomPercent() <= 3 && !this.EASY_DUEL) {
 			goodList = goodList.concat(RARE_EMOTE_LIST);
@@ -6950,6 +6967,10 @@ async function sendCheatPanel(_channel) {
 		"Cheat Panel : Animated Moves" : [
 			EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58, EMOTE_PP59, EMOTE_PP60,
 			EMOTE_PP61, EMOTE_PP62
+		],
+		"Cheat Panel : Infernal Moves" : [
+			EMOTE_PP135, EMOTE_PP136, EMOTE_PP137, EMOTE_PP138, EMOTE_PP139, EMOTE_PP140, EMOTE_PP141, 
+			EMOTE_PP142, EMOTE_PP143, EMOTE_PP144, EMOTE_PP145, EMOTE_PP146, EMOTE_PP147
 		],
 		"Cheat Panel : Stånds Moves" : [
 			EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70,
