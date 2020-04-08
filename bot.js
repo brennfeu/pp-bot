@@ -6353,7 +6353,7 @@ class Duel {
 		if (this.FIGHTER1.regularCharges > 0 || this.FIGHTER2.regularCharges > 0) {
 			listeAttaques.push(EMOTE_PP51);
 		}
-		if (this.FIGHTER1.specialCharges > 0 || this.FIGHTER2.specialCharges > 0)) {
+		if (this.FIGHTER1.specialCharges > 0 || this.FIGHTER2.specialCharges > 0) {
 			listeAttaques.push(EMOTE_PP52);
 		}
 		
