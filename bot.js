@@ -3082,15 +3082,15 @@ class Fighter {
 				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + " !");
 			}
 			else if (attack == EMOTE_PP148) {
-				if (this.EVENT_BOSS) {
-					this.addMessage(this.CURRENT_BOSS + "'s suddenly runs away.");
+				if (this.duel.EVENT_BOSS) {
+					this.duel.addMessage(this.duel.CURRENT_BOSS + "'s suddenly runs away.");
 				}
-				this.CURRENT_BOSS = BOSS_PP14;
-				this.BOSS_HEALTH = (this.STR+this.duel.getOppOf(this).STR)*10000;
-				this.BOSS_DAMAGE = 0;
-				this.EVENT_BOSS = true;
-				this.addMessage("Mongo has appeared, and he is sex-starved !");
-				this.addMessage("-----------------");
+				this.duel.CURRENT_BOSS = BOSS_PP14;
+				this.duel.BOSS_HEALTH = (this.STR+this.duel.getOppOf(this).STR)*10000;
+				this.duel.BOSS_DAMAGE = 0;
+				this.duel.EVENT_BOSS = true;
+				this.duel.addMessage("Mongo has appeared, and he is sex-starved !");
+				this.duel.addMessage("-----------------");
 			}
 			else if (attack == EMOTE_ABILITY) {
 				// Requiems
@@ -5578,7 +5578,7 @@ class Duel {
 			if (this.getOppOf(winner).STR > winner.STR) {
 				winner = this.getOppOf(winner);
 			}
-			this.addMessage("They bite " + winner.getName() + "'s PP as he seems to have the toughest opponent.");
+			this.addMessage("They bite " + winner.getName() + "'s PP as he seems to have the toughest PP.");
 			winner.damage(Math.floor(winner.STR/10));
 		}
 		else if (randomVar == 41 && (this.MOVE_COUNT >= 30 || forcedEvent) && this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
