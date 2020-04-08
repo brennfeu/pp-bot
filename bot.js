@@ -4798,7 +4798,9 @@ class Duel {
 							mongo.user = {}
 							mongo.user.id = fighter.user.id
 							mongo.user.username = BOSS_PP14;
+							this.EVENT_BOSS = false;
 							mongo.playMove(randomFromList(this.LIST_AVAILABLE_ATTACKS));
+							this.EVENT_BOSS = true;
 							this.BOSS_HEALTH = mongo.STRValue;
 						}
 
