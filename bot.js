@@ -880,6 +880,10 @@ class Fighter {
 		}
 		if (this.requiemPower != null) {
 			txt += "\n - **Requiem Ability**";
+			if (this.requiemCooldown > 0) {
+				txt += " (Cooldown : " + this.requiemCooldown + " turns)";
+			}
+			txt += "\n"
 		}
 		if (this.hasBoomerang > 0) {
 			txt += " - With a Boomerang (for " + this.hasBoomerang + " turns)\n";
@@ -928,9 +932,6 @@ class Fighter {
 		}
 		if (this.borealSummon > 0) {
 			txt += " - Boreal Fog Countdown : " + this.borealSummon + " turns\n";
-		}
-		if (this.requiemCooldown > 0) {
-			txt += " - Requiem Cooldown : " + this.requiemCooldown + " turns\n";
 		}
 		if (this.tentacles > 0) {
 			txt += " - Tentacles : " + this.tentacles + "\n";
@@ -3144,6 +3145,9 @@ class Fighter {
 					if (this.hasSynergy(SYNERGY_PP20)) { // Master of Time
 						this.duel.TIME_STOP += this.duel.TIME_STOP - 1;
 					}
+				}
+				else {
+					this.duel.addMessage(this.getName() + " has no ability to use !");
 				}
 			}
 			else if (attack == EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE) {
@@ -6349,13 +6353,12 @@ class Duel {
 		if (this.FIGHTER1.regularCharges > 0 || this.FIGHTER2.regularCharges > 0) {
 			listeAttaques.push(EMOTE_PP51);
 		}
-		if (this.FIGHTER1.specialCharges > 0 || this.FIGHTER2.specialCharges > 0 ||
-		    (this.FIGHTER1.requiemPower != null && this.FIGHTER1.requiemCountdown <= 0) ||
-		    (this.FIGHTER2.requiemPower != null && this.FIGHTER2.requiemCountdown <= 0)) {
+		if (this.FIGHTER1.specialCharges > 0 || this.FIGHTER2.specialCharges > 0)) {
 			listeAttaques.push(EMOTE_PP52);
 		}
 		
-		if ((this.FIGHTER1.requiemPower != null || this.FIGHTER2.requiemPower != null || this.INFERNAL_FIRELAND) && getRandomPercent() <= 10) {
+		if (((this.FIGHTER1.requiemPower != null || this.FIGHTER2.requiemPower != null) && getRandomPercent() <= 34) ||
+		    (this.INFERNAL_FIRELAND && getRandomPercent() <= 10)) {
 			listeAttaques.push(EMOTE_ABILITY);
 		}
 		
