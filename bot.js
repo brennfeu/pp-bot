@@ -26,6 +26,8 @@ const EMOTE_OBAMAHEDRON = "693153845437530195";
 const EMOTE_OBAMASPHERE = "693158025325707274";
 const EMOTE_OBOMBA = "693158300698673193";
 
+const EMOTE_ABILITY = "608975114314186752"
+
 // COMMON MOVES
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
 const EMOTE_PP2 = "535240768441548810"; // PunchingPPReallyHard
@@ -218,7 +220,7 @@ const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP
 		        EMOTE_PP130, EMOTE_PP131, EMOTE_PP132, EMOTE_PP133, EMOTE_PP134];
 const INFERNAL_EMOTE_LIST = [EMOTE_PP135, EMOTE_PP136, EMOTE_PP137, EMOTE_PP138, EMOTE_PP139, EMOTE_PP140, EMOTE_PP141, 
 			     EMOTE_PP142, EMOTE_PP143, EMOTE_PP144, EMOTE_PP145, EMOTE_PP146, EMOTE_PP147];
-const OTHER_EMOTE_LIST = [EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE, EMOTE_OBAMAHEDRON, EMOTE_OBAMASPHERE, EMOTE_OBOMBA];
+const OTHER_EMOTE_LIST = [EMOTE_ABILITY, EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE, EMOTE_OBAMAHEDRON, EMOTE_OBAMASPHERE, EMOTE_OBOMBA];
 const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST)
 	.concat(RARE_EMOTE_LIST).concat(CIV_EMOTE_LIST).concat(INFERNAL_EMOTE_LIST).concat(OTHER_EMOTE_LIST);
 
@@ -821,10 +823,6 @@ class Fighter {
 						txt += "\n - " + this.godList[i] + " Priest";
 					}
 				}
-
-				if (this.requiemPower != null) {
-					txt += "\n - **Requiem**";
-				}
 			}
 			if (this.regularCharges > 0) {
 				txt += "\nRegular Charges : " + this.regularCharges;
@@ -879,6 +877,9 @@ class Fighter {
 		}
 		if (this.livingGod) {
 			txt += " - **Living God**\n";
+		}
+		if (this.requiemPower != null) {
+			txt += "\n - **Requiem Ability**";
 		}
 		if (this.hasBoomerang > 0) {
 			txt += " - With a Boomerang (for " + this.hasBoomerang + " turns)\n";
@@ -2449,71 +2450,6 @@ class Fighter {
 						this.duel.addMessage(this.getName() + " already has a Kamui !");
 					}
 				}
-				if (this.requiemPower != null && this.requiemCooldown <= 0) {
-					this.MOVE_COUNT += 999
-					this.duel.addMessage("-----------------");
-					this.duel.addMessage(this.requiemPower + " Requiem Ability is triggered !");
-					this.requiemCooldown = 6;
-					this.duel.addMessage("**Time stops !**\n" + IMAGE_PP3);
-					this.duel.TIME_STOP = 2;
-
-					if (this.requiemPower == REQUIEM_PP1 || this.requiemPower == REQUIEM_PP7) { // Etrange
-						this.duel.addMessage(this.duel.getOppOf(this).getName() + "'s past injuries are inflicted to him again !");
-						this.duel.getOppOf(this).damage(this.duel.getOppOf(this).damageTaken, false);
-					}
-					if (this.requiemPower == REQUIEM_PP2) { // Iamthemorning
-						this.duel.TIME_STOP = 4;
-						this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets possessed !");
-						this.duel.getOppOf(this).isPossessed = 1;
-					}
-					if (this.requiemPower == REQUIEM_PP3 || this.requiemPower == REQUIEM_PP7) { // Majestic
-						this.duel.addMessage(this.getName() + " makes a temporal duplication of himself !");
-						this.extraLife += 1;
-
-						var duel = this.duel;
-						this.duel = null;
-						this.extraLifeDuplication = cloneObject(this);
-						this.extraLifeDuplication.duel = duel;
-						this.duel = duel;
-					}
-					if (this.requiemPower == REQUIEM_PP4 || this.requiemPower == REQUIEM_PP7) { // DayDream XI
-						this.duel.TIME_STOP = 4;
-						this.duel.addMessage(this.getName() + " will compress time when it'll go back to normal !");
-						this.duel.TIME_COMPRESSION = 4;
-					}
-					if (this.requiemPower == REQUIEM_PP5 || this.requiemPower == REQUIEM_PP7) { // Flying Colors
-						this.duel.addMessage(this.getName() + "'s past injuries are reverted back in time !");
-						this.heal(this.damageTaken);
-						this.resetBattleVariables();
-					}
-					if (this.requiemPower == REQUIEM_PP6 || this.requiemPower == REQUIEM_PP7) { // Witherfall
-						this.duel.addMessage(this.getName() + " damages time itself !");
-						if (this.duel.getOppOf(this).requiemPower != null && this.duel.getOppOf(this).requiemPower != REQUIEM_PP6) {
-							this.duel.getOppOf(this).requiemPower = null;
-							this.duel.addMessage(this.duel.getOppOf(this).getName() + "'s requiem ability is destroyed !");
-						}
-						this.duel.TIME_BREAK += 10;
-					}
-					if (this.requiemPower == REQUIEM_PP8 || this.requiemPower == REQUIEM_PP7) { // Hawkwind
-						this.duel.addMessage(this.getName() + " defines the fate of " + this.duel.getOppOf(this).getName() + " !");
-						this.duel.getOppOf(this).impendingDoom = 11;
-					}
-
-					if (this.requiemPower == REQUIEM_PP9) { // Porcupine Tree
-						this.duel.TIME_STOP = 11;
-						this.duel.addMessage(this.getName() + " deletes the arbitrator's speaking time !");
-						this.sendMessages();
-						this.duel.NO_MESSAGE = 4;
-					}
-
-					if (this.requiemPower == REQUIEM_PP7) { // All Traps on Earth
-						this.duel.TIME_STOP = 6;
-					}
-					
-					if (this.hasSynergy(SYNERGY_PP20)) { // Master of Time
-						this.duel.TIME_STOP += this.duel.TIME_STOP - 1;
-					}
-				}
 			}
 			else if (attack == EMOTE_PP53) {
 				// Singular Explosion
@@ -3141,6 +3077,74 @@ class Fighter {
 			else if (attack == EMOTE_PP134) {
 				// Hyper Light Blaster
 				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + " !");
+			}
+			else if (attack == EMOTE_ABILITY) {
+				// Requiems
+				if (this.requiemPower != null && this.requiemCooldown <= 0) {
+					this.MOVE_COUNT += 999
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage(this.requiemPower + " Requiem Ability is triggered !");
+					this.requiemCooldown = 6;
+					this.duel.addMessage("**Time stops !**\n" + IMAGE_PP3);
+					this.duel.TIME_STOP = 2;
+
+					if (this.requiemPower == REQUIEM_PP1 || this.requiemPower == REQUIEM_PP7) { // Etrange
+						this.duel.addMessage(this.duel.getOppOf(this).getName() + "'s past injuries are inflicted to him again !");
+						this.duel.getOppOf(this).damage(this.duel.getOppOf(this).damageTaken, false);
+					}
+					if (this.requiemPower == REQUIEM_PP2) { // Iamthemorning
+						this.duel.TIME_STOP = 4;
+						this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets possessed !");
+						this.duel.getOppOf(this).isPossessed = 1;
+					}
+					if (this.requiemPower == REQUIEM_PP3 || this.requiemPower == REQUIEM_PP7) { // Majestic
+						this.duel.addMessage(this.getName() + " makes a temporal duplication of himself !");
+						this.extraLife += 1;
+
+						var duel = this.duel;
+						this.duel = null;
+						this.extraLifeDuplication = cloneObject(this);
+						this.extraLifeDuplication.duel = duel;
+						this.duel = duel;
+					}
+					if (this.requiemPower == REQUIEM_PP4 || this.requiemPower == REQUIEM_PP7) { // DayDream XI
+						this.duel.TIME_STOP = 4;
+						this.duel.addMessage(this.getName() + " will compress time when it'll go back to normal !");
+						this.duel.TIME_COMPRESSION = 4;
+					}
+					if (this.requiemPower == REQUIEM_PP5 || this.requiemPower == REQUIEM_PP7) { // Flying Colors
+						this.duel.addMessage(this.getName() + "'s past injuries are reverted back in time !");
+						this.heal(this.damageTaken);
+						this.resetBattleVariables();
+					}
+					if (this.requiemPower == REQUIEM_PP6 || this.requiemPower == REQUIEM_PP7) { // Witherfall
+						this.duel.addMessage(this.getName() + " damages time itself !");
+						if (this.duel.getOppOf(this).requiemPower != null && this.duel.getOppOf(this).requiemPower != REQUIEM_PP6) {
+							this.duel.getOppOf(this).requiemPower = null;
+							this.duel.addMessage(this.duel.getOppOf(this).getName() + "'s requiem ability is destroyed !");
+						}
+						this.duel.TIME_BREAK += 10;
+					}
+					if (this.requiemPower == REQUIEM_PP8 || this.requiemPower == REQUIEM_PP7) { // Hawkwind
+						this.duel.addMessage(this.getName() + " defines the fate of " + this.duel.getOppOf(this).getName() + " !");
+						this.duel.getOppOf(this).impendingDoom = 11;
+					}
+
+					if (this.requiemPower == REQUIEM_PP9) { // Porcupine Tree
+						this.duel.TIME_STOP = 11;
+						this.duel.addMessage(this.getName() + " deletes the arbitrator's speaking time !");
+						this.sendMessages();
+						this.duel.NO_MESSAGE = 4;
+					}
+
+					if (this.requiemPower == REQUIEM_PP7) { // All Traps on Earth
+						this.duel.TIME_STOP = 6;
+					}
+					
+					if (this.hasSynergy(SYNERGY_PP20)) { // Master of Time
+						this.duel.TIME_STOP += this.duel.TIME_STOP - 1;
+					}
+				}
 			}
 			else if (attack == EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE) {
 				// Judgement Event
@@ -4379,7 +4383,7 @@ class Duel {
 			this.addMessage("Your respective **stånds** will replace you in the battle, and the winner of the battle will keep his stånd's powers and get stat buffs. Both fighter are then able to continue the fight.");
 			this.addMessage("-----------------");
 			this.addMessage("If a stånd uses the **Satan Hand** move while having **10 Quickening Charges**, it will get better stats and a random **Requiem**.");
-			this.addMessage("A Requiem is an ability performed using the **god special move**. They are also given to a fighter if he wins the Stånd Battle.");
+			this.addMessage("A Requiem is an ability performed using the **diamond_sword3 move** that can appear randomly. They are also given to a fighter if he wins the Stånd Battle.");
 			this.addMessage("-----------------");
 			this.addMessage("Here are some moves specific to stånd battles :");
 			this.sendMessages();
@@ -6166,7 +6170,7 @@ class Duel {
 				winner.damage(50);
 			}
 			// Requiem
-			if (this.getOppOf(winner).attack == EMOTE_PP52 && this.getOppOf(winner).requiemPower != null) {
+			if (this.getOppOf(winner).attack == EMOTE_ABILITY && this.getOppOf(winner).requiemPower != null) {
 				this.getOppOf(winner).playMove();
 			}
 			// Dual Loop
@@ -6350,7 +6354,11 @@ class Duel {
 		    (this.FIGHTER2.requiemPower != null && this.FIGHTER2.requiemCountdown <= 0)) {
 			listeAttaques.push(EMOTE_PP52);
 		}
-
+		
+		if ((this.FIGHTER1.requiemPower != null || this.FIGHTER2.requiemPower != null || this.INFERNAL_FIRELAND) && getRandomPercent() <= 10) {
+			listeAttaques.push(EMOTE_ABILITY);
+		}
+		
 		if (this.OBAMIUM && !this.EVENT_MEGA_POOL) {
 			listeAttaques.push(EMOTE_OBAMAHEDRON);
 			listeAttaques.push(EMOTE_OBAMASPHERE);
