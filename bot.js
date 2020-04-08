@@ -135,6 +135,7 @@ const EMOTE_PP78 = "669581624026988578"; // SatanSkull
 const EMOTE_PP79 = "667336163396288522"; // Eye of Truth
 const EMOTE_PP80 = "644617031739768842"; // Fherla
 const EMOTE_PP81 = "650398049126055937"; // Melodia
+const EMOTE_PP148 = "646671968728514561"; // sex
 
 // CIV SHRINE MOVES
 const EMOTE_PP82 = "680064464883548279"; // Familiar Shrine
@@ -210,7 +211,7 @@ const SPECIAL_EMOTE_LIST = [EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOT
 			EMOTE_PP61, EMOTE_PP62];
 const STAND_EMOTE_LIST = [EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70,
 			EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP77, EMOTE_PP78];
-const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81];
+const RARE_EMOTE_LIST = [EMOTE_PP79, EMOTE_PP80, EMOTE_PP81, EMOTE_PP148];
 const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP86, EMOTE_PP87, EMOTE_PP88, EMOTE_PP89,
 			EMOTE_PP90, EMOTE_PP91, EMOTE_PP92, EMOTE_PP93, EMOTE_PP94, EMOTE_PP95, EMOTE_PP96, EMOTE_PP97,
 			EMOTE_PP98, EMOTE_PP99, EMOTE_PP100, EMOTE_PP101, EMOTE_PP102, EMOTE_PP103, EMOTE_PP104, EMOTE_PP105,
@@ -350,7 +351,8 @@ const BOSS_PP9 = "Satan True Form";
 const BOSS_PP10 = "Espinoza Raid Boss";
 const BOSS_PP11 = "Weeb";
 const BOSS_PP12 = "Obamium Espinoza";
-const BOSS_PP13 = "Pudding Blob"
+const BOSS_PP13 = "Pudding Blob";
+const BOSS_PP14 = "Sex-Starved Mongo";
 
 // BATTLE MODES
 const NORMAL_BATTLE_MODE = 0;
@@ -3079,6 +3081,17 @@ class Fighter {
 				// Hyper Light Blaster
 				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + " !");
 			}
+			else if (attack == EMOTE_PP148) {
+				if (this.EVENT_BOSS) {
+					this.addMessage(this.CURRENT_BOSS + "'s suddenly runs away.");
+				}
+				this.CURRENT_BOSS = BOSS_PP14;
+				this.BOSS_HEALTH = (this.STR+this.duel.getOppOf(this).STR)*10000;
+				this.BOSS_DAMAGE = 0;
+				this.EVENT_BOSS = true;
+				this.addMessage("Mongo has appeared, and he is sex-starved !");
+				this.addMessage("-----------------");
+			}
 			else if (attack == EMOTE_ABILITY) {
 				// Requiems
 				if (this.requiemPower != null && this.requiemCooldown <= 0) {
@@ -3804,6 +3817,9 @@ class Fighter {
 		if (_param == "half") {
 			nb = Math.floor(nb/2);
 		}
+		if (this.duel.DOUBLE_POINTS) {
+			nb += nb;
+		}
 		addWinCounter(this, nb);
 	}
 
@@ -4166,6 +4182,7 @@ class Duel {
 		this.ALTERNATE_MOVES = false;
 		this.OBAMIUM_DONE = false;
 		this.TRIGGERED_CHAOS = false;
+		this.DOUBLE_POINTS = false;
 
 		this.PP_ARMAGEDDON = false;
 		this.INFERNAL_FIRELAND = false;
@@ -4732,6 +4749,13 @@ class Duel {
 							this.addMessage("Pudding is bored of this, he will stop sending you blobs...");
 						}
 					}
+					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP14) {
+						this.addMessage(this.CURRENT_BOSS + " is defeated !");
+						this.EVENT_BOSS = false;
+						this.DOUBLE_POINTS = true;
+
+						espinozaBoss = getRandomPercent() <= 20;
+					}
 					if (espinozaBoss) {
 						this.addMessage(this.CURRENT_BOSS + " was only a mimic !");
 						this.EVENT_BOSS = true;
@@ -4752,18 +4776,30 @@ class Duel {
 					}
 					if (this.EVENT_BOSS) {
 						var fighter = this.getRandomFighter();
-						this.addMessage(fighter.getName() + " gets attacked by " + this.CURRENT_BOSS + " !");
-						if (this.EVENT_BLOOD_MOON && this.CURRENT_BOSS == BOSS_PP3) { // Blood Moon / Moon Lord
-							var amount = this.BOSS_DAMAGE*3;
+						if (this.CURRENT_BOSS != BOSS_PP14) {
+							this.addMessage(fighter.getName() + " gets attacked by " + this.CURRENT_BOSS + " !");
+							if (this.EVENT_BLOOD_MOON && this.CURRENT_BOSS == BOSS_PP3) { // Blood Moon / Moon Lord
+								var amount = this.BOSS_DAMAGE*3;
+							}
+							else {
+								var amount = this.BOSS_DAMAGE;
+							}
+							fighter.damage(amount, false);
+
+							if (this.CURRENT_BOSS == BOSS_PP8 || this.CURRENT_BOSS == BOSS_PP9) {
+								this.addMessage("The satanic energy from the attack makes him possess " + this.getOppOf(fighter).getName() + " !");
+								this.getOppOf(fighter).isPossessed = 2;
+							}
 						}
 						else {
-							var amount = this.BOSS_DAMAGE;
-						}
-						fighter.damage(amount, false);
-
-						if (this.CURRENT_BOSS == BOSS_PP8 || this.CURRENT_BOSS == BOSS_PP9) {
-							this.addMessage("The satanic energy from the attack makes him possess " + this.getOppOf(fighter).getName() + " !");
-							this.getOppOf(fighter).isPossessed = 2;
+							var mongo = new Fighter(fighter.user.id, this.BATTLE_CHANNEL.id);
+							mongo.STRValue = this.BOSS_HEALTH;
+							mongo.DEXValue = fighter.STRValue;
+							mongo.user = {}
+							mongo.user.id = fighter.user.id
+							mongo.user.username = BOSS_PP14;
+							mongo.playMove(randomFromList(LIST_AVAILABLE_ATTACKS));
+							this.BOSS_HEALTH = mongo.STRValue;
 						}
 
 						this.addMessage("-----------------");
@@ -6988,7 +7024,7 @@ async function sendCheatPanel(_channel) {
 			EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP77, EMOTE_PP78
 		],
 		"Cheat Panel : Rare Moves" : [
-			EMOTE_PP79, EMOTE_PP80, EMOTE_PP81
+			EMOTE_PP79, EMOTE_PP80, EMOTE_PP81, EMOTE_PP148
 		],
 		"Cheat Panel : Civilisation Moves I" : [
 			EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP86, EMOTE_PP87, EMOTE_PP88, EMOTE_PP89,
