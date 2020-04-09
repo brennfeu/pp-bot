@@ -3811,7 +3811,7 @@ class Fighter {
 	win(_param) {
 		var nb = 1;
 		if (this.duel.TRIGGERED_CHAOS) {
-			nb += Math.floor(this.duel.MOVE_COUNT/50)
+			nb += Math.floor(this.duel.MOVE_COUNT/100)
 		}
 		else {
 			nb += Math.floor(this.duel.MOVE_COUNT/10)
