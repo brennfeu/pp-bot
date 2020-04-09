@@ -6953,7 +6953,7 @@ function checkUpdateEncyclopedia() {
 						   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "/")
 						   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "("))
 						   && (emote == "" || 
-						       CLIENT.emojis.get(EMOTE_LIST[k]).name.length > CLIENT.emojis.get(emote).name.length)) {
+						       CLIENT.emojis.get(EMOTE_LIST[k]).name.length > CLIENT.emojis.get(emote).name.length))) {
 							emote = EMOTE_LIST[k];
 						}
 					}
