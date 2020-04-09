@@ -6941,7 +6941,7 @@ function checkUpdateEncyclopedia() {
 			else if (shouldRead) {
 				if (message.length + fullBible[j].length > 1900) {
 					encyChannels[i].send(message);
-					message = "";
+					message = fullBible[j];
 				}
 				else {
 					var cutBiblePart = fullBible[j].split(" ").join("").split("*").join("");
@@ -6952,7 +6952,7 @@ function checkUpdateEncyclopedia() {
 							message += `${emote} `;
 						}
 					}
-					message += fullBible[j] + "\n"
+					message += fullBible[j] + "\n";
 				}
 			}
 		}
