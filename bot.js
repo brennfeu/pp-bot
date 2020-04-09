@@ -6913,7 +6913,7 @@ function checkUpdateEncyclopedia() {
 	httpReq.send(null);
 	var fullBible = httpReq.responseText;
 
-	fullBible = fullBible.split("*").join("\*").split("_").join("*").split(/\r?\n/);
+	fullBible = fullBible.split("*").join("\\*").split("_").join("*").split(/\r?\n/);
 	var encyChannels = CLIENT.channels.find(r => r.id == ENCY_CATEGORY_ID).children.array();
 
 	for (var i in encyChannels) {
@@ -6965,7 +6965,7 @@ function checkUpdateEncyclopedia() {
 						   || cutBiblePart.includes(GOD_LIST[k].name + "("))
 						   && (emote == "" || 
 						      GOD_LIST[k].name.length > GOD_LIST.find(r => r.emote == emote).name.length)) {
-							emote = EMOTE_LIST[k].emote;
+							emote = GOD_LIST[k].emote;
 						}
 					}
 				}
