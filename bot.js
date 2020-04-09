@@ -6928,6 +6928,7 @@ function checkUpdateEncyclopedia() {
 		var shouldRead = false;
 		var message = "";
 		for (var j in fullBible) {
+			var emote = "";
 			if (!shouldRead && fullBible[j].includes("## ***" + encyChannels[i].topic + " :***")) { // Start
 				shouldRead = true;
 			}
@@ -6946,12 +6947,18 @@ function checkUpdateEncyclopedia() {
 				else {
 					var cutBiblePart = fullBible[j].split(" ").join("").split("*").join("");
 					for (var k in EMOTE_LIST) {
-						if (cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + ":")
+						if ((cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + ":")
 						   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "/")
-						   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "(")) {
-							var emote = CLIENT.emojis.get(EMOTE_LIST[k]);
-							message += `${emote} `;
+						   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "("))
+						   && (emote == "" || 
+						       CLIENT.emojis.get(EMOTE_LIST[k]).name.length > CLIENT.emojis.get(emote).name.length)) {
+							emote = EMOTE_LIST[k]
 						}
+					}
+					
+					if (emote != "") {
+						var emote2 = CLIENT.emojis.get(emote);
+						message += `${emote2} `;
 					}
 					message += fullBible[j] + "\n";
 				}
