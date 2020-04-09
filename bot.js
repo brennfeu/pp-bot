@@ -6932,7 +6932,7 @@ function checkUpdateEncyclopedia() {
 			if (!shouldRead && fullBible[j].includes("## ***" + encyChannels[i].topic + " :***")) { // Start
 				shouldRead = true;
 			}
-			else if (fullBible[j].includes("## ") && !fullBible[j].includes("### ") && shouldRead) { // End (I check the start of the next one)
+			else if ((fullBible[j].includes("## ") || j == fullBible.length-1) && !fullBible[j].includes("### ") && shouldRead) { // End (I check the start of the next one)
 				shouldRead = false;
 				encyChannels[i].send(message);
 				message = "";
