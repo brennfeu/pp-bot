@@ -6947,7 +6947,8 @@ function checkUpdateEncyclopedia() {
 					var cutBiblePart = fullBible[j].split(" ").join("").split("*").join("");
 					for (var k in EMOTE_LIST) {
 						if (cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + ":")
-						   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "/")) {
+						   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "/")
+						   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "(")) {
 							var emote = CLIENT.emojis.get(EMOTE_LIST[k]);
 							message += `${emote} `;
 						}
