@@ -399,7 +399,7 @@ var DB_CONNECTION = new MYSQL({
 });
 
 // ENCYCLOPEDIA
-const ENCY_CATEGORY_ID = 697773079996399637;
+const ENCY_CATEGORY_ID = "697773079996399637";
 const RAW_BIBLE_LINK = "https://raw.githubusercontent.com/wiki/brennfeu/pp-bot/PP-Bible.md";
 var LAST_ENCY_UPDATE = 0; // timestamp
 
@@ -6910,9 +6910,40 @@ function checkUpdateEncyclopedia() {
 	httpReq.open("GET", RAW_BIBLE_LINK, false);
 	httpReq.send(null);
 	var fullBible = httpReq.responseText;
-	fullBible = fullBible.split("_").join("*")
 	
-	console.log(fullBible);
+	fullBible = fullBible.split("_").join("*").split(/\r?\n/);
+	var encyChannels = CLIENT.channels.find(r => r.id == ENCY_CATEGORY_ID).children;
+	
+	for (var i in encyChannels) {
+		for (var j in encyChannels[i].messages) {
+			// removes all old messages to update it
+			encyChannels[i].messages[j].delete();
+		}
+		
+		var shouldRead = false;
+		var message = "";
+		for (var j in fullBible) {
+			if (!shouldRead && fullBible[j].includes("## ***" + encyChannels[i].topic + " :***")) { // Start
+				shouldRead = true;
+			}
+			else if (fullBible[j].includes("## ")) { // End (I check the start of the next one)
+				shouldRead = false;
+				encyChannels[i].send(message);
+				message = "";
+				var date = new Date();
+				encyChannels[i].send("*Last updated : " + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() + "*");
+			}
+			else {
+				if (message.length + fullBible[j].length > 1900) {
+					encyChannels[i].send(message);
+					message = "";
+				}
+				else {
+					message += fullBible[j] + "\n"
+				}
+			}
+		}
+	}
 }
 
 function getPriestRoleName(_god) {
