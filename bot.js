@@ -4188,6 +4188,8 @@ class Duel {
 		this.OBAMIUM_DONE = false;
 		this.TRIGGERED_CHAOS = false;
 		this.DOUBLE_POINTS = false;
+		this.MONGO_HOTNESS = 0;
+		this.PUDDING_NUISANCE = -1;
 
 		this.PP_ARMAGEDDON = false;
 		this.INFERNAL_FIRELAND = false;
@@ -4202,7 +4204,6 @@ class Duel {
 		this.EVENT_BOMB = false;
 		this.ESPINOZA_CHOICE = "";
 		this.OBAMIUM = false;
-		this.PUDDING_NUISANCE = -1;
 
 		this.FORCE_PERHAPS = false;
 		this.FORCE_SATAN = false;
@@ -4794,6 +4795,11 @@ class Duel {
 							if (this.CURRENT_BOSS == BOSS_PP8 || this.CURRENT_BOSS == BOSS_PP9) {
 								this.addMessage("The satanic energy from the attack makes him possess " + this.getOppOf(fighter).getName() + " !");
 								this.getOppOf(fighter).isPossessed = 2;
+							}:
+							this.MONGO_HOTNESS += 1;
+							if (this.MONGO_HOTNESS >= 15) {
+								this.MONGO_HOTNESS = 0;
+								this.FORCE_EVENT_ID = 90; // Brenn Ejaculates
 							}
 						}
 						else {
