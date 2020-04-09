@@ -6947,7 +6947,7 @@ function checkUpdateEncyclopedia() {
 					var cutBiblePart = fullBible[j].split(" ").join("").split("*").join("");
 					for (var i in EMOTE_LIST) {
 						if (cutBiblePart.include(CLIENT.emojis.get(EMOTE_LIST[i]).name + ":")
-						   || cutBiblePart.include(CLIENT.emojis.get(EMOTE_LIST[i]).name + "/") {
+						   || cutBiblePart.include(CLIENT.emojis.get(EMOTE_LIST[i]).name + "/")) {
 							var emote = CLIENT.emojis.get(EMOTE_LIST[i]);
 							message += `${emote}
 						}
