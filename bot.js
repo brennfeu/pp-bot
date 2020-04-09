@@ -6455,6 +6455,9 @@ class Duel {
 		if (this.PP_ARMAGEDDON || getRandomPercent() <= 3) {
 			goodList = goodList.concat(SPECIAL_EMOTE_LIST);
 		}
+		if (this.INFERNAL_FIRELAND || getRandomPercent() <= 2) {
+			goodList = goodList.concat(INFERNAL_EMOTE_LIST);
+		}
 		if (this.PP_NET == 3 || this.EASY_DUEL) {
 			goodList = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP4, EMOTE_PP5, EMOTE_PP8, EMOTE_PP12, EMOTE_PP13,
 				EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP21, EMOTE_PP22, EMOTE_PP30, EMOTE_PP31,
