@@ -3147,7 +3147,7 @@ class Fighter {
 					if (this.requiemPower == REQUIEM_PP9) { // Porcupine Tree
 						this.duel.TIME_STOP = 11;
 						this.duel.addMessage(this.getName() + " deletes the arbitrator's speaking time !");
-						this.sendMessages();
+						this.duel.sendMessages();
 						this.duel.NO_MESSAGE = 4;
 					}
 
