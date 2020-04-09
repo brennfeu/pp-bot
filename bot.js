@@ -6917,10 +6917,13 @@ function checkUpdateEncyclopedia() {
 	var encyChannels = CLIENT.channels.find(r => r.id == ENCY_CATEGORY_ID).children.array();
 
 	for (var i in encyChannels) {
-		for (var j in encyChannels[i].messages) {
-			// removes all old messages to update it
-			encyChannels[i].messages[j].delete();
-		}
+		encyChannels[i].fetchMessages({ limit: 99 })
+		.then(function(messages) {
+			var liste = messages.array();
+			for (var i = 0; i < liste.length; i++) {
+				liste[i].delete();
+			}
+		}).catch(console.error);
 
 		var shouldRead = false;
 		var message = "";
@@ -6928,7 +6931,7 @@ function checkUpdateEncyclopedia() {
 			if (!shouldRead && fullBible[j].includes("## ***" + encyChannels[i].topic + " :***")) { // Start
 				shouldRead = true;
 			}
-			else if (fullBible[j].includes("## ")) { // End (I check the start of the next one)
+			else if (fullBible[j].includes("## ") && shouldRead) { // End (I check the start of the next one)
 				shouldRead = false;
 				encyChannels[i].send(message);
 				message = "";
