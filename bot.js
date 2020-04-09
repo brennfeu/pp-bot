@@ -5673,7 +5673,7 @@ class Duel {
 			this.sendMessages();
 			this.bothFightersAction(function(_fighter) {
 				var godListMemory = this.godList.slice();
-				this.godList = []:
+				this.godList = [];
 				this.godList.push(shuffleArray(GOD_LIST)[0].name);
 
 				this.duel.addMessage("-----------------");
