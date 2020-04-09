@@ -6945,13 +6945,28 @@ function checkUpdateEncyclopedia() {
 					message = "";
 				}
 				var cutBiblePart = fullBible[j].split(" ").join("").split("*").join("");
-				for (var k in EMOTE_LIST) {
-					if ((cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + ":")
-					   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "/")
-					   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "("))
-					   && (emote == "" || 
-					       CLIENT.emojis.get(EMOTE_LIST[k]).name.length > CLIENT.emojis.get(emote).name.length)) {
-						emote = EMOTE_LIST[k]
+				if (encyChannels[i].topic == "Moves"
+				   || encyChannels[i].topic == "Stånds"
+				   || encyChannels[i].topic == "Civilisation Mode") {
+					for (var k in EMOTE_LIST) {
+						if ((cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + ":")
+						   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "/")
+						   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "("))
+						   && (emote == "" || 
+						       CLIENT.emojis.get(EMOTE_LIST[k]).name.length > CLIENT.emojis.get(emote).name.length)) {
+							emote = EMOTE_LIST[k];
+						}
+					}
+				}
+				else if (encyChannels[i].topic == "Gods") {
+					for (var k in GOD_LIST) {
+						if ((cutBiblePart.includes(GOD_LIST[k].name + ":")
+						   || cutBiblePart.includes(GOD_LIST[k].name + "/")
+						   || cutBiblePart.includes(GOD_LIST[k].name + "("))
+						   && (emote == "" || 
+						      GOD_LIST[k].name.length > GOD_LIST.find(r => r.emote == emote).name.length)) {
+							emote = EMOTE_LIST[k].emote;
+						}
 					}
 				}
 
