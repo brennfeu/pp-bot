@@ -219,7 +219,7 @@ const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP
 		        EMOTE_PP114, EMOTE_PP115, EMOTE_PP116, EMOTE_PP117, EMOTE_PP118, EMOTE_PP119, EMOTE_PP120, EMOTE_PP121,
 		        EMOTE_PP122, EMOTE_PP123, EMOTE_PP124, EMOTE_PP125, EMOTE_PP126, EMOTE_PP127, EMOTE_PP128, EMOTE_PP129,
 		        EMOTE_PP130, EMOTE_PP131, EMOTE_PP132, EMOTE_PP133, EMOTE_PP134];
-const INFERNAL_EMOTE_LIST = [EMOTE_PP135, EMOTE_PP136, EMOTE_PP137, EMOTE_PP138, EMOTE_PP139, EMOTE_PP140, EMOTE_PP141, 
+const INFERNAL_EMOTE_LIST = [EMOTE_PP135, EMOTE_PP136, EMOTE_PP137, EMOTE_PP138, EMOTE_PP139, EMOTE_PP140, EMOTE_PP141,
 			     EMOTE_PP142, EMOTE_PP143, EMOTE_PP144, EMOTE_PP145, EMOTE_PP146, EMOTE_PP147];
 const OTHER_EMOTE_LIST = [EMOTE_ABILITY, EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE, EMOTE_OBAMAHEDRON, EMOTE_OBAMASPHERE, EMOTE_OBOMBA];
 const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST)
@@ -3159,7 +3159,7 @@ class Fighter {
 					if (this.requiemPower == REQUIEM_PP7) { // All Traps on Earth
 						this.duel.TIME_STOP = 6;
 					}
-					
+
 					if (this.hasSynergy(SYNERGY_PP20)) { // Master of Time
 						this.duel.TIME_STOP += this.duel.TIME_STOP - 1;
 					}
@@ -4567,7 +4567,7 @@ class Duel {
 
 				this.NUCLEAR_BOMB -= 1;
 				this.PUDDING_NUISANCE -= 1;
-				
+
 				if (this.NUCLEAR_BOMB == 0) {
 					this.addMessage("The Nuclear Bomb explodes now !\n" + IMAGE_PP1);
 					this.bothFightersAction(function(_fighter) {
@@ -4720,7 +4720,7 @@ class Duel {
 					else if (this.BOSS_HEALTH <= 0 && (this.CURRENT_BOSS == BOSS_PP10 || this.CURRENT_BOSS == BOSS_PP12)) {
 						this.addMessage(this.CURRENT_BOSS + " abandons !");
 						this.EVENT_BOSS = false;
-						
+
 						var role = this.GUILD.roles.find(r => r.name == WEEB_PP_ROLE);
 						try {
 							this.bothFightersAction(function(_fighter) {
@@ -4808,7 +4808,7 @@ class Duel {
 							mongo.playMove(randomFromList(this.LIST_AVAILABLE_ATTACKS));
 							this.EVENT_BOSS = true;
 							this.BOSS_HEALTH = mongo.STRValue;
-							
+
 							this.MONGO_HOTNESS += 1;
 							if (this.MONGO_HOTNESS >= 15) {
 								this.MONGO_HOTNESS = 0;
@@ -5129,7 +5129,7 @@ class Duel {
 				if (_fighter.STR > 0) {
 					var _fighterSave = _fighter.duel.FIGHTER1_SAVE;
 					if (_fighter.duel.FIGHTER2_SAVE.user.id == _fighter.user.id) _fighterSave = _fighter.duel.FIGHTER2_SAVE;
-						
+
 					_fighterSave.standPower = _fighter.standPower;
 					_fighterSave.requiemPower = _fighter.requiemPower;
 					_fighterSave.randomizedStand = _fighter.randomizedStand; // Perfect Machine
@@ -5156,7 +5156,7 @@ class Duel {
 				_fighter.attack = "";
 				_fighter.currentStand = null;
 			});
-			
+
 			return this.checkDeath();
 		}
 
@@ -6038,7 +6038,7 @@ class Duel {
 			if (_fighter.attack == EMOTE_PP52 && _fighter.specialCharges <= 0 && duel.illegalGetCaught(95) && !duel.EVENT_PP_ENLIGHTENMENT) {
 				caught1 = true;
 			}
-			
+
 			// Triche des emotes animés
 			if (SPECIAL_EMOTE_LIST.indexOf(_fighter.attack) > -1 && duel.LIST_AVAILABLE_ATTACKS.indexOf(_fighter.attack) < 0 && !duel.EVENT_PP_ENLIGHTENMENT) {
 				caught1 = duel.illegalGetCaught(100);
@@ -6409,12 +6409,12 @@ class Duel {
 		if (this.FIGHTER1.specialCharges > 0 || this.FIGHTER2.specialCharges > 0) {
 			listeAttaques.push(EMOTE_PP52);
 		}
-		
+
 		if (((this.FIGHTER1.requiemPower != null || this.FIGHTER2.requiemPower != null) && getRandomPercent() <= 34) ||
 		    (this.INFERNAL_FIRELAND && getRandomPercent() <= 10)) {
 			listeAttaques.push(EMOTE_ABILITY);
 		}
-		
+
 		if (this.OBAMIUM && !this.EVENT_MEGA_POOL) {
 			listeAttaques.push(EMOTE_OBAMAHEDRON);
 			listeAttaques.push(EMOTE_OBAMASPHERE);
@@ -6763,9 +6763,9 @@ class Duel {
 			this.AUDIO_CHANNEL = null;
 		}
 
-		
+
 		if (this.AUDIO_CHANNEL == null) return;
-		
+
 		var isSpeaking = true;
 		var connection = CLIENT.voiceConnections.get(this.AUDIO_CHANNEL.guild.id);
 		if (connection != undefined) {
@@ -6773,7 +6773,7 @@ class Duel {
 		}
 		if (_music == this.CURRENT_THEME && isSpeaking) return;
 		if (this.TIMESTAMP + 3000 > +new Date()) return;
-		
+
 		this.CURRENT_THEME = _music;
 		this.AUDIO_CHANNEL.leave();
 		this.TIMESTAMP = +new Date();
@@ -6811,7 +6811,7 @@ class Duel {
 		else if (this.FIGHTER1.livingGod || this.FIGHTER2.livingGod) {
 			return MUSIC_PP2; // Ascend
 		}
-		
+
 		return MUSIC_PP1; // PP Puncher
 	}
 }
@@ -6906,24 +6906,22 @@ function checkUpdateEncyclopedia() {
 		return;
 	}
 	LAST_ENCY_UPDATE = +new Date();
-	
-	return; // I'll have to update the env, for now I'll just do that
-	
+
 	XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 	var httpReq = new XMLHttpRequest(); // a new request
 	httpReq.open("GET", RAW_BIBLE_LINK, false);
 	httpReq.send(null);
 	var fullBible = httpReq.responseText;
-	
+
 	fullBible = fullBible.split("_").join("*").split(/\r?\n/);
 	var encyChannels = CLIENT.channels.find(r => r.id == ENCY_CATEGORY_ID).children;
-	
+
 	for (var i in encyChannels) {
 		for (var j in encyChannels[i].messages) {
 			// removes all old messages to update it
 			encyChannels[i].messages[j].delete();
 		}
-		
+
 		var shouldRead = false;
 		var message = "";
 		for (var j in fullBible) {
@@ -7024,16 +7022,16 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 			if (getNumberOfGods(user) >= 3 && !user.roles.find(r => r.name == PP_EXPERT_ROLE) ) {
 				return;
 			}
-			
-			if (!user.roles.find(r => r.name == PP_EXPERT_ROLE) && 
+
+			if (!user.roles.find(r => r.name == PP_EXPERT_ROLE) &&
 			    GOD_LIST.find(r => getPriestRoleName(r) == _nomRole).type == "eldritch") {
 				return;
 			}
-			if (!user.roles.find(r => r.name == WEEB_PP_ROLE) && 
+			if (!user.roles.find(r => r.name == WEEB_PP_ROLE) &&
 			    GOD_LIST.find(r => getPriestRoleName(r) == _nomRole).type == "waifu") {
 				return;
 			}
-			
+
 			user.addRole(role);
 
 			if (getNumberOfGods(user, false) >= 2) {
@@ -7079,7 +7077,7 @@ async function sendCheatPanel(_channel) {
 			EMOTE_PP61, EMOTE_PP62
 		],
 		"Cheat Panel : Infernal Moves" : [
-			EMOTE_PP135, EMOTE_PP136, EMOTE_PP137, EMOTE_PP138, EMOTE_PP139, EMOTE_PP140, EMOTE_PP141, 
+			EMOTE_PP135, EMOTE_PP136, EMOTE_PP137, EMOTE_PP138, EMOTE_PP139, EMOTE_PP140, EMOTE_PP141,
 			EMOTE_PP142, EMOTE_PP143, EMOTE_PP144, EMOTE_PP145, EMOTE_PP146, EMOTE_PP147
 		],
 		"Cheat Panel : Stånds Moves" : [
@@ -7143,7 +7141,7 @@ function changeTextUwu(_texte) {
 
 	_texte = _texte.split("r").join("w");
 	_texte = _texte.split("R").join("W");
-	
+
 	_texte = _texte.split(" ");
 	for (var i in _texte) {
 		if (getRandomPercent() <= 5 && /^[a-zA-Z]+$/.test(_texte[i])) {
@@ -7151,7 +7149,7 @@ function changeTextUwu(_texte) {
 		}
 	}
 	_texte = _texte.join(" ")
-	
+
 	if (getRandomPercent() <= 15) {
 		_texte += " uwu";
 	}

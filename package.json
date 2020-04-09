@@ -7,6 +7,7 @@
     "request": "2.81.0",
     "ytdl-core": "^1.0.3",
     "opusscript": "0.0.7",
-    "sync-mysql": "3.0.1"
+    "sync-mysql": "3.0.1",
+    "xmlhttprequest": "^1.8.0"
   }
 }
