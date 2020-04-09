@@ -6942,26 +6942,24 @@ function checkUpdateEncyclopedia() {
 			else if (shouldRead) {
 				if (message.length + fullBible[j].length > 1900) {
 					encyChannels[i].send(message);
-					message = fullBible[j];
+					message = "";
 				}
-				else {
-					var cutBiblePart = fullBible[j].split(" ").join("").split("*").join("");
-					for (var k in EMOTE_LIST) {
-						if ((cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + ":")
-						   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "/")
-						   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "("))
-						   && (emote == "" || 
-						       CLIENT.emojis.get(EMOTE_LIST[k]).name.length > CLIENT.emojis.get(emote).name.length)) {
-							emote = EMOTE_LIST[k]
-						}
+				var cutBiblePart = fullBible[j].split(" ").join("").split("*").join("");
+				for (var k in EMOTE_LIST) {
+					if ((cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + ":")
+					   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "/")
+					   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "("))
+					   && (emote == "" || 
+					       CLIENT.emojis.get(EMOTE_LIST[k]).name.length > CLIENT.emojis.get(emote).name.length)) {
+						emote = EMOTE_LIST[k]
 					}
-					
-					if (emote != "") {
-						var emote2 = CLIENT.emojis.get(emote);
-						message += `${emote2} `;
-					}
-					message += fullBible[j] + "\n";
 				}
+
+				if (emote != "") {
+					var emote2 = CLIENT.emojis.get(emote);
+					message += `${emote2} `;
+				}
+				message += fullBible[j] + "\n";
 			}
 		}
 	}
