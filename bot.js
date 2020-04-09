@@ -399,6 +399,7 @@ var DB_CONNECTION = new MYSQL({
 });
 
 // ENCYCLOPEDIA
+var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 const ENCY_CATEGORY_ID = "697773079996399637";
 const RAW_BIBLE_LINK = "https://raw.githubusercontent.com/wiki/brennfeu/pp-bot/PP-Bible.md";
 var LAST_ENCY_UPDATE = 0; // timestamp
@@ -6907,19 +6908,15 @@ function checkUpdateEncyclopedia() {
 	}
 	LAST_ENCY_UPDATE = +new Date();
 
-	XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 	var httpReq = new XMLHttpRequest(); // a new request
 	httpReq.open("GET", RAW_BIBLE_LINK, false);
 	httpReq.send(null);
 	var fullBible = httpReq.responseText;
 
 	fullBible = fullBible.split("_").join("*").split(/\r?\n/);
-	var encyChannels = CLIENT.channels.find(r => r.id == ENCY_CATEGORY_ID).children;
-	
-	console.log(fullBible);
+	var encyChannels = CLIENT.channels.find(r => r.id == ENCY_CATEGORY_ID).children.array();
 
 	for (var i in encyChannels) {
-		console.log(encyChannels[i].topic);
 		for (var j in encyChannels[i].messages) {
 			// removes all old messages to update it
 			encyChannels[i].messages[j].delete();
