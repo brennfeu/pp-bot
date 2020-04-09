@@ -6944,10 +6944,10 @@ function checkUpdateEncyclopedia() {
 					encyChannels[i].send(message);
 					message = "";
 				}
-				var cutBiblePart = fullBible[j].split(" ").join("").split("*").join("");
 				if (encyChannels[i].topic == "Moves"
 				   || encyChannels[i].topic == "Stånds"
 				   || encyChannels[i].topic == "Civilisation Mode") {
+					var cutBiblePart = fullBible[j].split(" ").join("").split("*").join("");
 					for (var k in EMOTE_LIST) {
 						if ((cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + ":")
 						   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "/")
@@ -6959,10 +6959,11 @@ function checkUpdateEncyclopedia() {
 					}
 				}
 				else if (encyChannels[i].topic == "Gods") {
+					var cutBiblePart = fullBible[j].split("*").join("");
 					for (var k in GOD_LIST) {
-						if ((fullBible[j].includes(GOD_LIST[k].name + ":")
-						   || fullBible[j].includes(GOD_LIST[k].name + "/")
-						   || fullBible[j].includes(GOD_LIST[k].name + "("))
+						if ((cutBiblePart.includes(GOD_LIST[k].name + ":")
+						   || cutBiblePart.includes(GOD_LIST[k].name + "/")
+						   || cutBiblePart.includes(GOD_LIST[k].name + "("))
 						   && (emote == "" || 
 						      GOD_LIST[k].name.length > GOD_LIST.find(r => r.emote == emote).name.length)) {
 							emote = GOD_LIST[k].emote;
