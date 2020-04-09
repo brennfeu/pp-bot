@@ -6949,7 +6949,7 @@ function checkUpdateEncyclopedia() {
 						if (cutBiblePart.include(CLIENT.emojis.get(EMOTE_LIST[i]).name + ":")
 						   || cutBiblePart.include(CLIENT.emojis.get(EMOTE_LIST[i]).name + "/")) {
 							var emote = CLIENT.emojis.get(EMOTE_LIST[i]);
-							message += `${emote}
+							message += `${emote} `;
 						}
 					}
 					message += fullBible[j] + "\n"
