@@ -6961,7 +6961,8 @@ function checkUpdateEncyclopedia() {
 				else if (encyChannels[i].topic == "Gods") {
 					var cutBiblePart = fullBible[j].split("*").join("");
 					for (var k in GOD_LIST) {
-						if (cutBiblePart.includes(GOD_LIST[k].name + " :") && (emote == "" || 
+						if ((cutBiblePart.includes(GOD_LIST[k].name + " :")
+						    || (cutBiblePart.includes(GOD_LIST[k].name + " )")) && (emote == "" || 
 						      GOD_LIST[k].name.length > GOD_LIST.find(r => r.emote == emote).name.length)) {
 							emote = GOD_LIST[k].emote;
 						}
