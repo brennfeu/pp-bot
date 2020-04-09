@@ -2502,7 +2502,7 @@ class Fighter {
 
 				var shuffleList = shuffleArray(GOD_LIST);
 				for (var i = 0; i < 5; i++) {
-					this.godList.push(shuffleList[i]);
+					this.godList.push(shuffleList[i].name);
 				}
 
 				this.playMove(EMOTE_PP51);
@@ -5144,6 +5144,8 @@ class Duel {
 				_fighter.attack = "";
 				_fighter.currentStand = null;
 			});
+			
+			return this.checkDeath();
 		}
 
 		if (this.FIGHTER1.STR <= 0 && this.FIGHTER2.STR <= 0) {
@@ -5671,7 +5673,8 @@ class Duel {
 			this.sendMessages();
 			this.bothFightersAction(function(_fighter) {
 				var godListMemory = this.godList.slice();
-				this.godList = shuffleArray(GOD_LIST)[0];
+				this.godList = []:
+				this.godList.push(shuffleArray(GOD_LIST)[0].name);
 
 				this.duel.addMessage("-----------------");
 				this.playMove(EMOTE_PP51);
@@ -6862,6 +6865,7 @@ function skipWaitingDuels() {
 			else if (DUEL_LIST[i].FIGHTER2.attack == "") {
 				DUEL_LIST[i].FIGHTER2.attack = EMOTE_SKIP;
 			}
+			DUEL_LIST[i].TIMESTAMP = +new Date();
 			DUEL_LIST[i].BATTLE_CHANNEL.send("...");
 			DUEL_LIST[i].launchAttacks();
 		}
