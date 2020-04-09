@@ -6903,6 +6903,8 @@ function checkUpdateEncyclopedia() {
 	}
 	LAST_ENCY_UPDATE = +new Date();
 	
+	return; // I'll have to update the env, for now I'll just do that
+	
 	XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
 	var httpReq = new XMLHttpRequest(); // a new request
 	httpReq.open("GET", RAW_BIBLE_LINK, false);
