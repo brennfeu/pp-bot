@@ -6903,7 +6903,7 @@ function checkMusicLoops() {
 	}
 }
 function checkUpdateEncyclopedia() {
- 	if (LAST_ENCY_UPDATE + (3 * 60*1000) > +new Date()) {
+ 	if (LAST_ENCY_UPDATE + (300 * 60*1000) > +new Date()) {
 		return;
 	}
 	LAST_ENCY_UPDATE = +new Date();
@@ -6944,6 +6944,14 @@ function checkUpdateEncyclopedia() {
 					message = "";
 				}
 				else {
+					var cutBiblePart = fullBible[j].split(" ").join("").split("*").join("");
+					for (var i in EMOTE_LIST) {
+						if (cutBiblePart.include(CLIENT.emojis.get(EMOTE_LIST[i]).name + ":")
+						   || cutBiblePart.include(CLIENT.emojis.get(EMOTE_LIST[i]).name + "/") {
+							var emote = CLIENT.emojis.get(EMOTE_LIST[i]);
+							message += `${emote}
+						}
+					}
 					message += fullBible[j] + "\n"
 				}
 			}
