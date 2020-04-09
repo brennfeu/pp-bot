@@ -398,6 +398,11 @@ var DB_CONNECTION = new MYSQL({
 	database: "brennfeu_pp_punch"
 });
 
+// ENCYCLOPEDIA
+const ENCY_CATEGORY_ID = 697773079996399637;
+const RAW_BIBLE_LINK = "https://raw.githubusercontent.com/wiki/brennfeu/pp-bot/PP-Bible.md";
+var LAST_ENCY_UPDATE = 0; // timestamp
+
 // Variables
 var DUEL_LIST = [];
 
@@ -6892,6 +6897,21 @@ function checkMusicLoops() {
 		DUEL_LIST[i].setMusic(DUEL_LIST[i].getBattleTheme())
 	}
 }
+function checkUpdateEncyclopedia() {
+ 	if (LAST_ENCY_UPDATE + (3 * 60*1000) > +new Date()) {
+		return;
+	}
+	LAST_ENCY_UPDATE = +new Date();
+	
+	XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+	var httpReq = new XMLHttpRequest(); // a new request
+	httpReq.open("GET", RAW_BIBLE_LINK, false);
+	httpReq.send(null);
+	var fullBible = httpReq.responseText;
+	fullBible = fullBible.split("_").join("*")
+	
+	console.log(fullBible);
+}
 
 function getPriestRoleName(_god) {
 	return _god.name + " Priest";
@@ -7261,7 +7281,8 @@ CLIENT.on("message", async _message => {
 	setBotActivity();
 	skipWaitingDuels();
 	checkCityNameChange(_message);
-	checkMusicLoops()
+	checkMusicLoops();
+	checkUpdateEncyclopedia();
 
 	// Recuperation commande
 	var argsUser = _message.content.trim().split(" ");
@@ -7494,7 +7515,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	killDeadDuels();
 	setBotActivity();
 	skipWaitingDuels();
-	checkMusicLoops()
+	checkMusicLoops();
+	checkUpdateEncyclopedia();
 
 	// DUEL
 	if (getDuel(_reaction.message.channel.id) != null && _user.id != CLIENT.user.id) {
