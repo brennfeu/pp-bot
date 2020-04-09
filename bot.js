@@ -6953,7 +6953,7 @@ function checkUpdateEncyclopedia() {
 						   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "/")
 						   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "("))
 						   && (emote == "" || 
-						       CLIENT.emojis.get(EMOTE_LIST[k]).name.length > CLIENT.emojis.get(emote).name.length))) {
+						       CLIENT.emojis.get(EMOTE_LIST[k]).name.length > CLIENT.emojis.get(emote).name.length)) {
 							emote = EMOTE_LIST[k];
 						}
 					}
@@ -6962,7 +6962,8 @@ function checkUpdateEncyclopedia() {
 					var cutBiblePart = fullBible[j].split("*").join("");
 					for (var k in GOD_LIST) {
 						if ((cutBiblePart.includes(GOD_LIST[k].name + " :")
-						    || (cutBiblePart.includes(GOD_LIST[k].name + " )")) && (emote == "" || 
+						    || cutBiblePart.includes(GOD_LIST[k].name + " )"))
+						    && (emote == "" || 
 						      GOD_LIST[k].name.length > GOD_LIST.find(r => r.emote == emote).name.length)) {
 							emote = GOD_LIST[k].emote;
 						}
