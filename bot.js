@@ -5260,7 +5260,7 @@ class Duel {
 				this.addMessage("The Moon Lord has been summoned and takes control over Cthulhu's body !");
 				this.CURRENT_BOSS = BOSS_PP3;
 				this.BOSS_HEALTH = 500000;
-				this.BOSS_DAMAGE = 200;
+				this.BOSS_DAMAGE = 2000;
 			}
 			else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP3) {
 				this.addMessage(" -- MOON LORD REGENERATION --");
@@ -6959,7 +6959,7 @@ function checkUpdateEncyclopedia() {
 					}
 				}
 				else if (encyChannels[i].topic == "Gods") {
-					var cutBiblePart = fullBible[j].split("*").join("");
+					var cutBiblePart = fullBible[j].split("*").join("").split("*").join("");
 					for (var k in GOD_LIST) {
 						if ((cutBiblePart.includes(GOD_LIST[k].name + ":")
 						   || cutBiblePart.includes(GOD_LIST[k].name + "/")
@@ -7047,6 +7047,9 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 	try {
 		if (user.roles.has(role.id)) {
 			user.removeRole(role);
+		}
+		else if ([FAST_PP_ROLE, BIG_PP_ROLE, ALIEN_PP_ROLE, DRUNK_PP_ROLE, HOCKEY_PUCK_PP_ROLE].indexOf(role.name) > 0) {
+			user.addRole(role);
 		}
 		else {
 			if (getNumberOfGods(user) >= 4 && user.roles.find(r => r.name == PP_EXPERT_ROLE)) {
