@@ -6915,8 +6915,11 @@ function checkUpdateEncyclopedia() {
 
 	fullBible = fullBible.split("_").join("*").split(/\r?\n/);
 	var encyChannels = CLIENT.channels.find(r => r.id == ENCY_CATEGORY_ID).children;
+	
+	console.log(fullBible);
 
 	for (var i in encyChannels) {
+		console.log(encyChannels[i].topic);
 		for (var j in encyChannels[i].messages) {
 			// removes all old messages to update it
 			encyChannels[i].messages[j].delete();
