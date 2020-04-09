@@ -4795,11 +4795,6 @@ class Duel {
 							if (this.CURRENT_BOSS == BOSS_PP8 || this.CURRENT_BOSS == BOSS_PP9) {
 								this.addMessage("The satanic energy from the attack makes him possess " + this.getOppOf(fighter).getName() + " !");
 								this.getOppOf(fighter).isPossessed = 2;
-							}:
-							this.MONGO_HOTNESS += 1;
-							if (this.MONGO_HOTNESS >= 15) {
-								this.MONGO_HOTNESS = 0;
-								this.FORCE_EVENT_ID = 90; // Brenn Ejaculates
 							}
 						}
 						else {
@@ -4813,6 +4808,12 @@ class Duel {
 							mongo.playMove(randomFromList(this.LIST_AVAILABLE_ATTACKS));
 							this.EVENT_BOSS = true;
 							this.BOSS_HEALTH = mongo.STRValue;
+							
+							this.MONGO_HOTNESS += 1;
+							if (this.MONGO_HOTNESS >= 15) {
+								this.MONGO_HOTNESS = 0;
+								this.FORCE_EVENT_ID = 90; // Brenn Ejaculates
+							}
 						}
 
 						this.addMessage("-----------------");
