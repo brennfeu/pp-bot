@@ -6935,7 +6935,7 @@ function checkUpdateEncyclopedia() {
 				var date = new Date();
 				encyChannels[i].send("*Last updated : " + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() + "*");
 			}
-			else {
+			else if (shouldRead) {
 				if (message.length + fullBible[j].length > 1900) {
 					encyChannels[i].send(message);
 					message = "";
