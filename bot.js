@@ -7477,6 +7477,19 @@ CLIENT.on("message", async _message => {
 
 		return;
 	}
+	if (argsUser[1] == "civilisation") {
+		if (getDuel(_message.channel.id) != null) {
+			return _message.reply("there's a battle going on here...");
+		}
+
+		var duel = new Duel();
+		DUEL_LIST.push(duel);
+
+		duel.startCityMode();
+		duel.startDuel(_message, true);
+
+		return;
+	}
 	if (argsUser[1] == "duel" || argsUser[1] == "simpleduel" || argsUser[1] == "hug") {
 		if (getDuel(_message.channel.id) != null) {
 			return _message.reply("there's a battle going on here...");
@@ -7492,6 +7505,10 @@ CLIENT.on("message", async _message => {
 
 		if (_message.mentions.users.last().bot) {
 			return _message.reply("u is a big dumby dumb dumb, you can't battle a bot !");
+		}
+		
+		if (getRandomPercent() <= 2) {
+			return _message.channel.send("Oops, looks like there was an error :\n<Error> : \"I don't care about your duel\"");
 		}
 
 		var duel = new Duel(argsUser[1] == "simpleduel");
