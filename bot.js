@@ -510,6 +510,7 @@ class Fighter {
 		this.infernalInstrument = 0;
 		this.selfReverseDamage = 0;
 		this.forceCritical = false;
+		this.hivePack = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -987,6 +988,9 @@ class Fighter {
 		}
 		if (this.lifeFibers > 0) {
 			txt += " - Life Fiber : " + (this.lifeFibers*5) + "%\n";
+		}
+		if (this.hivePack > 0) {
+			txt += " - Hive Pack : " + this.hivePack + "%\n";
 		}
 		if (this.xenoMask) {
 			txt += " - Mask : Xeno\n";
@@ -3086,7 +3090,34 @@ class Fighter {
 				// Hyper Light Blaster
 				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + " !");
 			}
+			else if (attack == EMOTE_PP136) {
+				// Hive Pack
+				if (this.hivePack < 0) {
+					this.duel.addMessage(this.getName() + " gets a Hive Pack !");
+					this.hivePack = 10;
+				}
+				else if (this.hivePack >= 100) {
+					this.duel.addMessage(this.getName() + "'s Hive Pack already is full !");
+				}
+				else {
+					this.duel.addMessage(this.getName() + " adds more bees to his Hive Pack !");
+					this.hivePack += 5;
+				}
+			}
+			else if (attack = EMOTE_PP137) {
+				// Suspicious Looking Tentacle
+				this.duel.addMessage(this.getName() + " gets a tentacle and attacks !");
+				this.tentacles += 1;
+				for (var i = 0; i < this.tentacles; i++) {
+					this.duel.getOppOf(this).damage(Math.floor(this.STR / 10));
+					if (this.hasSynergy(SYNERGY_PP18)) {
+						this.meltingDamage += 1;
+					}
+					this.duel.addMessage("-----------------");
+				}
+			}
 			else if (attack == EMOTE_PP148) {
+				// sex
 				if (this.duel.EVENT_BOSS) {
 					this.duel.addMessage(this.duel.CURRENT_BOSS + "'s suddenly runs away.");
 				}
@@ -3163,6 +3194,20 @@ class Fighter {
 					if (this.hasSynergy(SYNERGY_PP20)) { // Master of Time
 						this.duel.TIME_STOP += this.duel.TIME_STOP - 1;
 					}
+				}
+				else if (this.infernalInstrument == 1) { // Guitar Solo
+					this.duel.addMessage(this.getName() + " plays a Guitar Solo !");
+					if (this.duel.STORM_COUNTDOWN > 0) {
+						this.duel.addMessage("The storm increases in power !");
+						this.duel.STORM_COUNTDOWN += 5;
+					}
+					else {
+						this.duel.addMessage("A new storm is starting !");
+						this.duel.STORM_COUNTDOWN = 5;
+					}
+				}
+				else if (this.infernalInstrument == 2) { // Synth Solo
+					this.duel.addMessage(this.getName() + " plays a Synth Solo !");
 				}
 				else {
 					this.duel.addMessage(this.getName() + " has no ability to use !");
@@ -3596,6 +3641,7 @@ class Fighter {
 			this.duel.addMessage("-----------------");
 		}
 
+		// Charges
 		if (this.gettingRegularCharge == 0) {
 			this.regularCharges += 1;
 			this.duel.addMessage(this.getName() + " uses his long nose to get a regular charge !");
@@ -3606,7 +3652,15 @@ class Fighter {
 			this.duel.addMessage(this.getName() + " uses his long nose to get a special charge !");
 			this.duel.addMessage("-----------------");
 		}
+		
+		// Hive Pack
+		if (this.hivePack > 0 && getRandomPercent() <= this.hivePack) {
+			this.duel.getOppOf(this).hasBurst = 2;
+			this.duel.addMessage(this.getName() + "'s bees attack " + this.duel.getOppOf(this).getName() + " !");
+			this.duel.addMessage("-----------------");
+		}
 
+		// Akiho special
 		if (this.robotHP > 0) {
 			this.duel.addMessage(this.getName() + "'s robot attacks " + this.getOppName() + " !");
 			this.duel.getOppOf(this).damage(25);
@@ -3838,7 +3892,8 @@ class Fighter {
 	hasSynergy(_synergy) {
 		for (var i in _synergy) {
 			for (var j in this.godList) {
-				if (GOD_LIST.find(r => r.name == this.godList[j]).type == _synergy[i]) {
+				if (GOD_LIST.find(r => r.name == this.godList[j]) != undefined // House of Atreus
+				    && GOD_LIST.find(r => r.name == this.godList[j]).type == _synergy[i]) {
 					continue;
 				}
 			}
@@ -4190,6 +4245,7 @@ class Duel {
 		this.DOUBLE_POINTS = false;
 		this.MONGO_HOTNESS = 0;
 		this.PUDDING_NUISANCE = -1;
+		this.STORM_COUNTDOWN = 0;
 
 		this.PP_ARMAGEDDON = false;
 		this.INFERNAL_FIRELAND = false;
@@ -4574,7 +4630,6 @@ class Duel {
 						_fighter.damage(1000000000, false);
 					});
 					this.addMessage("-----------------");
-					this.sendMessages();
 				}
 				if (this.EVENT_BOMB) {
 					this.addMessage("The bomb hits the ground !");
@@ -4582,7 +4637,22 @@ class Duel {
 						_fighter.damage(1000, false);
 					});
 					this.addMessage("-----------------");
-					this.sendMessages();
+				}
+				if (this.STORM_COUNTDOWN > 0) {
+					this.addMessage("The storm rages !");
+					var fighter = this.getRandomFighter();
+					this.addMessage(fighter.getName() + " gets striked by lightning !");
+					if (fighter.infernalInstrument == 1) {
+						if (getRandomPercent() <= 5) {
+							this.addMessage("*insert epic highlander high scream*");
+						}
+						this.addMessage(fighter.getName() + " gets " + (this.STORM_COUNTDOWN*2) + " quickening charges !");
+						this.quickeningCharges += this.STORM_COUNTDOWN*2;
+					}
+					else {
+						fighter.damage(10000*this.STORM_COUNTDOWN);
+					}
+					this.addMessage("-----------------");
 				}
 				if (this.PUDDING_NUISANCE == 0) {
 					if (this.EVENT_BOSS) {
@@ -4937,6 +5007,9 @@ class Duel {
 		}
 		if (this.BOREAL_WORLD) {
 			txt += " - Boreal Fog is everywhere !\n";
+		}
+		if (this.STORM_COUNTDOWN > 0) {
+			txt += " - Storm Power : " + this.STORM_COUNTDOWN + "\n";
 		}
 		if (this.PP_NET > 0 && this.PP_NET < 200) {
 			txt += " - PP-Net Rising : Step " + this.PP_NET + "\n";
