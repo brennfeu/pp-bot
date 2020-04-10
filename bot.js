@@ -3132,7 +3132,7 @@ class Fighter {
 					this.hivePack += 5;
 				}
 			}
-			else if (attack = EMOTE_PP137) {
+			else if (attack == EMOTE_PP137) {
 				// Suspicious Looking Tentacle
 				this.duel.MOVE_COUNT += 33;
 				this.duel.addMessage(this.getName() + " gets a tentacle and attacks !");
@@ -3145,7 +3145,7 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 				}
 			}
-			else if (attack = EMOTE_PP139) {
+			else if (attack == EMOTE_PP139) {
 				// Royal Gel
 				this.duel.MOVE_COUNT += 33;
 				if (this.duel.EVENT_BOSS) {
@@ -3162,20 +3162,20 @@ class Fighter {
 				}
 				this.duel.BOSS_TRIGGER = this.duel.getOppOf(this);
 			}
-			else if (attack = EMOTE_PP140) {
+			else if (attack == EMOTE_PP140) {
 				// Brain of Confusion
 				this.duel.MOVE_COUNT += 33;
 				this.duel.addMessage(this.getName() + " summons the Brain of Confusion !");
 				this.duel.addMessage(this.duel.getOppOf(this).getName() + " is confused !");
 				this.duel.getOppOf(this).grabbedPP = 2;
 			}
-			else if (attack = EMOTE_PP141) {
+			else if (attack == EMOTE_PP141) {
 				// Shield of Cthulhu
 				this.duel.MOVE_COUNT += 33;
 				this.duel.addMessage(this.getName() + " gets a Shield of Cthulhu !");
 				this.cthulhuShield += 3;
 			}
-			else if (attack = EMOTE_PP142) {
+			else if (attack == EMOTE_PP142) {
 				// Demon Heart
 				this.duel.MOVE_COUNT += 33;
 				this.duel.addMessage(this.getName() + " eats a Demon Heart !");
@@ -3208,7 +3208,7 @@ class Fighter {
 					this.sporeSac = true;
 				}
 			}
-			else if (attack = EMOTE_PP144) {
+			else if (attack == EMOTE_PP144) {
 				// Bone Glove
 				this.duel.MOVE_COUNT += 33;
 				if (this.boneGlove) {
@@ -3219,7 +3219,7 @@ class Fighter {
 					this.boneGlove = true;
 				};
 			}
-			else if (attack = EMOTE_PP145) {
+			else if (attack == EMOTE_PP145) {
 				// Shiny Stone
 				this.duel.MOVE_COUNT += 33;
 				if (this.shinyStone) {
@@ -3230,13 +3230,13 @@ class Fighter {
 					this.shinyStone = true;
 				};
 			}
-			else if (attack = EMOTE_PP146) {
+			else if (attack == EMOTE_PP146) {
 				// Gravity Globe
 				this.duel.MOVE_COUNT += 33;
 				this.duel.addMessage(this.getName() + " reverse the gravity !");
 				this.duel.REVERSED_GRAVITY = !this.duel.REVERSED_GRAVITY;
 			}
-			else if (attack = EMOTE_PP147) {
+			else if (attack == EMOTE_PP147) {
 				// Shrimpy Truffle
 				this.duel.MOVE_COUNT += 33;
 				this.duel.addMessage(this.getName() + " eats a Shrimpy Truffle !");
