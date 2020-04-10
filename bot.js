@@ -26,7 +26,7 @@ const EMOTE_OBAMAHEDRON = "693153845437530195";
 const EMOTE_OBAMASPHERE = "693158025325707274";
 const EMOTE_OBOMBA = "693158300698673193";
 
-const EMOTE_ABILITY = "608975114314186752"
+const EMOTE_ABILITY = "698163488551469056"
 
 // COMMON MOVES
 const EMOTE_PP1 = "535844749467320322"; // PunchingPP
@@ -4631,7 +4631,7 @@ class Duel {
 			this.addMessage("Your respective **stånds** will replace you in the battle, and the winner of the battle will keep his stånd's powers and get stat buffs. Both fighter are then able to continue the fight.");
 			this.addMessage("-----------------");
 			this.addMessage("If a stånd uses the **Satan Hand** move while having **10 Quickening Charges**, it will get better stats and a random **Requiem**.");
-			this.addMessage("A Requiem is an ability performed using the **diamond_sword3 move** that can appear randomly. They are also given to a fighter if he wins the Stånd Battle.");
+			this.addMessage("A Requiem is an ability performed using the **SpecialAbility move** that can appear randomly. They are also given to a fighter if he wins the Stånd Battle.");
 			this.addMessage("-----------------");
 			this.addMessage("Here are some moves specific to stånd battles :");
 			this.sendMessages();
