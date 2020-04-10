@@ -511,6 +511,7 @@ class Fighter {
 		this.selfReverseDamage = 0;
 		this.forceCritical = false;
 		this.hivePack = 0;
+		this.cthulhuShield = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -950,6 +951,9 @@ class Fighter {
 		}
 		if (this.madnessStacks > 0) {
 			txt += " - Madness Stacks : " + this.madnessStacks + "\n";
+		}
+		if (this.cthulhuShield > 0) {
+			txt += " - Shield of Cthulhu Charges : " + this.cthulhuShield + "\n";
 		}
 		if (this.redPillAddiction > 0) {
 			txt += " - RedPill Addiction : " + this.redPillAddiction + "\n";
@@ -3116,6 +3120,54 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 				}
 			}
+			else if (attack = EMOTE_PP139) {
+				// Royal Gel
+				if (this.duel.EVENT_BOSS) {
+					this.duel.addMessage(this.duel.CURRENT_BOSS + " gets wrapped by royal gel.");
+					this.duel.addMessage(this.duel.CURRENT_BOSS + " seems angry towards " + this.duel.getOppOf(this).getName() + " !");
+				}
+				else {
+					this.duel.addMessage(this.getName() + " summons the Royal Gel !");
+					this.CURRENT_BOSS = BOSS_PP13;
+					this.BOSS_HEALTH = 10*this.MOVE_COUNT;
+					this.BOSS_DAMAGE = 2*this.MOVE_COUNT;
+					this.EVENT_BOSS = true;
+					this.addMessage("A Pudding Blob has been created !");
+				}
+				this.duel.BOSS_TRIGGER = this.duel.getOppOf(this);
+			}
+			else if (attack = EMOTE_PP140) {
+				// Brain of Confusion
+				this.duel.addMessage(this.getName() + " summons the Brain of Confusion !");
+				this.duel.addMessage(this.duel.getOppOf(this).getName() + " is confused !");
+				this.duel.getOppOf(this).grabbedPP = 2;
+			}
+			else if (attack = EMOTE_PP141) {
+				// Shield of Cthulhu
+				this.duel.addMessage(this.getName() + " gets a Shield of Cthulhu !");
+				this.cthulhuShield += 3;
+			}
+			else if (attack = EMOTE_PP142) {
+				// Demon Heart
+				this.duel.addMessage(this.getName() + " eats a Demon Heart !");
+				this.madnessStacks += 5;
+				var nbTries = 0;
+				var test = true;
+				while (test && nbTries < 100) {
+					var randomGod = randomFromList(GOD_LIST);
+					nbTries += 1;
+					if (nbTries < 100) {
+						if (this.godList.indexOf(randomGod.name) < 0 && randomGod.type == "eldritch") {
+							test = false;
+							this.godList.push(randomGod.name);
+							this.duel.addMessage(this.getName() + " becomes a " + randomGod.name + " Priest !");
+						}
+					}
+					else {
+						this.duel.addMessage(this.getName() + " has all the eldritch gods on his side !");
+					}
+				}
+			}
 			else if (attack == EMOTE_PP148) {
 				// sex
 				if (this.duel.EVENT_BOSS) {
@@ -4252,7 +4304,6 @@ class Duel {
 		this.EVENT_PP_ENLIGHTENMENT = false;
 		this.EVENT_PP_PURGE = false;
 		this.EVENT_CONFUSION = false;
-		this.EVENT_BOSS = false;
 		this.EVENT_BLOOD_MOON = false;
 		this.EVENT_PP_EQUALITY = false;
 		this.EVENT_MEGA_POOL = false;
@@ -4260,6 +4311,11 @@ class Duel {
 		this.EVENT_BOMB = false;
 		this.ESPINOZA_CHOICE = "";
 		this.OBAMIUM = false;
+		
+		this.EVENT_BOSS = false;
+		this.BOSS_TRIGGER = null;
+		this.BOSS_HEALTH = 0;
+		this.BOSS_DAMAGE = 0;
 
 		this.FORCE_PERHAPS = false;
 		this.FORCE_SATAN = false;
@@ -4852,6 +4908,13 @@ class Duel {
 					}
 					if (this.EVENT_BOSS) {
 						var fighter = this.getRandomFighter();
+						if (this.BOSS_TRIGGER != null) {
+							fighter = this.BOSS_TRIGGER;
+							if (this.CURRENT_BOSS != BOSS_PP13) {
+								this.BOSS_TRIGGER = null;
+							}
+						}
+						
 						if (this.CURRENT_BOSS != BOSS_PP14) {
 							this.addMessage(fighter.getName() + " gets attacked by " + this.CURRENT_BOSS + " !");
 							if (this.EVENT_BLOOD_MOON && this.CURRENT_BOSS == BOSS_PP3) { // Blood Moon / Moon Lord
@@ -4860,8 +4923,18 @@ class Duel {
 							else {
 								var amount = this.BOSS_DAMAGE;
 							}
-							fighter.damage(amount, false);
-
+							
+							if (fighter.cthulhuShield > 0) {
+								this.addMessage(fighter.getName() + " reflects the damages !");
+								fighter.cthulhuShield -= 1;
+								this.duel.BOSS_HEALTH -= amount;
+								this.duel.addMessage(this.duel.CURRENT_BOSS + " takes " + amount + " damages !");
+								this.duel.DAMAGE_COUNT += amount;
+							}
+							else {
+								fighter.damage(amount, false);
+							}
+							
 							if (this.CURRENT_BOSS == BOSS_PP8 || this.CURRENT_BOSS == BOSS_PP9) {
 								this.addMessage("The satanic energy from the attack makes him possess " + this.getOppOf(fighter).getName() + " !");
 								this.getOppOf(fighter).isPossessed = 2;
@@ -5242,6 +5315,9 @@ class Duel {
 		this.bothFightersAction(function(_fighter) {
 			if (_fighter.STR <= 0 && !_fighter.duel.EVENT_BOSS) {
 				_fighter.duel.addMessage("-----------------");
+				if (_fighter.grabbedPP > 0) {
+					_fighter.duel.addMessage("*Confusion* was " + _fighter.getName() + "'s epitaph.");
+				}
 				_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).getName() + " won ! Congrats !");
 				_fighter.duel.getOppOf(_fighter).win();
 				if (_fighter.futureMemories > 0 || _fighter.duel.getOppOf(_fighter).futureMemories > 0 ) {
