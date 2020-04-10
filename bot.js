@@ -7299,8 +7299,16 @@ function updatePlayer(_fighterID, _username) {
 	}
 }
 function getWinCounter(_fighterID) {
-	var result = executeQuery("SELECT points FROM Player WHERE id = " + _fighterID)
-	return result[0].points;
+	var result = executeQuery("SELECT id, points FROM Player WHERE id = " + _fighterID)
+
+	if (result.length == 0) {
+		executeQuery("INSERT INTO Player (id, username) VALUES (" + _fighterID + ", '" + _username + "')");
+		console.log("Added a new fighter to the DB !");
+		return;
+	}
+	
+	var result2 = executeQuery("SELECT points FROM Player WHERE id = " + _fighterID)
+	return result2[0].points;
 }
 function getRank(_fighterID) {
 	var result = executeQuery("SELECT num FROM ( SELECT (@row_number:=@row_number + 1) AS num, id FROM Player, (SELECT @row_number:=0) AS t ORDER BY points DESC ) AS t2 WHERE id = " + _fighterID)
