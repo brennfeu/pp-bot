@@ -513,6 +513,8 @@ class Fighter {
 		this.hivePack = 0;
 		this.cthulhuShield = 0;
 		this.sporeSac = false;
+		this.boneGlove = false;
+		this.shinyStone = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -1012,6 +1014,12 @@ class Fighter {
 		}
 		if (this.acidArmor <= 0 && this.sporeSac) {
 			txt += " - Spore Sac\n"; // shows spore sac here if no acid armor
+		}
+		if (this.boneGlove) {
+			txt += " - Bone Glove\n";
+		}
+		if (this.shinyStone) {
+			txt += " - Shiny Stone\n";
 		}
 		if (this.satanicMoveMultiplier) {
 			txt += " - Satanic Move Multiplier\n";
@@ -3177,6 +3185,7 @@ class Fighter {
 				}
 			}
 			else if (attack == EMOTE_PP143) {
+				// Spore Sac
 				if (this.sporeSac) {
 					this.duel.addMessage(this.getName() + " already had a Spore Sac !");
 				}
@@ -3184,6 +3193,26 @@ class Fighter {
 					this.duel.addMessage(this.getName() + " gets a Spore Sac !");
 					this.sporeSac = true;
 				}
+			}
+			else if (attack = EMOTE_PP144) {
+				// Bone Glove
+				if (this.boneGlove) {
+					this.duel.addMessage(this.getName() + " already had a Bone Glove !");
+				}
+				else {
+					this.duel.addMessage(this.getName() + " gets a Bone Glove !");
+					this.boneGlove = true;
+				};
+			}
+			else if (attack = EMOTE_PP145) {
+				// Shiny Stone
+				if (this.shinyStone) {
+					this.duel.addMessage(this.getName() + " already had a Shiny Stone !");
+				}
+				else {
+					this.duel.addMessage(this.getName() + " gets a Shiny Stone !");
+					this.shinyStone = true;
+				};
 			}
 			else if (attack == EMOTE_PP148) {
 				// sex
@@ -3541,6 +3570,13 @@ class Fighter {
 					this.duel.addMessage(this.getName() + "'s robot breaks !");
 				}
 			}
+			if (this.boneGlove) {
+				this.duel.addMessage(this.getName() + " takes " + _amount + " bleed stacks !");
+				if (_amount == 69) {
+					this.duel.addMessage("lmao !");
+				}
+				this.bleedDamage += _amount;
+			}
 			else {
 				this.duel.addMessage(this.getName() + " takes " + _amount + " damages !");
 				if (_amount == 69) {
@@ -3627,6 +3663,12 @@ class Fighter {
 		if (!this.attackedThisTurn) {
 			this.missedMoves += 1;
 			this.duel.getOppOf(this).dexMalus += 5;
+			
+			if (this.shinyStone) {
+				this.duel.addMessage(this.getName() + "'s Shiny Stone heals him !");
+				this.heal(Math.floor(this.STR/10));
+				this.duel.addMessage("-----------------");
+			}
 		}
 		else {
 			this.duel.getOppOf(this).dexMalus = 0;
@@ -6415,6 +6457,14 @@ class Duel {
 			if (this.getOppOf(winner).attack == EMOTE_SKIP && this.getOppOf(winner).futureMemories == 0) {
 				this.getOppOf(winner).playMove();
 			}
+			// Shiny Stone
+			if (this.getOppOf(winner).attack == EMOTE_PP145) {
+				this.getOppOf(winner).playMove();
+			}
+			// Gravity Globe
+			if (this.getOppOf(winner).attack == EMOTE_PP146) {
+				this.getOppOf(winner).playMove();
+			}
 		}
 		if (this.MOVE_COUNT_TURN >= 500) {
 			this.sendMessages(1);
@@ -6868,6 +6918,8 @@ class Duel {
 				return 20;
 			case EMOTE_PP139:
 				return 50;
+			case EMOTE_PP144:
+				return 60;
 		}
 		return 0;
 	}
