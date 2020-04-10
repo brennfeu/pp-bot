@@ -515,6 +515,7 @@ class Fighter {
 		this.sporeSac = false;
 		this.boneGlove = false;
 		this.shinyStone = false;
+		this.cuteFishron = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -611,6 +612,7 @@ class Fighter {
 
 			if (this.godList.indexOf(GOD_PP25.name) > -1) { // Cthulhu Special Effect
 				this.STRValue = 100;
+				this.cthulhuShield = 1;
 			}
 		}
 	}
@@ -1017,6 +1019,9 @@ class Fighter {
 		}
 		if (this.boneGlove) {
 			txt += " - Bone Glove\n";
+		}
+		if (this.cuteFishron) {
+			txt += " - Cute Fishron\n";
 		}
 		if (this.shinyStone) {
 			txt += " - Shiny Stone\n";
@@ -3112,6 +3117,7 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP136) {
 				// Hive Pack
+				this.duel.MOVE_COUNT += 33;
 				if (this.hivePack < 0) {
 					this.duel.addMessage(this.getName() + " gets a Hive Pack !");
 					this.hivePack = 10;
@@ -3126,6 +3132,7 @@ class Fighter {
 			}
 			else if (attack = EMOTE_PP137) {
 				// Suspicious Looking Tentacle
+				this.duel.MOVE_COUNT += 33;
 				this.duel.addMessage(this.getName() + " gets a tentacle and attacks !");
 				this.tentacles += 1;
 				for (var i = 0; i < this.tentacles; i++) {
@@ -3138,6 +3145,7 @@ class Fighter {
 			}
 			else if (attack = EMOTE_PP139) {
 				// Royal Gel
+				this.duel.MOVE_COUNT += 33;
 				if (this.duel.EVENT_BOSS) {
 					this.duel.addMessage(this.duel.CURRENT_BOSS + " gets wrapped by royal gel.");
 					this.duel.addMessage(this.duel.CURRENT_BOSS + " seems angry towards " + this.duel.getOppOf(this).getName() + " !");
@@ -3154,17 +3162,20 @@ class Fighter {
 			}
 			else if (attack = EMOTE_PP140) {
 				// Brain of Confusion
+				this.duel.MOVE_COUNT += 33;
 				this.duel.addMessage(this.getName() + " summons the Brain of Confusion !");
 				this.duel.addMessage(this.duel.getOppOf(this).getName() + " is confused !");
 				this.duel.getOppOf(this).grabbedPP = 2;
 			}
 			else if (attack = EMOTE_PP141) {
 				// Shield of Cthulhu
+				this.duel.MOVE_COUNT += 33;
 				this.duel.addMessage(this.getName() + " gets a Shield of Cthulhu !");
 				this.cthulhuShield += 3;
 			}
 			else if (attack = EMOTE_PP142) {
 				// Demon Heart
+				this.duel.MOVE_COUNT += 33;
 				this.duel.addMessage(this.getName() + " eats a Demon Heart !");
 				this.madnessStacks += 5;
 				var nbTries = 0;
@@ -3186,6 +3197,7 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP143) {
 				// Spore Sac
+				this.duel.MOVE_COUNT += 33;
 				if (this.sporeSac) {
 					this.duel.addMessage(this.getName() + " already had a Spore Sac !");
 				}
@@ -3196,6 +3208,7 @@ class Fighter {
 			}
 			else if (attack = EMOTE_PP144) {
 				// Bone Glove
+				this.duel.MOVE_COUNT += 33;
 				if (this.boneGlove) {
 					this.duel.addMessage(this.getName() + " already had a Bone Glove !");
 				}
@@ -3206,12 +3219,31 @@ class Fighter {
 			}
 			else if (attack = EMOTE_PP145) {
 				// Shiny Stone
+				this.duel.MOVE_COUNT += 33;
 				if (this.shinyStone) {
 					this.duel.addMessage(this.getName() + " already had a Shiny Stone !");
 				}
 				else {
 					this.duel.addMessage(this.getName() + " gets a Shiny Stone !");
 					this.shinyStone = true;
+				};
+			}
+			else if (attack = EMOTE_PP146) {
+				// Gravity Globe
+				this.duel.MOVE_COUNT += 33;
+				this.duel.addMessage(this.getName() + " reverse the gravity !");
+				this.duel.REVERSED_GRAVITY = !this.duel.REVERSED_GRAVITY;
+			}
+			else if (attack = EMOTE_PP147) {
+				// Shrimpy Truffle
+				this.duel.MOVE_COUNT += 33;
+				this.duel.addMessage(this.getName() + " eats a Shrimpy Truffle !");
+				if (this.cuteFishron) {
+					this.duel.addMessage("But nothing happens...");
+				}
+				else {
+					this.duel.addMessage("A Cute Fishron joins " + this.getName() + " !");
+					this.cuteFishron = true;
 				};
 			}
 			else if (attack == EMOTE_PP148) {
@@ -3570,12 +3602,17 @@ class Fighter {
 					this.duel.addMessage(this.getName() + "'s robot breaks !");
 				}
 			}
-			if (this.boneGlove) {
+			else if (this.duel.getOppOf(this).boneGlove) {
 				this.duel.addMessage(this.getName() + " takes " + _amount + " bleed stacks !");
 				if (_amount == 69) {
 					this.duel.addMessage("lmao !");
 				}
 				this.bleedDamage += _amount;
+			}
+			else if (this.cuteFishron && this.STR <= _amount) {
+				this.duel.addMessage("Cute Fishron takes the attacks for " + this.getName() + " !");
+				this.duel.addMessage("He dies in an horrible and painful death...");
+				this.cuteFishron = false;
 			}
 			else {
 				this.duel.addMessage(this.getName() + " takes " + _amount + " damages !");
@@ -4369,6 +4406,7 @@ class Duel {
 		this.MONGO_HOTNESS = 0;
 		this.PUDDING_NUISANCE = -1;
 		this.STORM_COUNTDOWN = 0;
+		this.REVERSED_GRAVITY = false;
 
 		this.PP_ARMAGEDDON = false;
 		this.INFERNAL_FIRELAND = false;
@@ -5148,6 +5186,9 @@ class Duel {
 		}
 		if (this.EVENT_BOMB) {
 			txt += " - A bomb will explode next turn !\n";
+		}
+		if (this.REVERSED_GRAVITY) {
+			txt += " - Gravity is reversed !\n";
 		}
 		if (this.BOREAL_WORLD) {
 			txt += " - Boreal Fog is everywhere !\n";
@@ -6368,6 +6409,9 @@ class Duel {
 		var winner = this.FIGHTER2;
 		if (dexAttack1 > dexAttack2) {
 			winner = this.FIGHTER1;
+		}
+		if (this.REVERSED_GRAVITY) {
+			winner = winner.duel.getOppOf(winner);
 		}
 
 		var priorityMoves = [EMOTE_PP15, EMOTE_PP29, EMOTE_PP11]; // Hobro / Steel / Barrel
