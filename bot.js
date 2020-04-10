@@ -3839,7 +3839,7 @@ class Fighter {
 	hasSynergy(_synergy) {
 		for (var i in _synergy) {
 			for (var j in this.godList) {
-				if (this.godList[j].type == _synergy[i]) {
+				if (GOD_LIST.find(r => r.name == this.godList[j]).type == _synergy[i]) {
 					continue;
 				}
 			}
