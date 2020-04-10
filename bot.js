@@ -2792,7 +2792,7 @@ class Fighter {
 				var subEffectId;
 				var value = 0;
 				var debuffList = ["bleedDamage", "meltingDamage", "madnessStack"];
-				var buffList = ["bonusDamage", "tearDrinker", "pigHeal", "quickeningCharges", "tentacles"];
+				var buffList = ["bonusDamage", "tearDrinker", "pigHeal", "quickeningCharges", "tentacles", "redPillAddiction", "lifeFibers"];
 
 				for (var i = 0; i < 3; i++) {
 					effectId = moveId + moveId%(567+i);
@@ -2860,6 +2860,7 @@ class Fighter {
 						this.duel.addMessage("**Effect :** DEX Damage");
 						this.duel.addMessage("-----------------");
 						this.duel.addMessage(this.duel.getOppOf(this).getName() + " looses " + Math.floor(value/10) + " DEX !");
+						this.duel.getOppOf(this).DEXValue -= Math.floor(value/10);
 					}
 					else if (effectId%6 == 2) { // Heal
 						this.duel.addMessage("**Effect :** Heal");
@@ -2871,6 +2872,7 @@ class Fighter {
 						this.duel.addMessage("**Effect :** DEX Gain");
 						this.duel.addMessage("-----------------");
 						this.duel.addMessage(this.getName() + " gets " + Math.floor(value/10) + " DEX !");
+						this.DEX += Math.floor(value/10);
 					}
 					else if (effectId%6 == 4) { // Inflict debuff
 						this.duel.addMessage("**Effect :** Debuff");
