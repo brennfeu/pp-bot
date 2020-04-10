@@ -512,6 +512,7 @@ class Fighter {
 		this.forceCritical = false;
 		this.hivePack = 0;
 		this.cthulhuShield = 0;
+		this.sporeSac = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -899,7 +900,11 @@ class Fighter {
 			txt += " - With a Boomerang (for " + this.hasBoomerang + " turns)\n";
 		}
 		if (this.acidArmor > 0) {
-			txt += " - Armored in acid (for " + this.acidArmor + " turns)\n";
+			txt += " - Armored in acid (for " + this.acidArmor + " turns)";
+			if (this.sporeSac) {
+				txt += " (**Spore Sac**)";
+			}
+			txt += "\n";
 		}
 		if (this.doomReverse > 0) {
 			txt += " - DOOM-REVERSE(tm) (for " + this.doomReverse + " turns)\n";
@@ -964,7 +969,7 @@ class Fighter {
 		if (this.tearDrinker > 0) {
 			txt += " - Tear Drinker : " + this.tearDrinker + "\n";
 		}
-		if (this.pigHeal > 0) {
+		if (this.pigHeal > 0 || this.isCowBoy) {
 			txt += " - Hog Squeezer : " + this.pigHeal;
 			if (this.isCowBoy) {
 				txt += " (**Cowboy**)";
@@ -977,7 +982,7 @@ class Fighter {
 		if (this.bonusDamage > 0) {
 			txt += " - Build-Up damages : " + this.bonusDamage + "\n";
 		}
-		if (this.bleedDamage > 0) {
+		if (this.bleedDamage > 0 || this.isSalty) {
 			txt += " - Haemorrhage : " + this.bleedDamage;
 			if (this.isSalty) {
 				txt += " (**Salty Wounds**)";
@@ -1004,6 +1009,9 @@ class Fighter {
 		}
 		if (this.helldogMask) {
 			txt += " - Mask : Intimidation\n";
+		}
+		if (this.acidArmor <= 0 && this.sporeSac) {
+			txt += " - Spore Sac\n"; // shows spore sac here if no acid armor
 		}
 		if (this.satanicMoveMultiplier) {
 			txt += " - Satanic Move Multiplier\n";
@@ -3168,6 +3176,15 @@ class Fighter {
 					}
 				}
 			}
+			else if (attack == EMOTE_PP143) {
+				if (this.sporeSac) {
+					this.duel.addMessage(this.getName() + " already had a Spore Sac !");
+				}
+				else {
+					this.duel.addMessage(this.getName() + " gets a Spore Sac !");
+					this.sporeSac = true;
+				}
+			}
 			else if (attack == EMOTE_PP148) {
 				// sex
 				if (this.duel.EVENT_BOSS) {
@@ -3577,7 +3594,12 @@ class Fighter {
 				this.duel.getOppOf(this).heal(10);
 			}
 			else {
-				this.duel.getOppOf(this).damage(10, false);
+				if (this.sporeSac) {
+					this.duel.getOppOf(this).damage(10 + Math.floor(_amount/10), false);
+				}
+				else {
+					this.duel.getOppOf(this).damage(10, false);
+				}
 			}
 		}
 
@@ -3622,7 +3644,6 @@ class Fighter {
 		this.hasExamined -= 1;
 		this.isPossessed -= 1;
 		this.doomReverse -= 1;
-		this.acidArmor -= 1;
 		this.hasBoomerang -= 1;
 		this.turnSkip -= 1;
 		this.grabbedPP -= 1;
@@ -3640,6 +3661,14 @@ class Fighter {
 		this.satanicReverse -= 1;
 		this.turkeyCountdown -= 1;
 		this.selfReverseDamage -= 1;
+		
+		if (this.sporeSac && getRandomPercent() <= 50) {
+			this.duel.sendMessage(this.getName() + " stays for longer.");
+			this.duel.addMessage("-----------------");
+		}
+		else {
+			this.acidArmor -= 1;
+		}
 
 		// Turkey
 		if (this.turkeyCountdown >= 0) {
@@ -6837,6 +6866,8 @@ class Duel {
 				return 98;
 			case EMOTE_PP57:
 				return 20;
+			case EMOTE_PP139:
+				return 50;
 		}
 		return 0;
 	}
