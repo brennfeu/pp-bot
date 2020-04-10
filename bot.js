@@ -4535,7 +4535,7 @@ class Duel {
 		this.FIGHTER1.isDrunkPP = false;
 		this.FIGHTER1.isHockeyPuckPP = false;
 		this.FIGHTER1.isAlienPP = true;
-
+		this.FIGHTER2 = new Fighter(CLIENT.user.id, this.BATTLE_CHANNEL.id);
 
 		this.addMessage("**TIME FOR A TUTORIAL**");
 		this.addMessage("Welcome to the PP Punch Arena !\nThis bot allows you to play PP Punch Duels in discord. It's actually an rpg strategy fighting game");
