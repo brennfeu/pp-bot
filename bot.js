@@ -1356,7 +1356,7 @@ class Fighter {
 				this.duel.getOppOf(this).bleedDamage += 5;
 			}
 			else if (attack == EMOTE_PP15) {
-				// Save
+				// Hobro
 				this.duel.addMessage(this.getName() + " reverses the damages and heals !");
 				if (this.duel.REVERSE_DAMAGE < 0) {
 					this.duel.REVERSE_DAMAGE = 1;
@@ -3244,7 +3244,7 @@ class Fighter {
 
 	heal(_amount) {
 		_amount += this.quickeningCharges*3;
-		if (this.duel.REVERSE_DAMAGE <= 0 || this.selfReverseDamage > 0) {
+		if (this.duel.REVERSE_DAMAGE <= 0 && this.selfReverseDamage <= 0) {
 			this.STRValue += _amount;
 			this.duel.addMessage(this.getName() + " gets healed by " + _amount + " HP");
 			if (_amount == 69) {
@@ -3829,7 +3829,7 @@ class Fighter {
 	}
 
 	getOppName() {
-		if (this.duel.EVENT_BOSS) {
+		if (this.duel.EVENT_BOSS && this.duel.REVERSE_DAMAGE <= 0) {
 			return this.duel.CURRENT_BOSS;
 		}
 		return this.duel.getOppOf(this).getName();
@@ -5734,13 +5734,6 @@ class Duel {
 		this.bothFightersAction(function(_fighter) {
 			var duel = _fighter.duel
 
-			if (_fighter.duel.TIME_STOP > 0 && _fighter.requiemPower == null && _fighter.godList.indexOf(GOD_PP24.name) < 0) { // if weak --> skip time skip
-				return;
-			}
-			if (_fighter.attack == EMOTE_DEAD || _fighter.attack == EMOTE_SKIP) { // no choice
-				return;
-			}
-
 			if (duel.GAY_TURNS > 0 && duel.TIME_STOP <= 0) {
 				if (_user.id == _fighter.user.id) {
 					if (duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.getAttackFromEmote(_emote)) < 0) {
@@ -5753,6 +5746,12 @@ class Duel {
 						duel.sendMessages();
 					}
 				}
+			}
+			else if (_fighter.duel.TIME_STOP > 0 && _fighter.requiemPower == null && _fighter.godList.indexOf(GOD_PP24.name) < 0) { // if weak --> skip time skip
+				return;
+			}
+			else if (_fighter.attack == EMOTE_DEAD || _fighter.attack == EMOTE_SKIP) { // no choice
+				return;
 			}
 			else if (_user.id == _fighter.user.id && _fighter.isPossessed <= 0 && _fighter.turnSkip <= 0 && _fighter.grabbedPP <= 0 && _fighter.summonTankCountdown != 1) {
 				_fighter.attack = duel.getAttackFromEmote(_emote);
