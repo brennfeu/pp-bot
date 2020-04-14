@@ -231,7 +231,7 @@ const GOD_PP3 = {"name" : "LeprePuds", "emote": "616332243337609257", "type": "n
 const GOD_PP4 = {"name" : "", "emote": "", "type": "normal"}; // ADD TO THE LIST
 const GOD_PP5 = {"name" : "Hello There Puds", "emote": "614823329731313670", "type": "normal"};
 const GOD_PP6 = {"name" : "DickDickSon666", "emote": "616877566396989451", "type": "normal"};
-const GOD_PP7 = {"name" : "Jew", "emote": "644621040093364283", "type": "normal"};
+const GOD_PP7 = {"name" : "Minecraft Villager", "emote": "644621040093364283", "type": "normal"};
 const GOD_PP8 = {"name" : "Fabulous Toast Man", "emote": "614823500951060481", "type": "normal"};
 const GOD_PP9 = {"name" : "Brenn", "emote": "615268884651442186", "type": "normal"};
 const GOD_PP10 = {"name" : "Fabio", "emote": "618037444222255104", "type": "normal"};
@@ -240,7 +240,7 @@ const GOD_PP13 = {"name" : "700IQ", "emote": "617258233307987986", "type": "norm
 const GOD_PP14 = {"name" : "UREGonnaGetRAPED", "emote": "615271176314290249", "type": "normal"};
 const GOD_PP15 = {"name" : "STFU Isaac", "emote": "614822537800712213", "type": "normal"};
 const GOD_PP16 = {"name" : "The Man Who made a Monster", "emote": "619795568230924291", "type": "normal"};
-const GOD_PP17 = {"name" : "Hitler", "emote": "622395294390157329", "type": "normal"};
+const GOD_PP17 = {"name" : "Despot", "emote": "622395294390157329", "type": "normal"};
 const GOD_PP18 = {"name" : "Salt King", "emote": "650830165751889935", "type": "normal"};
 const GOD_PP19 = {"name" : "Chad Brenn", "emote": "644634924477055015", "type": "normal"};
 const GOD_PP26 = {"name" : "Ranger", "emote": "673882539328536576", "type": "normal"};
@@ -1131,7 +1131,7 @@ class Fighter {
 					txt += " - Roleplay Group\n";
 				}
 				if (this.hasSynergy(SYNERGY_PP5)) {
-					txt += " - Jew-Hitler Paradox\n";
+					txt += " - Despot Villager Paradox\n";
 				}
 				if (this.hasSynergy(SYNERGY_PP6)) {
 					txt += " - Garbage Music Maker\n";
@@ -1992,7 +1992,7 @@ class Fighter {
 				}
 				if (this.godList.indexOf(GOD_PP7.name) > -1) { // Jew
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage("The Jew Lord answers his calls !");
+					this.duel.addMessage("The Minecraft Villager answers his calls !");
 					this.duel.addMessage(this.getName() + " uses his long nose to get a new special charge !");
 					this.gettingSpecialCharge = 4;
 				}
@@ -2062,7 +2062,7 @@ class Fighter {
 				}
 				if (this.godList.indexOf(GOD_PP17.name) > -1) { // Hitler
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage("Literally Hitler answers his calls !");
+					this.duel.addMessage("Despot answers his calls !");
 					if (this.duel.ILLEGAL_JEWS) {
 						this.duel.addMessage(this.getName() + " makes jew priests illegal again, just to be sure.");
 					}
@@ -2272,7 +2272,7 @@ class Fighter {
 				}
 				if (this.godList.indexOf(GOD_PP7.name) > -1) { // Jew
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage("The Jew Lord answers his calls !");
+					this.duel.addMessage("The Minecraft Villager answers his calls !");
 					this.duel.addMessage(this.getName() + " uses his long nose to get a new regular charge !");
 					this.gettingRegularCharge = 4;
 				}
@@ -2370,7 +2370,7 @@ class Fighter {
 				}
 				if (this.godList.indexOf(GOD_PP17.name) > -1) { // Hitler
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage("Literally Hitler answers his calls !");
+					this.duel.addMessage("Despot answers his calls !");
 					this.duel.addMessage(this.getName() + " starts a new genocide !");
 					if (this.duel.getOppOf(this).godList.indexOf(GOD_PP7.name) > -1) {
 						this.duel.getOppOf(this).playMove(EMOTE_PP47);
@@ -5178,7 +5178,7 @@ class Duel {
 			txt += " - Events will occur every turns !\n";
 		}
 		if (this.ILLEGAL_JEWS) {
-			txt += " - Jew Priests are illegal !\n";
+			txt += " - Minecraft Villager are illegal !\n";
 		}
 		if (this.EVENT_BLOOD_MOON) {
 			txt += " - The Blood Moon is up in the sky !\n";
@@ -6323,7 +6323,7 @@ class Duel {
 
 			// Illegal Jews (Hitler regular move)
 			if (duel.ILLEGAL_JEWS && _fighter.godList.indexOf(GOD_PP7.name) > -1 && duel.illegalGetCaught(20)) {
-				duel.addMessage("Wait, I think " + _fighter.getName() + " is a jew !");
+				duel.addMessage("Wait, I think " + _fighter.getName() + " is a villager !");
 				duel.sendMessages();
 				caught1 = true;
 			}
@@ -6364,7 +6364,7 @@ class Duel {
 		this.bothFightersAction(function(_fighter) {
 			// Jew Hitler Paradox
 			if (_fighter.hasSynergy(SYNERGY_PP5) && getRandomPercent() <= 10) {
-				_fighter.duel.addMessage(_fighter.getName() + " gets the Jew-Hitler Paradox Effect !");
+				_fighter.duel.addMessage(_fighter.getName() + " gets the Despot Villager Paradox Effect !");
 				_fighter.duel.sendMessages();
 				_fighter.attack = _fighter.duel.getRandomEmote(false);
 			}
@@ -7546,8 +7546,8 @@ function changeTextRandomSpoil(_texte) {
 function changeTextChristian(_texte) {
 	_texte = _texte.split("PP").join("Power Puff Girl");
 	_texte = _texte.split("Pp").join("Power Puff Girl");
-	_texte = _texte.replace(/hitler/gi, "Angry German");
-	_texte = _texte.replace(/jew/gi, "infidel");
+	_texte = _texte.replace(/despot/gi, "Angry German");
+	_texte = _texte.replace(/villager/gi, "infidel");
 	_texte = _texte.replace(/dick/gi, "Richard");
 	_texte = _texte.replace(/raped/gi, "raked");
 	_texte = _texte.replace(/satan/gi, "Stanley");
