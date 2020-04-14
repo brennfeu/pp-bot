@@ -256,7 +256,7 @@ const GOD_PP12 = {"name" : "Espinoza", "emote": "615887132157804564", "type": "e
 const GOD_PP20 = {"name" : "Mikasa", "emote": "655523518812913664", "type": "waifu"};
 const GOD_PP27 = {"name" : "Kurisu", "emote": "672543479598940179", "type": "waifu"};
 const GOD_PP28 = {"name" : "Miku", "emote": "", "type": "waifu"}; // ADD TO THE LIST
-const GOD_PP30 = {"name" : "Akiho", "emote": "676770456413667328", "type": "waifu"};
+const GOD_PP30 = {"name" : "Megumin", "emote": "699593923382870047", "type": "waifu"};
 const GOD_PP31 = {"name" : "Ryuko", "emote": "682236903600422925", "type": "waifu"};
 const GOD_PP32 = {"name" : "Lan Fan", "emote": "698863580287860817", "type": "waifu"};
 
@@ -502,8 +502,6 @@ class Fighter {
 		this.dodgableDamages = [];
 		this.gettingRegularCharge = 0;
 		this.gettingSpecialCharge = 0;
-		this.robotCountdown = 0;
-		this.robotHP = 0;
 		this.hasKamui = false;
 		this.lifeFibers = 0;
 		this.hasSupplyDrops = false;
@@ -518,6 +516,7 @@ class Fighter {
 		this.shinyStone = false;
 		this.cuteFishron = false;
 		this.easternTraining = false;
+		this.explosionMagic = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -942,9 +941,6 @@ class Fighter {
 		if (this.gettingSpecialCharge > 0) {
 			txt += " - Getting a special charge in " + this.gettingSpecialCharge + " turns\n"
 		}
-		if (this.robotCountdown > 0) {
-			txt += " - Robot Engineering Countdown : " + this.robotCountdown + " turns\n";
-		}
 		if (this.turkeyCountdown > 0) {
 			txt += " - ";
 			if (this.turkeyCountdown == 1) txt += "**";
@@ -968,6 +964,9 @@ class Fighter {
 		}
 		if (this.redPillAddiction > 0) {
 			txt += " - RedPill Addiction : " + this.redPillAddiction + "\n";
+		}
+		if (this.explosionMagic > 0) {
+			txt += " - Explosion Magic Points : " + this.explosionMagic + "\n";
 		}
 		if (this.ragingSpirit > 0) {
 			txt += " - Lost Soul Streak : " + this.ragingSpirit + "\n";
@@ -1086,9 +1085,6 @@ class Fighter {
 		}
 		if (this.trueBarbarian) {
 			txt += " - Great Barbarian from the North Seeking New Lands for his Kingdom\n";
-		}
-		if (this.robotHP > 0) {
-			txt += " - **Giant Robot HP : " + this.robotHP + "**\n"
 		}
 		if (this.isPossessed > 0) {
 			txt += " - **Possessed by " + this.duel.getOppOf(this).getName() + "**\n";
@@ -2174,12 +2170,11 @@ class Fighter {
 					this.futureMemories = 6;
 				}
 
-				if (this.godList.indexOf(GOD_PP30.name) > -1) { // Aki
+				if (this.godList.indexOf(GOD_PP30.name) > -1) { // Megumin
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage("Akiho answers his calls !");
-					this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets the Elephant Mouse Syndrome !");
-					this.duel.addMessage(this.duel.getOppOf(this).getName() + "'s time will appear way faster than it really is !");
-					this.duel.getOppOf(this).hasBurst = 2;
+					this.duel.addMessage("Megumin answers his calls !");
+					this.duel.addMessage(this.getName() + " adds 1 point to Explosion Magic !");
+					this.explosionMagic += 1;
 				}
 				if (this.godList.indexOf(GOD_PP31.name) > -1) { // Ryuko
 					this.duel.addMessage("-----------------");
@@ -2479,17 +2474,22 @@ class Fighter {
 					}
 					this.dodgableDamages = [];
 				}
-				if (this.godList.indexOf(GOD_PP30.name) > -1) { // Aki
+				if (this.godList.indexOf(GOD_PP30.name) > -1) { // Megumin
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage("Akiho answers his calls !");
-					if (this.robotCountdown > 0) {
-						this.duel.addMessage(this.getName() + "'s robot is now complete !");
-						this.robotCountdown = 1;
+					this.duel.addMessage("Megumin answers his calls !");
+					if (this.magicExplosion < 1) {
+						this.magicExplosion = 1;
 					}
-					else {
-						this.duel.addMessage(this.getName() + " starts working on making a giant robot !");
-						this.robotCountdown = 11;
-					}
+					var randomMessages = [
+						"Darkness blacker than black and darker than dark, I beseech thee, combine with my deep crimson. The time of awakening cometh.\nJustice, fallen upon the infallible boundary, appear now as an intangible distortion !\nI desire for my torrent of power a destructive force : a destructive force without equal ! Return all creation to cinders, and come from the abyss !\nThis is the mightiest means of attack known to man, the ultimate attack magic !",
+						"Oh, blackness shrouded in light...\nFrenzied blaze clad in night...\nAll else aside, I don't want to be outdone by anyone else when it comes to explosion magic !\nHere I go ! My ultimate destructive magic...",
+						"Detonation... Detonation... Detonation...\nWielder of the most glorious, powerful, and grand explosion magic...\nMy name is Megumin !\nThe blow that I am given to strike turns a blind eye to the fate of my kindred, rendering all hope of rebirth and anguish, and the model by which all forces are judged !\nPitiful creature...\nSynchronize yourself with the red smoke, and atone in a surge of blood !\nBurst forth...",
+						"Crimson-black blaze, king of myriad worlds, though I promulgate the laws of nature, I am the alias of destruction incarnate in accordance with the principles of creation.\nLet the hammer of eternity descend unto me !\nBehold my power !"
+					]
+					this.addMessage("*" + randomFromList(randomMessages) + "*");
+					this.addMessage("***EXPLOSION !***");
+					this.duel.getOpponentOf(this).damage(Math.floor(this.magicExplosion*this.STR/10));
+					this.hasBurst = 4;
 				}
 				if (this.godList.indexOf(GOD_PP31.name) > -1) { // Ryuko
 					this.duel.addMessage("-----------------");
@@ -3623,18 +3623,6 @@ class Fighter {
 			if (_amount <= 0) {
 				return this.duel.addMessage(this.getName() + " takes no damages !");
 			}
-			if (this.robotHP > 0) {
-				this.duel.addMessage(this.getName() + "'s robot takes " + _amount + " damages !");
-				if (_amount == 69) {
-					this.duel.addMessage("lmao !");
-				}
-
-				// Damage
-				this.robotHP -= _amount;
-				if (this.robotHP <= 0) {
-					this.duel.addMessage(this.getName() + "'s robot breaks !");
-				}
-			}
 			else if (this.duel.getOppOf(this).boneGlove) {
 				this.duel.addMessage(this.getName() + " takes " + _amount + " bleed stacks !");
 				if (_amount == 69) {
@@ -3769,7 +3757,6 @@ class Fighter {
 		this.futureMemories -= 1;
 		this.gettingRegularCharge -= 1;
 		this.gettingSpecialCharge -= 1;
-		this.robotCountdown -= 1;
 		this.satanicReverse -= 1;
 		this.turkeyCountdown -= 1;
 		this.selfReverseDamage -= 1;
@@ -3851,18 +3838,6 @@ class Fighter {
 			this.duel.getOppOf(this).hasBurst = 2;
 			this.duel.addMessage(this.getName() + "'s bees attack " + this.duel.getOppOf(this).getName() + " !");
 			this.duel.addMessage("-----------------");
-		}
-
-		// Akiho special
-		if (this.robotHP > 0) {
-			this.duel.addMessage(this.getName() + "'s robot attacks " + this.getOppName() + " !");
-			this.duel.getOppOf(this).damage(25);
-			this.duel.addMessage("-----------------");
-		}
-		if (this.robotCountdown == 0) {
-			this.duel.addMessage(this.getName() + " now has a giant robot !");
-			this.duel.addMessage("-----------------");
-			this.robotHP = 1000;
 		}
 
 		// Boss Killer
