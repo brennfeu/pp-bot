@@ -287,7 +287,7 @@ const SYNERGY_PP20 = [GOD_PP24, GOD_PP27] // Master of Time
 const SYNERGY_PP21 = [GOD_PP12, GOD_PP7] // Big Nose
 const SYNERGY_PP22 = [GOD_PP18, GOD_PP3] // Extreme Karma
 
-const STAND_PP1 = "Iron Maiden";
+const STAND_PP1 = "Somewhere in Time";
 const STAND_PP2 = "The Boreal Flame";
 const STAND_PP3 = "Shadow Gallery";
 const STAND_PP4 = "Above the Light";
@@ -533,9 +533,6 @@ class Fighter {
 			this.STRValue = 150;
 			this.DEXValue = 40;
 
-			if (this.standPower == STAND_PP1) { // Iron Maiden
-				this.ironProtection = 4;
-			}
 			if (this.standPower == STAND_PP2) { // Boreal Flame
 				this.borealSummon = 10;
 			}
@@ -750,6 +747,9 @@ class Fighter {
 		if (this.quickeningCharges > 0) {
 			dex += this.quickeningCharges;
 		}
+		if (this.standPower == STAND_PP1) {
+			dex += 5;
+		}
 		if (this.standPower == STAND_PP8_2) {
 			dex += 10;
 		}
@@ -918,7 +918,7 @@ class Fighter {
 			txt += " - Satanic Protection (for " + this.satanicReverse + " turns)\n";
 		}
 		if (this.ironProtection > 0) {
-			txt += " - Iron Protection (for " + this.ironProtection + " turns)\n";
+			txt += " - Worm Scarf Protection (for " + this.ironProtection + " turns)\n";
 		}
 		if (this.isLucky > 0) {
 			txt += " - Lucky (for " + this.isLucky + " turns)\n";
@@ -3143,6 +3143,11 @@ class Fighter {
 			else if (attack == EMOTE_PP134) {
 				// Hyper Light Blaster
 				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + " !");
+			}
+			else if (attack == EMOTE_PP135) {
+				// Worm Scarf
+				this.duel.addMessage(this.getName() + " wears a Worm Scarf !");
+				this.ironProtection = 4;
 			}
 			else if (attack == EMOTE_PP136) {
 				// Hive Pack
@@ -5399,9 +5404,6 @@ class Duel {
 					_fighterSave.standPower = _fighter.standPower;
 					_fighterSave.requiemPower = _fighter.requiemPower;
 					_fighterSave.randomizedStand = _fighter.randomizedStand; // Perfect Machine
-					if (_fighter.standPower == STAND_PP1) { // Iron Maiden
-						_fighterSave.ironProtection = 4;
-					}
 					if (_fighter.standPower == STAND_PP8) { // Black Clouds & Silver Linings
 						_fighterSave.extraLife = 1;
 					}
@@ -6968,6 +6970,8 @@ class Duel {
 				return 98;
 			case EMOTE_PP57:
 				return 20;
+			case EMOTE_PP135:
+				return 40;
 			case EMOTE_PP139:
 				return 50;
 			case EMOTE_PP144:
