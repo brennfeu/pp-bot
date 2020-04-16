@@ -1895,7 +1895,7 @@ class Fighter {
 			else if (attack == EMOTE_PP51) {
 				// Priest Regular Move
 				this.duel.addMessage(this.getName() + " calls for superior powers !");
-				if (this.regularCharges > 0 && sdsds == 0) {
+				if (this.regularCharges > 0 && sdsds == 0 && this.attack == attack) {
 					this.regularCharges -= 1;
 				}
 				if (this.godList.indexOf(STAND_PP15) > -1) { // House of Atreus
@@ -2173,8 +2173,8 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP30.name) > -1) { // Megumin
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Megumin answers his calls !");
-					this.duel.addMessage(this.getName() + " adds 1 point to Explosion Magic !");
-					this.explosionMagic += 1;
+					this.duel.addMessage(this.getName() + " adds 5 points to Explosion Magic !");
+					this.explosionMagic += 5;
 				}
 				if (this.godList.indexOf(GOD_PP31.name) > -1) { // Ryuko
 					this.duel.addMessage("-----------------");
@@ -2204,7 +2204,7 @@ class Fighter {
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
 				this.duel.addMessage(this.getName() + " calls for superior powers !");
-				if (this.specialCharges > 0 && sdsds == 0) {
+				if (this.specialCharges > 0 && sdsds == 0 && this.attack == attack) {
 					this.specialCharges -= 1;
 				}
 				if (this.godList.indexOf(GOD_PP1.name) > -1) { // Mongo
@@ -2477,9 +2477,7 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP30.name) > -1) { // Megumin
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Megumin answers his calls !");
-					if (this.magicExplosion < 1) {
-						this.magicExplosion = 1;
-					}
+					this.explosionMagic += 3;
 					var randomMessages = [
 						"Darkness blacker than black and darker than dark, I beseech thee, combine with my deep crimson. The time of awakening cometh.\nJustice, fallen upon the infallible boundary, appear now as an intangible distortion !\nI desire for my torrent of power a destructive force : a destructive force without equal ! Return all creation to cinders, and come from the abyss !\nThis is the mightiest means of attack known to man, the ultimate attack magic !",
 						"Oh, blackness shrouded in light...\nFrenzied blaze clad in night...\nAll else aside, I don't want to be outdone by anyone else when it comes to explosion magic !\nHere I go ! My ultimate destructive magic...",
@@ -2488,7 +2486,7 @@ class Fighter {
 					]
 					this.addMessage("*" + randomFromList(randomMessages) + "*");
 					this.addMessage("***EXPLOSION !***");
-					this.duel.getOpponentOf(this).damage(Math.floor(this.magicExplosion*this.STR/10));
+					this.duel.getOpponentOf(this).damage(Math.floor(this.explosionMagic*this.STR/10), false);
 					this.hasBurst = 4;
 				}
 				if (this.godList.indexOf(GOD_PP31.name) > -1) { // Ryuko
@@ -3152,16 +3150,16 @@ class Fighter {
 			else if (attack == EMOTE_PP136) {
 				// Hive Pack
 				this.duel.MOVE_COUNT += 33;
-				if (this.hivePack < 0) {
+				if (this.hivePack <= 0) {
 					this.duel.addMessage(this.getName() + " gets a Hive Pack !");
-					this.hivePack = 10;
+					this.hivePack = 20;
 				}
 				else if (this.hivePack >= 100) {
 					this.duel.addMessage(this.getName() + "'s Hive Pack already is full !");
 				}
 				else {
 					this.duel.addMessage(this.getName() + " adds more bees to his Hive Pack !");
-					this.hivePack += 5;
+					this.hivePack += 10;
 				}
 			}
 			else if (attack == EMOTE_PP137) {
