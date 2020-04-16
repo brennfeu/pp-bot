@@ -5251,7 +5251,7 @@ class Duel {
 					_fighter.playMove(EMOTE_PP39);
 				}
 			});
-			this.newTurnDuel();
+			this.launchAttacks();
 		}
 		else {
 			this.addMessage("**=== MOVE SELECT ===**", true);
@@ -5315,7 +5315,6 @@ class Duel {
 		this.bothFightersAction(function(_fighter) {
 			if (_fighter.duel.getOppOf(_fighter).standPower == STAND_PP10 && _fighter.STR <= _fighter.DEX) {
 				_fighter.duel.addMessage(_fighter.getName() + " is cursed by Illud Divinum Insanus !");
-				_fighter.duel.addMessage(_fighter.getName() + " dies !");
 				_fighter.STRValue -= _fighter.STR+100;
 			}
 		});
