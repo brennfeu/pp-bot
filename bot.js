@@ -2483,9 +2483,9 @@ class Fighter {
 						"Oh, blackness shrouded in light...\nFrenzied blaze clad in night...\nAll else aside, I don't want to be outdone by anyone else when it comes to explosion magic !\nHere I go ! My ultimate destructive magic...",
 						"Detonation... Detonation... Detonation...\nWielder of the most glorious, powerful, and grand explosion magic...\nMy name is Megumin !\nThe blow that I am given to strike turns a blind eye to the fate of my kindred, rendering all hope of rebirth and anguish, and the model by which all forces are judged !\nPitiful creature...\nSynchronize yourself with the red smoke, and atone in a surge of blood !\nBurst forth...",
 						"Crimson-black blaze, king of myriad worlds, though I promulgate the laws of nature, I am the alias of destruction incarnate in accordance with the principles of creation.\nLet the hammer of eternity descend unto me !\nBehold my power !"
-					]
-					this.addMessage("*" + randomFromList(randomMessages) + "*");
-					this.addMessage("***EXPLOSION !***");
+					];
+					this.duel.addMessage("*" + randomFromList(randomMessages) + "*");
+					this.duel.addMessage("***EXPLOSION !***");
 					this.duel.getOpponentOf(this).damage(Math.floor(this.explosionMagic*this.STR/10), false);
 					this.hasBurst = 4;
 				}
