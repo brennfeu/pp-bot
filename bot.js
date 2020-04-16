@@ -5584,21 +5584,37 @@ class Duel {
 				_fighter.playMove(EMOTE_PP49);
 			});
 		}
-		else if ([9, 10, 11, 12, 13, 14, 15, 16, 17, 18].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 10 || forcedEvent) && this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
+		else if ([9, 10, 11, 12, 13, 14, 15, 16, 17, 18].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 10 || forcedEvent) && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
 			// Charge
 			this.addMessage(" -- GODS BIRTHDAY GIFTS --");
-			this.addMessage("Gods decide to give you a regular charge each");
-			this.bothFightersAction(function(_fighter) {
-				_fighter.regularCharges++;
-			});
+			if (this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
+				this.addMessage("Gods decide to give you a regular charge each");
+				this.bothFightersAction(function(_fighter) {
+					_fighter.regularCharges++;
+				});
+			}
+			else {
+				this.addMessage("Gods decide to give you 3 quickening charges each");
+				this.bothFightersAction(function(_fighter) {
+					_fighter.quickeningCharges += 3;
+				});
+			}
 		}
-		else if ([19, 20, 21].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 25 || forcedEvent) && this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
+		else if ([19, 20, 21].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 25 || forcedEvent) && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
 			// Charge
 			this.addMessage(" -- GODS CHRISTMAS GIFTS --");
-			this.addMessage("Gods decide to give you a special charge each");
-			this.bothFightersAction(function(_fighter) {
-				_fighter.specialCharges++;
-			});
+			if (this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
+				this.addMessage("Gods decide to give you a special charge each");
+				this.bothFightersAction(function(_fighter) {
+					_fighter.specialCharges++;
+				});
+			}
+			else {
+				this.addMessage("Gods decide to give you 10 quickening charges each");
+				this.bothFightersAction(function(_fighter) {
+					_fighter.quickeningCharges += 10;
+				});
+			}
 		}
 		else if (randomVar == 22) {
 			// Huge Gay Night
