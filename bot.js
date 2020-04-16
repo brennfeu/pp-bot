@@ -3370,6 +3370,14 @@ class Fighter {
 				}
 				else if (this.infernalInstrument == 2) { // Synth Solo
 					this.duel.addMessage(this.getName() + " plays a Synth Solo !");
+					if (this.duel.DARKNESS_COUNTDOWN > 0) {
+						this.duel.addMessage("The eldritch darkness increases in power !");
+						this.duel.DARKNESS_COUNTDOWN += 5;
+					}
+					else {
+						this.duel.addMessage("The world is turning dark around you !");
+						this.duel.DARKNESS_COUNTDOWN = 5;
+					}
 				}
 				else {
 					this.duel.addMessage(this.getName() + " has no ability to use !");
@@ -4417,6 +4425,7 @@ class Duel {
 		this.MONGO_HOTNESS = 0;
 		this.PUDDING_NUISANCE = -1;
 		this.STORM_COUNTDOWN = 0;
+		this.DARKNESS_COUNTDOWN = 0;
 		this.REVERSED_GRAVITY = false;
 
 		this.PP_ARMAGEDDON = false;
@@ -4815,7 +4824,6 @@ class Duel {
 					this.addMessage("-----------------");
 				}
 				if (this.STORM_COUNTDOWN > 0) {
-					this.addMessage("The storm rages !");
 					var fighter = this.getRandomFighter();
 					this.addMessage(fighter.getName() + " gets striked by lightning !");
 					if (fighter.infernalInstrument == 1) {
@@ -4823,10 +4831,23 @@ class Duel {
 							this.addMessage("*insert epic highlander high scream*");
 						}
 						this.addMessage(fighter.getName() + " gets " + (this.STORM_COUNTDOWN*2) + " quickening charges !");
-						this.quickeningCharges += this.STORM_COUNTDOWN*2;
+						fighter.quickeningCharges += this.STORM_COUNTDOWN*2;
 					}
 					else {
 						fighter.damage(10000*this.STORM_COUNTDOWN);
+					}
+					this.addMessage("-----------------");
+				}
+				if (this.DARKNESS_COUNTDOWN > 0) {
+					var fighter = this.getRandomFighter();
+					this.addMessage(fighter.getName() + " gets touched by the darkness !");
+					if (fighter.infernalInstrument == 2) {
+						this.addMessage(fighter.getName() + " gets " + (this.DARKNESS_COUNTDOWN*2) + " DEX !");
+						fighter.DEXValue += this.DARKNESS_COUNTDOWN*2;
+					}
+					else {
+						fighter.madnessStacks += this.DARKNESS_COUNTDOWN*2;
+						this.addMessage(fighter.getName() + " gets " + (this.DARKNESS_COUNTDOWN*2) + " madness stacks !");
 					}
 					this.addMessage("-----------------");
 				}
@@ -5206,6 +5227,9 @@ class Duel {
 		}
 		if (this.STORM_COUNTDOWN > 0) {
 			txt += " - Storm Power : " + this.STORM_COUNTDOWN + "\n";
+		}
+		if (this.DARKNESS_COUNTDOWN > 0) {
+			txt += " - Eldritch Darkness Power : " + this.DARKNESS_COUNTDOWN + "\n";
 		}
 		if (this.PP_NET > 0 && this.PP_NET < 200) {
 			txt += " - PP-Net Rising : Step " + this.PP_NET + "\n";
