@@ -517,6 +517,7 @@ class Fighter {
 		this.cuteFishron = false;
 		this.easternTraining = false;
 		this.explosionMagic = 0;
+		this.aviatorBuff = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -886,10 +887,21 @@ class Fighter {
 			txt += " - **Gets Supply Drops**\n";
 		}
 		if (this.infernalInstrument == 1) {
-			txt += " - **Guitar Player**\n";
+			txt += " - ";
+			if (this.aviatorBuff) {
+				txt += "Super Cool ";
+			}
+			txt += "**Guitar Player**\n";
 		}
-		if (this.infernalInstrument == 2) {
-			txt += " - **Synth Player**\n";
+		else if (this.infernalInstrument == 2) {
+			txt += " - ";
+			if (this.aviatorBuff) {
+				txt += "Super Cool ";
+			}
+			txt += "**Synth Player**\n";
+		}
+		else if (this.aviatorBuff) {
+			txt += " - **Super Cool**\n";
 		}
 		if (this.livingGod) {
 			txt += " - **Living God**\n";
@@ -3173,6 +3185,17 @@ class Fighter {
 						this.meltingDamage += 1;
 					}
 					this.duel.addMessage("-----------------");
+				}
+			}
+			else if (attack == EMOTE_PP138) {
+				// 0x33s Aviators
+				this.duel.MOVE_COUNT += 33;
+				if (!this.aviatorBuff) {
+					this.duel.addMessage(this.getName() + " gets the 0x33s Aviators !");
+					this.aviatorBuff = true;
+				}
+				else {
+					this.duel.addMessage(this.getName() + " already had the 0x33s Aviators !");
 				}
 			}
 			else if (attack == EMOTE_PP139) {
