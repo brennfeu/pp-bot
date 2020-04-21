@@ -3390,6 +3390,9 @@ class Fighter {
 						this.duel.addMessage("A new storm is starting !");
 						this.duel.STORM_COUNTDOWN = 5;
 					}
+					if (this.aviatorBuff) {
+						this.duel.STORM_COUNTDOWN += 5;
+					}
 				}
 				else if (this.infernalInstrument == 2) { // Synth Solo
 					this.duel.addMessage(this.getName() + " plays a Synth Solo !");
@@ -3400,6 +3403,9 @@ class Fighter {
 					else {
 						this.duel.addMessage("The world is turning dark around you !");
 						this.duel.DARKNESS_COUNTDOWN = 5;
+					}
+					if (this.aviatorBuff) {
+						this.duel.DARKNESS_COUNTDOWN += 5;
 					}
 				}
 				else {
