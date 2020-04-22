@@ -258,11 +258,10 @@ const GOD_PP27 = {"name" : "Kurisu", "emote": "672543479598940179", "type": "wai
 const GOD_PP28 = {"name" : "Miku", "emote": "", "type": "waifu"}; // ADD TO THE LIST
 const GOD_PP30 = {"name" : "Megumin", "emote": "699593923382870047", "type": "waifu"};
 const GOD_PP31 = {"name" : "Ryuko", "emote": "682236903600422925", "type": "waifu"};
-const GOD_PP32 = {"name" : "Lan Fan", "emote": "698863580287860817", "type": "waifu"};
 
 const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
 		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
-		 GOD_PP22, GOD_PP23, GOD_PP24, GOD_PP25, GOD_PP26, GOD_PP27, GOD_PP30, GOD_PP31, GOD_PP32];
+		 GOD_PP22, GOD_PP23, GOD_PP24, GOD_PP25, GOD_PP26, GOD_PP27, GOD_PP30, GOD_PP31];
 
 const SYNERGY_PP1 = [GOD_PP15, GOD_PP12, GOD_PP14] // A Sad Witness
 const SYNERGY_PP2 = [GOD_PP9, GOD_PP11, GOD_PP19] // Holy Brenn Trinity
@@ -2203,15 +2202,6 @@ class Fighter {
 						this.duel.addMessage(this.getName() + "'s body fuses with life fibers !");
 					}
 				}
-				if (this.godList.indexOf(GOD_PP32.name) > -1) { // Lan Fan
-					this.duel.addMessage("-----------------");
-					this.duel.addMessage("Lan Fan answers his calls !");
-					if (getRandomPercent() <= 50) {
-						this.forceCritical = true;
-					}
-					this.duel.addMessage(this.getName() + " punches " + this.getOppName() + " !");
-					this.duel.getOppOf(this).damage(Math.floor(10 + this.STR / 10));
-				}
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
@@ -2510,19 +2500,6 @@ class Fighter {
 					}
 					else {
 						this.duel.addMessage(this.getName() + " already has a Kamui !");
-					}
-				}
-				if (this.godList.indexOf(GOD_PP32.name) > -1) { // Lan Fan
-					this.duel.addMessage("-----------------");
-					this.duel.addMessage("Lan Fan answers his calls !");
-					if (!this.easternTraining) {
-						this.duel.addMessage(this.getName() + " gets Eastern Training !");
-						this.easternTraining = true;
-						this.DEXValue += 10;
-					}
-					else {
-						this.duel.addMessage(this.getName() + " gets +10 DEX !");
-						this.DEXValue += 10;
 					}
 				}
 			}
