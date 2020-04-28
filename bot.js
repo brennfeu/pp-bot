@@ -259,10 +259,11 @@ const GOD_PP28 = {"name" : "Miku", "emote": "", "type": "waifu"}; // ADD TO THE 
 const GOD_PP30 = {"name" : "Megumin", "emote": "699593923382870047", "type": "waifu"};
 const GOD_PP31 = {"name" : "Ryuko", "emote": "682236903600422925", "type": "waifu"};
 const GOD_PP32 = {"name" : "Jibril", "emote": "704806101253881956", "type": "waifu"};
+const GOD_PP33 = {"name" : "Priestess", "emote": "704812248190681108", "type": "waifu"};
 
 const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
 		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
-		 GOD_PP22, GOD_PP23, GOD_PP24, GOD_PP25, GOD_PP26, GOD_PP27, GOD_PP30, GOD_PP31, GOD_PP32];
+		 GOD_PP22, GOD_PP23, GOD_PP24, GOD_PP25, GOD_PP26, GOD_PP27, GOD_PP30, GOD_PP31, GOD_PP32, GOD_PP33];
 
 const SYNERGY_PP1 = [GOD_PP15, GOD_PP12, GOD_PP14] // A Sad Witness
 const SYNERGY_PP2 = [GOD_PP9, GOD_PP11, GOD_PP19] // Holy Brenn Trinity
@@ -519,6 +520,7 @@ class Fighter {
 		this.flugelBlood = false;
 		this.explosionMagic = 0;
 		this.aviatorBuff = false;
+		this.silenced = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -1097,6 +1099,9 @@ class Fighter {
 		}
 		if (this.chimera) {
 			txt += " - Furry PP\n";
+		}
+		if (this.silenced) {
+			txt += " - Silenced\n";
 		}
 		if (this.liberatedPP) {
 			txt += " - Liberated PP\n";
@@ -1918,7 +1923,13 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP51) {
 				// Priest Regular Move
-				this.duel.addMessage(this.getName() + " calls for superior powers !");
+				if (this.silenced) {
+					this.duel.addMessage(this.getName() + " cannot calls for superior powers...");
+					return;
+				}
+				else {
+					this.duel.addMessage(this.getName() + " calls for superior powers !");
+				}
 				if (this.regularCharges > 0 && sdsds == 0 && this.attack == attack) {
 					this.regularCharges -= 1;
 				}
@@ -2226,10 +2237,22 @@ class Fighter {
 						this.duel.addMessage(this.getName() + " cannot accept more Flugel blood !");
 					}
 				}
+				if (this.godList.indexOf(GOD_PP33.name) > -1) { // Priestess
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Priestess answers his calls !");
+					this.duel.addMessage("*O Earth Mother, abounding in mercy, lay your revered hand upon your child’s wounds.*");
+					this.heal(10);
+				}
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
-				this.duel.addMessage(this.getName() + " calls for superior powers !");
+				if (this.silenced) {
+					this.duel.addMessage(this.getName() + " cannot calls for superior powers...");
+					return;
+				}
+				else {
+					this.duel.addMessage(this.getName() + " calls for superior powers !");
+				}
 				if (this.specialCharges > 0 && sdsds == 0 && this.attack == attack) {
 					this.specialCharges -= 1;
 				}
@@ -2533,6 +2556,12 @@ class Fighter {
 					this.duel.getOpponentOf(this).damage(this.STR*5, false);
 					this.duel.addMessage(this.getName() + " is exhausted...");
 					this.STRValue -= Math.floor(this.STR/10*9);
+				}
+				if (this.godList.indexOf(GOD_PP33.name) > -1) { // Priestess
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Priestess answers his calls !");
+					this.duel.addMessage("*O Earth Mother, abounding in mercy, grant us peace to accept all things…*");
+					this.duel.getOpponentOf(this).silenced = true;
 				}
 			}
 			else if (attack == EMOTE_PP53) {
