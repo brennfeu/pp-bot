@@ -2898,7 +2898,7 @@ class Fighter {
 						this.duel.addMessage("**Effect :** DEX Gain");
 						this.duel.addMessage("-----------------");
 						this.duel.addMessage(this.getName() + " gets " + Math.floor(value/10) + " DEX !");
-						this.DEX += Math.floor(value/10);
+						this.DEXValue += Math.floor(value/10);
 					}
 					else if (effectId%6 == 4) { // Inflict debuff
 						this.duel.addMessage("**Effect :** Debuff");
