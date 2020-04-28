@@ -285,6 +285,7 @@ const SYNERGY_PP19 = [GOD_PP6, "eldritch"] // Eldritch Gang
 const SYNERGY_PP20 = [GOD_PP24, GOD_PP27] // Master of Time
 const SYNERGY_PP21 = [GOD_PP12, GOD_PP7] // Big Nose
 const SYNERGY_PP22 = [GOD_PP18, GOD_PP3] // Extreme Karma
+const SYNERGY_PP23 = [GOD_PP10, GOD_PP11] // Ram Ranch
 
 const STAND_PP1 = "Somewhere in Time";
 const STAND_PP2 = "The Boreal Flame";
@@ -630,6 +631,14 @@ class Fighter {
 		}
 		if (this.duel.RUSSIAN_TEXT > 0) {
 			name += "ijov";
+		}
+		if (this.duel.UWU_TEXT > 0) {
+			if (getRandomPercent() <= 50) {
+				name += "-Senpai";
+			}
+			else {
+				name += "-Sama";
+			}
 		}
 		return name.secureXSS();
 	}
@@ -1194,6 +1203,9 @@ class Fighter {
 				}
 				if (this.hasSynergy(SYNERGY_PP22)) {
 					txt += " - Extreme Karma\n";
+				}
+				if (this.hasSynergy(SYNERGY_PP23)) {
+					txt += " - Ram Ranch\n";
 				}
 			}
 		}
@@ -4516,6 +4528,15 @@ class Duel {
 			this.addMessage("Pudding just wants to harass you during the battle !\n" + IMAGE_PP8);
 			this.PUDDING_NUISANCE = Math.floor(getRandomPercent()/10) + 1;
 		}
+		
+		// Ram Ranch
+		if (this.FIGHTER1.hasSynergy(SYNERGY_PP23) || this.FIGHTER2.hasSynergy(SYNERGY_PP23)) {
+			this.addMessage("**===== RAM RANCH =====**");
+			this.addMessage("*Eighteen naked cowboys in the showers at Ram Ranch.\nBig hard throbbing cocks wanting to be sucked.\nEighteen naked cowboys wanting to be fucked.\nCowboys in the showers at Ram Ranch.\nOn their knees wanting to suck cowboy cocks.\nRam Ranch really rocks.*");
+			this.bothFightersAction(function(_fighter) {
+				_fighter.hasBoner = true;
+			});
+		}
 
 		this.newTurnDuel();
 	}
@@ -7014,7 +7035,7 @@ class Duel {
 			case EMOTE_PP57:
 				return 20;
 			case EMOTE_PP135:
-				return 40;
+				return 20;
 			case EMOTE_PP139:
 				return 50;
 			case EMOTE_PP144:
