@@ -258,10 +258,11 @@ const GOD_PP27 = {"name" : "Kurisu", "emote": "672543479598940179", "type": "wai
 const GOD_PP28 = {"name" : "Miku", "emote": "", "type": "waifu"}; // ADD TO THE LIST
 const GOD_PP30 = {"name" : "Megumin", "emote": "699593923382870047", "type": "waifu"};
 const GOD_PP31 = {"name" : "Ryuko", "emote": "682236903600422925", "type": "waifu"};
+const GOD_PP32 = {"name" : "Jibril", "emote": "704806101253881956", "type": "waifu"};
 
 const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
 		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
-		 GOD_PP22, GOD_PP23, GOD_PP24, GOD_PP25, GOD_PP26, GOD_PP27, GOD_PP30, GOD_PP31];
+		 GOD_PP22, GOD_PP23, GOD_PP24, GOD_PP25, GOD_PP26, GOD_PP27, GOD_PP30, GOD_PP31, GOD_PP32];
 
 const SYNERGY_PP1 = [GOD_PP15, GOD_PP12, GOD_PP14] // A Sad Witness
 const SYNERGY_PP2 = [GOD_PP9, GOD_PP11, GOD_PP19] // Holy Brenn Trinity
@@ -515,7 +516,7 @@ class Fighter {
 		this.boneGlove = false;
 		this.shinyStone = false;
 		this.cuteFishron = false;
-		this.easternTraining = false;
+		this.flugelBlood = false;
 		this.explosionMagic = 0;
 		this.aviatorBuff = false;
 
@@ -1056,8 +1057,8 @@ class Fighter {
 		if (this.forceCritical) {
 			txt += " - Ready to Inflict Critical Damages\n";
 		}
-		if (this.easternTraining) {
-			txt += " - Eastern Training\n";
+		if (this.flugelBlood) {
+			txt += " - Flugel Blood\n";
 		}
 		if (this.isOverCircumcised) {
 			txt += " - Overcircumcised\n";
@@ -2214,6 +2215,17 @@ class Fighter {
 						this.duel.addMessage(this.getName() + "'s body fuses with life fibers !");
 					}
 				}
+				if (this.godList.indexOf(GOD_PP32.name) > -1) { // Jibril
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Jibril answers his calls !");
+					if (!this.flugelBlood) {
+						this.flugelBlood = true;
+						this.duel.addMessage(this.getName() + " gets a bit of Flugel blood !");
+					}
+					else {
+						this.duel.addMessage(this.getName() + " cannot accept more Flugel blood !");
+					}
+				}
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
@@ -2513,6 +2525,14 @@ class Fighter {
 					else {
 						this.duel.addMessage(this.getName() + " already has a Kamui !");
 					}
+				}
+				if (this.godList.indexOf(GOD_PP32.name) > -1) { // Jibril
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Jibril answers his calls !");
+					this.duel.addMessage("***HEAVEN'S STRIKE !***");
+					this.duel.getOpponentOf(this).damage(this.STR*5, false);
+					this.duel.addMessage(this.getName() + " is exhausted...");
+					this.STRValue -= Math.floor(this.STR/10*9);
 				}
 			}
 			else if (attack == EMOTE_PP53) {
@@ -3543,8 +3563,8 @@ class Fighter {
 			// Waifu Body Pillow
 			_amount -= 10;
 		}
-		if (this.duel.getOppOf(this).easternTraining && this.duel.getOppOf(this).DEX > this.DEX && _punch) {
-			// Lan Fan Special
+		if (this.duel.getOppOf(this).flugelBlood && this.duel.getOppOf(this).DEX > this.DEX && _punch) {
+			// Jibril Special
 			_amount += this.duel.getOppOf(this).DEX - this.DEX;
 		}
 
