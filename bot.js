@@ -3197,7 +3197,7 @@ class Fighter {
 				this.duel.MOVE_COUNT += 33;
 				this.duel.addMessage(this.getName() + " summons the Brain of Confusion !");
 				this.duel.addMessage(this.duel.getOppOf(this).getName() + " is confused !");
-				this.duel.getOppOf(this).grabbedPP = 2;
+				this.duel.getOppOf(this).grabbedPP = 3;
 			}
 			else if (attack == EMOTE_PP141) {
 				// Shield of Cthulhu
