@@ -374,6 +374,7 @@ const MUSIC_PP7 = "anomaly_b.mp3";
 const MUSIC_PP8 = "brennijov_intro.mp3";
 const MUSIC_PP9 = "brennijov.mp3";
 const MUSIC_PP10 = "brennijov_outro.mp3";
+const MUSIC_PP11 = "espinoza.mp3";
 
 // IMAGES
 const IMAGE_PP1 = "https://cdn.discordapp.com/attachments/616225633286094852/623080353807990784/image0.gif";
@@ -7233,6 +7234,9 @@ class Duel {
 		}
 		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP7) {
 			return MUSIC_PP10; // Brennijov Von Truffle Outro
+		}
+		else if (this.EVENT_BOSS && (this.CURRENT_BOSS == BOSS_PP10 || this.CURRENT_BOSS == BOSS_PP12)) {
+			return MUSIC_PP11;  // Espinoza
 		}
 		else if (this.PP_ARMAGEDDON) {
 			return MUSIC_PP3; // Psychodios
