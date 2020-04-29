@@ -5234,6 +5234,7 @@ class Duel {
 			this.sendMessages();
 		}
 
+		this.addMessage("**===== DEATH CHECK =====**");
 		this.checkDeath();
 		if (this.DEAD_DUEL) return;
 
@@ -7214,10 +7215,7 @@ class Duel {
 		}).catch(err => console.log(err));
 	}
 	getBattleTheme() {
-		if (this.GAY_TURNS > 0) {
-			return MUSIC_PP4; // Huge Gay Night
-		}
-		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP1) {
+		if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP1) {
 			return MUSIC_PP5; // Lovecraftian Strain 911
 		}
 		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP2) {
@@ -7237,6 +7235,9 @@ class Duel {
 		}
 		else if (this.EVENT_BOSS && (this.CURRENT_BOSS == BOSS_PP10 || this.CURRENT_BOSS == BOSS_PP12)) {
 			return MUSIC_PP11;  // Espinoza
+		}
+		else if (this.GAY_TURNS > 0) {
+			return MUSIC_PP4; // Huge Gay Night
 		}
 		else if (this.PP_ARMAGEDDON) {
 			return MUSIC_PP3; // Psychodios
