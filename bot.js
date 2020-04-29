@@ -3839,8 +3839,8 @@ class Fighter {
 		this.turkeyCountdown -= 1;
 		this.selfReverseDamage -= 1;
 		
-		if (this.sporeSac && getRandomPercent() <= 50) {
-			this.duel.sendMessage(this.getName() + " stays for longer.");
+		if (this.sporeSac && getRandomPercent() <= 50 && this.acidArmor > 0) {
+			this.duel.addMessage(this.getName() + "'s acid armor stays for longer.");
 			this.duel.addMessage("-----------------");
 		}
 		else {
