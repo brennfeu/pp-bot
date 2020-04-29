@@ -356,6 +356,7 @@ const BOSS_PP11 = "Weeb";
 const BOSS_PP12 = "Obamium Espinoza";
 const BOSS_PP13 = "Pudding Blob";
 const BOSS_PP14 = "Sex-Starved Mongo";
+const BOSS_PP15 = "Wyndoella";
 
 // BATTLE MODES
 const NORMAL_BATTLE_MODE = 0;
@@ -383,7 +384,8 @@ const IMAGE_PP5 = "https://cdn.discordapp.com/attachments/668732348040347680/676
 const IMAGE_PP6 = "https://cdn.discordapp.com/attachments/683397030759891014/695571209894494208/image0.png";
 const IMAGE_PP7 = "https://cdn.discordapp.com/attachments/616228498075549756/695714573331726346/weeb.png";
 const IMAGE_PP8 = "https://cdn.discordapp.com/attachments/616228498075549756/696131319721361509/unknown.png";
-const IMAGE_LIST = [IMAGE_PP1, IMAGE_PP2, IMAGE_PP3, IMAGE_PP4, IMAGE_PP5, IMAGE_PP6, IMAGE_PP7, IMAGE_PP8];
+const IMAGE_PP9 = "https://cdn.discordapp.com/attachments/293809868844826626/704361750379757618/image0.png";
+const IMAGE_LIST = [IMAGE_PP1, IMAGE_PP2, IMAGE_PP3, IMAGE_PP4, IMAGE_PP5, IMAGE_PP6, IMAGE_PP7, IMAGE_PP8, IMAGE_PP9];
 
 // IDs
 const ID_BRENNFEU = "234439428372824075";
@@ -5105,6 +5107,11 @@ class Duel {
 
 						espinozaBoss = getRandomPercent() <= 20;
 					}
+					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP15) {
+						this.addMessage(this.CURRENT_BOSS + " somehow is... defeated...");
+						this.EVENT_BOSS = false;
+						this.MOVE_COUNT = 1000000;
+					}
 					if (espinozaBoss) {
 						this.addMessage(this.CURRENT_BOSS + " was only a mimic !");
 						this.EVENT_BOSS = true;
@@ -5500,6 +5507,9 @@ class Duel {
 
 					_fighterSave.standPower = _fighter.standPower;
 					_fighterSave.requiemPower = _fighter.requiemPower;
+					if (_fighter.infernalInstrument > 0) {
+						_fighterSave.infernalInstrument = _fighter.infernalInstrument;
+					}
 					_fighterSave.randomizedStand = _fighter.randomizedStand; // Perfect Machine
 					if (_fighter.standPower == STAND_PP8) { // Black Clouds & Silver Linings
 						_fighterSave.extraLife = 1;
@@ -5552,7 +5562,7 @@ class Duel {
 		var forcedEvent = this.FORCE_EVENT;
 
 		if (this.FORCE_EVENT) {
-			while (!(randomVar <= 49 && randomVar >= 2)) {
+			while (!(randomVar <= 50 && randomVar >= 2)) {
 				randomVar = getRandomPercent();
 			}
 		}
@@ -5566,6 +5576,12 @@ class Duel {
 				this.MOVE_COUNT = this.ALTERNATE_MOVE_COUNT;
 				this.ALTERNATE_MOVES = false;
 				return;
+			}
+			if (this.EVENT_BOSS == true && this.CURRENT_BOSS == BOSS_PP15) {
+				this.addMessage(BOSS_PP15 + " is defeated...");
+				this.bothFightersAction(function(_fighter) {
+					_fighter.win();
+				});
 			}
 			this.stopDuel();
 			for (var i in DUEL_LIST) {
@@ -6015,13 +6031,22 @@ class Duel {
 			// Obama
 			this.addMessage(" -- OBAMIUM --");
 			this.addMessage("Thanks to your PP Punching, a new Obamium source has been found ! Scientists are giving you some !");
-			this.OBAMIUM = true
+			this.OBAMIUM = true;
 			this.OBAMIUM_DONE = true;
 		}
 		else if ([45, 46, 47, 48, 49].indexOf(randomVar) > -1) {
 			// PP Net more likely to happen
 			this.FORCE_EVENT_ID = 27;
 			this.startRandomEvent();
+		}
+		else if (randomVar == 50 && (this.MOVE_COUNT >= 1000 || forcedEvent)) {
+			// Obama
+			this.addMessage(" -- WYNDOELLA KILLS PUDDING --");
+			this.addMessage("The Universe itself is against you now...\n" + IMAGE_PP9);
+			this.EVENT_BOSS = true;
+			this.BOSS_HEALTH = Math.pow(10, 99);
+			this.BOSS_DAMAGE = Math.pow(10, 99);
+			this.CURRENT_BOSS = BOSS_PP15;
 		}
 		// DON'T FORGET TO UPDATE FORCE EVENT IF NEW EVENTS ARE ADDED
 		else if (randomVar == 90 && (this.MOVE_COUNT >= 50 || forcedEvent)) {
