@@ -5237,6 +5237,20 @@ class Duel {
 		this.addMessage("**===== DEATH CHECK =====**");
 		this.checkDeath();
 		if (this.DEAD_DUEL) return;
+		
+		if (this.INFERNAL_FIRELAND) {
+			// Give back instrument if needed (new life, stand battle etc...)
+			this.bothFightersAction(function(_fighter) {
+				if (_fighter.infernalInstrument <= 0) {
+					if (_fighter.duel.getOppOf(_fighter).infernalInstrument != 1) {
+						_fighter.infernalInstrument = 1; // Guitar
+					}
+					else {
+						_fighter.infernalInstrument = 2; // Synth
+					}
+				}
+			});
+		}
 
 		this.addMessage("\n\n**===== NEW TURN =====**", true);
 		this.sendMessages();
