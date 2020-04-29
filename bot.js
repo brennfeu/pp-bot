@@ -3245,11 +3245,11 @@ class Fighter {
 				}
 				else {
 					this.duel.addMessage(this.getName() + " summons the Royal Gel !");
-					this.CURRENT_BOSS = BOSS_PP13;
-					this.BOSS_HEALTH = 10*this.MOVE_COUNT;
-					this.BOSS_DAMAGE = 2*this.MOVE_COUNT;
-					this.EVENT_BOSS = true;
-					this.addMessage("A Pudding Blob has been created !");
+					this.duel.CURRENT_BOSS = BOSS_PP13;
+					this.duel.BOSS_HEALTH = 10*this.duel.MOVE_COUNT;
+					this.duel.BOSS_DAMAGE = 2*this.duel.MOVE_COUNT;
+					this.duel.EVENT_BOSS = true;
+					this.duel.addMessage("A Pudding Blob has been created !");
 				}
 				this.duel.BOSS_TRIGGER = this.duel.getOppOf(this);
 			}
@@ -3597,8 +3597,8 @@ class Fighter {
 			_amount += this.duel.getOppOf(this).DEX - this.DEX;
 		}
 
-		if (this.duel.INFINITE_DAMAGE >= 10) {
-			if (this.duel.INFINITE_DAMAGE == 10) {
+		if (this.duel.INFINITE_DAMAGE >= 100) {
+			if (this.duel.INFINITE_DAMAGE == 100) {
 			    this.duel.addMessage("**Damage cap achieved !**");
 			}
 			return this.duel.addMessage(_amount + " damages were canceled");
