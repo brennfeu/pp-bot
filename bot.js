@@ -5152,7 +5152,7 @@ class Duel {
 								this.addMessage(fighter.getName() + " reflects the damages !");
 								fighter.cthulhuShield -= 1;
 								this.BOSS_HEALTH -= amount;
-								this.addMessage(this.duel.CURRENT_BOSS + " takes " + amount + " damages !");
+								this.addMessage(this.CURRENT_BOSS + " takes " + amount + " damages !");
 								this.DAMAGE_COUNT += amount;
 							}
 							else {
