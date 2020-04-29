@@ -4954,6 +4954,62 @@ class Duel {
 
 				// Bosses
 				if (this.EVENT_BOSS) {
+					if (this.BOSS_HEALTH > 0) {
+						var fighter = this.getRandomFighter();
+						if (this.BOSS_TRIGGER != null) {
+							fighter = this.BOSS_TRIGGER;
+							if (this.CURRENT_BOSS != BOSS_PP13) {
+								this.BOSS_TRIGGER = null;
+							}
+						}
+						
+						if (this.CURRENT_BOSS != BOSS_PP14) {
+							this.addMessage(fighter.getName() + " gets attacked by " + this.CURRENT_BOSS + " !");
+							if (this.EVENT_BLOOD_MOON && this.CURRENT_BOSS == BOSS_PP3) { // Blood Moon / Moon Lord
+								var amount = this.BOSS_DAMAGE*3;
+							}
+							else {
+								var amount = this.BOSS_DAMAGE;
+							}
+							
+							if (fighter.cthulhuShield > 0) {
+								this.addMessage(fighter.getName() + " reflects the damages !");
+								fighter.cthulhuShield -= 1;
+								this.BOSS_HEALTH -= amount;
+								this.addMessage(this.CURRENT_BOSS + " takes " + amount + " damages !");
+								this.DAMAGE_COUNT += amount;
+							}
+							else {
+								fighter.damage(amount, false);
+							}
+							
+							if (this.CURRENT_BOSS == BOSS_PP8 || this.CURRENT_BOSS == BOSS_PP9) {
+								this.addMessage("The satanic energy from the attack makes him possess " + this.getOppOf(fighter).getName() + " !");
+								this.getOppOf(fighter).isPossessed = 2;
+							}
+						}
+						else {
+							var mongo = new Fighter(fighter.user.id, this.BATTLE_CHANNEL.id);
+							mongo.STRValue = this.BOSS_HEALTH;
+							mongo.DEXValue = fighter.STRValue;
+							mongo.user = {}
+							mongo.user.id = fighter.user.id
+							mongo.user.username = BOSS_PP14;
+							this.EVENT_BOSS = false;
+							mongo.playMove(randomFromList(this.LIST_AVAILABLE_ATTACKS));
+							this.EVENT_BOSS = true;
+							this.BOSS_HEALTH = mongo.STRValue;
+
+							this.MONGO_HOTNESS += 1;
+							if (this.MONGO_HOTNESS >= 15) {
+								this.MONGO_HOTNESS = 0;
+								this.FORCE_EVENT_ID = 90; // Brenn Ejaculates
+							}
+						}
+
+						this.addMessage("-----------------");
+					}
+					
 					var espinozaBoss = false;
 					if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP1) {
 						this.addMessage(this.CURRENT_BOSS + " goes back to sleep to heal his poor PP !");
@@ -5129,61 +5185,6 @@ class Duel {
 							this.BOSS_HEALTH = 1000000;
 							this.BOSS_DAMAGE = 1000;
 						}
-					}
-					if (this.EVENT_BOSS) {
-						var fighter = this.getRandomFighter();
-						if (this.BOSS_TRIGGER != null) {
-							fighter = this.BOSS_TRIGGER;
-							if (this.CURRENT_BOSS != BOSS_PP13) {
-								this.BOSS_TRIGGER = null;
-							}
-						}
-						
-						if (this.CURRENT_BOSS != BOSS_PP14) {
-							this.addMessage(fighter.getName() + " gets attacked by " + this.CURRENT_BOSS + " !");
-							if (this.EVENT_BLOOD_MOON && this.CURRENT_BOSS == BOSS_PP3) { // Blood Moon / Moon Lord
-								var amount = this.BOSS_DAMAGE*3;
-							}
-							else {
-								var amount = this.BOSS_DAMAGE;
-							}
-							
-							if (fighter.cthulhuShield > 0) {
-								this.addMessage(fighter.getName() + " reflects the damages !");
-								fighter.cthulhuShield -= 1;
-								this.BOSS_HEALTH -= amount;
-								this.addMessage(this.CURRENT_BOSS + " takes " + amount + " damages !");
-								this.DAMAGE_COUNT += amount;
-							}
-							else {
-								fighter.damage(amount, false);
-							}
-							
-							if (this.CURRENT_BOSS == BOSS_PP8 || this.CURRENT_BOSS == BOSS_PP9) {
-								this.addMessage("The satanic energy from the attack makes him possess " + this.getOppOf(fighter).getName() + " !");
-								this.getOppOf(fighter).isPossessed = 2;
-							}
-						}
-						else {
-							var mongo = new Fighter(fighter.user.id, this.BATTLE_CHANNEL.id);
-							mongo.STRValue = this.BOSS_HEALTH;
-							mongo.DEXValue = fighter.STRValue;
-							mongo.user = {}
-							mongo.user.id = fighter.user.id
-							mongo.user.username = BOSS_PP14;
-							this.EVENT_BOSS = false;
-							mongo.playMove(randomFromList(this.LIST_AVAILABLE_ATTACKS));
-							this.EVENT_BOSS = true;
-							this.BOSS_HEALTH = mongo.STRValue;
-
-							this.MONGO_HOTNESS += 1;
-							if (this.MONGO_HOTNESS >= 15) {
-								this.MONGO_HOTNESS = 0;
-								this.FORCE_EVENT_ID = 90; // Brenn Ejaculates
-							}
-						}
-
-						this.addMessage("-----------------");
 					}
 				}
 
