@@ -639,7 +639,13 @@ class Fighter {
 			name += "ijov";
 		}
 		if (this.duel.UWU_TEXT > 0) {
-			if (getRandomPercent() <= 50) {
+			if (getRandomPercent() <= 25) {
+				name += "-Chan";
+			}
+			else if (getRandomPercent() <= 50) {
+				name += "-Kun";
+			}
+			else if (getRandomPercent() <= 75) {
 				name += "-Senpai";
 			}
 			else {
