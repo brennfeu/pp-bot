@@ -3993,7 +3993,7 @@ class Fighter {
 		if (this.duel.MOVE_COUNT > 30 && this.godList.indexOf(GOD_PP12.name) > -1) {
 			for (var i in this.duel.getOppOf(this).godList) {
 				if (this.duel.getOppOf(this).godList[i].type == "waifu") {
-					this.duel.addMessage(this.getName() + " uses Espinoza sniff on " + this.duel.getOppOf(this).getName() + " !");
+					this.duel.addMessage(this.getName() + " uses Espinoza sniffes " + this.duel.getOppOf(this).getName() + " !");
 					this.duel.addMessage(this.duel.getOppOf(this).godList[i].name + " leaves " + this.duel.getOppOf(this).getName() + " for " + this.getName() + " !");
 					this.duel.addMessage("Espinoza truly is a waifu stealer !");
 
@@ -6172,6 +6172,10 @@ class Duel {
 						duel.addMessage("Gay people can't cheat...");
 						return duel.sendMessages();
 					}
+					else if (duel.getOppOf(_fighter).STR <= 0) {
+						// opponent dead (boss battle)
+						return;
+					}
 					else {
 						duel.getOppOf(_fighter).attack = duel.getAttackFromEmote(_emote);
 						duel.addMessage(duel.getOppOf(_fighter).getName() + " : " + _emote, true);
@@ -6484,8 +6488,11 @@ class Duel {
 				caught1 = false;
 			}
 
-			// Illegal Jews (Hitler regular move)
-			if (duel.ILLEGAL_JEWS && _fighter.godList.indexOf(GOD_PP7.name) > -1 && duel.illegalGetCaught(20)) {
+			if (duel.BLIND_COUNTDOWN > 0) {
+				caught1 = false;
+			}
+			else if (duel.ILLEGAL_JEWS && _fighter.godList.indexOf(GOD_PP7.name) > -1 && duel.illegalGetCaught(20)) {
+				// Illegal Jews (Hitler regular move)
 				duel.addMessage("Wait, I think " + _fighter.getName() + " is a villager !");
 				duel.sendMessages();
 				caught1 = true;
