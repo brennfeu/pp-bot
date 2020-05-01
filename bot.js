@@ -703,6 +703,9 @@ class Fighter {
 				str += 50;
 			}
 		}
+		if (this.duel.INFERNAL_FIRELAND) {
+			str += 1000;
+		}
 		if (this.duel.PP_ARMAGEDDON) {
 			str += 1000000;
 		}
@@ -5610,13 +5613,7 @@ class Duel {
 			}
 			return;
 		}
-		if (!this.PP_ARMAGEDDON && this.MOVE_COUNT >= 100) {
-			// PP ARMAGEDDON
-			this.PP_ARMAGEDDON = true;
-			this.addMessage(" -- PP ARMAGEDDON --");
-			this.addMessage("PPs have ascended, the end is near !");
-		}
-		if (!this.INFERNAL_FIRELAND && this.MOVE_COUNT >= 1000) {
+		if (!this.INFERNAL_FIRELAND && this.MOVE_COUNT >= 100) {
 			// INFERNAL FIRELAND
 			this.addMessage(" -- INFERNAL FIRELAND --");
 			this.addMessage("Plenty of forest fires have been set off as a result of your PP punching, making the nearby 100 square km into an Infernal Fireland !");
@@ -5625,6 +5622,12 @@ class Duel {
 			winner.infernalInstrument = 1; // Guitar
 			this.getOppOf(winner).infernalInstrument = 2; // Synth
 			this.INFERNAL_FIRELAND = true;
+		}
+		if (!this.PP_ARMAGEDDON && this.MOVE_COUNT >= 1000) {
+			// PP ARMAGEDDON
+			this.PP_ARMAGEDDON = true;
+			this.addMessage(" -- PP ARMAGEDDON --");
+			this.addMessage("PPs have ascended, the end is near !");
 		}
 
 		if (this.FORCE_EVENT_ID != 0) {
@@ -6253,13 +6256,14 @@ class Duel {
 				return this.triggerReaction(CLIENT.emojis.get(GOD_LIST[i].emote).name, fighter.user);
 			}
 		}
+		for (i = 0; i < SPECIAL_EMOTE_LIST.length; i++) { // Animated Moves
+			if (this.LIST_AVAILABLE_ATTACKS.indexOf(SPECIAL_EMOTE_LIST[i]) > -1) {
+				return this.triggerReaction(CLIENT.emojis.get(SPECIAL_EMOTE_LIST[i]).name, fighter.user);
+			}
+		}
 		for (i = 0; i < INFERNAL_EMOTE_LIST.length; i++) { // Infernal Moves
 			if (this.LIST_AVAILABLE_ATTACKS.indexOf(INFERNAL_EMOTE_LIST[i]) > -1) {
 				return this.triggerReaction(CLIENT.emojis.get(INFERNAL_EMOTE_LIST[i]).name, fighter.user);
-			}
-		}for (i = 0; i < SPECIAL_EMOTE_LIST.length; i++) { // Animated Moves
-			if (this.LIST_AVAILABLE_ATTACKS.indexOf(SPECIAL_EMOTE_LIST[i]) > -1) {
-				return this.triggerReaction(CLIENT.emojis.get(SPECIAL_EMOTE_LIST[i]).name, fighter.user);
 			}
 		}
 		if (fighter.specialCharges > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP52) > -1) {
@@ -6895,11 +6899,11 @@ class Duel {
 		if (!this.DISABLE_ABANDON) {
 			goodList.push(EMOTE_PP47);
 		}
+		if (this.INFERNAL_FIRELAND || getRandomPercent() <= 5) {
+			goodList = goodList.concat(INFERNAL_EMOTE_LIST);
+		}
 		if (this.PP_ARMAGEDDON || getRandomPercent() <= 3) {
 			goodList = goodList.concat(SPECIAL_EMOTE_LIST);
-		}
-		if (this.INFERNAL_FIRELAND || getRandomPercent() <= 2) {
-			goodList = goodList.concat(INFERNAL_EMOTE_LIST);
 		}
 		if (this.PP_NET == 3 || this.EASY_DUEL) {
 			goodList = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP4, EMOTE_PP5, EMOTE_PP8, EMOTE_PP12, EMOTE_PP13,
