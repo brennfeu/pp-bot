@@ -1942,12 +1942,6 @@ class Fighter {
 				if (this.regularCharges > 0 && sdsds == 0 && this.attack == attack) {
 					this.regularCharges -= 1;
 				}
-				if (this.godList.indexOf(STAND_PP15) > -1) { // House of Atreus
-					this.duel.addMessage("-----------------");
-					this.duel.addMessage("Atreus answers his calls !");
-					this.duel.getOppOf(this).damage(10);
-					this.heal(10);
-				}
 				if (this.godList.indexOf(GOD_PP8.name) > -1) { // Fabulous Toast Man
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Fabulous Toast Man answers his calls !");
@@ -3034,25 +3028,25 @@ class Fighter {
 				  	EMOTE_PP109, EMOTE_PP110, EMOTE_PP111, EMOTE_PP112].indexOf(attack) > -1) {
 				// Units
 				var units = {};
-				units[EMOTE_PP94] = ["Bullet Kin", 40, []];
-				units[EMOTE_PP95] = ["Bandana Bullet Kin", 60, []];
-				units[EMOTE_PP96] = ["Agonizer", 1000, ["armyAgony"]];
-				units[EMOTE_PP97] = ["Gunreaper", 60, ["armyResurrects"]];
-				units[EMOTE_PP98] = ["Lord of the Jammed", 100, ["armyResurrects", "armyJammed"]];
-				units[EMOTE_PP99] = ["Shelleton", 100, ["armyDefence"]];
-				units[EMOTE_PP100] = ["Chain Gunner", 200, []];
-				units[EMOTE_PP101] = ["Chancebulon", Math.floor(Math.random() * 20 + 1)*20, ["armyBouncing"]];
-				units[EMOTE_PP102] = ["Confirmed", 500, ["armyBlessing"]];
-				units[EMOTE_PP103] = ["Cubelead", 240, []];
-				units[EMOTE_PP104] = ["Cubulon", 200, ["armyBouncing"]];
-				units[EMOTE_PP105] = ["Gun Nut", 200, []];
+				units[EMOTE_PP94] = ["Bullet Kin", 80, []];
+				units[EMOTE_PP95] = ["Bandana Bullet Kin", 120, []];
+				units[EMOTE_PP96] = ["Agonizer", 2000, ["armyAgony"]];
+				units[EMOTE_PP97] = ["Gunreaper", 120, ["armyResurrects"]];
+				units[EMOTE_PP98] = ["Lord of the Jammed", 200, ["armyResurrects", "armyJammed"]];
+				units[EMOTE_PP99] = ["Shelleton", 200, ["armyDefence"]];
+				units[EMOTE_PP100] = ["Chain Gunner", 400, []];
+				units[EMOTE_PP101] = ["Chancebulon", Math.floor(Math.random() * 40 + 1)*40, ["armyBouncing"]];
+				units[EMOTE_PP102] = ["Confirmed", 1000, ["armyBlessing"]];
+				units[EMOTE_PP103] = ["Cubelead", 480, []];
+				units[EMOTE_PP104] = ["Cubulon", 400, ["armyBouncing"]];
+				units[EMOTE_PP105] = ["Gun Nut", 400, []];
 				units[EMOTE_PP106] = ["Killithid", 0, ["armyMindControl"]];
-				units[EMOTE_PP107] = ["Muzzle Flare", 200, []];
-				units[EMOTE_PP108] = ["Muzzle Whisp", 1000, ["armyUnstable"]];
-				units[EMOTE_PP109] = ["Phaser Spider", 40, ["armyPiercing"]];
-				units[EMOTE_PP110] = ["Skullet", 40, ["armyDefence"]];
-				units[EMOTE_PP111] = ["Skullmet", 100, []];
-				units[EMOTE_PP112] = ["Spectral Gun Nut", 100, ["armyPiercing"]];
+				units[EMOTE_PP107] = ["Muzzle Flare", 400, []];
+				units[EMOTE_PP108] = ["Muzzle Whisp", 2000, ["armyUnstable"]];
+				units[EMOTE_PP109] = ["Phaser Spider", 80, ["armyPiercing"]];
+				units[EMOTE_PP110] = ["Skullet", 80, ["armyDefence"]];
+				units[EMOTE_PP111] = ["Skullmet", 200, []];
+				units[EMOTE_PP112] = ["Spectral Gun Nut", 200, ["armyPiercing"]];
 
 				this.duel.addMessage(this.getName() + " summons a " + units[attack][0] + " for his army !");
 				this.lastSummonValue = units[attack][1];
@@ -3455,6 +3449,11 @@ class Fighter {
 						this.duel.DARKNESS_COUNTDOWN += 5;
 					}
 				}
+				else if (this.standPower == STAND_PP15) { // House of Atreus
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("The House of Atreus answers his calls !");
+					this.heal(30);
+				}
 				else {
 					this.duel.addMessage(this.getName() + " has no ability to use !");
 				}
@@ -3749,6 +3748,9 @@ class Fighter {
 				if (this.duel.getOppOf(this).standPower == STAND_PP13 && _punch) { // The Scythe of Cosmic Chaos
 					this.madnessStacks += 1;
 				}
+				if (this.duel.getOppOf(this).standPower == STAND_PP17 && _punch) { // Titans of Creation
+					this.duel.getOppOf(this).heal(10);
+				}
 				if (this.madnessStacks > 0 && getRandomPercent() <= 10+this.madnessStacks && _punch) {
 					this.duel.addMessage(this.getName() + " flinched !");
 					this.hasBurst = 2;
@@ -3821,8 +3823,7 @@ class Fighter {
 		this.attackedThisTurn = false;
 
 		// Overcircumcised / Perfect Machine / Cybion = immune to status effects
-		if (this.isOverCircumcised || this.randomizedStand ||
-		    this.standPower == STAND_PP12 || this.standPower == STAND_PP9) {
+		if (this.isOverCircumcised || this.randomizedStand || this.standPower == STAND_PP9) {
 			this.resetBattleVariables()
 		}
 
@@ -3962,14 +3963,6 @@ class Fighter {
 		if (this.standPower == STAND_PP14) {
 			this.playMove(EMOTE_PP73);
 			this.duel.addMessage("-----------------");
-		}
-
-		// House of Atreus
-		if (this.standPower == STAND_PP15 && this.godList.indexOf(STAND_PP15) < 0) {
-			this.godList.push(STAND_PP15);
-			if (this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
-				this.regularCharges = 1;
-			}
 		}
 
 		// Eldritch Pudding
@@ -4147,7 +4140,7 @@ class Fighter {
 	hasSynergy(_synergy) {
 		for (var i in _synergy) {
 			for (var j in this.godList) {
-				if (GOD_LIST.find(r => r.name == this.godList[j]) != undefined // House of Atreus
+				if (GOD_LIST.find(r => r.name == this.godList[j]) != undefined
 				    && GOD_LIST.find(r => r.name == this.godList[j]).type == _synergy[i]) {
 					continue;
 				}
@@ -6859,7 +6852,9 @@ class Duel {
 			listeAttaques.push(EMOTE_PP52);
 		}
 
-		if (((this.FIGHTER1.requiemPower != null || this.FIGHTER2.requiemPower != null) && getRandomPercent() <= 34) ||
+		if (((this.FIGHTER1.requiemPower != null || this.FIGHTER2.requiemPower != null ||
+		      this.FIGHTER1.standPower == STAND_PP15 || this.FIGHTER2.standPower == STAND_PP15) &&
+		     getRandomPercent() <= 34) ||
 		    (this.INFERNAL_FIRELAND && getRandomPercent() <= 10)) {
 			listeAttaques.push(EMOTE_ABILITY);
 		}
