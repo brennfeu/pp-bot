@@ -4906,8 +4906,8 @@ class Duel {
 				}
 				if (this.STORM_COUNTDOWN > 0) {
 					var fighter = this.getRandomFighter();
-					this.addMessage(fighter.getName() + " gets striked by lightning !");
 					if (fighter.infernalInstrument == 1) {
+						this.addMessage(fighter.getName() + " gets striked by lightning !");
 						if (getRandomPercent() <= 5) {
 							this.addMessage("*insert epic highlander high scream*");
 						}
@@ -4915,7 +4915,8 @@ class Duel {
 						fighter.quickeningCharges += this.STORM_COUNTDOWN*2;
 					}
 					else {
-						fighter.damage(10000*this.STORM_COUNTDOWN);
+						this.addMessage(this.getOppOf(fighter).getOppName() + " gets striked by lightning !");
+						fighter.damage(40*this.STORM_COUNTDOWN);
 					}
 					this.addMessage("-----------------");
 				}
