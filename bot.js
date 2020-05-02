@@ -375,6 +375,8 @@ const MUSIC_PP8 = "brennijov_intro.mp3";
 const MUSIC_PP9 = "brennijov.mp3";
 const MUSIC_PP10 = "brennijov_outro.mp3";
 const MUSIC_PP11 = "espinoza.mp3";
+const MUSIC_PP12 = "time_stop.mp3";
+const MUSIC_PP13 = "free_lives.mp3";
 
 // IMAGES
 const IMAGE_PP1 = "https://cdn.discordapp.com/attachments/616225633286094852/623080353807990784/image0.gif";
@@ -561,7 +563,7 @@ class Fighter {
 				this.quickeningCharges = 5;
 			}
 			if (this.standPower == STAND_PP17) { // Titans of Creation
-				this.selfReverseDamage = 4;
+				this.selfReverseDamage = 2;
 			}
 		}
 		else {
@@ -5175,7 +5177,7 @@ class Duel {
 					if (espinozaBoss) {
 						this.addMessage(this.CURRENT_BOSS + " was only a mimic !");
 						this.EVENT_BOSS = true;
-						if (this.OBAMIUM_DONE) {
+						if (this.OBAMIUM_DONE && getRandomPercent() <= 75) {
 							this.addMessage(this.CURRENT_BOSS + " is in fact " + BOSS_PP12 + "\n" + IMAGE_PP6);
 							this.addMessage("-----------------");
 							this.CURRENT_BOSS = BOSS_PP12;
@@ -5538,7 +5540,7 @@ class Duel {
 						_fighterSave.quickeningCharges += 5;
 					}
 					if (_fighter.standPower == STAND_PP17) { // Titans of Creation
-						_fighterSave.selfReverseDamage = 4;
+						_fighterSave.selfReverseDamage = 2;
 					}
 				}
 			});
@@ -7242,10 +7244,16 @@ class Duel {
 		}).catch(err => console.log(err));
 	}
 	getBattleTheme() {
-		if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP1) {
+		if (this.TIME_STOP > 0) {
+			return MUSIC_PP12; // Searing Peaks 13 Solo
+		}
+		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP1) {
 			return MUSIC_PP5; // Lovecraftian Strain 911
 		}
 		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP2) {
+			return MUSIC_PP13; // Free Lives
+		}
+		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP14) {
 			return MUSIC_PP6; // Gaseous Punk
 		}
 		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP3) {
