@@ -3632,15 +3632,6 @@ class Fighter {
 			}
 		}
 
-		if (this.duel.REVERSE_DAMAGE > 0 || this.selfReverseDamage > 0) {
-			this.STRValue += _amount;
-			this.duel.addMessage(this.getName() + " gets healed by " + _amount + " HP");
-			if (_amount == 69) {
-				this.duel.addMessage("nice !");
-			}
-			return;
-		}
-
 		if (getRandomPercent() <= this.madnessStacks*3 && _punch) { // Scythe of Cosmic Chaos
 			// The Scythe of Cosmic Chaos
 			this.duel.addMessage(this.duel.getOppOf(this).getName() + " hits himself in his madness !");
@@ -3673,6 +3664,14 @@ class Fighter {
 				this.duel.getOppOf(this).heal(Math.floor(_amount / 3));
 			}
 
+			return;
+		}
+		else if (this.duel.REVERSE_DAMAGE > 0 || this.selfReverseDamage > 0) {
+			this.STRValue += _amount;
+			this.duel.addMessage(this.getName() + " gets healed by " + _amount + " HP");
+			if (_amount == 69) {
+				this.duel.addMessage("nice !");
+			}
 			return;
 		}
 		else if (this.duel.TIME_STOP > 0 && _punch) {
