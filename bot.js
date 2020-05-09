@@ -1937,7 +1937,7 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP51) {
 				// Priest Regular Move
-				if (this.silenced) {
+				if (this.silenced || this.duel.POOPOO_UNIVERSE) {
 					this.duel.addMessage(this.getName() + " cannot calls for superior powers...");
 					return;
 				}
@@ -2107,10 +2107,10 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Literally Hitler answers his calls !");
 					if (this.duel.ILLEGAL_JEWS) {
-						this.duel.addMessage(this.getName() + " makes jew priests illegal again, just to be sure.");
+						this.duel.addMessage(this.getName() + " makes Villager priests illegal again, just to be sure.");
 					}
 					else {
-						this.duel.addMessage(this.getName() + " makes jew priests illegal !");
+						this.duel.addMessage(this.getName() + " makes Villager priests illegal !");
 						this.duel.ILLEGAL_JEWS = true;
 					}
 				}
@@ -2254,7 +2254,7 @@ class Fighter {
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
-				if (this.silenced) {
+				if (this.silenced || this.duel.POOPOO_UNIVERSE) {
 					this.duel.addMessage(this.getName() + " cannot calls for superior powers...");
 					return;
 				}
@@ -3539,7 +3539,7 @@ class Fighter {
 
 	heal(_amount) {
 		_amount += this.quickeningCharges*3;
-		if (this.duel.REVERSE_DAMAGE <= 0 && this.selfReverseDamage <= 0) {
+		if (this.duel.REVERSE_DAMAGE <= 0 && this.selfReverseDamage <= 0 && !this.duel.POOPOO_UNIVERSE) {
 			this.STRValue += _amount;
 			this.duel.addMessage(this.getName() + " gets healed by " + _amount + " HP");
 			if (_amount == 69) {
@@ -4131,6 +4131,11 @@ class Fighter {
 		if (this.duel.DOUBLE_POINTS) {
 			nb += nb;
 		}
+		
+		if (this.duel.POOPOO_UNIVERSE) {
+			nb = 0;
+		}
+		
 		addWinCounter(this, nb);
 	}
 
@@ -4500,6 +4505,7 @@ class Duel {
 		this.STORM_COUNTDOWN = 0;
 		this.DARKNESS_COUNTDOWN = 0;
 		this.REVERSED_GRAVITY = false;
+		this.POOPOO_UNIVERSE = false;
 
 		this.PP_ARMAGEDDON = false;
 		this.INFERNAL_FIRELAND = false;
@@ -4795,7 +4801,7 @@ class Duel {
 	}
 
 	addMessage(_texte, _forceAppear = false) {
-		var uwu = this.UWU_TEXT;
+		var uwu = this.UWU_TEXT || this.POOPOO_UNIVERSE;
 		for (var i in IMAGE_LIST) {
 			if (_texte.includes(IMAGE_LIST[i])) {
 				uwu = false;
@@ -4804,17 +4810,21 @@ class Duel {
 
 		if (uwu) {
 			_texte = changeTextUwu(_texte);
+			
+			if (this.POOPOO_UNIVERSE) {
+				_texte = changeTextPoopoo(_texte);
+			}
 
-			if (this.RUSSIAN_TEXT > 0) {
+			if (this.RUSSIAN_TEXT > 0 || this.POOPOO_UNIVERSE) {
 				_texte = changeTextRussian(_texte);
 			}
-			if (this.GOD_TEXT > 0) {
+			if (this.GOD_TEXT > 0 || this.POOPOO_UNIVERSE) {
 				_texte = changeTextRandomCap(_texte);
 			}
-			if (this.YES_TEXT > 0) {
+			if (this.YES_TEXT > 0 || this.POOPOO_UNIVERSE) {
 				_texte = changeTextLeet(_texte);
 			}
-			if (this.SPOIL_TEXT > 0) {
+			if (this.SPOIL_TEXT > 0 || this.POOPOO_UNIVERSE) {
 				_texte = changeTextRandomSpoil(_texte);
 			}
 		}
@@ -4944,6 +4954,17 @@ class Duel {
 					this.EVENT_BOSS = true;
 					this.addMessage("A Pudding Blob has been created !");
 					this.addMessage("-----------------");
+				}
+				if (this.POOPOO_UNIVERSE) {
+					this.bothFightersAction(function(_fighter) {
+						_fighter.madnessStacks += 1;
+					});
+					if (getRandomPercent() <= 13) {
+						this.FORCE_EVENT_ID = 37; // PP Depression
+					}
+					else if (getRandomPercent() <= 25) {
+						this.FORCE_EVENT_ID = 26; // Tragedy
+					}
 				}
 
 				// Blood Moon Save
@@ -5338,7 +5359,10 @@ class Duel {
 		if (this.PP_NET > 0 && this.PP_NET < 200) {
 			txt += " - PP-Net Rising : Step " + this.PP_NET + "\n";
 		}
-		if (this.ALTERNATE_MOVES) {
+		if (this.POOPOO_UNIVERSE) {
+			txt += " - **ALTERNATE POOPOO UNIVERSE**\n";
+		}
+		else if (this.ALTERNATE_MOVES) {
 			txt += " - **ALTERNATE PP UNIVERSE**\n";
 		}
 		if (this.PP_ARMAGEDDON) {
@@ -6042,11 +6066,26 @@ class Duel {
 		}
 		else if (randomVar == 43) {
 			// Alternate Universe
-			this.addMessage(" -- ALTERNATE PP UNIVERSE --");
-			this.addMessage("For some unknown reason, the duel gets teleported into an alternate universe !");
-			this.addMessage("Each moves has the same DEX modifier, illegal chances et ability to always pass, but their effect may have slightly changed !");
-			this.ALTERNATE_MOVES = !this.ALTERNATE_MOVES;
-			this.ALTERNATE_MOVE_COUNT = this.MOVE_COUNT;
+			if (this.POOPOO_UNIVERSE) {
+				this.POOPOO_UNIVERSE = false;
+				this.ALTERNATE_MOVES = false;
+				this.addMessage(" -- ALTERNATE PP UNIVERSE --");
+				this.addMessage("For some unknown reason, the duel gets teleported into an alternate universe !");
+				this.addMessage("You finally get out of the filthy poopoo punching world !");
+			}
+			else if (this.ALTERNATE_MOVES) {
+				this.addMessage(" -- ALTERNATE PP UNIVERSE --");
+				this.addMessage("For some unknown reason, the duel gets teleported into an alternate universe !");
+				this.addMessage("You get back to your original world !");
+				this.ALTERNATE_MOVES = false;
+			}
+			else {
+				this.addMessage(" -- ALTERNATE PP UNIVERSE --");
+				this.addMessage("For some unknown reason, the duel gets teleported into an alternate universe !");
+				this.addMessage("Each moves has the same DEX modifier, illegal chances et ability to always pass, but their effect may have slightly changed !");
+				this.ALTERNATE_MOVES = true;
+				this.ALTERNATE_MOVE_COUNT = this.MOVE_COUNT;
+			}
 		}
 		else if (randomVar == 44 && (this.MOVE_COUNT >= 1000 || forcedEvent)) {
 			// Obama
@@ -6507,6 +6546,16 @@ class Duel {
 				caught1 = false;
 				duel.addMessage(_fighter.getName() + " strong. " + _fighter.getName() + " punch arbitratory if arbitratory bad.");
 				duel.sendMessages();
+			}
+			
+			if (caught1 && getRandomPercent() <= 2 && duel.POOPOO_UNIVERSE) {
+				duel.addMessage("**YOUR CHEATING HAS MADE THE GODS VERY ANGRY. IF YOU DON'T WANT TO RESPECT THE RULES OF THE MIGHTY PP PUNCH, THEN YOU DON'T DESERVE TO PUNCH PP.**");
+				duel.addMessage("**ESPINOZA USES HIS FINAL ABILITY, DOUBLE ARM SNIFF !**");
+				duel.addMessage("**YOU ARE BANISHED INTO THE POOPOO PUNCH UNIVERSE !**");
+				duel.POOPOO_UNIVERSE = true;
+				duel.ALTERNATE_MOVES = true;
+				_fighter.attack = EMOTE_SKIP;
+				caught1 = false;
 			}
 
 			// Caught cheating --> test si malus dex
@@ -7749,6 +7798,11 @@ function changeTextChristian(_texte) {
 	_texte = _texte.replace(/cum/gi, "milky white substance");
 	_texte = _texte.replace(/terrorist/gi, "Muslim"); // That's racist :o
 	_texte = _texte.replace("SEXUAL CONFUSION", "ROMANTIC TENSION");
+	return _texte;
+}
+function changeTextPoopoo(_texte) {
+	_texte = _texte.split("PP").join("Poopoo");
+	_texte = _texte.split("Pp").join("Poopoo");
 	return _texte;
 }
 
