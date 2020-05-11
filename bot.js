@@ -8172,7 +8172,6 @@ CLIENT.on("message", async _message => {
 CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	killDeadDuels();
 	setBotActivity();
-	skipWaitingDuels();
 	checkMusicLoops();
 	checkUpdateEncyclopedia();
 
