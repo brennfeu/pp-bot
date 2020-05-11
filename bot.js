@@ -357,6 +357,7 @@ const BOSS_PP12 = "Obamium Espinoza";
 const BOSS_PP13 = "Pudding Blob";
 const BOSS_PP14 = "Sex-Starved Mongo";
 const BOSS_PP15 = "Wyndoella";
+const BOSS_PP16 = "Ikea";
 
 // BATTLE MODES
 const NORMAL_BATTLE_MODE = 0;
@@ -388,7 +389,8 @@ const IMAGE_PP6 = "https://cdn.discordapp.com/attachments/683397030759891014/695
 const IMAGE_PP7 = "https://cdn.discordapp.com/attachments/616228498075549756/695714573331726346/weeb.png";
 const IMAGE_PP8 = "https://cdn.discordapp.com/attachments/616228498075549756/696131319721361509/unknown.png";
 const IMAGE_PP9 = "https://cdn.discordapp.com/attachments/293809868844826626/704361750379757618/image0.png";
-const IMAGE_LIST = [IMAGE_PP1, IMAGE_PP2, IMAGE_PP3, IMAGE_PP4, IMAGE_PP5, IMAGE_PP6, IMAGE_PP7, IMAGE_PP8, IMAGE_PP9];
+const IMAGE_PP10 = "https://cdn.discordapp.com/attachments/653002988872400926/709016016495312916/image0.png";
+const IMAGE_LIST = [IMAGE_PP1, IMAGE_PP2, IMAGE_PP3, IMAGE_PP4, IMAGE_PP5, IMAGE_PP6, IMAGE_PP7, IMAGE_PP8, IMAGE_PP9, IMAGE_PP10];
 
 // IDs
 const ID_BRENNFEU = "234439428372824075";
@@ -5607,7 +5609,7 @@ class Duel {
 		var forcedEvent = this.FORCE_EVENT;
 
 		if (this.FORCE_EVENT) {
-			while (!(randomVar <= 50 && randomVar >= 2)) {
+			while (!(randomVar <= 51 && randomVar >= 2)) {
 				randomVar = getRandomPercent();
 			}
 		}
@@ -6107,6 +6109,34 @@ class Duel {
 			this.BOSS_HEALTH = Math.pow(10, 99);
 			this.BOSS_DAMAGE = Math.pow(10, 99);
 			this.CURRENT_BOSS = BOSS_PP15;
+		}
+		else if (randomVar == 51 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
+			// IKEA
+			if (this.EVENT_BOSS) {
+				if (this.CURRENT_BOSS == BOSS_PP16) {
+					this.addMessage(" -- IKEA EXTENSION --");
+					this.addMessage("The swedish pilgrims added a new extension to the Ikea.");
+					this.BOSS_HEALTH += 500;
+					this.BOSS_DAMAGE += 40;
+				}
+				else {
+					this.addMessage(" -- PEACEFUL IKEA --");
+					this.addMessage("Swedish pilgrims built a peaceful IKEA.");
+					this.addMessage("They offer you some ammos to help you in your battle.");
+					this.bothFightersAction(function(_fighter) {
+						_fighter.fullOfAmmo = true;
+					});
+				}
+			}
+			else {
+				this.EVENT_BOSS = true;
+				this.addMessage(" -- IKEA RIOT --");
+				this.addMessage("Swedish pilgrims invaded and built an IKEA !");
+				this.addMessage(IMAGE_PP10);
+				this.BOSS_HEALTH = 500;
+				this.BOSS_DAMAGE = 40;
+				this.CURRENT_BOSS = BOSS_PP16;
+			}
 		}
 		// DON'T FORGET TO UPDATE FORCE EVENT IF NEW EVENTS ARE ADDED
 		else if (randomVar == 90 && (this.MOVE_COUNT >= 50 || forcedEvent)) {
