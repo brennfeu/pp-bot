@@ -357,7 +357,7 @@ const BOSS_PP12 = "Obamium Espinoza";
 const BOSS_PP13 = "Pudding Blob";
 const BOSS_PP14 = "Sex-Starved Mongo";
 const BOSS_PP15 = "Wyndoella";
-const BOSS_PP16 = "Ikea";
+const BOSS_PP16 = "IKEA";
 
 // BATTLE MODES
 const NORMAL_BATTLE_MODE = 0;
@@ -914,18 +914,18 @@ class Fighter {
 			txt += " - **Gets Supply Drops**\n";
 		}
 		if (this.infernalInstrument == 1) {
-			txt += " - ";
+			txt += " - **";
 			if (this.aviatorBuff) {
 				txt += "Super Cool ";
 			}
-			txt += "**Guitar Player**\n";
+			txt += "Guitar Player**\n";
 		}
 		else if (this.infernalInstrument == 2) {
-			txt += " - ";
+			txt += " - **";
 			if (this.aviatorBuff) {
 				txt += "Super Cool ";
 			}
-			txt += "**Synth Player**\n";
+			txt += "Synth Player**\n";
 		}
 		else if (this.aviatorBuff) {
 			txt += " - **Super Cool**\n";
@@ -1940,7 +1940,7 @@ class Fighter {
 			else if (attack == EMOTE_PP51) {
 				// Priest Regular Move
 				if (this.silenced || this.duel.POOPOO_UNIVERSE) {
-					this.duel.addMessage(this.getName() + " cannot calls for superior powers...");
+					this.duel.addMessage(this.getName() + " cannot call for superior powers...");
 					return;
 				}
 				else {
@@ -2257,7 +2257,7 @@ class Fighter {
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
 				if (this.silenced || this.duel.POOPOO_UNIVERSE) {
-					this.duel.addMessage(this.getName() + " cannot calls for superior powers...");
+					this.duel.addMessage(this.getName() + " cannot call for superior powers...");
 					return;
 				}
 				else {
@@ -2497,7 +2497,7 @@ class Fighter {
 					 // Time Cube
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Time Cube answers his calls !");
-					this.duel.addMessage(this.getName() + " stops time !");
+					this.duel.addMessage(this.getName() + " stops time !\n" +  + IMAGE_PP3);
 					this.duel.TIME_STOP = 2;
 					if (this.hasSynergy(SYNERGY_PP20)) { // Master of Time
 						this.duel.TIME_STOP += this.duel.TIME_STOP - 1;
@@ -3334,7 +3334,7 @@ class Fighter {
 			else if (attack == EMOTE_PP146) {
 				// Gravity Globe
 				this.duel.MOVE_COUNT += 33;
-				this.duel.addMessage(this.getName() + " reverse the gravity !");
+				this.duel.addMessage(this.getName() + " reverses gravity !");
 				this.duel.REVERSED_GRAVITY = !this.duel.REVERSED_GRAVITY;
 			}
 			else if (attack == EMOTE_PP147) {
@@ -3634,7 +3634,7 @@ class Fighter {
 			}
 		}
 
-		if (getRandomPercent() <= this.madnessStacks*3 && _punch) { // Scythe of Cosmic Chaos
+		if (getRandomPercent() <= this.duel.getOppOf(this).madnessStacks*3 && _punch) { // Scythe of Cosmic Chaos
 			// The Scythe of Cosmic Chaos
 			this.duel.addMessage(this.duel.getOppOf(this).getName() + " hits himself in his madness !");
 			this.duel.getOppOf(this).damage(_amount, false)
@@ -5140,6 +5140,7 @@ class Duel {
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP9) {
 						this.addMessage(this.CURRENT_BOSS + " is sent back to his Eldritch Realm !");
 						this.addMessage("You both win !");
+						this.addMessage("-----------------");
 						this.bothFightersAction(function(_fighter) {
 							_fighter.win(1);
 						});
@@ -5160,11 +5161,13 @@ class Duel {
 						catch(e) {
 							this.addMessage("This server doesn't have the 'Weeb PP' roles, sorry :/");
 						}
+						this.addMessage("-----------------");
 
 						espinozaBoss = getRandomPercent() <= 20;
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP11) {
 						this.addMessage(this.CURRENT_BOSS + " dies lol");
+						this.addMessage("-----------------");
 						this.EVENT_BOSS = false;
 
 						espinozaBoss = getRandomPercent() <= 2;
@@ -5183,9 +5186,11 @@ class Duel {
 						else {
 							this.addMessage("Pudding is bored of this, he will stop sending you blobs...");
 						}
+						this.addMessage("-----------------");
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP14) {
 						this.addMessage(this.CURRENT_BOSS + " is defeated !");
+						this.addMessage("-----------------");
 						this.EVENT_BOSS = false;
 						this.DOUBLE_POINTS = true;
 
@@ -5193,8 +5198,15 @@ class Duel {
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP15) {
 						this.addMessage(this.CURRENT_BOSS + " somehow is... defeated...");
+						this.addMessage("-----------------");
 						this.EVENT_BOSS = false;
 						this.MOVE_COUNT = 1000000;
+					}
+					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP16) {
+						this.addMessage(this.CURRENT_BOSS + " is destroyed !");
+						this.addMessage("-----------------");
+						this.EVENT_BOSS = false;
+						espinozaBoss = getRandomPercent() <= 20;
 					}
 					if (espinozaBoss) {
 						this.addMessage(this.CURRENT_BOSS + " was only a mimic !");
@@ -5367,11 +5379,11 @@ class Duel {
 		else if (this.ALTERNATE_MOVES) {
 			txt += " - **ALTERNATE PP UNIVERSE**\n";
 		}
-		if (this.PP_ARMAGEDDON) {
-			txt += " - **PP ARMAGEDDON**\n";
-		}
 		if (this.INFERNAL_FIRELAND) {
 			txt += " - **INFERNAL FIRELAND**\n";
+		}
+		if (this.PP_ARMAGEDDON) {
+			txt += " - **PP ARMAGEDDON**\n";
 		}
 		if (this.TIME_STOP > 0) {
 			txt += " - **TIME STOPPED FOR " + this.TIME_STOP + " TURNS**\n";
@@ -5619,7 +5631,7 @@ class Duel {
 			this.addMessage(" -- HEAT DEATH OF THE UNIVERSE --");
 			this.addMessage("*You punched PP so much, the world collapses. Good job ! You don’t get to go to work tomorrow. Or school. Or anything else. You wanna know why ? Well... you see... YOU FUCKED IT ALL UP !!!*\n" + IMAGE_PP2);
 			if (this.ALTERNATE_MOVES) {
-				this.addMessage("You are sent back to your original reality !");
+				this.addMessage("**You are sent back to your original reality !**");
 				this.MOVE_COUNT = this.ALTERNATE_MOVE_COUNT;
 				this.ALTERNATE_MOVES = false;
 				return;
