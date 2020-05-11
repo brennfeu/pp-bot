@@ -389,7 +389,7 @@ const IMAGE_PP6 = "https://cdn.discordapp.com/attachments/683397030759891014/695
 const IMAGE_PP7 = "https://cdn.discordapp.com/attachments/616228498075549756/695714573331726346/weeb.png";
 const IMAGE_PP8 = "https://cdn.discordapp.com/attachments/616228498075549756/696131319721361509/unknown.png";
 const IMAGE_PP9 = "https://cdn.discordapp.com/attachments/293809868844826626/704361750379757618/image0.png";
-const IMAGE_PP10 = "https://cdn.discordapp.com/attachments/653002988872400926/709016016495312916/image0.png";
+const IMAGE_PP10 = "https://cdn.discordapp.com/attachments/667337519477817363/709374406014795826/image0.png";
 const IMAGE_LIST = [IMAGE_PP1, IMAGE_PP2, IMAGE_PP3, IMAGE_PP4, IMAGE_PP5, IMAGE_PP6, IMAGE_PP7, IMAGE_PP8, IMAGE_PP9, IMAGE_PP10];
 
 // IDs
