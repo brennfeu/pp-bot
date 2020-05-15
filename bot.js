@@ -6023,7 +6023,7 @@ class Duel {
 		else if (randomVar == 37) {
 			// PP Depression
 			this.addMessage(" -- PP DEPRESSION --");
-			this.addMessage("PP Punching is not fun... Maybe you should put a term to this...? It is utter nonsense to punch PP anyway, let's just end what you shouldn't have started...");
+			this.addMessage("PP Punching is not fun... Maybe you should put an end to this...? It is utter nonsense to punch PP anyway, let's just end what you shouldn't have started...");
 			this.EVENT_DEPRESSION = true;
 			if (this.GAY_TURNS > 0) {
 				this.GAY_TURNS = 0;
