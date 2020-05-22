@@ -112,6 +112,8 @@ const EMOTE_PP144 = "697402137440944160"; // Bone Glove
 const EMOTE_PP145 = "697402137340149842"; // Shiny Stone
 const EMOTE_PP146 = "697402137302270035"; // Gravity Globe
 const EMOTE_PP147 = "697402137235292271"; // Shrimpy Truffle
+const EMOTE_PP149 = "713404398344077383"; // Volatile Gelatine
+const EMOTE_PP150 = "713404398331756624"; // Soaring Insignia
 
 // STAND MOVES
 const EMOTE_PP63 = "662651475515670534"; // Xenomorph
@@ -220,7 +222,7 @@ const CIV_EMOTE_LIST = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP
 		        EMOTE_PP122, EMOTE_PP123, EMOTE_PP124, EMOTE_PP125, EMOTE_PP126, EMOTE_PP127, EMOTE_PP128, EMOTE_PP129,
 		        EMOTE_PP130, EMOTE_PP131, EMOTE_PP132, EMOTE_PP133, EMOTE_PP134];
 const INFERNAL_EMOTE_LIST = [EMOTE_PP135, EMOTE_PP136, EMOTE_PP137, EMOTE_PP138, EMOTE_PP139, EMOTE_PP140, EMOTE_PP141,
-			     EMOTE_PP142, EMOTE_PP143, EMOTE_PP144, EMOTE_PP145, EMOTE_PP146, EMOTE_PP147];
+			     EMOTE_PP142, EMOTE_PP143, EMOTE_PP144, EMOTE_PP145, EMOTE_PP146, EMOTE_PP147, EMOTE_PP149, EMOTE_PP150];
 const OTHER_EMOTE_LIST = [EMOTE_ABILITY, EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE, EMOTE_OBAMAHEDRON, EMOTE_OBAMASPHERE, EMOTE_OBOMBA];
 const EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST)
 	.concat(RARE_EMOTE_LIST).concat(CIV_EMOTE_LIST).concat(INFERNAL_EMOTE_LIST).concat(OTHER_EMOTE_LIST);
@@ -528,6 +530,7 @@ class Fighter {
 		this.explosionMagic = 0;
 		this.aviatorBuff = false;
 		this.silenced = false;
+		this.empressLightBuff = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -1056,6 +1059,9 @@ class Fighter {
 		}
 		if (this.acidArmor <= 0 && this.sporeSac) {
 			txt += " - Spore Sac\n"; // shows spore sac here if no acid armor
+		}
+		if (this.empressLightBuff) {
+			txt += " - Blessing of the Empress of Light";
 		}
 		if (this.boneGlove) {
 			txt += " - Bone Glove\n";
@@ -3361,6 +3367,28 @@ class Fighter {
 				this.duel.addMessage("Mongo has appeared, and he is sex-starved !");
 				this.duel.addMessage("-----------------");
 			}
+			else if (attack == EMOTE_PP149) {
+				// Volatile Gelatine
+				this.duel.MOVE_COUNT += 33;
+				this.duel.addMessage(this.getName() + " summons the Volatile Gelatine !");
+				var chaosNumber = 1 + Math.floor(getRandomPercent()/20);
+				for (var i = 0; i < chaosNumber; i++) {
+					this.playMove(this.duel.getOppOf(this).oldAttack);
+					this.duel.addMessage("-----------------");
+				}
+			}
+			else if (attack == EMOTE_PP150) {
+				// Soaring Insignia
+				this.duel.MOVE_COUNT += 33;
+				this.duel.addMessage(this.getName() + " summons the Soaring Insignia !");
+				if (this.empressLightBuff) {
+					this.duel.addMessage("But nothing happens...");
+				}
+				else {
+					this.duel.addMessage(this.getName() + " gets the Blessing of the Empress of Light !");
+					this.empressLightBuff = true;
+				};
+			}
 			else if (attack == EMOTE_ABILITY) {
 				// Requiems
 				if (this.requiemPower != null && this.requiemCooldown <= 0) {
@@ -3837,23 +3865,29 @@ class Fighter {
 		this.hasBurst -= 1;
 		this.hasExamined -= 1;
 		this.isPossessed -= 1;
-		this.doomReverse -= 1;
-		this.hasBoomerang -= 1;
 		this.turnSkip -= 1;
 		this.grabbedPP -= 1;
-		this.isLucky -= 1;
 		this.summonTankCountdown -= 1;
-		this.mikasaBuff -= 1;
-		this.ironProtection -= 1;
 		this.borealSummon -= 1;
 		this.requiemCooldown -= 1;
 		this.impendingDoom -= 1;
-		this.futureMemories -= 1;
 		this.gettingRegularCharge -= 1;
 		this.gettingSpecialCharge -= 1;
 		this.satanicReverse -= 1;
 		this.turkeyCountdown -= 1;
-		this.selfReverseDamage -= 1;
+		
+		if (this.empressLightBuff && getRandomPercent() <= 50) {
+			this.duel.addMessage(this.getName() + " gets blessed by the Empress of Light !");
+		}
+		else {
+			this.doomReverse -= 1;
+			this.hasBoomerang -= 1;
+			this.isLucky -= 1;
+			this.mikasaBuff -= 1;
+			this.ironProtection -= 1;
+			this.futureMemories -= 1;
+			this.selfReverseDamage -= 1;
+		}
 		
 		if (this.sporeSac && getRandomPercent() <= 50 && this.acidArmor > 0) {
 			this.duel.addMessage(this.getName() + "'s acid armor stays for longer.");
@@ -7675,7 +7709,7 @@ async function sendCheatPanel(_channel) {
 		],
 		"Cheat Panel : Infernal Moves" : [
 			EMOTE_PP135, EMOTE_PP136, EMOTE_PP137, EMOTE_PP138, EMOTE_PP139, EMOTE_PP140, EMOTE_PP141,
-			EMOTE_PP142, EMOTE_PP143, EMOTE_PP144, EMOTE_PP145, EMOTE_PP146, EMOTE_PP147
+			EMOTE_PP142, EMOTE_PP143, EMOTE_PP144, EMOTE_PP145, EMOTE_PP146, EMOTE_PP147, EMOTE_PP149, EMOTE_PP150
 		],
 		"Cheat Panel : Animated Moves" : [
 			EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58, EMOTE_PP59, EMOTE_PP60,
