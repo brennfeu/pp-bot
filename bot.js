@@ -116,22 +116,22 @@ const EMOTE_PP149 = "713404398344077383"; // Volatile Gelatine
 const EMOTE_PP150 = "713404398331756624"; // Soaring Insignia
 
 // STAND MOVES
-const EMOTE_PP63 = "662651475515670534"; // Xenomorph
-const EMOTE_PP64 = "662651475524321330"; // XenoHead
-const EMOTE_PP65 = "662651475503218688"; // Signpost
-const EMOTE_PP66 = "662651475549225000"; // SatanHead
-const EMOTE_PP67 = "662651475641499648"; // RageSatan
-const EMOTE_PP68 = "662651475394297867"; // Mech
-const EMOTE_PP69 = "662651475457212447"; // LostSoul
-const EMOTE_PP70 = "662651475398361099"; // HellDogHead
-const EMOTE_PP71 = "662651475549356051"; // Freedom
-const EMOTE_PP72 = "662651475629178880"; // AmmoCrate
-const EMOTE_PP73 = "663523761148133408"; // Quickening
-const EMOTE_PP74 = "663738297687867405"; // Sword
-const EMOTE_PP75 = "664116840070512660"; // AcidShot
+const EMOTE_PP63 = "715323496674361405"; // Xenomorph
+const EMOTE_PP64 = "715323496326234184"; // XenoHead
+const EMOTE_PP65 = "715323496162525187"; // Signpost
+const EMOTE_PP66 = "715323496762441778"; // SatanHead
+const EMOTE_PP67 = "715323498452484217"; // RageSatan
+const EMOTE_PP68 = "715323496322039932"; // Mech
+const EMOTE_PP69 = "715323496296873994"; // LostSoul
+const EMOTE_PP70 = "715323496305262603"; // HellDogHead
+const EMOTE_PP71 = "715323496930213889"; // Freedom
+const EMOTE_PP72 = "715323497068625950"; // AmmoCrate
+const EMOTE_PP73 = "715324999417725099"; // Quickening
+const EMOTE_PP74 = "715324999996801155"; // Sword
+const EMOTE_PP75 = "715323499266441296"; // AcidShot
 const EMOTE_PP76 = "664845944252137494"; // EldritchPudding
-const EMOTE_PP77 = "668790615902912514"; // SatanHand
-const EMOTE_PP78 = "669581624026988578"; // SatanSkull
+const EMOTE_PP77 = "715323501858390036"; // SatanHand
+const EMOTE_PP78 = "715323503175401514"; // SatanSkull
 
 // RARE MOVES
 const EMOTE_PP79 = "667336163396288522"; // Eye of Truth
@@ -249,10 +249,10 @@ const GOD_PP26 = {"name" : "Ranger", "emote": "673882539328536576", "type": "nor
 const GOD_PP29 = {"name" : "", "emote": "", "type": "normal"}; // ADD TO THE LIST
 
 const GOD_PP21 = {"name" : "D.I.C.K.", "emote": "644617343456247829", "type": "eldritch"};
-const GOD_PP22 = {"name" : "Satan", "emote": "671344081841946625", "type": "eldritch"};
+const GOD_PP22 = {"name" : "Satan", "emote": "715323505448714240", "type": "eldritch"};
 const GOD_PP23 = {"name" : "Ancient Fungus", "emote": "671347173270618112", "type": "eldritch"};
 const GOD_PP24 = {"name" : "Time Cube", "emote": "671347614431576065", "type": "eldritch"};
-const GOD_PP25 = {"name" : "Cthulhu", "emote": "672065078144794645", "type": "eldritch"};
+const GOD_PP25 = {"name" : "Cthulhu", "emote": "715323505104650268", "type": "eldritch"};
 const GOD_PP12 = {"name" : "Espinoza", "emote": "615887132157804564", "type": "eldritch"};
 
 const GOD_PP20 = {"name" : "Mikasa", "emote": "655523518812913664", "type": "waifu"};
