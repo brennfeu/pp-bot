@@ -290,6 +290,10 @@ const SYNERGY_PP20 = [GOD_PP24, GOD_PP27] // Master of Time
 const SYNERGY_PP21 = [GOD_PP12, GOD_PP7] // Big Nose
 const SYNERGY_PP22 = [GOD_PP18, GOD_PP3] // Extreme Karma
 const SYNERGY_PP23 = [GOD_PP10, GOD_PP11] // Ram Ranch
+const SYNERGY_LIST = [SYNERGY_PP1, SYNERGY_PP2, SYNERGY_PP3, SYNERGY_PP4, SYNERGY_PP5, SYNERGY_PP6, SYNERGY_PP7, SYNERGY_PP8, 
+		      SYNERGY_PP9, SYNERGY_PP10, SYNERGY_PP11, SYNERGY_PP12, SYNERGY_PP13, SYNERGY_PP14, SYNERGY_PP15, 
+		      SYNERGY_PP16, SYNERGY_PP17, SYNERGY_PP18, SYNERGY_PP19, SYNERGY_PP20, SYNERGY_PP21, SYNERGY_PP22,
+		      SYNERGY_PP23];
 
 const STAND_PP1 = "Somewhere in Time";
 const STAND_PP2 = "The Boreal Flame";
@@ -309,6 +313,7 @@ const STAND_PP15 = "The House of Atreus";
 const STAND_PP16 = "Virus";
 const STAND_PP17 = "Titans of Creation";
 const STAND_PP18 = "Fantasien 1998";
+const STAND_PP19 = "Beyond The Space, Beyond The Time";
 
 var STAND_SUMMONS = {};
 // THE LISTS MUST BE REVERSED
@@ -330,6 +335,7 @@ STAND_SUMMONS[STAND_PP15] = [EMOTE_PP30, EMOTE_PP51]; // God Regular Move, Alert
 STAND_SUMMONS[STAND_PP16] = [EMOTE_PP46, EMOTE_PP18, EMOTE_PP22]; // MeatBro, RedPill, YES
 STAND_SUMMONS[STAND_PP17] = [EMOTE_PP11, EMOTE_PP4]; // Flex, Steel
 STAND_SUMMONS[STAND_PP18] = [EMOTE_PP18, EMOTE_PP7, EMOTE_PP2]; // PunchingPPReallyHard, Turkey, RedPill
+STAND_SUMMONS[STAND_PP19] = [EMOTE_PP30, EMOTE_PP30, EMOTE_PP26]; // BigSatan, Alert, Alert
 
 const REQUIEM_PP1 = "Etrange";
 const REQUIEM_PP2 = "Iamthemorning";
@@ -531,6 +537,7 @@ class Fighter {
 		this.aviatorBuff = false;
 		this.silenced = false;
 		this.empressLightBuff = false;
+		this.forcedSynergies = [];
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -4004,6 +4011,17 @@ class Fighter {
 			this.playMove(EMOTE_PP73);
 			this.duel.addMessage("-----------------");
 		}
+		
+		// Beyond the Space, Beyond the Time
+		if (this.standPower == STAND_PP19) {
+			var l = shuffleArray(SYNERGY_LIST);
+			for (var i in l) {
+				if (!this.hasSynergy(l[i])) {
+					this.forcedSynergies.push(l[i]);
+					break;
+				}
+			}
+		}
 
 		// Eldritch Pudding
 		if (this.tentacles > 0) {
@@ -4183,6 +4201,9 @@ class Fighter {
 	}
 
 	hasSynergy(_synergy) {
+		if (this.forcedSynergies.indexOf(_synergy) > -1) {
+			return true;
+		}
 		for (var i in _synergy) {
 			for (var j in this.godList) {
 				if (GOD_LIST.find(r => r.name == this.godList[j]) != undefined
