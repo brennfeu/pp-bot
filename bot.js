@@ -1167,7 +1167,7 @@ class Fighter {
 			txt += " - **Impending Doom : " + this.impendingDoom + " turns**\n";
 		}
 
-		if (!this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
+		if (this.duel.CURRENT_BATTLE_MODE != STAND_BATTLE_MODE || this.standPower == STAND_PP19) {
 			txt += "\n**Synergies :**\n"
 			if (this.godList.length >= GOD_LIST.length) {
 				txt += " - *All of them*\n";
