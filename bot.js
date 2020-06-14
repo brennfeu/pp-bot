@@ -255,14 +255,14 @@ const GOD_PP24 = {"name" : "Time Cube", "emote": "671347614431576065", "type": "
 const GOD_PP25 = {"name" : "Cthulhu", "emote": "715323505104650268", "type": "eldritch"};
 const GOD_PP12 = {"name" : "Espinoza", "emote": "615887132157804564", "type": "eldritch"};
 
-const GOD_PP20 = {"name" : "Mikasa", "emote": "655523518812913664", "type": "waifu"};
-const GOD_PP27 = {"name" : "Kurisu", "emote": "704821231639330836", "type": "waifu"};
+const GOD_PP20 = {"name" : "Mikasa", "emote": "721676575841714186", "type": "waifu"};
+const GOD_PP27 = {"name" : "Kurisu", "emote": "721676572108783636", "type": "waifu"};
 const GOD_PP28 = {"name" : "Miku", "emote": "", "type": "waifu"}; // ADD TO THE LIST
-const GOD_PP30 = {"name" : "Megumin", "emote": "704822102221389955", "type": "waifu"};
-const GOD_PP31 = {"name" : "Ryuko", "emote": "704825117816913941", "type": "waifu"};
-const GOD_PP32 = {"name" : "Jibril", "emote": "704806101253881956", "type": "waifu"};
-const GOD_PP33 = {"name" : "Priestess", "emote": "704812248190681108", "type": "waifu"};
-const GOD_PP34 = {"name" : "Tohru", "emote": "720276879877341235", "type": "waifu"};
+const GOD_PP30 = {"name" : "Megumin", "emote": "721676691327549442", "type": "waifu"};
+const GOD_PP31 = {"name" : "Ryuko", "emote": "721676575552307200", "type": "waifu"};
+const GOD_PP32 = {"name" : "Jibril", "emote": "721676570149781505", "type": "waifu"};
+const GOD_PP33 = {"name" : "Priestess", "emote": "721676575887720550", "type": "waifu"};
+const GOD_PP34 = {"name" : "Tohru", "emote": "721676576026132481", "type": "waifu"};
 
 const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
 		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
