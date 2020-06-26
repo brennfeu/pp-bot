@@ -1072,7 +1072,7 @@ class Fighter {
 			txt += " - Spore Sac\n"; // shows spore sac here if no acid armor
 		}
 		if (this.empressLightBuff) {
-			txt += " - Blessing of the Empress of Light";
+			txt += " - Blessing of the Empress of Light\n";
 		}
 		if (this.boneGlove) {
 			txt += " - Bone Glove\n";
