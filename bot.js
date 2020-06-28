@@ -3917,7 +3917,7 @@ class Fighter {
 		}
 		
 		if (this.klaxoTails && _punch) {
-			for (var i = 0, i++, i < 8) {
+			for (var i = 0, i < 8, i++) {
 				if (getRandomPercent() <= 10) {
 					this.duel.addMessage(this.getName() + "'s tail #" + (i+1) + " attacks back !");
 					this.duel.getOppOf(this).damage(this.STR/10);
