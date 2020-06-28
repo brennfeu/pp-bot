@@ -263,11 +263,12 @@ const GOD_PP31 = {"name" : "Ryuko", "emote": "721676575552307200", "type": "waif
 const GOD_PP32 = {"name" : "Jibril", "emote": "721676570149781505", "type": "waifu"};
 const GOD_PP33 = {"name" : "Priestess", "emote": "721676575887720550", "type": "waifu"};
 const GOD_PP34 = {"name" : "Tohru", "emote": "721676576026132481", "type": "waifu"};
+const GOD_PP35 = {"name" : "Zero Two", "emote": "726898384408936488", "type": "waifu"};
 
 const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
 		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
 		 GOD_PP22, GOD_PP23, GOD_PP24, GOD_PP25, GOD_PP26, GOD_PP27, GOD_PP30, GOD_PP31, GOD_PP32, GOD_PP33, 
-		 GOD_PP34];
+		 GOD_PP34, GOD_PP35];
 
 const SYNERGY_PP1 = [GOD_PP15, GOD_PP12, GOD_PP14] // A Sad Witness
 const SYNERGY_PP2 = [GOD_PP9, GOD_PP11, GOD_PP19] // Holy Brenn Trinity
@@ -542,6 +543,8 @@ class Fighter {
 		this.forcedSynergies = [];
 		this.infernalMagic = false;
 		this.armageddonMagic = false;
+		this.streliziaBuff = 0;
+		this.klaxoTails = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -642,17 +645,6 @@ class Fighter {
 
 	getName() {
 		var name = this.user.username;
-		if (this.duel.SEXY_TEXT > 0) {
-			if (getRandomPercent() <= 33) {
-				name = "Sexy " + name;
-			}
-			else if (getRandomPercent() <= 66) {
-				name = "Hot " + name;
-			}
-			else {
-				name = "Retarded " + name;
-			}
-		}
 		if (this.duel.RUSSIAN_TEXT > 0) {
 			name += "ijov";
 		}
@@ -668,6 +660,29 @@ class Fighter {
 			}
 			else {
 				name += "-Sama";
+			}
+		}
+		if (this.streliziaBuff == 1) {
+			name += " XX";
+		}
+		else if (this.streliziaBuff == 2) {
+			name = "Golden " + name;
+		}
+		else if (this.streliziaBuff == 3) {
+			name += " 001";
+		}
+		else if (this.streliziaBuff >= 4) {
+			name += " True Apus";
+		}
+		if (this.duel.SEXY_TEXT > 0) {
+			if (getRandomPercent() <= 33) {
+				name = "Sexy " + name;
+			}
+			else if (getRandomPercent() <= 66) {
+				name = "Hot " + name;
+			}
+			else {
+				name = "Retarded " + name;
 			}
 		}
 		return name.secureXSS();
@@ -702,6 +717,9 @@ class Fighter {
 		}
 		if (this.hasKamui) {
 			str += 200;
+		}
+		if (this.streliziaBuff > 0) {
+			str += 20*this.streliziaBuff;
 		}
 		if (this.standPower == STAND_PP8_1) {
 			str += 50;
@@ -785,6 +803,9 @@ class Fighter {
 		}
 		if (this.hasKamui) {
 			dex += 20;
+		}
+		if (this.streliziaBuff > 0) {
+			str += 5*this.streliziaBuff;
 		}
 		if (this.quickeningCharges > 0) {
 			dex += this.quickeningCharges;
@@ -1094,6 +1115,9 @@ class Fighter {
 		}
 		if (this.flugelBlood) {
 			txt += " - Flugel Blood\n";
+		}
+		if (this.klaxoTails) {
+			txt += " - Klaxosaurs Tails\n";
 		}
 		if (this.isOverCircumcised) {
 			txt += " - Overcircumcised\n";
@@ -2287,6 +2311,28 @@ class Fighter {
 					this.duel.addMessage(this.getOppOf(this).getName() + " gets cursed with confusion.");
 					this.getOppOf(this).grabbedPP = 2;
 				}
+				if (this.godList.indexOf(GOD_PP34.name) > -1) { // Tohru
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Tohru answers his calls !");
+					this.duel.addMessage(this.getName() + " gets blessed with infernal magic.");
+					this.infernalMagic = true;
+					if (this.duel.MOVE_COUNT <= 100) {
+						this.duel.MOVE_COUNT = 100;
+					}
+					this.duel.addMessage(this.getOppOf(this).getName() + " gets cursed with confusion.");
+					this.getOppOf(this).grabbedPP = 2;
+				}
+				if (this.godList.indexOf(GOD_PP35.name) > -1) { // Zero Two
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Zero Two answers his calls !");
+					if (this.streliziaBuff < 1) {
+						this.duel.addMessage(this.getName() + " starts to grow horns...");
+					}
+					else {
+						this.duel.addMessage(this.getName() + "'s horns grows bigger !");
+					}
+					this.streliziaBuff += 1;
+				}
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
@@ -2617,6 +2663,17 @@ class Fighter {
 					}
 					this.duel.addMessage(this.getOppOf(this).getName() + " gets cursed with confusion.");
 					this.getOppOf(this).grabbedPP = 2;
+				}
+				if (this.godList.indexOf(GOD_PP35.name) > -1) { // Zero Two
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Zero Two answers his calls !");
+					if (!this.klaxoTails) {
+						this.duel.addMessage(this.getName() + " gets Code 001's Genetic Source. 8 spider-like appendages grows out of his back !");
+						this.klaxoTails = true;
+					}
+					else {
+						this.duel.addMessage(this.getName() + " cannot evolve towards Code 001's Genetic Source.");
+					}
 				}
 			}
 			else if (attack == EMOTE_PP53) {
@@ -3855,6 +3912,15 @@ class Fighter {
 				}
 				else {
 					this.duel.getOppOf(this).damage(10, false);
+				}
+			}
+		}
+		
+		if (this.klaxoTails && _punch) {
+			for (var i = 0, i++, i < 8) {
+				if (getRandomPercent() <= 10) {
+					this.duel.addMessage(this.getName() + "'s tail #" + (i+1) + " attacks back !");
+					this.duel.getOppOf(this).damage(this.STR/10);
 				}
 			}
 		}
