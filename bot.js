@@ -758,7 +758,7 @@ class Fighter {
 	get DEX() {
 		var dex = this.DEXValue;
 		// Burst
-		if (this.hasBurst == 1) {
+		if (this.hasBurst >= 1) {
 			return 0;
 		}
 		// BronanSlam
@@ -5183,8 +5183,7 @@ class Duel {
 							if (fighter.cthulhuShield > 0) {
 								this.addMessage(fighter.getName() + " reflects the damages !");
 								fighter.cthulhuShield -= 1;
-								this.BOSS_HEALTH -= amount;
-								this.addMessage(this.CURRENT_BOSS + " takes " + amount + " damages !");
+								this.getOppOf(fighter).damage(amount);
 								this.DAMAGE_COUNT += amount;
 							}
 							else {
