@@ -6372,6 +6372,10 @@ class Duel {
 
 			this.startCityMode();
 		}
+		else if (randomVar == 300) {
+			// CIVILISATION (civilisation command)
+			this.startCityMode()
+		}
 		else if (!forcedEvent) {
 			this.addMessage("No event this turn...");
 		}
@@ -8195,7 +8199,7 @@ CLIENT.on("message", async _message => {
 		DUEL_LIST.push(duel);
 
 		duel.startDuel(_message, true);
-		duel.startCityMode();
+		duel.FORCE_EVENT_ID = 300;
 
 		return;
 	}
