@@ -2314,19 +2314,8 @@ class Fighter {
 					if (this.duel.MOVE_COUNT <= 100) {
 						this.duel.MOVE_COUNT = 100;
 					}
-					this.duel.addMessage(this.getOppOf(this).getName() + " gets cursed with confusion.");
-					this.getOppOf(this).grabbedPP = 2;
-				}
-				if (this.godList.indexOf(GOD_PP34.name) > -1) { // Tohru
-					this.duel.addMessage("-----------------");
-					this.duel.addMessage("Tohru answers his calls !");
-					this.duel.addMessage(this.getName() + " gets blessed with infernal magic.");
-					this.infernalMagic = true;
-					if (this.duel.MOVE_COUNT <= 100) {
-						this.duel.MOVE_COUNT = 100;
-					}
-					this.duel.addMessage(this.getOppOf(this).getName() + " gets cursed with confusion.");
-					this.getOppOf(this).grabbedPP = 2;
+					this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets cursed with confusion.");
+					this.duel.getOppOf(this).grabbedPP = 2;
 				}
 				if (this.godList.indexOf(GOD_PP35.name) > -1) { // Zero Two
 					this.duel.addMessage("-----------------");
@@ -2687,8 +2676,8 @@ class Fighter {
 					if (this.duel.MOVE_COUNT <= 1000) {
 						this.duel.MOVE_COUNT = 1000;
 					}
-					this.duel.addMessage(this.getOppOf(this).getName() + " gets cursed with confusion.");
-					this.getOppOf(this).grabbedPP = 2;
+					this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets cursed with confusion.");
+					this.duel.getOppOf(this).grabbedPP = 2;
 				}
 				if (this.godList.indexOf(GOD_PP35.name) > -1) { // Zero Two
 					this.duel.addMessage("-----------------");
@@ -3342,6 +3331,7 @@ class Fighter {
 			else if (attack == EMOTE_PP134) {
 				// Hyper Light Blaster
 				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + " !");
+				this.duel.launchRaid(this, "blast");
 			}
 			else if (attack == EMOTE_PP135) {
 				// Worm Scarf
@@ -7359,6 +7349,9 @@ class Duel {
 		}
 		if (_city.ghostBullets) {
 			phaseLevel += 0.25;
+		}
+		if (_special == "blast") {
+			phaseLevel += 0.5;
 		}
 		if (phaseLevel > 0) {
 			this.addMessage("A part of " + _city.getName() + "'s army is in the city and attacks it !");
