@@ -8197,8 +8197,8 @@ CLIENT.on("message", async _message => {
 		var duel = new Duel();
 		DUEL_LIST.push(duel);
 
-		duel.startCityMode();
 		duel.startDuel(_message, true);
+		duel.startCityMode();
 
 		return;
 	}
