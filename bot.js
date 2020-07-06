@@ -7043,9 +7043,12 @@ class Duel {
 	startCityMode() {
 		if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) return;
 
-		this.bothFightersAction(function(_fighter) {
-			_fighter.resetBattleVariables();
-		});
+		try { // in case it's civilisation command
+			this.bothFightersAction(function(_fighter) {
+				_fighter.resetBattleVariables();
+			});
+		}
+		catch(e) {}
 
 		this.FIGHTER1 = new City(this.FIGHTER1, this.BATTLE_CHANNEL.id);
 		this.FIGHTER2 = new City(this.FIGHTER2, this.BATTLE_CHANNEL.id);
