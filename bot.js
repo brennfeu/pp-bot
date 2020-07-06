@@ -7043,21 +7043,18 @@ class Duel {
 	startCityMode() {
 		if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) return;
 
-		try { // in case it's civilisation command
-			this.bothFightersAction(function(_fighter) {
-				_fighter.resetBattleVariables();
-			});
-		}
-		catch(e) {}
+		this.addMessage("**===== CIVILISATION BATTLE MODE =====**");
+		this.addMessage("Both fighters starts a new civilisation as their leader. Your next message will be the name of your city !");
+
+		this.bothFightersAction(function(_fighter) {
+			_fighter.resetBattleVariables();
+		});
 
 		this.FIGHTER1 = new City(this.FIGHTER1, this.BATTLE_CHANNEL.id);
 		this.FIGHTER2 = new City(this.FIGHTER2, this.BATTLE_CHANNEL.id);
 
 		this.CURRENT_BATTLE_MODE = CITY_BATTLE_MODE;
 		this.KIDNEY_CURSE = 0;
-
-		this.addMessage("**===== CIVILISATION BATTLE MODE =====**");
-		this.addMessage("Both fighters starts a new civilisation as their leader. Your next message will be the name of your city !");
 	}
 
 	setRandomAttackList() {
