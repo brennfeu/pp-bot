@@ -265,11 +265,12 @@ const GOD_PP33 = {"name" : "Priestess", "emote": "721676575887720550", "type": "
 const GOD_PP34 = {"name" : "Tohru", "emote": "721676576026132481", "type": "waifu"};
 const GOD_PP35 = {"name" : "Zero Two", "emote": "726898384408936488", "type": "waifu"};
 const GOD_PP36 = {"name" : "Emilia", "emote": "728939859267420180", "type": "waifu"};
+const GOD_PP37 = {"name" : "Senjougahara", "emote": "729674123948589087", "type": "waifu"};
 
 const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
 		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
 		 GOD_PP22, GOD_PP23, GOD_PP24, GOD_PP25, GOD_PP26, GOD_PP27, GOD_PP30, GOD_PP31, GOD_PP32, GOD_PP33, 
-		 GOD_PP34, GOD_PP35, GOD_PP36];
+		 GOD_PP34, GOD_PP35, GOD_PP36, GOD_PP37];
 
 const SYNERGY_PP1 = [GOD_PP15, GOD_PP12, GOD_PP14] // A Sad Witness
 const SYNERGY_PP2 = [GOD_PP9, GOD_PP11, GOD_PP19] // Holy Brenn Trinity
@@ -2349,6 +2350,15 @@ class Fighter {
 						this.iceWeapon = true;
 					}
 				}
+				if (this.godList.indexOf(GOD_PP37.name) > -1) { // Senjouahara
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Senjouahara answers his calls !");
+					this.duel.addMessage(this.getName() + " staples " + this.getOppName() + "'s PP !")
+					this.duel.getOppOf(this).damage(Math.floor(this.STR/10));
+					if (!this.duel.BOSS_FIGHT) {
+						this.duel.getOppOf(this).bleedDamage += Math.floor(this.STR/10);
+					}
+				}
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
@@ -2694,8 +2704,15 @@ class Fighter {
 				if (this.godList.indexOf(GOD_PP36.name) > -1) { // Emilia
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Emilia answers his calls !");
-					this.duel.addMessage(this.getOppOf(this).getName() + " calls Quasi Spirits.");
+					this.duel.addMessage(this.getName() + " calls Quasi Spirits.");
 					this.heal(this.duel.getOppOf(this).STR);
+				}
+				if (this.godList.indexOf(GOD_PP37.name) > -1) { // Senjouahara
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Senjouahara answers his calls !");
+					this.duel.addMessage(this.getOppOf(this).getName() + " gets cursed by a Crab Oddity.");
+					this.duel.addMessage(this.getOppOf(this).getName() + " loses 20 DEX !");
+					this.getOppOf(this).DEXValue -= 20;
 				}
 			}
 			else if (attack == EMOTE_PP53) {
