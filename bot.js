@@ -808,7 +808,7 @@ class Fighter {
 			dex += 20;
 		}
 		if (this.streliziaBuff > 0) {
-			str += 5*this.streliziaBuff;
+			dex += 5*this.streliziaBuff;
 		}
 		if (this.quickeningCharges > 0) {
 			dex += this.quickeningCharges;
