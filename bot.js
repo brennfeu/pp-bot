@@ -8374,6 +8374,10 @@ CLIENT.on("message", async _message => {
 			return _message.reply("wat ?");
 		}
 	}
+	if (argsUser.length > 3) {
+		_message.reply("fuck off");
+		return;
+	}
 
 	return _message.reply("I don't know this command, try using the help command !");
 });
