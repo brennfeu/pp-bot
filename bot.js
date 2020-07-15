@@ -8379,7 +8379,7 @@ CLIENT.on("message", async _message => {
 		}
 	}
 	if (argsUser.length > 3) {
-		_message.reply("fuck off");
+		_message.reply("sorry, but I'm not interested.");
 		return;
 	}
 
