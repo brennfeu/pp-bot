@@ -3498,7 +3498,11 @@ class Fighter {
 				this.duel.addMessage(this.getName() + " summons the Volatile Gelatine !");
 				var chaosNumber = 1 + Math.floor(getRandomPercent()/20);
 				for (var i = 0; i < chaosNumber; i++) {
-					this.playMove(this.duel.getOppOf(this).oldAttack);
+					var lastMove = EMOTE_PP39;
+					if (this.duel.getOppOf(this).usedMoves.length >= 2) {
+					    lastMove = this.duel.getOppOf(this).usedMoves[this.duel.getOppOf(this).usedMoves.length-2];
+					}
+					this.playMove(lastMove);
 					this.duel.addMessage("-----------------");
 				}
 			}
