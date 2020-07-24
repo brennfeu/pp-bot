@@ -266,11 +266,12 @@ const GOD_PP34 = {"name" : "Tohru", "emote": "721676576026132481", "type": "waif
 const GOD_PP35 = {"name" : "Zero Two", "emote": "726898384408936488", "type": "waifu"};
 const GOD_PP36 = {"name" : "Emilia", "emote": "728939859267420180", "type": "waifu"};
 const GOD_PP37 = {"name" : "Senjougahara", "emote": "729674123948589087", "type": "waifu"};
+const GOD_PP38 = {"name" : "Akame", "emote": "736357472339755018", "type": "waifu"};
 
 const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
 		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
 		 GOD_PP22, GOD_PP23, GOD_PP24, GOD_PP25, GOD_PP26, GOD_PP27, GOD_PP30, GOD_PP31, GOD_PP32, GOD_PP33, 
-		 GOD_PP34, GOD_PP35, GOD_PP36, GOD_PP37];
+		 GOD_PP34, GOD_PP35, GOD_PP36, GOD_PP37, GOD_PP38];
 
 const SYNERGY_PP1 = [GOD_PP15, GOD_PP12, GOD_PP14] // A Sad Witness
 const SYNERGY_PP2 = [GOD_PP9, GOD_PP11, GOD_PP19] // Holy Brenn Trinity
@@ -548,6 +549,9 @@ class Fighter {
 		this.streliziaBuff = 0;
 		this.klaxoTails = false;
 		this.iceWeapon = false;
+		this.akameDex = 0;
+		this.akameKill = 0;
+		this.murasameCurse = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -841,6 +845,9 @@ class Fighter {
 		if (this.hasSynergy(SYNERGY_PP11) && dex <= 0) {
 			return 0;
 		}
+		if (this.akameDex > 0) {
+			 dex += dex;
+		}
 		return dex;
 	}
 
@@ -1000,8 +1007,14 @@ class Fighter {
 		if (this.isLucky > 0) {
 			txt += " - Lucky (for " + this.isLucky + " turns)\n";
 		}
+		if (this.akameDex > 0){
+			txt += " - Blessed by Akame (for " + this.akameDex + " turns)\n";
+		}
 		if (this.mikasaBuff > 0) {
 			txt += " - Blessed by Mikasa (for " + this.mikasaBuff + " turns)\n";
+		}
+		if (this.akameKill > 0) {
+			txt += " - Cursed Blade Murasame (for " + this.akameKill + " turns)\n";
 		}
 		if (this.bossKiller > 0) {
 			txt += " - Boss Killer Blessing (for " + this.bossKiller + " turns)\n";
@@ -1202,6 +1215,9 @@ class Fighter {
 				txt += " (Temporal Duplication)";
 			}
 			txt += "**\n";
+		}
+		if (this.murasameCurse) {
+			txt += " - **Murasame's Poisonous Curse**\n";
 		}
 		if (this.impendingDoom > 0) {
 			txt += " - **Impending Doom : " + this.impendingDoom + " turns**\n";
@@ -2348,6 +2364,15 @@ class Fighter {
 						this.duel.getOppOf(this).bleedDamage += Math.floor(this.STR/10);
 					}
 				}
+				if (this.godList.indexOf(GOD_PP38.name) > -1) { // Akame
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Akame answers his calls !");
+					this.duel.addMessage(this.getName() + " gets blessed by Akame, which increases his speed, agility and reflexes !");
+					if (this.akameDex < 1) {
+						this.akameDex = 1;
+					}
+					this.akameDex += 1;
+				}
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
@@ -2702,6 +2727,18 @@ class Fighter {
 					this.duel.addMessage(this.getOppOf(this).getName() + " gets cursed by a Crab Oddity.");
 					this.duel.addMessage(this.getOppOf(this).getName() + " loses 20 DEX !");
 					this.getOppOf(this).DEXValue -= 20;
+				}
+				if (this.godList.indexOf(GOD_PP38.name) > -1) { // Akame
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Akame answers his calls !");
+					if (this.akameKill < 1) {
+						this.akameKill = 1;
+						this.duel.addMessage(this.getName() + " gets Murasame for a short period of time !");
+					}
+					else {
+						this.duel.addMessage(this.getName() + " gets Murasame for a longer period of time !");
+					}
+					this.akameKill += 1;
 				}
 			}
 			else if (attack == EMOTE_PP53) {
@@ -3919,6 +3956,10 @@ class Fighter {
 				if (this.duel.getOppOf(this).standPower == STAND_PP17 && _punch) { // Titans of Creation
 					this.duel.getOppOf(this).heal(10);
 				}
+				if (this.duel.getOppOf(this).akameKill > 0 && _punch) {
+					this.duel.addMessage(this.getName() + " gets Murasame's poisonous curse !");
+					this.murasameCurse = true;
+				}
 				if (this.madnessStacks > 0 && getRandomPercent() <= 10+this.madnessStacks && _punch) {
 					this.duel.addMessage(this.getName() + " flinched !");
 					this.hasBurst = 2;
@@ -4030,6 +4071,8 @@ class Fighter {
 			this.ironProtection -= 1;
 			this.futureMemories -= 1;
 			this.selfReverseDamage -= 1;
+			this.akameDex -= 1;
+			this.akameKill -= 1;
 		}
 		
 		if (this.sporeSac && getRandomPercent() <= 50 && this.acidArmor > 0) {
@@ -4285,6 +4328,21 @@ class Fighter {
 			}
 			else {
 				this.extraLife = 0;
+				this.STRValue -= this.STR;
+			}
+			this.duel.addMessage("-----------------");
+		}
+		
+		// Akame's Murasame
+		if (this.murasameCurse) {
+			this.duel.addMessage("**" + this.getName() + "'s heart stops beating !**");
+			if (this.doomReverse > 0) {
+				this.duel.addMessage("**" + this.getName() + " uses DOOM-REVERSE(tm) !**");
+				this.STRValue += (0 - this.STR) + 10;
+				this.doomReverse = 0;
+				this.murasameCurse = false;
+			}
+			else {
 				this.STRValue -= this.STR;
 			}
 			this.duel.addMessage("-----------------");
