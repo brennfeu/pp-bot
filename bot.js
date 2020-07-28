@@ -273,6 +273,7 @@ const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8,
 		 GOD_PP22, GOD_PP23, GOD_PP24, GOD_PP25, GOD_PP26, GOD_PP27, GOD_PP30, GOD_PP31, GOD_PP32, GOD_PP33, 
 		 GOD_PP34, GOD_PP35, GOD_PP36, GOD_PP37, GOD_PP38];
 
+const SYNERGY_PP0 = ["PP_HAREM"] // PP Harem
 const SYNERGY_PP1 = [GOD_PP15, GOD_PP12, GOD_PP14] // A Sad Witness
 const SYNERGY_PP2 = [GOD_PP9, GOD_PP11, GOD_PP19] // Holy Brenn Trinity
 const SYNERGY_PP3 = [GOD_PP5, GOD_PP6, GOD_PP14] // Unholy Pudding Trinity
@@ -296,10 +297,11 @@ const SYNERGY_PP20 = [GOD_PP24, GOD_PP27] // Master of Time
 const SYNERGY_PP21 = [GOD_PP12, GOD_PP7] // Big Nose
 const SYNERGY_PP22 = [GOD_PP18, GOD_PP3] // Extreme Karma
 const SYNERGY_PP23 = [GOD_PP10, GOD_PP11] // Ram Ranch
+const SYNERGY_PP24 = ["normal", "waifu", "eldritch"] // Cosmopolitan
 const SYNERGY_LIST = [SYNERGY_PP1, SYNERGY_PP2, SYNERGY_PP3, SYNERGY_PP4, SYNERGY_PP5, SYNERGY_PP6, SYNERGY_PP7, SYNERGY_PP8, 
 		      SYNERGY_PP9, SYNERGY_PP10, SYNERGY_PP11, SYNERGY_PP12, SYNERGY_PP13, SYNERGY_PP14, SYNERGY_PP15, 
 		      SYNERGY_PP16, SYNERGY_PP17, SYNERGY_PP18, SYNERGY_PP19, SYNERGY_PP20, SYNERGY_PP21, SYNERGY_PP22,
-		      SYNERGY_PP23];
+		      SYNERGY_PP23, SYNERGY_PP24, SYNERGY_PP0];
 
 const STAND_PP1 = "Somewhere in Time";
 const STAND_PP2 = "The Boreal Flame";
@@ -740,6 +742,9 @@ class Fighter {
 		if (this.hasSynergy(SYNERGY_PP17)) {
 			str += 50;
 		}
+		if (this.hasSynergy(SYNERGY_PP24)) {
+			str += 15;
+		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			str += 50;
 			if (this.ultimatePPBuff) {
@@ -831,6 +836,9 @@ class Fighter {
 		}
 		if (this.hasSynergy(SYNERGY_PP8)) {
 			dex += 10;
+		}
+		if (this.hasSynergy(SYNERGY_PP24)) {
+			dex += 5;
 		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			dex += 50;
@@ -1226,7 +1234,7 @@ class Fighter {
 		if (this.duel.CURRENT_BATTLE_MODE != STAND_BATTLE_MODE || this.standPower == STAND_PP19) {
 			txt += "\n**Synergies :**\n"
 			if (this.godList.length >= GOD_LIST.length) {
-				txt += " - *All of them*\n";
+				txt += " - *PP Harem*\n";
 			}
 			else {
 				if (this.hasSynergy(SYNERGY_PP1)) {
@@ -1297,6 +1305,9 @@ class Fighter {
 				}
 				if (this.hasSynergy(SYNERGY_PP23)) {
 					txt += " - Ram Ranch\n";
+				}
+				if (this.hasSynergy(SYNERGY_PP24)) {
+					txt += " - Cosmopolitan\n";
 				}
 			}
 		}
@@ -3645,6 +3656,10 @@ class Fighter {
 						this.duel.DARKNESS_COUNTDOWN += 5;
 					}
 				}
+				else if (this.godList.length >= GOD_LIST.length) { // PP Harem
+					this.duel.addMessage("-----------------");
+					this.playMove(EMOTE_PP79);
+				}
 				else if (this.standPower == STAND_PP15) { // House of Atreus
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The House of Atreus answers his calls !");
@@ -4404,6 +4419,9 @@ class Fighter {
 
 	hasSynergy(_synergy) {
 		if (this.forcedSynergies.indexOf(_synergy) > -1) {
+			return true;
+		}
+		if (this.godList.length >= GOD_LIST.length) { // PP Harem
 			return true;
 		}
 		for (var i in _synergy) {
@@ -7227,7 +7245,8 @@ class Duel {
 		}
 
 		if (((this.FIGHTER1.requiemPower != null || this.FIGHTER2.requiemPower != null ||
-		      this.FIGHTER1.standPower == STAND_PP15 || this.FIGHTER2.standPower == STAND_PP15) &&
+		      this.FIGHTER1.standPower == STAND_PP15 || this.FIGHTER2.standPower == STAND_PP15 ||
+		      this.FIGHTER1.godList.length >= GOD_LIST.length || this.FIGHTER1.godList.length >= GOD_LIST.length) &&
 		     getRandomPercent() <= 34) ||
 		    (this.INFERNAL_FIRELAND && getRandomPercent() <= 10)) {
 			listeAttaques.push(EMOTE_ABILITY);
