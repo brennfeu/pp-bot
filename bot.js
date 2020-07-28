@@ -274,7 +274,7 @@ const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8,
 		 GOD_PP34, GOD_PP35, GOD_PP36, GOD_PP37, GOD_PP38];
 
 const SYNERGY_PP0 = ["PP_HAREM"] // PP Harem
-const SYNERGY_PP1 = [GOD_PP15, GOD_PP12, GOD_PP14] // A Sad Witness
+const f = [GOD_PP15, GOD_PP12, GOD_PP14] // A Sad Witness
 const SYNERGY_PP2 = [GOD_PP9, GOD_PP11, GOD_PP19] // Holy Brenn Trinity
 const SYNERGY_PP3 = [GOD_PP5, GOD_PP6, GOD_PP14] // Unholy Pudding Trinity
 const SYNERGY_PP4 = [GOD_PP2, GOD_PP18, GOD_PP9] // Roleplay Group
@@ -757,6 +757,10 @@ class Fighter {
 		if (this.duel.PP_ARMAGEDDON) {
 			str += 1000000;
 		}
+		
+		if (this.hasSynergy(SYNERGY_PP0)) { // PP Harem
+			str += str;
+		}
 
 		if (this.duel.EVENT_BOSS && str <= 0) {
 			return 0;
@@ -855,6 +859,10 @@ class Fighter {
 		}
 		if (this.akameDex > 0) {
 			 dex += dex;
+		}
+		
+		if (this.hasSynergy(SYNERGY_PP0) && dex > 0) { // PP Harem
+			dex += dex;
 		}
 		return dex;
 	}
@@ -1237,6 +1245,9 @@ class Fighter {
 				txt += " - *PP Harem*\n";
 			}
 			else {
+				if (this.hasSynergy(SYNERGY_PP0)) {
+					txt += " - *PP Harem*\n";
+				}
 				if (this.hasSynergy(SYNERGY_PP1)) {
 					txt += " - A Sad Witness\n";
 				}
@@ -3656,7 +3667,7 @@ class Fighter {
 						this.duel.DARKNESS_COUNTDOWN += 5;
 					}
 				}
-				else if (this.godList.length >= GOD_LIST.length) { // PP Harem
+				else if (this.hasSynergy(SYNERGY_PP0)) { // PP Harem
 					this.duel.addMessage("-----------------");
 					this.playMove(EMOTE_PP79);
 				}
@@ -7246,7 +7257,7 @@ class Duel {
 
 		if (((this.FIGHTER1.requiemPower != null || this.FIGHTER2.requiemPower != null ||
 		      this.FIGHTER1.standPower == STAND_PP15 || this.FIGHTER2.standPower == STAND_PP15 ||
-		      this.FIGHTER1.godList.length >= GOD_LIST.length || this.FIGHTER1.godList.length >= GOD_LIST.length) &&
+		      this.FIGHTER1.hasSynergy(SYNERGY_PP0) || this.FIGHTER1.hasSynergy(SYNERGY_PP0)) &&
 		     getRandomPercent() <= 34) ||
 		    (this.INFERNAL_FIRELAND && getRandomPercent() <= 10)) {
 			listeAttaques.push(EMOTE_ABILITY);
