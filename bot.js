@@ -1934,11 +1934,7 @@ class Fighter {
 					this.duel.addMessage(this.getName() + " proves with his high intellectual abilities that he shouldn't play this move but " + this.duel.getOppOf(this).getName() + " should !");
 					if (this.duel.getOppOf(this).hasSynergy(SYNERGY_PP13)) {
 						this.duel.addMessage("-----------------");
-						this.duel.addMessage("*Both fighters then debated on the use of this move ! The intellectual intercourse between " + this.getName() + " and " + this.duel.getOppOf(this).getName() + " lasted for 11 years. They both killed themselves at the end, no one knows what happened there... Let's go back in time to see what happened.*");
-						this.duel.addMessage("-----------------");
-						this.duel.addMessage(this.duel.getOppOf(this).getName() + " : 'Your PP is small lol !'");
-						this.duel.addMessage(this.getName() + " : 'Oh ok... :(' (he kills himself)");
-						this.duel.addMessage(this.duel.getOppOf(this).getName() + " : 'I'm bored I'm gonna commit suicide.' (he kills himself)");
+						this.duel.addMessage("*Both fighters then debated on the use of this move ! The intellectual intercourse between " + this.getName() + " and " + this.duel.getOppOf(this).getName() + " lasted for 11 years. They both killed themselves at the end, no one knows what happened...*");
 						this.STRValue = -999999999;
 						this.duel.getOppOf(this).STRValue = -999999999;
 					}
@@ -2455,14 +2451,14 @@ class Fighter {
 						this.STRValue -= this.STR-this.duel.getOppOf(this).STR;
 					}
 					else {
-						this.duel.addMessage(this.getName() + " is already the strongest !");
+						this.duel.addMessage(this.getName() + " already is the strongest !");
 					}
 					if (this.DEX < this.duel.getOppOf(this).DEX) {
 						this.duel.addMessage(this.getName() + " gets as much DEX as " + this.duel.getOppOf(this).getName());
 						this.DEXValue -= this.DEX-this.duel.getOppOf(this).DEX;
 					}
 					else {
-						this.duel.addMessage(this.getName() + " is already the fastest !");
+						this.duel.addMessage(this.getName() + " already is the fastest !");
 					}
 				}
 				if (this.godList.indexOf(GOD_PP6.name) > -1) { // Dickdickson666
@@ -6403,7 +6399,7 @@ class Duel {
 			this.startRandomEvent();
 		}
 		else if (randomVar == 50 && (this.MOVE_COUNT >= 1000 || forcedEvent)) {
-			// Obama
+			// Wyndoella
 			this.addMessage(" -- WYNDOELLA KILLS PUDDING --");
 			this.addMessage("The Universe itself is against you now...\n" + IMAGE_PP9);
 			this.EVENT_BOSS = true;
@@ -6423,6 +6419,7 @@ class Duel {
 				else {
 					this.addMessage(" -- PEACEFUL IKEA --");
 					this.addMessage("Swedish pilgrims built a peaceful IKEA.");
+					this.addMessage(IMAGE_PP10);
 					this.addMessage("They offer you some ammos to help you in your battle.");
 					this.bothFightersAction(function(_fighter) {
 						_fighter.fullOfAmmo = true;
