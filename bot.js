@@ -5699,8 +5699,11 @@ class Duel {
 				if (_fighter.summonTankCountdown == 1) {
 					_fighter.playMove(EMOTE_PP10);
 				}
-				if (_fighter.grabbedPP == 1) {
+				else if (_fighter.grabbedPP == 1) {
 					_fighter.playMove(EMOTE_PP39);
+				}
+				else {
+					_fighter.attack = EMOTE_SKIP;
 				}
 			});
 			this.launchAttacks();
