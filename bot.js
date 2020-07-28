@@ -2617,11 +2617,7 @@ class Fighter {
 					 // Time Cube
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("The Time Cube answers his calls !");
-					this.duel.addMessage(this.getName() + " stops time !\n" +  + IMAGE_PP3);
-					this.duel.TIME_STOP = 2;
-					if (this.hasSynergy(SYNERGY_PP20)) { // Master of Time
-						this.duel.TIME_STOP += this.duel.TIME_STOP - 1;
-					}
+					this.stopTime(1);
 					this.duel.addMessage("*When the Sun shines upon Earth, 2 – major Time points are created on opposite sides of Earth – known as Midday and Midnight. Where the 2 major Time forces join, synergy creates 2 new minor Time points we recognize as Sunup and Sundown. The 4-equidistant Time points can be considered as Time Square imprinted upon the circle of Earth. In a single rotation of the Earth sphere, each Time corner point rotates through the other 3-corner Time points, thus creating 16 corners, 96 hours and 4-simultaneous 24-hour Days within a single rotation of Earth – equated to a Higher Order of Life Time Cube. ONE - DOES NOT EXIST, EXCEPT IN DEATH STATE.*");
 					this.duel.addMessage("***For as long as you dumbass, educated brilliant and boring bastards IGNORE Cubic Creation, your sons and daughters deserve to die and be maimed in foreign lands - while kissing innocent women and children.***");
 				}
@@ -3562,19 +3558,19 @@ class Fighter {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage(this.requiemPower + " Requiem Ability is triggered !");
 					this.requiemCooldown = 6;
-					this.duel.addMessage("**Time stops !**\n" + IMAGE_PP3);
-					this.duel.TIME_STOP = 2;
 
 					if (this.requiemPower == REQUIEM_PP1 || this.requiemPower == REQUIEM_PP7) { // Etrange
+						this.stopTime(1);
 						this.duel.addMessage(this.duel.getOppOf(this).getName() + "'s past injuries are inflicted to him again !");
 						this.duel.getOppOf(this).damage(this.duel.getOppOf(this).damageTaken, false);
 					}
 					if (this.requiemPower == REQUIEM_PP2) { // Iamthemorning
-						this.duel.TIME_STOP = 4;
+						this.stopTime(3);
 						this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets possessed !");
 						this.duel.getOppOf(this).isPossessed = 1;
 					}
 					if (this.requiemPower == REQUIEM_PP3 || this.requiemPower == REQUIEM_PP7) { // Majestic
+						this.stopTime(1);
 						this.duel.addMessage(this.getName() + " makes a temporal duplication of himself !");
 						this.extraLife += 1;
 
@@ -3585,16 +3581,18 @@ class Fighter {
 						this.duel = duel;
 					}
 					if (this.requiemPower == REQUIEM_PP4 || this.requiemPower == REQUIEM_PP7) { // DayDream XI
-						this.duel.TIME_STOP = 4;
+						this.stopTime(3);
 						this.duel.addMessage(this.getName() + " will compress time when it'll go back to normal !");
 						this.duel.TIME_COMPRESSION = 4;
 					}
 					if (this.requiemPower == REQUIEM_PP5 || this.requiemPower == REQUIEM_PP7) { // Flying Colors
+						this.stopTime(1);
 						this.duel.addMessage(this.getName() + "'s past injuries are reverted back in time !");
 						this.heal(this.damageTaken);
 						this.resetBattleVariables();
 					}
 					if (this.requiemPower == REQUIEM_PP6 || this.requiemPower == REQUIEM_PP7) { // Witherfall
+						this.stopTime(1);
 						this.duel.addMessage(this.getName() + " damages time itself !");
 						if (this.duel.getOppOf(this).requiemPower != null && this.duel.getOppOf(this).requiemPower != REQUIEM_PP6) {
 							this.duel.getOppOf(this).requiemPower = null;
@@ -3603,23 +3601,20 @@ class Fighter {
 						this.duel.TIME_BREAK += 10;
 					}
 					if (this.requiemPower == REQUIEM_PP8 || this.requiemPower == REQUIEM_PP7) { // Hawkwind
+						this.stopTime(1);
 						this.duel.addMessage(this.getName() + " defines the fate of " + this.duel.getOppOf(this).getName() + " !");
 						this.duel.getOppOf(this).impendingDoom = 11;
 					}
 
 					if (this.requiemPower == REQUIEM_PP9) { // Porcupine Tree
-						this.duel.TIME_STOP = 11;
+						this.stopTime(10);
 						this.duel.addMessage(this.getName() + " deletes the arbitrator's speaking time !");
 						this.duel.sendMessages();
 						this.duel.NO_MESSAGE = 4;
 					}
 
 					if (this.requiemPower == REQUIEM_PP7) { // All Traps on Earth
-						this.duel.TIME_STOP = 6;
-					}
-
-					if (this.hasSynergy(SYNERGY_PP20)) { // Master of Time
-						this.duel.TIME_STOP += this.duel.TIME_STOP - 1;
+						this.stopTime(5);
 					}
 				}
 				else if (this.infernalInstrument == 1) { // Guitar Solo
@@ -4361,6 +4356,19 @@ class Fighter {
 			this.attack = EMOTE_PP10;
 		}
 	}
+	
+	stopTime(_duration) {
+		this.duel.addMessage("**Time stops !**\n" + IMAGE_PP3);
+		this.duel.TIME_STOP_ID = this.id;
+		
+		if (this.duel.TIME_STOP < 1) {
+			this.duel.TIME_STOP = 1
+		}
+		this.duel.TIME_STOP += _duration;
+		if (this.hasSynergy(SYNERGY_PP20)) { // Master of Time
+			this.duel.TIME_STOP += _duration;
+		}
+	}
 
 	win(_param) {
 		var nb = 1;
@@ -4711,6 +4719,7 @@ class Duel {
 		this.EASY_DUEL = _easyDuel;
 		this.CURRENT_BATTLE_MODE = NORMAL_BATTLE_MODE;
 
+		this.TIME_STOP_ID = 0;
 		this.TIME_STOP = 0;
 		this.TIME_COMPRESSION = 0;
 		this.TIME_BREAK = 0;
@@ -5650,7 +5659,7 @@ class Duel {
 				_fighter.attack = EMOTE_DEAD;
 				_fighter.STRValue = -10;
 			}
-			if (_fighter.duel.TIME_STOP > 0 && _fighter.requiemPower == null && _fighter.godList.indexOf(GOD_PP24.name) < 0) { // if weak --> skip time skip
+			if (_fighter.duel.TIME_STOP > 0 && _fighter.duel.TIME_STOP_ID != _fighter.id) { // if weak --> skip time skip
 				_fighter.attack = EMOTE_SKIP;
 			}
 		});
@@ -6520,7 +6529,7 @@ class Duel {
 					}
 				}
 			}
-			else if (_fighter.duel.TIME_STOP > 0 && _fighter.requiemPower == null && _fighter.godList.indexOf(GOD_PP24.name) < 0) { // if weak --> skip time skip
+			else if (_fighter.duel.TIME_STOP > 0 && _fighter.duel.TIME_STOP_ID != _fighter.id) { // if weak --> skip time skip
 				return;
 			}
 			else if (_fighter.attack == EMOTE_DEAD || _fighter.attack == EMOTE_SKIP) { // no choice
