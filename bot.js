@@ -4078,7 +4078,8 @@ class Fighter {
 		this.turkeyCountdown -= 1;
 		
 		if (this.empressLightBuff && getRandomPercent() <= 50) {
-			this.duel.addMessage(this.getName() + " gets blessed by the Empress of Light !");
+			this.duel.addMessage(this.getName() + " feels the blessing by the Empress of Light !");
+			this.duel.addMessage("-----------------");
 		}
 		else {
 			this.doomReverse -= 1;
@@ -4090,14 +4091,14 @@ class Fighter {
 			this.selfReverseDamage -= 1;
 			this.akameDex -= 1;
 			this.akameKill -= 1;
-		}
-		
-		if (this.sporeSac && getRandomPercent() <= 50 && this.acidArmor > 0) {
-			this.duel.addMessage(this.getName() + "'s acid armor stays for longer.");
-			this.duel.addMessage("-----------------");
-		}
-		else {
-			this.acidArmor -= 1;
+			
+			if (this.sporeSac && getRandomPercent() <= 75 && this.acidArmor > 0) {
+				this.duel.addMessage(this.getName() + "'s acid armor stays for longer.");
+				this.duel.addMessage("-----------------");
+			}
+			else {
+				this.acidArmor -= 1;
+			}
 		}
 
 		// Turkey
