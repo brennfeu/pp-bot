@@ -322,6 +322,7 @@ const STAND_PP16 = "Virus";
 const STAND_PP17 = "Titans of Creation";
 const STAND_PP18 = "Fantasien 1998";
 const STAND_PP19 = "Beyond The Space, Beyond The Time";
+const STAND_PP20 = "Metal Resistance";
 
 var STAND_SUMMONS = {};
 // THE LISTS MUST BE REVERSED
@@ -343,7 +344,8 @@ STAND_SUMMONS[STAND_PP15] = [EMOTE_PP30, EMOTE_PP51]; // God Regular Move, Alert
 STAND_SUMMONS[STAND_PP16] = [EMOTE_PP18, EMOTE_PP22]; // MeatBro, RedPill
 STAND_SUMMONS[STAND_PP17] = [EMOTE_PP11, EMOTE_PP4]; // Flex, Steel
 STAND_SUMMONS[STAND_PP18] = [EMOTE_PP18, EMOTE_PP2]; // PunchingPPReallyHard, RedPill
-STAND_SUMMONS[STAND_PP19] = [EMOTE_PP30, EMOTE_PP26]; // BigSatan, Alert, Alert
+STAND_SUMMONS[STAND_PP19] = [EMOTE_PP30, EMOTE_PP26]; // BigSatan, Alert
+STAND_SUMMONS[STAND_PP20] = [EMOTE_PP17, EMOTE_PP11]; // Steel, RiotShield
 
 const REQUIEM_PP1 = "Etrange";
 const REQUIEM_PP2 = "Iamthemorning";
@@ -3993,6 +3995,20 @@ class Fighter {
 				this.duel.getOppOf(this).heal(30);
 				this.duel.getOppOf(this).DEXValue += 10;
 				this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets 10 DEX !");
+			}
+			if (this.standPower == STAND_PP20 && getRandomPercent() <= 25) { // Metal Resistance
+				this.duel.addMessage(this.getName() + " changes his gods for a bit !");
+				var godListMemory = this.godList.slice();
+				this.godList = []
+				
+				var randomGod = randomFromList(GOD_LIST);
+				while (randomGod.type != "waifu") {
+					randomGod = randomFromList(GOD_LIST);
+				}
+				this.godList.push(randomGod);
+				
+				this.playMove(EMOTE_PP51);
+				this.godList = godListMemory.slice();
 			}
 		}
 
