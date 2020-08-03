@@ -735,7 +735,7 @@ class Fighter {
 		if (this.standPower == STAND_PP8_1) {
 			str += 50;
 		}
-		if (this.BOREAL_WORLD && this.standPower == STAND_PP2) {
+		if (this.duel.BOREAL_WORLD && this.standPower == STAND_PP2) {
 			str += 200;
 		}
 		if (this.requiemPower != null && this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
@@ -813,6 +813,9 @@ class Fighter {
 		if (this.xenoMask) {
 			dex += 10;
 		}
+		if (this.kungFu) {
+			dex += 10;
+		}
 		if (this.livingGod) {
 			dex += 10000;
 		}
@@ -834,7 +837,7 @@ class Fighter {
 		if (this.standPower == STAND_PP8_2) {
 			dex += 10;
 		}
-		if (this.BOREAL_WORLD && this.standPower == STAND_PP2) {
+		if (this.duel.BOREAL_WORLD && this.standPower == STAND_PP2) {
 			dex += 50;
 		}
 		if (this.requiemPower != null && this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
@@ -4005,7 +4008,7 @@ class Fighter {
 				while (randomGod.type != "waifu") {
 					randomGod = randomFromList(GOD_LIST);
 				}
-				this.godList.push(randomGod);
+				this.godList.push(randomGod.name);
 				
 				this.playMove(EMOTE_PP51);
 				this.godList = godListMemory.slice();
