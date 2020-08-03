@@ -4401,7 +4401,7 @@ class Fighter {
 	
 	stopTime(_duration) {
 		this.duel.addMessage("**Time stops !**\n" + IMAGE_PP3);
-		this.duel.TIME_STOP_ID = this.id;
+		this.duel.TIME_STOP_ID = this.idUser;
 		
 		if (this.duel.TIME_STOP < 1) {
 			this.duel.TIME_STOP = 1
@@ -5704,7 +5704,7 @@ class Duel {
 				_fighter.attack = EMOTE_DEAD;
 				_fighter.STRValue = -10;
 			}
-			if (_fighter.duel.TIME_STOP > 0 && _fighter.duel.TIME_STOP_ID != _fighter.id) { // if weak --> skip time skip
+			if (_fighter.duel.TIME_STOP > 0 && _fighter.duel.TIME_STOP_ID != _fighter.idUser) { // if weak --> skip time skip
 				_fighter.attack = EMOTE_SKIP;
 			}
 		});
@@ -6303,7 +6303,7 @@ class Duel {
 			// Ascension Requiem
 			this.addMessage(" -- ASCENSION REQUIEM --");
 			var winner = this.getRandomFighter();
-			this.addMessage(winner.getName() + " accidentaly plays Ascend [EarRape Version] 20k Subscribers Special on his phone !");
+			this.addMessage(winner.getName() + " accidentaly plays Ascended Depression on his phone !");
 			this.bothFightersAction(function(_fighter) {
 				_fighter.quickeningCharges += 10;
 				_fighter.playMove(EMOTE_PP77);
@@ -6578,7 +6578,7 @@ class Duel {
 					}
 				}
 			}
-			else if (_fighter.duel.TIME_STOP > 0 && _fighter.duel.TIME_STOP_ID != _fighter.id) { // if weak --> skip time skip
+			else if (_fighter.duel.TIME_STOP > 0 && _fighter.duel.TIME_STOP_ID != _fighter.idUser) { // if weak --> skip time skip
 				return;
 			}
 			else if (_fighter.attack == EMOTE_DEAD || _fighter.attack == EMOTE_SKIP) { // no choice
