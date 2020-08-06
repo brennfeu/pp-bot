@@ -3785,7 +3785,7 @@ class Fighter {
 			_amount += this.duel.getOppOf(this).bonusDamage;
 			this.duel.getOppOf(this).bonusDamage = 0;
 		}
-		if (this.kungFu && _punch) {
+		if (this.duel.getOppOf(this).kungFu && _punch) {
 			// Signpost
 			_amount += 10;
 		}
