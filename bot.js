@@ -267,11 +267,12 @@ const GOD_PP35 = {"name" : "Zero Two", "emote": "726898384408936488", "type": "w
 const GOD_PP36 = {"name" : "Emilia", "emote": "728939859267420180", "type": "waifu"};
 const GOD_PP37 = {"name" : "Senjougahara", "emote": "729674123948589087", "type": "waifu"};
 const GOD_PP38 = {"name" : "Akame", "emote": "736357472339755018", "type": "waifu"};
+const GOD_PP39 = {"name" : "Ais", "emote": "744922262682992640", "type": "waifu"};
 
 const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
 		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
 		 GOD_PP22, GOD_PP23, GOD_PP24, GOD_PP25, GOD_PP26, GOD_PP27, GOD_PP30, GOD_PP31, GOD_PP32, GOD_PP33, 
-		 GOD_PP34, GOD_PP35, GOD_PP36, GOD_PP37, GOD_PP38];
+		 GOD_PP34, GOD_PP35, GOD_PP36, GOD_PP37, GOD_PP38, GOD_PP39];
 
 const SYNERGY_PP0 = ["PP_HAREM"] // PP Harem
 const SYNERGY_PP1 = [GOD_PP15, GOD_PP12, GOD_PP14] // A Sad Witness
@@ -556,6 +557,7 @@ class Fighter {
 		this.akameDex = 0;
 		this.akameKill = 0;
 		this.murasameCurse = false;
+		this.tempestBuff = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -1158,6 +1160,9 @@ class Fighter {
 		}
 		if (this.iceWeapon) {
 			txt += " - Magic Ice Weapon\n";
+		}
+		if (this.tempestBuff) {
+			txt += " - Tempest\n";
 		}
 		if (this.isOverCircumcised) {
 			txt += " - Overcircumcised\n";
@@ -2396,6 +2401,17 @@ class Fighter {
 					}
 					this.akameDex += 1;
 				}
+				if (this.godList.indexOf(GOD_PP39.name) > -1) { // Ais
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Ais answers his calls !");
+					if (this.tempestBuff) {
+						this.duel.addMessage(this.getName() + " already has Tempest casted...");
+					}
+					else {
+						this.duel.addMessage(this.getName() + " casts Tempest !");
+						this.tempestBuff = true;
+					}
+				}
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
@@ -2758,6 +2774,13 @@ class Fighter {
 						this.duel.addMessage(this.getName() + " gets Murasame for a longer period of time !");
 					}
 					this.akameKill += 1;
+				}
+				if (this.godList.indexOf(GOD_PP39.name) > -1) { // Ais
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Ais answers his calls !");
+					for (var i = 0; i < 5; i++) {
+						this.playMove(EMOTE_PP74);
+					}
 				}
 			}
 			else if (attack == EMOTE_PP53) {
@@ -3931,8 +3954,13 @@ class Fighter {
 			this.duel.addMessage(this.getName() + " reflects the damages !");
 			this.duel.getOppOf(this).damage(_amount);
 		}
+		else if (this.tempestBuff && _amount > 0 && getRandomPercent() >= 33 && _punch) {
+			// Tempest (Ais buff)
+			this.duel.addMessage(this.getName() + "'s Tempest protects him !");
+			this.duel.getOppOf(this).damage(Math.floor(this.STR/10));
+			_amount = Math.floor(_amount/2);
+		}
 		else {
-
 			if (_amount <= 0) {
 				return this.duel.addMessage(this.getName() + " takes no damages !");
 			}
