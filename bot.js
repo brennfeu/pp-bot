@@ -268,11 +268,12 @@ const GOD_PP36 = {"name" : "Emilia", "emote": "728939859267420180", "type": "wai
 const GOD_PP37 = {"name" : "Senjougahara", "emote": "729674123948589087", "type": "waifu"};
 const GOD_PP38 = {"name" : "Akame", "emote": "736357472339755018", "type": "waifu"};
 const GOD_PP39 = {"name" : "Ais", "emote": "744922262682992640", "type": "waifu"};
+const GOD_PP40 = {"name" : "Kaguya", "emote": "750444220963225662", "type": "waifu"};
 
 const GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
 		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
 		 GOD_PP22, GOD_PP23, GOD_PP24, GOD_PP25, GOD_PP26, GOD_PP27, GOD_PP30, GOD_PP31, GOD_PP32, GOD_PP33, 
-		 GOD_PP34, GOD_PP35, GOD_PP36, GOD_PP37, GOD_PP38, GOD_PP39];
+		 GOD_PP34, GOD_PP35, GOD_PP36, GOD_PP37, GOD_PP38, GOD_PP39, GOD_PP40];
 
 const SYNERGY_PP0 = ["PP_HAREM"] // PP Harem
 const SYNERGY_PP1 = [GOD_PP15, GOD_PP12, GOD_PP14] // A Sad Witness
@@ -558,6 +559,8 @@ class Fighter {
 		this.akameKill = 0;
 		this.murasameCurse = false;
 		this.tempestBuff = false;
+		this.ppBribe = 0;
+		this.inLove = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -1039,6 +1042,9 @@ class Fighter {
 		if (this.akameKill > 0) {
 			txt += " - Cursed Blade Murasame (for " + this.akameKill + " turns)\n";
 		}
+		if (this.inLove > 0) {
+			txt += " - In Love (for " + this.inLove + " turns)\n";
+		}
 		if (this.bossKiller > 0) {
 			txt += " - Boss Killer Blessing (for " + this.bossKiller + " turns)\n";
 		}
@@ -1046,7 +1052,7 @@ class Fighter {
 			txt += " - Damage Reversed (for " + this.selfReverseDamage + " turns)\n";
 		}
 		if (this.futureMemories > 0) {
-			txt += " - Has Knowledge of the Future (the next " + this.futureMemories + " turns)\n"
+			txt += " - Has Knowledge of the Future (of the next " + this.futureMemories + " turns)\n"
 		}
 		if (this.gettingRegularCharge > 0) {
 			txt += " - Getting a regular charge in " + this.gettingRegularCharge + " turns\n"
@@ -1115,6 +1121,9 @@ class Fighter {
 		}
 		if (this.lifeFibers > 0) {
 			txt += " - Life Fiber : " + (this.lifeFibers*5) + "%\n";
+		}
+		if (this.ppBribe > 0) {
+			txt += " - Arbitrator Bribe : " + this.ppBribe + "%\n";
 		}
 		if (this.hivePack > 0) {
 			txt += " - Hive Pack : " + this.hivePack + "%\n";
@@ -2412,6 +2421,16 @@ class Fighter {
 						this.tempestBuff = true;
 					}
 				}
+				if (this.godList.indexOf(GOD_PP40.name) > -1) { // Kaguya
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Kaguya answers his calls !");
+					this.duel.addMessage(this.getName() + " bribes PP Arbitrator.");
+					this.ppBribe += 10;
+					if (this.ppBribe > 100) {
+						this.ppBribe = 100;
+						this.quickeningCharges += 3;
+					}
+				}
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
@@ -2781,6 +2800,13 @@ class Fighter {
 					for (var i = 0; i < 5; i++) {
 						this.playMove(EMOTE_PP74);
 					}
+				}
+				if (this.godList.indexOf(GOD_PP40.name) > -1) { // Kaguya
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Kaguya answers his calls !");
+					this.duel.addMessage(this.duel.getOpponentOf(this).getName() + " just confessed his love !");
+					this.duel.addMessage("*O Kawaii Koto.*");
+					this.duel.getOpponentOf(this).inLove = 6;
 				}
 			}
 			else if (attack == EMOTE_PP53) {
@@ -4123,6 +4149,7 @@ class Fighter {
 		this.gettingSpecialCharge -= 1;
 		this.satanicReverse -= 1;
 		this.turkeyCountdown -= 1;
+		this.inLove -= 1;
 		
 		if (this.empressLightBuff && getRandomPercent() <= 50) {
 			this.duel.addMessage(this.getName() + " feels the blessing by the Empress of Light !");
@@ -4413,7 +4440,8 @@ class Fighter {
 			this.duel.addMessage("-----------------");
 		}
 
-		if (this.futureMemories == 0) {
+		if (this.futureMemories == 0 ||
+		   (this.inLove > 0 && getRandomPercent() < 75)) {
 			this.attack = EMOTE_SKIP;
 		}
 		if (this.turnSkip > 0) {
