@@ -8041,7 +8041,7 @@ function getNumberOfGods(_guildUser, _includeNormalOnes = true) {
 	return counter;
 }
 
-async function sendCheatPanel(_channel) {
+async function sendCheatPanel(_channel, _category = null) {
 	var emotes = {
 		"Cheat Panel : Normal Moves I" : [
 			EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8,
@@ -8099,7 +8099,6 @@ async function sendCheatPanel(_channel) {
 			EMOTE_OBOMBA, EMOTE_SKIPPER
 		]
 	}
-
 	for (var i in GOD_LIST) {
 		if (GOD_LIST[i].type == "normal") {
 			emotes["Cheat Panel : Gods I"].push(GOD_LIST[i].emote)
@@ -8111,11 +8110,21 @@ async function sendCheatPanel(_channel) {
 			emotes["Cheat Panel : Gods III"].push(GOD_LIST[i].emote)
 		}
 	}
+	
+	var final = {}
+	if (_category != null) {
+		for (var i in emotes) {
+			if (i.toLowerCase().includes(_category.toLowerCase()) final[i] = emotes[i];
+		}
+	}
+	else {
+		final = emotes;
+	}
 
-	for (var i in emotes) {
+	for (var i in final) {
 		await _channel.send(i).then(async function (_message2) {
-			for (var j in emotes[i]) {
-				await _message2.react(emotes[i][j]);
+			for (var j in final[i]) {
+				await _message2.react(final[i][j]);
 			}
 		}).catch(function(e) {
 			console.log(e);
@@ -8345,7 +8354,31 @@ CLIENT.on("message", async _message => {
 		return;
 	}
 	if (argsUser[1] == "cheatpanel") {
-		sendCheatPanel(_message.channel);
+		var cat = null;
+		if (argsUser.length > 2) {
+			cat = argsUser[2].toLowerCase()
+			switch(argsUser[2].toLowerCase()) {
+				case "regular":
+					cat = "normal";
+					break;
+				case "god":
+					cat = "gods";
+					break;
+				case "armageddon":
+					cat = "animated";
+					break;
+				case "stand":
+				case "stands":
+				case "stånd":
+					cat = "stånds";
+					break;
+				case "civ":
+					cat = "civilisation";
+					break;
+			}
+		}
+		
+		sendCheatPanel(_message.channel, cat);
 		return;
 	}
 	if (argsUser[1] == "training") {
