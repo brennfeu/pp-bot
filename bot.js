@@ -8114,7 +8114,7 @@ async function sendCheatPanel(_channel, _category = null) {
 	var final = {}
 	if (_category != null) {
 		for (var i in emotes) {
-			if (i.toLowerCase().includes(_category.toLowerCase()) final[i] = emotes[i];
+			if (i.toLowerCase().includes(_category.toLowerCase())) final[i] = emotes[i];
 		}
 	}
 	else {
@@ -8308,7 +8308,7 @@ function cloneObject(obj) {
 
 CLIENT.on('ready', () => {
 	console.log(`Logged in as ${CLIENT.user.tag} !`);
-	setBotActivity("New Update of PP Punching");
+	setBotActivity("nothing, I just rebooted.");
 });
 
 // This event will run on every single message received, from any channel or DM.
