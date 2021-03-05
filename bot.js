@@ -7720,6 +7720,8 @@ class Duel {
 		}).catch(err => console.log(err));
 	}
 	getBattleTheme() {
+		if (this.FIGHTER1 == undefined) return MUSIC_PP1; // PP Puncher
+		
 		if (this.TIME_STOP > 0) {
 			return MUSIC_PP12; // Searing Peaks 13 Solo
 		}
