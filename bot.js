@@ -1,19 +1,14 @@
-// COMPLETE GARBAGE CODE WARNING //
+// IMPORTS
+import "./data.js";
+import "./fighter.js";
+import "./city.js";
+import "./duel.js";
+import "./utils.js";
+import "./db.js";
 
 // VARIABLES
-// Constantes
 const DISCORD = require("discord.js");
 const CLIENT = new DISCORD.Client();
-
-var fs = require("fs");
-eval(fs.readFileSync("data.js").toString());
-
-eval(fs.readFileSync("fighter.js").toString());
-eval(fs.readFileSync("city.js").toString());
-eval(fs.readFileSync("duel.js").toString());
-
-eval(fs.readFileSync("utils.js").toString());
-eval(fs.readFileSync("db.js").toString());
 
 // ENCYCLOPEDIA
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
