@@ -1,10 +1,10 @@
 // IMPORTS
-import "./data.js";
-import "./fighter.js";
-import "./city.js";
-import "./duel.js";
-import "./utils.js";
-import "./db.js";
+require("./data.js");
+require("./fighter.js");
+require("./city.js");
+require("./duel.js");
+require("./utils.js");
+require("./db.js");
 
 // VARIABLES
 const DISCORD = require("discord.js");
