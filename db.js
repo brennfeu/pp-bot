@@ -1,5 +1,5 @@
 // DATABASE
-const MYSQL = require('sync-mysql');
+var MYSQL = require('sync-mysql');
 var DB_CONNECTION = new MYSQL({
 	host: process.env.DB_HOST,
 	user: process.env.DB_LOGIN,

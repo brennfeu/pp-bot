@@ -2909,7 +2909,7 @@ class Duel {
 		this.TIMESTAMP = +new Date();
 
 		this.AUDIO_CHANNEL.join().then(function(_connection) {
-			const dispatcher = _connection.playFile("./music/" + _music);
+			var dispatcher = _connection.playFile("./music/" + _music);
 			dispatcher.resume();
 		}).catch(err => console.log(err));
 	}

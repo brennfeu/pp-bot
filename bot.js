@@ -1,21 +1,21 @@
 // IMPORTS
 var fs = require("fs");
-eval("'use strict'; " + fs.readFileSync("data.js").toString());
+eval(fs.readFileSync("data.js").toString());
 
-eval("'use strict'; " + fs.readFileSync("fighter.js").toString());
-eval("'use strict'; " + fs.readFileSync("duel.js").toString());
+eval(fs.readFileSync("fighter.js").toString());
+eval(fs.readFileSync("duel.js").toString());
 
-eval("'use strict'; " + fs.readFileSync("utils.js").toString());
-eval("'use strict'; " + fs.readFileSync("db.js").toString());
+eval(fs.readFileSync("utils.js").toString());
+eval(fs.readFileSync("db.js").toString());
 
 // VARIABLES
-const DISCORD = require("discord.js");
-const CLIENT = new DISCORD.Client();
+var DISCORD = require("discord.js");
+var CLIENT = new DISCORD.Client();
 
 // ENCYCLOPEDIA
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
-const ENCY_CATEGORY_ID = "697773079996399637";
-const RAW_BIBLE_LINK = "https://raw.githubusercontent.com/wiki/brennfeu/pp-bot/PP-Bible.md";
+var ENCY_CATEGORY_ID = "697773079996399637";
+var RAW_BIBLE_LINK = "https://raw.githubusercontent.com/wiki/brennfeu/pp-bot/PP-Bible.md";
 var LAST_ENCY_UPDATE = 0; // timestamp
 
 // Variables
