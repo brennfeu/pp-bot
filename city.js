@@ -1,3 +1,5 @@
+require("./fighter.js");
+
 class City extends Fighter {
 	constructor(_mayor, _idDuel) {
 		if (_mayor == undefined) { // default constructor
