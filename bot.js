@@ -1,9 +1,12 @@
 // IMPORTS
-require("./data.js");
-require("./fighter.js");
-require("./duel.js");
-require("./utils.js");
-require("./db.js");
+console.log(fs.readFileSync("data.js").toString());
+eval(fs.readFileSync("data.js").toString());
+
+eval(fs.readFileSync("fighter.js").toString());
+eval(fs.readFileSync("duel.js").toString());
+
+eval(fs.readFileSync("utils.js").toString());
+eval(fs.readFileSync("db.js").toString());
 
 // VARIABLES
 const DISCORD = require("discord.js");
