@@ -1,7 +1,6 @@
 // IMPORTS
 require("./data.js");
 require("./fighter.js");
-require("./city.js");
 require("./duel.js");
 require("./utils.js");
 require("./db.js");
