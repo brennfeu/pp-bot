@@ -1,4 +1,5 @@
 // IMPORTS
+var fs = require("fs");
 console.log(fs.readFileSync("data.js").toString());
 eval(fs.readFileSync("data.js").toString());
 
