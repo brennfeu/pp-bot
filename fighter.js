@@ -4092,3 +4092,5 @@ class Fighter {
 		// TODO keep up to date --> negative effects only
 	}
 }
+
+console.log(Fighter);

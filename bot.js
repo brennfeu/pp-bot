@@ -9,7 +9,6 @@ var fs = require("fs");
 eval(fs.readFileSync("data.js").toString());
 
 eval(fs.readFileSync("fighter.js").toString());
-console.log(Fighter);
 eval(fs.readFileSync("city.js").toString());
 eval(fs.readFileSync("duel.js").toString());
 
