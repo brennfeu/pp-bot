@@ -1,4 +1,4 @@
-export class Duel {
+module.export class Duel {
 	constructor(_easyDuel = false) {
 		this.DEAD_DUEL = false;
 		this.LIST_MESSAGES = [];
