@@ -1,13 +1,12 @@
 // IMPORTS
 var fs = require("fs");
-console.log(fs.readFileSync("data.js").toString());
-eval(fs.readFileSync("data.js").toString());
+eval("'use strict'; " + fs.readFileSync("data.js").toString());
 
-eval(fs.readFileSync("fighter.js").toString());
-eval(fs.readFileSync("duel.js").toString());
+eval("'use strict'; " + fs.readFileSync("fighter.js").toString());
+eval("'use strict'; " + fs.readFileSync("duel.js").toString());
 
-eval(fs.readFileSync("utils.js").toString());
-eval(fs.readFileSync("db.js").toString());
+eval("'use strict'; " + fs.readFileSync("utils.js").toString());
+eval("'use strict'; " + fs.readFileSync("db.js").toString());
 
 // VARIABLES
 const DISCORD = require("discord.js");
