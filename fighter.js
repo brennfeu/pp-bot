@@ -1,4 +1,4 @@
-class Fighter {
+export class Fighter {
 	constructor(_idUser, _idDuel, _stand = null) {
 		if (_idUser == undefined) { // default constructor
 			return;
@@ -4093,7 +4093,7 @@ class Fighter {
 	}
 }
 
-class City extends Fighter {
+export class City extends Fighter {
 	constructor(_mayor, _idDuel) {
 		if (_mayor == undefined) { // default constructor
 			return;

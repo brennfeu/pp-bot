@@ -1,9 +1,9 @@
-function getRandomPercent() {
+export function getRandomPercent() {
 	var i = Math.floor(Math.random() * 100 + 1);
 	return i;
 }
 
-function changeTextUwu(_texte) {
+export function changeTextUwu(_texte) {
 	var lettres = [];
 
 	_texte = _texte.split("r").join("w");
@@ -29,7 +29,7 @@ function changeTextUwu(_texte) {
 
 	return _texte;
 }
-function changeTextLeet(_texte) {
+export function changeTextLeet(_texte) {
 	_texte = _texte.split("o").join("0");
 	_texte = _texte.split("O").join("0");
 	_texte = _texte.split("i").join("1");
@@ -45,7 +45,7 @@ function changeTextLeet(_texte) {
 
 	return _texte;
 }
-function changeTextRandomCap(_texte) {
+export function changeTextRandomCap(_texte) {
 	var lettres = _texte.split("");
 
 	for (var i = 0; i < lettres.length; i++) {
@@ -57,7 +57,7 @@ function changeTextRandomCap(_texte) {
 
 	return _texte;
 }
-function changeTextRussian(_texte) {
+export function changeTextRussian(_texte) {
 	var lettres = _texte.split(" ");
 
 	_texte = _texte.split(" ");
@@ -70,7 +70,7 @@ function changeTextRussian(_texte) {
 
 	return _texte;
 }
-function changeTextRandomSpoil(_texte) {
+export function changeTextRandomSpoil(_texte) {
 	var lettres = _texte.split(" ");
 
 	for (var i = 0; i < lettres.length; i++) {
@@ -82,7 +82,7 @@ function changeTextRandomSpoil(_texte) {
 
 	return _texte;
 }
-function changeTextChristian(_texte) {
+export function changeTextChristian(_texte) {
 	_texte = _texte.split("PP").join("Power Puff Girl");
 	_texte = _texte.split("Pp").join("Power Puff Girl");
 	_texte = _texte.replace(/hitler/gi, "Angry German");
@@ -108,13 +108,13 @@ function changeTextChristian(_texte) {
 	_texte = _texte.replace("SEXUAL CONFUSION", "ROMANTIC TENSION");
 	return _texte;
 }
-function changeTextPoopoo(_texte) {
+export function changeTextPoopoo(_texte) {
 	_texte = _texte.split("PP").join("Poopoo");
 	_texte = _texte.split("Pp").join("Poopoo");
 	return _texte;
 }
 
-function shuffleArray(array) {
+export function shuffleArray(array) {
 	for (var i = array.length - 1; i > 0; i--) {
 		var j = Math.floor(Math.random() * (i + 1));
 		var temp = array[i];
@@ -123,14 +123,14 @@ function shuffleArray(array) {
 	}
 	return array;
 }
-function randomFromList(_list) {
+export function randomFromList(_list) {
 	if (_list.length == 0) {
 		return null;
 	}
 	return shuffleArray(_list)[0];
 }
 
-function fibonacciNumber(_n) {
+export function fibonacciNumber(_n) {
 	var a = 1, b = 0, temp;
 	while (_n >= 0 ){
 		temp = a;
@@ -141,6 +141,6 @@ function fibonacciNumber(_n) {
 	return b;
 }
 
-function getPriestRoleName(_god) {
+export function getPriestRoleName(_god) {
 	return _god.name + " Priest";
 }
