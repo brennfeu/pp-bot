@@ -191,7 +191,7 @@ function setBotActivity(_texte = "Lonely PP Squeezing :(") {
 			texte = DUEL_LIST.length + " duels of PP Punching :)";
 		}
 	}
-	CLIENT.user.setPresence({ game: { name: texte } })
+	CLIENT.user.setPresence({ activity: { name: texte } })
 }
 
 function updatePlayer(_fighterID, _username) {
