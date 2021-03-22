@@ -10,7 +10,7 @@ eval(fs.readFileSync("db.js").toString());
 
 // VARIABLES
 var DISCORD = require("discord.js");
-var CLIENT = new DISCORD.Client({ ws: { intents: 'GUILD_MEMBERS' }});
+var CLIENT = new DISCORD.Client();
 
 // ENCYCLOPEDIA
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
