@@ -1,4 +1,4 @@
-class Duel {
+var Duel = class {
 	constructor(_easyDuel = false) {
 		this.DEAD_DUEL = false;
 		this.LIST_MESSAGES = [];
