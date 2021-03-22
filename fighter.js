@@ -6,8 +6,9 @@ var Fighter = class {
 
 		// set variables
 		this.idUser = _idUser;
-		this.guildUser = CLIENT.users.get(_idUser);
-		this.user = this.guildUser.user;
+		this.user = CLIENT.users.get(_idUser);
+		console.log(getDuel(_idDuel).GUILD.members.array())
+		this.guildUser = getDuel(_idDuel).GUILD.members.get(_idUser);
 		updatePlayer(this.user.id, this.user.username.secureXSS())
 
 		this.duel = getDuel(_idDuel);
