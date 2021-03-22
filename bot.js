@@ -14,6 +14,7 @@ var CLIENT = new DISCORD.Client();
 
 // ENCYCLOPEDIA
 var XMLHttpRequest = require("xmlhttprequest").XMLHttpRequest;
+var PP_SERVER_ID = "616224531073204239";
 var ENCY_CATEGORY_ID = "697773079996399637";
 var RAW_BIBLE_LINK = "https://raw.githubusercontent.com/wiki/brennfeu/pp-bot/PP-Bible.md";
 var LAST_ENCY_UPDATE = 0; // timestamp
@@ -113,70 +114,71 @@ function checkUpdateEncyclopedia() {
 	var fullBible = httpReq.responseText;
 
 	fullBible = fullBible.split("*").join("\\*").split("_").join("*").split(/\r?\n/);
-	var encyChannels = CLIENT.channels.find(r => r.id == ENCY_CATEGORY_ID).children.array();
+	client.guilds.fetch(PP_SERVER_ID).then( _guild => {
+		var encyChannels = _guild.channels.cache.get(ENCY_CATEGORY_ID);
+		for (var i in encyChannels) {
+			encyChannels[i].fetchMessages({ limit: 99 })
+			.then(function(messages) {
+				var liste = messages.array();
+				for (var i = 0; i < liste.length; i++) {
+					liste[i].delete();
+				}
+			}).catch(console.error);
 
-	for (var i in encyChannels) {
-		encyChannels[i].fetchMessages({ limit: 99 })
-		.then(function(messages) {
-			var liste = messages.array();
-			for (var i = 0; i < liste.length; i++) {
-				liste[i].delete();
-			}
-		}).catch(console.error);
-
-		var shouldRead = false;
-		var message = "";
-		for (var j in fullBible) {
-			var emote = "";
-			if (!shouldRead && fullBible[j].includes("## ***" + encyChannels[i].topic + " :***")) { // Start
-				shouldRead = true;
-			}
-			else if ((fullBible[j].includes("## ") || j == fullBible.length-1) && !fullBible[j].includes("### ") && shouldRead) { // End (I check the start of the next one)
-				shouldRead = false;
-				encyChannels[i].send(message);
-				message = "";
-				var date = new Date();
-				encyChannels[i].send("*Last updated : " + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() + "*");
-			}
-			else if (shouldRead) {
-				if (message.length + fullBible[j].length > 1900) {
+			var shouldRead = false;
+			var message = "";
+			for (var j in fullBible) {
+				var emote = "";
+				if (!shouldRead && fullBible[j].includes("## ***" + encyChannels[i].topic + " :***")) { // Start
+					shouldRead = true;
+				}
+				else if ((fullBible[j].includes("## ") || j == fullBible.length-1) && !fullBible[j].includes("### ") && shouldRead) { // End (I check the start of the next one)
+					shouldRead = false;
 					encyChannels[i].send(message);
 					message = "";
+					var date = new Date();
+					encyChannels[i].send("*Last updated : " + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() + "*");
 				}
-				if (encyChannels[i].topic == "Moves"
-				   || encyChannels[i].topic == "Stånds"
-				   || encyChannels[i].topic == "Civilisation Mode") {
-					var cutBiblePart = fullBible[j].split(" ").join("").split("*").join("");
-					for (var k in EMOTE_LIST) {
-						if ((cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + ":")
-						   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "/")
-						   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "("))
-						   && (emote == "" ||
-						       CLIENT.emojis.get(EMOTE_LIST[k]).name.length > CLIENT.emojis.get(emote).name.length)) {
-							emote = EMOTE_LIST[k];
+				else if (shouldRead) {
+					if (message.length + fullBible[j].length > 1900) {
+						encyChannels[i].send(message);
+						message = "";
+					}
+					if (encyChannels[i].topic == "Moves"
+					   || encyChannels[i].topic == "Stånds"
+					   || encyChannels[i].topic == "Civilisation Mode") {
+						var cutBiblePart = fullBible[j].split(" ").join("").split("*").join("");
+						for (var k in EMOTE_LIST) {
+							if ((cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + ":")
+							   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "/")
+							   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "("))
+							   && (emote == "" ||
+							       CLIENT.emojis.get(EMOTE_LIST[k]).name.length > CLIENT.emojis.get(emote).name.length)) {
+								emote = EMOTE_LIST[k];
+							}
 						}
 					}
-				}
-				else if (encyChannels[i].topic == "Gods") {
-					var cutBiblePart = fullBible[j].split("*").join("");
-					for (var k in GOD_LIST) {
-						if ((cutBiblePart.includes(GOD_LIST[k].name + " :")
-						    || cutBiblePart.includes(GOD_LIST[k].name + " ("))
-						    && (emote == "" ||
-						      GOD_LIST[k].name.length > GOD_LIST.find(r => r.emote == emote).name.length)) {
-							emote = GOD_LIST[k].emote;
+					else if (encyChannels[i].topic == "Gods") {
+						var cutBiblePart = fullBible[j].split("*").join("");
+						for (var k in GOD_LIST) {
+							if ((cutBiblePart.includes(GOD_LIST[k].name + " :")
+							    || cutBiblePart.includes(GOD_LIST[k].name + " ("))
+							    && (emote == "" ||
+							      GOD_LIST[k].name.length > GOD_LIST.find(r => r.emote == emote).name.length)) {
+								emote = GOD_LIST[k].emote;
+							}
 						}
 					}
-				}
 
-				if (emote != "") {
-					var emote2 = CLIENT.emojis.get(emote);
-					message += `${emote2} `;
+					if (emote != "") {
+						var emote2 = CLIENT.emojis.get(emote);
+						message += `${emote2} `;
+					}
+					message += fullBible[j] + "\n";
 				}
-				message += fullBible[j] + "\n";
 			}
 		}
-	}
+	} );
 }
 
 function setBotActivity(_texte = "Lonely PP Squeezing :(") {
