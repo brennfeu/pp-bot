@@ -114,7 +114,7 @@ function checkUpdateEncyclopedia() {
 	var fullBible = httpReq.responseText;
 
 	fullBible = fullBible.split("*").join("\\*").split("_").join("*").split(/\r?\n/);
-	client.guilds.fetch(PP_SERVER_ID).then( _guild => {
+	CLIENT.guilds.fetch(PP_SERVER_ID).then( _guild => {
 		var encyChannels = _guild.channels.cache.get(ENCY_CATEGORY_ID);
 		for (var i in encyChannels) {
 			encyChannels[i].fetchMessages({ limit: 99 })
