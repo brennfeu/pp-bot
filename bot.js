@@ -117,9 +117,6 @@ function checkUpdateEncyclopedia() {
 	CLIENT.guilds.fetch(PP_SERVER_ID).then( _guild => {
 		var encyChannels = _guild.channels.cache.get(ENCY_CATEGORY_ID).children.array();
 		for (var i in encyChannels) {
-
-			console.log(encyChannels[i].topic);
-			console.log(encyChannels[i].messages.cache);
 			encyChannels[i].messages.fetch({ limit: 10 }).then( _messages => {
 				var liste = _messages.array();
 				for (var i in liste) {

@@ -105,7 +105,7 @@ var Duel = class {
 			});
 		}
 
-		if (this.FIGHTER1.guildUser.roles.find(r => r.name == PP_SKIPPER_ROLE) && this.FIGHTER2.guildUser.roles.find(r => r.name == PP_SKIPPER_ROLE)) {
+		if (this.FIGHTER1.guildUser.roles.cache.find(r => r.name == PP_SKIPPER_ROLE) && this.FIGHTER2.guildUser.roles.cache.find(r => r.name == PP_SKIPPER_ROLE)) {
 			this.MESSAGE_SKIP = true;
 		}
 
