@@ -233,6 +233,7 @@ function getTopFighters() {
 }
 
 function changeRoleToStyler(_nomRole, _styler, _guild) {
+	console.log(_guild.roles.cache);
 	var role = _guild.roles.cache.find(r => r.name == _nomRole);
 	var user = _guild.members.cache.get(_styler);
 
