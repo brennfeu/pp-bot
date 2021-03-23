@@ -120,11 +120,12 @@ function checkUpdateEncyclopedia() {
 
 			console.log(encyChannels[i].topic);
 			console.log(encyChannels[i].messages.cache);
-			var liste = Array.from(encyChannels[i].messages.cache, ([snowflake, message]) => message);
-			console.log(liste);
-			for (var i in liste) {
-				liste[i].delete();
-			}
+			encyChannels[i].messages.fetch({ limit: 10 }).then( _messages => {
+				var liste = _messages.array();
+				for (var i in liste) {
+					liste[i].delete();
+				}
+			});
 
 			var shouldRead = false;
 			var message = "";
@@ -150,11 +151,11 @@ function checkUpdateEncyclopedia() {
 					   || encyChannels[i].topic == "Civilisation Mode") {
 						var cutBiblePart = fullBible[j].split(" ").join("").split("*").join("");
 						for (var k in EMOTE_LIST) {
-							if ((cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + ":")
-							   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "/")
-							   || cutBiblePart.includes(CLIENT.emojis.get(EMOTE_LIST[k]).name + "("))
+							if ((cutBiblePart.includes(CLIENT.emojis.cache.get(EMOTE_LIST[k]).name + ":")
+							   || cutBiblePart.includes(CLIENT.emojis.cache.get(EMOTE_LIST[k]).name + "/")
+							   || cutBiblePart.includes(CLIENT.emojis.cache.get(EMOTE_LIST[k]).name + "("))
 							   && (emote == "" ||
-							       CLIENT.emojis.get(EMOTE_LIST[k]).name.length > CLIENT.emojis.get(emote).name.length)) {
+							       CLIENT.emojis.cache.get(EMOTE_LIST[k]).name.length > CLIENT.emojis.cache.get(emote).name.length)) {
 								emote = EMOTE_LIST[k];
 							}
 						}
@@ -172,7 +173,7 @@ function checkUpdateEncyclopedia() {
 					}
 
 					if (emote != "") {
-						var emote2 = CLIENT.emojis.get(emote);
+						var emote2 = CLIENT.emojis.cache.get(emote);
 						message += `${emote2} `;
 					}
 					message += fullBible[j] + "\n";
