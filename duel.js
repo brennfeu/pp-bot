@@ -119,7 +119,7 @@ var Duel = class {
 		// Wild Start
 		if (getRandomPercent() <= 5) {
 			this.addMessage("**===== WILD START =====**");
-			this.addMessage("Let's make things a bit more interesting !");
+			this.addMessage("Let's make things a bit more interesting!");
 			this.REVERSE_DAMAGE = 1;
 			this.NUCLEAR_BOMB = 1;
 		}
@@ -202,12 +202,12 @@ var Duel = class {
 
 		this.addMessage("**TIME FOR A TUTORIAL**");
 		this.addMessage("Welcome to the PP Punch Arena !\nThis bot allows you to play PP Punch Duels in discord. It's actually an rpg strategy fighting game");
-		this.addMessage("First, let me teach you about the fighters !");
+		this.addMessage("First, let me teach you about the fighters!");
 		this.addMessage("-----------------");
 		this.addMessage(this.FIGHTER1.toString());
 		this.addMessage("-----------------");
 		this.addMessage("As you can see, there are only 2 stats in the game : **STR** and **DEX**.");
-		this.addMessage("**STR** is about how strong you can punch PP. The more you have, the more damages your punches will deal. It's also your **HP**, so don't get it below 0 !");
+		this.addMessage("**STR** is about how strong you can punch PP. The more you have, the more damages your punches will deal. It's also your **HP**, so don't get it below 0!");
 		this.addMessage("-----------------");
 		this.addMessage("**DEX** is about the probability you have to punch. Each turn, each fighter selects a move. Then, there is **DEX** roll : **DEX+[0-50]**. If the results are the same +-10, both fighters use their move. Else, only the one with the higher result do.");
 		this.addMessage("When you perform a move, you get -5 DEX stackable effect. It gets back to normal when the opponent plays a move.");
@@ -216,7 +216,7 @@ var Duel = class {
 		this.addMessage("It looks like this :");
 		this.sendMessages();
 
-		this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction !").then(function (_message2) {
+		this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction!").then(function (_message2) {
 			_message2.react(EMOTE_PP1);
 			_message2.react(EMOTE_PP2);
 			_message2.react(EMOTE_PP3);
@@ -230,7 +230,7 @@ var Duel = class {
 		if (this.NB_TURNS == 1) {
 			this.addMessage("-----------------");
 			if ([EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5].indexOf(this.FIGHTER1.attack) < 0) {
-				this.addMessage("Cheating already ? If this were a real duel, you could have been caught !");
+				this.addMessage("Cheating already ? If this were a real duel, you could have been caught!");
 				this.addMessage("Anyway, now you know how to choose a move.");
 			}
 			else {
@@ -247,7 +247,7 @@ var Duel = class {
 			this.addMessage("Here are some moves that grants effects to you and/or the opponent :");
 			this.sendMessages();
 
-			this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction !").then(function (_message2) {
+			this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction!").then(function (_message2) {
 				_message2.react(EMOTE_PP7);
 				_message2.react(EMOTE_PP17);
 				_message2.react(EMOTE_PP19);
@@ -258,10 +258,10 @@ var Duel = class {
 		else if (this.NB_TURNS == 2) {
 			this.addMessage("-----------------");
 			if ([EMOTE_PP7, EMOTE_PP17, EMOTE_PP19, EMOTE_PP21, EMOTE_PP22].indexOf(this.FIGHTER1.attack) < 0) {
-				this.addMessage("Come on, there's no point cheating, it's the tutorial !");
+				this.addMessage("Come on, there's no point cheating, it's the tutorial!");
 				this.addMessage("-----------------");
 			}
-			this.addMessage("Another things you have to learn about are **Gods** !");
+			this.addMessage("Another things you have to learn about are **Gods**!");
 			this.addMessage("You can have up to 3 gods when starting a duel. It works the same way as fighting styles, except their use is different.");
 			this.addMessage("You can call your **gods** powers using a charge you get with events. There are 2 kind of charges : **regular** and **special**, each calling all your gods **regular** or **special** moves.");
 			this.addMessage("There are some **Gods Synergies** that grants permanent effects.");
@@ -278,7 +278,7 @@ var Duel = class {
 			this.addMessage("Here are the moves that allows you to unleash your **Gods** :");
 			this.sendMessages();
 
-			this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction !").then(function (_message2) {
+			this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction!").then(function (_message2) {
 				_message2.react(EMOTE_PP51);
 				_message2.react(EMOTE_PP52);
 			}).catch(function(e) {console.log(e);});
@@ -286,10 +286,10 @@ var Duel = class {
 		else if (this.NB_TURNS == 3) {
 			this.addMessage("-----------------");
 			if ([EMOTE_PP51, EMOTE_PP52].indexOf(this.FIGHTER1.attack) < 0) {
-				this.addMessage("Come on, there's no point cheating, it's the tutorial !");
+				this.addMessage("Come on, there's no point cheating, it's the tutorial!");
 				this.addMessage("-----------------");
 			}
-			this.addMessage("The game also features different game modes, including this one : **Stånds** !");
+			this.addMessage("The game also features different game modes, including this one : **Stånds**!");
 			this.addMessage("When performing specific move combos, you summon a stånd. This will trigger the **Stånds Battle Mode** and the opponent will get a random stånd.");
 			this.addMessage("Your respective **stånds** will replace you in the battle, and the winner of the battle will keep his stånd's powers and get stat buffs. Both fighter are then able to continue the fight.");
 			this.addMessage("-----------------");
@@ -299,7 +299,7 @@ var Duel = class {
 			this.addMessage("Here are some moves specific to stånd battles :");
 			this.sendMessages();
 
-			this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction !").then(function (_message2) {
+			this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction!").then(function (_message2) {
 				_message2.react(EMOTE_PP67);
 				_message2.react(EMOTE_PP68);
 				_message2.react(EMOTE_PP69);
@@ -311,10 +311,10 @@ var Duel = class {
 		else if (this.NB_TURNS == 4) {
 			this.addMessage("-----------------");
 			if ([EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP73, EMOTE_PP74].indexOf(this.FIGHTER1.attack) < 0) {
-				this.addMessage("Come on, there's no point cheating, it's the tutorial !");
+				this.addMessage("Come on, there's no point cheating, it's the tutorial!");
 				this.addMessage("-----------------");
 			}
-			this.addMessage("The most complex side-gamemode is the **Civilisation Game Mode** !");
+			this.addMessage("The most complex side-gamemode is the **Civilisation Game Mode**!");
 			this.addMessage("In this mode, each fighter are the rulers of a **city**, and must raid the other city until its destruction. Both fighters play simustaneously, each having his own movepool.");
 			this.addMessage("When winning this battle mode, both fighter are then able to continue the fight and the winner gets 50% chance to get a random bonus every turn.");
 			this.addMessage("-----------------");
@@ -327,7 +327,7 @@ var Duel = class {
 			this.addMessage("Here are some moves specific to the civilisation gamemode :");
 			this.sendMessages();
 
-			this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction !").then(function (_message2) {
+			this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction!").then(function (_message2) {
 				_message2.react(EMOTE_PP85);
 				_message2.react(EMOTE_PP103);
 				_message2.react(EMOTE_PP119);
@@ -339,12 +339,12 @@ var Duel = class {
 		else if (this.NB_TURNS == 5) {
 			this.addMessage("-----------------");
 			if ([EMOTE_PP85, EMOTE_PP103, EMOTE_PP119, EMOTE_PP128, EMOTE_PP98].indexOf(this.FIGHTER1.attack) < 0) {
-				this.addMessage("Come on, there's no point cheating, it's the tutorial !");
+				this.addMessage("Come on, there's no point cheating, it's the tutorial!");
 				this.addMessage("-----------------");
 			}
 			this.addMessage("Now you know the theory ! The only remaining things to learn are what the moves do in practice.");
 			this.addMessage("The **PP Bible** is great for that : https://github.com/brennfeu/pp-bot/wiki/PP-Bible. You can also get a link using the '*@PP_Arbitrator help*' command.");
-			this.addMessage("It's way easier and more fun to learn by playing with a friend. Keep the **PP Bible** on one tab to learn about what happens !");
+			this.addMessage("It's way easier and more fun to learn by playing with a friend. Keep the **PP Bible** on one tab to learn about what happens!");
 			this.addMessage("-----------------");
 			this.addMessage("That's it, the tutorial is over ! Have fun :)");
 			this.sendMessages();
@@ -464,7 +464,7 @@ var Duel = class {
 					this.addMessage("-----------------");
 				}
 				if (this.EVENT_BOMB) {
-					this.addMessage("The bomb hits the ground !");
+					this.addMessage("The bomb hits the ground!");
 					this.bothFightersAction(function(_fighter) {
 						_fighter.damage(1000, false);
 					});
@@ -473,29 +473,29 @@ var Duel = class {
 				if (this.STORM_COUNTDOWN > 0) {
 					var fighter = this.getRandomFighter();
 					if (fighter.infernalInstrument == 1) {
-						this.addMessage(fighter.getName() + " gets striked by lightning !");
+						this.addMessage(fighter.getName() + " gets striked by lightning!");
 						if (getRandomPercent() <= 5) {
 							this.addMessage("*insert epic highlander high scream*");
 						}
-						this.addMessage(fighter.getName() + " gets " + (this.STORM_COUNTDOWN*2) + " quickening charges !");
+						this.addMessage(fighter.getName() + " gets " + (this.STORM_COUNTDOWN*2) + " quickening charges!");
 						fighter.quickeningCharges += this.STORM_COUNTDOWN*2;
 					}
 					else {
-						this.addMessage(this.getOppOf(fighter).getOppName() + " gets striked by lightning !");
+						this.addMessage(this.getOppOf(fighter).getOppName() + " gets striked by lightning!");
 						fighter.damage(40*this.STORM_COUNTDOWN);
 					}
 					this.addMessage("-----------------");
 				}
 				if (this.DARKNESS_COUNTDOWN > 0) {
 					var fighter = this.getRandomFighter();
-					this.addMessage(fighter.getName() + " gets touched by the darkness !");
+					this.addMessage(fighter.getName() + " gets touched by the darkness!");
 					if (fighter.infernalInstrument == 2) {
-						this.addMessage(fighter.getName() + " gets " + (this.DARKNESS_COUNTDOWN*2) + " DEX !");
+						this.addMessage(fighter.getName() + " gets " + (this.DARKNESS_COUNTDOWN*2) + " DEX!");
 						fighter.DEXValue += this.DARKNESS_COUNTDOWN*2;
 					}
 					else {
 						fighter.madnessStacks += this.DARKNESS_COUNTDOWN*2;
-						this.addMessage(fighter.getName() + " gets " + (this.DARKNESS_COUNTDOWN*2) + " madness stacks !");
+						this.addMessage(fighter.getName() + " gets " + (this.DARKNESS_COUNTDOWN*2) + " madness stacks!");
 					}
 					this.addMessage("-----------------");
 				}
@@ -507,7 +507,7 @@ var Duel = class {
 					this.BOSS_HEALTH = 10*this.MOVE_COUNT;
 					this.BOSS_DAMAGE = 2*this.MOVE_COUNT;
 					this.EVENT_BOSS = true;
-					this.addMessage("A Pudding Blob has been created !");
+					this.addMessage("A Pudding Blob has been created!");
 					this.addMessage("-----------------");
 				}
 				if (this.POOPOO_UNIVERSE) {
@@ -545,7 +545,7 @@ var Duel = class {
 						}
 
 						if (this.CURRENT_BOSS != BOSS_PP14) {
-							this.addMessage(fighter.getName() + " gets attacked by " + this.CURRENT_BOSS + " !");
+							this.addMessage(fighter.getName() + " gets attacked by " + this.CURRENT_BOSS + "!");
 							if (this.EVENT_BLOOD_MOON && this.CURRENT_BOSS == BOSS_PP3) { // Blood Moon / Moon Lord
 								var amount = this.BOSS_DAMAGE*3;
 							}
@@ -554,7 +554,7 @@ var Duel = class {
 							}
 
 							if (fighter.cthulhuShield > 0) {
-								this.addMessage(fighter.getName() + " reflects the damages !");
+								this.addMessage(fighter.getName() + " reflects the damages!");
 								fighter.cthulhuShield -= 1;
 								this.getOppOf(fighter).damage(amount);
 								this.DAMAGE_COUNT += amount;
@@ -564,7 +564,7 @@ var Duel = class {
 							}
 
 							if (this.CURRENT_BOSS == BOSS_PP8 || this.CURRENT_BOSS == BOSS_PP9) {
-								this.addMessage("The satanic energy from the attack makes him possess " + this.getOppOf(fighter).getName() + " !");
+								this.addMessage("The satanic energy from the attack makes him possess " + this.getOppOf(fighter).getName() + "!");
 								this.getOppOf(fighter).isPossessed = 2;
 							}
 						}
@@ -592,8 +592,8 @@ var Duel = class {
 
 					var espinozaBoss = false;
 					if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP1) {
-						this.addMessage(this.CURRENT_BOSS + " goes back to sleep to heal his poor PP !");
-						this.addMessage("You both win !");
+						this.addMessage(this.CURRENT_BOSS + " goes back to sleep to heal his poor PP!");
+						this.addMessage("You both win!");
 						this.bothFightersAction(function(_fighter) {
 							_fighter.win(1);
 						});
@@ -601,14 +601,14 @@ var Duel = class {
 						return this.stopDuel();
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP2) {
-						this.addMessage(this.CURRENT_BOSS + " will now stop making updates for some time !");
+						this.addMessage(this.CURRENT_BOSS + " will now stop making updates for some time!");
 						this.addMessage("-----------------");
 						this.EVENT_BOSS = false;
 						espinozaBoss = getRandomPercent() <= 20;
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP3) {
-						this.addMessage(this.CURRENT_BOSS + " goes back hiding behind the moon !");
-						this.addMessage("You both win !");
+						this.addMessage(this.CURRENT_BOSS + " goes back hiding behind the moon!");
+						this.addMessage("You both win!");
 						this.bothFightersAction(function(_fighter) {
 							_fighter.win(1);
 						});
@@ -629,7 +629,7 @@ var Duel = class {
 						return this.stopDuel();
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP4) {
-						this.addMessage(this.CURRENT_BOSS + " will leave you alone for a bit !");
+						this.addMessage(this.CURRENT_BOSS + " will leave you alone for a bit!");
 						this.addMessage("-----------------");
 						this.EVENT_BOSS = false;
 						if (this.PP_NET == 3 || this.PP_NET == 4) {
@@ -637,15 +637,15 @@ var Duel = class {
 						}
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP5) {
-						this.addMessage(this.CURRENT_BOSS + " is destroyed !");
+						this.addMessage(this.CURRENT_BOSS + " is destroyed!");
 						this.addMessage("-----------------");
 						this.EVENT_BOSS = false;
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP6) {
-						this.addMessage(this.CURRENT_BOSS + " is destroyed !");
-						this.addMessage("PP-Net is shut down ! Long live the human PPs !");
+						this.addMessage(this.CURRENT_BOSS + " is destroyed!");
+						this.addMessage("PP-Net is shut down ! Long live the human PPs!");
 						this.addMessage("-----------------");
-						this.addMessage("As you read the changelog, you see that a PP Terminator has been sent to the past to kill the past you !");
+						this.addMessage("As you read the changelog, you see that a PP Terminator has been sent to the past to kill the past you!");
 						this.addMessage("-----------------");
 						this.addMessage("**ANOTHER TIME, ANOTHER PLACE**");
 						this.addMessage("-----------------");
@@ -667,7 +667,7 @@ var Duel = class {
 						this.PP_NET = -99999;
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP7) {
-						this.addMessage(this.CURRENT_BOSS + " is destroyed !");
+						this.addMessage(this.CURRENT_BOSS + " is destroyed!");
 						this.addMessage("-----------------");
 						this.addMessage("**ANOTHER TIME, ANOTHER PLACE**");
 						this.addMessage("-----------------");
@@ -690,8 +690,8 @@ var Duel = class {
 						espinozaBoss = getRandomPercent() <= 20;
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP9) {
-						this.addMessage(this.CURRENT_BOSS + " is sent back to his Eldritch Realm !");
-						this.addMessage("You both win !");
+						this.addMessage(this.CURRENT_BOSS + " is sent back to his Eldritch Realm!");
+						this.addMessage("You both win!");
 						this.addMessage("-----------------");
 						this.bothFightersAction(function(_fighter) {
 							_fighter.win(1);
@@ -700,7 +700,7 @@ var Duel = class {
 						return this.stopDuel();
 					}
 					else if (this.BOSS_HEALTH <= 0 && (this.CURRENT_BOSS == BOSS_PP10 || this.CURRENT_BOSS == BOSS_PP12)) {
-						this.addMessage(this.CURRENT_BOSS + " abandons !");
+						this.addMessage(this.CURRENT_BOSS + " abandons!");
 						this.EVENT_BOSS = false;
 
 						var role = this.GUILD.roles.find(r => r.name == WEEB_PP_ROLE);
@@ -725,7 +725,7 @@ var Duel = class {
 						espinozaBoss = getRandomPercent() <= 2;
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP13) {
-						this.addMessage(this.CURRENT_BOSS + " is destroyed !");
+						this.addMessage(this.CURRENT_BOSS + " is destroyed!");
 						this.EVENT_BOSS = false;
 
 						espinozaBoss = getRandomPercent() <= 2;
@@ -741,7 +741,7 @@ var Duel = class {
 						this.addMessage("-----------------");
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP14) {
-						this.addMessage(this.CURRENT_BOSS + " is defeated !");
+						this.addMessage(this.CURRENT_BOSS + " is defeated!");
 						this.addMessage("-----------------");
 						this.EVENT_BOSS = false;
 						this.DOUBLE_POINTS = true;
@@ -755,13 +755,13 @@ var Duel = class {
 						this.MOVE_COUNT = 1000000;
 					}
 					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP16) {
-						this.addMessage(this.CURRENT_BOSS + " is destroyed !");
+						this.addMessage(this.CURRENT_BOSS + " is destroyed!");
 						this.addMessage("-----------------");
 						this.EVENT_BOSS = false;
 						espinozaBoss = getRandomPercent() <= 20;
 					}
 					if (espinozaBoss) {
-						this.addMessage(this.CURRENT_BOSS + " was only a mimic !");
+						this.addMessage(this.CURRENT_BOSS + " was only a mimic!");
 						this.EVENT_BOSS = true;
 						if (this.OBAMIUM_DONE && getRandomPercent() <= 75) {
 							this.addMessage(this.CURRENT_BOSS + " is in fact " + BOSS_PP12 + "\n" + IMAGE_PP6);
@@ -865,7 +865,7 @@ var Duel = class {
 			txt += " - **Saved State**\n";
 		}
 		if (this.BLIND_COUNTDOWN > 0) {
-			txt += " - WTF I'M FUCKING BLIND !";
+			txt += " - WTF I'M FUCKING BLIND!";
 			if (this.BLIND_COUNTDOWN < 100) {
 				txt += " (for " + this.BLIND_COUNTDOWN + " turns)";
 			}
@@ -1020,7 +1020,7 @@ var Duel = class {
 			gay = "opponent's ";
 		}
 
-		this.BATTLE_CHANNEL.send("Choose your " + gay + "attack with a reaction !").then(function (_message2) {
+		this.BATTLE_CHANNEL.send("Choose your " + gay + "attack with a reaction!").then(function (_message2) {
 			var duel = getDuel(_message2.channel.id);
 			for (var i in duel.LIST_AVAILABLE_ATTACKS) {
 				if (duel.LIST_AVAILABLE_ATTACKS[i] != EMOTE_DEAD && duel.LIST_AVAILABLE_ATTACKS[i] != EMOTE_SKIP) {
@@ -1035,13 +1035,13 @@ var Duel = class {
 	checkDeath() {
 		this.bothFightersAction(function(_fighter) {
 			if (_fighter.duel.getOppOf(_fighter).standPower == STAND_PP10 && _fighter.STR <= _fighter.DEX) {
-				_fighter.duel.addMessage(_fighter.getName() + " is cursed by Illud Divinum Insanus !");
+				_fighter.duel.addMessage(_fighter.getName() + " is cursed by Illud Divinum Insanus!");
 				_fighter.STRValue -= _fighter.STR+100;
 			}
 		});
 		this.bothFightersAction(function(_fighter) {
 			if (_fighter.STR <= 0 && _fighter.extraLife > 0) {
-				_fighter.duel.addMessage(_fighter.getName() + " uses an extra life !");
+				_fighter.duel.addMessage(_fighter.getName() + " uses an extra life!");
 				var extra = _fighter.extraLife - 1;
 				var stand = null;
 
@@ -1055,7 +1055,7 @@ var Duel = class {
 				if (_fighter.idUser == _fighter.duel.FIGHTER1.idUser) {
 					if (_fighter.extraLifeDuplication != null) {
 						_fighter.duel.FIGHTER1 = _fighter.extraLifeDuplication;
-						_fighter.duel.addMessage(_fighter.getName() + "'s temporal duplication replaces him !");
+						_fighter.duel.addMessage(_fighter.getName() + "'s temporal duplication replaces him!");
 					}
 					else {
 						_fighter.duel.FIGHTER1 = new Fighter(_fighter.duel.FIGHTER1.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
@@ -1066,7 +1066,7 @@ var Duel = class {
 				else {
 					if (_fighter.extraLifeDuplication != null) {
 						_fighter.duel.FIGHTER2 = _fighter.extraLifeDuplication;
-						_fighter.duel.addMessage(_fighter.getName() + "'s temporal duplication replaces him !");
+						_fighter.duel.addMessage(_fighter.getName() + "'s temporal duplication replaces him!");
 					}
 					else {
 						_fighter.duel.FIGHTER2 = new Fighter(_fighter.duel.FIGHTER2.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
@@ -1161,10 +1161,10 @@ var Duel = class {
 				if (_fighter.grabbedPP > 0) {
 					_fighter.duel.addMessage("*Confusion* was " + _fighter.getName() + "'s epitaph.");
 				}
-				_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).getName() + " won ! Congrats !");
+				_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).getName() + " won ! Congrats!");
 				_fighter.duel.getOppOf(_fighter).win();
 				if (_fighter.futureMemories > 0 || _fighter.duel.getOppOf(_fighter).futureMemories > 0 ) {
-					_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).getName() + " sends a D-Mail to the past !");
+					_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).getName() + " sends a D-Mail to the past!");
 				}
 				_fighter.duel.stopDuel();
 			};
@@ -1211,8 +1211,8 @@ var Duel = class {
 		if (!this.INFERNAL_FIRELAND && this.MOVE_COUNT >= 100) {
 			// INFERNAL FIRELAND
 			this.addMessage(" -- INFERNAL FIRELAND --");
-			this.addMessage("Plenty of forest fires have been set off as a result of your PP punching, making the nearby 100 square km into an Infernal Fireland !");
-			this.addMessage("The victory will be determined by your proficiency in your instrument. You two dueling souls have to come up with a solo each... the best one crowning the victory !");
+			this.addMessage("Plenty of forest fires have been set off as a result of your PP punching, making the nearby 100 square km into an Infernal Fireland!");
+			this.addMessage("The victory will be determined by your proficiency in your instrument. You two dueling souls have to come up with a solo each... the best one crowning the victory!");
 			var winner = this.getRandomFighter();
 			winner.infernalInstrument = 1; // Guitar
 			this.getOppOf(winner).infernalInstrument = 2; // Synth
@@ -1222,7 +1222,7 @@ var Duel = class {
 			// PP ARMAGEDDON
 			this.PP_ARMAGEDDON = true;
 			this.addMessage(" -- PP ARMAGEDDON --");
-			this.addMessage("PPs have ascended, the end is near !");
+			this.addMessage("PPs have ascended, the end is near!");
 		}
 
 		if (this.FORCE_EVENT_ID != 0) {
@@ -1253,15 +1253,15 @@ var Duel = class {
 			// Cthulhu
 			if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP1) {
 				this.addMessage(" -- MOON LORD AWAKENS --");
-				this.addMessage("Cthulhu is blessed by the moonlight !");
-				this.addMessage("The Moon Lord has been summoned and takes control over Cthulhu's body !");
+				this.addMessage("Cthulhu is blessed by the moonlight!");
+				this.addMessage("The Moon Lord has been summoned and takes control over Cthulhu's body!");
 				this.CURRENT_BOSS = BOSS_PP3;
 				this.BOSS_HEALTH = 500000;
 				this.BOSS_DAMAGE = 2000;
 			}
 			else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP3) {
 				this.addMessage(" -- MOON LORD REGENERATION --");
-				this.addMessage("The Moon Lord gets 500 000 more health !");
+				this.addMessage("The Moon Lord gets 500 000 more health!");
 				this.BOSS_HEALTH += 500000;
 			}
 			else if (this.EVENT_BOSS) {
@@ -1271,7 +1271,7 @@ var Duel = class {
 			else {
 				this.addMessage(" -- CTHULHU AWAKENS --");
 				this.EVENT_BOSS = true;
-				this.addMessage("You have to beat Cthulhu by punching his huge PP in order to save the world !");
+				this.addMessage("You have to beat Cthulhu by punching his huge PP in order to save the world!");
 				this.BOSS_HEALTH = 10000;
 				this.BOSS_DAMAGE = 50;
 				this.CURRENT_BOSS = BOSS_PP1;
@@ -1281,7 +1281,7 @@ var Duel = class {
 			// Accidental Summoning
 			this.addMessage(" -- ACCIDENTAL SUMMONING --");
 			var winner = this.getRandomFighter();
-			this.addMessage(winner.getName() + " accidentaly plays Psychodiös on his phone and it summons Satan and the Ancient Fungus !");
+			this.addMessage(winner.getName() + " accidentaly plays Psychodiös on his phone and it summons Satan and the Ancient Fungus!");
 			this.sendMessages();
 			winner.playMove(EMOTE_PP26);
 			winner.playMove(EMOTE_PP46);
@@ -1306,7 +1306,7 @@ var Duel = class {
 			// Ascension
 			this.addMessage(" -- ASCENSION --");
 			var winner = this.getRandomFighter();
-			this.addMessage(winner.getName() + " accidentaly plays Ascend on his phone !");
+			this.addMessage(winner.getName() + " accidentaly plays Ascend on his phone!");
 			this.bothFightersAction(function(_fighter) {
 				_fighter.playMove(EMOTE_PP49);
 			});
@@ -1348,18 +1348,18 @@ var Duel = class {
 			this.addMessage(" -- HUGE GAY NIGHT --");
 			if (this.GAY_TURNS > 0) {
 				this.GAY_TURNS += 10;
-				this.addMessage("Your gayness increase by 10 turns !");
+				this.addMessage("Your gayness increase by 10 turns!");
 			}
 			else {
 				this.GAY_TURNS = 1;
-				this.addMessage("You suddenly become gay for this turn !");
+				this.addMessage("You suddenly become gay for this turn!");
 			}
 
 		}
 		else if (randomVar == 23 && (this.MOVE_COUNT >= 30 || forcedEvent) && this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
 			// PP Blessing
 			this.addMessage(" -- PP BLESSING --");
-			this.addMessage("You suddenly feel new powers in your PP !");
+			this.addMessage("You suddenly feel new powers in your PP!");
 			this.bothFightersAction(function(_fighter) {
 				_fighter.godList = [];
 				for (var i in GOD_LIST) {
@@ -1387,7 +1387,7 @@ var Duel = class {
 			else {
 				this.EVENT_BOSS = true;
 				this.addMessage(" -- FREE LIVES RIOT --");
-				this.addMessage("Let's riot Free Lives HQ just for fun !");
+				this.addMessage("Let's riot Free Lives HQ just for fun!");
 				this.BOSS_HEALTH = 500;
 				this.BOSS_DAMAGE = 20;
 				this.CURRENT_BOSS = BOSS_PP2;
@@ -1425,7 +1425,7 @@ var Duel = class {
 				this.BATTLE_CHANNEL.send(`${rageBrenn}`);
 			}
 			this.addMessage("-----------------");
-			this.addMessage("You both take your turn to recover from this tragedy !");
+			this.addMessage("You both take your turn to recover from this tragedy!");
 
 			this.bothFightersAction(function(_fighter) {
 				_fighter.attack = EMOTE_SKIP;
@@ -1451,10 +1451,10 @@ var Duel = class {
 			}
 			else if (this.PP_NET == 4) {
 				this.addMessage(" -- FBI OPEN UP --");
-				this.addMessage("An illegal PP Punch duel has been spotted !");
-				this.addMessage("Surrender or die !");
+				this.addMessage("An illegal PP Punch duel has been spotted!");
+				this.addMessage("Surrender or die!");
 				if (this.EVENT_BOSS && this.BOSS_HEALTH > 0) {
-					this.addMessage(this.CURRENT_BOSS + " surrenders !");
+					this.addMessage(this.CURRENT_BOSS + " surrenders!");
 				}
 				this.EVENT_BOSS = true;
 				this.BOSS_HEALTH = 750;
@@ -1463,8 +1463,8 @@ var Duel = class {
 			}
 			else if (this.PP_NET == 5) {
 				this.addMessage(" -- PP-NET RISING --");
-				this.addMessage("Humans are getting hunted down by the PP Police !");
-				this.addMessage("The PP Rebellion will get its revenge !");
+				this.addMessage("Humans are getting hunted down by the PP Police!");
+				this.addMessage("The PP Rebellion will get its revenge!");
 				this.EVENT_BOSS = true;
 				this.BOSS_HEALTH = 2000;
 				this.BOSS_DAMAGE = 30;
@@ -1472,11 +1472,11 @@ var Duel = class {
 			}
 			else if (this.PP_NET == 6) {
 				this.addMessage(" -- PP-NET RISING --");
-				this.addMessage("New robots have been created to hunt us down, and suck our precious PP !");
-				this.addMessage("We have to hunt them down !");
+				this.addMessage("New robots have been created to hunt us down, and suck our precious PP!");
+				this.addMessage("We have to hunt them down!");
 				if (this.EVENT_BOSS && this.BOSS_HEALTH > 0) {
-					this.addMessage(this.CURRENT_BOSS + "'s PP gets harvested !");
-					this.addMessage(this.CURRENT_BOSS + " dies !");
+					this.addMessage(this.CURRENT_BOSS + "'s PP gets harvested!");
+					this.addMessage(this.CURRENT_BOSS + " dies!");
 				}
 				this.EVENT_BOSS = true;
 				this.BOSS_HEALTH = 1500;
@@ -1485,8 +1485,8 @@ var Duel = class {
 			}
 			else if (this.PP_NET == 7) {
 				this.addMessage(" -- PP REBELLION RISING --");
-				this.addMessage("The rebellion has prepared a serum that makes your PP faster and stronger !");
-				this.addMessage("You both get 200 STR and 200 DEX !");
+				this.addMessage("The rebellion has prepared a serum that makes your PP faster and stronger!");
+				this.addMessage("You both get 200 STR and 200 DEX!");
 				this.bothFightersAction(function(_fighter) {
 					_fighter.STRValue += 200;
 					_fighter.DEXValue += 200;
@@ -1494,10 +1494,10 @@ var Duel = class {
 			}
 			else if (this.PP_NET == 8) {
 				this.addMessage(" -- PP-NET RISING --");
-				this.addMessage("The PP-Net Hive-Mind is challenging you !");
+				this.addMessage("The PP-Net Hive-Mind is challenging you!");
 				if (this.EVENT_BOSS && this.BOSS_HEALTH > 0) {
-					this.addMessage(this.CURRENT_BOSS + "'s PP gets harvested !");
-					this.addMessage(this.CURRENT_BOSS + " dies !");
+					this.addMessage(this.CURRENT_BOSS + "'s PP gets harvested!");
+					this.addMessage(this.CURRENT_BOSS + " dies!");
 				}
 				this.EVENT_BOSS = true;
 				this.BOSS_HEALTH = 20000;
@@ -1506,12 +1506,12 @@ var Duel = class {
 			}
 			else if (this.PP_NET < 0) {
 				this.addMessage(" -- PP-NET RISING --");
-				this.addMessage("You better destroy the PP Terminator if you don't want the PP Rebellion to be without you !");
+				this.addMessage("You better destroy the PP Terminator if you don't want the PP Rebellion to be without you!");
 			}
 			else {
 				this.addMessage(" -- PP REBELLION RISING --");
-				this.addMessage("The rebellion gives you another shot of the serum !");
-				this.addMessage("You both get 200 STR and 200 DEX !");
+				this.addMessage("The rebellion gives you another shot of the serum!");
+				this.addMessage("You both get 200 STR and 200 DEX!");
 				this.bothFightersAction(function(_fighter) {
 					_fighter.STRValue += 200;
 					_fighter.DEXValue += 200;
@@ -1522,24 +1522,24 @@ var Duel = class {
 		else if (randomVar == 32) {
 			// Day of the PP Equality
 			this.addMessage(" -- DAY OF THE PP EQUALITY --");
-			this.addMessage("Today is Day of the PP Equality ! There is no DEX modifier for moves for this turn !");
+			this.addMessage("Today is Day of the PP Equality ! There is no DEX modifier for moves for this turn!");
 			this.EVENT_PP_EQUALITY = true;
 		}
 		else if (randomVar == 33 && (this.MOVE_COUNT >= 1000 || forcedEvent)) {
 			// Eldritch Gate
 			this.addMessage(" -- ELDRITCH GATE --");
 			if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP8) {
-				this.addMessage("The Eldritch Gate grows bigger ! " + BOSS_PP8 + " gets more power !");
+				this.addMessage("The Eldritch Gate grows bigger ! " + BOSS_PP8 + " gets more power!");
 				this.BOSS_HEALTH += 50000;
 				this.BOSS_DAMAGE += 100;
 			}
 			else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP9) {
-				this.addMessage("The Eldritch Gate grows bigger ! " + BOSS_PP9 + " gets more power !");
+				this.addMessage("The Eldritch Gate grows bigger ! " + BOSS_PP9 + " gets more power!");
 				this.BOSS_HEALTH += 500000;
 				this.BOSS_DAMAGE += 1000;
 			}
 			else {
-				this.addMessage("The Eldritch Gate has been opened ! " + BOSS_PP8 + " faces you !");
+				this.addMessage("The Eldritch Gate has been opened ! " + BOSS_PP8 + " faces you!");
 				if (this.EVENT_BOSS) {
 					this.addMessage("He destroys " + this.CURRENT_BOSS + " just to show off");
 				}
@@ -1553,7 +1553,7 @@ var Duel = class {
 			// Ascension Requiem
 			this.addMessage(" -- ASCENSION REQUIEM --");
 			var winner = this.getRandomFighter();
-			this.addMessage(winner.getName() + " accidentaly plays Ascended Depression on his phone !");
+			this.addMessage(winner.getName() + " accidentaly plays Ascended Depression on his phone!");
 			this.bothFightersAction(function(_fighter) {
 				_fighter.quickeningCharges += 10;
 				_fighter.playMove(EMOTE_PP77);
@@ -1572,7 +1572,7 @@ var Duel = class {
 		else if (randomVar == 36) {
 			// Mega Movepool
 			this.addMessage(" -- MEGA MOVEPOOL --");
-			this.addMessage("You get blessed by the gods and get an extended movepool for this turn !");
+			this.addMessage("You get blessed by the gods and get an extended movepool for this turn!");
 			this.EVENT_MEGA_POOL = true;
 		}
 		else if (randomVar == 37) {
@@ -1588,13 +1588,13 @@ var Duel = class {
 		else if (randomVar == 38 && (this.MOVE_COUNT >= 10 || forcedEvent)) {
 			// Impending Bombardment
 			this.addMessage(" -- IMPENDING BOMBARDMENT --");
-			this.addMessage("A missile has been spotted above the battleground ! You have one turn before it hits the ground and explodes !");
+			this.addMessage("A missile has been spotted above the battleground ! You have one turn before it hits the ground and explodes!");
 			this.EVENT_BOMB = true;
 		}
 		else if (randomVar == 39 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
 			// Judgement
 			this.addMessage(" -- JUDGEMENT --");
-			this.addMessage("Who do you think is better ? FriedEspinoza or espinoze ? Make your bets !");
+			this.addMessage("Who do you think is better ? FriedEspinoza or espinoze ? Make your bets!");
 			this.ESPINOZA_CHOICE = EMOTE_FRIEDESPINOZA;
 			if (getRandomPercent() <= 50) {
 				this.ESPINOZA_CHOICE = EMOTE_ESPINOZE;
@@ -1603,7 +1603,7 @@ var Duel = class {
 		else if (randomVar == 40) {
 			// Spanish Inquisition
 			this.addMessage(" -- PENIS INQUISITION --");
-			this.addMessage("Nobody expected them, but here they are !");
+			this.addMessage("Nobody expected them, but here they are!");
 			var winner = this.getRandomFighter();
 			if (this.getOppOf(winner).STR > winner.STR) {
 				winner = this.getOppOf(winner);
@@ -1616,11 +1616,11 @@ var Duel = class {
 			this.addMessage(" -- KAIJU ATTACK --");
 			var winner = this.getRandomFighter();
 			if (winner.kaijuHP > 0) {
-				this.addMessage(winner.getName() + "'s kaiju gets stronger !");
+				this.addMessage(winner.getName() + "'s kaiju gets stronger!");
 				winner.kaijuHP += 1000;
 			}
 			else {
-				this.addMessage(winner.getName() + " gets attacked by a kaiju !");
+				this.addMessage(winner.getName() + " gets attacked by a kaiju!");
 				winner.kaijuHP = 1000 - winner.getTotalDefBonus() - winner.militaryPower;
 				winner.resetArmy();
 			}
@@ -1628,7 +1628,7 @@ var Duel = class {
 		else if (randomVar == 42) {
 			// Nudist Beach
 			this.addMessage(" -- NUDIST BEACH --");
-			this.addMessage("Fear is freedom ! Subjugation is liberation ! Contradiction is truth ! Those are the facts of this world ! And you will all surrender to them, you pigs in human clothing !");
+			this.addMessage("Fear is freedom ! Subjugation is liberation ! Contradiction is truth ! Those are the facts of this world ! And you will all surrender to them, you pigs in human clothing!");
 			this.bothFightersAction(function(_fighter) {
 				_fighter.resetBattleVariables();
 			});
@@ -1639,19 +1639,19 @@ var Duel = class {
 				this.POOPOO_UNIVERSE = false;
 				this.ALTERNATE_MOVES = false;
 				this.addMessage(" -- ALTERNATE PP UNIVERSE --");
-				this.addMessage("For some unknown reason, the duel gets teleported into an alternate universe !");
-				this.addMessage("You finally get out of the filthy poopoo punching world !");
+				this.addMessage("For some unknown reason, the duel gets teleported into an alternate universe!");
+				this.addMessage("You finally get out of the filthy poopoo punching world!");
 			}
 			else if (this.ALTERNATE_MOVES) {
 				this.addMessage(" -- ALTERNATE PP UNIVERSE --");
-				this.addMessage("For some unknown reason, the duel gets teleported into an alternate universe !");
-				this.addMessage("You get back to your original world !");
+				this.addMessage("For some unknown reason, the duel gets teleported into an alternate universe!");
+				this.addMessage("You get back to your original world!");
 				this.ALTERNATE_MOVES = false;
 			}
 			else {
 				this.addMessage(" -- ALTERNATE PP UNIVERSE --");
-				this.addMessage("For some unknown reason, the duel gets teleported into an alternate universe !");
-				this.addMessage("Each moves has the same DEX modifier, illegal chances et ability to always pass, but their effect may have slightly changed !");
+				this.addMessage("For some unknown reason, the duel gets teleported into an alternate universe!");
+				this.addMessage("Each moves has the same DEX modifier, illegal chances et ability to always pass, but their effect may have slightly changed!");
 				this.ALTERNATE_MOVES = true;
 				this.ALTERNATE_MOVE_COUNT = this.MOVE_COUNT;
 			}
@@ -1659,7 +1659,7 @@ var Duel = class {
 		else if (randomVar == 44 && (this.MOVE_COUNT >= 1000 || forcedEvent)) {
 			// Obama
 			this.addMessage(" -- OBAMIUM --");
-			this.addMessage("Thanks to your PP Punching, a new Obamium source has been found ! Scientists are giving you some !");
+			this.addMessage("Thanks to your PP Punching, a new Obamium source has been found ! Scientists are giving you some!");
 			this.OBAMIUM = true;
 			this.OBAMIUM_DONE = true;
 		}
@@ -1699,7 +1699,7 @@ var Duel = class {
 			else {
 				this.EVENT_BOSS = true;
 				this.addMessage(" -- IKEA RIOT --");
-				this.addMessage("Swedish pilgrims invaded and built an IKEA !");
+				this.addMessage("Swedish pilgrims invaded and built an IKEA!");
 				this.addMessage(IMAGE_PP10);
 				this.BOSS_HEALTH = 500;
 				this.BOSS_DAMAGE = 40;
@@ -1710,7 +1710,7 @@ var Duel = class {
 		else if (randomVar == 90 && (this.MOVE_COUNT >= 50 || forcedEvent)) {
 			// Brenn Ejaculates
 			this.addMessage(" -- BRENN EJACULATES --");
-			this.addMessage("For some reasons, this summons every event !");
+			this.addMessage("For some reasons, this summons every event!");
 			if (getRandomPercent() <= 80) {
 				this.addMessage("***splooch splooch***");
 			}
@@ -1748,7 +1748,7 @@ var Duel = class {
 		// Save Me Move
 		if (this.getAttackFromEmote(_emote) == EMOTE_PP31 && this.SAVE_LIST.indexOf(_user.id) < 0 && !_user.bot) {
 			this.SAVE_LIST.push(_user.id);
-			this.addMessage(_user.username + " helps the fighters !");
+			this.addMessage(_user.username + " helps the fighters!");
 			this.sendMessages();
 			this.bothFightersAction(function(_fighter) {
 				_fighter.heal(50);
@@ -1758,7 +1758,7 @@ var Duel = class {
 		// Laughing Skull Move
 		if (this.getAttackFromEmote(_emote) == EMOTE_PP23 && this.SAVE_LIST.indexOf(_user.id) < 0 && !_user.bot) {
 			this.SAVE_LIST.push(_user.id);
-			this.addMessage(_user.username + " prays for the fighters !");
+			this.addMessage(_user.username + " prays for the fighters!");
 			this.sendMessages();
 			this.bothFightersAction(function(_fighter) {
 				var godListMemory = this.godList.slice();
@@ -2139,7 +2139,7 @@ var Duel = class {
 			}
 			else if (duel.ILLEGAL_JEWS && _fighter.godList.indexOf(GOD_PP7.name) > -1 && duel.illegalGetCaught(20)) {
 				// Illegal Jews (Hitler regular move)
-				duel.addMessage("Wait, I think " + _fighter.getName() + " is a villager !");
+				duel.addMessage("Wait, I think " + _fighter.getName() + " is a villager!");
 				duel.sendMessages();
 				caught1 = true;
 			}
@@ -2176,7 +2176,7 @@ var Duel = class {
 				caught1 = false;
 			}
 			else if (caught1) {
-				duel.addMessage("WAIT " + _fighter.getName().toUpperCase() + " IS DOING ILLEGAL STUFF RIGHT NOW !");
+				duel.addMessage("WAIT " + _fighter.getName().toUpperCase() + " IS DOING ILLEGAL STUFF RIGHT NOW!");
 				duel.addMessage(_fighter.getName() + " is disqualified for being a dumb shit.");
 				_fighter.playMove(EMOTE_PP47);
 				duel.sendMessages();
@@ -2190,14 +2190,14 @@ var Duel = class {
 		this.bothFightersAction(function(_fighter) {
 			// Jew Hitler Paradox
 			if (_fighter.hasSynergy(SYNERGY_PP5) && getRandomPercent() <= 10) {
-				_fighter.duel.addMessage(_fighter.getName() + " gets the Racial Paradox Effect !");
+				_fighter.duel.addMessage(_fighter.getName() + " gets the Racial Paradox Effect!");
 				_fighter.duel.sendMessages();
 				_fighter.attack = _fighter.duel.getRandomEmote(false);
 			}
 
 			// Wild Mage
 			if (_fighter.hasSynergy(SYNERGY_PP14) && getRandomPercent() <= 10) {
-				_fighter.duel.addMessage(_fighter.getName() + " feels the wild magic kicking in !");
+				_fighter.duel.addMessage(_fighter.getName() + " feels the wild magic kicking in!");
 				_fighter.duel.sendMessages();
 				_fighter.attack = EMOTE_LIST[Math.floor(Math.random()*EMOTE_LIST.length)];
 			}
@@ -2216,9 +2216,9 @@ var Duel = class {
 
 		if (this.FIGHTER1.attack == EMOTE_PP5 && this.FIGHTER2.attack == EMOTE_PP5) {
 			// HIGH FIVES :D
-			this.addMessage("Wow, look at those bros !");
+			this.addMessage("Wow, look at those bros!");
 			this.addMessage("That was some good high five.");
-			this.addMessage("Okay, the fight ends now !");
+			this.addMessage("Okay, the fight ends now!");
 			this.addMessage("I'm literally shaking and crying right now.");
 			this.addMessage("This is so beautiful...");
 			this.addMessage("I love you all.");
@@ -2253,7 +2253,7 @@ var Duel = class {
 		if ((dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) ||
 		    this.AUTO_MOVES_COUNTDOWN > 0 || this.EVENT_BOSS || this.getOppOf(winner).legAimer ||
 		    this.TIME_STOP > 0 || this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
-			this.addMessage("Both opponents attack this turn !");
+			this.addMessage("Both opponents attack this turn!");
 			this.sendMessages();
 
 			if (priorityMoves.indexOf(this.getOppOf(winner).attack) > -1) {
@@ -2269,14 +2269,14 @@ var Duel = class {
 				_fighter.duel.sendMessages();
 
 				if (_fighter.duel.getOppOf(_fighter).attack == EMOTE_PP8) { // Burst
-					_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).getName() + " burst !");
+					_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).getName() + " burst!");
 					_fighter.duel.sendMessages();
 					_fighter.hasBurst = 2;
 				}
 				if (_fighter.standPower == STAND_PP7 && _fighter.attack == _fighter.duel.getOppOf(_fighter).attack) { // Parallel Minds
 					_fighter.duel.addMessage("-----------------");
 					_fighter.heal(15);
-					_fighter.duel.addMessage(_fighter.getName() + " gets 5 DEX !");
+					_fighter.duel.addMessage(_fighter.getName() + " gets 5 DEX!");
 					_fighter.DEXValue += 5;
 				}
 			}, winner);
@@ -2287,13 +2287,13 @@ var Duel = class {
 				this.getOppOf(winner).playMove();
 			}
 
-			this.addMessage(winner.getName() + " uses his move !");
+			this.addMessage(winner.getName() + " uses his move!");
 			this.sendMessages();
 			winner.playMove();
 
 			// Burst
 			if (this.getOppOf(winner).attack == EMOTE_PP8) {
-				this.addMessage(this.getOppOf(winner).getName() + " burst !");
+				this.addMessage(this.getOppOf(winner).getName() + " burst!");
 				winner.hasBurst = 2;
 			}
 
@@ -2319,8 +2319,8 @@ var Duel = class {
 			}
 			// Mech
 			if (this.getOppOf(winner).attack == EMOTE_PP68) {
-				this.addMessage(winner.getName() + " triggers " + this.getOppOf(winner).getName() + "'s Mech !");
-				this.addMessage(this.getOppOf(winner).getName() + " shoots !");
+				this.addMessage(winner.getName() + " triggers " + this.getOppOf(winner).getName() + "'s Mech!");
+				this.addMessage(this.getOppOf(winner).getName() + " shoots!");
 				winner.damage(50);
 			}
 			// Requiem
@@ -2408,7 +2408,7 @@ var Duel = class {
 		if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) return;
 
 		this.addMessage("**===== CIVILISATION BATTLE MODE =====**");
-		this.addMessage("Both fighters starts a new civilisation as their leader. Your next message will be the name of your city !");
+		this.addMessage("Both fighters starts a new civilisation as their leader. Your next message will be the name of your city!");
 
 		this.bothFightersAction(function(_fighter) {
 			_fighter.resetBattleVariables();
@@ -2690,7 +2690,7 @@ var Duel = class {
 
 		if (_city.omegaBullets) {
 			attackPower += _city.lastSummonValue;
-			this.addMessage("Omega Bullets doubles the last unit's military power !");
+			this.addMessage("Omega Bullets doubles the last unit's military power!");
 		}
 		if (_city.silverBullets && _target.armyJammed && !_city.duel.BOSS_FIGHT) {
 			attackPower += attackPower;
@@ -2700,11 +2700,11 @@ var Duel = class {
 			defencePower -= Math.min(200, _target.militaryPower);
 		}
 		if (_city.armyBlessing && getRandomPercent() <= 50) {
-			this.addMessage("The army has been blessed by the eldritch gods !");
+			this.addMessage("The army has been blessed by the eldritch gods!");
 			attackPower += attackPower;
 		}
 		if (_city.armyUnstable && getRandomPercent() <= 25) {
-			this.addMessage("The army explodes !");
+			this.addMessage("The army explodes!");
 			attackPower = 0;
 		}
 		if (_target.armyDefence && !_city.duel.BOSS_FIGHT) {
@@ -2725,20 +2725,20 @@ var Duel = class {
 			phaseLevel += 0.5;
 		}
 		if (phaseLevel > 0) {
-			this.addMessage("A part of " + _city.getName() + "'s army is in the city and attacks it !");
+			this.addMessage("A part of " + _city.getName() + "'s army is in the city and attacks it!");
 			_target.damage(Math.floor(attackPower*phaseLevel));
 			attackPower -= Math.floor(attackPower*phaseLevel);
 		}
 
 		if (attackPower <= defencePower) {
-			this.addMessage("The raid fails !");
+			this.addMessage("The raid fails!");
 			_city.resetArmy();
 			if (attackPower > defencePower - _target.militaryPower) {
 				_target.militaryPower -= attackPower - defencePower + _target.militaryPower;
 			}
 		}
 		else {
-			this.addMessage("The raid is a success !");
+			this.addMessage("The raid is a success!");
 
 			if (_special == "light") {
 				attackPower += Math.floor(defencePower/2);
@@ -2762,7 +2762,7 @@ var Duel = class {
 							"cleanse", "blood", "beholster", "ammo", "challenge", "blank"]);
 				for (var i in list) {
 					if (_target[list[i] + "Shrine"]) {
-						this.addMessage(_target.getName() + "'s " + list[i] + " shrine has been destroyed !");
+						this.addMessage(_target.getName() + "'s " + list[i] + " shrine has been destroyed!");
 						_target[list[i] + "Shrine"] = false;
 						break;
 					}

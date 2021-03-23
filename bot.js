@@ -93,7 +93,7 @@ function checkCityNameChange(_message) {
 	duel.bothFightersAction(function(_fighter) {
 		if (_fighter.customName == null && _message.author.id == _fighter.idUser && _fighter.idUser != CLIENT.user.id) {
 			_fighter.customName = _message.content.secureXSS();
-			_fighter.duel.BATTLE_CHANNEL.send(_fighter.mayor.getName() + " changed his city name !");
+			_fighter.duel.BATTLE_CHANNEL.send(_fighter.mayor.getName() + " changed his city name!");
 		}
 	});
 }
@@ -117,15 +117,14 @@ function checkUpdateEncyclopedia() {
 	CLIENT.guilds.fetch(PP_SERVER_ID).then( _guild => {
 		var encyChannels = _guild.channels.cache.get(ENCY_CATEGORY_ID).children.array();
 		for (var i in encyChannels) {
+
 			console.log(encyChannels[i].topic);
 			console.log(encyChannels[i].messages.cache);
-			encyChannels[i].messages.cache.fetch()
-			.then(function(messages) {
-				var liste = messages.array();
-				for (var i in liste) {
-					liste[i].delete();
-				}
-			});
+			var liste = Array.from(encyChannels[i].messages.cache, ([snowflake, message]) => message);
+			console.log(liste);
+			for (var i in liste) {
+				liste[i].delete();
+			}
 
 			var shouldRead = false;
 			var message = "";
@@ -201,7 +200,7 @@ function updatePlayer(_fighterID, _username) {
 
 	if (result.length == 0) {
 		executeQuery("INSERT INTO Player (id, username) VALUES (" + _fighterID + ", '" + _username + "')");
-		console.log("Added a new fighter to the DB !");
+		console.log("Added a new fighter to the DB!");
 		return;
 	}
 
@@ -214,7 +213,7 @@ function getWinCounter(_fighterID) {
 
 	if (result.length == 0) {
 		executeQuery("INSERT INTO Player (id, username) VALUES (" + _fighterID + ", '" + _username + "')");
-		console.log("Added a new fighter to the DB !");
+		console.log("Added a new fighter to the DB!");
 		return;
 	}
 
@@ -413,7 +412,7 @@ function cloneObject(obj) {
 }
 
 CLIENT.on('ready', () => {
-	console.log(`Logged in as ${CLIENT.user.tag} !`);
+	console.log(`Logged in as ${CLIENT.user.tag}!`);
 	setBotActivity("nothing, I just rebooted.");
 });
 
@@ -518,15 +517,15 @@ CLIENT.on("message", async _message => {
 		}
 
 		if (_message.mentions.users.array().length <= 1) {
-			return _message.reply("you need to tag the person you want to duel in the command !\nSee the help command for more help !");
+			return _message.reply("you need to tag the person you want to duel in the command!\nSee the help command for more help!");
 		}
 
 		if (_message.author.id == _message.mentions.users.last().id) {
-			return _message.reply("you can't battle yourself !");
+			return _message.reply("you can't battle yourself!");
 		}
 
 		if (_message.mentions.users.last().bot) {
-			return _message.reply("u is a big dumby dumb dumb, you can't battle a bot !");
+			return _message.reply("u is a big dumby dumb dumb, you can't battle a bot!");
 		}
 
 		if (getRandomPercent() <= 2) {
@@ -543,7 +542,7 @@ CLIENT.on("message", async _message => {
 	}
 	if (argsUser[1] == "punch") {
 		if (_message.mentions.users.array().length <= 1) {
-			return _message.reply("you need to tag the person you want to punch in the command !\nSee the help command for more help !");
+			return _message.reply("you need to tag the person you want to punch in the command!\nSee the help command for more help!");
 		}
 
 		return _message.channel.send("Video proof of " + _message.author.username + " punching " + _message.mentions.users.last().username + "'s PP :\n" + IMAGE_PP5);
@@ -695,7 +694,7 @@ CLIENT.on("message", async _message => {
 		return;
 	}
 
-	return _message.reply("I don't know this command, try using the help command !");
+	return _message.reply("I don't know this command, try using the help command!");
 });
 
 CLIENT.on('messageReactionAdd', (_reaction, _user) => {
