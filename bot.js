@@ -584,7 +584,7 @@ CLIENT.on("message", async _message => {
 		if (getDuel(_message.channel.id) != null) return _message.reply("let's try somewhere else...");
 		// STYLE
 		var guild = _message.channel.guild;
-		var user = guild.members.get(_message.author.id);
+		var user = guild.members.cache.get(_message.author.id);
 
 		_message.reply("change your style with a reaction.").then(function (_message2) {
 			_message2.react(EMOTE_PP38); // Fast PP
@@ -604,7 +604,7 @@ CLIENT.on("message", async _message => {
 		}).catch(function(e) {
 			console.log(e);
 		});
-		if (user.roles.find(r => r.name == WEEB_PP_ROLE)) {
+		if (user.roles.cache.find(r => r.name == WEEB_PP_ROLE)) {
 			_message.reply("here are your Weeb PP choices.").then(function (_message2) {
 				for (var i in GOD_LIST) {
 					if (GOD_LIST[i].type == "waifu") {
@@ -615,7 +615,7 @@ CLIENT.on("message", async _message => {
 				console.log(e);
 			});
 		}
-		if (user.roles.find(r => r.name == PP_EXPERT_ROLE)) {
+		if (user.roles.cache.find(r => r.name == PP_EXPERT_ROLE)) {
 			_message.reply("here are your PP Expert choices.").then(function (_message2) {
 				for (var i in GOD_LIST) {
 					if (GOD_LIST[i].type == "eldritch") {
