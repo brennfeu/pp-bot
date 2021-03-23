@@ -6,7 +6,6 @@ var Fighter = class {
 
 		// set variables
 		this.idUser = _idUser;
-		console.log(getDuel(_idDuel).GUILD.members.cache);
 		this.guildUser = getDuel(_idDuel).GUILD.members.cache.get(_idUser);
 		this.user = this.guildUser.user;
 		updatePlayer(this.user.id, this.user.username.secureXSS())
@@ -164,19 +163,19 @@ var Fighter = class {
 		}
 		else {
 			// Create a fighter
-			if (this.guildUser.roles.find(r => r.name == BIG_PP_ROLE)) {
+			if (this.guildUser.roles.cache.find(r => r.name == BIG_PP_ROLE)) {
 				this.isBigPP = true;
 			}
-			if (this.guildUser.roles.find(r => r.name == FAST_PP_ROLE)) {
+			if (this.guildUser.roles.cache.find(r => r.name == FAST_PP_ROLE)) {
 				this.isFastPP = true;
 			}
-			if (this.guildUser.roles.find(r => r.name == DRUNK_PP_ROLE)) {
+			if (this.guildUser.roles.cache.find(r => r.name == DRUNK_PP_ROLE)) {
 				this.isDrunkPP = true;
 			}
-			if (this.guildUser.roles.find(r => r.name == HOCKEY_PUCK_PP_ROLE)) {
+			if (this.guildUser.roles.cache.find(r => r.name == HOCKEY_PUCK_PP_ROLE)) {
 				this.isHockeyPuckPP = true;
 			}
-			if (this.guildUser.roles.find(r => r.name == ALIEN_PP_ROLE)) {
+			if (this.guildUser.roles.cache.find(r => r.name == ALIEN_PP_ROLE)) {
 				this.isAlienPP = true;
 			}
 			if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
@@ -184,7 +183,7 @@ var Fighter = class {
 			}
 
 			for (var i in GOD_LIST) {
-				if (this.guildUser.roles.find(r => r.name == getPriestRoleName(GOD_LIST[i]))) {
+				if (this.guildUser.roles.cache.find(r => r.name == getPriestRoleName(GOD_LIST[i]))) {
 					this.godList.push(GOD_LIST[i].name)
 				}
 			}
@@ -214,7 +213,7 @@ var Fighter = class {
 
 
 			if (this.godList.indexOf(GOD_PP25.name) > -1) { // Cthulhu Special Effect
-				this.STRValue = 100;
+				this.STRValue += 30;
 				this.cthulhuShield = 1;
 			}
 		}

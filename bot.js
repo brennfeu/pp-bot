@@ -112,19 +112,19 @@ function checkUpdateEncyclopedia() {
 	httpReq.open("GET", RAW_BIBLE_LINK, false);
 	httpReq.send(null);
 	var fullBible = httpReq.responseText;
-
 	fullBible = fullBible.split("*").join("\\*").split("_").join("*").split(/\r?\n/);
+
 	CLIENT.guilds.fetch(PP_SERVER_ID).then( _guild => {
 		var encyChannels = _guild.channels.cache.get(ENCY_CATEGORY_ID).children.array();
 		for (var i in encyChannels) {
 			console.log(encyChannels[i].topic);
-			encyChannels[i].fetchMessages({ limit: 99 })
+			encyChannels[i].messages.cache.fetch()
 			.then(function(messages) {
 				var liste = messages.array();
-				for (var i = 0; i < liste.length; i++) {
+				for (var i in liste) {
 					liste[i].delete();
 				}
-			}).catch(console.error);
+			});
 
 			var shouldRead = false;
 			var message = "";
