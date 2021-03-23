@@ -233,8 +233,8 @@ function getTopFighters() {
 }
 
 function changeRoleToStyler(_nomRole, _styler, _guild) {
-	var role = _guild.roles.find(r => r.name == _nomRole);
-	var user = _guild.members.get(_styler);
+	var role = _guild.roles.cache.find(r => r.name == _nomRole);
+	var user = _guild.members.cache.get(_styler);
 
 	try {
 		if (user.roles.has(role.id)) {
@@ -244,18 +244,18 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 			user.addRole(role);
 		}
 		else {
-			if (getNumberOfGods(user) >= 4 && user.roles.find(r => r.name == PP_EXPERT_ROLE)) {
+			if (getNumberOfGods(user) >= 4 && user.roles.cache.find(r => r.name == PP_EXPERT_ROLE)) {
 				return;
 			}
-			if (getNumberOfGods(user) >= 3 && !user.roles.find(r => r.name == PP_EXPERT_ROLE) ) {
+			if (getNumberOfGods(user) >= 3 && !user.roles.cache.find(r => r.name == PP_EXPERT_ROLE) ) {
 				return;
 			}
 
-			if (!user.roles.find(r => r.name == PP_EXPERT_ROLE) &&
+			if (!user.roles.cache.find(r => r.name == PP_EXPERT_ROLE) &&
 			    GOD_LIST.find(r => getPriestRoleName(r) == _nomRole).type == "eldritch") {
 				return;
 			}
-			if (!user.roles.find(r => r.name == WEEB_PP_ROLE) &&
+			if (!user.roles.cache.find(r => r.name == WEEB_PP_ROLE) &&
 			    GOD_LIST.find(r => getPriestRoleName(r) == _nomRole).type == "waifu") {
 				return;
 			}
