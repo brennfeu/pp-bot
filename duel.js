@@ -1406,14 +1406,14 @@ var Duel = class {
 				this.addMessage(winner.getName() + ' : *"no"*');
 			}
 			else {
-				var brennUwu = CLIENT.emojis.get("655449555873038337");
-				var espinoza = CLIENT.emojis.get("615887132157804564");
-				var rageBrenn = CLIENT.emojis.get("668946953681502248");
+				var brennUwu = CLIENT.emojis.cache.get("655449555873038337");
+				var espinoza = CLIENT.emojis.cache.get("615887132157804564");
+				var rageBrenn = CLIENT.emojis.cache.get("668946953681502248");
 				var waifu = null;
 				while (waifu == null) {
 					var g = randomFromList(GOD_LIST);
 					if (g.type == "waifu") {
-						waifu = CLIENT.emojis.get(g.emote);
+						waifu = CLIENT.emojis.cache.get(g.emote);
 					}
 				}
 
@@ -1868,15 +1868,15 @@ var Duel = class {
 			var dumbMoves = [EMOTE_PP47, EMOTE_PP9, EMOTE_PP41, EMOTE_PP50];
 			for (i = 0; i < dumbMoves.length; i++) { // opponent plays garbage moves
 				if (this.LIST_AVAILABLE_ATTACKS.indexOf(dumbMoves[i]) > -1) {
-					return this.triggerReaction(CLIENT.emojis.get(dumbMoves[i]).name, fighter.user);
+					return this.triggerReaction(CLIENT.emojis.cache.get(dumbMoves[i]).name, fighter.user);
 				}
 			}
-			return this.triggerReaction(CLIENT.emojis.get(this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)]).name, this.FIGHTER2.user);
+			return this.triggerReaction(CLIENT.emojis.cache.get(this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)]).name, this.FIGHTER2.user);
 		}
 
 		if (fighter.STR < this.getOppOf(fighter).STR && fighter.DEX < this.getOppOf(fighter).DEX && this.getOppOf(fighter).isPossessed > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP5) > -1) {
 			// High Five
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP5).name, fighter.user);
+			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP5).name, fighter.user);
 		}
 		for (i in STAND_SUMMONS) {
 			var check = true;
@@ -1887,105 +1887,105 @@ var Duel = class {
 			}
 			if (check && this.LIST_AVAILABLE_ATTACKS.indexOf(STAND_SUMMONS[i][STAND_SUMMONS[i].length-1]) > -1) {
 				// Summon Stand
-				return this.triggerReaction(CLIENT.emojis.get(STAND_SUMMONS[i][STAND_SUMMONS[i].length-1]).name, fighter.user);
+				return this.triggerReaction(CLIENT.emojis.cache.get(STAND_SUMMONS[i][STAND_SUMMONS[i].length-1]).name, fighter.user);
 			}
 		}
 		if (fighter.DEX + 30 < this.getOppOf(fighter).DEX && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP8) > -1) {
 			// Trap
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP8).name, fighter.user);
+			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP8).name, fighter.user);
 		}
 
 		for (i = 0; i < RARE_EMOTE_LIST.length; i++) { // Rare Moves
 			if (this.LIST_AVAILABLE_ATTACKS.indexOf(RARE_EMOTE_LIST[i]) > -1) {
-				return this.triggerReaction(CLIENT.emojis.get(RARE_EMOTE_LIST[i]).name, fighter.user);
+				return this.triggerReaction(CLIENT.emojis.cache.get(RARE_EMOTE_LIST[i]).name, fighter.user);
 			}
 		}
 		for (var i in GOD_LIST) { // God
 			if (this.LIST_AVAILABLE_ATTACKS.indexOf(GOD_LIST[i].emote) > -1) {
-				return this.triggerReaction(CLIENT.emojis.get(GOD_LIST[i].emote).name, fighter.user);
+				return this.triggerReaction(CLIENT.emojis.cache.get(GOD_LIST[i].emote).name, fighter.user);
 			}
 		}
 		for (i = 0; i < SPECIAL_EMOTE_LIST.length; i++) { // Animated Moves
 			if (this.LIST_AVAILABLE_ATTACKS.indexOf(SPECIAL_EMOTE_LIST[i]) > -1) {
-				return this.triggerReaction(CLIENT.emojis.get(SPECIAL_EMOTE_LIST[i]).name, fighter.user);
+				return this.triggerReaction(CLIENT.emojis.cache.get(SPECIAL_EMOTE_LIST[i]).name, fighter.user);
 			}
 		}
 		for (i = 0; i < INFERNAL_EMOTE_LIST.length; i++) { // Infernal Moves
 			if (this.LIST_AVAILABLE_ATTACKS.indexOf(INFERNAL_EMOTE_LIST[i]) > -1) {
-				return this.triggerReaction(CLIENT.emojis.get(INFERNAL_EMOTE_LIST[i]).name, fighter.user);
+				return this.triggerReaction(CLIENT.emojis.cache.get(INFERNAL_EMOTE_LIST[i]).name, fighter.user);
 			}
 		}
 		if (fighter.specialCharges > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP52) > -1) {
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP52).name, fighter.user); // God Special Moves
+			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP52).name, fighter.user); // God Special Moves
 		}
 		if (fighter.regularCharges > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP51) > -1) {
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP51).name, fighter.user); // God Regular Moves
+			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP51).name, fighter.user); // God Regular Moves
 		}
 		for (i = 0; i < EMOTE_LIST.length; i++) { // If blind --> Illegal
 			if ((this.BLIND_COUNTDOWN > 0 || this.TIME_STOP > 0 || fighter.trueBarbarian) && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_LIST[i]) > -1 &&
 			    this.getRisk(EMOTE_LIST[i]) > 0) {
-				return this.triggerReaction(CLIENT.emojis.get(EMOTE_LIST[i]).name, fighter.user);
+				return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_LIST[i]).name, fighter.user);
 			}
 		}
 
 		if (fighter.DEX + 30 < this.getOppOf(fighter).DEX && this.BLIND_COUNTDOWN > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP32) > -1) {
 			// High Five Emote
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP32).name, fighter.user);
+			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP32).name, fighter.user);
 		}
 		if (fighter.STR < this.getOppOf(fighter).STR && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP24) > -1) {
 			// Knockback
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP24).name, fighter.user);
+			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP24).name, fighter.user);
 		}
 		if (this.getRisk(fighter.oldAttack) > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP30) > -1) {
 			// Alert
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP30).name, fighter.user);
+			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP30).name, fighter.user);
 		}
 		if (fighter.DEX + this.getDexChange(EMOTE_PP3) > this.getOppOf(fighter).DEX && this.getOppOf(fighter).STR < 1500 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP3) > -1) {
 			// Hologram
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP3).name, fighter.user);
+			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP3).name, fighter.user);
 		}
 		if (fighter.DEX + this.getDexChange(EMOTE_PP4) > this.getOppOf(fighter).DEX && fighter.STR < 500 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP4) > -1) {
 			// Flex
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP4).name, fighter.user);
+			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP4).name, fighter.user);
 		}
 		if (fighter.STR < 50 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP7) > -1) {
 			// Turkey
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP7).name, fighter.user);
+			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP7).name, fighter.user);
 		}
 		if (fighter.STR < 50 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP31) > -1) {
 			// Save Me Sign
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP31).name, fighter.user);
+			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP31).name, fighter.user);
 		}
 
 		if (fighter.DEX + 30 < this.getOppOf(fighter).DEX && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP68) > -1) {
 			// Mech
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP68).name, fighter.user);
+			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP68).name, fighter.user);
 		}
 		if (fighter.STR > this.getOppOf(fighter).STR * 2 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP74) > -1) {
 			// Sword
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP74).name, fighter.user);
+			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP74).name, fighter.user);
 		}
 		if (this.getRisk(fighter.oldAttack) == EMOTE_PP69 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP69) > -1) {
 			// LostSoul
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP69).name, fighter.user);
+			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP69).name, fighter.user);
 		}
 		if (fighter.STR > this.getOppOf(fighter).STR + 30 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP74) > -1) {
 			// Sword
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP74).name, fighter.user);
+			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP74).name, fighter.user);
 		}
 
 		if (this.MOVE_COUNT > 50 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP46) > -1) {
 			// YES
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP46).name, fighter.user);
+			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP46).name, fighter.user);
 		}
 		if (this.MOVE_COUNT > 50 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP26) > -1) {
 			// BigSatan
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP26).name, fighter.user);
+			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP26).name, fighter.user);
 		}
 
 		if (this.quickeningCharges >= 10 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP77) > -1) {
 			// Satan Hand
-			return this.triggerReaction(CLIENT.emojis.get(EMOTE_PP77).name, fighter.user);
+			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP77).name, fighter.user);
 		}
 
 		var emote = randomFromList(this.LIST_AVAILABLE_ATTACKS);
@@ -2070,7 +2070,7 @@ var Duel = class {
 			nbTries += 1;
 		}
 
-		this.triggerReaction(CLIENT.emojis.get(emote).name, this.FIGHTER2.user);
+		this.triggerReaction(CLIENT.emojis.cache.get(emote).name, this.FIGHTER2.user);
 	}
 	launchAttacks() {
 		this.addMessage("\n\n**===== ATTACKS =====**");
