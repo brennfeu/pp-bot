@@ -118,6 +118,7 @@ function checkUpdateEncyclopedia() {
 		var encyChannels = _guild.channels.cache.get(ENCY_CATEGORY_ID).children.array();
 		for (var i in encyChannels) {
 			console.log(encyChannels[i].topic);
+			console.log(encyChannels[i].messages.cache);
 			encyChannels[i].messages.cache.fetch()
 			.then(function(messages) {
 				var liste = messages.array();

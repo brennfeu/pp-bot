@@ -2669,12 +2669,12 @@ var Duel = class {
 	}
 	getAttackFromEmote(_emote) {
 		for (var i in EMOTE_LIST) {
-			if (_emote == CLIENT.emojis.get(EMOTE_LIST[i]).name) {
+			if (_emote == CLIENT.emojis.cache.get(EMOTE_LIST[i]).name) {
 				return EMOTE_LIST[i];
 			}
 		}
 		for (var i in GOD_LIST) {
-			if (_emote.name == CLIENT.emojis.get(GOD_LIST[i].emote).name) {
+			if (_emote.name == CLIENT.emojis.cache.get(GOD_LIST[i].emote).name) {
 				return GOD_LIST[i].emote;
 			}
 		}
