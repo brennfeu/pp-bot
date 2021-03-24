@@ -269,6 +269,7 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 		}
 	}
 	catch(e) {
+		console.log(e)
 		user.send("I'm sorry I can't do that :(\nLooks like there is no " + _nomRole + " role there...");
 	}
 }
