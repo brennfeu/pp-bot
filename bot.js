@@ -233,12 +233,11 @@ function getTopFighters() {
 }
 
 function changeRoleToStyler(_nomRole, _styler, _guild) {
-	console.log(_guild.roles.cache);
 	var role = _guild.roles.cache.find(r => r.name == _nomRole);
 	var user = _guild.members.cache.get(_styler);
 
 	try {
-		if (user.roles.has(role.id)) {
+		if (user.roles.cache.has(role.id)) {
 			user.removeRole(role);
 		}
 		else if ([FAST_PP_ROLE, BIG_PP_ROLE, ALIEN_PP_ROLE, DRUNK_PP_ROLE, HOCKEY_PUCK_PP_ROLE].indexOf(role.name) > 0) {
@@ -270,7 +269,6 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 		}
 	}
 	catch(e) {
-		console.log(e);
 		user.send("I'm sorry I can't do that :(\nLooks like there is no " + _nomRole + " role there...");
 	}
 }
@@ -582,7 +580,7 @@ CLIENT.on("message", async _message => {
 
 		return;
 	}
-	if (argsUser[1] == "custom") {
+	if (argsUser[1] == "custom" || argsUser[1] == "cumstom") {
 		if (getDuel(_message.channel.id) != null) return _message.reply("let's try somewhere else...");
 		// STYLE
 		var guild = _message.channel.guild;
