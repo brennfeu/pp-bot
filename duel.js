@@ -614,10 +614,10 @@ var Duel = class {
 						});
 						this.EVENT_BOSS = false;
 
-						var role = this.GUILD.roles.find(r => r.name == PP_EXPERT_ROLE);
+						var role = this.GUILD.roles.cache.find(r => r.name == PP_EXPERT_ROLE);
 						try {
 							this.bothFightersAction(function(_fighter) {
-								_fighter.guildUser.addRole(role).catch(console.error);
+								_fighter.guildUser.roles.add(role).catch(console.error);
 							});
 							this.addMessage("**You are now PP Experts.**");
 							this.addMessage("**You have gained access to the eldritch gods.**");
@@ -703,10 +703,10 @@ var Duel = class {
 						this.addMessage(this.CURRENT_BOSS + " abandons!");
 						this.EVENT_BOSS = false;
 
-						var role = this.GUILD.roles.find(r => r.name == WEEB_PP_ROLE);
+						var role = this.GUILD.roles.cache.find(r => r.name == WEEB_PP_ROLE);
 						try {
 							this.bothFightersAction(function(_fighter) {
-								_fighter.guildUser.addRole(role).catch(console.error);
+								_fighter.guildUser.roles.add(role).catch(console.error);
 							});
 							this.addMessage("**You now have a Weeb PP.**");
 						}

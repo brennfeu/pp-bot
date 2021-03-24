@@ -238,10 +238,10 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 
 	try {
 		if (user.roles.cache.has(role.id)) {
-			user.removeRole(role);
+			user.roles.remove(role);
 		}
 		else if ([FAST_PP_ROLE, BIG_PP_ROLE, ALIEN_PP_ROLE, DRUNK_PP_ROLE, HOCKEY_PUCK_PP_ROLE].indexOf(role.name) > 0) {
-			user.addRole(role);
+			user.roles.add(role);
 		}
 		else {
 			if (getNumberOfGods(user) >= 4 && user.roles.cache.find(r => r.name == PP_EXPERT_ROLE)) {
@@ -260,10 +260,10 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 				return;
 			}
 
-			user.addRole(role);
+			user.roles.add(role);
 
 			if (getNumberOfGods(user, false) >= 2) {
-				user.removeRole(role);
+				user.roles.remove(role);
 				return;
 			}
 		}
