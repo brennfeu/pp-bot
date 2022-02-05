@@ -132,7 +132,7 @@ var Duel = class {
 		// Weeb
 		if (getRandomPercent() <= 10) {
 			this.addMessage("**===== WEEB =====**");
-			this.addMessage(BOSS_PP11 + " challenges you !\n" + IMAGE_PP7);
+			this.addMessage(BOSS_PP11 + " challenges you!\n" + IMAGE_PP7);
 			this.CURRENT_BOSS = BOSS_PP11;
 			this.BOSS_HEALTH = 1;
 			this.BOSS_DAMAGE = 30;
@@ -141,7 +141,7 @@ var Duel = class {
 		// Nuisance
 		if (getRandomPercent() <= 5) {
 			this.addMessage("**===== ROOT OF NUISANCE =====**");
-			this.addMessage("Pudding just wants to harass you during the battle !\n" + IMAGE_PP8);
+			this.addMessage("Pudding just wants to harass you during the battle!\n" + IMAGE_PP8);
 			this.PUDDING_NUISANCE = Math.floor(getRandomPercent()/10) + 1;
 		}
 

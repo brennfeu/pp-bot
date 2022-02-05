@@ -128,7 +128,7 @@ function checkUpdateEncyclopedia() {
 			var message = "";
 			for (var j in fullBible) {
 				var emote = "";
-				if (!shouldRead && fullBible[j].includes("## ***" + encyChannels[i].topic + " :***")) { // Start
+				if (!shouldRead && fullBible[j].includes("## ***" + encyChannels[i].topic + ":***")) { // Start
 					shouldRead = true;
 				}
 				else if ((fullBible[j].includes("## ") || j == fullBible.length-1) && !fullBible[j].includes("### ") && shouldRead) { // End (I check the start of the next one)
