@@ -541,6 +541,8 @@ CLIENT.on("message", async _message => {
 	}
 	if (argsUser[1] == "punch") {
 		if (_message.mentions.users.array().length <= 1) {
+			if (argsUser.length == 3) return _message.reply("why? :("); // punch arbitrator
+			
 			return _message.reply("you need to tag the person you want to punch in the command!\nSee the help command for more help!");
 		}
 
