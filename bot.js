@@ -734,7 +734,12 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		// Hockey Puck PP
 		changeRoleToStyler(HOCKEY_PUCK_PP_ROLE, _user.id, _reaction.message.channel.guild);
 	}
-	else if (_reaction.message.channel.guild.members.cache.get(_user.id).roles.has(_reaction.message.channel.guild.roles.cache.find(r => r.name == PP_EXPERT_ROLE).id)) {
+
+	// temporary return
+	return;
+
+	//else
+	if (_reaction.message.channel.guild.members.cache.get(_user.id).roles.has(_reaction.message.channel.guild.roles.cache.find(r => r.name == PP_EXPERT_ROLE).id)) {
 		if (_reaction.emoji.id == EMOTE_SKIPPER) {
 			var role = _reaction.message.channel.guild.roles.cache.find(r => r.name == PP_SKIPPER_ROLE);
 			var user = _reaction.message.channel.guild.members.cache.get(_user.id);
