@@ -542,7 +542,7 @@ CLIENT.on("message", async _message => {
 	if (argsUser[1] == "punch") {
 		if (_message.mentions.users.array().length <= 1) {
 			if (argsUser.length == 3) return _message.reply("why? :("); // punch arbitrator
-			
+
 			return _message.reply("you need to tag the person you want to punch in the command!\nSee the help command for more help!");
 		}
 
@@ -734,10 +734,10 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 		// Hockey Puck PP
 		changeRoleToStyler(HOCKEY_PUCK_PP_ROLE, _user.id, _reaction.message.channel.guild);
 	}
-	else if (_reaction.message.channel.guild.members.get(_user.id).roles.has(_reaction.message.channel.guild.roles.find(r => r.name == PP_EXPERT_ROLE).id)) {
+	else if (_reaction.message.channel.guild.members.cache.get(_user.id).roles.has(_reaction.message.channel.guild.cache.roles.find(r => r.name == PP_EXPERT_ROLE).id)) {
 		if (_reaction.emoji.id == EMOTE_SKIPPER) {
-			var role = _reaction.message.channel.guild.roles.find(r => r.name == PP_SKIPPER_ROLE);
-			var user = _reaction.message.channel.guild.members.get(_user.id);
+			var role = _reaction.message.channel.guild.cache.roles.find(r => r.name == PP_SKIPPER_ROLE);
+			var user = _reaction.message.channel.guild.cache.members.get(_user.id);
 			try {
 				if (user.roles.has(role.id)) {
 					user.removeRole(role);
