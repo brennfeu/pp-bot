@@ -1671,10 +1671,10 @@ var Duel = class {
 		else if (randomVar == 50 && (this.MOVE_COUNT >= 1000 || forcedEvent)) {
 			// Wyndoella
 			this.addMessage(" -- WYNDOELLA KILLS PUDDING --");
-			this.addMessage("The Universe itself is against you now...\n" + IMAGE_PP9);
+			this.addMessage("The Universe itself is against you!\n" + IMAGE_PP9);
 			this.EVENT_BOSS = true;
-			this.BOSS_HEALTH = Math.pow(10, 99);
-			this.BOSS_DAMAGE = Math.pow(10, 99);
+			this.BOSS_HEALTH = Infinity;
+			this.BOSS_DAMAGE = Infinity;
 			this.CURRENT_BOSS = BOSS_PP15;
 		}
 		else if (randomVar == 51 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
