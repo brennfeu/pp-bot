@@ -126,7 +126,7 @@ var Duel = class {
 		// Christian
 		if (getRandomPercent() <= 10 && !this.CHRISTIAN_TEXT) {
 			this.addMessage("**===== CHRISTIAN GAME =====**");
-			this.addMessage("Let's be a bit more friendly for Timmy :)");
+			this.addMessage("Let's be a bit more friendly for Timmy:)");
 			this.CHRISTIAN_TEXT = true;
 		}
 		// Weeb
@@ -169,11 +169,11 @@ var Duel = class {
 		this.addMessage("-----------------");
 		this.addMessage(this.FIGHTER2.toString());
 		this.addMessage("**===== SOME STATS =====**");
-		var txt = " - Number of moves : " + this.MOVE_COUNT;
+		var txt = " - Number of moves: " + this.MOVE_COUNT;
 		if (this.MOVE_COUNT == 69) {
 			txt += " (lmao)";
 		}
-		txt += "\n - Number of damages inflicted : " + this.DAMAGE_COUNT;
+		txt += "\n - Number of damages inflicted: " + this.DAMAGE_COUNT;
 		if (this.DAMAGE_COUNT == 69) {
 			txt += " (lmao)";
 		}
@@ -201,19 +201,19 @@ var Duel = class {
 		this.FIGHTER2 = new Fighter(CLIENT.user.id, this.BATTLE_CHANNEL.id);
 
 		this.addMessage("**TIME FOR A TUTORIAL**");
-		this.addMessage("Welcome to the PP Punch Arena !\nThis bot allows you to play PP Punch Duels in discord. It's actually an rpg strategy fighting game");
+		this.addMessage("Welcome to the PP Punch Arena!\nThis bot allows you to play PP Punch Duels in discord. It's actually an rpg strategy fighting game");
 		this.addMessage("First, let me teach you about the fighters!");
 		this.addMessage("-----------------");
 		this.addMessage(this.FIGHTER1.toString());
 		this.addMessage("-----------------");
-		this.addMessage("As you can see, there are only 2 stats in the game : **STR** and **DEX**.");
+		this.addMessage("As you can see, there are only 2 stats in the game: **STR** and **DEX**.");
 		this.addMessage("**STR** is about how strong you can punch PP. The more you have, the more damages your punches will deal. It's also your **HP**, so don't get it below 0!");
 		this.addMessage("-----------------");
-		this.addMessage("**DEX** is about the probability you have to punch. Each turn, each fighter selects a move. Then, there is **DEX** roll : **DEX+[0-50]**. If the results are the same +-10, both fighters use their move. Else, only the one with the higher result do.");
+		this.addMessage("**DEX** is about the probability you have to punch. Each turn, each fighter selects a move. Then, there is **DEX** roll: **DEX+[0-50]**. If the results are the same +-10, both fighters use their move. Else, only the one with the higher result do.");
 		this.addMessage("When you perform a move, you get -5 DEX stackable effect. It gets back to normal when the opponent plays a move.");
 		this.addMessage("-----------------");
 		this.addMessage("Each move has specific actions, and only 5 are allowed for 1 turn.");
-		this.addMessage("It looks like this :");
+		this.addMessage("It looks like this:");
 		this.sendMessages();
 
 		this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction!").then(function (_message2) {
@@ -244,7 +244,7 @@ var Duel = class {
 			this.addMessage("**Status** are effects you get during the battle. Some are good to get, some aren't. Some are permanent, some aren't.");
 			this.addMessage("We'll get to **Synergies** later.");
 			this.addMessage("-----------------");
-			this.addMessage("Here are some moves that grants effects to you and/or the opponent :");
+			this.addMessage("Here are some moves that grants effects to you and/or the opponent:");
 			this.sendMessages();
 
 			this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction!").then(function (_message2) {
@@ -263,7 +263,7 @@ var Duel = class {
 			}
 			this.addMessage("Another things you have to learn about are **Gods**!");
 			this.addMessage("You can have up to 3 gods when starting a duel. It works the same way as fighting styles, except their use is different.");
-			this.addMessage("You can call your **gods** powers using a charge you get with events. There are 2 kind of charges : **regular** and **special**, each calling all your gods **regular** or **special** moves.");
+			this.addMessage("You can call your **gods** powers using a charge you get with events. There are 2 kind of charges: **regular** and **special**, each calling all your gods **regular** or **special** moves.");
 			this.addMessage("There are some **Gods Synergies** that grants permanent effects.");
 			this.addMessage("-----------------");
 			this.addMessage("Let's say you are a Priest of **700IQ**, **Salt King** and **Brenn**.");
@@ -275,7 +275,7 @@ var Duel = class {
 			this.addMessage(this.FIGHTER1.toString());
 			this.addMessage("-----------------");
 			this.addMessage("It gave you a synergy ! This one makes sure that you can't get below 0 **DEX**.");
-			this.addMessage("Here are the moves that allows you to unleash your **Gods** :");
+			this.addMessage("Here are the moves that allows you to unleash your **Gods**:");
 			this.sendMessages();
 
 			this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction!").then(function (_message2) {
@@ -289,14 +289,14 @@ var Duel = class {
 				this.addMessage("Come on, there's no point cheating, it's the tutorial!");
 				this.addMessage("-----------------");
 			}
-			this.addMessage("The game also features different game modes, including this one : **Stånds**!");
+			this.addMessage("The game also features different game modes, including this one: **Stånds**!");
 			this.addMessage("When performing specific move combos, you summon a stånd. This will trigger the **Stånds Battle Mode** and the opponent will get a random stånd.");
 			this.addMessage("Your respective **stånds** will replace you in the battle, and the winner of the battle will keep his stånd's powers and get stat buffs. Both fighter are then able to continue the fight.");
 			this.addMessage("-----------------");
 			this.addMessage("If a stånd uses the **Satan Hand** move while having **10 Quickening Charges**, it will get better stats and a random **Requiem**.");
 			this.addMessage("A Requiem is an ability performed using the **SpecialAbility move** that can appear randomly. They are also given to a fighter if he wins the Stånd Battle.");
 			this.addMessage("-----------------");
-			this.addMessage("Here are some moves specific to stånd battles :");
+			this.addMessage("Here are some moves specific to stånd battles:");
 			this.sendMessages();
 
 			this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction!").then(function (_message2) {
@@ -324,7 +324,7 @@ var Duel = class {
 			this.addMessage("**Effects** grants you bonuses regarding your army, your defence, or other useful stuff.");
 			this.addMessage("**Raids** moves are the different attack moves. When a raid happens, military power is used to attack the opponent or defend yourself. The one with the highest military power wins the battle, and damages the opponent with the remaining of the army if the remaining army is the one attacking.");
 			this.addMessage("-----------------");
-			this.addMessage("Here are some moves specific to the civilisation gamemode :");
+			this.addMessage("Here are some moves specific to the civilisation gamemode:");
 			this.sendMessages();
 
 			this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction!").then(function (_message2) {
@@ -343,10 +343,10 @@ var Duel = class {
 				this.addMessage("-----------------");
 			}
 			this.addMessage("Now you know the theory ! The only remaining things to learn are what the moves do in practice.");
-			this.addMessage("The **PP Bible** is great for that : https://github.com/brennfeu/pp-bot/wiki/PP-Bible. You can also get a link using the '*@PP_Arbitrator help*' command.");
+			this.addMessage("The **PP Bible** is great for that: https://github.com/brennfeu/pp-bot/wiki/PP-Bible. You can also get a link using the '*@PP_Arbitrator help*' command.");
 			this.addMessage("It's way easier and more fun to learn by playing with a friend. Keep the **PP Bible** on one tab to learn about what happens!");
 			this.addMessage("-----------------");
-			this.addMessage("That's it, the tutorial is over ! Have fun :)");
+			this.addMessage("That's it, the tutorial is over ! Have fun:)");
 			this.sendMessages();
 
 			this.DEAD_DUEL = true;
@@ -457,7 +457,7 @@ var Duel = class {
 				this.PUDDING_NUISANCE -= 1;
 
 				if (this.NUCLEAR_BOMB == 0) {
-					this.addMessage("The Nuclear Bomb explodes now !\n" + IMAGE_PP1);
+					this.addMessage("The Nuclear Bomb explodes now!\n" + IMAGE_PP1);
 					this.bothFightersAction(function(_fighter) {
 						_fighter.damage(1000000000, false);
 					});
@@ -623,7 +623,7 @@ var Duel = class {
 							this.addMessage("**You have gained access to the eldritch gods.**");
 						}
 						catch(e) {
-							this.addMessage("This server doesn't have the 'PP Expert' roles, sorry :/");
+							this.addMessage("This server doesn't have the 'PP Expert' roles, sorry:/");
 						}
 
 						return this.stopDuel();
@@ -649,9 +649,9 @@ var Duel = class {
 						this.addMessage("-----------------");
 						this.addMessage("**ANOTHER TIME, ANOTHER PLACE**");
 						this.addMessage("-----------------");
-						this.addMessage(this.FIGHTER1.getName() + " : *'I challenge you to a PP Punch duel !'*");
-						this.addMessage(this.FIGHTER2.getName() + " : *'Alright, let's do this !'*");
-						this.addMessage(this.FIGHTER1.getName() + " : *'Wait what is this thing ?'*");
+						this.addMessage(this.FIGHTER1.getName() + ": *'I challenge you to a PP Punch duel !'*");
+						this.addMessage(this.FIGHTER2.getName() + ": *'Alright, let's do this !'*");
+						this.addMessage(this.FIGHTER1.getName() + ": *'Wait what is this thing ?'*");
 						this.addMessage("-----------------");
 						this.sendMessages();
 
@@ -711,7 +711,7 @@ var Duel = class {
 							this.addMessage("**You now have a Weeb PP.**");
 						}
 						catch(e) {
-							this.addMessage("This server doesn't have the 'Weeb PP' roles, sorry :/");
+							this.addMessage("This server doesn't have the 'Weeb PP' roles, sorry:/");
 						}
 						this.addMessage("-----------------");
 
@@ -857,7 +857,7 @@ var Duel = class {
 			this.addMessage("-----------------", true);
 			this.addMessage(this.FIGHTER2.toString(), true);
 			this.addMessage("**===== /VS/ =====**", true);
-			this.addMessage("**" + this.CURRENT_BOSS + "**\n**STR :** " + this.BOSS_HEALTH, true);
+			this.addMessage("**" + this.CURRENT_BOSS + "**\n**STR:** " + this.BOSS_HEALTH, true);
 		}
 
 		var txt = "**=== GLOBAL STATUS ===**\n";
@@ -872,58 +872,58 @@ var Duel = class {
 			txt += "\n"
 		}
 		if (this.KIDNEY_CURSE > 0) {
-			txt += " - Kidney Curse : " + this.KIDNEY_CURSE + "\n";
+			txt += " - Kidney Curse: " + this.KIDNEY_CURSE + "\n";
 		}
 		if (this.REVERSE_DAMAGE > 0) {
-			txt += " - Damages and heals are reversed for " + this.REVERSE_DAMAGE + " turns !\n";
+			txt += " - Damages and heals are reversed for " + this.REVERSE_DAMAGE + " turns!\n";
 		}
 		if (this.GAY_TURNS > 0) {
-			txt += " - You are both gay for " + this.GAY_TURNS + " turns !\n";
+			txt += " - You are both gay for " + this.GAY_TURNS + " turns!\n";
 		}
 		if (this.ATTACK_MISS_COUNTDOWN > 0) {
-			txt += " - Attacks are twice as powerful for " + this.ATTACK_MISS_COUNTDOWN + " turns !\n";
+			txt += " - Attacks are twice as powerful for " + this.ATTACK_MISS_COUNTDOWN + " turns!\n";
 		}
 		if (this.AUTO_MOVES_COUNTDOWN > 0) {
-			txt += " - Both fighters always play for " + this.AUTO_MOVES_COUNTDOWN + " turns !\n";
+			txt += " - Both fighters always play for " + this.AUTO_MOVES_COUNTDOWN + " turns!\n";
 		}
 		if (this.NUCLEAR_BOMB > 0) {
-			txt += " - The Nuclear Bomb will explode in " + this.NUCLEAR_BOMB + " turns !\n";
+			txt += " - The Nuclear Bomb will explode in " + this.NUCLEAR_BOMB + " turns!\n";
 		}
 		if (this.FORCE_EVENT) {
-			txt += " - Events will occur every turns !\n";
+			txt += " - Events will occur every turns!\n";
 		}
 		if (this.ILLEGAL_JEWS) {
-			txt += " - Minecraft Villager are illegal !\n";
+			txt += " - Minecraft Villager are illegal!\n";
 		}
 		if (this.EVENT_BLOOD_MOON) {
-			txt += " - The Blood Moon is up in the sky !\n";
+			txt += " - The Blood Moon is up in the sky!\n";
 		}
 		if (this.EVENT_PP_ENLIGHTENMENT) {
-			txt += " - You can use moves that aren't in this turn's movepool !\n";
+			txt += " - You can use moves that aren't in this turn's movepool!\n";
 		}
 		if (this.EVENT_PP_PURGE) {
-			txt += " - Illegal moves are legal for this turn !\n";
+			txt += " - Illegal moves are legal for this turn!\n";
 		}
 		if (this.EVENT_PP_EQUALITY) {
-			txt += " - Moves have no DEX modifier for this turn !\n";
+			txt += " - Moves have no DEX modifier for this turn!\n";
 		}
 		if (this.EVENT_BOMB) {
-			txt += " - A bomb will explode next turn !\n";
+			txt += " - A bomb will explode next turn!\n";
 		}
 		if (this.REVERSED_GRAVITY) {
-			txt += " - Gravity is reversed !\n";
+			txt += " - Gravity is reversed!\n";
 		}
 		if (this.BOREAL_WORLD) {
-			txt += " - Boreal Fog is everywhere !\n";
+			txt += " - Boreal Fog is everywhere!\n";
 		}
 		if (this.STORM_COUNTDOWN > 0) {
-			txt += " - Storm Power : " + this.STORM_COUNTDOWN + "\n";
+			txt += " - Storm Power: " + this.STORM_COUNTDOWN + "\n";
 		}
 		if (this.DARKNESS_COUNTDOWN > 0) {
-			txt += " - Eldritch Darkness Power : " + this.DARKNESS_COUNTDOWN + "\n";
+			txt += " - Eldritch Darkness Power: " + this.DARKNESS_COUNTDOWN + "\n";
 		}
 		if (this.PP_NET > 0 && this.PP_NET < 200) {
-			txt += " - PP-Net Rising : Step " + this.PP_NET + "\n";
+			txt += " - PP-Net Rising: Step " + this.PP_NET + "\n";
 		}
 		if (this.POOPOO_UNIVERSE) {
 			txt += " - **ALTERNATE POOPOO UNIVERSE**\n";
@@ -944,7 +944,7 @@ var Duel = class {
 			txt += " - **TIME COMPRESSED FOR " + this.TIME_COMPRESSION + " TURNS**\n";
 		}
 		if (this.TIME_BREAK > 0) {
-			txt += " - **TIME BREAKING PROBABILITY : " + this.TIME_BREAK + "%**\n";
+			txt += " - **TIME BREAKING PROBABILITY: " + this.TIME_BREAK + "%**\n";
 		}
 		txt = txt.slice(0, -1);
 		this.addMessage(txt);
@@ -1402,8 +1402,8 @@ var Duel = class {
 				this.addMessage("apolgy for bad english");
 				this.addMessage("where were u wen club pp die");
 				this.addMessage(winner.getName() + " was at house eating dorito when phone ring");
-				this.addMessage(this.getOppOf(winner).getName() + ' : "Club pp is kil"');
-				this.addMessage(winner.getName() + ' : *"no"*');
+				this.addMessage(this.getOppOf(winner).getName() + ': "Club pp is kil"');
+				this.addMessage(winner.getName() + ': *"no"*');
 			}
 			else {
 				var brennUwu = CLIENT.emojis.cache.get("655449555873038337");
@@ -1437,7 +1437,7 @@ var Duel = class {
 			if (this.PP_NET == 1) {
 				this.addMessage(" -- PP-NET RISING --");
 				this.addMessage("A new military AI has been created.");
-				this.addMessage("Its name : PP-Net.");
+				this.addMessage("Its name: PP-Net.");
 			}
 			else if (this.PP_NET == 2) {
 				this.addMessage(" -- PP-NET RISING --");
@@ -1565,7 +1565,7 @@ var Duel = class {
 			this.bothFightersAction(function(_fighter) {
 				var liste = Object.keys(STAND_SUMMONS);
 				_fighter.currentStand = liste[Math.floor(Math.random()*liste.length)];
-				_fighter.duel.addMessage(_fighter.getName() + " summons the Stånd : " + _fighter.currentStand);
+				_fighter.duel.addMessage(_fighter.getName() + " summons the Stånd: " + _fighter.currentStand);
 			});
 			this.checkStandSummon();
 		}
@@ -1715,7 +1715,7 @@ var Duel = class {
 				this.addMessage("***splooch splooch***");
 			}
 			else {
-				this.addMessage("**POV : You are Brenn.**\n```Infinite cum. You sit on the toilet to jack off, but you begin to cum uncontrollably. After ten spurts you start to worry. Your hand is sticky and it reeks of semen. You desperately shove your dick into a wad of toilet paper, but that only makes your balls hurt. The cum accelerates. It’s been three minutes. You can’t stop cumming. Your bathroom floor is covered in a thin layer of baby fluid. You try to cum into the shower drain but it builds up too fast. You try the toilet. The cum is too thick to be flushed. You lock the bathroom door to prevent the cum from escaping. The air grows hot and humid from the cum. The cum accelerates. You slip and fall in your own sperm. The cum is now six inches deep, almost as long as your still-erect semen hose. Sprawled on your back, you begin to cum all over the ceiling. Globs of the sticky white fluid begin to fall like raindrops, giving you a facial with your own cum. The cum accelerates. You struggle to stand as the force of the cum begins to propel you backwards as if you were on a bukkake themed slip-and-slide. Still on your knees, the cum is now at chin height. To avoid drowning you open the bathroom door. The deluge of man juice reminds you of the Great Molasses Flood of 1919, only with cum instead of molasses. The cum accelerates. It’s been two hours. Your children and wife scream in terror as their bodies are engulfed by the snow-white sludge. Your youngest child goes under, with viscous bubbles and muffled cries rising from the goop. You plead to God to end your suffering. The cum accelerates. You squeeze your dick to stop the cum, but it begins to leak out of your asshole instead. You let go. The force of the cum tears your urethra open, leaving only a gaping hole in your crotch that spews semen. Your body picks up speed as it slides backwards along the cum. You smash through the wall, hurtling into the sky at thirty miles an hour. From a bird’s eye view you see your house is completely white. Your neighbor calls the cops. The cum accelerates. As you continue to ascend, you spot police cars racing towards your house. The cops pull out their guns and take aim, but stray loads of cum hit them in the eyes, blinding them. The cum accelerates. You are now at an altitude of 1000 feet. The SWAT team arrives. Military helicopters circle you. Hundreds of bullets pierce your body at once, yet you stay conscious. Your testicles have now grown into a substitute brain. The cum accelerates. It has been two days. With your body now destroyed, the cum begins to spray in all directions. You break the sound barrier. The government deploys fighter jets to chase you down, but the impact of your cum sends one plane crashing to the ground. The government decides to let you leave the earth. You feel your gonads start to burn up as you reach the edges of the atmosphere. You narrowly miss the ISS, giving it a new white paint job as you fly past. Physicists struggle to calculate your erratic trajectory. The cum accelerates. The cum begins to gravitate towards itself, forming a comet trail of semen. Astronomers begin calling you the “Cummet.” You are stuck in space forever, stripped of your body and senses, forced to endure an eternity of cumshots. Eventually, you stop thinking.```");
+				this.addMessage("**POV: You are Brenn.**\n```Infinite cum. You sit on the toilet to jack off, but you begin to cum uncontrollably. After ten spurts you start to worry. Your hand is sticky and it reeks of semen. You desperately shove your dick into a wad of toilet paper, but that only makes your balls hurt. The cum accelerates. It’s been three minutes. You can’t stop cumming. Your bathroom floor is covered in a thin layer of baby fluid. You try to cum into the shower drain but it builds up too fast. You try the toilet. The cum is too thick to be flushed. You lock the bathroom door to prevent the cum from escaping. The air grows hot and humid from the cum. The cum accelerates. You slip and fall in your own sperm. The cum is now six inches deep, almost as long as your still-erect semen hose. Sprawled on your back, you begin to cum all over the ceiling. Globs of the sticky white fluid begin to fall like raindrops, giving you a facial with your own cum. The cum accelerates. You struggle to stand as the force of the cum begins to propel you backwards as if you were on a bukkake themed slip-and-slide. Still on your knees, the cum is now at chin height. To avoid drowning you open the bathroom door. The deluge of man juice reminds you of the Great Molasses Flood of 1919, only with cum instead of molasses. The cum accelerates. It’s been two hours. Your children and wife scream in terror as their bodies are engulfed by the snow-white sludge. Your youngest child goes under, with viscous bubbles and muffled cries rising from the goop. You plead to God to end your suffering. The cum accelerates. You squeeze your dick to stop the cum, but it begins to leak out of your asshole instead. You let go. The force of the cum tears your urethra open, leaving only a gaping hole in your crotch that spews semen. Your body picks up speed as it slides backwards along the cum. You smash through the wall, hurtling into the sky at thirty miles an hour. From a bird’s eye view you see your house is completely white. Your neighbor calls the cops. The cum accelerates. As you continue to ascend, you spot police cars racing towards your house. The cops pull out their guns and take aim, but stray loads of cum hit them in the eyes, blinding them. The cum accelerates. You are now at an altitude of 1000 feet. The SWAT team arrives. Military helicopters circle you. Hundreds of bullets pierce your body at once, yet you stay conscious. Your testicles have now grown into a substitute brain. The cum accelerates. It has been two days. With your body now destroyed, the cum begins to spray in all directions. You break the sound barrier. The government deploys fighter jets to chase you down, but the impact of your cum sends one plane crashing to the ground. The government decides to let you leave the earth. You feel your gonads start to burn up as you reach the edges of the atmosphere. You narrowly miss the ISS, giving it a new white paint job as you fly past. Physicists struggle to calculate your erratic trajectory. The cum accelerates. The cum begins to gravitate towards itself, forming a comet trail of semen. Astronomers begin calling you the “Cummet.” You are stuck in space forever, stripped of your body and senses, forced to endure an eternity of cumshots. Eventually, you stop thinking.```");
 			}
 			this.sendMessages();
 			var idList = shuffleArray([2, 3, 4, 6, 7, 8, 9, 19, 22, 23, 32, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44]);
@@ -1776,7 +1776,7 @@ var Duel = class {
 		if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
 			if (this.CURRENT_FIGHTER.user.id == _user.id) {
 				this.CURRENT_FIGHTER.attack = this.getAttackFromEmote(_emote);
-				this.addMessage(this.CURRENT_FIGHTER.getName() + " : " + _emote, true);
+				this.addMessage(this.CURRENT_FIGHTER.getName() + ": " + _emote, true);
 				this.sendMessages();
 
 				this.CURRENT_FIGHTER.playMove();
@@ -1823,7 +1823,7 @@ var Duel = class {
 					}
 					else {
 						duel.getOppOf(_fighter).attack = duel.getAttackFromEmote(_emote);
-						duel.addMessage(duel.getOppOf(_fighter).getName() + " : " + _emote, true);
+						duel.addMessage(duel.getOppOf(_fighter).getName() + ": " + _emote, true);
 						duel.sendMessages();
 					}
 				}
@@ -1836,13 +1836,13 @@ var Duel = class {
 			}
 			else if (_user.id == _fighter.user.id && _fighter.isPossessed <= 0 && _fighter.turnSkip <= 0 && _fighter.grabbedPP <= 0 && _fighter.summonTankCountdown != 1) {
 				_fighter.attack = duel.getAttackFromEmote(_emote);
-				duel.addMessage(_fighter.getName() + " : " + _emote, true);
+				duel.addMessage(_fighter.getName() + ": " + _emote, true);
 				duel.sendMessages();
 
 				// Possession
 				if (duel.getOppOf(_fighter).isPossessed >= 1) {
 					duel.getOppOf(_fighter).attack = duel.getAttackFromEmote(_emote);
-					duel.addMessage(duel.getOppOf(_fighter).getName() + " : " + _emote, true);
+					duel.addMessage(duel.getOppOf(_fighter).getName() + ": " + _emote, true);
 					duel.sendMessages();
 				}
 			}
@@ -2211,11 +2211,11 @@ var Duel = class {
 		// ATTAQUES
 		var dexAttack1 = this.FIGHTER1.DEX + this.getDexChange(this.FIGHTER1.attack) + Math.floor(Math.random() * 50 + 1);
 		var dexAttack2 = this.FIGHTER2.DEX + this.getDexChange(this.FIGHTER2.attack) + Math.floor(Math.random() * 50 + 1);
-		this.addMessage(this.FIGHTER1.getName() + " : " + dexAttack1 + " /VS/ " + this.FIGHTER2.getName() + " : " + dexAttack2);
+		this.addMessage(this.FIGHTER1.getName() + ": " + dexAttack1 + " /VS/ " + this.FIGHTER2.getName() + ": " + dexAttack2);
 		this.sendMessages();
 
 		if (this.FIGHTER1.attack == EMOTE_PP5 && this.FIGHTER2.attack == EMOTE_PP5) {
-			// HIGH FIVES :D
+			// HIGH FIVES:D
 			this.addMessage("Wow, look at those bros!");
 			this.addMessage("That was some good high five.");
 			this.addMessage("Okay, the fight ends now!");
@@ -2367,7 +2367,7 @@ var Duel = class {
 					}
 					if (check) {
 						_fighter.duel.addMessage("-----------------");
-						_fighter.duel.addMessage(_fighter.getName() + " summons the Stånd : " + i);
+						_fighter.duel.addMessage(_fighter.getName() + " summons the Stånd: " + i);
 						_fighter.currentStand = i;
 						return;
 					}
@@ -2385,10 +2385,10 @@ var Duel = class {
 					if (_fighter.currentStand == null) {
 						var liste = Object.keys(STAND_SUMMONS);
 						_fighter.currentStand = liste[Math.floor(Math.random()*liste.length)];
-						_fighter.duel.addMessage(_fighter.getName() + " summons the Stånd : " + _fighter.currentStand);
+						_fighter.duel.addMessage(_fighter.getName() + " summons the Stånd: " + _fighter.currentStand);
 					}
 					else {
-						_fighter.duel.addMessage(_fighter.getName() + " already have summoned the Stånd : " + _fighter.currentStand);
+						_fighter.duel.addMessage(_fighter.getName() + " already have summoned the Stånd: " + _fighter.currentStand);
 					}
 				});
 			}

@@ -444,7 +444,7 @@ var Fighter = class {
 		}
 
 		if (this.STR <= 0 && this.duel.EVENT_BOSS) {
-			return "**" + this.getName() + "**\n -> **Dead** :(";
+			return "**" + this.getName() + "**\n -> **Dead**:(";
 		}
 
 		var txt = "**" + this.getName();
@@ -455,21 +455,21 @@ var Fighter = class {
 			txt += "\n(" + this.guildUser.user.username + ")";
 		}
 
-		txt += "\nSTR :** " + this.STR;
+		txt += "\nSTR:** " + this.STR;
 		if (this.STR == 69) {
 			txt += " (lmao)";
 		}
-		txt += "  //  **DEX :** " + this.DEX;
+		txt += "  //  **DEX:** " + this.DEX;
 		if (this.DEX == 69) {
 			txt += " (lmao)";
 		}
 		if (this.dexMalus > 0) {
-			txt += "\n - DEX Malus : **" + this.dexMalus + "**";
+			txt += "\n - DEX Malus: **" + this.dexMalus + "**";
 		}
 
 		if (!this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
 			if (this.regularCharges > 0 || this.specialCharges > 0 || this.chimera) {
-				txt += "\n\n**Faith :**"
+				txt += "\n\n**Faith:**"
 
 				var types = ["normal", "eldritch", "waifu"];
 				var typesNames = ["Gods", "Eldritch Gods", "Waifus"];
@@ -500,13 +500,13 @@ var Fighter = class {
 				}
 			}
 			if (this.regularCharges > 0) {
-				txt += "\nRegular Charges : " + this.regularCharges;
+				txt += "\nRegular Charges: " + this.regularCharges;
 			}
 			if (this.specialCharges > 0) {
-				txt += "\nSpecial Charges : " + this.specialCharges;
+				txt += "\nSpecial Charges: " + this.specialCharges;
 			}
 
-			txt += "\n\n**Fighting Styles :**\n";
+			txt += "\n\n**Fighting Styles:**\n";
 			if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 				txt += " - *Ultimate PP";
 				if (this.ultimatePPBuff) {
@@ -537,7 +537,7 @@ var Fighter = class {
 		}
 
 		// Status
-		txt += "\n**Status :**\n"
+		txt += "\n**Status:**\n"
 		if (this.randomizedStand) {
 			txt += " - **Perfect Stånd Power**\n";
 		}
@@ -567,7 +567,7 @@ var Fighter = class {
 		if (this.requiemPower != null) {
 			txt += "\n - **Requiem Ability**";
 			if (this.requiemCooldown > 0) {
-				txt += " (Cooldown : " + this.requiemCooldown + " turns)";
+				txt += " (Cooldown: " + this.requiemCooldown + " turns)";
 			}
 			txt += "\n"
 		}
@@ -623,79 +623,79 @@ var Fighter = class {
 		if (this.turkeyCountdown > 0) {
 			txt += " - ";
 			if (this.turkeyCountdown == 1) txt += "**";
-			txt += "Turkey Countdown : " + this.turkeyCountdown + " turns\n";
+			txt += "Turkey Countdown: " + this.turkeyCountdown + " turns\n";
 			if (this.turkeyCountdown == 1) txt += "**";
 		}
 		if (this.borealSummon > 0) {
-			txt += " - Boreal Fog Countdown : " + this.borealSummon + " turns\n";
+			txt += " - Boreal Fog Countdown: " + this.borealSummon + " turns\n";
 		}
 		if (this.tentacles > 0) {
-			txt += " - Tentacles : " + this.tentacles + "\n";
+			txt += " - Tentacles: " + this.tentacles + "\n";
 		}
 		if (this.quickeningCharges > 0) {
-			txt += " - Quickening Charges : " + this.quickeningCharges + "\n";
+			txt += " - Quickening Charges: " + this.quickeningCharges + "\n";
 		}
 		if (this.madnessStacks > 0) {
-			txt += " - Madness Stacks : " + this.madnessStacks + "\n";
+			txt += " - Madness Stacks: " + this.madnessStacks + "\n";
 		}
 		if (this.cthulhuShield > 0) {
-			txt += " - Shield of Cthulhu Charges : " + this.cthulhuShield + "\n";
+			txt += " - Shield of Cthulhu Charges: " + this.cthulhuShield + "\n";
 		}
 		if (this.redPillAddiction > 0) {
-			txt += " - RedPill Addiction : " + this.redPillAddiction + "\n";
+			txt += " - RedPill Addiction: " + this.redPillAddiction + "\n";
 		}
 		if (this.explosionMagic > 0) {
-			txt += " - Explosion Magic Points : " + this.explosionMagic + "\n";
+			txt += " - Explosion Magic Points: " + this.explosionMagic + "\n";
 		}
 		if (this.ragingSpirit > 0) {
-			txt += " - Lost Soul Streak : " + this.ragingSpirit + "\n";
+			txt += " - Lost Soul Streak: " + this.ragingSpirit + "\n";
 		}
 		if (this.tearDrinker > 0) {
-			txt += " - Tear Drinker : " + this.tearDrinker + "\n";
+			txt += " - Tear Drinker: " + this.tearDrinker + "\n";
 		}
 		if (this.pigHeal > 0 || this.isCowBoy) {
-			txt += " - Hog Squeezer : " + this.pigHeal;
+			txt += " - Hog Squeezer: " + this.pigHeal;
 			if (this.isCowBoy) {
 				txt += " (**Cowboy**)";
 			}
 			txt += "\n";
 		}
 		if (this.megaBuildUp > 0) {
-			txt += " - Build-Up multiplier : " + this.megaBuildUp + "\n";
+			txt += " - Build-Up multiplier: " + this.megaBuildUp + "\n";
 		}
 		if (this.bonusDamage > 0) {
-			txt += " - Build-Up damages : " + this.bonusDamage + "\n";
+			txt += " - Build-Up damages: " + this.bonusDamage + "\n";
 		}
 		if (this.bleedDamage > 0 || this.isSalty) {
-			txt += " - Haemorrhage : " + this.bleedDamage;
+			txt += " - Haemorrhage: " + this.bleedDamage;
 			if (this.isSalty) {
 				txt += " (**Salty Wounds**)";
 			}
 			txt += "\n";
 		}
 		if (this.meltingDamage > 0) {
-			txt += " - Acid : " + this.meltingDamage + "\n";
+			txt += " - Acid: " + this.meltingDamage + "\n";
 		}
 		if (this.goldenSpoons > 0) {
-			txt += " - Golden Spoons : " + this.goldenSpoons + "\n";
+			txt += " - Golden Spoons: " + this.goldenSpoons + "\n";
 		}
 		if (this.lifeFibers > 0) {
-			txt += " - Life Fiber : " + (this.lifeFibers*5) + "%\n";
+			txt += " - Life Fiber: " + (this.lifeFibers*5) + "%\n";
 		}
 		if (this.ppBribe > 0) {
-			txt += " - Arbitrator Bribe : " + this.ppBribe + "%\n";
+			txt += " - Arbitrator Bribe: " + this.ppBribe + "%\n";
 		}
 		if (this.hivePack > 0) {
-			txt += " - Hive Pack : " + this.hivePack + "%\n";
+			txt += " - Hive Pack: " + this.hivePack + "%\n";
 		}
 		if (this.xenoMask) {
-			txt += " - Mask : Xeno\n";
+			txt += " - Mask: Xeno\n";
 		}
 		if (this.satanMask) {
-			txt += " - Mask : Satan\n";
+			txt += " - Mask: Satan\n";
 		}
 		if (this.helldogMask) {
-			txt += " - Mask : Intimidation\n";
+			txt += " - Mask: Intimidation\n";
 		}
 		if (this.acidArmor <= 0 && this.sporeSac) {
 			txt += " - Spore Sac\n"; // shows spore sac here if no acid armor
@@ -802,10 +802,10 @@ var Fighter = class {
 			txt += " - **Summoning the Monster (" + (4-this.summonTankCountdown) + "/3)**\n";
 		}
 		if (this.standPower != null && !this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE && !this.randomizedStand) {
-			txt += " - **Stånd Power : " + this.standPower + "**\n";
+			txt += " - **Stånd Power: " + this.standPower + "**\n";
 		}
 		if (this.extraLife > 0) {
-			txt += " - **Extra lives : " + this.extraLife;
+			txt += " - **Extra lives: " + this.extraLife;
 			if (this.extraLifeDuplication != null) {
 				txt += " (Temporal Duplication)";
 			}
@@ -815,11 +815,11 @@ var Fighter = class {
 			txt += " - **Murasame's Poisonous Curse**\n";
 		}
 		if (this.impendingDoom > 0) {
-			txt += " - **Impending Doom : " + this.impendingDoom + " turns**\n";
+			txt += " - **Impending Doom: " + this.impendingDoom + " turns**\n";
 		}
 
 		if (this.duel.CURRENT_BATTLE_MODE != STAND_BATTLE_MODE || this.standPower == STAND_PP19) {
-			txt += "\n**Synergies :**\n"
+			txt += "\n**Synergies:**\n"
 			if (this.godList.length >= GOD_LIST.length) {
 				txt += " - *PP Harem*\n";
 			}
@@ -995,7 +995,7 @@ var Fighter = class {
 			else if (attack == EMOTE_PP5) {
 				// High Five
 				if (!this.duel.ALTERNATE_MOVES) {
-					this.duel.addMessage(this.getName() + " is feeling lonely... :(");
+					this.duel.addMessage(this.getName() + " is feeling lonely...:(");
 				}
 				else {
 					this.duel.addMessage(this.getName() + " slaps " + this.getOppName());
@@ -1381,7 +1381,7 @@ var Fighter = class {
 				else {
 					this.duel.addMessage(this.getName() + " is gonna say the N-Word!");
 					if (this.isTerrorist) {
-						this.duel.addMessage("MR " + this.getOppName().toUpperCase() + " GET DOWN !\n" + IMAGE_PP1);
+						this.duel.addMessage("MR " + this.getOppName().toUpperCase() + " GET DOWN!\n" + IMAGE_PP1);
 						this.duel.getOppOf(this).damage(5000);
 					}
 					else {
@@ -2272,10 +2272,10 @@ var Fighter = class {
 					this.duel.addMessage("Megumin answers his calls!");
 					this.explosionMagic += 3;
 					var randomMessages = [
-						"Darkness blacker than black and darker than dark, I beseech thee, combine with my deep crimson. The time of awakening cometh.\nJustice, fallen upon the infallible boundary, appear now as an intangible distortion !\nI desire for my torrent of power a destructive force : a destructive force without equal ! Return all creation to cinders, and come from the abyss !\nThis is the mightiest means of attack known to man, the ultimate attack magic!",
-						"Oh, blackness shrouded in light...\nFrenzied blaze clad in night...\nAll else aside, I don't want to be outdone by anyone else when it comes to explosion magic !\nHere I go ! My ultimate destructive magic...",
-						"Detonation... Detonation... Detonation...\nWielder of the most glorious, powerful, and grand explosion magic...\nMy name is Megumin !\nThe blow that I am given to strike turns a blind eye to the fate of my kindred, rendering all hope of rebirth and anguish, and the model by which all forces are judged !\nPitiful creature...\nSynchronize yourself with the red smoke, and atone in a surge of blood !\nBurst forth...",
-						"Crimson-black blaze, king of myriad worlds, though I promulgate the laws of nature, I am the alias of destruction incarnate in accordance with the principles of creation.\nLet the hammer of eternity descend unto me !\nBehold my power!"
+						"Darkness blacker than black and darker than dark, I beseech thee, combine with my deep crimson. The time of awakening cometh.\nJustice, fallen upon the infallible boundary, appear now as an intangible distortion!\nI desire for my torrent of power a destructive force: a destructive force without equal ! Return all creation to cinders, and come from the abyss!\nThis is the mightiest means of attack known to man, the ultimate attack magic!",
+						"Oh, blackness shrouded in light...\nFrenzied blaze clad in night...\nAll else aside, I don't want to be outdone by anyone else when it comes to explosion magic!\nHere I go ! My ultimate destructive magic...",
+						"Detonation... Detonation... Detonation...\nWielder of the most glorious, powerful, and grand explosion magic...\nMy name is Megumin!\nThe blow that I am given to strike turns a blind eye to the fate of my kindred, rendering all hope of rebirth and anguish, and the model by which all forces are judged!\nPitiful creature...\nSynchronize yourself with the red smoke, and atone in a surge of blood!\nBurst forth...",
+						"Crimson-black blaze, king of myriad worlds, though I promulgate the laws of nature, I am the alias of destruction incarnate in accordance with the principles of creation.\nLet the hammer of eternity descend unto me!\nBehold my power!"
 					];
 					this.duel.addMessage("*" + randomFromList(randomMessages) + "*");
 					this.duel.addMessage("***EXPLOSION !***");
@@ -2537,7 +2537,7 @@ var Fighter = class {
 			else if (attack == EMOTE_PP64) {
 				// XenoHead
 				this.xenoMask = true;
-				this.duel.addMessage(this.getName() + " puts on a Mask : Xeno!");
+				this.duel.addMessage(this.getName() + " puts on a Mask: Xeno!");
 				this.satanMask = false;
 				this.helldogMask = false;
 			}
@@ -2555,7 +2555,7 @@ var Fighter = class {
 			else if (attack == EMOTE_PP66) {
 				// SatanHead
 				this.satanMask = true;
-				this.duel.addMessage(this.getName() + " puts on a Mask : Satan!");
+				this.duel.addMessage(this.getName() + " puts on a Mask: Satan!");
 				this.xenoMask = false;
 				this.helldogMask = false;
 			}
@@ -2585,7 +2585,7 @@ var Fighter = class {
 			else if (attack == EMOTE_PP70) {
 				// HellDogHead
 				this.helldogMask = true;
-				this.duel.addMessage(this.getName() + " puts on a Mask : Intimidation!");
+				this.duel.addMessage(this.getName() + " puts on a Mask: Intimidation!");
 				this.xenoMask = false;
 				this.satanMask = false;
 			}
@@ -2647,7 +2647,7 @@ var Fighter = class {
 					this.duel.addMessage(this.getName() + " evolves to Requiem!");
 					this.requiemPower = randomFromList(REQUIEM_LIST);
 					try {
-						this.guildUser.send("**Requiem Acquired : " + this.requiemPower + "**");
+						this.guildUser.send("**Requiem Acquired: " + this.requiemPower + "**");
 					}
 					catch(e) {
 						// User = Bot
@@ -2678,90 +2678,90 @@ var Fighter = class {
 					effectId = moveId + moveId%(567+i);
 					subEffectId = moveId + moveId%(234+i);
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage("**" + this.getName() + " Move : " + (i+1) + "/3**");
+					this.duel.addMessage("**" + this.getName() + " Move: " + (i+1) + "/3**");
 
 					if (subEffectId%12 == 0) {
 						value = Math.floor(this.STR/10);
-						this.duel.addMessage("**Value :** based on " + this.getName() + "'s STR.");
+						this.duel.addMessage("**Value:** based on " + this.getName() + "'s STR.");
 					}
 					else if (subEffectId%12 == 1) {
 						value = Math.floor(this.DEX/5);
-						this.duel.addMessage("**Value :** based on " + this.getName() + "'s DEX.");
+						this.duel.addMessage("**Value:** based on " + this.getName() + "'s DEX.");
 					}
 					else if (subEffectId%12 == 2) {
 						value = EMOTE_LIST.indexOf(this.oldAttack)*2;
-						this.duel.addMessage("**Value :** based on " + this.getName() + "'s last move ID.");
+						this.duel.addMessage("**Value:** based on " + this.getName() + "'s last move ID.");
 					}
 					else if (subEffectId%12 == 3) {
 						value = Math.floor(this.damageTaken/10);
-						this.duel.addMessage("**Value :** based on " + this.getName() + "'s total taken damages.");
+						this.duel.addMessage("**Value:** based on " + this.getName() + "'s total taken damages.");
 					}
 					else if (subEffectId%12 == 4) {
 						value = Math.floor(this.usedMoves.length/2);
-						this.duel.addMessage("**Value :** based on " + this.getName() + "'s moves count.");
+						this.duel.addMessage("**Value:** based on " + this.getName() + "'s moves count.");
 					}
 					else if (subEffectId%12 == 5) {
 						value = Math.floor(this.duel.getOppOf(this).STR/10);
-						this.duel.addMessage("**Value :** based on " + this.duel.getOppOf(this).getName() + "'s STR.");
+						this.duel.addMessage("**Value:** based on " + this.duel.getOppOf(this).getName() + "'s STR.");
 					}
 					else if (subEffectId%12 == 6) {
 						value = Math.floor(this.duel.getOppOf(this).DEX/5);
-						this.duel.addMessage("**Value :** based on " + this.duel.getOppOf(this).getName() + "'s DEX.");
+						this.duel.addMessage("**Value:** based on " + this.duel.getOppOf(this).getName() + "'s DEX.");
 					}
 					else if (subEffectId%12 == 7) {
 						value = EMOTE_LIST.indexOf(this.duel.getOppOf(this).oldAttack)*2;
-						this.duel.addMessage("**Value :** based on " + this.duel.getOppOf(this).getName() + "'s last move ID.");
+						this.duel.addMessage("**Value:** based on " + this.duel.getOppOf(this).getName() + "'s last move ID.");
 					}
 					else if (subEffectId%12 == 8) {
 						value = Math.floor(this.duel.getOppOf(this).damageTaken/10);
-						this.duel.addMessage("**Value :** based on " + this.duel.getOppOf(this).getName() + "'s total taken damages.");
+						this.duel.addMessage("**Value:** based on " + this.duel.getOppOf(this).getName() + "'s total taken damages.");
 					}
 					else if (subEffectId%12 == 9) {
 						value = Math.floor(this.duel.getOppOf(this).usedMoves.length/2);
-						this.duel.addMessage("**Value :** based on " + this.duel.getOppOf(this).getName() + "'s moves count.");
+						this.duel.addMessage("**Value:** based on " + this.duel.getOppOf(this).getName() + "'s moves count.");
 					}
 					else if (subEffectId%12 == 10) {
 						value = Math.floor(this.duel.MOVE_COUNT/3);
-						this.duel.addMessage("**Value :** based on total moves count.");
+						this.duel.addMessage("**Value:** based on total moves count.");
 					}
 					else {
 						value = Math.floor(this.duel.DAMAGE_COUNT/15);
-						this.duel.addMessage("**Value :** based on total damages count.");
+						this.duel.addMessage("**Value:** based on total damages count.");
 					}
 					value += 10;
 
 					if (effectId%6 == 0) { // Inflict damage
-						this.duel.addMessage("**Effect :** Damage");
+						this.duel.addMessage("**Effect:** Damage");
 						this.duel.addMessage("-----------------");
 						this.duel.getOppOf(this).damage(20 + value, subEffectId%3 == 0);
 					}
 					else if (effectId%6 == 1) { // Inflict DEX damage
 						this.duel.getOppOf(this).DEXValue -= Math.floor(value/10);
-						this.duel.addMessage("**Effect :** DEX Damage");
+						this.duel.addMessage("**Effect:** DEX Damage");
 						this.duel.addMessage("-----------------");
 						this.duel.addMessage(this.duel.getOppOf(this).getName() + " looses " + Math.floor(value/10) + " DEX!");
 						this.duel.getOppOf(this).DEXValue -= Math.floor(value/10);
 					}
 					else if (effectId%6 == 2) { // Heal
-						this.duel.addMessage("**Effect :** Heal");
+						this.duel.addMessage("**Effect:** Heal");
 						this.duel.addMessage("-----------------");
 						this.heal(20 + value);
 					}
 					else if (effectId%6 == 3) { // Heal DEX
 						this.DEXValue += Math.floor(value/10);
-						this.duel.addMessage("**Effect :** DEX Gain");
+						this.duel.addMessage("**Effect:** DEX Gain");
 						this.duel.addMessage("-----------------");
 						this.duel.addMessage(this.getName() + " gets " + Math.floor(value/10) + " DEX!");
 						this.DEXValue += Math.floor(value/10);
 					}
 					else if (effectId%6 == 4) { // Inflict debuff
-						this.duel.addMessage("**Effect :** Debuff");
+						this.duel.addMessage("**Effect:** Debuff");
 						this.duel.addMessage("-----------------");
 						this.duel.getOppOf(this)[debuffList[subEffectId % debuffList.length]] += Math.floor(value/10);
 						this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets " + Math.floor(value/10) + " " + debuffList[subEffectId%debuffList.length] + "!");
 					}
 					else { // Gets buff
-						this.duel.addMessage("**Effect :** Buff");
+						this.duel.addMessage("**Effect:** Buff");
 						this.duel.addMessage("-----------------");
 						this[buffList[subEffectId%buffList.length]] += Math.floor(value/10);
 						this.duel.addMessage(this.getName() + " gets " + Math.floor(value/10) + " " + buffList[subEffectId%buffList.length] + "!");
@@ -3293,7 +3293,7 @@ var Fighter = class {
 			else if (attack == EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE) {
 				// Judgement Event
 				if (this.duel.ESPINOZA_CHOICE == attack) {
-					this.duel.addMessage(this.getName() + " guessed right ! :)");
+					this.duel.addMessage(this.getName() + " guessed right !:)");
 					if (this.godList.indexOf(GOD_PP12.name) > 0) {
 						this.duel.addMessage("He gets 10 DEX!");
 						this.DEXValue += 10;
@@ -3304,7 +3304,7 @@ var Fighter = class {
 					}
 				}
 				else {
-					this.duel.addMessage(this.getName() + " guessed wrong ! :(");
+					this.duel.addMessage(this.getName() + " guessed wrong !:(");
 				}
 			}
 			else if (attack == EMOTE_OBOMBA) {
@@ -3925,7 +3925,7 @@ var Fighter = class {
 			var keys = Object.keys(STAND_SUMMONS);
 			this.standPower = keys[ keys.length * Math.random() << 0];
 
-			this.guildUser.send("Current Stånd Ability : " + this.standPower);
+			this.guildUser.send("Current Stånd Ability: " + this.standPower);
 		}
 		if (this.hasSupplyDrops) {
 			var r = getRandomPercent();
@@ -4162,13 +4162,13 @@ var City = class extends Fighter {
 		var txt = "**" + this.getName();
 		txt += "\n(" + this.guildUser.user.username + ")";
 
-		txt += "\nSTR :** " + this.STR;
+		txt += "\nSTR:** " + this.STR;
 		if (this.STR == 69) {
 			txt += " (lmao)";
 		}
 
 		// powers
-		txt += "\n\n**Buildings :**";
+		txt += "\n\n**Buildings:**";
 		if (this.familiarShrine) {
 			txt += "\n - Familiar Shrine";
 		}
@@ -4213,9 +4213,9 @@ var City = class extends Fighter {
 		}
 
 		// status
-		txt += "\n\n**Status :**"
+		txt += "\n\n**Status:**"
 		if (this.kaijuHP > 0) {
-			txt += "\n - **Kaiju HP : " + this.kaijuHP + "**";
+			txt += "\n - **Kaiju HP: " + this.kaijuHP + "**";
 		}
 		if (this.debuffFire > 0) {
 			txt += "\n - Burning (for " + this.debuffFire + " turns)";
@@ -4224,16 +4224,16 @@ var City = class extends Fighter {
 			txt += "\n - Army Resurection in " + this.armyResurectionCountdown + " turns";
 		}
 		if (this.junkCount > 0) {
-			txt += "\n - Junks : " + this.junkCount;
+			txt += "\n - Junks: " + this.junkCount;
 		}
 		if (this.glassGuonStones > 0) {
-			txt += "\n - Glass Guon Stones : " + this.glassGuonStones;
+			txt += "\n - Glass Guon Stones: " + this.glassGuonStones;
 		}
 		if (this.redGuonStones > 0) {
-			txt += "\n - Red Guon Stones : " + this.redGuonStones;
+			txt += "\n - Red Guon Stones: " + this.redGuonStones;
 		}
 		if (this.greenGuonStones > 0) {
-			txt += "\n - Green Guon Stones : " + this.greenGuonStones;
+			txt += "\n - Green Guon Stones: " + this.greenGuonStones;
 		}
 		if (this.serJunkan) {
 			txt += "\n - Ser Junkan";
@@ -4256,12 +4256,12 @@ var City = class extends Fighter {
 
 		// Army
 		if (this.militaryPower > 0) {
-			txt += "\n\n**Military Power : **" + this.militaryPower;
+			txt += "\n\n**Military Power: **" + this.militaryPower;
 			if (this.armyJammed) {
 				txt += "\n - **Jammed**";
 			}
 			if (this.armyAgony > 0) {
-				txt += "\n - Army Agony Countdown : " + this.armyAgony;
+				txt += "\n - Army Agony Countdown: " + this.armyAgony;
 			}
 			if (this.armyResurrects) {
 				txt += "\n - Undead Army";

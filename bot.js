@@ -58,7 +58,7 @@ function skipWaitingDuels() {
 	for (var i = DUEL_LIST.length - 1; i >= 0; i--) {
 		if (DUEL_LIST[i].TIMESTAMP + (3 * 60*1000) < +new Date()) {
 			if (DUEL_LIST[i].TUTORIAL) {
-				DUEL_LIST[i].addMessage("Tutoriel cancelled :(")
+				DUEL_LIST[i].addMessage("Tutoriel cancelled:(")
 				DUEL_LIST[i].sendMessages();
 				DUEL_LIST[i].DEAD_DUEL = true;
 			}
@@ -136,7 +136,7 @@ function checkUpdateEncyclopedia() {
 					encyChannels[i].send(message);
 					message = "";
 					var date = new Date();
-					encyChannels[i].send("*Last updated : " + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() + "*");
+					encyChannels[i].send("*Last updated: " + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() + "*");
 				}
 				else if (shouldRead) {
 					if (message.length + fullBible[j].length > 1900) {
@@ -160,7 +160,7 @@ function checkUpdateEncyclopedia() {
 					else if (encyChannels[i].topic == "Gods") {
 						var cutBiblePart = fullBible[j].split("*").join("");
 						for (var k in GOD_LIST) {
-							if ((cutBiblePart.includes(GOD_LIST[k].name + " :")
+							if ((cutBiblePart.includes(GOD_LIST[k].name + ":")
 							    || cutBiblePart.includes(GOD_LIST[k].name + " ("))
 							    && (emote == "" ||
 							      GOD_LIST[k].name.length > GOD_LIST.find(r => r.emote == emote).name.length)) {
@@ -184,10 +184,10 @@ function setBotActivity(_texte = "Lonely PP Squeezing :(") {
 	var texte = _texte;
 	if (DUEL_LIST.length > 0) {
 		if (DUEL_LIST.length == 1) {
-			texte = DUEL_LIST.length + " duel of PP Punching :)";
+			texte = DUEL_LIST.length + " duel of PP Punching:)";
 		}
 		else {
-			texte = DUEL_LIST.length + " duels of PP Punching :)";
+			texte = DUEL_LIST.length + " duels of PP Punching:)";
 		}
 	}
 	CLIENT.user.setPresence({ activity: { name: texte } })
@@ -225,7 +225,7 @@ function getRank(_fighterID) {
 function addWinCounter(_fighter, _number) {
 	updatePlayer(_fighter.user.id, _fighter.user.username.secureXSS())
 
-	console.log(_fighter.getName() + " wins : " + _number);
+	console.log(_fighter.getName() + " wins: " + _number);
 	executeQuery("UPDATE Player SET points = " + (_number+getWinCounter(_fighter.user.id)) + " WHERE id = " + _fighter.user.id);
 }
 function getTopFighters() {
@@ -270,7 +270,7 @@ function changeRoleToStyler(_nomRole, _styler, _guild) {
 	}
 	catch(e) {
 		console.log(e)
-		user.send("I'm sorry I can't do that :(\nLooks like there is no " + _nomRole + " role there...");
+		user.send("I'm sorry I can't do that:(\nLooks like there is no " + _nomRole + " role there...");
 	}
 }
 function getNumberOfGods(_guildUser, _includeNormalOnes = true) {
@@ -285,71 +285,71 @@ function getNumberOfGods(_guildUser, _includeNormalOnes = true) {
 
 async function sendCheatPanel(_channel, _category = null) {
 	var emotes = {
-		"Cheat Panel : Normal Moves I" : [
+		"Cheat Panel: Normal Moves I": [
 			EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8,
 			EMOTE_PP9, EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16,
 			EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20
 		],
-		"Cheat Panel : Normal Moves II" : [
+		"Cheat Panel: Normal Moves II": [
 			EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28,
 			EMOTE_PP29, EMOTE_PP30, EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP36,
 			EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40
 		],
-		"Cheat Panel : Normal Moves III" : [
+		"Cheat Panel: Normal Moves III": [
 			EMOTE_PP41, EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP47, EMOTE_PP48,
 			EMOTE_PP49, EMOTE_PP50],
-		"Cheat Panel : Priest Moves" : [
+		"Cheat Panel: Priest Moves": [
 			EMOTE_PP51, EMOTE_PP52
 		],
-		"Cheat Panel : Infernal Moves" : [
+		"Cheat Panel: Infernal Moves": [
 			EMOTE_PP135, EMOTE_PP136, EMOTE_PP137, EMOTE_PP138, EMOTE_PP139, EMOTE_PP140, EMOTE_PP141,
 			EMOTE_PP142, EMOTE_PP143, EMOTE_PP144, EMOTE_PP145, EMOTE_PP146, EMOTE_PP147, EMOTE_PP149, EMOTE_PP150
 		],
-		"Cheat Panel : Animated Moves" : [
+		"Cheat Panel: Animated Moves": [
 			EMOTE_PP53, EMOTE_PP54, EMOTE_PP55, EMOTE_PP56, EMOTE_PP57, EMOTE_PP58, EMOTE_PP59, EMOTE_PP60,
 			EMOTE_PP61, EMOTE_PP62
 		],
-		"Cheat Panel : Stånds Moves" : [
+		"Cheat Panel: Stånds Moves": [
 			EMOTE_PP63, EMOTE_PP64, EMOTE_PP65, EMOTE_PP66, EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP70,
 			EMOTE_PP71, EMOTE_PP72, EMOTE_PP73, EMOTE_PP74, EMOTE_PP75, EMOTE_PP76, EMOTE_PP77, EMOTE_PP78
 		],
-		"Cheat Panel : Rare Moves" : [
+		"Cheat Panel: Rare Moves": [
 			EMOTE_PP79, EMOTE_PP80, EMOTE_PP81, EMOTE_PP148
 		],
-		"Cheat Panel : Civilisation Moves I" : [
+		"Cheat Panel: Civilisation Moves I": [
 			EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP86, EMOTE_PP87, EMOTE_PP88, EMOTE_PP89,
 			EMOTE_PP90, EMOTE_PP91, EMOTE_PP92, EMOTE_PP93, EMOTE_PP117
 		],
-		"Cheat Panel : Civilisation Moves II" : [
+		"Cheat Panel: Civilisation Moves II": [
 			EMOTE_PP94, EMOTE_PP95, EMOTE_PP96, EMOTE_PP97, EMOTE_PP98, EMOTE_PP99, EMOTE_PP100, EMOTE_PP101,
 			EMOTE_PP102, EMOTE_PP103, EMOTE_PP104, EMOTE_PP105, EMOTE_PP106, EMOTE_PP107, EMOTE_PP108,
 			EMOTE_PP109, EMOTE_PP110, EMOTE_PP111, EMOTE_PP112
 		],
-		"Cheat Panel : Civilisation Moves III" : [
+		"Cheat Panel: Civilisation Moves III": [
 			EMOTE_PP113, EMOTE_PP114, EMOTE_PP115, EMOTE_PP116, EMOTE_PP118, EMOTE_PP119, EMOTE_PP120,
 			EMOTE_PP121, EMOTE_PP123, EMOTE_PP125, EMOTE_PP126, EMOTE_PP127
 		],
-		"Cheat Panel : Civilisation Moves IV" : [
+		"Cheat Panel: Civilisation Moves IV": [
 			EMOTE_PP124, EMOTE_PP128, EMOTE_PP129, EMOTE_PP130, EMOTE_PP131, EMOTE_PP132, EMOTE_PP133,
 			EMOTE_PP134
 		],
-		"Cheat Panel : Gods I" : [], // filled later in a loop
-		"Cheat Panel : Gods II" : [],
-		"Cheat Panel : Gods III" : [],
-		"Cheat Panel : Other" : [
+		"Cheat Panel: Gods I": [], // filled later in a loop
+		"Cheat Panel: Gods II": [],
+		"Cheat Panel: Gods III": [],
+		"Cheat Panel: Other": [
 			EMOTE_ABILITY, EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE, EMOTE_OBAMAHEDRON, EMOTE_OBAMASPHERE,
 			EMOTE_OBOMBA, EMOTE_SKIPPER
 		]
 	}
 	for (var i in GOD_LIST) {
 		if (GOD_LIST[i].type == "normal") {
-			emotes["Cheat Panel : Gods I"].push(GOD_LIST[i].emote)
+			emotes["Cheat Panel: Gods I"].push(GOD_LIST[i].emote)
 		}
 		else if (GOD_LIST[i].type == "eldritch") {
-			emotes["Cheat Panel : Gods II"].push(GOD_LIST[i].emote)
+			emotes["Cheat Panel: Gods II"].push(GOD_LIST[i].emote)
 		}
 		else if (GOD_LIST[i].type == "waifu") {
-			emotes["Cheat Panel : Gods III"].push(GOD_LIST[i].emote)
+			emotes["Cheat Panel: Gods III"].push(GOD_LIST[i].emote)
 		}
 	}
 
@@ -375,7 +375,7 @@ async function sendCheatPanel(_channel, _category = null) {
 }
 
 function cloneObject(obj) {
-	obj = obj && obj instanceof Object ? obj : '';
+	obj = obj && obj instanceof Object ? obj: '';
 
 	// Handle Date (return new Date object with old value)
 	if (obj instanceof Date) {
@@ -432,7 +432,7 @@ CLIENT.on("message", async _message => {
 
 	// PM
 	if(_message.channel.type == "dm") {
-		_message.channel.send("**PP Cancer Translation :**\n\n" + changeTextRandomSpoil(changeTextLeet(changeTextRandomCap(changeTextRussian(changeTextUwu(_message.content.trim()))))));
+		_message.channel.send("**PP Cancer Translation:**\n\n" + changeTextRandomSpoil(changeTextLeet(changeTextRandomCap(changeTextRussian(changeTextUwu(_message.content.trim()))))));
 		return;
 	}
 
@@ -451,9 +451,9 @@ CLIENT.on("message", async _message => {
 	if (argsUser[1] == "ranks") {
 		// RANKS
 		var topFighters = getTopFighters();
-		_message.channel.send("TOP 10 PP PUNCHERS :")
+		_message.channel.send("TOP 10 PP PUNCHERS:")
 		for (var i in topFighters) {
-			_message.channel.send("#" + (1+parseInt(i)) + " : " + topFighters[i].username + " (" + topFighters[i].points + " PP Points)");
+			_message.channel.send("#" + (1+parseInt(i)) + ": " + topFighters[i].username + " (" + topFighters[i].points + " PP Points)");
 		}
 		return;
 	}
@@ -528,7 +528,7 @@ CLIENT.on("message", async _message => {
 		}
 
 		if (getRandomPercent() <= 2) {
-			return _message.channel.send("Oops, looks like there was an error :\n<Error> : \"I don't care about your duel\"");
+			return _message.channel.send("Oops, looks like there was an error:\n<Error>: \"I don't care about your duel\"");
 		}
 
 		var duel = new Duel(argsUser[1] == "simpleduel");
@@ -541,12 +541,12 @@ CLIENT.on("message", async _message => {
 	}
 	if (argsUser[1] == "punch") {
 		if (_message.mentions.users.array().length <= 1) {
-			if (argsUser.length == 3) return _message.reply("why? :("); // punch arbitrator
+			if (argsUser.length == 3) return _message.reply("why?:("); // punch arbitrator
 
 			return _message.reply("you need to tag the person you want to punch in the command!\nSee the help command for more help!");
 		}
 
-		return _message.channel.send("Video proof of " + _message.author.username + " punching " + _message.mentions.users.last().username + "'s PP :\n" + IMAGE_PP5);
+		return _message.channel.send("Video proof of " + _message.author.username + " punching " + _message.mentions.users.last().username + "'s PP:\n" + IMAGE_PP5);
 	}
 	if (argsUser[1] == "quit") {
 		if (getDuel(_message.channel.id) != null) {
@@ -635,7 +635,7 @@ CLIENT.on("message", async _message => {
 	}
 	if (argsUser[1] == "help") {
 		// HELP
-		return _message.reply("you should read the PP Bible here : https://github.com/brennfeu/pp-bot/wiki/PP-Bible");
+		return _message.reply("you should read the PP Bible here: https://github.com/brennfeu/pp-bot/wiki/PP-Bible");
 	}
 	if (argsUser[1] == "admin") {
 		try {
@@ -671,19 +671,19 @@ CLIENT.on("message", async _message => {
 			}
 			if (argsUser[2] == "forceEvent" && argsUser.length >= 4) {
 				duel.FORCE_EVENT_ID = parseInt(argsUser[3]);
-				return _message.reply("next event id will be : " + duel.FORCE_EVENT_ID);
+				return _message.reply("next event id will be: " + duel.FORCE_EVENT_ID);
 			}
 			if (argsUser[2] == "requiem1" && argsUser.length >= 4) {
 				duel.FIGHTER1.requiemPower = REQUIEM_LIST[parseInt(argsUser[3])-1];
-				return _message.reply(duel.FIGHTER1.getName() + " gets : " + REQUIEM_LIST[parseInt(argsUser[3])-1]);
+				return _message.reply(duel.FIGHTER1.getName() + " gets: " + REQUIEM_LIST[parseInt(argsUser[3])-1]);
 			}
 			if (argsUser[2] == "requiem2" && argsUser.length >= 4) {
 				duel.FIGHTER2.requiemPower = REQUIEM_LIST[parseInt(argsUser[3])-1];
-				return _message.reply(duel.FIGHTER2.getName() + " gets : " + REQUIEM_LIST[parseInt(argsUser[3])-1]);
+				return _message.reply(duel.FIGHTER2.getName() + " gets: " + REQUIEM_LIST[parseInt(argsUser[3])-1]);
 			}
 			if (argsUser[2] == "moveCount" && argsUser.length >= 4) {
 				duel.MOVE_COUNT = parseInt(argsUser[3]);
-				return _message.reply("duel move count : " + duel.MOVE_COUNT);
+				return _message.reply("duel move count: " + duel.MOVE_COUNT);
 			}
 		}
 		catch(e) {
@@ -752,7 +752,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 				}
 			}
 			catch(e) {
-				user.send("I'm sorry I can't do that :(");
+				user.send("I'm sorry I can't do that:(");
 				user.send("Looks like there is no " + PP_SKIPPER_ROLE + " role there...");
 			}
 		}

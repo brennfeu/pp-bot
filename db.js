@@ -12,7 +12,7 @@ function executeQuery(_str) {
 		return DB_CONNECTION.query(_str)
 	}
 	catch(e) {
-		console.log("QUERY ERROR :")
+		console.log("QUERY ERROR:")
 		console.log(_str)
 		throw e
 	}
