@@ -8,6 +8,7 @@ var Fighter = class {
 		this.idUser = _idUser;
 		this.guildUser = getDuel(_idDuel).GUILD.members.cache.get(_idUser);
 		this.user = this.guildUser.user;
+		this.userBuild = getPlayerBuild(this.idUser);
 		updatePlayer(this.user.id, this.user.username.secureXSS())
 
 		this.duel = getDuel(_idDuel);
@@ -163,19 +164,19 @@ var Fighter = class {
 		}
 		else {
 			// Create a fighter
-			if (this.guildUser.roles.cache.find(r => r.name == BIG_PP_ROLE)) {
+			if (this.guildUser.userBuild.fightingstyles.indexOf(BIG_PP_ROLE) > -1) {
 				this.isBigPP = true;
 			}
-			if (this.guildUser.roles.cache.find(r => r.name == FAST_PP_ROLE)) {
+			if (this.guildUser.userBuild.fightingstyles.indexOf(FAST_PP_ROLE) > -1) {
 				this.isFastPP = true;
 			}
-			if (this.guildUser.roles.cache.find(r => r.name == DRUNK_PP_ROLE)) {
+			if (this.guildUser.userBuild.fightingstyles.indexOf( DRUNK_PP_ROLE) > -1) {
 				this.isDrunkPP = true;
 			}
-			if (this.guildUser.roles.cache.find(r => r.name == HOCKEY_PUCK_PP_ROLE)) {
+			if (this.guildUser.userBuild.fightingstyles.indexOf(HOCKEY_PUCK_PP_ROLE) > -1) {
 				this.isHockeyPuckPP = true;
 			}
-			if (this.guildUser.roles.cache.find(r => r.name == ALIEN_PP_ROLE)) {
+			if (this.guildUser.userBuild.fightingstyles.indexOf(ALIEN_PP_ROLE) > -1) {
 				this.isAlienPP = true;
 			}
 			if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
@@ -183,7 +184,7 @@ var Fighter = class {
 			}
 
 			for (var i in GOD_LIST) {
-				if (this.guildUser.roles.cache.find(r => r.name == getPriestRoleName(GOD_LIST[i]))) {
+				if (this.userBuild.gods.indexOf(GOD_LIST[i].name) > -1) {
 					this.godList.push(GOD_LIST[i].name)
 				}
 			}
