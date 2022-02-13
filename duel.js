@@ -99,7 +99,10 @@ var Duel = class {
 			this.FIGHTER2 = new Fighter(CLIENT.user.id, this.BATTLE_CHANNEL.id);
 			this.FIGHTER2.STRValue = 100;
 		}
-		if (this.EASY_DUEL) {
+
+		this.PPLEVEL = Maths.min(getWinCounter(this.FIGHTER1.idUser), getWinCounter(this.FIGHTER2.idUser));
+
+		if (this.PPLEVEL <= 50 || this.EASY_DUEL) {
 			this.bothFightersAction(function(_fighter) {
 				_fighter.godList = [];
 			});
@@ -117,20 +120,20 @@ var Duel = class {
 		}
 
 		// Wild Start
-		if (getRandomPercent() <= 5) {
+		if (this.PPLEVEL > 50 && getRandomPercent() <= 5) {
 			this.addMessage("**===== WILD START =====**");
 			this.addMessage("Let's make things a bit more interesting!");
 			this.REVERSE_DAMAGE = 1;
 			this.NUCLEAR_BOMB = 1;
 		}
 		// Christian
-		if (getRandomPercent() <= 10 && !this.CHRISTIAN_TEXT) {
+		if (this.PPLEVEL > 50 && getRandomPercent() <= 10 && !this.CHRISTIAN_TEXT) {
 			this.addMessage("**===== CHRISTIAN GAME =====**");
 			this.addMessage("Let's be a bit more friendly for Timmy:)");
 			this.CHRISTIAN_TEXT = true;
 		}
 		// Weeb
-		if (getRandomPercent() <= 10) {
+		if (this.PPLEVEL > 50 && getRandomPercent() <= 10) {
 			this.addMessage("**===== WEEB =====**");
 			this.addMessage(BOSS_PP11 + " challenges you!\n" + IMAGE_PP7);
 			this.CURRENT_BOSS = BOSS_PP11;
@@ -139,7 +142,7 @@ var Duel = class {
 			this.EVENT_BOSS = true;
 		}
 		// Nuisance
-		if (getRandomPercent() <= 5) {
+		if (this.PPLEVEL > 50 && getRandomPercent() <= 5) {
 			this.addMessage("**===== ROOT OF NUISANCE =====**");
 			this.addMessage("Pudding just wants to harass you during the battle!\n" + IMAGE_PP8);
 			this.PUDDING_NUISANCE = Math.floor(getRandomPercent()/10) + 1;
@@ -1018,6 +1021,16 @@ var Duel = class {
 		}).catch(function(e) {
 			// LEVEL ALREADY DEAD
 		});
+
+		if (this.PPLEVEL <= 200) { // show move effects
+			for (var i in this.LIST_AVAILABLE_ATTACKS) {
+				var txt = `${CLIENT.emojis.cache.get(this.LIST_AVAILABLE_ATTACKS[i])} `;
+				txt += MOVE_HELP[this.LIST_AVAILABLE_ATTACKS[i]];
+
+				this.addMessage(txt);
+			}
+			this.sendMessages();
+		}
 	}
 
 	checkDeath() {
@@ -1237,7 +1250,7 @@ var Duel = class {
 			this.addMessage(" -- SEXUAL CONFUSION --");
 			this.addMessage("Your PPs are confused for this turn.");
 		}
-		else if (randomVar == 5 && (this.MOVE_COUNT >= 30 || forcedEvent)) {
+		else if (this.PPLEVEL > 100 && randomVar == 5 && (this.MOVE_COUNT >= 30 || forcedEvent)) {
 			// Cthulhu
 			if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP1) {
 				this.addMessage(" -- MOON LORD AWAKENS --");
@@ -1265,7 +1278,7 @@ var Duel = class {
 				this.CURRENT_BOSS = BOSS_PP1;
 			}
 		}
-		else if (randomVar == 6 && (this.MOVE_COUNT >= 30 || forcedEvent)) {
+		else if (this.PPLEVEL > 100 && randomVar == 6 && (this.MOVE_COUNT >= 30 || forcedEvent)) {
 			// Accidental Summoning
 			this.addMessage(" -- ACCIDENTAL SUMMONING --");
 			var winner = this.getRandomFighter();
@@ -1274,7 +1287,7 @@ var Duel = class {
 			winner.playMove(EMOTE_PP26);
 			winner.playMove(EMOTE_PP46);
 		}
-		else if (randomVar == 7 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
+		else if (this.PPLEVEL > 50 && randomVar == 7 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
 			// Blood Moon
 			this.EVENT_BLOOD_MOON = true;
 			this.addMessage(" -- BLOOD MOON --");
@@ -1290,7 +1303,7 @@ var Duel = class {
 				this.addMessage("The Moon Lord is blessed by the Blood Moon.");
 			}
 		}
-		else if (randomVar == 8 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
+		else if (this.PPLEVEL > 50 && randomVar == 8 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
 			// Ascension
 			this.addMessage(" -- ASCENSION --");
 			var winner = this.getRandomFighter();
@@ -1299,7 +1312,7 @@ var Duel = class {
 				_fighter.playMove(EMOTE_PP49);
 			});
 		}
-		else if ([9, 10, 11, 12, 13, 14, 15, 16, 17, 18].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 10 || forcedEvent) && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
+		else if (this.PPLEVEL > 50 && [9, 10, 11, 12, 13, 14, 15, 16, 17, 18].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 10 || forcedEvent) && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
 			// Charge
 			this.addMessage(" -- GODS BIRTHDAY GIFTS --");
 			if (this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
@@ -1315,7 +1328,7 @@ var Duel = class {
 				});
 			}
 		}
-		else if ([19, 20, 21].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 25 || forcedEvent) && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
+		else if (this.PPLEVEL > 50 && [19, 20, 21].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 25 || forcedEvent) && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
 			// Charge
 			this.addMessage(" -- GODS CHRISTMAS GIFTS --");
 			if (this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
@@ -1331,7 +1344,7 @@ var Duel = class {
 				});
 			}
 		}
-		else if (randomVar == 22) {
+		else if (this.PPLEVEL > 50 && randomVar == 22) {
 			// Huge Gay Night
 			this.addMessage(" -- HUGE GAY NIGHT --");
 			if (this.GAY_TURNS > 0) {
@@ -1344,7 +1357,7 @@ var Duel = class {
 			}
 
 		}
-		else if (randomVar == 23 && (this.MOVE_COUNT >= 30 || forcedEvent) && this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
+		else if (this.PPLEVEL > 50 && randomVar == 23 && (this.MOVE_COUNT >= 30 || forcedEvent) && this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
 			// PP Blessing
 			this.addMessage(" -- PP BLESSING --");
 			this.addMessage("You suddenly feel new powers in your PP!");
@@ -1361,7 +1374,7 @@ var Duel = class {
 				_fighter.isAlienPP = true;
 			});
 		}
-		else if ([24, 25].indexOf(randomVar) > -1 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
+		else if (this.PPLEVEL > 50 && [24, 25].indexOf(randomVar) > -1 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
 			// Free Lives
 			if (this.EVENT_BOSS) {
 				this.addMessage(" -- FREE LIVES GOOD UPDATES --");
@@ -1381,7 +1394,7 @@ var Duel = class {
 				this.CURRENT_BOSS = BOSS_PP2;
 			}
 		}
-		else if (randomVar == 26) {
+		else if (this.PPLEVEL > 50 && randomVar == 26) {
 			// Tragedy
 			this.addMessage(" -- TRAGEDY --");
 			if (getRandomPercent() <= 50) {
@@ -1419,7 +1432,7 @@ var Duel = class {
 				_fighter.attack = EMOTE_SKIP;
 			});
 		}
-		else if ([27, 28, 29, 30, 31].indexOf(randomVar) > -1) {
+		else if (this.PPLEVEL > 50 && [27, 28, 29, 30, 31].indexOf(randomVar) > -1) {
 			// PP-Net
 			this.PP_NET += 1;
 			if (this.PP_NET == 1) {
@@ -1507,13 +1520,13 @@ var Duel = class {
 				this.PP_NET -= 1;
 			}
 		}
-		else if (randomVar == 32) {
+		else if (this.PPLEVEL > 50 && randomVar == 32) {
 			// Day of the PP Equality
 			this.addMessage(" -- DAY OF THE PP EQUALITY --");
 			this.addMessage("Today is Day of the PP Equality ! There is no DEX modifier for moves for this turn!");
 			this.EVENT_PP_EQUALITY = true;
 		}
-		else if (randomVar == 33 && (this.MOVE_COUNT >= 1000 || forcedEvent)) {
+		else if (this.PPLEVEL > 100 && randomVar == 33 && (this.MOVE_COUNT >= 1000 || forcedEvent)) {
 			// Eldritch Gate
 			this.addMessage(" -- ELDRITCH GATE --");
 			if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP8) {
@@ -1537,7 +1550,7 @@ var Duel = class {
 				this.CURRENT_BOSS = BOSS_PP8;
 			}
 		}
-		else if (randomVar == 34 && (this.MOVE_COUNT >= 100 || forcedEvent)) {
+		else if (this.PPLEVEL > 50 && randomVar == 34 && (this.MOVE_COUNT >= 100 || forcedEvent)) {
 			// Ascension Requiem
 			this.addMessage(" -- ASCENSION REQUIEM --");
 			var winner = this.getRandomFighter();
@@ -1547,7 +1560,7 @@ var Duel = class {
 				_fighter.playMove(EMOTE_PP77);
 			});
 		}
-		else if (randomVar == 35 && this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
+		else if (this.PPLEVEL > 50 && randomVar == 35 && this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
 			// BIZARRE PP
 			this.addMessage(" -- BIZARRE PP BATTLE --");
 			this.bothFightersAction(function(_fighter) {
@@ -1557,13 +1570,13 @@ var Duel = class {
 			});
 			this.checkStandSummon();
 		}
-		else if (randomVar == 36) {
+		else if (this.PPLEVEL > 50 && randomVar == 36) {
 			// Mega Movepool
 			this.addMessage(" -- MEGA MOVEPOOL --");
 			this.addMessage("You get blessed by the gods and get an extended movepool for this turn!");
 			this.EVENT_MEGA_POOL = true;
 		}
-		else if (randomVar == 37) {
+		else if (this.PPLEVEL > 50 && randomVar == 37) {
 			// PP Depression
 			this.addMessage(" -- PP DEPRESSION --");
 			this.addMessage("PP Punching is not fun... Maybe you should put an end to this...? It is utter nonsense to punch PP anyway, let's just end what you shouldn't have started...");
@@ -1573,7 +1586,7 @@ var Duel = class {
 				this.addMessage("You're not even gay anymore...");
 			}
 		}
-		else if (randomVar == 38 && (this.MOVE_COUNT >= 10 || forcedEvent)) {
+		else if (this.PPLEVEL > 50 && randomVar == 38 && (this.MOVE_COUNT >= 10 || forcedEvent)) {
 			// Impending Bombardment
 			this.addMessage(" -- IMPENDING BOMBARDMENT --");
 			this.addMessage("A missile has been spotted above the battleground ! You have one turn before it hits the ground and explodes!");
@@ -1599,7 +1612,7 @@ var Duel = class {
 			this.addMessage("They bite " + winner.getName() + "'s PP as he seems to have the toughest PP.");
 			winner.damage(Math.floor(winner.STR/10));
 		}
-		else if (randomVar == 41 && (this.MOVE_COUNT >= 30 || forcedEvent) && this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
+		else if (this.PPLEVEL > 50 && randomVar == 41 && (this.MOVE_COUNT >= 30 || forcedEvent) && this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
 			// Kaiju Attack
 			this.addMessage(" -- KAIJU ATTACK --");
 			var winner = this.getRandomFighter();
@@ -1621,7 +1634,7 @@ var Duel = class {
 				_fighter.resetBattleVariables();
 			});
 		}
-		else if (randomVar == 43) {
+		else if (this.PPLEVEL > 100 && randomVar == 43) {
 			// Alternate Universe
 			if (this.POOPOO_UNIVERSE) {
 				this.POOPOO_UNIVERSE = false;
@@ -1644,19 +1657,19 @@ var Duel = class {
 				this.ALTERNATE_MOVE_COUNT = this.MOVE_COUNT;
 			}
 		}
-		else if (randomVar == 44 && (this.MOVE_COUNT >= 1000 || forcedEvent)) {
+		else if (this.PPLEVEL > 100 && randomVar == 44 && (this.MOVE_COUNT >= 1000 || forcedEvent)) {
 			// Obama
 			this.addMessage(" -- OBAMIUM --");
 			this.addMessage("Thanks to your PP Punching, a new Obamium source has been found ! Scientists are giving you some!");
 			this.OBAMIUM = true;
 			this.OBAMIUM_DONE = true;
 		}
-		else if ([45, 46, 47, 48, 49].indexOf(randomVar) > -1) {
+		else if (this.PPLEVEL > 50 && [45, 46, 47, 48, 49].indexOf(randomVar) > -1) {
 			// PP Net more likely to happen
 			this.FORCE_EVENT_ID = 27;
 			this.startRandomEvent();
 		}
-		else if (randomVar == 50 && (this.MOVE_COUNT >= 1000 || forcedEvent)) {
+		else if (this.PPLEVEL > 200 && randomVar == 50 && (this.MOVE_COUNT >= 1000 || forcedEvent)) {
 			// Wyndoella
 			this.addMessage(" -- WYNDOELLA KILLS PUDDING --");
 			this.addMessage("The Universe itself is against you!\n" + IMAGE_PP9);
@@ -1665,7 +1678,7 @@ var Duel = class {
 			this.BOSS_DAMAGE = Infinity;
 			this.CURRENT_BOSS = BOSS_PP15;
 		}
-		else if (randomVar == 51 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
+		else if (this.PPLEVEL > 50 && randomVar == 51 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
 			// IKEA
 			if (this.EVENT_BOSS) {
 				if (this.CURRENT_BOSS == BOSS_PP16) {
@@ -1695,7 +1708,7 @@ var Duel = class {
 			}
 		}
 		// DON'T FORGET TO UPDATE FORCE EVENT IF NEW EVENTS ARE ADDED
-		else if (randomVar == 90 && (this.MOVE_COUNT >= 50 || forcedEvent)) {
+		else if (this.PPLEVEL > 200 && randomVar == 90 && (this.MOVE_COUNT >= 50 || forcedEvent)) {
 			// Brenn Ejaculates
 			this.addMessage(" -- BRENN EJACULATES --");
 			this.addMessage("For some reasons, this summons every event!");
@@ -2343,6 +2356,8 @@ var Duel = class {
 	}
 
 	checkStandSummon() {
+		if (this.PPLEVEL <= 50) return;
+
 		if (!this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
 			this.bothFightersAction(function(_fighter) {
 				var check = false;
@@ -2484,7 +2499,7 @@ var Duel = class {
 				if (this.KIDNEY_CURSE <= i || this.KIDNEY_CURSE <= 0) {
 					var currentLength = listeAttaques.length;
 					while (listeAttaques.length <= currentLength) {
-						if (this.MOVE_COUNT == 0 && getRandomPercent() <= 33 && i == 0) {
+						if (this.PPLEVEL > 200 && this.MOVE_COUNT == 0 && getRandomPercent() <= 33 && i == 0) {
 							emote = EMOTE_PP81; // Melodia
 						}
 						else if (getRandomPercent() > 20) {

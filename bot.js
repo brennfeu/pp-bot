@@ -172,6 +172,8 @@ function checkUpdateEncyclopedia() {
 					if (emote != "") {
 						var emote2 = CLIENT.emojis.cache.get(emote);
 						message += `${emote2} `;
+
+						MOVE_HELP[emote] = fullBible[j];
 					}
 					message += fullBible[j] + "\n";
 				}
