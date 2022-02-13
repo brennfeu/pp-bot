@@ -184,10 +184,10 @@ function setBotActivity(_texte = "Lonely PP Squeezing :(") {
 	var texte = _texte;
 	if (DUEL_LIST.length > 0) {
 		if (DUEL_LIST.length == 1) {
-			texte = DUEL_LIST.length + " duel of PP Punching:)";
+			texte = DUEL_LIST.length + " duel of PP Punching :)";
 		}
 		else {
-			texte = DUEL_LIST.length + " duels of PP Punching:)";
+			texte = DUEL_LIST.length + " duels of PP Punching :)";
 		}
 	}
 	CLIENT.user.setPresence({ activity: { name: texte } })
@@ -481,6 +481,10 @@ CLIENT.on("message", async _message => {
 	if (argsUser[1] == "rank") {
 		// RANK
 		_message.channel.send("You have " + getWinCounter(_message.author.id) + " PP Points\nYour Rank is #" + getRank(_message.author.id));
+		_message.channel.send("Current build:\n" + getPlayerBuild(_message.author.id));
+
+		if (isPlayerWeebPP(_message.author.id)) _message.channel.send("You have a **Weeb PP**.");
+		if (isPlayerExpertPP(_message.author.id)) _message.channel.send("You are a **PP Expert**.");
 		return;
 	}
 	if (argsUser[1] == "ranks") {
