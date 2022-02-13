@@ -271,7 +271,7 @@ function toggleFightingStyle(_fighterID, _fightingStyle) {
 		build.fightingstyles.push(_fightingStyle);
 	}
 
-	return this.setPlayerBuild(_fighterID, build);
+	return setPlayerBuild(_fighterID, build);
 }
 function toggleGod(_fighterID, _god) {
 	var build = getPlayerBuild(_fighterID);
@@ -283,7 +283,7 @@ function toggleGod(_fighterID, _god) {
 		build.gods.push(_god);
 	}
 
-	return this.setPlayerBuild(_fighterID, build);
+	return setPlayerBuild(_fighterID, build);
 }
 
 async function sendCheatPanel(_channel, _category = null) {
