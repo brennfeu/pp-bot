@@ -164,19 +164,19 @@ var Fighter = class {
 		}
 		else {
 			// Create a fighter
-			if (this.guildUser.userBuild.fightingstyles.indexOf(BIG_PP_ROLE) > -1) {
+			if (this.userBuild.fightingstyles.indexOf(BIG_PP_ROLE) > -1) {
 				this.isBigPP = true;
 			}
-			if (this.guildUser.userBuild.fightingstyles.indexOf(FAST_PP_ROLE) > -1) {
+			if (this.userBuild.fightingstyles.indexOf(FAST_PP_ROLE) > -1) {
 				this.isFastPP = true;
 			}
-			if (this.guildUser.userBuild.fightingstyles.indexOf( DRUNK_PP_ROLE) > -1) {
+			if (this.userBuild.fightingstyles.indexOf( DRUNK_PP_ROLE) > -1) {
 				this.isDrunkPP = true;
 			}
-			if (this.guildUser.userBuild.fightingstyles.indexOf(HOCKEY_PUCK_PP_ROLE) > -1) {
+			if (this.userBuild.fightingstyles.indexOf(HOCKEY_PUCK_PP_ROLE) > -1) {
 				this.isHockeyPuckPP = true;
 			}
-			if (this.guildUser.userBuild.fightingstyles.indexOf(ALIEN_PP_ROLE) > -1) {
+			if (this.userBuild.fightingstyles.indexOf(ALIEN_PP_ROLE) > -1) {
 				this.isAlienPP = true;
 			}
 			if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
