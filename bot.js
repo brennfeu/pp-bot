@@ -267,8 +267,7 @@ function isPlayerExpertPP(_fighterID) {
 	if (result.length == 0) return addFighterToDB(_fighterID, "???");
 
 	var result2 = executeQuery("SELECT expertPP FROM Player WHERE id = " + _fighterID);
-	console.log(result2)
-	return result2 == 1;
+	return result2[0].expertPP == 1;
 }
 function isPlayerWeebPP(_fighterID) {
 	var result = executeQuery("SELECT id, points FROM Player WHERE id = " + _fighterID)
@@ -276,8 +275,7 @@ function isPlayerWeebPP(_fighterID) {
 	if (result.length == 0) return addFighterToDB(_fighterID, "???");
 
 	var result2 = executeQuery("SELECT weebPP FROM Player WHERE id = " + _fighterID);
-	console.log(result2)
-	return result2 == 1;
+	return result2[0].weebPP == 1;
 }
 function grantPlayerExpertPP(_fighter) {
 	updatePlayer(_fighter.user.id, _fighter.user.username.secureXSS())
