@@ -307,6 +307,11 @@ function toggleGod(_fighterID, _god) {
 		build.gods.splice(build.gods.indexOf(_god), 1);
 	}
 	else {
+		if (build.gods.length > 4 || (build.gods.length > 3 && !isPlayerExpertPP(_user.id))) return;
+		if (GOD_LIST.find(a => a.name == _god).type == "eldritch") {
+			for (var j in build.gods) if (GOD_LIST.find(a => a.name == build.gods[j]).type == "eldritch") return;
+		}
+
 		build.gods.push(_god);
 	}
 
@@ -782,16 +787,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	// gods
 	for (var i in GOD_LIST) {
 		if (_reaction.emoji.id == GOD_LIST[i].emote) {
-			var currentBuild = getPlayerBuild(_user.id);
-			if (currentBuild.gods.length > 4 || (currentBuild.gods.length > 3 && !isPlayerExpertPP(_user.id))) return;
-
 			if (GOD_LIST[i].type == "waifu" && !isPlayerWeebPP(_user.id)) return;
 			if (GOD_LIST[i].type == "eldritch" && !isPlayerExpertPP(_user.id)) return;
-
-			// check only one eldritch god
-			if (GOD_LIST[i].type == "eldritch") {
-				for (var j in currentBuild.gods) if (GOD_LIST.find(a => a.name == currentBuild.gods[j]).type == "eldritch") return;
-			}
 
 			toggleGod(_user.id, GOD_LIST[i].name);
 			reactionChannel.send(buildToString(getPlayerBuild(_user.id)));
