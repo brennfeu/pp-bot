@@ -553,7 +553,7 @@ CLIENT.on("message", async _message => {
 
 		return;
 	}
-	if (argsUser[1] == "duel" || argsUser[1] == "simpleduel" || argsUser[1] == "hug") {
+	if (argsUser[1] == "duel" || argsUser[1] == "hug") {
 		if (getDuel(_message.channel.id) != null) {
 			return _message.reply("there's a battle going on here...");
 		}
@@ -574,7 +574,7 @@ CLIENT.on("message", async _message => {
 			return _message.channel.send("Oops, looks like there was an error:\n<Error>: \"I don't care about your duel\"");
 		}
 
-		var duel = new Duel(argsUser[1] == "simpleduel");
+		var duel = new Duel(false);
 		duel.CHRISTIAN_TEXT = argsUser[1] == "hug";
 		DUEL_LIST.push(duel);
 
