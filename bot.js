@@ -196,11 +196,7 @@ function setBotActivity(_texte = "Lonely PP Squeezing :(") {
 function updatePlayer(_fighterID, _username) {
 	var result = executeQuery("SELECT id, points FROM Player WHERE id = " + _fighterID)
 
-	if (result.length == 0) {
-		executeQuery("INSERT INTO Player (id, username) VALUES (" + _fighterID + ", '" + _username + "')");
-		console.log("Added a new fighter to the DB!");
-		return;
-	}
+	if (result.length == 0) return addFighterToDB(_fighterID, _username);
 
 	if (_username != result[0].username) {
 		executeQuery("UPDATE Player SET username = '" + _username + "' WHERE id = " + result[0].id);
@@ -209,14 +205,14 @@ function updatePlayer(_fighterID, _username) {
 function getWinCounter(_fighterID) {
 	var result = executeQuery("SELECT id, points FROM Player WHERE id = " + _fighterID)
 
-	if (result.length == 0) {
-		executeQuery("INSERT INTO Player (id, username) VALUES (" + _fighterID + ", '" + _username + "')");
-		console.log("Added a new fighter to the DB!");
-		return;
-	}
+	if (result.length == 0) return addFighterToDB(_fighterID, "???");
 
 	var result2 = executeQuery("SELECT points FROM Player WHERE id = " + _fighterID)
 	return result2[0].points;
+}
+function addFighterToDB(_id, _name) {
+	executeQuery("INSERT INTO Player (id, username) VALUES (" + _id + ", '" + _name + "')");
+	console.log("Added a new fighter to the DB: " + _name);
 }
 function getRank(_fighterID) {
 	var result = executeQuery("SELECT num FROM ( SELECT (@row_number:=@row_number + 1) AS num, id FROM Player, (SELECT @row_number:=0) AS t ORDER BY points DESC ) AS t2 WHERE id = " + _fighterID)
@@ -232,55 +228,62 @@ function getTopFighters() {
 	return executeQuery("SELECT * FROM Player ORDER BY points DESC LIMIT 10");
 }
 
-function changeRoleToStyler(_nomRole, _styler, _guild) {
-	var role = _guild.roles.cache.find(r => r.name == _nomRole);
-	var user = _guild.members.cache.get(_styler);
+function getPlayerBuild(_fighterID) {
+	var result = executeQuery("SELECT id, points FROM Player WHERE id = " + _fighterID)
 
-	try {
-		if (user.roles.cache.has(role.id)) {
-			user.roles.remove(role);
-		}
-		else if ([FAST_PP_ROLE, BIG_PP_ROLE, ALIEN_PP_ROLE, DRUNK_PP_ROLE, HOCKEY_PUCK_PP_ROLE].indexOf(role.name) > 0) {
-			user.roles.add(role);
-		}
-		else {
-			if (getNumberOfGods(user) >= 4 && user.roles.cache.find(r => r.name == PP_EXPERT_ROLE)) {
-				return;
-			}
-			if (getNumberOfGods(user) >= 3 && !user.roles.cache.find(r => r.name == PP_EXPERT_ROLE) ) {
-				return;
-			}
+	if (result.length == 0) return addFighterToDB(_fighterID, "???");
 
-			if (!user.roles.cache.find(r => r.name == PP_EXPERT_ROLE) &&
-			    GOD_LIST.find(r => getPriestRoleName(r) == _nomRole).type == "eldritch") {
-				return;
-			}
-			if (!user.roles.cache.find(r => r.name == WEEB_PP_ROLE) &&
-			    GOD_LIST.find(r => getPriestRoleName(r) == _nomRole).type == "waifu") {
-				return;
-			}
-
-			user.roles.add(role);
-
-			if (getNumberOfGods(user, false) >= 2) {
-				user.roles.remove(role);
-				return;
-			}
-		}
-	}
-	catch(e) {
-		console.log(e)
-		user.send("I'm sorry I can't do that:(\nLooks like there is no " + _nomRole + " role there...");
-	}
+	var result2 = executeQuery("SELECT build FROM Player WHERE id = " + _fighterID)
+	return JSON.parse(result2[0].build);
 }
-function getNumberOfGods(_guildUser, _includeNormalOnes = true) {
-	var counter = 0;
-	for (var i in GOD_LIST) {
-		if (_guildUser.roles.find(r => r.name == getPriestRoleName(GOD_LIST[i])) && (_includeNormalOnes || i.type != "normal")) {
-			counter++;
-		}
+function setPlayerBuild(_fighterID, _build) {
+	var result = executeQuery("SELECT id, points FROM Player WHERE id = " + _fighterID)
+
+	if (result.length == 0) return addFighterToDB(_fighterID, "???");
+
+	console.log(_fighter.getName() + " updates his build to: " + _build);
+	executeQuery("UPDATE Player SET build = " + _build + " WHERE id = " + _fighterID);
+}
+function buildToString(_build) {
+	var txt = "Fighting Styles:";
+
+	if (_build.fightingstyles.length = 0) txt += " None";
+	else {
+		for (var i in _build.fightingstyles) txt += " " + _build.fightingstyles[i];
 	}
-	return counter;
+
+	txt += "\nGods: ";
+	if (_build.gods.length = 0) txt += " None";
+	else {
+		for (var i in _build.gods) txt += " " + _build.gods[i];
+	}
+
+	return txt;
+}
+
+function toggleFightingStyle(_fighterID, _fightingStyle) {
+	var build = getPlayerBuild(_fighterID);
+
+	if (build.fightingstyles.indexOf(_fightingStyle) > -1) {
+		build.fightingstyles.splice(build.fightingstyles.indexOf(_fightingStyle), 1);
+	}
+	else {
+		build.fightingstyles.push(_fightingStyle);
+	}
+
+	return this.setPlayerBuild(_fighterID, build);
+}
+function toggleGod(_fighterID, _god) {
+	var build = getPlayerBuild(_fighterID);
+
+	if (build.gods.indexOf(_god) > -1) {
+		build.gods.splice(build.gods.indexOf(_god), 1);
+	}
+	else if (build.gods.length < 4) {
+		build.gods.push(_god);
+	}
+
+	return this.setPlayerBuild(_fighterID, build);
 }
 
 async function sendCheatPanel(_channel, _category = null) {
@@ -704,8 +707,10 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	checkMusicLoops();
 	checkUpdateEncyclopedia();
 
+	reactionChannel = _reaction.message.channel;
+
 	// DUEL
-	if (getDuel(_reaction.message.channel.id) != null && _user.id != CLIENT.user.id) {
+	if (getDuel(reactionChannel.id) != null && _user.id != CLIENT.user.id) {
 		var duel = getDuel(_reaction.message.channel.id);
 
 		duel.triggerReaction(_reaction.emoji.name, _user);
@@ -716,60 +721,43 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 	if (_user.bot) return;
 	if (_reaction.emoji.id == EMOTE_PP38) {
 		// Fast PP
-		changeRoleToStyler(FAST_PP_ROLE, _user.id, _reaction.message.channel.guild);
+		toggleFightingStyle(_user.id, FAST_PP_ROLE);
+		reactionChannel.send(buildToString(getPlayerBuild(_user.id)));
+		return;
 	}
 	else if (_reaction.emoji.id == EMOTE_PP40) {
 		// Big PP
-		changeRoleToStyler(BIG_PP_ROLE, _user.id, _reaction.message.channel.guild);
+		toggleFightingStyle(_user.id, BIG_PP_ROLE);
+		reactionChannel.send(buildToString(getPlayerBuild(_user.id)));
+		return;
 	}
 	else if (_reaction.emoji.id == EMOTE_PP41) {
 		// Drunk PP
-		changeRoleToStyler(DRUNK_PP_ROLE, _user.id, _reaction.message.channel.guild);
+		toggleFightingStyle(_user.id, DRUNK_PP_ROLE);
+		reactionChannel.send(buildToString(getPlayerBuild(_user.id)));
+		return;
 	}
 	else if (_reaction.emoji.id == EMOTE_PP34) {
 		// Alien PP
-		changeRoleToStyler(ALIEN_PP_ROLE, _user.id, _reaction.message.channel.guild);
+		toggleFightingStyle(_user.id, ALIEN_PP_ROLE);
+		reactionChannel.send(buildToString(getPlayerBuild(_user.id)));
+		return;
 	}
 	else if (_reaction.emoji.id == EMOTE_PP9) {
 		// Hockey Puck PP
-		changeRoleToStyler(HOCKEY_PUCK_PP_ROLE, _user.id, _reaction.message.channel.guild);
+		toggleFightingStyle(_user.id, HOCKEY_PUCK_PP_ROLE);
+		reactionChannel.send(buildToString(getPlayerBuild(_user.id)));
+		return;
 	}
 
-	// temporary return
-	return;
-
-	//else
-	if (_reaction.message.channel.guild.members.cache.get(_user.id).roles.has(_reaction.message.channel.guild.roles.cache.find(r => r.name == PP_EXPERT_ROLE).id)) {
-		if (_reaction.emoji.id == EMOTE_SKIPPER) {
-			var role = _reaction.message.channel.guild.roles.cache.find(r => r.name == PP_SKIPPER_ROLE);
-			var user = _reaction.message.channel.guild.members.cache.get(_user.id);
-			try {
-				if (user.roles.has(role.id)) {
-					user.removeRole(role);
-				}
-				else {
-					user.addRole(role);
-				}
-			}
-			catch(e) {
-				user.send("I'm sorry I can't do that:(");
-				user.send("Looks like there is no " + PP_SKIPPER_ROLE + " role there...");
-			}
-		}
-		for (var i in GOD_LIST) {
-			if (_reaction.emoji.id == GOD_LIST[i].emote) {
-				changeRoleToStyler(getPriestRoleName(GOD_LIST[i]), _user.id, _reaction.message.channel.guild);
-			}
+	// gods
+	for (var i in GOD_LIST) {
+		if (_reaction.emoji.id == GOD_LIST[i].emote) {
+			toggleGod(_user.id, GOD_LIST[i].name);
+			reactionChannel.send(buildToString(getPlayerBuild(_user.id)));
+			return;
 		}
 	}
-	else {
-		for (var i in GOD_LIST) {
-			if (_reaction.emoji.id == GOD_LIST[i].emote) {
-				changeRoleToStyler(getPriestRoleName(GOD_LIST[i]), _user.id, _reaction.message.channel.guild);
-			}
-		}
-	}
-	return;
 });
 
 CLIENT.login(process.env.BOT_TOKEN);
