@@ -266,14 +266,18 @@ function isPlayerExpertPP(_fighterID) {
 
 	if (result.length == 0) return addFighterToDB(_fighterID, "???");
 
-	return executeQuery("SELECT expertPP FROM Player WHERE id = " + _fighterID).expertPP == 1;
+	var result2 = executeQuery("SELECT expertPP FROM Player WHERE id = " + _fighterID);
+	console.log(result2)
+	return result2 == 1;
 }
 function isPlayerWeebPP(_fighterID) {
 	var result = executeQuery("SELECT id, points FROM Player WHERE id = " + _fighterID)
 
 	if (result.length == 0) return addFighterToDB(_fighterID, "???");
 
-	return executeQuery("SELECT weebPP FROM Player WHERE id = " + _fighterID).weebPP == 1;
+	var result2 = executeQuery("SELECT weebPP FROM Player WHERE id = " + _fighterID);
+	console.log(result2)
+	return result2 == 1;
 }
 function grantPlayerExpertPP(_fighter) {
 	updatePlayer(_fighter.user.id, _fighter.user.username.secureXSS())
@@ -635,6 +639,7 @@ CLIENT.on("message", async _message => {
 		}).catch(function(e) {
 			console.log(e);
 		});
+
 		if (isPlayerWeebPP(user.id)) {
 			_message.reply("here are your Weeb PP choices.").then(function (_message2) {
 				for (var i in GOD_LIST) {
@@ -658,6 +663,7 @@ CLIENT.on("message", async _message => {
 				console.log(e);
 			});
 		}
+
 		_message.channel.send(buildToString(getPlayerBuild(user.id)));
 		return;
 
