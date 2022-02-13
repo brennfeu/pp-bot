@@ -261,6 +261,31 @@ function buildToString(_build) {
 	return txt;
 }
 
+function isPlayerExpertPP(_fighterID) {
+	var result = executeQuery("SELECT id, points FROM Player WHERE id = " + _fighterID)
+
+	if (result.length == 0) return addFighterToDB(_fighterID, "???");
+
+	return executeQuery("SELECT expertPP FROM Player WHERE id = " + _fighterID).expertPP == 1;
+}
+function isPlayerWeebPP(_fighterID) {
+	var result = executeQuery("SELECT id, points FROM Player WHERE id = " + _fighterID)
+
+	if (result.length == 0) return addFighterToDB(_fighterID, "???");
+
+	return executeQuery("SELECT weebPP FROM Player WHERE id = " + _fighterID).weebPP == 1;
+}
+function grantPlayerExpertPP(_fighter) {
+	updatePlayer(_fighter.user.id, _fighter.user.username.secureXSS())
+
+	executeQuery("UPDATE Player SET expertPP = 1 WHERE id = " + _fighter.user.id);
+}
+function grantPlayerWeebPP(_fighter) {
+	updatePlayer(_fighter.user.id, _fighter.user.username.secureXSS())
+
+	executeQuery("UPDATE Player SET weebPP = 1 WHERE id = " + _fighter.user.id);
+}
+
 function toggleFightingStyle(_fighterID, _fightingStyle) {
 	var build = getPlayerBuild(_fighterID);
 
@@ -610,7 +635,7 @@ CLIENT.on("message", async _message => {
 		}).catch(function(e) {
 			console.log(e);
 		});
-		if (user.roles.cache.find(r => r.name == WEEB_PP_ROLE)) {
+		if (isPlayerWeebPP(user.id)) {
 			_message.reply("here are your Weeb PP choices.").then(function (_message2) {
 				for (var i in GOD_LIST) {
 					if (GOD_LIST[i].type == "waifu") {
@@ -621,7 +646,7 @@ CLIENT.on("message", async _message => {
 				console.log(e);
 			});
 		}
-		if (user.roles.cache.find(r => r.name == PP_EXPERT_ROLE)) {
+		if (isPlayerExpertPP(user.id)) {
 			_message.reply("here are your PP Expert choices.").then(function (_message2) {
 				for (var i in GOD_LIST) {
 					if (GOD_LIST[i].type == "eldritch") {

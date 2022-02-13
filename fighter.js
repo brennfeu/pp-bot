@@ -170,7 +170,7 @@ var Fighter = class {
 			if (this.userBuild.fightingstyles.indexOf(FAST_PP_ROLE) > -1) {
 				this.isFastPP = true;
 			}
-			if (this.userBuild.fightingstyles.indexOf( DRUNK_PP_ROLE) > -1) {
+			if (this.userBuild.fightingstyles.indexOf(DRUNK_PP_ROLE) > -1) {
 				this.isDrunkPP = true;
 			}
 			if (this.userBuild.fightingstyles.indexOf(HOCKEY_PUCK_PP_ROLE) > -1) {

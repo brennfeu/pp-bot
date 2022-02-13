@@ -240,7 +240,7 @@ var Duel = class {
 			this.addMessage("-----------------");
 			this.addMessage(this.FIGHTER1.toString());
 			this.addMessage("-----------------");
-			this.addMessage("**Fighting styles** are permanent effects you starts with, depending on your choice. Using the '*@PP_Arbitrator custom*' command allows you to choose your fighting styles, using discord roles.");
+			this.addMessage("**Fighting styles** are permanent effects you starts with, depending on your choice. Using the '*@PP_Arbitrator custom*' command allows you to choose your fighting styles.");
 			this.addMessage("**Status** are effects you get during the battle. Some are good to get, some aren't. Some are permanent, some aren't.");
 			this.addMessage("We'll get to **Synergies** later.");
 			this.addMessage("-----------------");
@@ -614,17 +614,11 @@ var Duel = class {
 						});
 						this.EVENT_BOSS = false;
 
-						var role = this.GUILD.roles.cache.find(r => r.name == PP_EXPERT_ROLE);
-						try {
-							this.bothFightersAction(function(_fighter) {
-								_fighter.guildUser.roles.add(role).catch(console.error);
-							});
-							this.addMessage("**You are now PP Experts.**");
-							this.addMessage("**You have gained access to the eldritch gods.**");
-						}
-						catch(e) {
-							this.addMessage("This server doesn't have the 'PP Expert' roles, sorry:/");
-						}
+						this.bothFightersAction(function(_fighter) {
+							grantPlayerExpertPP(_fighter);
+						});
+						this.addMessage("**You are now PP Experts.**");
+						this.addMessage("**You have gained access to the eldritch gods.**");
 
 						return this.stopDuel();
 					}
@@ -703,16 +697,10 @@ var Duel = class {
 						this.addMessage(this.CURRENT_BOSS + " abandons!");
 						this.EVENT_BOSS = false;
 
-						var role = this.GUILD.roles.cache.find(r => r.name == WEEB_PP_ROLE);
-						try {
-							this.bothFightersAction(function(_fighter) {
-								_fighter.guildUser.roles.add(role).catch(console.error);
-							});
-							this.addMessage("**You now have a Weeb PP.**");
-						}
-						catch(e) {
-							this.addMessage("This server doesn't have the 'Weeb PP' roles, sorry:/");
-						}
+						this.bothFightersAction(function(_fighter) {
+							grantPlayerWeebPP(_fighter);
+						});
+						this.addMessage("**You now have a Weeb PP.**");
 						this.addMessage("-----------------");
 
 						espinozaBoss = getRandomPercent() <= 20;

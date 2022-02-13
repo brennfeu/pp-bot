@@ -140,7 +140,3 @@ function fibonacciNumber(_n) {
 	}
 	return b;
 }
-
-function getPriestRoleName(_god) {
-	return _god.name + " Priest";
-}
