@@ -633,6 +633,7 @@ CLIENT.on("message", async _message => {
 				console.log(e);
 			});
 		}
+		_message.channel.send(buildToString(getPlayerBuild(user.id)));
 		return;
 
 	}
