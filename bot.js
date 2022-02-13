@@ -241,8 +241,8 @@ function setPlayerBuild(_fighterID, _build) {
 
 	if (result.length == 0) return addFighterToDB(_fighterID, "???");
 
-	console.log(_fighterID + " updates his build to: " + _build);
-	executeQuery("UPDATE Player SET build = " + _build + " WHERE id = " + _fighterID);
+	console.log(_fighterID + " updates his build to:\n" + buildToString(_build));
+	executeQuery("UPDATE Player SET build = '" + JSON.stringify(_build) + "' WHERE id = " + _fighterID);
 }
 function buildToString(_build) {
 	var txt = "Fighting Styles:";
