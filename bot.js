@@ -247,13 +247,13 @@ function setPlayerBuild(_fighterID, _build) {
 function buildToString(_build) {
 	var txt = "Fighting Styles:";
 
-	if (_build.fightingstyles.length = 0) txt += " None";
+	if (_build.fightingstyles.length == 0) txt += " None";
 	else {
 		for (var i in _build.fightingstyles) txt += " " + _build.fightingstyles[i];
 	}
 
 	txt += "\nGods: ";
-	if (_build.gods.length = 0) txt += " None";
+	if (_build.gods.length == 0) txt += " None";
 	else {
 		for (var i in _build.gods) txt += " " + _build.gods[i];
 	}
@@ -264,12 +264,14 @@ function buildToString(_build) {
 function toggleFightingStyle(_fighterID, _fightingStyle) {
 	var build = getPlayerBuild(_fighterID);
 
+	console.log(build);
 	if (build.fightingstyles.indexOf(_fightingStyle) > -1) {
 		build.fightingstyles.splice(build.fightingstyles.indexOf(_fightingStyle), 1);
 	}
 	else {
 		build.fightingstyles.push(_fightingStyle);
 	}
+	console.log(build);
 
 	return setPlayerBuild(_fighterID, build);
 }
