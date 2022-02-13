@@ -480,11 +480,13 @@ CLIENT.on("message", async _message => {
 
 	if (argsUser[1] == "rank") {
 		// RANK
-		_message.channel.send("You have " + getWinCounter(_message.author.id) + " PP Points\nYour Rank is #" + getRank(_message.author.id));
-		_message.channel.send("Current build:\n" + getPlayerBuild(_message.author.id));
+		var firstTxt = "**" + _message.author.username + "**"
+		if (isPlayerWeebPP(_message.author.id)) firstTxt += " - Weeb";
+		if (isPlayerExpertPP(_message.author.id)) firstTxt += " - **PP Expert**";
+		_message.channel.send(firstTxt + ":")
 
-		if (isPlayerWeebPP(_message.author.id)) _message.channel.send("You have a **Weeb PP**.");
-		if (isPlayerExpertPP(_message.author.id)) _message.channel.send("You are a **PP Expert**.");
+		_message.channel.send("You have " + getWinCounter(_message.author.id) + " PP Points\nYour Rank is #" + getRank(_message.author.id));
+		_message.channel.send("Current build:\n" + buildToString(getPlayerBuild(_message.author.id)));
 		return;
 	}
 	if (argsUser[1] == "ranks") {
