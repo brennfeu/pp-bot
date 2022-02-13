@@ -1016,21 +1016,16 @@ var Duel = class {
 			for (var i in duel.LIST_AVAILABLE_ATTACKS) {
 				if (duel.LIST_AVAILABLE_ATTACKS[i] != EMOTE_DEAD && duel.LIST_AVAILABLE_ATTACKS[i] != EMOTE_SKIP) {
 					_message2.react(duel.LIST_AVAILABLE_ATTACKS[i]);
+
+					var txt = `${CLIENT.emojis.cache.get(duel.LIST_AVAILABLE_ATTACKS[i])} `;
+					txt += MOVE_HELP[duel.LIST_AVAILABLE_ATTACKS[i]];
+
+					_message2.channel.send(txt);
 				}
 			}
 		}).catch(function(e) {
 			// LEVEL ALREADY DEAD
 		});
-
-		if (this.PPLEVEL <= 200) { // show move effects
-			for (var i in this.LIST_AVAILABLE_ATTACKS) {
-				var txt = `${CLIENT.emojis.cache.get(this.LIST_AVAILABLE_ATTACKS[i])} `;
-				txt += MOVE_HELP[this.LIST_AVAILABLE_ATTACKS[i]];
-
-				this.addMessage(txt);
-			}
-			this.sendMessages();
-		}
 	}
 
 	checkDeath() {
