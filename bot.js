@@ -482,7 +482,7 @@ CLIENT.on("message", async _message => {
 		// RANK
 		var firstTxt = "**" + _message.author.username + "**"
 		if (isPlayerWeebPP(_message.author.id)) firstTxt += " - Weeb";
-		if (isPlayerExpertPP(_message.author.id)) firstTxt += " - **PP Expert**";
+		if (isPlayerExpertPP(_message.author.id)) firstTxt += " - PP Expert";
 		_message.channel.send(firstTxt + ":")
 
 		_message.channel.send("You have " + getWinCounter(_message.author.id) + " PP Points\nYour Rank is #" + getRank(_message.author.id));

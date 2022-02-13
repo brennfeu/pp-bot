@@ -348,7 +348,7 @@ var Fighter = class {
 			dex = this.bonusDamage;
 		}
 
-		dex -= this.dexMalus;
+		dex += this.dexMalus;
 		if (this.hasExamined == 1) {
 			dex += 30;
 		}
@@ -465,7 +465,7 @@ var Fighter = class {
 			txt += " (lmao)";
 		}
 		if (this.dexMalus > 0) {
-			txt += "\n - DEX Malus: **" + this.dexMalus + "**";
+			txt += "\n - DEX Bonus: **" + this.dexMalus + "**";
 		}
 
 		if (!this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
@@ -3678,7 +3678,7 @@ var Fighter = class {
 		this.attack = "";
 		if (!this.attackedThisTurn) {
 			this.missedMoves += 1;
-			this.duel.getOppOf(this).dexMalus += 5;
+			this.dexMalus += 5;
 
 			if (this.shinyStone) {
 				this.duel.addMessage(this.getName() + "'s Shiny Stone heals him!");
@@ -3687,7 +3687,7 @@ var Fighter = class {
 			}
 		}
 		else {
-			this.duel.getOppOf(this).dexMalus = 0;
+			this.dexMalus = 0;
 		}
 		this.attackedThisTurn = false;
 
