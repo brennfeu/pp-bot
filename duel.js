@@ -100,7 +100,7 @@ var Duel = class {
 			this.FIGHTER2.STRValue = 100;
 		}
 
-		this.PPLEVEL = Maths.min(getWinCounter(this.FIGHTER1.idUser), getWinCounter(this.FIGHTER2.idUser));
+		this.PPLEVEL = Math.min(getWinCounter(this.FIGHTER1.idUser), getWinCounter(this.FIGHTER2.idUser));
 
 		if (this.PPLEVEL <= 50 || this.EASY_DUEL) {
 			this.bothFightersAction(function(_fighter) {
