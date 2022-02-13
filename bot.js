@@ -307,7 +307,7 @@ function toggleGod(_fighterID, _god) {
 		build.gods.splice(build.gods.indexOf(_god), 1);
 	}
 	else {
-		if (build.gods.length > 4 || (build.gods.length > 3 && !isPlayerExpertPP(_user.id))) return;
+		if (build.gods.length > 4 || (build.gods.length > 3 && !isPlayerExpertPP(_fighterID))) return;
 		if (GOD_LIST.find(a => a.name == _god).type == "eldritch") {
 			for (var j in build.gods) if (GOD_LIST.find(a => a.name == build.gods[j]).type == "eldritch") return;
 		}
