@@ -2617,7 +2617,7 @@ var Duel = class {
 		if (this.EVENT_BOSS != null) {
 			if (_fighter == this.EVENT_BOSS) {
 				if (this.EVENT_BOSS.bossTriggeredAt != null) return this.EVENT_BOSS.bossTriggeredAt;
-				return getRandomFighter();
+				return this.getRandomFighter();
 			}
 			if (!_ignoreBoss) return this.EVENT_BOSS;
 		}
