@@ -460,7 +460,7 @@ var Fighter = class {
 		// TITLE
 		var nameTxt = "**" + this.getName() + "**";
 		if (this.destroyerOfWorlds) nameTxt += " - Destroyer of Worlds"
-		embedMessage.setTitle(nameTxt + "**\n");
+		embedMessage.setTitle(nameTxt + "\n");
 
 		// SPECIAL CASES
 		if (this.duel.MOVE_COUNT >= 10000) {
