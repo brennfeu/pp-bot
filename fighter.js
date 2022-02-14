@@ -1539,7 +1539,7 @@ var Fighter = class {
 			}
 			else if (attack == EMOTE_PP48) {
 				// Brennfeu
-				this.duel.addMessage(this.getName() + " messes everything!");
+				this.duel.addMessage(this.getName() + " messes everything up!");
 				this.duel.addMessage("As always!");
 				if (this.duel.UWU_TEXT) {
 					this.duel.RUSSIAN_TEXT = 4;
