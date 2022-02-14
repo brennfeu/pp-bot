@@ -457,11 +457,6 @@ var Fighter = class {
 			return embedMessage.setDescription("**Dead** :(").toJSON();
 		}
 
-		// STAND USER
-		if (this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
-			embedMessage.setDescription(this.guildUser.user.username);
-		}
-
 		// STATS
 		var statsTxt = "**STR:** " + this.STR;
 		if (this.STR == 69) {
@@ -474,7 +469,7 @@ var Fighter = class {
 		if (this.dexMalus > 0) {
 			statsTxt += "\n - DEX Bonus: **" + this.dexMalus + "**";
 		}
-		embedMessage.addField(statsTxt, "", false);
+		embedMessage.setDescription(statsTxt);
 
 		// GODS
 		var godsText = "";
