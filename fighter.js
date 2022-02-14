@@ -221,7 +221,7 @@ var Fighter = class {
 	}
 
 	getName() {
-		var name = getBaseName();
+		var name = this.getBaseName();
 		if (this.duel.RUSSIAN_TEXT > 0) {
 			name += "ijov";
 		}
