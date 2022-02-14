@@ -9,7 +9,8 @@ var Fighter = class {
 		this.guildUser = getDuel(_idDuel).GUILD.members.cache.get(_idUser);
 		this.user = this.guildUser.user;
 		this.userBuild = getPlayerBuild(this.idUser);
-		updatePlayer(this.user.id, this.user.username.secureXSS())
+		updatePlayer(this.user.id, this.user.username.secureXSS());
+		this.destroyerOfWorlds = isPlayerDestroyer(this.idUser);
 
 		this.duel = getDuel(_idDuel);
 
@@ -454,8 +455,12 @@ var Fighter = class {
 	toString() {
 		var embedMessage = new DISCORD.MessageEmbed();
 		embedMessage.setColor("RANDOM");
-		embedMessage.setTitle("**" + this.getName() + "**\n");
 		embedMessage.setThumbnail(this.getImageURL());
+
+		// TITLE
+		var nameTxt = ""**" + this.getName() + "**";
+		if (this.destroyerOfWorlds) nameTxt += " - Destroyer of Worlds"
+		embedMessage.setTitle(nameTxt + "**\n");
 
 		// SPECIAL CASES
 		if (this.duel.MOVE_COUNT >= 10000) {

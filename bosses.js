@@ -337,6 +337,10 @@ var SexStarvedMongoBoss = class extends Boss {
         this.duel.DOUBLE_POINTS = true;
         super.triggerDeath();
     }
+
+    triggerBossAttack() {
+        this.playMove(this.duel.getRandomEmote());
+    }
 }
 
 var RaidBossEspinozaBoss = class extends Boss {

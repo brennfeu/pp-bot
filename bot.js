@@ -280,6 +280,14 @@ function isPlayerWeebPP(_fighterID) {
 	var result2 = executeQuery("SELECT weebPP FROM Player WHERE id = " + _fighterID);
 	return result2[0].weebPP == 1;
 }
+function isPlayerDestroyer(_fighterID) {
+	var result = executeQuery("SELECT id, points FROM Player WHERE id = " + _fighterID)
+
+	if (result.length == 0) return addFighterToDB(_fighterID, "???");
+
+	var result2 = executeQuery("SELECT destroyer FROM Player WHERE id = " + _fighterID);
+	return result2[0].destroyer == 1;
+}
 function grantPlayerExpertPP(_fighter) {
 	updatePlayer(_fighter.user.id, _fighter.user.username.secureXSS())
 
@@ -289,6 +297,11 @@ function grantPlayerWeebPP(_fighter) {
 	updatePlayer(_fighter.user.id, _fighter.user.username.secureXSS())
 
 	executeQuery("UPDATE Player SET weebPP = 1 WHERE id = " + _fighter.user.id);
+}
+function grantPlayerDestroyer(_fighter) {
+	updatePlayer(_fighter.user.id, _fighter.user.username.secureXSS())
+
+	executeQuery("UPDATE Player SET destroyer = 1 WHERE id = " + _fighter.user.id);
 }
 
 function toggleFightingStyle(_fighterID, _fightingStyle) {

@@ -896,18 +896,20 @@ var Duel = class {
 		if (this.MOVE_COUNT >= 10000) {
 			// Heat death of the universe
 			this.addMessage(" -- HEAT DEATH OF THE UNIVERSE --");
-			this.addMessage("*You punched PP so much, the world collapses. Good job ! You don’t get to go to work tomorrow. Or school. Or anything else. You wanna know why ? Well... you see... YOU FUCKED IT ALL UP !!!*\n" + IMAGE_PP2);
+			this.addMessage("*You punched PP so much, the world collapses. Good job! You don’t get to go to work tomorrow. Or school. Or anything else. You wanna know why? Well... you see... YOU FUCKED IT ALL UP!!!*\n" + IMAGE_PP2);
 			if (this.ALTERNATE_MOVES) {
-				this.addMessage("**You are sent back to your original reality !**");
+				this.addMessage("**You are sent back to your original reality!**");
 				this.MOVE_COUNT = this.ALTERNATE_MOVE_COUNT;
 				this.ALTERNATE_MOVES = false;
 				return;
 			}
 			if (this.EVENT_BOSS != null && this.EVENT_BOSS.winsIfHeatDeath) {
-				this.addMessage(this.EVENT_BOSS.getName() + " is defeated...");
+				this.addMessage(this.EVENT_BOSS.getName() + " is defeated!");
 				this.bothFightersAction(function(_fighter) {
 					_fighter.win();
+					grantPlayerDestroyer(_fighter);
 				});
+				this.addMessage("**Congratulations! You beat the PP Puncher final boss!**");
 			}
 			this.stopDuel();
 			for (var i in DUEL_LIST) {
@@ -920,7 +922,7 @@ var Duel = class {
 			}
 			return;
 		}
-		if (!this.INFERNAL_FIRELAND && this.MOVE_COUNT >= 100) {
+		if (this.PPLEVEL > 50 && !this.INFERNAL_FIRELAND && this.MOVE_COUNT >= 100) {
 			// INFERNAL FIRELAND
 			this.addMessage(" -- INFERNAL FIRELAND --");
 			this.addMessage("Plenty of forest fires have been set off as a result of your PP punching, making the nearby 100 square km into an Infernal Fireland!");
@@ -930,7 +932,7 @@ var Duel = class {
 			this.otherFighter(winner).infernalInstrument = 2; // Synth
 			this.INFERNAL_FIRELAND = true;
 		}
-		if (!this.PP_ARMAGEDDON && this.MOVE_COUNT >= 1000) {
+		if (this.PPLEVEL > 50 && !this.PP_ARMAGEDDON && this.MOVE_COUNT >= 1000) {
 			// PP ARMAGEDDON
 			this.PP_ARMAGEDDON = true;
 			this.addMessage(" -- PP ARMAGEDDON --");
@@ -1352,10 +1354,12 @@ var Duel = class {
 			this.FORCE_EVENT_ID = 27;
 			this.startRandomEvent();
 		}
-		else if (this.PPLEVEL > 200 && randomVar == 50 && (this.MOVE_COUNT >= 1000 || forcedEvent)) {
+		else if (this.PPLEVEL > 200 && randomVar == 50 && (this.MOVE_COUNT >= 1000 || forcedEvent) &&
+			isPlayerExpertPP(this.FIGHTER1) && isPlayerExpertPP(this.FIGHTER2) &&
+			isPlayerWeebPP(this.FIGHTER1) && isPlayerWeebPP(this.FIGHTER2)) {
 			// Wyndoella
 			this.addMessage(" -- WYNDOELLA KILLS PUDDING --");
-			this.addMessage("The Universe itself is against you!\n" + IMAGE_PP9);
+			this.addMessage("The Universe itself challenges you!\n" + IMAGE_PP9);
 			this.triggerBossFight(new WyndoeallaBoss(this));
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 51 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
