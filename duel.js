@@ -118,6 +118,7 @@ var Duel = class {
 		else {
 			this.addMessage("**TIME FOR A DUEL**");
 		}
+		this.addMessage("PP Level: " + this.PPLEVEL);
 
 		// Wild Start
 		if (this.PPLEVEL > 50 && getRandomPercent() <= 5) {
@@ -168,9 +169,9 @@ var Duel = class {
 
 		this.addMessage("**===== RECAP =====**");
 		this.addMessage("**===== CURRENT STATE =====**");
-		this.addMessage(this.FIGHTER1.toString());
+		this.addMessage("", true, {embed: this.FIGHTER1.toString()});
 		this.addMessage("-----------------");
-		this.addMessage(this.FIGHTER2.toString());
+		this.addMessage("", true, {embed: this.FIGHTER2.toString()});
 		this.addMessage("**===== SOME STATS =====**");
 		var txt = " - Number of moves: " + this.MOVE_COUNT;
 		if (this.MOVE_COUNT == 69) {
@@ -358,7 +359,7 @@ var Duel = class {
 		this.FIGHTER1.attack = "";
 	}
 
-	addMessage(_texte, _forceAppear = false) {
+	addMessage(_texte, _forceAppear = false, _other = {}) {
 		var uwu = this.UWU_TEXT || this.POOPOO_UNIVERSE;
 		for (var i in IMAGE_LIST) {
 			if (_texte.includes(IMAGE_LIST[i])) {
@@ -400,17 +401,19 @@ var Duel = class {
 		}
 		else {
 			this.LIST_MESSAGES.push(_texte);
+			this.LIST_MESSAGES_OTHER.push(_other);
 		}
 	}
 	sendMessages(_max = 20) {
 		if (this.NO_MESSAGE <= 0 || this.TIME_STOP > 0) {
 			for (var i in this.LIST_MESSAGES) {
-				this.BATTLE_CHANNEL.send(this.LIST_MESSAGES[i]).then(async function (_message2) {
+				this.BATTLE_CHANNEL.send(this.LIST_MESSAGES[i], this.LIST_MESSAGES_OTHER[i]).then(async function (_message2) {
 					getDuel(_message2.channel.id).TIMESTAMP = + new Date();
 				}).catch(function(e) {});
 			}
 		}
 		this.LIST_MESSAGES = [];
+		this.LIST_MESSAGES_OTHER = [];
 	}
 
 	newTurnDuel() {
@@ -840,16 +843,14 @@ var Duel = class {
 		this.addMessage("**=== FIGHTERS ===**", true);
 		this.sendMessages();
 		if (!this.EVENT_BOSS) {
-			this.BATTLE_CHANNEL.send("", {embed: this.FIGHTER1.toString()});
+			this.addMessage("", true, {embed: this.FIGHTER1.toString()});
 			this.addMessage("**===== /VS/ =====**", true);
-			this.sendMessages();
-			this.BATTLE_CHANNEL.send("", {embed: this.FIGHTER2.toString()});
+			this.addMessage("", true, {embed: this.FIGHTER2.toString()});
 		}
 		else {
-			this.BATTLE_CHANNEL.send("", {embed: this.FIGHTER1.toString()});
+			this.addMessage("", true, {embed: this.FIGHTER1.toString()});
 			this.addMessage("-----------------", true);
-			this.sendMessages();
-			this.BATTLE_CHANNEL.send("", {embed: this.FIGHTER2.toString()});
+			this.addMessage("", true, {embed: this.FIGHTER2.toString()});
 			this.addMessage("**===== /VS/ =====**", true);
 			this.addMessage("**" + this.CURRENT_BOSS + "**\n**STR:** " + this.BOSS_HEALTH, true);
 		}
