@@ -274,7 +274,6 @@ var Fighter = class {
 	getImageURL() {
 		try { return this.user.displayAvatarURL(); }
 		catch(e) { return null; }
-
 	}
 
 	// fighter.STR
@@ -549,283 +548,283 @@ var Fighter = class {
 		// STATUS
 		var statusTxt = "";
 		if (this.randomizedStand) {
-			statusTxt += " - **Perfect Stånd Power**\n";
+			statusTxt += displayEmote(EMOTE_PP49) + " **Perfect Stånd Power**\n";
 		}
 		if (this.hasSupplyDrops) {
-			statusTxt += " - **Gets Supply Drops**\n";
+			statusTxt += displayEmote(EMOTE_PP72) + " **Gets Supply Drops**\n";
 		}
 		if (this.infernalInstrument == 1) {
-			statusTxt += " - **";
+			statusTxt += displayEmote(EMOTE_ABILITY) + " **";
 			if (this.aviatorBuff) {
 				statusTxt += "Super Cool ";
 			}
 			statusTxt += "Guitar Player**\n";
 		}
 		else if (this.infernalInstrument == 2) {
-			statusTxt += " - **";
+			statusTxt += displayEmote(EMOTE_ABILITY) + " **";
 			if (this.aviatorBuff) {
 				statusTxt += "Super Cool ";
 			}
 			statusTxt += "Synth Player**\n";
 		}
 		else if (this.aviatorBuff) {
-			statusTxt += " - **Super Cool**\n";
+			statusTxt += displayEmote(EMOTE_ABILITY) + " **Super Cool**\n";
 		}
 		if (this.livingGod) {
-			statusTxt += " - **Living God**\n";
+			statusTxt += displayEmote(EMOTE_PP49) + " **Living God**\n";
 		}
 		if (this.requiemPower != null) {
-			statusTxt += "\n - **Requiem Ability**";
+			statusTxt += displayEmote(EMOTE_ABILITY) + " **Requiem Ability**";
 			if (this.requiemCooldown > 0) {
 				statusTxt += " (Cooldown: " + this.requiemCooldown + " turns)";
 			}
 			statusTxt += "\n"
 		}
 		if (this.hasBoomerang > 0) {
-			statusTxt += " - With a Boomerang (for " + this.hasBoomerang + " turns)\n";
+			statusTxt += displayEmote(EMOTE_PP45) + " With a Boomerang (for " + this.hasBoomerang + " turns)\n";
 		}
 		if (this.acidArmor > 0) {
-			statusTxt += " - Armored in acid (for " + this.acidArmor + " turns)";
+			statusTxt += displayEmote(EMOTE_PP21) + " Armored in acid (for " + this.acidArmor + " turns)";
 			if (this.sporeSac) {
 				statusTxt += " (**Spore Sac**)";
 			}
 			statusTxt += "\n";
 		}
 		if (this.doomReverse > 0) {
-			statusTxt += " - DOOM-REVERSE(tm) (for " + this.doomReverse + " turns)\n";
+			statusTxt += displayEmote(EMOTE_PP20) + " DOOM-REVERSE(tm) (for " + this.doomReverse + " turns)\n";
 		}
 		if (this.satanicReverse > 0) {
-			statusTxt += " - Satanic Protection (for " + this.satanicReverse + " turns)\n";
+			statusTxt += displayEmote(EMOTE_PP26) + " Satanic Protection (for " + this.satanicReverse + " turns)\n";
 		}
 		if (this.ironProtection > 0) {
-			statusTxt += " - Worm Scarf Protection (for " + this.ironProtection + " turns)\n";
+			statusTxt += displayEmote(EMOTE_PP135) + " Worm Scarf Protection (for " + this.ironProtection + " turns)\n";
 		}
 		if (this.isLucky > 0) {
-			statusTxt += " - Lucky (for " + this.isLucky + " turns)\n";
+			statusTxt += displayEmote(GOD_PP3.emote) + " Lucky (for " + this.isLucky + " turns)\n";
 		}
 		if (this.akameDex > 0){
-			statusTxt += " - Blessed by Akame (for " + this.akameDex + " turns)\n";
+			statusTxt += displayEmote(GOD_PP38.emote) + " Blessed by Akame (for " + this.akameDex + " turns)\n";
 		}
 		if (this.mikasaBuff > 0) {
-			statusTxt += " - Blessed by Mikasa (for " + this.mikasaBuff + " turns)\n";
+			statusTxt += displayEmote(GOD_PP20.emote) + " Blessed by Mikasa (for " + this.mikasaBuff + " turns)\n";
 		}
 		if (this.akameKill > 0) {
-			statusTxt += " - Cursed Blade Murasame (for " + this.akameKill + " turns)\n";
+			statusTxt += displayEmote(GOD_PP38.emote) + " Cursed Blade Murasame (for " + this.akameKill + " turns)\n";
 		}
 		if (this.inLove > 0) {
-			statusTxt += " - In Love (for " + this.inLove + " turns)\n";
+			statusTxt += displayEmote(GOD_PP40.emote) + " In Love (for " + this.inLove + " turns)\n";
 		}
 		if (this.bossKiller > 0) {
-			statusTxt += " - Boss Killer Blessing (for " + this.bossKiller + " turns)\n";
+			statusTxt += displayEmote(EMOTE_PP73) + " Boss Killer Blessing (for " + this.bossKiller + " turns)\n";
 		}
 		if (this.selfReverseDamage > 0) {
-			statusTxt += " - Damage Reversed (for " + this.selfReverseDamage + " turns)\n";
+			statusTxt += displayEmote(EMOTE_PP15) + " Damage Reversed (for " + this.selfReverseDamage + " turns)\n";
 		}
 		if (this.futureMemories > 0) {
-			statusTxt += " - Has Knowledge of the Future (of the next " + this.futureMemories + " turns)\n"
+			statusTxt += displayEmote(GOD_PP27.emote) + " Has Knowledge of the Future (of the next " + this.futureMemories + " turns)\n"
 		}
 		if (this.gettingRegularCharge > 0) {
-			statusTxt += " - Getting a regular charge in " + this.gettingRegularCharge + " turns\n"
+			statusTxt += displayEmote(GOD_PP7.emote) + " Getting a regular charge in " + this.gettingRegularCharge + " turns\n"
 		}
 		if (this.gettingSpecialCharge > 0) {
-			statusTxt += " - Getting a special charge in " + this.gettingSpecialCharge + " turns\n"
+			statusTxt += displayEmote(GOD_PP7.emote) + " Getting a special charge in " + this.gettingSpecialCharge + " turns\n"
 		}
 		if (this.turkeyCountdown > 0) {
-			statusTxt += " - ";
+			statusTxt += displayEmote(EMOTE_PP7) + " ";
 			if (this.turkeyCountdown == 1) statusTxt += "**";
 			statusTxt += "Turkey Countdown: " + this.turkeyCountdown + " turns\n";
 			if (this.turkeyCountdown == 1) statusTxt += "**";
 		}
 		if (this.borealSummon > 0) {
-			statusTxt += " - Boreal Fog Countdown: " + this.borealSummon + " turns\n";
+			statusTxt += displayEmote(EMOTE_PP77) + " Boreal Fog Countdown: " + this.borealSummon + " turns\n";
 		}
 		if (this.tentacles > 0) {
-			statusTxt += " - Tentacles: " + this.tentacles + "\n";
+			statusTxt += displayEmote(EMOTE_PP137) + " Tentacles: " + this.tentacles + "\n";
 		}
 		if (this.quickeningCharges > 0) {
-			statusTxt += " - Quickening Charges: " + this.quickeningCharges + "\n";
+			statusTxt += displayEmote(EMOTE_PP73) + " Quickening Charges: " + this.quickeningCharges + "\n";
 		}
 		if (this.madnessStacks > 0) {
-			statusTxt += " - Madness Stacks: " + this.madnessStacks + "\n";
+			statusTxt += displayEmote(EMOTE_PP76) + " Madness Stacks: " + this.madnessStacks + "\n";
 		}
 		if (this.cthulhuShield > 0) {
-			statusTxt += " - Shield of Cthulhu Charges: " + this.cthulhuShield + "\n";
+			statusTxt += displayEmote(EMOTE_PP141) + " Shield of Cthulhu Charges: " + this.cthulhuShield + "\n";
 		}
 		if (this.redPillAddiction > 0) {
-			statusTxt += " - RedPill Addiction: " + this.redPillAddiction + "\n";
+			statusTxt += displayEmote(EMOTE_PP18) + " RedPill Addiction: " + this.redPillAddiction + "\n";
 		}
 		if (this.explosionMagic > 0) {
-			statusTxt += " - Explosion Magic Points: " + this.explosionMagic + "\n";
+			statusTxt += displayEmote(GOD_PP30.emote) + " Explosion Magic Points: " + this.explosionMagic + "\n";
 		}
 		if (this.ragingSpirit > 0) {
-			statusTxt += " - Lost Soul Streak: " + this.ragingSpirit + "\n";
+			statusTxt += displayEmote(EMOTE_PP69) + " Lost Soul Streak: " + this.ragingSpirit + "\n";
 		}
 		if (this.tearDrinker > 0) {
-			statusTxt += " - Tear Drinker: " + this.tearDrinker + "\n";
+			statusTxt += displayEmote(GOD_PP16.emote) + " Tear Drinker: " + this.tearDrinker + "\n";
 		}
 		if (this.pigHeal > 0 || this.isCowBoy) {
-			statusTxt += " - Hog Squeezer: " + this.pigHeal;
+			statusTxt += displayEmote(EMOTE_PP19) + " Hog Squeezer: " + this.pigHeal;
 			if (this.isCowBoy) {
 				statusTxt += " (**Cowboy**)";
 			}
 			statusTxt += "\n";
 		}
 		if (this.megaBuildUp > 0) {
-			statusTxt += " - Build-Up multiplier: " + this.megaBuildUp + "\n";
+			statusTxt += displayEmote(EMOTE_PP42) + " Build-Up multiplier: " + this.megaBuildUp + "\n";
 		}
 		if (this.bonusDamage > 0) {
-			statusTxt += " - Build-Up damages: " + this.bonusDamage + "\n";
+			statusTxt += displayEmote(EMOTE_PP42) + " Build-Up damages: " + this.bonusDamage + "\n";
 		}
 		if (this.bleedDamage > 0 || this.isSalty) {
-			statusTxt += " - Haemorrhage: " + this.bleedDamage;
+			statusTxt += displayEmote(EMOTE_PP14) + " Haemorrhage: " + this.bleedDamage;
 			if (this.isSalty) {
 				statusTxt += " (**Salty Wounds**)";
 			}
 			statusTxt += "\n";
 		}
 		if (this.meltingDamage > 0) {
-			statusTxt += " - Acid: " + this.meltingDamage + "\n";
+			statusTxt += displayEmote(EMOTE_PP75) + " Acid: " + this.meltingDamage + "\n";
 		}
 		if (this.goldenSpoons > 0) {
-			statusTxt += " - Golden Spoons: " + this.goldenSpoons + "\n";
+			statusTxt += displayEmote(GOD_PP2.emote) + " Golden Spoons: " + this.goldenSpoons + "\n";
 		}
 		if (this.lifeFibers > 0) {
-			statusTxt += " - Life Fiber: " + (this.lifeFibers*5) + "%\n";
+			statusTxt += displayEmote(GOD_PP31.emote) + " Life Fiber: " + (this.lifeFibers*5) + "%\n";
 		}
 		if (this.ppBribe > 0) {
-			statusTxt += " - Arbitrator Bribe: " + this.ppBribe + "%\n";
+			statusTxt += displayEmote(GOD_PP40.emote) + " Arbitrator Bribe: " + this.ppBribe + "%\n";
 		}
 		if (this.hivePack > 0) {
-			statusTxt += " - Hive Pack: " + this.hivePack + "%\n";
+			statusTxt += displayEmote(EMOTE_PP136) + " Hive Pack: " + this.hivePack + "%\n";
 		}
 		if (this.xenoMask) {
-			statusTxt += " - Mask: Xeno\n";
+			statusTxt += displayEmote(EMOTE_PP64) + " Mask: Xeno\n";
 		}
 		if (this.satanMask) {
-			statusTxt += " - Mask: Satan\n";
+			statusTxt += displayEmote(EMOTE_PP66) + " Mask: Satan\n";
 		}
 		if (this.helldogMask) {
-			statusTxt += " - Mask: Intimidation\n";
+			statusTxt += displayEmote(EMOTE_PP70) + " Mask: Intimidation\n";
 		}
 		if (this.acidArmor <= 0 && this.sporeSac) {
-			statusTxt += " - Spore Sac\n"; // shows spore sac here if no acid armor
+			statusTxt += displayEmote(EMOTE_PP143) + " Spore Sac\n"; // shows spore sac here if no acid armor
 		}
 		if (this.empressLightBuff) {
-			statusTxt += " - Blessing of the Empress of Light\n";
+			statusTxt += displayEmote(EMOTE_PP150) + " Blessing of the Empress of Light\n";
 		}
 		if (this.boneGlove) {
-			statusTxt += " - Bone Glove\n";
+			statusTxt += displayEmote(EMOTE_PP144) + " Bone Glove\n";
 		}
 		if (this.cuteFishron) {
-			statusTxt += " - Cute Fishron\n";
+			statusTxt += displayEmote(EMOTE_PP147) + " Cute Fishron\n";
 		}
 		if (this.shinyStone) {
-			statusTxt += " - Shiny Stone\n";
+			statusTxt += displayEmote(EMOTE_PP145) + " Shiny Stone\n";
 		}
 		if (this.satanicMoveMultiplier) {
-			statusTxt += " - Satanic Move Multiplier\n";
+			statusTxt += displayEmote(GOD_PP22.emote) + " Satanic Move Multiplier\n";
 		}
 		if (this.hasKamui) {
-			statusTxt += " - Wearing a Kamui\n";
+			statusTxt += displayEmote(GOD_PP31.emote) + " Wearing a Kamui\n";
 		}
 		if (this.forceCritical) {
-			statusTxt += " - Ready to Inflict Critical Damages\n";
+			statusTxt += displayEmote(EMOTE_PP42) + " Ready to Inflict Critical Damages\n";
 		}
 		if (this.flugelBlood) {
-			statusTxt += " - Flugel Blood\n";
+			statusTxt += displayEmote(GOD_PP32.emote) + " Flugel Blood\n";
 		}
 		if (this.klaxoTails) {
-			statusTxt += " - Klaxosaurs Tails\n";
+			statusTxt += displayEmote(GOD_PP35.emote) + " Klaxosaurs Tails\n";
 		}
 		if (this.iceWeapon) {
-			statusTxt += " - Magic Ice Weapon\n";
+			statusTxt += displayEmote(GOD_PP36.emote) + " Magic Ice Weapon\n";
 		}
 		if (this.tempestBuff) {
-			statusTxt += " - Tempest\n";
+			statusTxt += displayEmote(GOD_PP39.emote) + " Tempest\n";
 		}
 		if (this.isOverCircumcised) {
-			statusTxt += " - Overcircumcised\n";
+			statusTxt += displayEmote(EMOTE_PP12) + " Overcircumcised\n";
 		}
 		else if (this.isCircumcised) {
-			statusTxt += " - Circumcised\n";
+			statusTxt += displayEmote(EMOTE_PP22) + " Circumcised\n";
 		}
 		if (this.isProtected) {
-			statusTxt += " - Shield Protection\n";
+			statusTxt += displayEmote(EMOTE_PP17) + " Shield Protection\n";
 		}
 		if (this.isTerrorist) {
 			if (!this.duel.ALTERNATE_MOVES) {
-				statusTxt += " - Planning a Terrorist Move\n";
+				statusTxt += displayEmote(EMOTE_PP44) + " Planning a Terrorist Move\n";
 			}
 			else {
-				statusTxt += " - N-Word Pass\n";
+				statusTxt += displayEmote(EMOTE_OBOMBA) + " N-Word Pass\n";
 			}
 		}
 		if (this.eldritchFriend) {
-			statusTxt += " - Eldritch Friendly\n";
+			statusTxt += displayEmote(GOD_PP23.emote) + " Eldritch Friendly\n";
 		}
 		if (this.legAimer) {
-			statusTxt += " - Leg Aimer\n";
+			statusTxt += displayEmote(GOD_PP19.emote) + " Leg Aimer\n";
 		}
 		if (this.dualWield) {
-			statusTxt += " - Dual Wielding\n";
+			statusTxt += displayEmote(GOD_PP20.emote) + " Dual Wielding\n";
 		}
 		if (this.badLuck) {
-			statusTxt += " - Unlucky\n";
+			statusTxt += displayEmote(GOD_PP15.emote) + " Unlucky\n";
 		}
 		if (this.fullOfAmmo) {
-			statusTxt += " - Full of Ammos\n";
+			statusTxt += displayEmote(EMOTE_PP72) + " Full of Ammos\n";
 		}
 		if (this.kungFu) {
-			statusTxt += " - Trained Fighter\n";
+			statusTxt += displayEmote(EMOTE_PP65) + " Trained Fighter\n";
 		}
 		if (this.chimera) {
-			statusTxt += " - Furry PP\n";
+			statusTxt += displayEmote(GOD_PP13.emote) + " Furry PP\n";
 		}
 		if (this.silenced) {
-			statusTxt += " - Silenced\n";
+			statusTxt += displayEmote(GOD_PP33.emote) + " Silenced\n";
 		}
 		if (this.liberatedPP) {
-			statusTxt += " - Liberated PP\n";
+			statusTxt += displayEmote(EMOTE_PP61) + " Liberated PP\n";
 		}
 		if (this.hasBoner) {
-			statusTxt += " - Big Boner Mmmmmmh...\n";
+			statusTxt += displayEmote(GOD_PP14.emote) + " Big Boner Mmmmmmh...\n";
 		}
 		if (this.trueBarbarian) {
-			statusTxt += " - Great Barbarian from the North Seeking New Lands for his Kingdom\n";
+			statusTxt += displayEmote(GOD_PP1.emote) + " Great Barbarian from the North Seeking New Lands for his Kingdom\n";
 		}
 		if (this.infernalMagic) {
-			statusTxt += " - **Infernal Magic**\n";
+			statusTxt += displayEmote(GOD_PP34.emote) + " **Infernal Magic**\n";
 		}
 		if (this.armageddonMagic) {
-			statusTxt += " - **Armageddon Magic**\n";
+			statusTxt += displayEmote(GOD_PP34.emote) + " **Armageddon Magic**\n";
 		}
 		if (this.isPossessed > 0) {
-			statusTxt += " - **Possessed by " + this.duel.otherFighter(this).getName() + "**\n";
+			statusTxt += displayEmote(EMOTE_PP16) + " **Possessed by " + this.duel.otherFighter(this).getName() + "**\n";
 		}
 		if (this.turnSkip > 0) {
-			statusTxt += " - **To the Ranch**\n";
+			statusTxt += "**To the Ranch**\n";
 		}
 		if (this.grabbedPP > 0) {
-			statusTxt += " - **Very Confused**\n";
+			statusTxt += displayEmote(GOD_PP24.emote) + " **Very Confused**\n";
 		}
 		if (this.summonTankCountdown > 0) {
-			statusTxt += " - **Summoning the Monster (" + (4-this.summonTankCountdown) + "/3)**\n";
+			statusTxt += displayEmote(GOD_PP16.emote) + " **Summoning the Monster (" + (4-this.summonTankCountdown) + "/3)**\n";
 		}
 		if (this.standPower != null && !this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE && !this.randomizedStand) {
-			statusTxt += " - **Stånd Power: " + this.standPower + "**\n";
+			statusTxt += displayEmote(EMOTE_PP73) + " **Stånd Power: " + this.standPower + "**\n";
 		}
 		if (this.extraLife > 0) {
-			statusTxt += " - **Extra lives: " + this.extraLife;
+			statusTxt += displayEmote(EMOTE_PP58) + " **Extra lives: " + this.extraLife;
 			if (this.extraLifeDuplication != null) {
 				statusTxt += " (Temporal Duplication)";
 			}
 			statusTxt += "**\n";
 		}
 		if (this.murasameCurse) {
-			statusTxt += " - **Murasame's Poisonous Curse**\n";
+			statusTxt += displayEmote(GOD_PP38.emote) + " **Murasame's Poisonous Curse**\n";
 		}
 		if (this.impendingDoom > 0) {
-			statusTxt += " - **Impending Doom: " + this.impendingDoom + " turns**\n";
+			statusTxt += displayEmote(EMOTE_PP20) + " **Impending Doom: " + this.impendingDoom + " turns**\n";
 		}
 		if (statusTxt != "") embedMessage.addField("Status", statusTxt, true);
 
