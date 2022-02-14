@@ -798,7 +798,7 @@ var Fighter = class {
 			statusTxt += " - **Armageddon Magic**\n";
 		}
 		if (this.isPossessed > 0) {
-			statusTxt += " - **Possessed by " + this.duel.getOppOf(this).getName() + "**\n";
+			statusTxt += " - **Possessed by " + this.duel.otherFighter(this).getName() + "**\n";
 		}
 		if (this.turnSkip > 0) {
 			statusTxt += " - **To the Ranch**\n";
@@ -1018,7 +1018,7 @@ var Fighter = class {
 			}
 			else if (attack == EMOTE_PP7) {
 				// Turkey
-				this.duel.addMessage(this.getName() + " and " + this.duel.getOppOf(this).getName() + " start a feast!");
+				this.duel.addMessage(this.getName() + " and " + this.duel.otherFighter(this).getName() + " start a feast!");
 				if (this.duel.UWU_TEXT) {
 					this.duel.SEXY_TEXT = 11;
 				}
@@ -1125,12 +1125,12 @@ var Fighter = class {
 					this.duel.addMessage("Nothing happens...");
 				}
 				// Satan God
-				else if (this.duel.getOppOf(this).godList.indexOf(GOD_PP22.name) > -1) {
-					this.duel.addMessage(this.duel.getOppOf(this).getName() + " resists the possession!");
+				else if (this.duel.otherFighter(this).godList.indexOf(GOD_PP22.name) > -1) {
+					this.duel.addMessage(this.duel.otherFighter(this).getName() + " resists the possession!");
 				}
 				else {
-					this.duel.addMessage(this.getName() + " possesses " + this.duel.getOppOf(this).getName() + "'s PP!");
-					this.duel.getOppOf(this).isPossessed = 2;
+					this.duel.addMessage(this.getName() + " possesses " + this.duel.otherFighter(this).getName() + "'s PP!");
+					this.duel.otherFighter(this).isPossessed = 2;
 				}
 			}
 			else if (attack == EMOTE_PP17) {
@@ -1252,7 +1252,7 @@ var Fighter = class {
 						// Satan God
 						for (var i = 0; i < 10; i++) {
 							this.duel.addMessage("-----------------");
-							this.duel.getOppOf(this).playMove(this.duel.getRandomEmote());
+							this.duel.otherFighter(this).playMove(this.duel.getRandomEmote());
 						}
 						this.duel.TRIGGERED_CHAOS = true;
 					}
@@ -1350,16 +1350,11 @@ var Fighter = class {
 			else if (attack == EMOTE_PP34) {
 				// Facehugger
 				this.duel.addMessage(this.getName() + " impregnates " + this.getOppName() + "!");
-				if (!this.duel.EVENT_BOSS != null) {
-					this.duel.getOppOf(this).damage(Math.floor(this.duel.getOppOf(this).STR/2));
-					if (!this.duel.getOppOf(this).isAlienPP) {
-						this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets an alien PP!");
-					}
-					this.duel.getOppOf(this).isAlienPP = true;
+				this.duel.getOppOf(this).damage(Math.floor(this.duel.getOppOf(this).STR/2));
+				if (!this.duel.getOppOf(this).isAlienPP) {
+					this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets an alien PP!");
 				}
-				else {
-					this.duel.getOppOf(this).damage(Math.floor(this.duel.EVENT_BOSS.STR/2));
-				}
+				this.duel.getOppOf(this).isAlienPP = true;
 			}
 			else if (attack == EMOTE_PP35) {
 				// Facehugged
@@ -1605,7 +1600,7 @@ var Fighter = class {
 					else {
 						this.duel.addMessage("Both fighters DEX has been changed to 0!");
 						this.DEXValue = 0 - (this.DEX - this.DEXValue);
-						this.duel.getOppOf(this).DEXValue = 0 - (this.duel.getOppOf(this).DEX - this.duel.getOppOf(this).DEXValue);
+						this.duel.otherFighter(this).DEXValue = 0 - (this.duel.otherFighter(this).DEX - this.duel.otherFighter(this).DEXValue);
 					}
 				}
 				else {
@@ -1834,14 +1829,14 @@ var Fighter = class {
 					this.isOverCircumcised = true;
 					this.DEXValue += 10;
 				}
-				if (this.godList.indexOf(GOD_PP22.name) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
+				if (this.godList.indexOf(GOD_PP22.name) > -1 && !this.duel.otherFighter(this).eldritchFriend) {
 					 // Satan
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Satan answers his calls!");
 					this.duel.addMessage(this.getName() + " removes his bad status!");
 					this.resetBattleVariables();
-					this.duel.addMessage(this.getName() + " possesses " + this.duel.getOppOf(this).getName() + "'s PP for 2 turns!");
-					this.duel.getOppOf(this).isPossessed = 3;
+					this.duel.addMessage(this.getName() + " possesses " + this.duel.otherFighter(this).getName() + "'s PP for 2 turns!");
+					this.duel.otherFighter(this).isPossessed = 3;
 				}
 				if (this.godList.indexOf(GOD_PP23.name) > -1 && !this.duel.getOppOf(this).eldritchFriend) {
 					// Ancient Fungus
@@ -1936,8 +1931,6 @@ var Fighter = class {
 					if (this.duel.MOVE_COUNT <= 100) {
 						this.duel.MOVE_COUNT = 100;
 					}
-					this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets cursed with confusion.");
-					this.duel.getOppOf(this).grabbedPP = 2;
 				}
 				if (this.godList.indexOf(GOD_PP35.name) > -1) { // Zero Two
 					this.duel.addMessage("-----------------");
@@ -2150,7 +2143,7 @@ var Fighter = class {
 						}
 					}
 					else {
-						this.duel.addMessage(this.getName() + " barks like the retarded furry he is!");
+						this.duel.addMessage(this.getName() + " barks like the furry he is!");
 					}
 				}
 				if (this.godList.indexOf(GOD_PP14.name) > -1) { // UREGonnaGETRaped
@@ -2288,7 +2281,7 @@ var Fighter = class {
 					];
 					this.duel.addMessage("*" + randomFromList(randomMessages) + "*");
 					this.duel.addMessage("***EXPLOSION !***");
-					this.duel.getOpponentOf(this).damage(Math.floor(this.explosionMagic*this.STR/10), false);
+					this.duel.getOppOf(this).damage(Math.floor(this.explosionMagic*this.STR/10), false);
 					this.hasBurst = 4;
 				}
 				if (this.godList.indexOf(GOD_PP31.name) > -1) { // Ryuko
@@ -2306,7 +2299,7 @@ var Fighter = class {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Jibril answers his calls!");
 					this.duel.addMessage("***HEAVEN'S STRIKE !***");
-					this.duel.getOpponentOf(this).damage(this.STR*5, false);
+					this.duel.getOppOf(this).damage(this.STR*5, false);
 					this.duel.addMessage(this.getName() + " is exhausted...");
 					this.STRValue -= Math.floor(this.STR/10*9);
 				}
@@ -2314,7 +2307,7 @@ var Fighter = class {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Priestess answers his calls!");
 					this.duel.addMessage("*O Earth Mother, abounding in mercy, grant us peace to accept all things…*");
-					this.duel.getOpponentOf(this).silenced = true;
+					this.duel.getOppOf(this).silenced = true;
 				}
 				if (this.godList.indexOf(GOD_PP34.name) > -1) { // Tohru
 					this.duel.addMessage("-----------------");
@@ -2324,8 +2317,6 @@ var Fighter = class {
 					if (this.duel.MOVE_COUNT <= 1000) {
 						this.duel.MOVE_COUNT = 1000;
 					}
-					this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets cursed with confusion.");
-					this.duel.getOppOf(this).grabbedPP = 2;
 				}
 				if (this.godList.indexOf(GOD_PP35.name) > -1) { // Zero Two
 					this.duel.addMessage("-----------------");
@@ -2373,9 +2364,9 @@ var Fighter = class {
 				if (this.godList.indexOf(GOD_PP40.name) > -1) { // Kaguya
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Kaguya answers his calls!");
-					this.duel.addMessage(this.duel.getOpponentOf(this).getName() + " just confessed his love!");
+					this.duel.addMessage(this.duel.getOppOf(this).getName() + " just confessed his love!");
 					this.duel.addMessage("*O Kawaii Koto.*");
-					this.duel.getOpponentOf(this).inLove = 6;
+					this.duel.getOppOf(this).inLove = 6;
 				}
 			}
 			else if (attack == EMOTE_PP53) {
@@ -2912,8 +2903,8 @@ var Fighter = class {
 			else if (attack == EMOTE_PP116) {
 				// Lies
 				this.duel.addMessage(this.getName() + " picks up some junk!");
-				this.junkCount += this.duel.getOppOf(this).junkCount;
-				this.duel.getOppOf(this).junkCount = 0;
+				this.junkCount += this.duel.otherFighter(this).junkCount;
+				this.duel.otherFighter(this).junkCount = 0;
 			}
 			else if (attack == EMOTE_PP118) {
 				// Alpha Bullets
@@ -3056,21 +3047,21 @@ var Fighter = class {
 				this.duel.MOVE_COUNT += 33;
 				if (this.duel.EVENT_BOSS != null) {
 					this.duel.addMessage(this.duel.EVENT_BOSS.getName() + " gets wrapped by royal gel.");
-					this.duel.addMessage(this.duel.EVENT_BOSS.getName() + " seems angry towards " + this.duel.getOppOf(this).getName() + "!");
+					this.duel.addMessage(this.duel.EVENT_BOSS.getName() + " seems angry towards " + this.duel.otherFighter(this).getName() + "!");
 				}
 				else {
 					this.duel.addMessage(this.getName() + " summons the Royal Gel!");
 					this.duel.addMessage("A Pudding Blob has been created!");
 					this.triggerBossFight(new PuddingBlobBoss(this));
 				}
-				this.duel.EVENT_BOSS.bossTriggeredAt = this.duel.getOppOf(this);
+				this.duel.EVENT_BOSS.bossTriggeredAt = this.duel.otherFighter(this);
 			}
 			else if (attack == EMOTE_PP140) {
 				// Brain of Confusion
 				this.duel.MOVE_COUNT += 33;
 				this.duel.addMessage(this.getName() + " summons the Brain of Confusion!");
-				this.duel.addMessage(this.duel.getOppOf(this).getName() + " is confused!");
-				this.duel.getOppOf(this).grabbedPP = 3;
+				this.duel.addMessage(this.duel.otherFighter(this).getName() + " is confused!");
+				this.duel.otherFighter(this).grabbedPP = 3;
 			}
 			else if (attack == EMOTE_PP141) {
 				// Shield of Cthulhu
@@ -3167,8 +3158,8 @@ var Fighter = class {
 				var chaosNumber = 1 + Math.floor(getRandomPercent()/20);
 				for (var i = 0; i < chaosNumber; i++) {
 					var lastMove = EMOTE_PP39;
-					if (this.duel.getOppOf(this).usedMoves.length >= 2) {
-					    lastMove = this.duel.getOppOf(this).usedMoves[this.duel.getOppOf(this).usedMoves.length-2];
+					if (this.duel.otherFighter(this).usedMoves.length >= 2) {
+					    lastMove = this.duel.otherFighter(this).usedMoves[this.duel.otherFighter(this).usedMoves.length-2];
 					}
 					this.playMove(lastMove);
 					this.duel.addMessage("-----------------");
@@ -3201,8 +3192,8 @@ var Fighter = class {
 					}
 					if (this.requiemPower == REQUIEM_PP2) { // Iamthemorning
 						this.stopTime(3);
-						this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets possessed!");
-						this.duel.getOppOf(this).isPossessed = 1;
+						this.duel.addMessage(this.duel.otherFighter(this).getName() + " gets possessed!");
+						this.duel.otherFighter(this).isPossessed = 1;
 					}
 					if (this.requiemPower == REQUIEM_PP3 || this.requiemPower == REQUIEM_PP7) { // Majestic
 						this.stopTime(1);

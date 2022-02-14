@@ -600,7 +600,7 @@ var Duel = class {
 			// Give back instrument if needed (new life, stand battle etc...)
 			this.bothFightersAction(function(_fighter) {
 				if (_fighter.infernalInstrument <= 0) {
-					if (_fighter.duel.getOppOf(_fighter).infernalInstrument != 1) {
+					if (_fighter.duel.otherFighter(_fighter).infernalInstrument != 1) {
 						_fighter.infernalInstrument = 1; // Guitar
 					}
 					else {
@@ -806,7 +806,7 @@ var Duel = class {
 
 	checkDeath() {
 		this.bothFightersAction(function(_fighter) {
-			if (_fighter.duel.getOppOf(_fighter).standPower == STAND_PP10 && _fighter.STR <= _fighter.DEX) {
+			if (_fighter.duel.otherFighter(_fighter).standPower == STAND_PP10 && _fighter.STR <= _fighter.DEX) {
 				_fighter.duel.addMessage(_fighter.getName() + " is cursed by Illud Divinum Insanus!");
 				_fighter.STRValue -= _fighter.STR+100;
 			}
@@ -933,10 +933,10 @@ var Duel = class {
 				if (_fighter.grabbedPP > 0) {
 					_fighter.duel.addMessage("*Confusion* was " + _fighter.getName() + "'s epitaph.");
 				}
-				_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).getName() + " won! Congrats!");
-				_fighter.duel.getOppOf(_fighter).win();
-				if (_fighter.futureMemories > 0 || _fighter.duel.getOppOf(_fighter).futureMemories > 0 ) {
-					_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).getName() + " sends a D-Mail to the past!");
+				_fighter.duel.addMessage(_fighter.duel.otherFighter(_fighter).getName() + " won! Congrats!");
+				_fighter.duel.otherFighter(_fighter).win();
+				if (_fighter.futureMemories > 0 || _fighter.duel.otherFighter(_fighter).futureMemories > 0 ) {
+					_fighter.duel.addMessage(_fighter.duel.otherFighter(_fighter).getName() + " sends a D-Mail to the past!");
 				}
 				_fighter.duel.stopDuel();
 			};
@@ -987,7 +987,7 @@ var Duel = class {
 			this.addMessage("The victory will be determined by your proficiency in your instrument. You two dueling souls have to come up with a solo each... the best one crowning the victory!");
 			var winner = this.getRandomFighter();
 			winner.infernalInstrument = 1; // Guitar
-			this.getOppOf(winner).infernalInstrument = 2; // Synth
+			this.otherFighter(winner).infernalInstrument = 2; // Synth
 			this.INFERNAL_FIRELAND = true;
 		}
 		if (!this.PP_ARMAGEDDON && this.MOVE_COUNT >= 1000) {
@@ -1163,7 +1163,7 @@ var Duel = class {
 				this.addMessage("apolgy for bad english");
 				this.addMessage("where were u wen club pp die");
 				this.addMessage(winner.getName() + " was at house eating dorito when phone ring");
-				this.addMessage(this.getOppOf(winner).getName() + ': "Club pp is kil"');
+				this.addMessage(this.otherFighter(winner).getName() + ': "Club pp is kil"');
 				this.addMessage(winner.getName() + ': *"no"*');
 			}
 			else {
@@ -1349,8 +1349,8 @@ var Duel = class {
 			this.addMessage(" -- PENIS INQUISITION --");
 			this.addMessage("Nobody expected them, but here they are!");
 			var winner = this.getRandomFighter();
-			if (this.getOppOf(winner).STR > winner.STR) {
-				winner = this.getOppOf(winner);
+			if (this.otherFighter(winner).STR > winner.STR) {
+				winner = this.otherFighter(winner);
 			}
 			this.addMessage("They bite " + winner.getName() + "'s PP as he seems to have the toughest PP.");
 			winner.damage(Math.floor(winner.STR/10));
@@ -1523,8 +1523,8 @@ var Duel = class {
 
 				this.CURRENT_FIGHTER.playMove();
 
-				if (!this.getOppOf(this.CURRENT_FIGHTER).attackedThisTurn) {
-					this.CURRENT_FIGHTER = this.getOppOf(this.CURRENT_FIGHTER);
+				if (!this.otherFighter(this.CURRENT_FIGHTER).attackedThisTurn) {
+					this.CURRENT_FIGHTER = this.otherFighter(this.CURRENT_FIGHTER);
 					this.setRandomAttackList();
 
 					this.addMessage("**=== " + this.CURRENT_FIGHTER.getName() + " ===**", true);
@@ -1559,13 +1559,13 @@ var Duel = class {
 						duel.addMessage("Gay people can't cheat...");
 						return duel.sendMessages();
 					}
-					else if (duel.getOppOf(_fighter).STR <= 0) {
+					else if (duel.otherFighter(_fighter).STR <= 0) {
 						// opponent dead (boss battle)
 						return;
 					}
 					else {
-						duel.getOppOf(_fighter).attack = duel.getAttackFromEmote(_emote);
-						duel.addMessage(duel.getOppOf(_fighter).getName() + ": " + _emote, true);
+						duel.otherFighter(_fighter).attack = duel.getAttackFromEmote(_emote);
+						duel.addMessage(duel.otherFighter(_fighter).getName() + ": " + _emote, true);
 						duel.sendMessages();
 					}
 				}
@@ -1582,9 +1582,9 @@ var Duel = class {
 				duel.sendMessages();
 
 				// Possession
-				if (duel.getOppOf(_fighter).isPossessed >= 1) {
-					duel.getOppOf(_fighter).attack = duel.getAttackFromEmote(_emote);
-					duel.addMessage(duel.getOppOf(_fighter).getName() + ": " + _emote, true);
+				if (duel.otherFighter(_fighter).isPossessed >= 1) {
+					duel.otherFighter(_fighter).attack = duel.getAttackFromEmote(_emote);
+					duel.addMessage(duel.otherFighter(_fighter).getName() + ": " + _emote, true);
 					duel.sendMessages();
 				}
 			}
@@ -1606,7 +1606,7 @@ var Duel = class {
 		var i = 0;
 		var fighter = this.FIGHTER2;
 
-		if (this.AUTO_MOVES_COUNTDOWN <= 0 && !fighter.legAimer && (this.GAY_TURNS > 0 || (this.getOppOf(fighter).isPossessed > 0 && this.getOppOf(fighter).DEX > this.DEX))) {
+		if (this.AUTO_MOVES_COUNTDOWN <= 0 && !fighter.legAimer && (this.GAY_TURNS > 0 || (this.otherFighter(fighter).isPossessed > 0 && this.otherFighter(fighter).DEX > this.DEX))) {
 			var dumbMoves = [EMOTE_PP47, EMOTE_PP9, EMOTE_PP41, EMOTE_PP50];
 			for (i = 0; i < dumbMoves.length; i++) { // opponent plays garbage moves
 				if (this.LIST_AVAILABLE_ATTACKS.indexOf(dumbMoves[i]) > -1) {
@@ -1616,7 +1616,7 @@ var Duel = class {
 			return this.triggerReaction(CLIENT.emojis.cache.get(this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)]).name, this.FIGHTER2.user);
 		}
 
-		if (fighter.STR < this.getOppOf(fighter).STR && fighter.DEX < this.getOppOf(fighter).DEX && this.getOppOf(fighter).isPossessed > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP5) > -1) {
+		if (fighter.STR < this.otherFighter(fighter).STR && fighter.DEX < this.otherFighter(fighter).DEX && this.otherFighter(fighter).isPossessed > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP5) > -1) {
 			// High Five
 			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP5).name, fighter.user);
 		}
@@ -1632,7 +1632,7 @@ var Duel = class {
 				return this.triggerReaction(CLIENT.emojis.cache.get(STAND_SUMMONS[i][STAND_SUMMONS[i].length-1]).name, fighter.user);
 			}
 		}
-		if (fighter.DEX + 30 < this.getOppOf(fighter).DEX && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP8) > -1) {
+		if (fighter.DEX + 30 < this.otherFighter(fighter).DEX && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP8) > -1) {
 			// Trap
 			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP8).name, fighter.user);
 		}
@@ -1670,11 +1670,11 @@ var Duel = class {
 			}
 		}
 
-		if (fighter.DEX + 30 < this.getOppOf(fighter).DEX && this.BLIND_COUNTDOWN > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP32) > -1) {
+		if (fighter.DEX + 30 < this.otherFighter(fighter).DEX && this.BLIND_COUNTDOWN > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP32) > -1) {
 			// High Five Emote
 			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP32).name, fighter.user);
 		}
-		if (fighter.STR < this.getOppOf(fighter).STR && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP24) > -1) {
+		if (fighter.STR < this.otherFighter(fighter).STR && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP24) > -1) {
 			// Knockback
 			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP24).name, fighter.user);
 		}
@@ -1682,11 +1682,11 @@ var Duel = class {
 			// Alert
 			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP30).name, fighter.user);
 		}
-		if (fighter.DEX + this.getDexChange(EMOTE_PP3) > this.getOppOf(fighter).DEX && this.getOppOf(fighter).STR < 1500 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP3) > -1) {
+		if (fighter.DEX + this.getDexChange(EMOTE_PP3) > this.otherFighter(fighter).DEX && this.otherFighter(fighter).STR < 1500 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP3) > -1) {
 			// Hologram
 			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP3).name, fighter.user);
 		}
-		if (fighter.DEX + this.getDexChange(EMOTE_PP4) > this.getOppOf(fighter).DEX && fighter.STR < 500 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP4) > -1) {
+		if (fighter.DEX + this.getDexChange(EMOTE_PP4) > this.otherFighter(fighter).DEX && fighter.STR < 500 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP4) > -1) {
 			// Flex
 			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP4).name, fighter.user);
 		}
@@ -1699,11 +1699,11 @@ var Duel = class {
 			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP31).name, fighter.user);
 		}
 
-		if (fighter.DEX + 30 < this.getOppOf(fighter).DEX && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP68) > -1) {
+		if (fighter.DEX + 30 < this.otherFighter(fighter).DEX && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP68) > -1) {
 			// Mech
 			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP68).name, fighter.user);
 		}
-		if (fighter.STR > this.getOppOf(fighter).STR * 2 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP74) > -1) {
+		if (fighter.STR > this.otherFighter(fighter).STR * 2 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP74) > -1) {
 			// Sword
 			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP74).name, fighter.user);
 		}
@@ -1711,7 +1711,7 @@ var Duel = class {
 			// LostSoul
 			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP69).name, fighter.user);
 		}
-		if (fighter.STR > this.getOppOf(fighter).STR + 30 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP74) > -1) {
+		if (fighter.STR > this.otherFighter(fighter).STR + 30 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP74) > -1) {
 			// Sword
 			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP74).name, fighter.user);
 		}
@@ -1750,7 +1750,7 @@ var Duel = class {
 			// Disembowled
 			dont.push(EMOTE_PP37);
 		}
-		if (fighter.STR/10 > this.getOppOf(fighter).missedMoves*50) {
+		if (fighter.STR/10 > this.otherFighter(fighter).missedMoves*50) {
 			// LaughSoul
 			dont.push(EMOTE_PP23);
 		}
@@ -1762,7 +1762,7 @@ var Duel = class {
 			// Circumcised
 			dont.push(EMOTE_PP22);
 		}
-		if (fighter.STR > this.getOppOf(fighter).STR) {
+		if (fighter.STR > this.otherFighter(fighter).STR) {
 			// Knockback
 			dont.push(EMOTE_PP24);
 		}
@@ -1796,7 +1796,7 @@ var Duel = class {
 			dont.push(EMOTE_PP30);
 		}
 		for (i = 0; i < EMOTE_LIST.length; i++) {
-			if (fighter.DEX + this.getDexChange(EMOTE_LIST[i]) + 20 < this.getOppOf(fighter).DEX) {
+			if (fighter.DEX + this.getDexChange(EMOTE_LIST[i]) + 20 < this.otherFighter(fighter).DEX) {
 				// No move with shitty DEX
 				dont.push(EMOTE_LIST[i]);
 			}
@@ -1987,22 +1987,22 @@ var Duel = class {
 			winner = this.FIGHTER1;
 		}
 		if (this.REVERSED_GRAVITY) {
-			winner = winner.duel.getOppOf(winner);
+			winner = winner.duel.otherFighter(winner);
 		}
 
 		var priorityMoves = [EMOTE_PP15, EMOTE_PP29, EMOTE_PP11]; // Hobro / Steel / Barrel
 
 		if ((dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) ||
-		    this.AUTO_MOVES_COUNTDOWN > 0 || this.EVENT_BOSS != null || this.getOppOf(winner).legAimer ||
+		    this.AUTO_MOVES_COUNTDOWN > 0 || this.EVENT_BOSS != null || this.otherFighter(winner).legAimer ||
 		    this.TIME_STOP > 0 || this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
 			this.addMessage("Both opponents attack this turn!");
 			this.sendMessages();
 
-			if (priorityMoves.indexOf(this.getOppOf(winner).attack) > -1) {
-				winner = this.getOppOf(winner);
+			if (priorityMoves.indexOf(this.otherFighter(winner).attack) > -1) {
+				winner = this.otherFighter(winner);
 			}
-			if (priorityMoves.indexOf(this.getOppOf(winner).attack) > -1) {
-				winner = this.getOppOf(winner);
+			if (priorityMoves.indexOf(this.otherFighter(winner).attack) > -1) {
+				winner = this.otherFighter(winner);
 			}
 
 			this.bothFightersAction(function(_fighter) {
@@ -2010,12 +2010,12 @@ var Duel = class {
 				_fighter.playMove();
 				_fighter.duel.sendMessages();
 
-				if (_fighter.duel.getOppOf(_fighter).attack == EMOTE_PP8) { // Burst
-					_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).getName() + " burst!");
+				if (_fighter.duel.otherFighter(_fighter).attack == EMOTE_PP8) { // Burst
+					_fighter.duel.addMessage(_fighter.duel.otherFighter(_fighter).getName() + " burst!");
 					_fighter.duel.sendMessages();
 					_fighter.hasBurst = 2;
 				}
-				if (_fighter.standPower == STAND_PP7 && _fighter.attack == _fighter.duel.getOppOf(_fighter).attack) { // Parallel Minds
+				if (_fighter.standPower == STAND_PP7 && _fighter.attack == _fighter.duel.otherFighter(_fighter).attack) { // Parallel Minds
 					_fighter.duel.addMessage("-----------------");
 					_fighter.heal(15);
 					_fighter.duel.addMessage(_fighter.getName() + " gets 5 DEX!");
@@ -2025,8 +2025,8 @@ var Duel = class {
 		}
 		else {
 			// Priority automatic moves
-			if (priorityMoves.indexOf(this.getOppOf(winner).attack) > -1) {
-				this.getOppOf(winner).playMove();
+			if (priorityMoves.indexOf(this.otherFighter(winner).attack) > -1) {
+				this.otherFighter(winner).playMove();
 			}
 
 			this.addMessage(winner.getName() + " uses his move!");
@@ -2034,56 +2034,56 @@ var Duel = class {
 			winner.playMove();
 
 			// Burst
-			if (this.getOppOf(winner).attack == EMOTE_PP8) {
-				this.addMessage(this.getOppOf(winner).getName() + " burst!");
+			if (this.otherFighter(winner).attack == EMOTE_PP8) {
+				this.addMessage(this.otherFighter(winner).getName() + " burst!");
 				winner.hasBurst = 2;
 			}
 
 			// Scout
-			if (this.getOppOf(winner).attack == EMOTE_PP13) {
-				this.getOppOf(winner).playMove();
+			if (this.otherFighter(winner).attack == EMOTE_PP13) {
+				this.otherFighter(winner).playMove();
 			}
 			// BronanSlam
-			if (this.getOppOf(winner).attack == EMOTE_PP42 && (this.getOppOf(winner).megaBuildUp > 0 || this.getOppOf(winner).bonusDamage > 0)) {
-				this.getOppOf(winner).playMove();
+			if (this.otherFighter(winner).attack == EMOTE_PP42 && (this.otherFighter(winner).megaBuildUp > 0 || this.otherFighter(winner).bonusDamage > 0)) {
+				this.otherFighter(winner).playMove();
 			}
 			// Intimidates
-			if (this.getOppOf(winner).attack == EMOTE_PP28) {
-				this.getOppOf(winner).playMove();
+			if (this.otherFighter(winner).attack == EMOTE_PP28) {
+				this.otherFighter(winner).playMove();
 			}
 			// LivingGod
-			if (this.getOppOf(winner).attack == EMOTE_PP49) {
-				this.getOppOf(winner).playMove();
+			if (this.otherFighter(winner).attack == EMOTE_PP49) {
+				this.otherFighter(winner).playMove();
 			}
 			// High Five Emote
-			if (this.getOppOf(winner).attack == EMOTE_PP32 && this.BLIND_COUNTDOWN > 0) {
-				this.getOppOf(winner).playMove();
+			if (this.otherFighter(winner).attack == EMOTE_PP32 && this.BLIND_COUNTDOWN > 0) {
+				this.otherFighter(winner).playMove();
 			}
 			// Mech
-			if (this.getOppOf(winner).attack == EMOTE_PP68) {
-				this.addMessage(winner.getName() + " triggers " + this.getOppOf(winner).getName() + "'s Mech!");
-				this.addMessage(this.getOppOf(winner).getName() + " shoots!");
+			if (this.otherFighter(winner).attack == EMOTE_PP68) {
+				this.addMessage(winner.getName() + " triggers " + this.otherFighter(winner).getName() + "'s Mech!");
+				this.addMessage(this.otherFighter(winner).getName() + " shoots!");
 				winner.damage(50);
 			}
 			// Requiem
-			if (this.getOppOf(winner).attack == EMOTE_ABILITY && this.getOppOf(winner).requiemPower != null) {
-				this.getOppOf(winner).playMove();
+			if (this.otherFighter(winner).attack == EMOTE_ABILITY && this.otherFighter(winner).requiemPower != null) {
+				this.otherFighter(winner).playMove();
 			}
 			// Dual Loop
-			if (this.getOppOf(winner).attack == EMOTE_PP55) {
-				this.getOppOf(winner).playMove();
+			if (this.otherFighter(winner).attack == EMOTE_PP55) {
+				this.otherFighter(winner).playMove();
 			}
 			// D-Mail
-			if (this.getOppOf(winner).attack == EMOTE_SKIP && this.getOppOf(winner).futureMemories == 0) {
-				this.getOppOf(winner).playMove();
+			if (this.otherFighter(winner).attack == EMOTE_SKIP && this.otherFighter(winner).futureMemories == 0) {
+				this.otherFighter(winner).playMove();
 			}
 			// Shiny Stone
-			if (this.getOppOf(winner).attack == EMOTE_PP145) {
-				this.getOppOf(winner).playMove();
+			if (this.otherFighter(winner).attack == EMOTE_PP145) {
+				this.otherFighter(winner).playMove();
 			}
 			// Gravity Globe
-			if (this.getOppOf(winner).attack == EMOTE_PP146) {
-				this.getOppOf(winner).playMove();
+			if (this.otherFighter(winner).attack == EMOTE_PP146) {
+				this.otherFighter(winner).playMove();
 			}
 		}
 		if (this.MOVE_COUNT_TURN >= 500) {
@@ -2426,7 +2426,7 @@ var Duel = class {
 	}
 
 	launchRaid(_city, _special = "") {
-		var _target = this.getOppOf(_city);
+		var _target = this.otherFighter(_city);
 		var attackPower = _city.militaryPower;
 		var defencePower = _target.militaryPower + _target.getTotalDefBonus();
 
@@ -2596,7 +2596,7 @@ var Duel = class {
 		}
 
 		_function(_firstFighter);
-		_function(this.getOppOf(_firstFighter, true));
+		_function(this.otherFighter(_firstFighter));
 	}
 	getRandomFighter() {
 		if (this.TUTORIAL) {
@@ -2614,7 +2614,14 @@ var Duel = class {
 			return this.FIGHTER1;
 		}
 
-		if (!_ignoreBoss && this.EVENT_BOSS != null) return this.EVENT_BOSS;
+		if (this.EVENT_BOSS != null) {
+			if (_fighter == this.EVENT_BOSS) {
+				if (this.EVENT_BOSS.bossTriggeredAt != null) return this.EVENT_BOSS.bossTriggeredAt;
+				return getRandomFighter();
+			}
+			if (!_ignoreBoss) return this.EVENT_BOSS;
+		}
+
 
 		if (this.FIGHTER1.user.id == _fighter.user.id) {
 			return this.FIGHTER2;
@@ -2623,6 +2630,9 @@ var Duel = class {
 	}
 	getOppOf(_fighter, _ignoreBoss = false) {
 		return this.getOpponentOf(_fighter);
+	}
+	otherFighter(_fighter) {
+		return this.getOpponentOf(_fighter, true);
 	}
 
 	setMusic(_music) {
