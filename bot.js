@@ -149,11 +149,11 @@ function checkUpdateEncyclopedia() {
 					   || encyChannels[i].topic == "Civilisation Mode") {
 						var cutBiblePart = fullBible[j].split(" ").join("").split("*").join("");
 						for (var k in EMOTE_LIST) {
-							if ((cutBiblePart.includes(CLIENT.emojis.cache.get(EMOTE_LIST[k]).name + ":")
-							   || cutBiblePart.includes(CLIENT.emojis.cache.get(EMOTE_LIST[k]).name + "/")
-							   || cutBiblePart.includes(CLIENT.emojis.cache.get(EMOTE_LIST[k]).name + "("))
+							if ((cutBiblePart.includes(getEmote(EMOTE_LIST[k]).name + ":")
+							   || cutBiblePart.includes(getEmote(EMOTE_LIST[k]).name + "/")
+							   || cutBiblePart.includes(getEmote(EMOTE_LIST[k]).name + "("))
 							   && (emote == "" ||
-							       CLIENT.emojis.cache.get(EMOTE_LIST[k]).name.length > CLIENT.emojis.cache.get(emote).name.length)) {
+							       CLIENT.emojis.cache.get(EMOTE_LIST[k]).name.length > getEmote(emote).name.length)) {
 								emote = EMOTE_LIST[k];
 							}
 						}
@@ -319,6 +319,13 @@ function toggleGod(_fighterID, _god) {
 	}
 
 	return setPlayerBuild(_fighterID, build);
+}
+
+function getEmote(_id) {
+	return CLIENT.emojis.cache.get(_id);
+}
+function displayEmote(_id) {
+	return `${getEmote(_id)}`;
 }
 
 async function sendCheatPanel(_channel, _category = null) {

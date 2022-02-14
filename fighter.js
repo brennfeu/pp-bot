@@ -498,7 +498,7 @@ var Fighter = class {
 				else {
 					for (var i in this.godList) {
 						if (GOD_LIST[i].type == types[t] && GOD_LIST.find(r => r.name == this.godList[i]) != undefined) {
-							godsText += "\n - " + this.godList[i] + " Priest";
+							godsText += "\n" + displayEmote(GOD_LIST.find(r => r.name == this.godList[i]).emote) + " " + this.godList[i] + " Priest";
 						}
 					}
 				}
@@ -511,17 +511,17 @@ var Fighter = class {
 			}
 		}
 		if (this.regularCharges > 0) {
-			godsText += "\nRegular Charges: " + this.regularCharges;
+			godsText += "\n" + displayEmote(EMOTE_PP51) + " Regular Charges: " + this.regularCharges;
 		}
 		if (this.specialCharges > 0) {
-			godsText += "\nSpecial Charges: " + this.specialCharges;
+			godsText += "\n" + displayEmote(EMOTE_PP52) + "Special Charges: " + this.specialCharges;
 		}
 		if (godsText != "") embedMessage.addField("Faith", godsText, true);
 
 		// FIGHTING STYLES
 		var fightingStylesTxt = "";
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
-			fightingStylesTxt += " - *Ultimate PP";
+			fightingStylesTxt += displayEmote(EMOTE_PP4) + " *Ultimate PP";
 			if (this.ultimatePPBuff) {
 				fightingStylesTxt += " II";
 			}
@@ -529,19 +529,19 @@ var Fighter = class {
 		}
 		else {
 			if (this.isBigPP) {
-				fightingStylesTxt += " - Big PP\n";
+				fightingStylesTxt += displayEmote(EMOTE_PP40) + " Big PP\n";
 			}
 			if (this.isFastPP) {
-				fightingStylesTxt += " - Fast PP\n";
+				fightingStylesTxt += displayEmote(EMOTE_PP38) + " Fast PP\n";
 			}
 			if (this.isDrunkPP) {
-				fightingStylesTxt += " - Drunken PP\n";
+				fightingStylesTxt += displayEmote(EMOTE_PP41) + " Drunken PP\n";
 			}
 			if (this.isHockeyPuckPP) {
-				fightingStylesTxt += " - Hockey Puck PP\n";
+				fightingStylesTxt += displayEmote(EMOTE_PP9) + " Hockey Puck PP\n";
 			}
 			if (this.isAlienPP) {
-				fightingStylesTxt += " - Alien PP\n";
+				fightingStylesTxt += displayEmote(EMOTE_PP34) + " Alien PP\n";
 			}
 		}
 		if (fightingStylesTxt != "") embedMessage.addField("Fighting Styles", fightingStylesTxt, true);

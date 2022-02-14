@@ -166,16 +166,15 @@ var Duel = class {
 		this.addMessage("**===== RECAP =====**");
 		this.addMessage("**===== CURRENT STATE =====**");
 		this.addMessage("", true, {embed: this.FIGHTER1.toString()});
-		this.addMessage("-----------------");
 		this.addMessage("", true, {embed: this.FIGHTER2.toString()});
 		this.addMessage("**===== SOME STATS =====**");
-		var txt = " - Number of moves: " + this.MOVE_COUNT;
+		var txt = "- Number of moves: " + this.MOVE_COUNT;
 		if (this.MOVE_COUNT == 69) {
-			txt += " (lmao)";
+			txt += " (hahaha)";
 		}
-		txt += "\n - Number of damages inflicted: " + this.DAMAGE_COUNT;
+		txt += "\n- Number of damages inflicted: " + this.DAMAGE_COUNT;
 		if (this.DAMAGE_COUNT == 69) {
-			txt += " (lmao)";
+			txt += " (hahaha)";
 		}
 		this.addMessage(txt);
 		this.sendMessages();
@@ -793,7 +792,7 @@ var Duel = class {
 				if (duel.LIST_AVAILABLE_ATTACKS[i] != EMOTE_DEAD && duel.LIST_AVAILABLE_ATTACKS[i] != EMOTE_SKIP) {
 					_message2.react(duel.LIST_AVAILABLE_ATTACKS[i]);
 
-					var txt = `${CLIENT.emojis.cache.get(duel.LIST_AVAILABLE_ATTACKS[i])} `;
+					var txt = `${getEmote(duel.LIST_AVAILABLE_ATTACKS[i])} `;
 					txt += MOVE_HELP[duel.LIST_AVAILABLE_ATTACKS[i]];
 
 					_message2.channel.send(txt);
