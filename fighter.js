@@ -3156,7 +3156,7 @@ var Fighter = class {
 				if (this.duel.EVENT_BOSS != null) {
 					this.duel.addMessage(this.duel.EVENT_BOSS.getName() + " suddenly runs away.");
 				}
-				this.triggerBossFight(new SexStarvedMongoBoss(this));
+				this.triggerBossFight(new SexStarvedMongoBoss(this.duel));
 				this.duel.addMessage("Mongo has appeared, and he is sex-starved!");
 				this.duel.addMessage("-----------------");
 			}

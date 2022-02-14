@@ -136,7 +136,7 @@ var Duel = class {
 			this.addMessage("**===== WEEB =====**");
 			var bossWeeb = new WeebBoss(this);
 			this.addMessage(bossWeeb.getName() + " challenges you!\n" + IMAGE_PP7);
-			triggerBossFight(bossWeeb)
+			this.triggerBossFight(bossWeeb)
 		}
 		// Nuisance
 		if (this.PPLEVEL > 50 && getRandomPercent() <= 5) {
