@@ -1108,7 +1108,7 @@ var Fighter = class {
 			else if (attack == EMOTE_PP14) {
 				// SawBlade
 				this.duel.addMessage(this.getName() + " cuts " + this.duel.getOppOf(this).getName() + "'s PP!");
-				this.duel.getOppOf(this).bleedDamage += 5;
+				this.duel.getOppOf(this).bleedDamage += Math.floor(this.STR/15);;
 			}
 			else if (attack == EMOTE_PP15) {
 				// Hobro
