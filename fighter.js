@@ -447,6 +447,7 @@ var Fighter = class {
 		var embedMessage = new DISCORD.MessageEmbed();
 		embedMessage.setColor("RANDOM");
 		embedMessage.setTitle("**" + this.getName() + "**\n");
+		embedMessage.setThumbnail(this.user.displayAvatarURL(options));
 
 		// SPECIAL CASES
 		if (this.duel.MOVE_COUNT >= 10000) {
@@ -466,14 +467,14 @@ var Fighter = class {
 		if (this.STR == 69) {
 			statsTxt += " (lmao)";
 		}
-		statsTxt += "\n**DEX:** " + this.DEX;
+		statsTxt += "    //    **DEX:** " + this.DEX;
 		if (this.DEX == 69) {
 			statsTxt += " (lmao)";
 		}
 		if (this.dexMalus > 0) {
 			statsTxt += "\n - DEX Bonus: **" + this.dexMalus + "**";
 		}
-		embedMessage.addField("Stats", statsTxt, true);
+		embedMessage.addField(statsTxt, "", false);
 
 		// GODS
 		var godsText = "";
@@ -4162,6 +4163,10 @@ var City = class extends Fighter {
 	}
 
 	toString() {
+		var embedMessage = new DISCORD.MessageEmbed();
+		embedMessage.setColor("RANDOM");
+		embedMessage.setTitle("**" + this.getName() + "**\n");
+
 		if (this.duel.MOVE_COUNT >= 10000) {
 			return "**" + this.getName() + "**\n - Wiped out";
 		}
