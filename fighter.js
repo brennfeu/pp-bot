@@ -272,7 +272,9 @@ var Fighter = class {
 		return this.user.username;
 	}
 	getImageURL() {
-		return this.user.displayAvatarURL();
+		try { return this.user.displayAvatarURL(); }
+		catch(e) { return null; }
+
 	}
 
 	// fighter.STR

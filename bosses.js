@@ -100,6 +100,8 @@ var CthulhuBoss = class extends Boss {
         this.baseDamage = 50;
         this.deathEndsDuel = true;
 
+        this.imageURL = "https://cdn.discordapp.com/emojis/715323505104650268.webp";
+
         this.evolveToMoonLord = true;
     }
 
@@ -112,6 +114,8 @@ var MoonLordBoss = class extends CthulhuBoss {
     constructor(_duel) {
         super(_duel, "Moon Lord", 500000);
         this.baseDamage = 2000;
+
+        this.imageURL = "https://cdn.discordapp.com/attachments/715322091804819486/942778125211828264/unknown.png";
 
         this.isMoonLord = true;
     }
@@ -135,6 +139,8 @@ var FreeLivesBoss = class extends Boss {
         this.baseDamage = 20;
         this.mimicPercentage = 20;
 
+        this.imageURL = "https://cdn.discordapp.com/attachments/715322091804819486/942778509292621844/unknown.png";
+
         this.canceledByGoodUpdates = true;
     }
 
@@ -148,6 +154,8 @@ var IKEABoss = class extends Boss {
         super(_duel, "IKEA", 500);
         this.baseDamage = 40;
         this.mimicPercentage = 20;
+
+        this.imageURL = "https://cdn.discordapp.com/attachments/715322091804819486/942778851841441812/unknown.png";
 
         this.isIkea = true;
     }
@@ -163,6 +171,8 @@ var WeebBoss = class extends Boss {
         super(_duel, "Weeb", 1);
         this.baseDamage = 30;
         this.mimicPercentage = 2;
+
+        this.imageURL = "https://cdn.discordapp.com/attachments/715322091804819486/942779136047468564/unknown.png";
     }
 
     triggerDeath() {
@@ -175,6 +185,8 @@ var PuddingBlobBoss = class extends Boss {
         super(_duel, "Pudding Blob", 10);
         this.STRValue = 10*this.duel.MOVE_COUNT;
         this.baseDamage = 2*this.duel.MOVE_COUNT;
+
+        this.imageURL = "https://cdn.discordapp.com/attachments/715322091804819486/942781193039003688/unknown.png";
 
         this.mimicPercentage = 5;
         this.puddingLaughIfMimic = true;
@@ -278,6 +290,8 @@ var SatanBoss = class extends Boss {
         this.baseDamage = 1000;
         this.mimicPercentage = 20;
 
+        this.imageURL = "https://cdn.discordapp.com/emojis/358018763058053120.webp";
+
         this.eldritchGateBuff = true;
     }
 
@@ -294,6 +308,8 @@ var SatanTrueFormBoss = class extends Boss {
         this.baseDamage = 100000;
         this.deathEndsDuel = true;
 
+        this.imageURL = "https://cdn.discordapp.com/emojis/715323505448714240.webp";
+
         this.eldritchGateBuff = true;
     }
 
@@ -307,6 +323,8 @@ var SexStarvedMongoBoss = class extends Boss {
     constructor(_duel) {
         super(_duel, "Sex Starved Mongo", 10);
         this.STRValue = (this.duel.FIGHTER1.STR + this.duel.FIGHTER2.STR)*10000;
+
+        this.imageURL = "https://cdn.discordapp.com/emojis/755852607175524373.webp";
 
         this.baseDamage = 0;
         this.mimicPercentage = 2;
@@ -324,6 +342,8 @@ var RaidBossEspinozaBoss = class extends Boss {
         super(_duel, "Raid Boss Espinoza", 1000000);
         this.baseDamage = 1000;
         this.mimicPercentage = 20;
+
+        this.imageURL = "https://cdn.discordapp.com/attachments/715322091804819486/942782354181750795/unknown.png";
     }
 
     triggerDeath() {
@@ -341,6 +361,8 @@ var ObamiumEspinozaBoss = class extends RaidBossEspinozaBoss {
         super(_duel, "Obamium Espinoza", Math.pow(10, 10));
         this.baseDamage = 1000000;
         this.mimicPercentage = 20;
+
+        this.imageURL = "https://cdn.discordapp.com/attachments/715322091804819486/942782715810414612/unknown.png";
     }
 }
 
@@ -349,6 +371,8 @@ var WyndoeallaBoss = class extends Boss {
         super(_duel, "Wyndoella", Math.pow(10, 99));
         this.baseDamage = Math.pow(10, 99);
         this.winsIfHeatDeath = true;
+
+        this.imageURL = "https://cdn.discordapp.com/attachments/715322091804819486/942783201494044742/unknown.png";
     }
 
     triggerDeath() {

@@ -2240,7 +2240,7 @@ var Duel = class {
 				if (this.KIDNEY_CURSE <= i || this.KIDNEY_CURSE <= 0) {
 					var currentLength = listeAttaques.length;
 					while (listeAttaques.length <= currentLength) {
-						if (this.PPLEVEL > 200 && this.MOVE_COUNT == 0 && getRandomPercent() <= 33 && i == 0) {
+						if (this.PPLEVEL > 200 && this.MOVE_COUNT == 0 && getRandomPercent() <= 10 && i == 0) {
 							emote = EMOTE_PP81; // Melodia
 						}
 						else if (getRandomPercent() > 20) {
