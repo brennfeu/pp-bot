@@ -726,8 +726,8 @@ var Duel = class {
 			}
 		});
 
-		if ((this.FIGHTER1.turnSkip > 0 || this.FIGHTER1.grabbedPP > 0 || this.FIGHTER1.summonTankCountdown == 1 || this.FIGHTER1.isPossessed > 0 || this.FIGHTER1.STR <= 0 || this.FIGHTER1.attack != null) &&
-		    (this.FIGHTER2.turnSkip > 0 || this.FIGHTER2.grabbedPP > 0 || this.FIGHTER2.summonTankCountdown == 1 || this.FIGHTER2.isPossessed > 0 || this.FIGHTER2.STR <= 0 || this.FIGHTER2.attack != null)) {
+		if ((this.FIGHTER1.turnSkip > 0 || this.FIGHTER1.grabbedPP > 0 || this.FIGHTER1.summonTankCountdown == 1 || this.FIGHTER1.isPossessed > 0 || this.FIGHTER1.STR <= 0 || this.FIGHTER1.attack == EMOTE_SKIP) &&
+		    (this.FIGHTER2.turnSkip > 0 || this.FIGHTER2.grabbedPP > 0 || this.FIGHTER2.summonTankCountdown == 1 || this.FIGHTER2.isPossessed > 0 || this.FIGHTER2.STR <= 0 || this.FIGHTER2.attack == EMOTE_SKIP)) {
 			this.bothFightersAction(function(_fighter) {
 				if (_fighter.summonTankCountdown == 1) {
 					_fighter.playMove(EMOTE_PP10);
@@ -2596,7 +2596,7 @@ var Duel = class {
 		}
 
 		_function(_firstFighter);
-		_function(this.getOppOf(_firstFighter));
+		_function(this.getOppOf(_firstFighter, true));
 	}
 	getRandomFighter() {
 		if (this.TUTORIAL) {
@@ -2609,19 +2609,19 @@ var Duel = class {
 		return this.FIGHTER2;
 	}
 
-	getOpponentOf(_fighter) {
+	getOpponentOf(_fighter, _ignoreBoss = false) {
 		if (this.TUTORIAL) {
 			return this.FIGHTER1;
 		}
 
-		if (this.EVENT_BOSS != null) return this.EVENT_BOSS;
+		if (!_ignoreBoss && this.EVENT_BOSS != null) return this.EVENT_BOSS;
 
 		if (this.FIGHTER1.user.id == _fighter.user.id) {
 			return this.FIGHTER2;
 		}
 		return this.FIGHTER1;
 	}
-	getOppOf(_fighter) {
+	getOppOf(_fighter, _ignoreBoss = false) {
 		return this.getOpponentOf(_fighter);
 	}
 
