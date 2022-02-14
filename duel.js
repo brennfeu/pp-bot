@@ -843,13 +843,13 @@ var Duel = class {
 			this.BATTLE_CHANNEL.send("", {embed: this.FIGHTER1.toString()});
 			this.addMessage("**===== /VS/ =====**", true);
 			this.sendMessages();
-			this.BATTLE_CHANNEL.send("", {embeds: this.FIGHTER2.toString()});
+			this.BATTLE_CHANNEL.send("", {embed: this.FIGHTER2.toString()});
 		}
 		else {
 			this.BATTLE_CHANNEL.send("", {embed: this.FIGHTER1.toString()});
 			this.addMessage("-----------------", true);
 			this.sendMessages();
-			this.BATTLE_CHANNEL.send("", {embeds: this.FIGHTER2.toString()});
+			this.BATTLE_CHANNEL.send("", {embed: this.FIGHTER2.toString()});
 			this.addMessage("**===== /VS/ =====**", true);
 			this.addMessage("**" + this.CURRENT_BOSS + "**\n**STR:** " + this.BOSS_HEALTH, true);
 		}
