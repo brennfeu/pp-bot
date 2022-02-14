@@ -1,6 +1,6 @@
 var Boss = class extends Fighter {
     constructor(_duel, _name, _baseHP) {
-        super(0 ,_duel.BATTLE_CHANNEL.id);
+        super(CLIENT.user.id ,_duel.BATTLE_CHANNEL.id);
         this.bossName = _name;
 
         this.STRValue = _baseHP;
