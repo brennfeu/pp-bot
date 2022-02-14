@@ -3203,6 +3203,7 @@ var Fighter = class {
 
 						var duel = this.duel;
 						this.duel = null;
+						this.extraLifeDuplication = null;
 						this.extraLifeDuplication = cloneObject(this);
 						this.extraLifeDuplication.duel = duel;
 						this.duel = duel;
