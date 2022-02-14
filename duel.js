@@ -1024,7 +1024,7 @@ var Duel = class {
 		}
 		else if (this.PPLEVEL > 100 && randomVar == 5 && (this.MOVE_COUNT >= 30 || forcedEvent)) {
 			// Cthulhu
-			if (this.EVENT_BOSS != null this.EVENT_BOSS.evolveToMoonLord) {
+			if (this.EVENT_BOSS != null && this.EVENT_BOSS.evolveToMoonLord) {
 				this.addMessage(" -- MOON LORD AWAKENS --");
 				this.addMessage("Cthulhu is blessed by the moonlight!");
 				this.addMessage("The Moon Lord has been summoned and takes control over Cthulhu's body!");
