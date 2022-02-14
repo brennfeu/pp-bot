@@ -75,7 +75,7 @@ var Boss = class extends Fighter {
     }
 
     triggerBossAttack() {
-        var randomFighter = getRandomFighter();
+        var randomFighter = this.duel.getRandomFighter();
         if (this.bossTriggeredAt != null) randomFighter = this.bossTriggeredAt;
 
         this.duel.addMessage(this.getName() + " attacks " + randomFighter.getName() + "!");
