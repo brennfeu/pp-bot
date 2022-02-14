@@ -450,10 +450,10 @@ var Fighter = class {
 
 		// SPECIAL CASES
 		if (this.duel.MOVE_COUNT >= 10000) {
-			return embedMessage.setDescription(" - Wiped out");
+			return embedMessage.setDescription(" - Wiped out").toJSON();
 		}
 		if (this.STR <= 0 && this.duel.EVENT_BOSS) {
-			return embedMessage.setDescription("**Dead** :(");
+			return embedMessage.setDescription("**Dead** :(").toJSON();
 		}
 
 		// STAND USER
@@ -909,7 +909,7 @@ var Fighter = class {
 		}
 		if (synergyTxt != "") embedMessage.addField("Synergies", synergyTxt, true);
 
-		return embedMessage;
+		return embedMessage.toJSON();
 	}
 
 	playMove(_newMove = this.attack) {
