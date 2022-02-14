@@ -76,10 +76,7 @@ var Duel = class {
 		this.ESPINOZA_CHOICE = "";
 		this.OBAMIUM = false;
 
-		this.EVENT_BOSS = false;
-		this.BOSS_TRIGGER = null;
-		this.BOSS_HEALTH = 0;
-		this.BOSS_DAMAGE = 0;
+		this.EVENT_BOSS = null;
 
 		this.FORCE_PERHAPS = false;
 		this.FORCE_SATAN = false;
@@ -137,11 +134,9 @@ var Duel = class {
 		// Weeb
 		if (this.PPLEVEL > 50 && getRandomPercent() <= 10) {
 			this.addMessage("**===== WEEB =====**");
-			this.addMessage(BOSS_PP11 + " challenges you!\n" + IMAGE_PP7);
-			this.CURRENT_BOSS = BOSS_PP11;
-			this.BOSS_HEALTH = 1;
-			this.BOSS_DAMAGE = 30;
-			this.EVENT_BOSS = true;
+			var bossWeeb = new WeebBoss();
+			this.addMessage(bossWeeb.getName() + " challenges you!\n" + IMAGE_PP7);
+			triggerBossFight(bossWeeb)
 		}
 		// Nuisance
 		if (this.PPLEVEL > 50 && getRandomPercent() <= 5) {
@@ -162,7 +157,7 @@ var Duel = class {
 		this.newTurnDuel();
 	}
 	stopDuel() {
-		this.EVENT_BOSS = false;
+		this.EVENT_BOSS = null;
 		this.DEAD_DUEL = true;
 
 		this.sendMessages();
@@ -508,13 +503,10 @@ var Duel = class {
 					this.addMessage("-----------------");
 				}
 				if (this.PUDDING_NUISANCE == 0) {
-					if (this.EVENT_BOSS) {
-						this.addMessage(this.CURRENT_BOSS + "'s boss fight is canceled by Pudding.");
+					if (this.EVENT_BOSS != null) {
+						this.addMessage(this.EVENT_BOSS.getName() + "'s boss fight is canceled by Pudding.");
 					}
-					this.CURRENT_BOSS = BOSS_PP13;
-					this.BOSS_HEALTH = 10*this.MOVE_COUNT;
-					this.BOSS_DAMAGE = 2*this.MOVE_COUNT;
-					this.EVENT_BOSS = true;
+					this.triggerBossFight(new PuddingBlobBoss());
 					this.addMessage("A Pudding Blob has been created!");
 					this.addMessage("-----------------");
 				}
@@ -542,237 +534,16 @@ var Duel = class {
 				}
 
 				// Bosses
-				if (this.EVENT_BOSS) {
-					if (this.BOSS_HEALTH > 0) {
-						var fighter = this.getRandomFighter();
-						if (this.BOSS_TRIGGER != null) {
-							fighter = this.BOSS_TRIGGER;
-							if (this.CURRENT_BOSS != BOSS_PP13) {
-								this.BOSS_TRIGGER = null;
-							}
-						}
-
-						if (this.CURRENT_BOSS != BOSS_PP14) {
-							this.addMessage(fighter.getName() + " gets attacked by " + this.CURRENT_BOSS + "!");
-							if (this.EVENT_BLOOD_MOON && this.CURRENT_BOSS == BOSS_PP3) { // Blood Moon / Moon Lord
-								var amount = this.BOSS_DAMAGE*3;
-							}
-							else {
-								var amount = this.BOSS_DAMAGE;
-							}
-
-							if (fighter.cthulhuShield > 0) {
-								this.addMessage(fighter.getName() + " reflects the damages!");
-								fighter.cthulhuShield -= 1;
-								this.getOppOf(fighter).damage(amount);
-								this.DAMAGE_COUNT += amount;
-							}
-							else {
-								fighter.damage(amount, false);
-							}
-
-							if (this.CURRENT_BOSS == BOSS_PP8 || this.CURRENT_BOSS == BOSS_PP9) {
-								this.addMessage("The satanic energy from the attack makes him possess " + this.getOppOf(fighter).getName() + "!");
-								this.getOppOf(fighter).isPossessed = 2;
-							}
-						}
-						else {
-							var mongo = new Fighter(fighter.user.id, this.BATTLE_CHANNEL.id);
-							mongo.STRValue = this.BOSS_HEALTH;
-							mongo.DEXValue = fighter.STRValue;
-							mongo.user = {}
-							mongo.user.id = fighter.user.id
-							mongo.user.username = BOSS_PP14;
-							this.EVENT_BOSS = false;
-							mongo.playMove(randomFromList(this.LIST_AVAILABLE_ATTACKS));
-							this.EVENT_BOSS = true;
-							this.BOSS_HEALTH = mongo.STRValue;
-
-							this.MONGO_HOTNESS += 1;
-							if (this.MONGO_HOTNESS >= 15) {
-								this.MONGO_HOTNESS = 0;
-								this.FORCE_EVENT_ID = 90; // Brenn Ejaculates
-							}
-						}
-
-						this.addMessage("-----------------");
+				if (this.EVENT_BOSS != null) {
+					if (this.EVENT_BOSS.STR > 0) { // boss attacks
+						this.EVENT_BOSS.triggerBossAttack();
 					}
 
-					var espinozaBoss = false;
-					if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP1) {
-						this.addMessage(this.CURRENT_BOSS + " goes back to sleep to heal his poor PP!");
-						this.addMessage("You both win!");
-						this.bothFightersAction(function(_fighter) {
-							_fighter.win(1);
-						});
-						this.EVENT_BOSS = false;
-						return this.stopDuel();
+					if (this.EVENT_BOSS.STR <= 0) { // boss dies
+						this.EVENT_BOSS.triggerDeath();
 					}
-					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP2) {
-						this.addMessage(this.CURRENT_BOSS + " will now stop making updates for some time!");
-						this.addMessage("-----------------");
-						this.EVENT_BOSS = false;
-						espinozaBoss = getRandomPercent() <= 20;
-					}
-					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP3) {
-						this.addMessage(this.CURRENT_BOSS + " goes back hiding behind the moon!");
-						this.addMessage("You both win!");
-						this.bothFightersAction(function(_fighter) {
-							_fighter.win(1);
-						});
-						this.EVENT_BOSS = false;
-
-						this.bothFightersAction(function(_fighter) {
-							grantPlayerExpertPP(_fighter);
-						});
-						this.addMessage("**You are now PP Experts.**");
-						this.addMessage("**You have gained access to the eldritch gods.**");
-
-						return this.stopDuel();
-					}
-					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP4) {
-						this.addMessage(this.CURRENT_BOSS + " will leave you alone for a bit!");
-						this.addMessage("-----------------");
-						this.EVENT_BOSS = false;
-						if (this.PP_NET == 3 || this.PP_NET == 4) {
-							this.FORCE_EVENT_ID = 29;
-						}
-					}
-					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP5) {
-						this.addMessage(this.CURRENT_BOSS + " is destroyed!");
-						this.addMessage("-----------------");
-						this.EVENT_BOSS = false;
-					}
-					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP6) {
-						this.addMessage(this.CURRENT_BOSS + " is destroyed!");
-						this.addMessage("PP-Net is shut down ! Long live the human PPs!");
-						this.addMessage("-----------------");
-						this.addMessage("As you read the changelog, you see that a PP Terminator has been sent to the past to kill the past you!");
-						this.addMessage("-----------------");
-						this.addMessage("**ANOTHER TIME, ANOTHER PLACE**");
-						this.addMessage("-----------------");
-						this.addMessage(this.FIGHTER1.getName() + ": *'I challenge you to a PP Punch duel !'*");
-						this.addMessage(this.FIGHTER2.getName() + ": *'Alright, let's do this !'*");
-						this.addMessage(this.FIGHTER1.getName() + ": *'Wait what is this thing ?'*");
-						this.addMessage("-----------------");
-						this.sendMessages();
-
-						this.FIGHTER1_SAVE = this.FIGHTER1;
-						this.FIGHTER2_SAVE = this.FIGHTER2;
-						this.FIGHTER1 = new Fighter(this.FIGHTER1.idUser, this.BATTLE_CHANNEL.id);
-						this.FIGHTER2 = new Fighter(this.FIGHTER2.idUser, this.BATTLE_CHANNEL.id);
-
-						this.CURRENT_BOSS = BOSS_PP7;
-						this.BOSS_HEALTH = 1500;
-						this.BOSS_DAMAGE = 25;
-						this.EVENT_BOSS = true;
-						this.PP_NET = -99999;
-					}
-					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP7) {
-						this.addMessage(this.CURRENT_BOSS + " is destroyed!");
-						this.addMessage("-----------------");
-						this.addMessage("**ANOTHER TIME, ANOTHER PLACE**");
-						this.addMessage("-----------------");
-						this.sendMessages();
-
-						this.FIGHTER1 = this.FIGHTER1_SAVE;
-						this.FIGHTER2 = this.FIGHTER2_SAVE;
-
-						this.PP_NET = 200;
-						this.EVENT_BOSS = false;
-					}
-					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP8) {
-						this.addMessage("**" + this.CURRENT_BOSS + " summons his true form !**");
-						this.addMessage("-----------------");
-						this.CURRENT_BOSS = BOSS_PP9;
-						this.BOSS_HEALTH = 100000000;
-						this.BOSS_DAMAGE = 100000;
-						this.EVENT_BOSS = true;
-
-						espinozaBoss = getRandomPercent() <= 20;
-					}
-					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP9) {
-						this.addMessage(this.CURRENT_BOSS + " is sent back to his Eldritch Realm!");
-						this.addMessage("You both win!");
-						this.addMessage("-----------------");
-						this.bothFightersAction(function(_fighter) {
-							_fighter.win(1);
-						});
-						this.EVENT_BOSS = false;
-						return this.stopDuel();
-					}
-					else if (this.BOSS_HEALTH <= 0 && (this.CURRENT_BOSS == BOSS_PP10 || this.CURRENT_BOSS == BOSS_PP12)) {
-						this.addMessage(this.CURRENT_BOSS + " abandons!");
-						this.EVENT_BOSS = false;
-
-						this.bothFightersAction(function(_fighter) {
-							grantPlayerWeebPP(_fighter);
-						});
-						this.addMessage("**You now have a Weeb PP.**");
-						this.addMessage("-----------------");
-
-						espinozaBoss = getRandomPercent() <= 20;
-					}
-					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP11) {
-						this.addMessage(this.CURRENT_BOSS + " dies lol");
-						this.addMessage("-----------------");
-						this.EVENT_BOSS = false;
-
-						espinozaBoss = getRandomPercent() <= 2;
-					}
-					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP13) {
-						this.addMessage(this.CURRENT_BOSS + " is destroyed!");
-						this.EVENT_BOSS = false;
-
-						espinozaBoss = getRandomPercent() <= 2;
-						if (espinozaBoss) {
-							this.addMessage("You hear Pudding laughing in the distance...");
-						}
-						else if (getRandomPercent() <= 75) {
-							this.PUDDING_NUISANCE = Math.floor(getRandomPercent()/10) + 1;
-						}
-						else {
-							this.addMessage("Pudding is bored of this, he will stop sending you blobs...");
-						}
-						this.addMessage("-----------------");
-					}
-					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP14) {
-						this.addMessage(this.CURRENT_BOSS + " is defeated!");
-						this.addMessage("-----------------");
-						this.EVENT_BOSS = false;
-						this.DOUBLE_POINTS = true;
-
-						espinozaBoss = getRandomPercent() <= 20;
-					}
-					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP15) {
-						this.addMessage(this.CURRENT_BOSS + " somehow is... defeated...");
-						this.addMessage("-----------------");
-						this.EVENT_BOSS = false;
-						this.MOVE_COUNT = 1000000;
-					}
-					else if (this.BOSS_HEALTH <= 0 && this.CURRENT_BOSS == BOSS_PP16) {
-						this.addMessage(this.CURRENT_BOSS + " is destroyed!");
-						this.addMessage("-----------------");
-						this.EVENT_BOSS = false;
-						espinozaBoss = getRandomPercent() <= 20;
-					}
-					if (espinozaBoss) {
-						this.addMessage(this.CURRENT_BOSS + " was only a mimic!");
-						this.EVENT_BOSS = true;
-						if (this.OBAMIUM_DONE && getRandomPercent() <= 75) {
-							this.addMessage(this.CURRENT_BOSS + " is in fact " + BOSS_PP12 + "\n" + IMAGE_PP6);
-							this.addMessage("-----------------");
-							this.CURRENT_BOSS = BOSS_PP12;
-							this.BOSS_HEALTH = Math.pow(10, 10);
-							this.BOSS_DAMAGE = 1000000;
-						}
-						else {
-							this.addMessage(this.CURRENT_BOSS + " is in fact " + BOSS_PP10 + "\n" + IMAGE_PP4);
-							this.addMessage("-----------------");
-							this.CURRENT_BOSS = BOSS_PP10;
-							this.BOSS_HEALTH = 1000000;
-							this.BOSS_DAMAGE = 1000;
-						}
+					else { // boss turn change
+						this.EVENT_BOSS.turnChange();
 					}
 				}
 
@@ -844,7 +615,7 @@ var Duel = class {
 
 		this.addMessage("**=== FIGHTERS ===**", true);
 		this.sendMessages();
-		if (!this.EVENT_BOSS) {
+		if (this.EVENT_BOSS == null) {
 			this.addMessage("", true, {embed: this.FIGHTER1.toString()});
 			this.addMessage("**===== /VS/ =====**", true);
 			this.addMessage("", true, {embed: this.FIGHTER2.toString()});
@@ -854,7 +625,7 @@ var Duel = class {
 			this.addMessage("-----------------", true);
 			this.addMessage("", true, {embed: this.FIGHTER2.toString()});
 			this.addMessage("**===== /VS/ =====**", true);
-			this.addMessage("**" + this.CURRENT_BOSS + "**\n**STR:** " + this.BOSS_HEALTH, true);
+			this.addMessage("", true, {embed: this.EVENT_BOSS.toString()});
 		}
 
 		var txt = "**=== GLOBAL STATUS ===**\n";
@@ -1158,12 +929,12 @@ var Duel = class {
 			return;
 		}
 		this.bothFightersAction(function(_fighter) {
-			if (_fighter.STR <= 0 && !_fighter.duel.EVENT_BOSS) {
+			if (_fighter.STR <= 0 && _fighter.duel.EVENT_BOSS == null) {
 				_fighter.duel.addMessage("-----------------");
 				if (_fighter.grabbedPP > 0) {
 					_fighter.duel.addMessage("*Confusion* was " + _fighter.getName() + "'s epitaph.");
 				}
-				_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).getName() + " won ! Congrats!");
+				_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).getName() + " won! Congrats!");
 				_fighter.duel.getOppOf(_fighter).win();
 				if (_fighter.futureMemories > 0 || _fighter.duel.getOppOf(_fighter).futureMemories > 0 ) {
 					_fighter.duel.addMessage(_fighter.duel.getOppOf(_fighter).getName() + " sends a D-Mail to the past!");
@@ -1193,8 +964,8 @@ var Duel = class {
 				this.ALTERNATE_MOVES = false;
 				return;
 			}
-			if (this.EVENT_BOSS == true && this.CURRENT_BOSS == BOSS_PP15) {
-				this.addMessage(BOSS_PP15 + " is defeated...");
+			if (this.EVENT_BOSS != null && this.EVENT_BOSS.winsIfHeatDeath) {
+				this.addMessage(this.EVENT_BOSS.getName() + " is defeated...");
 				this.bothFightersAction(function(_fighter) {
 					_fighter.win();
 				});
@@ -1253,30 +1024,24 @@ var Duel = class {
 		}
 		else if (this.PPLEVEL > 100 && randomVar == 5 && (this.MOVE_COUNT >= 30 || forcedEvent)) {
 			// Cthulhu
-			if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP1) {
+			if (this.EVENT_BOSS != null this.EVENT_BOSS.evolveToMoonLord) {
 				this.addMessage(" -- MOON LORD AWAKENS --");
 				this.addMessage("Cthulhu is blessed by the moonlight!");
 				this.addMessage("The Moon Lord has been summoned and takes control over Cthulhu's body!");
-				this.CURRENT_BOSS = BOSS_PP3;
-				this.BOSS_HEALTH = 500000;
-				this.BOSS_DAMAGE = 2000;
+				this.triggerBossFight(new MoonLordBoss());
 			}
-			else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP3) {
+			else if (this.EVENT_BOSS != null && this.EVENT_BOSS.isMoonLord) {
 				this.addMessage(" -- MOON LORD REGENERATION --");
-				this.addMessage("The Moon Lord gets 500 000 more health!");
-				this.BOSS_HEALTH += 500000;
+				this.EVENT_BOSS.heal(50000);
 			}
-			else if (this.EVENT_BOSS) {
+			else if (this.EVENT_BOSS != null) {
 				this.addMessage(" -- CTHULHU SLEEPS --");
 				this.addMessage("And nothing happens at all...");
 			}
 			else {
 				this.addMessage(" -- CTHULHU AWAKENS --");
-				this.EVENT_BOSS = true;
 				this.addMessage("You have to beat Cthulhu by punching his huge PP in order to save the world!");
-				this.BOSS_HEALTH = 10000;
-				this.BOSS_DAMAGE = 50;
-				this.CURRENT_BOSS = BOSS_PP1;
+				this.triggerBossFight(new CthulhuBoss());
 			}
 		}
 		else if (this.PPLEVEL > 100 && randomVar == 6 && (this.MOVE_COUNT >= 30 || forcedEvent)) {
@@ -1300,8 +1065,8 @@ var Duel = class {
 					_fighter.duel.addMessage(_fighter.getName() + " got saved thanks to the Blood Moon");
 				}
 			});
-			if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP3) {
-				this.addMessage("The Moon Lord is blessed by the Blood Moon.");
+			if (this.EVENT_BOSS != null && this.EVENT_BOSS.isMoonLord) {
+				this.addMessage(this.EVENT_BOSS.getName() + " is blessed by the Blood Moon.");
 			}
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 8 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
@@ -1377,22 +1142,17 @@ var Duel = class {
 		}
 		else if (this.PPLEVEL > 50 && [24, 25].indexOf(randomVar) > -1 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
 			// Free Lives
-			if (this.EVENT_BOSS) {
+			if (this.EVENT_BOSS != null) {
 				this.addMessage(" -- FREE LIVES GOOD UPDATES --");
 				this.addMessage("Let's NOT riot Free Lives HQ.");
-				if (this.CURRENT_BOSS == BOSS_PP2) {
-					this.EVENT_BOSS = false;
-					this.BOSS_HEALTH = 0;
-					this.BOSS_DAMAGE = 0;
+				if (this.EVENT_BOSS.canceledByGoodUpdates) {
+					this.EVENT_BOSS = null;
 				}
 			}
 			else {
-				this.EVENT_BOSS = true;
 				this.addMessage(" -- FREE LIVES RIOT --");
 				this.addMessage("Let's riot Free Lives HQ just for fun!");
-				this.BOSS_HEALTH = 500;
-				this.BOSS_DAMAGE = 20;
-				this.CURRENT_BOSS = BOSS_PP2;
+				this.triggerBossFight(new FreeLivesBoss());
 			}
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 26) {
@@ -1455,35 +1215,28 @@ var Duel = class {
 				this.addMessage(" -- FBI OPEN UP --");
 				this.addMessage("An illegal PP Punch duel has been spotted!");
 				this.addMessage("Surrender or die!");
-				if (this.EVENT_BOSS && this.BOSS_HEALTH > 0) {
-					this.addMessage(this.CURRENT_BOSS + " surrenders!");
+				if (this.EVENT_BOSS != null) {
+					this.addMessage(this.EVENT_BOSS.getName() + " surrenders!");
 				}
-				this.EVENT_BOSS = true;
-				this.BOSS_HEALTH = 750;
-				this.BOSS_DAMAGE = 30;
-				this.CURRENT_BOSS = BOSS_PP4;
+				this.triggerBossFight(new PPRobotPoliceBoss());
 			}
 			else if (this.PP_NET == 5) {
 				this.addMessage(" -- PP-NET RISING --");
 				this.addMessage("Humans are getting hunted down by the PP Police!");
 				this.addMessage("The PP Rebellion will get its revenge!");
-				this.EVENT_BOSS = true;
-				this.BOSS_HEALTH = 2000;
-				this.BOSS_DAMAGE = 30;
-				this.CURRENT_BOSS = BOSS_PP4;
+				var boss = new PPRobotPoliceBoss();
+				boss.STRValue = 2000;
+				this.triggerBossFight(boss);
 			}
 			else if (this.PP_NET == 6) {
 				this.addMessage(" -- PP-NET RISING --");
 				this.addMessage("New robots have been created to hunt us down, and suck our precious PP!");
 				this.addMessage("We have to hunt them down!");
-				if (this.EVENT_BOSS && this.BOSS_HEALTH > 0) {
-					this.addMessage(this.CURRENT_BOSS + "'s PP gets harvested!");
-					this.addMessage(this.CURRENT_BOSS + " dies!");
+				if (this.EVENT_BOSS != null) {
+					this.addMessage(this.EVENT_BOSS.getName() + "'s PP gets harvested!");
+					this.addMessage(this.EVENT_BOSS.getName() + " dies!");
 				}
-				this.EVENT_BOSS = true;
-				this.BOSS_HEALTH = 1500;
-				this.BOSS_DAMAGE = 50;
-				this.CURRENT_BOSS = BOSS_PP5;
+				this.triggerBossFight(new PPHarvesterBoss());
 			}
 			else if (this.PP_NET == 7) {
 				this.addMessage(" -- PP REBELLION RISING --");
@@ -1497,14 +1250,11 @@ var Duel = class {
 			else if (this.PP_NET == 8) {
 				this.addMessage(" -- PP-NET RISING --");
 				this.addMessage("The PP-Net Hive-Mind is challenging you!");
-				if (this.EVENT_BOSS && this.BOSS_HEALTH > 0) {
-					this.addMessage(this.CURRENT_BOSS + "'s PP gets harvested!");
-					this.addMessage(this.CURRENT_BOSS + " dies!");
+				if (this.EVENT_BOSS != null) {
+					this.addMessage(this.EVENT_BOSS.getName() + "'s PP gets harvested!");
+					this.addMessage(this.EVENT_BOSS.getName() + " dies!");
 				}
-				this.EVENT_BOSS = true;
-				this.BOSS_HEALTH = 20000;
-				this.BOSS_DAMAGE = 100;
-				this.CURRENT_BOSS = BOSS_PP6;
+				this.triggerBossFight(new PPNetHiveMindBoss());
 			}
 			else if (this.PP_NET < 0) {
 				this.addMessage(" -- PP-NET RISING --");
@@ -1530,25 +1280,18 @@ var Duel = class {
 		else if (this.PPLEVEL > 100 && randomVar == 33 && (this.MOVE_COUNT >= 1000 || forcedEvent)) {
 			// Eldritch Gate
 			this.addMessage(" -- ELDRITCH GATE --");
-			if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP8) {
-				this.addMessage("The Eldritch Gate grows bigger ! " + BOSS_PP8 + " gets more power!");
-				this.BOSS_HEALTH += 50000;
-				this.BOSS_DAMAGE += 100;
-			}
-			else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP9) {
-				this.addMessage("The Eldritch Gate grows bigger ! " + BOSS_PP9 + " gets more power!");
-				this.BOSS_HEALTH += 500000;
-				this.BOSS_DAMAGE += 1000;
+			if (this.EVENT_BOSS != null && this.EVENT_BOSS.eldritchGateBuff) {
+				this.addMessage("The Eldritch Gate grows bigger! " + this.EVENT_BOSS.getName() + " gets more power!");
+				this.EVENT_BOSS.heal(500000);
+				this.EVENT_BOSS.baseDamage += 1000;
 			}
 			else {
-				this.addMessage("The Eldritch Gate has been opened ! " + BOSS_PP8 + " faces you!");
-				if (this.EVENT_BOSS) {
-					this.addMessage("He destroys " + this.CURRENT_BOSS + " just to show off");
+				var boss = new SatanBoss();
+				this.addMessage("The Eldritch Gate has been opened! " + boss.getName() + " faces you!");
+				if (this.EVENT_BOSS != null) {
+					this.addMessage("He destroys " + this.EVENT_BOSS.getName() + " just to show off");
 				}
-				this.EVENT_BOSS = true;
-				this.BOSS_HEALTH = 500000;
-				this.BOSS_DAMAGE = 1000;
-				this.CURRENT_BOSS = BOSS_PP8;
+				this.triggerBossFight(boss);
 			}
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 34 && (this.MOVE_COUNT >= 100 || forcedEvent)) {
@@ -1674,19 +1417,16 @@ var Duel = class {
 			// Wyndoella
 			this.addMessage(" -- WYNDOELLA KILLS PUDDING --");
 			this.addMessage("The Universe itself is against you!\n" + IMAGE_PP9);
-			this.EVENT_BOSS = true;
-			this.BOSS_HEALTH = Infinity;
-			this.BOSS_DAMAGE = Infinity;
-			this.CURRENT_BOSS = BOSS_PP15;
+			this.triggerBossFight(new WyndoeallaBoss());
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 51 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
 			// IKEA
-			if (this.EVENT_BOSS) {
-				if (this.CURRENT_BOSS == BOSS_PP16) {
+			if (this.EVENT_BOSS != null) {
+				if (this.EVENT_BOSS.isIkea) {
 					this.addMessage(" -- IKEA EXTENSION --");
 					this.addMessage("The swedish pilgrims added a new extension to the Ikea.");
-					this.BOSS_HEALTH += 500;
-					this.BOSS_DAMAGE += 40;
+					this.EVENT_BOSS.heal(500);
+					this.EVENT_BOSS.baseDamage += 40;
 				}
 				else {
 					this.addMessage(" -- PEACEFUL IKEA --");
@@ -1699,13 +1439,10 @@ var Duel = class {
 				}
 			}
 			else {
-				this.EVENT_BOSS = true;
 				this.addMessage(" -- IKEA RIOT --");
 				this.addMessage("Swedish pilgrims invaded and built an IKEA!");
 				this.addMessage(IMAGE_PP10);
-				this.BOSS_HEALTH = 500;
-				this.BOSS_DAMAGE = 40;
-				this.CURRENT_BOSS = BOSS_PP16;
+				this.triggerBossFight(new IKEABoss());
 			}
 		}
 		// DON'T FORGET TO UPDATE FORCE EVENT IF NEW EVENTS ARE ADDED
@@ -1742,6 +1479,10 @@ var Duel = class {
 			this.addMessage("No event this turn...");
 		}
 	}
+	triggerBossFight(_boss) {
+		this.EVENT_BOSS = _boss;
+	}
+
 	triggerReaction(_emote, _user) {
 		if (this.EASY_DUEL && this.LIST_AVAILABLE_ATTACKS.indexOf(this.getAttackFromEmote(_emote)) < 0) {
 			return;
@@ -2253,7 +1994,7 @@ var Duel = class {
 		var priorityMoves = [EMOTE_PP15, EMOTE_PP29, EMOTE_PP11]; // Hobro / Steel / Barrel
 
 		if ((dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) ||
-		    this.AUTO_MOVES_COUNTDOWN > 0 || this.EVENT_BOSS || this.getOppOf(winner).legAimer ||
+		    this.AUTO_MOVES_COUNTDOWN > 0 || this.EVENT_BOSS != null || this.getOppOf(winner).legAimer ||
 		    this.TIME_STOP > 0 || this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
 			this.addMessage("Both opponents attack this turn!");
 			this.sendMessages();
@@ -2696,10 +2437,10 @@ var Duel = class {
 			attackPower += _city.lastSummonValue;
 			this.addMessage("Omega Bullets doubles the last unit's military power!");
 		}
-		if (_city.silverBullets && _target.armyJammed && !_city.duel.BOSS_FIGHT) {
+		if (_city.silverBullets && _target.armyJammed && !_city.duel.BOSS_FIGHT != null) {
 			attackPower += attackPower;
 		}
-		if (_city.armyMindControl && !_city.duel.BOSS_FIGHT) {
+		if (_city.armyMindControl && !_city.duel.BOSS_FIGHT != null) {
 			attackPower += Math.min(200, _target.militaryPower);
 			defencePower -= Math.min(200, _target.militaryPower);
 		}
@@ -2711,11 +2452,11 @@ var Duel = class {
 			this.addMessage("The army explodes!");
 			attackPower = 0;
 		}
-		if (_target.armyDefence && !_city.duel.BOSS_FIGHT) {
+		if (_target.armyDefence && !_city.duel.BOSS_FIGHT != null) {
 			defencePower += Math.floor(_target.militaryPower/2);
 		}
 
-		if (_city.duel.BOSS_FIGHT) {
+		if (_city.duel.BOSS_FIGHT != null) {
 			return _target.damage(attackPower);
 		}
 
@@ -2874,6 +2615,8 @@ var Duel = class {
 			return this.FIGHTER1;
 		}
 
+		if (this.EVENT_BOSS != null) return this.EVENT_BOSS;
+
 		if (this.FIGHTER1.user.id == _fighter.user.id) {
 			return this.FIGHTER2;
 		}
@@ -2923,29 +2666,8 @@ var Duel = class {
 		if (this.TIME_STOP > 0) {
 			return MUSIC_PP12; // Searing Peaks 13 Solo
 		}
-		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP1) {
-			return MUSIC_PP5; // Lovecraftian Strain 911
-		}
-		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP2) {
-			return MUSIC_PP13; // Free Lives
-		}
-		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP14) {
-			return MUSIC_PP6; // Gaseous Punk
-		}
-		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP3) {
-			return MUSIC_PP7; // Anomaly-B
-		}
-		else if (this.EVENT_BOSS && (this.CURRENT_BOSS == BOSS_PP4 || this.CURRENT_BOSS == BOSS_PP5)) {
-			return MUSIC_PP8; // Brennijov Von Truffle Intro
-		}
-		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP6) {
-			return MUSIC_PP9; // Brennijov Von Truffle
-		}
-		else if (this.EVENT_BOSS && this.CURRENT_BOSS == BOSS_PP7) {
-			return MUSIC_PP10; // Brennijov Von Truffle Outro
-		}
-		else if (this.EVENT_BOSS && (this.CURRENT_BOSS == BOSS_PP10 || this.CURRENT_BOSS == BOSS_PP12)) {
-			return MUSIC_PP11;  // Espinoza
+		else if (this.EVENT_BOSS != null && this.EVENT_BOSS.themeSong != null) {
+			return this.EVENT_BOSS.themeSong;
 		}
 		else if (this.GAY_TURNS > 0) {
 			return MUSIC_PP4; // Huge Gay Night

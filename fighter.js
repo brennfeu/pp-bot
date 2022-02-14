@@ -221,7 +221,7 @@ var Fighter = class {
 	}
 
 	getName() {
-		var name = this.user.username;
+		var name = getBaseName();
 		if (this.duel.RUSSIAN_TEXT > 0) {
 			name += "ijov";
 		}
@@ -267,6 +267,12 @@ var Fighter = class {
 			name += " Requiem";
 		}
 		return name.secureXSS();
+	}
+	getBaseName() {
+		return this.user.username;
+	}
+	getImageURL() {
+		return this.user.displayAvatarURL();
 	}
 
 	// fighter.STR
@@ -334,7 +340,7 @@ var Fighter = class {
 			str += str;
 		}
 
-		if (this.duel.EVENT_BOSS && str <= 0) {
+		if (this.duel.EVENT_BOSS != null && str <= 0) {
 			return 0;
 		}
 		return str;
@@ -447,13 +453,13 @@ var Fighter = class {
 		var embedMessage = new DISCORD.MessageEmbed();
 		embedMessage.setColor("RANDOM");
 		embedMessage.setTitle("**" + this.getName() + "**\n");
-		embedMessage.setThumbnail(this.user.displayAvatarURL());
+		embedMessage.setThumbnail(this.getImageURL());
 
 		// SPECIAL CASES
 		if (this.duel.MOVE_COUNT >= 10000) {
 			return embedMessage.setDescription(" - Wiped out").toJSON();
 		}
-		if (this.STR <= 0 && this.duel.EVENT_BOSS) {
+		if (this.STR <= 0 && this.duel.EVENT_BOSS != null) {
 			return embedMessage.setDescription("**Dead** :(").toJSON();
 		}
 
@@ -942,7 +948,7 @@ var Fighter = class {
 			this.satanicMoveMultiplier = false;
 		}
 
-		if (this.duel.EVENT_BOSS && this.STR <= 0) {
+		if (this.duel.EVENT_BOSS != null && this.STR <= 0) {
 			this.attack = EMOTE_DEAD;
 		}
 
@@ -1115,7 +1121,7 @@ var Fighter = class {
 			}
 			else if (attack == EMOTE_PP16) {
 				// Satan Boss
-				if (this.duel.BOSS_FIGHT && (this.CURRENT_BOSS == BOSS_PP8 || this.CURRENT_BOSS == BOSS_PP9)) {
+				if (this.duel.EVENT_BOSS != null && this.duel.EVENT_BOSS.eldritchGateBuff) {
 					this.duel.addMessage("Nothing happens...");
 				}
 				// Satan God
@@ -1171,7 +1177,7 @@ var Fighter = class {
 				else {
 					this.duel.addMessage(this.getName() + " throws a grenade at " + this.getOppName() + "'s PP!");
 					this.duel.getOppOf(this).damage(Math.floor(10 + this.STR / 10));
-					if (!this.duel.BOSS_FIGHT) {
+					if (this.duel.EVENT_BOSS == null) {
 						this.duel.getOppOf(this).hasBurst = 2;
 					}
 				}
@@ -1222,7 +1228,7 @@ var Fighter = class {
 				// Bombardment
 				this.duel.addMessage(this.getName() + " calls for a bombardment !!!");
 				this.duel.bothFightersAction(function(_fighter) {
-					_fighter.damage(1000, _fighter.duel.BOSS_FIGHT)
+					_fighter.damage(1000, _fighter.duel.EVENT_BOSS != null)
 				});
 			}
 			else if (attack == EMOTE_PP26) {
@@ -1230,7 +1236,7 @@ var Fighter = class {
 				if (!this.duel.ALTERNATE_MOVES) {
 					this.duel.addMessage(this.getName() + " summons Satan chaotic powers !!!");
 					this.duel.DISABLE_ABANDON = true;
-					if (this.duel.BOSS_FIGHT && (this.CURRENT_BOSS == BOSS_PP8 || this.CURRENT_BOSS == BOSS_PP9)) {
+					if (this.duel.EVENT_BOSS != null && this.duel.EVENT_BOSS.eldritchGateBuff) {
 						// Satan Boss
 						this.duel.addMessage("But nothing happens...");
 					}
@@ -1344,7 +1350,7 @@ var Fighter = class {
 			else if (attack == EMOTE_PP34) {
 				// Facehugger
 				this.duel.addMessage(this.getName() + " impregnates " + this.getOppName() + "!");
-				if (!this.duel.EVENT_BOSS) {
+				if (!this.duel.EVENT_BOSS != null) {
 					this.duel.getOppOf(this).damage(Math.floor(this.duel.getOppOf(this).STR/2));
 					if (!this.duel.getOppOf(this).isAlienPP) {
 						this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets an alien PP!");
@@ -1352,7 +1358,7 @@ var Fighter = class {
 					this.duel.getOppOf(this).isAlienPP = true;
 				}
 				else {
-					this.duel.getOppOf(this).damage(Math.floor(this.duel.BOSS_HEALTH/2));
+					this.duel.getOppOf(this).damage(Math.floor(this.duel.EVENT_BOSS.STR/2));
 				}
 			}
 			else if (attack == EMOTE_PP35) {
@@ -1455,7 +1461,7 @@ var Fighter = class {
 				// BrocketeerDive
 				this.duel.addMessage(this.getName() + " punches " + this.getOppName() + "'s PP with his head!");
 				this.duel.getOppOf(this).damage(Math.floor(10 + this.STR / 10));
-				if (!this.duel.BOSS_FIGHT) {
+				if (!this.duel.EVENT_BOSS != null) {
 					this.duel.getOppOf(this).hasBurst = 2;
 				}
 			}
@@ -1960,7 +1966,7 @@ var Fighter = class {
 					this.duel.addMessage("Senjouahara answers his calls!");
 					this.duel.addMessage(this.getName() + " staples " + this.getOppName() + "'s PP!")
 					this.duel.getOppOf(this).damage(Math.floor(this.STR/10));
-					if (!this.duel.BOSS_FIGHT) {
+					if (!this.duel.EVENT_BOSS != null) {
 						this.duel.getOppOf(this).bleedDamage += Math.floor(this.STR/10);
 					}
 				}
@@ -3048,19 +3054,16 @@ var Fighter = class {
 			else if (attack == EMOTE_PP139) {
 				// Royal Gel
 				this.duel.MOVE_COUNT += 33;
-				if (this.duel.EVENT_BOSS) {
-					this.duel.addMessage(this.duel.CURRENT_BOSS + " gets wrapped by royal gel.");
-					this.duel.addMessage(this.duel.CURRENT_BOSS + " seems angry towards " + this.duel.getOppOf(this).getName() + "!");
+				if (this.duel.EVENT_BOSS != null) {
+					this.duel.addMessage(this.duel.EVENT_BOSS.getName() + " gets wrapped by royal gel.");
+					this.duel.addMessage(this.duel.EVENT_BOSS.getName() + " seems angry towards " + this.duel.getOppOf(this).getName() + "!");
 				}
 				else {
 					this.duel.addMessage(this.getName() + " summons the Royal Gel!");
-					this.duel.CURRENT_BOSS = BOSS_PP13;
-					this.duel.BOSS_HEALTH = 10*this.duel.MOVE_COUNT;
-					this.duel.BOSS_DAMAGE = 2*this.duel.MOVE_COUNT;
-					this.duel.EVENT_BOSS = true;
 					this.duel.addMessage("A Pudding Blob has been created!");
+					this.triggerBossFight(new PuddingBlobBoss());
 				}
-				this.duel.BOSS_TRIGGER = this.duel.getOppOf(this);
+				this.duel.EVENT_BOSS.bossTriggeredAt = this.duel.getOppOf(this);
 			}
 			else if (attack == EMOTE_PP140) {
 				// Brain of Confusion
@@ -3150,13 +3153,10 @@ var Fighter = class {
 			}
 			else if (attack == EMOTE_PP148) {
 				// sex
-				if (this.duel.EVENT_BOSS) {
-					this.duel.addMessage(this.duel.CURRENT_BOSS + "'s suddenly runs away.");
+				if (this.duel.EVENT_BOSS != null) {
+					this.duel.addMessage(this.duel.EVENT_BOSS.getName() + " suddenly runs away.");
 				}
-				this.duel.CURRENT_BOSS = BOSS_PP14;
-				this.duel.BOSS_HEALTH = (this.STR+this.duel.getOppOf(this).STR)*10000;
-				this.duel.BOSS_DAMAGE = 0;
-				this.duel.EVENT_BOSS = true;
+				this.triggerBossFight(new SexStarvedMongoBoss());
 				this.duel.addMessage("Mongo has appeared, and he is sex-starved!");
 				this.duel.addMessage("-----------------");
 			}
@@ -3471,34 +3471,6 @@ var Fighter = class {
 			// The Scythe of Cosmic Chaos
 			this.duel.addMessage(this.duel.getOppOf(this).getName() + " hits himself in his madness!");
 			this.duel.getOppOf(this).damage(_amount, false)
-			return;
-		}
-
-		if (this.duel.EVENT_BOSS && _punch) {
-			if (_amount <= 0) {
-				return this.duel.addMessage(this.duel.CURRENT_BOSS + " takes no damages!");
-			}
-
-			this.duel.BOSS_HEALTH -= _amount;
-			this.duel.addMessage(this.duel.CURRENT_BOSS + " takes " + _amount + " damages!");
-			this.duel.DAMAGE_COUNT += _amount;
-			if (_amount == 69) {
-				this.duel.addMessage("lmao!");
-			}
-			if (this.duel.BOSS_HEALTH + _amount > 0 && this.duel.BOSS_HEALTH <= 0) {
-				if (this.duel.CURRENT_BOSS == BOSS_PP13) {
-					this.duel.getOppOf(this).bossKiller += 3;
-				}
-				else {
-					this.duel.getOppOf(this).bossKiller += 11;
-				}
-			}
-			this.damageTaken += _amount;
-
-			if (this.duel.getOppOf(this).standPower == STAND_PP4) {
-				this.duel.getOppOf(this).heal(Math.floor(_amount / 3));
-			}
-
 			return;
 		}
 		else if (this.duel.REVERSE_DAMAGE > 0 || this.selfReverseDamage > 0) {
@@ -4034,13 +4006,13 @@ var Fighter = class {
 	win(_param) {
 		var nb = 1;
 		if (this.duel.TRIGGERED_CHAOS) {
-			nb += Math.floor(this.duel.MOVE_COUNT/100)
+			nb += Math.floor(this.duel.MOVE_COUNT/50)
 		}
 		else {
 			nb += Math.floor(this.duel.MOVE_COUNT/10)
 		}
 		if (this.isHockeyPuckPP) {
-			nb += 3;
+			nb += 5;
 		}
 		if (_param == "half") {
 			nb = Math.floor(nb/2);
@@ -4057,9 +4029,6 @@ var Fighter = class {
 	}
 
 	getOppName() {
-		if (this.duel.EVENT_BOSS && this.duel.REVERSE_DAMAGE <= 0) {
-			return this.duel.CURRENT_BOSS;
-		}
 		return this.duel.getOppOf(this).getName();
 	}
 

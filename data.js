@@ -356,24 +356,6 @@ var REQUIEM_PP9 = "Porcupine Tree";
 var REQUIEM_LIST = [REQUIEM_PP1, REQUIEM_PP2, REQUIEM_PP3, REQUIEM_PP4, REQUIEM_PP5, REQUIEM_PP6, REQUIEM_PP7,
 		     REQUIEM_PP8, REQUIEM_PP9];
 
-// BOSSES
-var BOSS_PP1 = "Cthulhu";
-var BOSS_PP2 = "Free Lives HQ";
-var BOSS_PP3 = "Moon Lord";
-var BOSS_PP4 = "PP Robot Police";
-var BOSS_PP5 = "PP Harvester";
-var BOSS_PP6 = "PP-Net Hive-Mind";
-var BOSS_PP7 = "PP Terminator";
-var BOSS_PP8 = "Satan";
-var BOSS_PP9 = "Satan True Form";
-var BOSS_PP10 = "Raid Boss Espinoza";
-var BOSS_PP11 = "Weeb";
-var BOSS_PP12 = "Obamium Espinoza";
-var BOSS_PP13 = "Pudding Blob";
-var BOSS_PP14 = "Sex-Starved Mongo";
-var BOSS_PP15 = "Wyndoella";
-var BOSS_PP16 = "IKEA";
-
 // BATTLE MODES
 var NORMAL_BATTLE_MODE = 0;
 var STAND_BATTLE_MODE = 1;
