@@ -252,15 +252,19 @@ var Fighter = class {
 			name += " True Apus";
 		}
 		if (this.duel.SEXY_TEXT > 0) {
-			if (getRandomPercent() <= 33) {
+			var random = getRandomPercent()
+			if (random <= 33) {
 				name = "Sexy " + name;
 			}
-			else if (getRandomPercent() <= 66) {
+			else if (random <= 66) {
 				name = "Hot " + name;
 			}
 			else {
 				name = "Retarded " + name;
 			}
+		}
+		if (this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE && this.requiemPower != null) {
+			name += " Requiem";
 		}
 		return name.secureXSS();
 	}
@@ -440,470 +444,472 @@ var Fighter = class {
 
 	// fighter.toString
 	toString() {
+		var embedMessage = new DISCORD.MessageEmbed();
+		embedMessage.setColor("RANDOM");
+		embedMessage.setTitle("**" + this.getName() + "**\n");
+
+		// SPECIAL CASES
 		if (this.duel.MOVE_COUNT >= 10000) {
-			return "**" + this.getName() + "**\n - Wiped out";
+			return embedMessage.setDescription(" - Wiped out");
 		}
-
 		if (this.STR <= 0 && this.duel.EVENT_BOSS) {
-			return "**" + this.getName() + "**\n -> **Dead**:(";
+			return embedMessage.setDescription("**Dead** :(");
 		}
 
-		var txt = "**" + this.getName();
+		// STAND USER
 		if (this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
-			if (this.requiemPower != null) {
-				txt += " Requiem";
-			}
-			txt += "\n(" + this.guildUser.user.username + ")";
+			embedMessage.setDescription(this.guildUser.user.username);
 		}
 
-		txt += "\nSTR:** " + this.STR;
+		// STATS
+		var statsTxt += "**STR:** " + this.STR;
 		if (this.STR == 69) {
-			txt += " (lmao)";
+			statsTxt += " (lmao)";
 		}
-		txt += "  //  **DEX:** " + this.DEX;
+		statsTxt += "\n**DEX:** " + this.DEX;
 		if (this.DEX == 69) {
-			txt += " (lmao)";
+			statsTxt += " (lmao)";
 		}
 		if (this.dexMalus > 0) {
-			txt += "\n - DEX Bonus: **" + this.dexMalus + "**";
+			statsTxt += "\n - DEX Bonus: **" + this.dexMalus + "**";
 		}
+		embedMessage.addField("Stats", statsTxt, true);
 
-		if (!this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
-			if (this.regularCharges > 0 || this.specialCharges > 0 || this.chimera) {
-				txt += "\n\n**Faith:**"
+		// GODS
+		var godsText = "";
+		if (this.regularCharges > 0 || this.specialCharges > 0 || this.chimera) {
+			var types = ["normal", "eldritch", "waifu"];
+			var typesNames = ["Gods", "Eldritch Gods", "Waifus"];
+			for (var t in types) {
+				var testAll = true;
+				for (var i in GOD_LIST) {
+					if (GOD_LIST[i].type == types[t] && GOD_LIST.find(r => r.name == this.godList[i]) == undefined) {
+						testAll = false;
+					}
+				}
 
-				var types = ["normal", "eldritch", "waifu"];
-				var typesNames = ["Gods", "Eldritch Gods", "Waifus"];
-				for (var t in types) {
-					var testAll = true;
-					for (var i in GOD_LIST) {
-						if (GOD_LIST[i].type == types[t] && GOD_LIST.find(r => r.name == this.godList[i]) == undefined) {
-							testAll = false;
+				if (testAll) {
+					godsText += "\n - *All " + typesNames[t] + "*";
+				}
+				else {
+					for (var i in this.godList) {
+						if (GOD_LIST[i].type == types[t] && GOD_LIST.find(r => r.name == this.godList[i]) != undefined) {
+							godsText += "\n - " + this.godList[i] + " Priest";
 						}
 					}
-
-					if (testAll) {
-						txt += "\n - *All " + typesNames[t] + "*";
-					}
-					else {
-						for (var i in this.godList) {
-							if (GOD_LIST[i].type == types[t] && GOD_LIST.find(r => r.name == this.godList[i]) != undefined) {
-								txt += "\n - " + this.godList[i] + " Priest";
-							}
-						}
-					}
 				}
-
-				for (var i in this.godList) {
-					if (GOD_LIST.find(r => r.name == this.godList[i]) == undefined) {
-						txt += "\n - " + this.godList[i] + " Priest";
-					}
-				}
-			}
-			if (this.regularCharges > 0) {
-				txt += "\nRegular Charges: " + this.regularCharges;
-			}
-			if (this.specialCharges > 0) {
-				txt += "\nSpecial Charges: " + this.specialCharges;
 			}
 
-			txt += "\n\n**Fighting Styles:**\n";
-			if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
-				txt += " - *Ultimate PP";
-				if (this.ultimatePPBuff) {
-					txt += " II";
-				}
-				txt += "*\n";
-			}
-			else {
-				if (this.isBigPP) {
-					txt += " - Big PP\n";
-				}
-				if (this.isFastPP) {
-					txt += " - Fast PP\n";
-				}
-				if (this.isDrunkPP) {
-					txt += " - Drunken PP\n";
-				}
-				if (this.isHockeyPuckPP) {
-					txt += " - Hockey Puck PP\n";
-				}
-				if (this.isAlienPP) {
-					txt += " - Alien PP\n";
+			for (var i in this.godList) {
+				if (GOD_LIST.find(r => r.name == this.godList[i]) == undefined) {
+					godsText += "\n - " + this.godList[i] + " Priest";
 				}
 			}
+		}
+		if (this.regularCharges > 0) {
+			godsText += "\nRegular Charges: " + this.regularCharges;
+		}
+		if (this.specialCharges > 0) {
+			godsText += "\nSpecial Charges: " + this.specialCharges;
+		}
+		if (godsText != "") embedMessage.addField("Faith", godsText, true);
+
+		// FIGHTING STYLES
+		var fightingStylesTxt = "";
+		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
+			fightingStylesTxt += " - *Ultimate PP";
+			if (this.ultimatePPBuff) {
+				fightingStylesTxt += " II";
+			}
+			fightingStylesTxt += "*";
 		}
 		else {
-			txt += "\n";
+			if (this.isBigPP) {
+				fightingStylesTxt += " - Big PP\n";
+			}
+			if (this.isFastPP) {
+				fightingStylesTxt += " - Fast PP\n";
+			}
+			if (this.isDrunkPP) {
+				fightingStylesTxt += " - Drunken PP\n";
+			}
+			if (this.isHockeyPuckPP) {
+				fightingStylesTxt += " - Hockey Puck PP\n";
+			}
+			if (this.isAlienPP) {
+				fightingStylesTxt += " - Alien PP\n";
+			}
 		}
+		if (fightingStylesTxt != "") embedMessage.addField("Fighting Styles", fightingStylesTxt, true);
 
-		// Status
-		txt += "\n**Status:**\n"
+		// STATUS
+		var statusTxt = "";
 		if (this.randomizedStand) {
-			txt += " - **Perfect Stånd Power**\n";
+			statusTxt += " - **Perfect Stånd Power**\n";
 		}
 		if (this.hasSupplyDrops) {
-			txt += " - **Gets Supply Drops**\n";
+			statusTxt += " - **Gets Supply Drops**\n";
 		}
 		if (this.infernalInstrument == 1) {
-			txt += " - **";
+			statusTxt += " - **";
 			if (this.aviatorBuff) {
-				txt += "Super Cool ";
+				statusTxt += "Super Cool ";
 			}
-			txt += "Guitar Player**\n";
+			statusTxt += "Guitar Player**\n";
 		}
 		else if (this.infernalInstrument == 2) {
-			txt += " - **";
+			statusTxt += " - **";
 			if (this.aviatorBuff) {
-				txt += "Super Cool ";
+				statusTxt += "Super Cool ";
 			}
-			txt += "Synth Player**\n";
+			statusTxt += "Synth Player**\n";
 		}
 		else if (this.aviatorBuff) {
-			txt += " - **Super Cool**\n";
+			statusTxt += " - **Super Cool**\n";
 		}
 		if (this.livingGod) {
-			txt += " - **Living God**\n";
+			statusTxt += " - **Living God**\n";
 		}
 		if (this.requiemPower != null) {
-			txt += "\n - **Requiem Ability**";
+			statusTxt += "\n - **Requiem Ability**";
 			if (this.requiemCooldown > 0) {
-				txt += " (Cooldown: " + this.requiemCooldown + " turns)";
+				statusTxt += " (Cooldown: " + this.requiemCooldown + " turns)";
 			}
-			txt += "\n"
+			statusTxt += "\n"
 		}
 		if (this.hasBoomerang > 0) {
-			txt += " - With a Boomerang (for " + this.hasBoomerang + " turns)\n";
+			statusTxt += " - With a Boomerang (for " + this.hasBoomerang + " turns)\n";
 		}
 		if (this.acidArmor > 0) {
-			txt += " - Armored in acid (for " + this.acidArmor + " turns)";
+			statusTxt += " - Armored in acid (for " + this.acidArmor + " turns)";
 			if (this.sporeSac) {
-				txt += " (**Spore Sac**)";
+				statusTxt += " (**Spore Sac**)";
 			}
-			txt += "\n";
+			statusTxt += "\n";
 		}
 		if (this.doomReverse > 0) {
-			txt += " - DOOM-REVERSE(tm) (for " + this.doomReverse + " turns)\n";
+			statusTxt += " - DOOM-REVERSE(tm) (for " + this.doomReverse + " turns)\n";
 		}
 		if (this.satanicReverse > 0) {
-			txt += " - Satanic Protection (for " + this.satanicReverse + " turns)\n";
+			statusTxt += " - Satanic Protection (for " + this.satanicReverse + " turns)\n";
 		}
 		if (this.ironProtection > 0) {
-			txt += " - Worm Scarf Protection (for " + this.ironProtection + " turns)\n";
+			statusTxt += " - Worm Scarf Protection (for " + this.ironProtection + " turns)\n";
 		}
 		if (this.isLucky > 0) {
-			txt += " - Lucky (for " + this.isLucky + " turns)\n";
+			statusTxt += " - Lucky (for " + this.isLucky + " turns)\n";
 		}
 		if (this.akameDex > 0){
-			txt += " - Blessed by Akame (for " + this.akameDex + " turns)\n";
+			statusTxt += " - Blessed by Akame (for " + this.akameDex + " turns)\n";
 		}
 		if (this.mikasaBuff > 0) {
-			txt += " - Blessed by Mikasa (for " + this.mikasaBuff + " turns)\n";
+			statusTxt += " - Blessed by Mikasa (for " + this.mikasaBuff + " turns)\n";
 		}
 		if (this.akameKill > 0) {
-			txt += " - Cursed Blade Murasame (for " + this.akameKill + " turns)\n";
+			statusTxt += " - Cursed Blade Murasame (for " + this.akameKill + " turns)\n";
 		}
 		if (this.inLove > 0) {
-			txt += " - In Love (for " + this.inLove + " turns)\n";
+			statusTxt += " - In Love (for " + this.inLove + " turns)\n";
 		}
 		if (this.bossKiller > 0) {
-			txt += " - Boss Killer Blessing (for " + this.bossKiller + " turns)\n";
+			statusTxt += " - Boss Killer Blessing (for " + this.bossKiller + " turns)\n";
 		}
 		if (this.selfReverseDamage > 0) {
-			txt += " - Damage Reversed (for " + this.selfReverseDamage + " turns)\n";
+			statusTxt += " - Damage Reversed (for " + this.selfReverseDamage + " turns)\n";
 		}
 		if (this.futureMemories > 0) {
-			txt += " - Has Knowledge of the Future (of the next " + this.futureMemories + " turns)\n"
+			statusTxt += " - Has Knowledge of the Future (of the next " + this.futureMemories + " turns)\n"
 		}
 		if (this.gettingRegularCharge > 0) {
-			txt += " - Getting a regular charge in " + this.gettingRegularCharge + " turns\n"
+			statusTxt += " - Getting a regular charge in " + this.gettingRegularCharge + " turns\n"
 		}
 		if (this.gettingSpecialCharge > 0) {
-			txt += " - Getting a special charge in " + this.gettingSpecialCharge + " turns\n"
+			statusTxt += " - Getting a special charge in " + this.gettingSpecialCharge + " turns\n"
 		}
 		if (this.turkeyCountdown > 0) {
-			txt += " - ";
-			if (this.turkeyCountdown == 1) txt += "**";
-			txt += "Turkey Countdown: " + this.turkeyCountdown + " turns\n";
-			if (this.turkeyCountdown == 1) txt += "**";
+			statusTxt += " - ";
+			if (this.turkeyCountdown == 1) statusTxt += "**";
+			statusTxt += "Turkey Countdown: " + this.turkeyCountdown + " turns\n";
+			if (this.turkeyCountdown == 1) statusTxt += "**";
 		}
 		if (this.borealSummon > 0) {
-			txt += " - Boreal Fog Countdown: " + this.borealSummon + " turns\n";
+			statusTxt += " - Boreal Fog Countdown: " + this.borealSummon + " turns\n";
 		}
 		if (this.tentacles > 0) {
-			txt += " - Tentacles: " + this.tentacles + "\n";
+			statusTxt += " - Tentacles: " + this.tentacles + "\n";
 		}
 		if (this.quickeningCharges > 0) {
-			txt += " - Quickening Charges: " + this.quickeningCharges + "\n";
+			statusTxt += " - Quickening Charges: " + this.quickeningCharges + "\n";
 		}
 		if (this.madnessStacks > 0) {
-			txt += " - Madness Stacks: " + this.madnessStacks + "\n";
+			statusTxt += " - Madness Stacks: " + this.madnessStacks + "\n";
 		}
 		if (this.cthulhuShield > 0) {
-			txt += " - Shield of Cthulhu Charges: " + this.cthulhuShield + "\n";
+			statusTxt += " - Shield of Cthulhu Charges: " + this.cthulhuShield + "\n";
 		}
 		if (this.redPillAddiction > 0) {
-			txt += " - RedPill Addiction: " + this.redPillAddiction + "\n";
+			statusTxt += " - RedPill Addiction: " + this.redPillAddiction + "\n";
 		}
 		if (this.explosionMagic > 0) {
-			txt += " - Explosion Magic Points: " + this.explosionMagic + "\n";
+			statusTxt += " - Explosion Magic Points: " + this.explosionMagic + "\n";
 		}
 		if (this.ragingSpirit > 0) {
-			txt += " - Lost Soul Streak: " + this.ragingSpirit + "\n";
+			statusTxt += " - Lost Soul Streak: " + this.ragingSpirit + "\n";
 		}
 		if (this.tearDrinker > 0) {
-			txt += " - Tear Drinker: " + this.tearDrinker + "\n";
+			statusTxt += " - Tear Drinker: " + this.tearDrinker + "\n";
 		}
 		if (this.pigHeal > 0 || this.isCowBoy) {
-			txt += " - Hog Squeezer: " + this.pigHeal;
+			statusTxt += " - Hog Squeezer: " + this.pigHeal;
 			if (this.isCowBoy) {
-				txt += " (**Cowboy**)";
+				statusTxt += " (**Cowboy**)";
 			}
-			txt += "\n";
+			statusTxt += "\n";
 		}
 		if (this.megaBuildUp > 0) {
-			txt += " - Build-Up multiplier: " + this.megaBuildUp + "\n";
+			statusTxt += " - Build-Up multiplier: " + this.megaBuildUp + "\n";
 		}
 		if (this.bonusDamage > 0) {
-			txt += " - Build-Up damages: " + this.bonusDamage + "\n";
+			statusTxt += " - Build-Up damages: " + this.bonusDamage + "\n";
 		}
 		if (this.bleedDamage > 0 || this.isSalty) {
-			txt += " - Haemorrhage: " + this.bleedDamage;
+			statusTxt += " - Haemorrhage: " + this.bleedDamage;
 			if (this.isSalty) {
-				txt += " (**Salty Wounds**)";
+				statusTxt += " (**Salty Wounds**)";
 			}
-			txt += "\n";
+			statusTxt += "\n";
 		}
 		if (this.meltingDamage > 0) {
-			txt += " - Acid: " + this.meltingDamage + "\n";
+			statusTxt += " - Acid: " + this.meltingDamage + "\n";
 		}
 		if (this.goldenSpoons > 0) {
-			txt += " - Golden Spoons: " + this.goldenSpoons + "\n";
+			statusTxt += " - Golden Spoons: " + this.goldenSpoons + "\n";
 		}
 		if (this.lifeFibers > 0) {
-			txt += " - Life Fiber: " + (this.lifeFibers*5) + "%\n";
+			statusTxt += " - Life Fiber: " + (this.lifeFibers*5) + "%\n";
 		}
 		if (this.ppBribe > 0) {
-			txt += " - Arbitrator Bribe: " + this.ppBribe + "%\n";
+			statusTxt += " - Arbitrator Bribe: " + this.ppBribe + "%\n";
 		}
 		if (this.hivePack > 0) {
-			txt += " - Hive Pack: " + this.hivePack + "%\n";
+			statusTxt += " - Hive Pack: " + this.hivePack + "%\n";
 		}
 		if (this.xenoMask) {
-			txt += " - Mask: Xeno\n";
+			statusTxt += " - Mask: Xeno\n";
 		}
 		if (this.satanMask) {
-			txt += " - Mask: Satan\n";
+			statusTxt += " - Mask: Satan\n";
 		}
 		if (this.helldogMask) {
-			txt += " - Mask: Intimidation\n";
+			statusTxt += " - Mask: Intimidation\n";
 		}
 		if (this.acidArmor <= 0 && this.sporeSac) {
-			txt += " - Spore Sac\n"; // shows spore sac here if no acid armor
+			statusTxt += " - Spore Sac\n"; // shows spore sac here if no acid armor
 		}
 		if (this.empressLightBuff) {
-			txt += " - Blessing of the Empress of Light\n";
+			statusTxt += " - Blessing of the Empress of Light\n";
 		}
 		if (this.boneGlove) {
-			txt += " - Bone Glove\n";
+			statusTxt += " - Bone Glove\n";
 		}
 		if (this.cuteFishron) {
-			txt += " - Cute Fishron\n";
+			statusTxt += " - Cute Fishron\n";
 		}
 		if (this.shinyStone) {
-			txt += " - Shiny Stone\n";
+			statusTxt += " - Shiny Stone\n";
 		}
 		if (this.satanicMoveMultiplier) {
-			txt += " - Satanic Move Multiplier\n";
+			statusTxt += " - Satanic Move Multiplier\n";
 		}
 		if (this.hasKamui) {
-			txt += " - Wearing a Kamui\n";
+			statusTxt += " - Wearing a Kamui\n";
 		}
 		if (this.forceCritical) {
-			txt += " - Ready to Inflict Critical Damages\n";
+			statusTxt += " - Ready to Inflict Critical Damages\n";
 		}
 		if (this.flugelBlood) {
-			txt += " - Flugel Blood\n";
+			statusTxt += " - Flugel Blood\n";
 		}
 		if (this.klaxoTails) {
-			txt += " - Klaxosaurs Tails\n";
+			statusTxt += " - Klaxosaurs Tails\n";
 		}
 		if (this.iceWeapon) {
-			txt += " - Magic Ice Weapon\n";
+			statusTxt += " - Magic Ice Weapon\n";
 		}
 		if (this.tempestBuff) {
-			txt += " - Tempest\n";
+			statusTxt += " - Tempest\n";
 		}
 		if (this.isOverCircumcised) {
-			txt += " - Overcircumcised\n";
+			statusTxt += " - Overcircumcised\n";
 		}
 		else if (this.isCircumcised) {
-			txt += " - Circumcised\n";
+			statusTxt += " - Circumcised\n";
 		}
 		if (this.isProtected) {
-			txt += " - Shield Protection\n";
+			statusTxt += " - Shield Protection\n";
 		}
 		if (this.isTerrorist) {
 			if (!this.duel.ALTERNATE_MOVES) {
-				txt += " - Planning a Terrorist Move\n";
+				statusTxt += " - Planning a Terrorist Move\n";
 			}
 			else {
-				txt += " - N-Word Pass\n";
+				statusTxt += " - N-Word Pass\n";
 			}
 		}
 		if (this.eldritchFriend) {
-			txt += " - Eldritch Friendly\n";
+			statusTxt += " - Eldritch Friendly\n";
 		}
 		if (this.legAimer) {
-			txt += " - Leg Aimer\n";
+			statusTxt += " - Leg Aimer\n";
 		}
 		if (this.dualWield) {
-			txt += " - Dual Wielding\n";
+			statusTxt += " - Dual Wielding\n";
 		}
 		if (this.badLuck) {
-			txt += " - Unlucky\n";
+			statusTxt += " - Unlucky\n";
 		}
 		if (this.fullOfAmmo) {
-			txt += " - Full of Ammos\n";
+			statusTxt += " - Full of Ammos\n";
 		}
 		if (this.kungFu) {
-			txt += " - Trained Fighter\n";
+			statusTxt += " - Trained Fighter\n";
 		}
 		if (this.chimera) {
-			txt += " - Furry PP\n";
+			statusTxt += " - Furry PP\n";
 		}
 		if (this.silenced) {
-			txt += " - Silenced\n";
+			statusTxt += " - Silenced\n";
 		}
 		if (this.liberatedPP) {
-			txt += " - Liberated PP\n";
+			statusTxt += " - Liberated PP\n";
 		}
 		if (this.hasBoner) {
-			txt += " - Big Boner Mmmmmmh...\n";
+			statusTxt += " - Big Boner Mmmmmmh...\n";
 		}
 		if (this.trueBarbarian) {
-			txt += " - Great Barbarian from the North Seeking New Lands for his Kingdom\n";
+			statusTxt += " - Great Barbarian from the North Seeking New Lands for his Kingdom\n";
 		}
 		if (this.infernalMagic) {
-			txt += " - **Infernal Magic**\n";
+			statusTxt += " - **Infernal Magic**\n";
 		}
 		if (this.armageddonMagic) {
-			txt += " - **Armageddon Magic**\n";
+			statusTxt += " - **Armageddon Magic**\n";
 		}
 		if (this.isPossessed > 0) {
-			txt += " - **Possessed by " + this.duel.getOppOf(this).getName() + "**\n";
+			statusTxt += " - **Possessed by " + this.duel.getOppOf(this).getName() + "**\n";
 		}
 		if (this.turnSkip > 0) {
-			txt += " - **To the Ranch**\n";
+			statusTxt += " - **To the Ranch**\n";
 		}
 		if (this.grabbedPP > 0) {
-			txt += " - **Very Confused**\n";
+			statusTxt += " - **Very Confused**\n";
 		}
 		if (this.summonTankCountdown > 0) {
-			txt += " - **Summoning the Monster (" + (4-this.summonTankCountdown) + "/3)**\n";
+			statusTxt += " - **Summoning the Monster (" + (4-this.summonTankCountdown) + "/3)**\n";
 		}
 		if (this.standPower != null && !this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE && !this.randomizedStand) {
-			txt += " - **Stånd Power: " + this.standPower + "**\n";
+			statusTxt += " - **Stånd Power: " + this.standPower + "**\n";
 		}
 		if (this.extraLife > 0) {
-			txt += " - **Extra lives: " + this.extraLife;
+			statusTxt += " - **Extra lives: " + this.extraLife;
 			if (this.extraLifeDuplication != null) {
-				txt += " (Temporal Duplication)";
+				statusTxt += " (Temporal Duplication)";
 			}
-			txt += "**\n";
+			statusTxt += "**\n";
 		}
 		if (this.murasameCurse) {
-			txt += " - **Murasame's Poisonous Curse**\n";
+			statusTxt += " - **Murasame's Poisonous Curse**\n";
 		}
 		if (this.impendingDoom > 0) {
-			txt += " - **Impending Doom: " + this.impendingDoom + " turns**\n";
+			statusTxt += " - **Impending Doom: " + this.impendingDoom + " turns**\n";
 		}
+		if (statusTxt != "") embedMessage.addField("Status", statusTxt, true);
 
-		if (this.duel.CURRENT_BATTLE_MODE != STAND_BATTLE_MODE || this.standPower == STAND_PP19) {
-			txt += "\n**Synergies:**\n"
-			if (this.godList.length >= GOD_LIST.length) {
-				txt += " - *PP Harem*\n";
+		// SYNERGIES
+		var synergyTxt = "";
+		if (this.godList.length >= GOD_LIST.length) {
+			synergyTxt += " - *PP Harem*\n";
+		}
+		else {
+			if (this.hasSynergy(SYNERGY_PP0)) {
+				synergyTxt += " - *PP Harem*\n";
 			}
-			else {
-				if (this.hasSynergy(SYNERGY_PP0)) {
-					txt += " - *PP Harem*\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP1)) {
-					txt += " - A Sad Witness\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP2)) {
-					txt += " - Holy Brenn Trinity\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP3)) {
-					txt += " - Unholy Pudding Trinity\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP4)) {
-					txt += " - Roleplay Group\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP5)) {
-					txt += " - Racial Paradox\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP6)) {
-					txt += " - Garbage Music Maker\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP7)) {
-					txt += " - Yaoi Fan\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP8)) {
-					txt += " - Super Predator\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP9)) {
-					txt += " - Too Smart and Too Powerful\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP10)) {
-					txt += " - Salt Master\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP11)) {
-					txt += " - Debilus Team Member\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP12)) {
-					txt += " - Waifu Body Pillow\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP13)) {
-					txt += " - Infinite Intellect\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP14)) {
-					txt += " - Wild Mage\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP15)) {
-					txt += " - Guerrier de l'Enfer\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP16)) {
-					txt += " - Too Much Dicks\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP17)) {
-					txt += " - Avatar of Tz'arkan\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP18)) {
-					txt += " - Obvious Tentacle Joke\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP19)) {
-					txt += " - Eldritch Gang\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP20)) {
-					txt += " - Master of Time\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP21)) {
-					txt += " - Big Nose\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP22)) {
-					txt += " - Extreme Karma\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP23)) {
-					txt += " - Ram Ranch\n";
-				}
-				if (this.hasSynergy(SYNERGY_PP24)) {
-					txt += " - Cosmopolitan\n";
-				}
+			if (this.hasSynergy(SYNERGY_PP1)) {
+				synergyTxt += " - A Sad Witness\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP2)) {
+				synergyTxt += " - Holy Brenn Trinity\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP3)) {
+				synergyTxt += " - Unholy Pudding Trinity\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP4)) {
+				synergyTxt += " - Roleplay Group\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP5)) {
+				synergyTxt += " - Racial Paradox\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP6)) {
+				synergyTxt += " - Garbage Music Maker\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP7)) {
+				synergyTxt += " - Yaoi Fan\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP8)) {
+				synergyTxt += " - Super Predator\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP9)) {
+				synergyTxt += " - Too Smart and Too Powerful\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP10)) {
+				synergyTxt += " - Salt Master\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP11)) {
+				synergyTxt += " - Debilus Team Member\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP12)) {
+				synergyTxt += " - Waifu Body Pillow\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP13)) {
+				synergyTxt += " - Infinite Intellect\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP14)) {
+				synergyTxt += " - Wild Mage\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP15)) {
+				synergyTxt += " - Guerrier de l'Enfer\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP16)) {
+				synergyTxt += " - Too Much Dicks\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP17)) {
+				synergyTxt += " - Avatar of Tz'arkan\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP18)) {
+				synergyTxt += " - Obvious Tentacle Joke\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP19)) {
+				synergyTxt += " - Eldritch Gang\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP20)) {
+				synergyTxt += " - Master of Time\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP21)) {
+				synergyTxt += " - Big Nose\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP22)) {
+				synergyTxt += " - Extreme Karma\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP23)) {
+				synergyTxt += " - Ram Ranch\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP24)) {
+				synergyTxt += " - Cosmopolitan\n";
 			}
 		}
+		if (synergyTxt != "") embedMessage.addField("Synergies", synergyTxt, true);
 
-		return txt;
+		return embedMessage;
 	}
 
 	playMove(_newMove = this.attack) {
