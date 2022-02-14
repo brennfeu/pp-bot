@@ -2,6 +2,7 @@ var Duel = class {
 	constructor(_easyDuel = false) {
 		this.DEAD_DUEL = false;
 		this.LIST_MESSAGES = [];
+		this.LIST_MESSAGES_OTHER = [];
 		this.INFINITE_DAMAGE = 0;
 		this.TIMESTAMP = +new Date();
 		this.LIST_AVAILABLE_ATTACKS = [];
