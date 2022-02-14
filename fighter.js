@@ -458,7 +458,7 @@ var Fighter = class {
 		embedMessage.setThumbnail(this.getImageURL());
 
 		// TITLE
-		var nameTxt = ""**" + this.getName() + "**";
+		var nameTxt = "**" + this.getName() + "**";
 		if (this.destroyerOfWorlds) nameTxt += " - Destroyer of Worlds"
 		embedMessage.setTitle(nameTxt + "**\n");
 
