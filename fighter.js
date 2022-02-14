@@ -3061,7 +3061,7 @@ var Fighter = class {
 				else {
 					this.duel.addMessage(this.getName() + " summons the Royal Gel!");
 					this.duel.addMessage("A Pudding Blob has been created!");
-					this.triggerBossFight(new PuddingBlobBoss());
+					this.triggerBossFight(new PuddingBlobBoss(this));
 				}
 				this.duel.EVENT_BOSS.bossTriggeredAt = this.duel.getOppOf(this);
 			}
@@ -3156,7 +3156,7 @@ var Fighter = class {
 				if (this.duel.EVENT_BOSS != null) {
 					this.duel.addMessage(this.duel.EVENT_BOSS.getName() + " suddenly runs away.");
 				}
-				this.triggerBossFight(new SexStarvedMongoBoss());
+				this.triggerBossFight(new SexStarvedMongoBoss(this));
 				this.duel.addMessage("Mongo has appeared, and he is sex-starved!");
 				this.duel.addMessage("-----------------");
 			}

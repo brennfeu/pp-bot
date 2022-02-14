@@ -61,13 +61,13 @@ var Boss = class extends Fighter {
             if (this.duel.OBAMIUM_DONE && getRandomPercent() <= 75) {
                 this.duel.addMessage(this.getName() + " is in fact Obamium Espinoza!\n" + IMAGE_PP6);
                 this.duel.addMessage("-----------------");
-                this.duel.triggerBossFight(new ObamiumEspinozaBoss());
+                this.duel.triggerBossFight(new ObamiumEspinozaBoss(this.duel));
                 return true;
             }
             else {
                 this.duel.addMessage(this.getName() + " is in fact Raid Boss Espinoza!\n" + IMAGE_PP4);
                 this.duel.addMessage("-----------------");
-                this.duel.triggerBossFight(new RaidBossEspinozaBoss());
+                this.duel.triggerBossFight(new RaidBossEspinozaBoss(this.duel));
                 return true;
             }
             return false;
@@ -95,7 +95,7 @@ var Boss = class extends Fighter {
 }
 
 var CthulhuBoss = class extends Boss {
-    constructor() {
+    constructor(_duel) {
         super(_duel, "Cthulhu", 10000);
         this.baseDamage = 50;
         this.deathEndsDuel = true;
@@ -109,7 +109,7 @@ var CthulhuBoss = class extends Boss {
     }
 }
 var MoonLordBoss = class extends CthulhuBoss {
-    constructor() {
+    constructor(_duel) {
         super(_duel, "Moon Lord", 500000);
         this.baseDamage = 2000;
 
@@ -130,7 +130,7 @@ var MoonLordBoss = class extends CthulhuBoss {
 }
 
 var FreeLivesBoss = class extends Boss {
-    constructor() {
+    constructor(_duel) {
         super(_duel, "Free Lives", 500);
         this.baseDamage = 20;
         this.mimicPercentage = 20;
@@ -144,7 +144,7 @@ var FreeLivesBoss = class extends Boss {
     }
 }
 var IKEABoss = class extends Boss {
-    constructor() {
+    constructor(_duel) {
         super(_duel, "IKEA", 500);
         this.baseDamage = 40;
         this.mimicPercentage = 20;
@@ -159,7 +159,7 @@ var IKEABoss = class extends Boss {
 }
 
 var WeebBoss = class extends Boss {
-    constructor() {
+    constructor(_duel) {
         super(_duel, "Weeb", 1);
         this.baseDamage = 30;
         this.mimicPercentage = 2;
@@ -171,7 +171,7 @@ var WeebBoss = class extends Boss {
     }
 }
 var PuddingBlobBoss = class extends Boss {
-    constructor() {
+    constructor(_duel) {
         super(_duel, "Pudding Blob", 10);
         this.STRValue = 10*this.duel.MOVE_COUNT;
         this.baseDamage = 2*this.duel.MOVE_COUNT;
@@ -194,7 +194,7 @@ var PuddingBlobBoss = class extends Boss {
 }
 
 var PPRobotPoliceBoss = class extends Boss {
-    constructor() {
+    constructor(_duel) {
         super(_duel, "PP Robot Police", 750);
         this.baseDamage = 30;
     }
@@ -209,7 +209,7 @@ var PPRobotPoliceBoss = class extends Boss {
     }
 }
 var PPHarvesterBoss = class extends Boss {
-    constructor() {
+    constructor(_duel) {
         super(_duel, "PP Harvester", 1500);
         this.baseDamage = 50;
     }
@@ -221,7 +221,7 @@ var PPHarvesterBoss = class extends Boss {
     }
 }
 var PPNetHiveMindBoss = class extends Boss {
-    constructor() {
+    constructor(_duel) {
         super(_duel, "PP-Net Hive Mind", 20000);
         this.baseDamage = 100;
     }
@@ -247,11 +247,11 @@ var PPNetHiveMindBoss = class extends Boss {
         this.duel.FIGHTER1 = new Fighter(this.duel.FIGHTER1.idUser, this.duel.BATTLE_CHANNEL.id);
         this.duel.FIGHTER2 = new Fighter(this.duel.FIGHTER2.idUser, this.duel.BATTLE_CHANNEL.id);
 
-        this.duel.triggerBossFight(new PPTerminatorBoss());
+        this.duel.triggerBossFight(new PPTerminatorBoss(this));
     }
 }
 var PPTerminatorBoss = class extends Boss {
-    constructor() {
+    constructor(_duel) {
         super(_duel, "PP Terminator", 1500);
         this.baseDamage = 25;
     }
@@ -273,7 +273,7 @@ var PPTerminatorBoss = class extends Boss {
 }
 
 var SatanBoss = class extends Boss {
-    constructor() {
+    constructor(_duel) {
         super(_duel, "Satan", 500000);
         this.baseDamage = 1000;
         this.mimicPercentage = 20;
@@ -285,11 +285,11 @@ var SatanBoss = class extends Boss {
         this.duel.addMessage(this.getName() + " summons his true form!");
         this.duel.addMessage("-----------------");
 
-        if (!rollEspinozaMimic()) this.duel.triggerBossFight(new SatanTrueFormBoss());
+        if (!rollEspinozaMimic()) this.duel.triggerBossFight(new SatanTrueFormBoss(this.duel));
     }
 }
 var SatanTrueFormBoss = class extends Boss {
-    constructor() {
+    constructor(_duel) {
         super(_duel, "Satan True Form", 100000000);
         this.baseDamage = 100000;
         this.deathEndsDuel = true;
@@ -304,7 +304,7 @@ var SatanTrueFormBoss = class extends Boss {
 }
 
 var SexStarvedMongoBoss = class extends Boss {
-    constructor() {
+    constructor(_duel) {
         super(_duel, "Sex Starved Mongo", 10);
         this.STRValue = (this.duel.FIGHTER1.STR + this.duel.FIGHTER2.STR)*10000;
 
@@ -320,7 +320,7 @@ var SexStarvedMongoBoss = class extends Boss {
 }
 
 var RaidBossEspinozaBoss = class extends Boss {
-    constructor() {
+    constructor(_duel) {
         super(_duel, "Raid Boss Espinoza", 1000000);
         this.baseDamage = 1000;
         this.mimicPercentage = 20;
@@ -337,7 +337,7 @@ var RaidBossEspinozaBoss = class extends Boss {
     }
 }
 var ObamiumEspinozaBoss = class extends RaidBossEspinozaBoss {
-    constructor() {
+    constructor(_duel) {
         super(_duel, "Obamium Espinoza", Math.pow(10, 10));
         this.baseDamage = 1000000;
         this.mimicPercentage = 20;
@@ -345,7 +345,7 @@ var ObamiumEspinozaBoss = class extends RaidBossEspinozaBoss {
 }
 
 var WyndoeallaBoss = class extends Boss {
-    constructor() {
+    constructor(_duel) {
         super(_duel, "Wyndoella", Math.pow(10, 99));
         this.baseDamage = Math.pow(10, 99);
         this.winsIfHeatDeath = true;

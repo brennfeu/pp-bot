@@ -134,7 +134,7 @@ var Duel = class {
 		// Weeb
 		if (this.PPLEVEL > 50 && getRandomPercent() <= 10) {
 			this.addMessage("**===== WEEB =====**");
-			var bossWeeb = new WeebBoss();
+			var bossWeeb = new WeebBoss(this);
 			this.addMessage(bossWeeb.getName() + " challenges you!\n" + IMAGE_PP7);
 			triggerBossFight(bossWeeb)
 		}
@@ -506,7 +506,7 @@ var Duel = class {
 					if (this.EVENT_BOSS != null) {
 						this.addMessage(this.EVENT_BOSS.getName() + "'s boss fight is canceled by Pudding.");
 					}
-					this.triggerBossFight(new PuddingBlobBoss());
+					this.triggerBossFight(new PuddingBlobBoss(this));
 					this.addMessage("A Pudding Blob has been created!");
 					this.addMessage("-----------------");
 				}
@@ -1028,7 +1028,7 @@ var Duel = class {
 				this.addMessage(" -- MOON LORD AWAKENS --");
 				this.addMessage("Cthulhu is blessed by the moonlight!");
 				this.addMessage("The Moon Lord has been summoned and takes control over Cthulhu's body!");
-				this.triggerBossFight(new MoonLordBoss());
+				this.triggerBossFight(new MoonLordBoss(this));
 			}
 			else if (this.EVENT_BOSS != null && this.EVENT_BOSS.isMoonLord) {
 				this.addMessage(" -- MOON LORD REGENERATION --");
@@ -1041,7 +1041,7 @@ var Duel = class {
 			else {
 				this.addMessage(" -- CTHULHU AWAKENS --");
 				this.addMessage("You have to beat Cthulhu by punching his huge PP in order to save the world!");
-				this.triggerBossFight(new CthulhuBoss());
+				this.triggerBossFight(new CthulhuBoss(this));
 			}
 		}
 		else if (this.PPLEVEL > 100 && randomVar == 6 && (this.MOVE_COUNT >= 30 || forcedEvent)) {
@@ -1152,7 +1152,7 @@ var Duel = class {
 			else {
 				this.addMessage(" -- FREE LIVES RIOT --");
 				this.addMessage("Let's riot Free Lives HQ just for fun!");
-				this.triggerBossFight(new FreeLivesBoss());
+				this.triggerBossFight(new FreeLivesBoss(this));
 			}
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 26) {
@@ -1218,13 +1218,13 @@ var Duel = class {
 				if (this.EVENT_BOSS != null) {
 					this.addMessage(this.EVENT_BOSS.getName() + " surrenders!");
 				}
-				this.triggerBossFight(new PPRobotPoliceBoss());
+				this.triggerBossFight(new PPRobotPoliceBoss(this));
 			}
 			else if (this.PP_NET == 5) {
 				this.addMessage(" -- PP-NET RISING --");
 				this.addMessage("Humans are getting hunted down by the PP Police!");
 				this.addMessage("The PP Rebellion will get its revenge!");
-				var boss = new PPRobotPoliceBoss();
+				var boss = new PPRobotPoliceBoss(this);
 				boss.STRValue = 2000;
 				this.triggerBossFight(boss);
 			}
@@ -1236,7 +1236,7 @@ var Duel = class {
 					this.addMessage(this.EVENT_BOSS.getName() + "'s PP gets harvested!");
 					this.addMessage(this.EVENT_BOSS.getName() + " dies!");
 				}
-				this.triggerBossFight(new PPHarvesterBoss());
+				this.triggerBossFight(new PPHarvesterBoss(this));
 			}
 			else if (this.PP_NET == 7) {
 				this.addMessage(" -- PP REBELLION RISING --");
@@ -1254,7 +1254,7 @@ var Duel = class {
 					this.addMessage(this.EVENT_BOSS.getName() + "'s PP gets harvested!");
 					this.addMessage(this.EVENT_BOSS.getName() + " dies!");
 				}
-				this.triggerBossFight(new PPNetHiveMindBoss());
+				this.triggerBossFight(new PPNetHiveMindBoss(this));
 			}
 			else if (this.PP_NET < 0) {
 				this.addMessage(" -- PP-NET RISING --");
@@ -1286,7 +1286,7 @@ var Duel = class {
 				this.EVENT_BOSS.baseDamage += 1000;
 			}
 			else {
-				var boss = new SatanBoss();
+				var boss = new SatanBoss(this);
 				this.addMessage("The Eldritch Gate has been opened! " + boss.getName() + " faces you!");
 				if (this.EVENT_BOSS != null) {
 					this.addMessage("He destroys " + this.EVENT_BOSS.getName() + " just to show off");
@@ -1417,7 +1417,7 @@ var Duel = class {
 			// Wyndoella
 			this.addMessage(" -- WYNDOELLA KILLS PUDDING --");
 			this.addMessage("The Universe itself is against you!\n" + IMAGE_PP9);
-			this.triggerBossFight(new WyndoeallaBoss());
+			this.triggerBossFight(new WyndoeallaBoss(this));
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 51 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
 			// IKEA
@@ -1442,7 +1442,7 @@ var Duel = class {
 				this.addMessage(" -- IKEA RIOT --");
 				this.addMessage("Swedish pilgrims invaded and built an IKEA!");
 				this.addMessage(IMAGE_PP10);
-				this.triggerBossFight(new IKEABoss());
+				this.triggerBossFight(new IKEABoss(this));
 			}
 		}
 		// DON'T FORGET TO UPDATE FORCE EVENT IF NEW EVENTS ARE ADDED
