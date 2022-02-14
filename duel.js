@@ -202,9 +202,7 @@ var Duel = class {
 		this.addMessage("**TIME FOR A TUTORIAL**");
 		this.addMessage("Welcome to the PP Punch Arena!\nThis bot allows you to play PP Punch Duels in discord. It's actually an rpg strategy fighting game");
 		this.addMessage("First, let me teach you about the fighters!");
-		this.addMessage("-----------------");
-		this.addMessage(this.FIGHTER1.toString());
-		this.addMessage("-----------------");
+		this.addMessage("", true, {embed: this.FIGHTER1.toString()});
 		this.addMessage("As you can see, there are only 2 stats in the game: **STR** and **DEX**.");
 		this.addMessage("**STR** is about how strong you can punch PP. The more you have, the more damages your punches will deal. It's also your **HP**, so don't get it below 0!");
 		this.addMessage("-----------------");
@@ -236,9 +234,7 @@ var Duel = class {
 				this.addMessage("Now you know how to choose a move. You can also try to cheat by reacting with another emote, but you can get caught cheating.");
 			}
 			this.addMessage("Let's get back to the fighters.");
-			this.addMessage("-----------------");
-			this.addMessage(this.FIGHTER1.toString());
-			this.addMessage("-----------------");
+			this.addMessage("", true, {embed: this.FIGHTER1.toString()});
 			this.addMessage("**Fighting styles** are permanent effects you starts with, depending on your choice. Using the '*@PP_Arbitrator custom*' command allows you to choose your fighting styles.");
 			this.addMessage("**Status** are effects you get during the battle. Some are good to get, some aren't. Some are permanent, some aren't.");
 			this.addMessage("We'll get to **Synergies** later.");
@@ -270,9 +266,7 @@ var Duel = class {
 			this.FIGHTER1.godList = [GOD_PP13.name, GOD_PP18.name, GOD_PP9.name];
 			this.FIGHTER1.regularCharges = 1;
 			this.FIGHTER1.specialCharges = 1;
-			this.addMessage("-----------------");
-			this.addMessage(this.FIGHTER1.toString());
-			this.addMessage("-----------------");
+			this.addMessage("", true, {embed: this.FIGHTER1.toString()});
 			this.addMessage("It gave you a synergy ! This one makes sure that you can't get below 0 **DEX**.");
 			this.addMessage("Here are the moves that allows you to unleash your **Gods**:");
 			this.sendMessages();
@@ -284,68 +278,15 @@ var Duel = class {
 		}
 		else if (this.NB_TURNS == 3) {
 			this.addMessage("-----------------");
-			if ([EMOTE_PP51, EMOTE_PP52].indexOf(this.FIGHTER1.attack) < 0) {
-				this.addMessage("Come on, there's no point cheating, it's the tutorial!");
-				this.addMessage("-----------------");
-			}
-			this.addMessage("The game also features different game modes, including this one: **Stånds**!");
-			this.addMessage("When performing specific move combos, you summon a stånd. This will trigger the **Stånds Battle Mode** and the opponent will get a random stånd.");
-			this.addMessage("Your respective **stånds** will replace you in the battle, and the winner of the battle will keep his stånd's powers and get stat buffs. Both fighter are then able to continue the fight.");
-			this.addMessage("-----------------");
-			this.addMessage("If a stånd uses the **Satan Hand** move while having **10 Quickening Charges**, it will get better stats and a random **Requiem**.");
-			this.addMessage("A Requiem is an ability performed using the **SpecialAbility move** that can appear randomly. They are also given to a fighter if he wins the Stånd Battle.");
-			this.addMessage("-----------------");
-			this.addMessage("Here are some moves specific to stånd battles:");
-			this.sendMessages();
-
-			this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction!").then(function (_message2) {
-				_message2.react(EMOTE_PP67);
-				_message2.react(EMOTE_PP68);
-				_message2.react(EMOTE_PP69);
-				_message2.react(EMOTE_PP73);
-				_message2.react(EMOTE_PP74);
-			}).catch(function(e) {console.log(e);});
-
-		}
-		else if (this.NB_TURNS == 4) {
-			this.addMessage("-----------------");
-			if ([EMOTE_PP67, EMOTE_PP68, EMOTE_PP69, EMOTE_PP73, EMOTE_PP74].indexOf(this.FIGHTER1.attack) < 0) {
-				this.addMessage("Come on, there's no point cheating, it's the tutorial!");
-				this.addMessage("-----------------");
-			}
-			this.addMessage("The most complex side-gamemode is the **Civilisation Game Mode**!");
-			this.addMessage("In this mode, each fighter are the rulers of a **city**, and must raid the other city until its destruction. Both fighters play simustaneously, each having his own movepool.");
-			this.addMessage("When winning this battle mode, both fighter are then able to continue the fight and the winner gets 50% chance to get a random bonus every turn.");
-			this.addMessage("-----------------");
-			this.addMessage("In order to do that, 4 types of moves will be available.");
-			this.addMessage("**Shrines** allow you to gain access to other moves or grants special effects. They don't appear anymore once used.");
-			this.addMessage("**Units** increases your military power, and may give your army special powers. This is what is used to attack the enemy.");
-			this.addMessage("**Effects** grants you bonuses regarding your army, your defence, or other useful stuff.");
-			this.addMessage("**Raids** moves are the different attack moves. When a raid happens, military power is used to attack the opponent or defend yourself. The one with the highest military power wins the battle, and damages the opponent with the remaining of the army if the remaining army is the one attacking.");
-			this.addMessage("-----------------");
-			this.addMessage("Here are some moves specific to the civilisation gamemode:");
-			this.sendMessages();
-
-			this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction!").then(function (_message2) {
-				_message2.react(EMOTE_PP85);
-				_message2.react(EMOTE_PP103);
-				_message2.react(EMOTE_PP119);
-				_message2.react(EMOTE_PP128);
-				_message2.react(EMOTE_PP98);
-			}).catch(function(e) {console.log(e);});
-
-		}
-		else if (this.NB_TURNS == 5) {
-			this.addMessage("-----------------");
 			if ([EMOTE_PP85, EMOTE_PP103, EMOTE_PP119, EMOTE_PP128, EMOTE_PP98].indexOf(this.FIGHTER1.attack) < 0) {
 				this.addMessage("Come on, there's no point cheating, it's the tutorial!");
 				this.addMessage("-----------------");
 			}
-			this.addMessage("Now you know the theory ! The only remaining things to learn are what the moves do in practice.");
-			this.addMessage("The **PP Bible** is great for that: https://github.com/brennfeu/pp-bot/wiki/PP-Bible. You can also get a link using the '*@PP_Arbitrator help*' command.");
-			this.addMessage("It's way easier and more fun to learn by playing with a friend. Keep the **PP Bible** on one tab to learn about what happens!");
+			this.addMessage("Now you know part of the theory! The only remaining things to learn are what the moves do in practice.");
+			this.addMessage("The **PP Bible** can help you if you feel lost about something: https://github.com/brennfeu/pp-bot/wiki/PP-Bible. You can also get a link using the '*@PP_Arbitrator help*' command.");
+			this.addMessage("It's way easier and more fun to learn by playing with a friend, but you can also fight against the 'AI' using the training command!");
 			this.addMessage("-----------------");
-			this.addMessage("That's it, the tutorial is over ! Have fun:)");
+			this.addMessage("That's it, the tutorial is over! I hope you have fun :)");
 			this.sendMessages();
 
 			this.DEAD_DUEL = true;
