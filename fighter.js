@@ -447,7 +447,7 @@ var Fighter = class {
 		var embedMessage = new DISCORD.MessageEmbed();
 		embedMessage.setColor("RANDOM");
 		embedMessage.setTitle("**" + this.getName() + "**\n");
-		embedMessage.setThumbnail(this.user.avatarURL);
+		embedMessage.setThumbnail(this.user.displayAvatarURL());
 
 		// SPECIAL CASES
 		if (this.duel.MOVE_COUNT >= 10000) {
