@@ -462,7 +462,7 @@ var Fighter = class {
 		}
 
 		// STATS
-		var statsTxt += "**STR:** " + this.STR;
+		var statsTxt = "**STR:** " + this.STR;
 		if (this.STR == 69) {
 			statsTxt += " (lmao)";
 		}
