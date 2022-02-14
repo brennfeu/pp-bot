@@ -9,6 +9,7 @@ var Boss = class extends Fighter {
         this.imageURL = null;
         this.baseDamage = 0;
         this.mimicPercentage = 0;
+        this.grantsKillerBlessings = 10;
 
         this.themeSong;
 
@@ -189,6 +190,7 @@ var PuddingBlobBoss = class extends Boss {
         this.imageURL = "https://cdn.discordapp.com/attachments/715322091804819486/942781193039003688/unknown.png";
 
         this.mimicPercentage = 5;
+        this.this.grantsKillerBlessings = 3;
         this.puddingLaughIfMimic = true;
     }
 

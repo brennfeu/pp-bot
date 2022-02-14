@@ -18,6 +18,7 @@ var Fighter = class {
 		this.attackedThisTurn = true;
 		this.damageTaken = 0;
 		this.pushedDamages = 0;
+		this.grantsKillerBlessings = 30;
 
 		// set roles
 		this.isBigPP = false;
@@ -615,7 +616,7 @@ var Fighter = class {
 			statusTxt += displayEmote(GOD_PP40.emote) + " In Love (for " + this.inLove + " turns)\n";
 		}
 		if (this.bossKiller > 0) {
-			statusTxt += displayEmote(EMOTE_PP73) + " Boss Killer Blessing (for " + this.bossKiller + " turns)\n";
+			statusTxt += displayEmote(EMOTE_PP73) + " Killer Adrenaline (for " + this.bossKiller + " turns)\n";
 		}
 		if (this.selfReverseDamage > 0) {
 			statusTxt += displayEmote(EMOTE_PP15) + " Damage Reversed (for " + this.selfReverseDamage + " turns)\n";
@@ -3529,7 +3530,7 @@ var Fighter = class {
 			else {
 				this.duel.addMessage(this.getName() + " takes " + _amount + " damages!");
 				if (_amount == 69) {
-					this.duel.addMessage("lmao!");
+					this.duel.addMessage("lol");
 				}
 
 				this.damageTaken += _amount;
@@ -3545,6 +3546,12 @@ var Fighter = class {
 				else {
 					// Damage
 					this.STRValue -= _amount;
+
+					// killer blessing
+					if (this.STR <= 0 && _punch) {
+						this.duel.getOppOf(this).bossKiller += this.grantsKillerBlessings+1;
+						this.grantsKillerBlessings = 0;
+					}
 				}
 
 				if (this.duel.getOppOf(this).standPower == STAND_PP12 && _punch) { // Space Metal
@@ -3772,7 +3779,7 @@ var Fighter = class {
 
 		// Boss Killer
 		if (this.bossKiller > 0) {
-			this.duel.addMessage(this.getName() + " gets +1 DEX thanks to the Boss Killer Blessing!");
+			this.duel.addMessage(this.getName() + " gets +1 DEX thanks to the Killer Adrenaline!");
 			this.DEXValue += 1;
 			this.heal(30);
 			this.duel.addMessage("-----------------");
