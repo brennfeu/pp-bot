@@ -2299,6 +2299,7 @@ var Fighter = class {
 					}
 					this.dodgableDamages = [];
 				}
+				
 				if (this.godList.indexOf(GOD_PP30.name) > -1) { // Megumin
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Megumin answers his calls!");
