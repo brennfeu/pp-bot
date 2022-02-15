@@ -148,7 +148,7 @@ function checkUpdateEncyclopedia() {
 					if (encyChannels[i].topic == "Moves"
 					   || encyChannels[i].topic == "Stånds"
 					   || encyChannels[i].topic == "Civilisation Mode") {
-						var cutBiblePart = fullBible[j].split(" ").join("").split("*").join("").join("").split(".").join("");
+						var cutBiblePart = fullBible[j].split(" ").join("").split("*").join("").split(".").join("");
 						for (var k in EMOTE_LIST) {
 							if ((cutBiblePart.includes(getEmote(EMOTE_LIST[k]).name + ":")
 							   || cutBiblePart.includes(getEmote(EMOTE_LIST[k]).name + "/")
