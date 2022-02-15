@@ -179,7 +179,7 @@ function checkUpdateEncyclopedia() {
 
 						// save effect
 						if (fullBible[j].includes("__Special Effects:__")) {
-							STAND_SUMMONS[stand] = fullBible[j];
+							STAND_HELP[stand] = fullBible[j];
 						}
 					}
 
