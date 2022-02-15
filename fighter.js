@@ -2059,6 +2059,7 @@ var Fighter = class {
 					var liste = Object.keys(STAND_SUMMONS);
 					this.standPower = liste[Math.floor(Math.random()*liste.length)];
 					this.duel.addMessage(this.getName() + " gets " + this.standPower + "'s abilities.");
+					this.duel.addMessage(STAND_HELP[this.standPower]);
 				}
 				if (this.godList.indexOf(GOD_PP3.name) > -1) { // LeprePuds
 					this.duel.addMessage("-----------------");
