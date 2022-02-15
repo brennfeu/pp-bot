@@ -129,6 +129,8 @@ function checkUpdateEncyclopedia() {
 			var message = "";
 			for (var j in fullBible) {
 				var emote = "";
+				var stand = "";
+
 				if (!shouldRead && fullBible[j].includes("## ***" + encyChannels[i].topic + ":***")) { // Start
 					shouldRead = true;
 				}
@@ -167,6 +169,17 @@ function checkUpdateEncyclopedia() {
 							      GOD_LIST[k].name.length > GOD_LIST.find(r => r.emote == emote).name.length)) {
 								emote = GOD_LIST[k].emote;
 							}
+						}
+					}
+					else if (encyChannels[i].topic == "Stånds") {
+						// get current stand
+						for (var s in STAND_SUMMONS) {
+							if (fullBible[j].includes(s)) stand = s;
+						}
+
+						// save effect
+						if (fullBible[j].includes("__Special Effects:__")) {
+							STAND_SUMMONS[stand] = fullBible[j];
 						}
 					}
 

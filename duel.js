@@ -2085,6 +2085,11 @@ var Duel = class {
 				return;
 			}
 
+			this.addMessage(this.FIGHTER1.currentStand);
+			this.addMessage(STAND_HELP[this.FIGHTER1.currentStand]);
+			this.addMessage(this.FIGHTER2.currentStand);
+			this.addMessage(STAND_HELP[this.FIGHTER2.currentStand]);
+
 			this.CURRENT_BATTLE_MODE = STAND_BATTLE_MODE;
 			this.FIGHTER1_SAVE = this.FIGHTER1;
 			this.FIGHTER2_SAVE = this.FIGHTER2;
