@@ -3586,19 +3586,13 @@ var Fighter = class {
 					this.dodgableDamages.pop();
 				}
 
-				if (enemyPuncher.standPower == STAND_PP10 && _punch) {
-					// Illud Divinum Insanus
-					this.DEXValue += _amount;
-				}
-				else {
-					// Damage
-					this.STRValue -= _amount;
+				// Damage
+				this.STRValue -= _amount;
 
-					// killer blessing
-					if (this.STR <= 0 && _punch) {
-						enemyPuncher.bossKiller += this.grantsKillerBlessings+1;
-						this.grantsKillerBlessings = 0;
-					}
+				// killer blessing
+				if (this.STR <= 0 && _punch) {
+					enemyPuncher.bossKiller += this.grantsKillerBlessings+1;
+					this.grantsKillerBlessings = 0;
 				}
 
 				if (enemyPuncher.standPower == STAND_PP12 && _punch) { // Space Metal
