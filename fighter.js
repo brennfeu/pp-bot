@@ -128,6 +128,9 @@ var Fighter = class {
 		this.bloodBlossom = 0;
 		this.ppColossus = 0;
 		this.ppColossusCountdown = 0;
+		this.kingsPower = 0;
+		this.knightmareBuff = false;
+		this.ppKnightmare = 0
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -348,6 +351,9 @@ var Fighter = class {
 		if (this.ppColossus > 0) {
 			str = str*100;
 		}
+		else if (this.ppKnightmare > 0) {
+			str = str*10;
+		}
 
 		if (this.duel.EVENT_BOSS != null && str <= 0) {
 			return 0;
@@ -449,6 +455,9 @@ var Fighter = class {
 		}
 		if (this.ppColossus > 0) {
 			dex = dex*100;
+		}
+		else if (this.ppKnightmare > 0) {
+			dex = dex*10;
 		}
 		if (this.akameDex > 0) {
 			 dex += dex;
@@ -796,9 +805,13 @@ var Fighter = class {
 		if (this.meltingDamage > 0) {
 			statusTxt += displayEmote(EMOTE_PP75) + " Acid: " + this.meltingDamage + "\n";
 		}
+		if (this.bloodBlossom > 0) {
+			statusTxt += displayEmote(GOD_PP41.emote) + " Blood Blossoms: " + this.bloodBlossom + "\n";
+		}
 		if (this.goldenSpoons > 0) {
 			statusTxt += displayEmote(GOD_PP2.emote) + " Golden Spoons: " + this.goldenSpoons + "\n";
 		}
+		// % values
 		if (this.lifeFibers > 0) {
 			statusTxt += displayEmote(GOD_PP31.emote) + " Life Fiber: " + (this.lifeFibers*5) + "%\n";
 		}
@@ -808,8 +821,8 @@ var Fighter = class {
 		if (this.hivePack > 0) {
 			statusTxt += displayEmote(EMOTE_PP136) + " Hive Pack: " + this.hivePack + "%\n";
 		}
-		if (this.bloodBlossom > 0) {
-			statusTxt += displayEmote(GOD_PP41.emote) + " Blood Blossoms: " + this.bloodBlossom + "\n";
+		if (this.kingsPower > 0) {
+			statusTxt += displayEmote(GOD_PP42.emote) + " Power of the Kings: " + this.kingsPower + "%\n";
 		}
 		// permanent status
 		if (this.xenoMask) {
@@ -883,6 +896,9 @@ var Fighter = class {
 		if (this.dualWield) {
 			statusTxt += displayEmote(GOD_PP20.emote) + " Dual Wielding\n";
 		}
+		if (this.knightmareBuff) {
+			statusTxt += displayEmote(GOD_PP42.emote) + " Knightmare Knowledge\n";
+		}
 		if (this.badLuck) {
 			statusTxt += displayEmote(GOD_PP15.emote) + " Unlucky\n";
 		}
@@ -917,6 +933,9 @@ var Fighter = class {
 		if (this.ppColossus > 0) {
 			statusTxt += displayEmote(EMOTE_MECHA) + " **PP Colossus**\n";
 		}
+		else if (this.ppKnightmare > 0) {
+			statusTxt += displayEmote(GOD_PP42.emote) + " **Knightmare**\n";
+		}
 		else if (this.ppColossusCountdown > 0) {
 			statusTxt += displayEmote(EMOTE_MECHA) + " **PP Colossus Countdown: " + this.ppColossusCountdown + "**\n";
 		}
@@ -948,6 +967,9 @@ var Fighter = class {
 		if (this.impendingDoom > 0) {
 			statusTxt += displayEmote(EMOTE_PP20) + " **Impending Doom: " + this.impendingDoom + " turns**\n";
 		}
+	}
+	getNbStatus() {
+		return this.getStatusTxt().split("\n").length;
 	}
 
 	playMove(_newMove = this.attack) {
@@ -2039,6 +2061,17 @@ var Fighter = class {
 					this.STRValue -= hpValue;
 					this.huTaoBuff = 6;
 				}
+				if (this.godList.indexOf(GOD_PP41.name) > -1) { // C.C.
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("C.C. answers his calls!");
+					if (this.knightmareBuff) {
+						this.duel.addMessage(this.getName() + " already knew about Knightmares mechas...");
+					}
+					else {
+						this.duel.addMessage(this.getName() + " learns about Knightmares mechas!");
+						this.knightmareBuff = true;
+					}
+				}
 			}
 			else if (attack == EMOTE_PP52) {
 				// Priest Special Move
@@ -2424,6 +2457,12 @@ var Fighter = class {
 					if (this.duel.getOppOf(this).STR >= this.STR) value += Math.floor(value/2);
 					this.duel.getOppOf(this).damage(value);
 					this.heal(value);
+				}
+				if (this.godList.indexOf(GOD_PP41.name) > -1) { // C.C.
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("C.C. answers his calls!");
+					this.duel.addMessage(this.getName() + " recieves the Power of the Kings!");
+					this.kingsPower += 5;
 				}
 			}
 			else if (attack == EMOTE_PP53) {
@@ -3342,8 +3381,10 @@ var Fighter = class {
 				// Skip
 				if (this.isReadyForColossus()) {
 					this.duel.addMessage(this.getName() + " summons the PP Colossus!");
-					this.ppColossus = 2;
 					this.ppColossusCountdown = 12;
+
+					if (this.getNbStatus() < 5) this.ppKnightmare = 2
+					else this.ppColossus = 2;
 				}
 				else {
 					this.duel.addMessage(this.getName() + " is not ready to call the PP Colossus.");
@@ -3425,7 +3466,10 @@ var Fighter = class {
 	}
 	isReadyForColossus() {
 		if (this.ppColossusCountdown > 0 || this.ppColossus > 0) return false;
-		return this.getStatusTxt().split("\n").length >= 5
+
+		var minStatus = 5;
+		if (this.knightmareBuff) minStatus = 3;
+		return this.getNbStatus() >= minStatus;
 	}
 
 	heal(_amount) {
@@ -3864,6 +3908,12 @@ var Fighter = class {
 			this.duel.getOppOf(this).hasBurst = 2;
 			this.duel.addMessage(this.getName() + "'s bees attack " + this.duel.getOppOf(this).getName() + "!");
 			this.duel.addMessage("-----------------");
+		}
+
+		// Geass
+		if (this.duel.EVENT_BOSS == null && this.kingsPower > 0 && getRandomPercent() <= this.hivePack) {
+			this.duel.addMessage(this.getName() + " uses his geass!");
+			this.duel.otherFighter(this).isPossessed = 2;
 		}
 
 		// Boss Killer

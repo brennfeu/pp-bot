@@ -2219,23 +2219,25 @@ var Duel = class {
 			listeAttaques.push(EMOTE_PP52);
 		}
 
-		if (this.FIGHTER1.isReadyForColossus() || this.FIGHTER2.isReadyForColossus()) {
-			listeAttaques.push(EMOTE_MECHA);
-		}
-		if ((((this.FIGHTER1.requiemPower != null && this.FIGHTER1.requiemCooldown <= 0) ||
-			  (this.FIGHTER2.requiemPower != null && this.FIGHTER2.requiemCooldown <= 0) ||
-		      this.FIGHTER1.standPower == STAND_PP15 || this.FIGHTER2.standPower == STAND_PP15 ||
-		      this.FIGHTER1.hasSynergy(SYNERGY_PP0) || this.FIGHTER1.hasSynergy(SYNERGY_PP0)) &&
-		     getRandomPercent() <= 34) ||
-		    (this.INFERNAL_FIRELAND && getRandomPercent() <= 10)) {
-			listeAttaques.push(EMOTE_ABILITY);
-		}
+		if (this.PPLEVEL <= 50) {
+			if (this.FIGHTER1.isReadyForColossus() || this.FIGHTER2.isReadyForColossus()) {
+				listeAttaques.push(EMOTE_MECHA);
+			}
+			if ((((this.FIGHTER1.requiemPower != null && this.FIGHTER1.requiemCooldown <= 0) ||
+				  (this.FIGHTER2.requiemPower != null && this.FIGHTER2.requiemCooldown <= 0) ||
+			      this.FIGHTER1.standPower == STAND_PP15 || this.FIGHTER2.standPower == STAND_PP15 ||
+			      this.FIGHTER1.hasSynergy(SYNERGY_PP0) || this.FIGHTER1.hasSynergy(SYNERGY_PP0)) &&
+			     getRandomPercent() <= 34) ||
+			    (this.INFERNAL_FIRELAND && getRandomPercent() <= 10)) {
+				listeAttaques.push(EMOTE_ABILITY);
+			}
 
-		if (this.OBAMIUM && !this.EVENT_MEGA_POOL) {
-			listeAttaques.push(EMOTE_OBAMAHEDRON);
-			listeAttaques.push(EMOTE_OBAMASPHERE);
-			listeAttaques.push(EMOTE_OBOMBA);
-			this.OBAMIUM = false
+			if (this.OBAMIUM && !this.EVENT_MEGA_POOL) {
+				listeAttaques.push(EMOTE_OBAMAHEDRON);
+				listeAttaques.push(EMOTE_OBAMASPHERE);
+				listeAttaques.push(EMOTE_OBOMBA);
+				this.OBAMIUM = false
+			}
 		}
 
 		this.LIST_AVAILABLE_ATTACKS = listeAttaques;
