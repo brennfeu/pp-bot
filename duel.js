@@ -10,6 +10,7 @@ var Duel = class {
 		this.FIGHTER1_SAVE = null;
 		this.FIGHTER2_SAVE = null;
 		this.CURRENT_FIGHTER = null;
+		this.LAST_FIGHTER_TO_USE_A_MOVE = null;
 
 		this.FORCE_EVENT_ID = 0;
 		this.EASY_DUEL = _easyDuel;

@@ -922,6 +922,8 @@ var Fighter = class {
 
 	playMove(_newMove = this.attack) {
 		this.duel.INFINITE_DAMAGE = 0;
+		this.duel.LAST_FIGHTER_TO_USE_A_MOVE = this;
+
 		var attack = _newMove;
 		var numberAttacks = 1;
 
@@ -3384,14 +3386,15 @@ var Fighter = class {
 
 	damage(_amount, _punch = true) {
 		var ogAmount = _amount;
+		var enemyPuncher = this.duel.LAST_FIGHTER_TO_USE_A_MOVE;
 
 		if (_punch) {
-			_amount += this.duel.getOppOf(this).quickeningCharges*3;
+			_amount += enemyPuncher.quickeningCharges*3;
 
-			_amount += this.duel.getOppOf(this).bonusDamage;
-			this.duel.getOppOf(this).bonusDamage = 0;
+			_amount += enemyPuncher.bonusDamage;
+			enemyPuncher.bonusDamage = 0;
 		}
-		if (this.duel.getOppOf(this).kungFu && _punch) {
+		if (enemyPuncher.kungFu && _punch) {
 			// Signpost
 			_amount += 10;
 		}
@@ -3399,7 +3402,7 @@ var Fighter = class {
 			// Steel
 			_amount -= Math.floor(_amount/10*9);
 		}
-		if (this.duel.getOppOf(this).hasSynergy(SYNERGY_PP16) && _punch) {
+		if (enemyPuncher.hasSynergy(SYNERGY_PP16) && _punch) {
 			// Too Much Dicks
 			_amount += 10;
 		}
@@ -3411,17 +3414,17 @@ var Fighter = class {
 			// Barrel
 			_amount = _amount*2;
 		}
-		if (this.duel.getOppOf(this).megaBuildUp > 0 && _punch) {
+		if (enemyPuncher.megaBuildUp > 0 && _punch) {
 			// Bronan Slam
-			_amount = _amount*this.duel.getOppOf(this).megaBuildUp;
-			this.duel.getOppOf(this).megaBuildUp = 0;
+			_amount = _amount*enemyPuncher.megaBuildUp;
+			enemyPuncher.megaBuildUp = 0;
 		}
-		if (this.duel.getOppOf(this).iceWeapon && _punch) {
+		if (enemyPuncher.iceWeapon && _punch) {
 			_amount += _amount;
-			this.duel.addMessage(this.duel.getOppOf(this).getName() + "'s Magic Ice Weapon breaks on " + this.getName() + "!");
-			this.duel.getOppOf(this).iceWeapon = false;
+			this.duel.addMessage(enemyPuncher.getName() + "'s Magic Ice Weapon breaks on " + this.getName() + "!");
+			enemyPuncher.iceWeapon = false;
 		}
-		if (this.duel.getOppOf(this).standPower == STAND_PP16 && this.duel.getOppOf(this).STR <= 15 && _punch) {
+		if (enemyPuncher.standPower == STAND_PP16 && enemyPuncher.STR <= 15 && _punch) {
 			// Virus
 			this.duel.addMessage("Virus effect triggers!");
 			_amount = _amount*100;
@@ -3434,9 +3437,9 @@ var Fighter = class {
 			// Waifu Body Pillow
 			_amount -= 10;
 		}
-		if (this.duel.getOppOf(this).flugelBlood && this.duel.getOppOf(this).DEX > this.DEX && _punch) {
+		if (enemyPuncher.flugelBlood && enemyPuncher.DEX > this.DEX && _punch) {
 			// Jibril Special
-			_amount += this.duel.getOppOf(this).DEX - this.DEX;
+			_amount += enemyPuncher.DEX - this.DEX;
 		}
 
 		if (this.duel.INFINITE_DAMAGE >= 100) {
@@ -3448,23 +3451,23 @@ var Fighter = class {
 		this.duel.INFINITE_DAMAGE += 1;
 
 		var critMin = 5;
-		if (this.duel.getOppOf(this).kungFu) {
+		if (enemyPuncher.kungFu) {
 			critMin += 15;
 		}
 		critMin += this.lifeFibers*5;
-		if ((getRandomPercent() < critMin || this.duel.getOppOf(this).forceCritical) && _punch) {
+		if ((getRandomPercent() < critMin || enemyPuncher.forceCritical) && _punch) {
 			_amount += _amount;
-			this.duel.getOppOf(this).forceCritical = false;
+			enemyPuncher.forceCritical = false;
 			this.duel.addMessage("**Critical Hit !**");
-			if (this.duel.getOppOf(this).hasSynergy(SYNERGY_PP22)) {
-				this.duel.getOppOf(this).forceCritical = true;
+			if (enemyPuncher.hasSynergy(SYNERGY_PP22)) {
+				enemyPuncher.forceCritical = true;
 			}
 		}
 
-		if (getRandomPercent() <= this.duel.getOppOf(this).madnessStacks*3 && _punch) { // Scythe of Cosmic Chaos
+		if (getRandomPercent() <= enemyPuncher.madnessStacks*3 && _punch) { // Scythe of Cosmic Chaos
 			// The Scythe of Cosmic Chaos
-			this.duel.addMessage(this.duel.getOppOf(this).getName() + " hits himself in his madness!");
-			this.duel.getOppOf(this).damage(_amount, false)
+			this.duel.addMessage(enemyPuncher.getName() + " hits himself in his madness!");
+			enemyPuncher.damage(_amount, false)
 			return;
 		}
 		else if (this.duel.REVERSE_DAMAGE > 0 || this.selfReverseDamage > 0) {
@@ -3496,30 +3499,30 @@ var Fighter = class {
 		else if (this.satanicReverse > 0 && _punch) {
 			// BigSatan Alternative Move
 			this.duel.addMessage(this.getName() + "'s satanic rite protects him!");
-			this.duel.getOppOf(this).damage(_amount);
+			enemyPuncher.damage(_amount);
 		}
 		else if (this.isProtected && _punch) {
 			// RiotShield
 			this.duel.addMessage(this.getName() + " reflects the damages!");
 			this.isProtected = false;
-			this.duel.getOppOf(this).damage(_amount);
+			enemyPuncher.damage(_amount);
 		}
 		else if (this.standPower == STAND_PP6 && getRandomPercent() <= 25 && _punch) {
 			// Sham Mirrors
 			this.duel.addMessage(this.getName() + " reflects the damages!");
-			this.duel.getOppOf(this).damage(_amount);
+			enemyPuncher.damage(_amount);
 		}
 		else if (this.tempestBuff && _amount > 0 && getRandomPercent() >= 33 && _punch) {
 			// Tempest (Ais buff)
 			this.duel.addMessage(this.getName() + "'s Tempest protects him!");
-			this.duel.getOppOf(this).damage(Math.floor(this.STR/10));
+			enemyPuncher.damage(Math.floor(this.STR/10));
 			_amount = Math.floor(_amount/2);
 		}
 		else {
 			if (_amount <= 0) {
 				return this.duel.addMessage(this.getName() + " takes no damages!");
 			}
-			else if (this.duel.getOppOf(this).boneGlove) {
+			else if (enemyPuncher.boneGlove) {
 				this.duel.addMessage(this.getName() + " takes " + _amount + " bleed stacks!");
 				if (_amount == 69) {
 					this.duel.addMessage("lmao!");
@@ -3543,7 +3546,7 @@ var Fighter = class {
 					this.dodgableDamages.pop();
 				}
 
-				if (this.duel.getOppOf(this).standPower == STAND_PP10 && _punch) {
+				if (enemyPuncher.standPower == STAND_PP10 && _punch) {
 					// Illud Divinum Insanus
 					this.DEXValue += _amount;
 				}
@@ -3553,21 +3556,21 @@ var Fighter = class {
 
 					// killer blessing
 					if (this.STR <= 0 && _punch) {
-						this.duel.getOppOf(this).bossKiller += this.grantsKillerBlessings+1;
+						enemyPuncher.bossKiller += this.grantsKillerBlessings+1;
 						this.grantsKillerBlessings = 0;
 					}
 				}
 
-				if (this.duel.getOppOf(this).standPower == STAND_PP12 && _punch) { // Space Metal
+				if (enemyPuncher.standPower == STAND_PP12 && _punch) { // Space Metal
 					this.meltingDamage += 2;
 				}
-				if (this.duel.getOppOf(this).standPower == STAND_PP13 && _punch) { // The Scythe of Cosmic Chaos
+				if (enemyPuncher.standPower == STAND_PP13 && _punch) { // The Scythe of Cosmic Chaos
 					this.madnessStacks += 1;
 				}
-				if (this.duel.getOppOf(this).standPower == STAND_PP17 && _punch) { // Titans of Creation
-					this.duel.getOppOf(this).heal(10);
+				if (enemyPuncher.standPower == STAND_PP17 && _punch) { // Titans of Creation
+					enemyPuncher.heal(10);
 				}
-				if (this.duel.getOppOf(this).akameKill > 0 && _punch) {
+				if (enemyPuncher.akameKill > 0 && _punch) {
 					this.duel.addMessage(this.getName() + " gets Murasame's poisonous curse!");
 					this.murasameCurse = true;
 				}
@@ -3580,13 +3583,13 @@ var Fighter = class {
 			this.duel.DAMAGE_COUNT += _amount;
 
 
-			if (this.duel.getOppOf(this).standPower == STAND_PP4 && _punch) { // Above the Light
-				this.duel.getOppOf(this).heal(Math.floor(_amount / 3));
+			if (enemyPuncher.standPower == STAND_PP4 && _punch) { // Above the Light
+				enemyPuncher.heal(Math.floor(_amount / 3));
 			}
-			if (this.duel.getOppOf(this).standPower == STAND_PP11 && _amount >= 30 && _punch) { // Refuge Denied
-				this.duel.getOppOf(this).heal(30);
-				this.duel.getOppOf(this).DEXValue += 10;
-				this.duel.addMessage(this.duel.getOppOf(this).getName() + " gets 10 DEX!");
+			if (enemyPuncher.standPower == STAND_PP11 && _amount >= 30 && _punch) { // Refuge Denied
+				enemyPuncher.heal(30);
+				enemyPuncher.DEXValue += 10;
+				this.duel.addMessage(enemyPuncher.getName() + " gets 10 DEX!");
 			}
 			if (this.standPower == STAND_PP20 && getRandomPercent() <= 25) { // Metal Resistance
 				this.duel.addMessage(this.getName() + " changes his gods for a bit!");
@@ -3607,15 +3610,15 @@ var Fighter = class {
 		// Acid
 		if (this.acidArmor >= 1 && _punch) {
 			this.duel.addMessage(this.getName() + " has an acid armor!");
-			if (this.duel.getOppOf(this).hasSynergy(SYNERGY_PP4)) {
-				this.duel.getOppOf(this).heal(10);
+			if (enemyPuncher.hasSynergy(SYNERGY_PP4)) {
+				enemyPuncher.heal(10);
 			}
 			else {
 				if (this.sporeSac) {
-					this.duel.getOppOf(this).damage(10 + Math.floor(_amount/10), false);
+					enemyPuncher.damage(10 + Math.floor(_amount/10), false);
 				}
 				else {
-					this.duel.getOppOf(this).damage(10, false);
+					enemyPuncher.damage(10, false);
 				}
 			}
 		}
@@ -3624,7 +3627,7 @@ var Fighter = class {
 			for (var i = 0; i < 8; i++) {
 				if (getRandomPercent() <= 10) {
 					this.duel.addMessage(this.getName() + "'s tail #" + (i+1) + " attacks back!");
-					this.duel.getOppOf(this).damage(this.STR/10);
+					enemyPuncher.damage(this.STR/10);
 				}
 			}
 		}
@@ -3637,12 +3640,12 @@ var Fighter = class {
 		}
 		// Alien PP
 		if (this.isAlienPP && _punch) {
-			this.duel.getOppOf(this).bleedDamage += 3;
+			enemyPuncher.bleedDamage += 3;
 		}
 
 		// Eldritch Gang
-		if (this.duel.getOppOf(this).hasSynergy(SYNERGY_PP19) && getRandomPercent() <= 10 && _punch) {
-			this.duel.addMessage(this.duel.getOppOf(this).getName() + "'s attack happens again!");
+		if (enemyPuncher.hasSynergy(SYNERGY_PP19) && getRandomPercent() <= 10 && _punch) {
+			this.duel.addMessage(enemyPuncher.getName() + "'s attack happens again!");
 			this.damage(ogAmount, _punch);
 		}
 	}
