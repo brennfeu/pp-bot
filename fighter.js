@@ -660,6 +660,7 @@ var Fighter = class {
 		return embedMessage.toJSON();
 	}
 	getStatusTxt() {
+		var statusTxt = "";
 		// special status
 		if (this.randomizedStand) {
 			statusTxt += displayEmote(EMOTE_PP49) + " **Perfect Stånd Power**\n";
