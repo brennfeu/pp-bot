@@ -120,10 +120,8 @@ function checkUpdateEncyclopedia() {
 		for (var i in encyChannels) {
 			encyChannels[i].messages.fetch({ limit: 10 }).then( _messages => {
 				var liste = _messages.array();
-				for (var i in liste) {
-					liste[i].delete();
-				}
-			});
+				for (var i in liste) liste[i].delete();
+			}); // reset the encyclopedia
 
 			var shouldRead = false;
 			var message = "";
@@ -146,6 +144,7 @@ function checkUpdateEncyclopedia() {
 						encyChannels[i].send(message);
 						message = "";
 					}
+
 					if (encyChannels[i].topic == "Moves"
 					   || encyChannels[i].topic == "Stånds"
 					   || encyChannels[i].topic == "Civilisation Mode") {
@@ -172,16 +171,17 @@ function checkUpdateEncyclopedia() {
 						}
 					}
 					else { // stands
+						console.log(fullBible[j]);
 						// get current stand
 						for (var s in STAND_SUMMONS) {
 							if (fullBible[j].includes(s)) stand = s;
-							console.log("Current Stand: " + s);
+							//console.log("Current Stand: " + s);
 						}
 
 						// save effect
 						if (fullBible[j].includes("Special Effects")) {
 							STAND_HELP[stand] = fullBible[j];
-							console.log(fullBible[j]);
+							//console.log(fullBible[j]);
 						}
 					}
 
