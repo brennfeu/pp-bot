@@ -159,14 +159,17 @@ function checkUpdateEncyclopedia() {
 							}
 						}
 
-						if (encyChannels[i].topic != "Stånds") return; // only stands
-						for (var s in STAND_SUMMONS) {
-							if (fullBible[j].includes(s)) stand = s;
-							console.log("Current Stand: " + s);
-						}
-						if (fullBible[j].includes("Special Effects")) {
-							STAND_HELP[stand] = fullBible[j];
-							console.log(fullBible[j]);
+						if (encyChannels[i].topic == "Stånds") {
+							if (fullBible[j].includes("-")) {
+								for (var s in STAND_SUMMONS) {
+									if (fullBible[j].includes(s)) stand = s;
+									console.log("Current Stand: " + s);
+								}
+							}
+							else if (fullBible[j].includes("Special Effects")) {
+								STAND_HELP[stand] = fullBible[j];
+								//console.log(fullBible[j]);
+							}
 						}
 					}
 					else if (encyChannels[i].topic == "Gods") {
