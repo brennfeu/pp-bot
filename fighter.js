@@ -3375,7 +3375,7 @@ var Fighter = class {
 		}
 		else {
 			this.STRValue -= _amount;
-			this.duel.addMessage(this.getName() + " takes " + _amount + " damages!");
+			this.duel.addMessage(this.getName() + " takes " + _amount + " damage!");
 			if (_amount == 69) {
 				this.duel.addMessage("lmao!");
 			}
@@ -3520,7 +3520,7 @@ var Fighter = class {
 		}
 		else {
 			if (_amount <= 0) {
-				return this.duel.addMessage(this.getName() + " takes no damages!");
+				return this.duel.addMessage(this.getName() + " takes no damage!");
 			}
 			else if (enemyPuncher.boneGlove) {
 				this.duel.addMessage(this.getName() + " takes " + _amount + " bleed stacks!");
@@ -3535,7 +3535,7 @@ var Fighter = class {
 				this.cuteFishron = false;
 			}
 			else {
-				this.duel.addMessage(this.getName() + " takes " + _amount + " damages!");
+				this.duel.addMessage(this.getName() + " takes " + _amount + " damage!");
 				if (_amount == 69) {
 					this.duel.addMessage("lol");
 				}
@@ -4028,6 +4028,7 @@ var Fighter = class {
 			nb = 0;
 		}
 
+		this.duel.addMessage(this.getName() + " wins " + nb + " PP Points!");
 		addWinCounter(this, nb);
 	}
 
