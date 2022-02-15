@@ -130,8 +130,7 @@ var Fighter = class {
 			this.STRValue += (0 - this.STR) + 1
 		}
 
-		if (_stand != null) {
-			// Create a stand
+		if (_stand != null) { // Create a stand
 			this.user = {};
 			this.user["username"] = _stand;
 			this.user["id"] = this.guildUser.user.id;
@@ -164,8 +163,7 @@ var Fighter = class {
 				this.selfReverseDamage = 2;
 			}
 		}
-		else {
-			// Create a fighter
+		else { // Create a fighter
 			if (this.userBuild.fightingstyles.indexOf(BIG_PP_ROLE) > -1) {
 				this.isBigPP = true;
 			}
@@ -274,7 +272,7 @@ var Fighter = class {
 		return this.user.username;
 	}
 	getImageURL() {
-		try { return this.user.displayAvatarURL(); }
+		try { return this.guildUser.user.displayAvatarURL(); }
 		catch(e) { return null; }
 	}
 
