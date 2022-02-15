@@ -134,6 +134,7 @@ var Fighter = class {
 			this.user = {};
 			this.user["username"] = _stand;
 			this.user["id"] = this.guildUser.user.id;
+			this.destroyerOfWorlds = false;
 
 			// Natural values
 			this.STRValue = 150;
