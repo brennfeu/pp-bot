@@ -2085,7 +2085,6 @@ var Duel = class {
 				return;
 			}
 
-			console.log(FIGHTER1.currentStand);
 			this.addMessage(this.FIGHTER1.currentStand);
 			this.addMessage(STAND_HELP[this.FIGHTER1.currentStand]);
 			this.addMessage(this.FIGHTER2.currentStand);
