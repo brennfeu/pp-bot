@@ -563,7 +563,7 @@ CLIENT.on("message", async _message => {
 			return _message.reply(", sorry, I don't know this emote. Are you sure it is spelled right?");
 		}
 
-		duel.triggerReaction(argsUser[2], _user);
+		duel.triggerReaction(argsUser[2], _message.author);
 		return
 	}
 	if (argsUser[1] == "training") {
