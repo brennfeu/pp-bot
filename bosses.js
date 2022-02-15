@@ -103,6 +103,11 @@ var CthulhuBoss = class extends Boss {
 
         this.imageURL = "https://cdn.discordapp.com/emojis/715323505104650268.webp";
 
+        this.godList = [];
+        for (var i in GOD_LIST) {
+            if (GOD_LIST[i].type == "eldritch") this.godList.push(GOD_LIST[i].name);
+        }
+
         this.evolveToMoonLord = true;
     }
 
@@ -158,8 +163,16 @@ var IKEABoss = class extends Boss {
 
         this.imageURL = "https://cdn.discordapp.com/attachments/715322091804819486/942778851841441812/unknown.png";
 
+        this.godList = [];
+        this.godList.push(GOD_PP3.name);
+        this.godList.push(GOD_PP5.name);
+        this.godList.push(GOD_PP6.name);
+        this.godList.push(GOD_PP14.name);
+
         this.isIkea = true;
     }
+
+    hasSynergy(_synergy) { return false; }
 
     triggerDeath() {
         this.duel.addMessage(this.getName() + " is destroyed!");
@@ -174,6 +187,11 @@ var WeebBoss = class extends Boss {
         this.mimicPercentage = 2;
 
         this.imageURL = "https://cdn.discordapp.com/attachments/715322091804819486/942779136047468564/unknown.png";
+
+        this.godList = [];
+        for (var i in GOD_LIST) {
+            if (GOD_LIST[i].type == "waifu") this.godList.push(GOD_LIST[i].name);
+        }
     }
 
     triggerDeath() {
@@ -189,10 +207,18 @@ var PuddingBlobBoss = class extends Boss {
 
         this.imageURL = "https://cdn.discordapp.com/attachments/715322091804819486/942781193039003688/unknown.png";
 
+        this.godList = [];
+        this.godList.push(GOD_PP3.name);
+        this.godList.push(GOD_PP5.name);
+        this.godList.push(GOD_PP6.name);
+        this.godList.push(GOD_PP14.name);
+
         this.mimicPercentage = 5;
         this.this.grantsKillerBlessings = 3;
         this.puddingLaughIfMimic = true;
     }
+
+    hasSynergy(_synergy) { return false; }
 
     triggerDeath() {
         this.duel.addMessage(this.getName() + " is destroyed!");
@@ -211,6 +237,9 @@ var PPRobotPoliceBoss = class extends Boss {
     constructor(_duel) {
         super(_duel, "PP Robot Police", 750);
         this.baseDamage = 30;
+
+        this.godList = [];
+        this.godList.push(GOD_PP16.name);
     }
 
     triggerDeath() {
@@ -226,6 +255,8 @@ var PPHarvesterBoss = class extends Boss {
     constructor(_duel) {
         super(_duel, "PP Harvester", 1500);
         this.baseDamage = 50;
+
+        this.godList.push(GOD_PP16.name);
     }
 
     triggerDeath() {
@@ -238,6 +269,8 @@ var PPNetHiveMindBoss = class extends Boss {
     constructor(_duel) {
         super(_duel, "PP-Net Hive Mind", 20000);
         this.baseDamage = 100;
+
+        this.godList.push(GOD_PP16.name);
     }
 
     triggerDeath() {
@@ -268,6 +301,8 @@ var PPTerminatorBoss = class extends Boss {
     constructor(_duel) {
         super(_duel, "PP Terminator", 1500);
         this.baseDamage = 25;
+
+        this.godList.push(GOD_PP16.name);
     }
 
     triggerDeath() {
@@ -294,6 +329,11 @@ var SatanBoss = class extends Boss {
 
         this.imageURL = "https://cdn.discordapp.com/emojis/358018763058053120.webp";
 
+        this.godList = [];
+        for (var i in GOD_LIST) {
+            if (GOD_LIST[i].type == "eldritch") this.godList.push(GOD_LIST[i].name);
+        }
+
         this.eldritchGateBuff = true;
     }
 
@@ -312,6 +352,11 @@ var SatanTrueFormBoss = class extends Boss {
 
         this.imageURL = "https://cdn.discordapp.com/emojis/715323505448714240.webp";
 
+        this.godList = [];
+        for (var i in GOD_LIST) {
+            if (GOD_LIST[i].type == "eldritch") this.godList.push(GOD_LIST[i].name);
+        }
+
         this.eldritchGateBuff = true;
     }
 
@@ -327,6 +372,11 @@ var SexStarvedMongoBoss = class extends Boss {
         this.STRValue = (this.duel.FIGHTER1.STR + this.duel.FIGHTER2.STR)*10000;
 
         this.imageURL = "https://cdn.discordapp.com/emojis/755852607175524373.webp";
+
+        this.godList = [];
+        for (var i in GOD_LIST) {
+            if (GOD_LIST[i].type == "eldritch" || GOD_LIST[i].type == "waifu") this.godList.push(GOD_LIST[i].name);
+        }
 
         this.baseDamage = 0;
         this.mimicPercentage = 2;
@@ -350,6 +400,11 @@ var RaidBossEspinozaBoss = class extends Boss {
         this.mimicPercentage = 20;
 
         this.imageURL = "https://cdn.discordapp.com/attachments/715322091804819486/942782354181750795/unknown.png";
+
+        this.godList = [];
+        for (var i in GOD_LIST) {
+            if (GOD_LIST[i].type == "eldritch") this.godList.push(GOD_LIST[i].name);
+        }
     }
 
     triggerDeath() {
@@ -379,6 +434,11 @@ var WyndoeallaBoss = class extends Boss {
         this.winsIfHeatDeath = true;
 
         this.imageURL = "https://cdn.discordapp.com/attachments/715322091804819486/942783201494044742/unknown.png";
+
+        this.godList = [];
+        for (var i in GOD_LIST) {
+            this.godList.push(GOD_LIST[i].name);
+        }
     }
 
     triggerDeath() {
