@@ -124,6 +124,8 @@ var Fighter = class {
 		this.tempestBuff = false;
 		this.ppBribe = 0;
 		this.inLove = 0;
+		this.huTaoBuff = 0;
+		this.bloodBlossom = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -552,6 +554,7 @@ var Fighter = class {
 
 		// STATUS
 		var statusTxt = "";
+		// special status
 		if (this.randomizedStand) {
 			statusTxt += displayEmote(EMOTE_PP49) + " **Perfect Stånd Power**\n";
 		}
@@ -585,6 +588,7 @@ var Fighter = class {
 			}
 			statusTxt += "\n"
 		}
+		// temporary status
 		if (this.hasBoomerang > 0) {
 			statusTxt += displayEmote(EMOTE_PP45) + " With a Boomerang (for " + this.hasBoomerang + " turns)\n";
 		}
@@ -619,6 +623,9 @@ var Fighter = class {
 		if (this.inLove > 0) {
 			statusTxt += displayEmote(GOD_PP40.emote) + " In Love (for " + this.inLove + " turns)\n";
 		}
+		if (this.huTaoBuff > 0) {
+			statusTxt += displayEmote(GOD_PP41.emote) + " Paramita Papilio (for " + this.huTaoBuff + " turns)\n";
+		}
 		if (this.bossKiller > 0) {
 			statusTxt += displayEmote(EMOTE_PP73) + " Killer Adrenaline (for " + this.bossKiller + " turns)\n";
 		}
@@ -628,6 +635,7 @@ var Fighter = class {
 		if (this.futureMemories > 0) {
 			statusTxt += displayEmote(GOD_PP27.emote) + " Has Knowledge of the Future (of the next " + this.futureMemories + " turns)\n"
 		}
+		// countdowns
 		if (this.gettingRegularCharge > 0) {
 			statusTxt += displayEmote(GOD_PP7.emote) + " Getting a regular charge in " + this.gettingRegularCharge + " turns\n"
 		}
@@ -643,6 +651,7 @@ var Fighter = class {
 		if (this.borealSummon > 0) {
 			statusTxt += displayEmote(EMOTE_PP77) + " Boreal Fog Countdown: " + this.borealSummon + " turns\n";
 		}
+		// value status
 		if (this.tentacles > 0) {
 			statusTxt += displayEmote(EMOTE_PP137) + " Tentacles: " + this.tentacles + "\n";
 		}
@@ -702,6 +711,10 @@ var Fighter = class {
 		if (this.hivePack > 0) {
 			statusTxt += displayEmote(EMOTE_PP136) + " Hive Pack: " + this.hivePack + "%\n";
 		}
+		if (this.bloodBlossom > 0) {
+			statusTxt += displayEmote(GOD_PP41.emote) + " Blood Blossoms: " + this.bloodBlossom + "\n";
+		}
+		// permanent status
 		if (this.xenoMask) {
 			statusTxt += displayEmote(EMOTE_PP64) + " Mask: Xeno\n";
 		}
@@ -710,6 +723,9 @@ var Fighter = class {
 		}
 		if (this.helldogMask) {
 			statusTxt += displayEmote(EMOTE_PP70) + " Mask: Intimidation\n";
+		}
+		if (this.iceWeapon) {
+			statusTxt += displayEmote(GOD_PP36.emote) + " Intellect of Greed\n";
 		}
 		if (this.acidArmor <= 0 && this.sporeSac) {
 			statusTxt += displayEmote(EMOTE_PP143) + " Spore Sac\n"; // shows spore sac here if no acid armor
@@ -740,9 +756,6 @@ var Fighter = class {
 		}
 		if (this.klaxoTails) {
 			statusTxt += displayEmote(GOD_PP35.emote) + " Klaxosaurs Tails\n";
-		}
-		if (this.iceWeapon) {
-			statusTxt += displayEmote(GOD_PP36.emote) + " Magic Ice Weapon\n";
 		}
 		if (this.tempestBuff) {
 			statusTxt += displayEmote(GOD_PP39.emote) + " Tempest\n";
@@ -797,6 +810,7 @@ var Fighter = class {
 		if (this.trueBarbarian) {
 			statusTxt += displayEmote(GOD_PP1.emote) + " Great Barbarian from the North Seeking New Lands for his Kingdom\n";
 		}
+		// special one turn status
 		if (this.infernalMagic) {
 			statusTxt += displayEmote(GOD_PP34.emote) + " **Infernal Magic**\n";
 		}
@@ -1951,14 +1965,14 @@ var Fighter = class {
 					}
 					this.streliziaBuff += 1;
 				}
-				if (this.godList.indexOf(GOD_PP36.name) > -1) { // Emilia
+				if (this.godList.indexOf(GOD_PP36.name) > -1) { // Echidna
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage("Emilia answers his calls!");
+					this.duel.addMessage("Echidna answers his calls!");
 					if (this.iceWeapon) {
-						this.duel.addMessage(this.getName() + " already has a Magic Ice Weapon...");
+						this.duel.addMessage(this.getName() + " already has the Intellect of Greed...");
 					}
 					else {
-						this.duel.addMessage(this.getName() + " gets a Magic Ice Weapon!");
+						this.duel.addMessage(this.getName() + " gets the Intellect of Greed!");
 						this.iceWeapon = true;
 					}
 				}
@@ -2000,6 +2014,14 @@ var Fighter = class {
 						this.ppBribe = 100;
 						this.quickeningCharges += 3;
 					}
+				}
+				if (this.godList.indexOf(GOD_PP41.name) > -1) { // Hu Tao
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Hu Tao answers his calls!");
+					this.duel.addMessage(this.getName() + " sacrifices 30% of his STR to enter the Paramita Papilio state.");
+					var hpvalue = Math.floor(this.STR/30);
+					this.STRValue -= hpValue;
+					this.huTaoBuff = 6;
 				}
 			}
 			else if (attack == EMOTE_PP52) {
@@ -2337,10 +2359,10 @@ var Fighter = class {
 						this.duel.addMessage(this.getName() + " cannot evolve towards Code 001's Genetic Source.");
 					}
 				}
-				if (this.godList.indexOf(GOD_PP36.name) > -1) { // Emilia
+				if (this.godList.indexOf(GOD_PP36.name) > -1) { // Echidna
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage("Emilia answers his calls!");
-					this.duel.addMessage(this.getName() + " calls Quasi Spirits.");
+					this.duel.addMessage("Echidna answers his calls!");
+					this.duel.addMessage(this.getName() + " greeds on " + this.getOppName() + "'s STR'.");
 					this.heal(this.duel.getOppOf(this).STR);
 				}
 				if (this.godList.indexOf(GOD_PP37.name) > -1) { // Senjouahara
@@ -2375,6 +2397,15 @@ var Fighter = class {
 					this.duel.addMessage(this.duel.getOppOf(this).getName() + " just confessed his love!");
 					this.duel.addMessage("*O Kawaii Koto.*");
 					this.duel.getOppOf(this).inLove = 6;
+				}
+				if (this.godList.indexOf(GOD_PP41.name) > -1) { // Hu Tao
+					this.duel.addMessage("-----------------");
+					this.duel.addMessage("Hu Tao answers his calls!");
+					this.duel.addMessage(this.getName() + " attacks " + this.getOppName() + " with Boo Tao!");
+					var value = 1+Math.floor(this.STR/5);
+					if (this.duel.getOppOf(this).STR >= this.STR) value += Math.floor(value/2);
+					this.duel.getOppOf(this).damage(value);
+					this.heal(value);
 				}
 			}
 			else if (attack == EMOTE_PP53) {
@@ -3389,6 +3420,7 @@ var Fighter = class {
 		var enemyPuncher = this.duel.LAST_FIGHTER_TO_USE_A_MOVE;
 		if (enemyPuncher == null) enemyPuncher = this.duel.getOppOf(this);
 
+		// value += x
 		if (_punch) {
 			_amount += enemyPuncher.quickeningCharges*3;
 
@@ -3399,6 +3431,14 @@ var Fighter = class {
 			// Signpost
 			_amount += 10;
 		}
+		if (enemyPuncher.huTaoBuff > 0 && _punch) {
+			_amount += Maths.floor(enemyPuncher.STR/20);
+		}
+		if (enemyPuncher.flugelBlood && enemyPuncher.DEX > this.DEX && _punch) {
+			// Jibril Special
+			_amount += enemyPuncher.DEX - this.DEX;
+		}
+		// value multiplicators
 		if (this.duel.STEEL_PROTECTION) {
 			// Steel
 			_amount -= Math.floor(_amount/10*9);
@@ -3430,6 +3470,7 @@ var Fighter = class {
 			this.duel.addMessage("Virus effect triggers!");
 			_amount = _amount*100;
 		}
+		// value -= x
 		if (this.standPower == STAND_PP1 && _punch) {
 			// Iron Maiden
 			_amount -= 10;
@@ -3437,10 +3478,6 @@ var Fighter = class {
 		if (this.hasSynergy(SYNERGY_PP12) && _punch) {
 			// Waifu Body Pillow
 			_amount -= 10;
-		}
-		if (enemyPuncher.flugelBlood && enemyPuncher.DEX > this.DEX && _punch) {
-			// Jibril Special
-			_amount += enemyPuncher.DEX - this.DEX;
 		}
 
 		if (this.duel.INFINITE_DAMAGE >= 100) {
@@ -3460,6 +3497,7 @@ var Fighter = class {
 			_amount += _amount;
 			enemyPuncher.forceCritical = false;
 			this.duel.addMessage("**Critical Hit !**");
+
 			if (enemyPuncher.hasSynergy(SYNERGY_PP22)) {
 				enemyPuncher.forceCritical = true;
 			}
@@ -3583,7 +3621,6 @@ var Fighter = class {
 
 			this.duel.DAMAGE_COUNT += _amount;
 
-
 			if (enemyPuncher.standPower == STAND_PP4 && _punch) { // Above the Light
 				enemyPuncher.heal(Math.floor(_amount / 3));
 			}
@@ -3606,6 +3643,12 @@ var Fighter = class {
 				this.playMove(EMOTE_PP51);
 				this.godList = godListMemory.slice();
 			}
+		}
+
+		// blood blossom
+		if (enemyPuncher.huTaoBuff > 0 && _punch) {
+			this.duel.addMessage(this.getName() + " gets a blood blossom stack!");
+			this.bloodBlossom += 1;
 		}
 
 		// Acid
@@ -3689,6 +3732,7 @@ var Fighter = class {
 		this.satanicReverse -= 1;
 		this.turkeyCountdown -= 1;
 		this.inLove -= 1;
+		this.huTaoBuff -= 1;
 
 		if (this.empressLightBuff && getRandomPercent() <= 50) {
 			this.duel.addMessage(this.getName() + " feels the blessing by the Empress of Light!");
@@ -3750,6 +3794,13 @@ var Fighter = class {
 			else {
 				this.damage(this.meltingDamage, false);
 			}
+			this.duel.addMessage("-----------------");
+		}
+
+		// blood blossom
+		if (this.bloodBlossom > 0) {
+			this.damage(Maths.floor(this.STR/10), false);
+			this.bloodBlossom -= 1;
 			this.duel.addMessage("-----------------");
 		}
 
