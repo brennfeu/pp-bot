@@ -864,6 +864,8 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 });
 
 CLIENT.on('error', (_error) => {
+	console.log("ERROR:")
+	console.log(_error);
 	CLIENT.users.cache.find(a => a.id == ID_BRENNFEU).send(_error);
 })
 CLIENT.login(process.env.BOT_TOKEN);

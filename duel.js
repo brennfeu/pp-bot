@@ -297,6 +297,11 @@ var Duel = class {
 	}
 
 	addMessage(_texte, _forceAppear = false, _other = undefined) {
+		if (_texte == undefined && _other == undefined) {
+			console.log("Empty message at:");
+			console.trace();
+		}
+
 		var uwu = this.UWU_TEXT || this.POOPOO_UNIVERSE;
 		for (var i in IMAGE_LIST) {
 			if (_texte.includes(IMAGE_LIST[i])) {
