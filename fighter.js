@@ -968,6 +968,8 @@ var Fighter = class {
 		if (this.impendingDoom > 0) {
 			statusTxt += displayEmote(EMOTE_PP20) + " **Impending Doom: " + this.impendingDoom + " turns**\n";
 		}
+
+		return statusTxt;
 	}
 	getNbStatus() {
 		return this.getStatusTxt().split("\n").length;
