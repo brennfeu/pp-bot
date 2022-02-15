@@ -968,12 +968,12 @@ var Duel = class {
 		else if (randomVar == 3) { // PP Purge
 			this.EVENT_PP_PURGE = true;
 			this.addMessage(" -- PP PURGE --");
-			this.addMessage("All PPs grow a mohawk and start to roam the streets. \nIllegal moves can now be used freely but the judge can still see you if you use unavailable moves");
+			this.addMessage("All PPs grow a mohawk and start to roam the streets. \nIllegal moves can now be used freely but the judge can still see you if you use unavailable moves!");
 		}
 		else if (randomVar == 4) { // Sexually Confused
 			this.EVENT_CONFUSION = true;
 			this.addMessage(" -- SEXUAL CONFUSION --");
-			this.addMessage("Your PPs are confused for this turn.");
+			this.addMessage("Your PPs are confused for this turn!");
 		}
 		else if (this.PPLEVEL > 100 && randomVar == 5 && (this.MOVE_COUNT >= 30 || forcedEvent)) { // Cthulhu
 			if (this.EVENT_BOSS != null && this.EVENT_BOSS.evolveToMoonLord) {
