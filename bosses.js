@@ -2,6 +2,7 @@ var Boss = class extends Fighter {
     constructor(_duel, _name, _baseHP) {
         super(CLIENT.user.id ,_duel.BATTLE_CHANNEL.id);
         this.bossName = _name;
+        this.destroyerOfWorlds = false;
 
         this.STRValue = _baseHP;
         this.bossTriggeredAt = null;
@@ -11,7 +12,7 @@ var Boss = class extends Fighter {
         this.mimicPercentage = 0;
         this.grantsKillerBlessings = 10;
 
-        this.themeSong;
+        this.themeSong = null;
 
         this.puddingLaughIfMimic = false;
         this.deathEndsDuel = false;
