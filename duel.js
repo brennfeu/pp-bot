@@ -63,6 +63,7 @@ var Duel = class {
 		this.DARKNESS_COUNTDOWN = 0;
 		this.REVERSED_GRAVITY = false;
 		this.POOPOO_UNIVERSE = false;
+		this.ADDITIONAL_FIGHT = 0;
 
 		this.PP_ARMAGEDDON = false;
 		this.INFERNAL_FIRELAND = false;
@@ -467,6 +468,7 @@ var Duel = class {
 						this.FORCE_EVENT_ID = 26; // Tragedy
 					}
 				}
+				for (var i = 0; i++; i < this.ADDITIONAL_FIGHT) this.MOVE_COUNT += 1+Math.floor(this.MOVE_COUNT*getRandomPercent()/10000);
 
 				// Blood Moon Save
 				if (this.EVENT_BLOOD_MOON) {
@@ -533,6 +535,7 @@ var Duel = class {
 					this.sendMessages();
 				}
 
+				// events
 				if (!this.EASY_DUEL) {
 					this.addMessage("**===== EVENTS =====**");
 					this.startRandomEvent();
@@ -586,6 +589,9 @@ var Duel = class {
 				txt += " (for " + this.BLIND_COUNTDOWN + " turns)";
 			}
 			txt += "\n"
+		}
+		if (this.ADDITIONAL_FIGHT > 0) {
+			txt += " - Additional Neighbourhood Fight(s): " + this.ADDITIONAL_FIGHT + "\n";
 		}
 		if (this.KIDNEY_CURSE > 0) {
 			txt += " - Kidney Curse: " + this.KIDNEY_CURSE + "\n";
@@ -662,7 +668,7 @@ var Duel = class {
 		if (this.TIME_BREAK > 0) {
 			txt += " - **TIME BREAKING PROBABILITY: " + this.TIME_BREAK + "%**\n";
 		}
-		txt = txt.slice(0, -1);
+		txt += "Move Count: " + this.MOVE_COUNT;
 		this.addMessage(txt);
 
 		this.bothFightersAction(function(_fighter) {
@@ -954,26 +960,22 @@ var Duel = class {
 			forcedEvent = true;
 		}
 
-		if (randomVar == 2) {
-			// PP Enlightenment
+		if (randomVar == 2) { // PP Enlightenment
 			this.EVENT_PP_ENLIGHTENMENT = true;
 			this.addMessage(" -- PP ENLIGHTENMENT --");
 			this.addMessage("Your PP temporarily become enlightened. All moves can now be used for this turn. \nIllegal moves are still illegal.");
 		}
-		else if (randomVar == 3) {
-			// PP Purge
+		else if (randomVar == 3) { // PP Purge
 			this.EVENT_PP_PURGE = true;
 			this.addMessage(" -- PP PURGE --");
 			this.addMessage("All PPs grow a mohawk and start to roam the streets. \nIllegal moves can now be used freely but the judge can still see you if you use unavailable moves");
 		}
-		else if (randomVar == 4) {
-			// Sexually Confused
+		else if (randomVar == 4) { // Sexually Confused
 			this.EVENT_CONFUSION = true;
 			this.addMessage(" -- SEXUAL CONFUSION --");
 			this.addMessage("Your PPs are confused for this turn.");
 		}
-		else if (this.PPLEVEL > 100 && randomVar == 5 && (this.MOVE_COUNT >= 30 || forcedEvent)) {
-			// Cthulhu
+		else if (this.PPLEVEL > 100 && randomVar == 5 && (this.MOVE_COUNT >= 30 || forcedEvent)) { // Cthulhu
 			if (this.EVENT_BOSS != null && this.EVENT_BOSS.evolveToMoonLord) {
 				this.addMessage(" -- MOON LORD AWAKENS --");
 				this.addMessage("Cthulhu is blessed by the moonlight!");
@@ -994,8 +996,7 @@ var Duel = class {
 				this.triggerBossFight(new CthulhuBoss(this));
 			}
 		}
-		else if (this.PPLEVEL > 100 && randomVar == 6 && (this.MOVE_COUNT >= 30 || forcedEvent)) {
-			// Accidental Summoning
+		else if (this.PPLEVEL > 100 && randomVar == 6 && (this.MOVE_COUNT >= 30 || forcedEvent)) { // Accidental Summoning
 			this.addMessage(" -- ACCIDENTAL SUMMONING --");
 			var winner = this.getRandomFighter();
 			this.addMessage(winner.getName() + " accidentaly plays Psychodiös on his phone and it summons Satan and the Ancient Fungus!");
@@ -1003,8 +1004,7 @@ var Duel = class {
 			winner.playMove(EMOTE_PP26);
 			winner.playMove(EMOTE_PP46);
 		}
-		else if (this.PPLEVEL > 50 && randomVar == 7 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
-			// Blood Moon
+		else if (this.PPLEVEL > 50 && randomVar == 7 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) { // Blood Moon
 			this.EVENT_BLOOD_MOON = true;
 			this.addMessage(" -- BLOOD MOON --");
 			this.addMessage("If someone dies this turn, STR automatically stays at 10 but the remaining damages goes positive in the DEX.");
@@ -1019,8 +1019,7 @@ var Duel = class {
 				this.addMessage(this.EVENT_BOSS.getName() + " is blessed by the Blood Moon.");
 			}
 		}
-		else if (this.PPLEVEL > 50 && randomVar == 8 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
-			// Ascension
+		else if (this.PPLEVEL > 50 && randomVar == 8 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) { // Ascension
 			this.addMessage(" -- ASCENSION --");
 			var winner = this.getRandomFighter();
 			this.addMessage(winner.getName() + " accidentaly plays Ascend on his phone!");
@@ -1028,8 +1027,7 @@ var Duel = class {
 				_fighter.playMove(EMOTE_PP49);
 			});
 		}
-		else if (this.PPLEVEL > 50 && [9, 10, 11, 12, 13, 14, 15, 16, 17, 18].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 10 || forcedEvent) && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
-			// Charge
+		else if (this.PPLEVEL > 50 && [9, 10, 11, 12, 13, 14, 15, 16, 17, 18].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 10 || forcedEvent) && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) { // Charge
 			this.addMessage(" -- GODS BIRTHDAY GIFTS --");
 			if (this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
 				this.addMessage("Gods decide to give you a regular charge each");
@@ -1044,8 +1042,7 @@ var Duel = class {
 				});
 			}
 		}
-		else if (this.PPLEVEL > 50 && [19, 20, 21].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 25 || forcedEvent) && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
-			// Charge
+		else if (this.PPLEVEL > 50 && [19, 20, 21].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 25 || forcedEvent) && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) { // Charge
 			this.addMessage(" -- GODS CHRISTMAS GIFTS --");
 			if (this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
 				this.addMessage("Gods decide to give you a special charge each");
@@ -1060,8 +1057,7 @@ var Duel = class {
 				});
 			}
 		}
-		else if (this.PPLEVEL > 50 && randomVar == 22) {
-			// Huge Gay Night
+		else if (this.PPLEVEL > 50 && randomVar == 22) { // Huge Gay Night
 			this.addMessage(" -- HUGE GAY NIGHT --");
 			if (this.GAY_TURNS > 0) {
 				this.GAY_TURNS += 10;
@@ -1073,8 +1069,7 @@ var Duel = class {
 			}
 
 		}
-		else if (this.PPLEVEL > 50 && randomVar == 23 && (this.MOVE_COUNT >= 30 || forcedEvent) && this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
-			// PP Blessing
+		else if (this.PPLEVEL > 50 && randomVar == 23 && (this.MOVE_COUNT >= 30 || forcedEvent) && this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) { // PP Blessing
 			this.addMessage(" -- PP BLESSING --");
 			this.addMessage("You suddenly feel new powers in your PP!");
 			this.bothFightersAction(function(_fighter) {
@@ -1090,8 +1085,7 @@ var Duel = class {
 				_fighter.isAlienPP = true;
 			});
 		}
-		else if (this.PPLEVEL > 50 && [24, 25].indexOf(randomVar) > -1 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
-			// Free Lives
+		else if (this.PPLEVEL > 50 && [24, 25].indexOf(randomVar) > -1 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) { // Free Lives
 			if (this.EVENT_BOSS != null) {
 				this.addMessage(" -- FREE LIVES GOOD UPDATES --");
 				this.addMessage("Let's NOT riot Free Lives HQ.");
@@ -1105,8 +1099,7 @@ var Duel = class {
 				this.triggerBossFight(new FreeLivesBoss(this));
 			}
 		}
-		else if (this.PPLEVEL > 50 && randomVar == 26) {
-			// Tragedy
+		else if (this.PPLEVEL > 50 && randomVar == 26) { // Tragedy
 			this.addMessage(" -- TRAGEDY --");
 			if (getRandomPercent() <= 50) {
 				var winner = this.getRandomFighter();
@@ -1143,8 +1136,7 @@ var Duel = class {
 				_fighter.attack = EMOTE_SKIP;
 			});
 		}
-		else if (this.PPLEVEL > 50 && [27, 28, 29, 30, 31].indexOf(randomVar) > -1) {
-			// PP-Net
+		else if (this.PPLEVEL > 50 && [27, 28, 29, 30, 31].indexOf(randomVar) > -1) { // PP-Net
 			this.PP_NET += 1;
 			if (this.PP_NET == 1) {
 				this.addMessage(" -- PP-NET RISING --");
@@ -1221,14 +1213,12 @@ var Duel = class {
 				this.PP_NET -= 1;
 			}
 		}
-		else if (this.PPLEVEL > 50 && randomVar == 32) {
-			// Day of the PP Equality
+		else if (this.PPLEVEL > 50 && randomVar == 32) { // Day of the PP Equality
 			this.addMessage(" -- DAY OF THE PP EQUALITY --");
 			this.addMessage("Today is Day of the PP Equality ! There is no DEX modifier for moves for this turn!");
 			this.EVENT_PP_EQUALITY = true;
 		}
-		else if (this.PPLEVEL > 100 && randomVar == 33 && (this.MOVE_COUNT >= 1000 || forcedEvent)) {
-			// Eldritch Gate
+		else if (this.PPLEVEL > 100 && randomVar == 33 && (this.MOVE_COUNT >= 1000 || forcedEvent)) { // Eldritch Gate
 			this.addMessage(" -- ELDRITCH GATE --");
 			if (this.EVENT_BOSS != null && this.EVENT_BOSS.eldritchGateBuff) {
 				this.addMessage("The Eldritch Gate grows bigger! " + this.EVENT_BOSS.getName() + " gets more power!");
@@ -1244,8 +1234,7 @@ var Duel = class {
 				this.triggerBossFight(boss);
 			}
 		}
-		else if (this.PPLEVEL > 50 && randomVar == 34 && (this.MOVE_COUNT >= 100 || forcedEvent)) {
-			// Ascension Requiem
+		else if (this.PPLEVEL > 50 && randomVar == 34 && (this.MOVE_COUNT >= 100 || forcedEvent)) { // Ascension Requiem
 			this.addMessage(" -- ASCENSION REQUIEM --");
 			var winner = this.getRandomFighter();
 			this.addMessage(winner.getName() + " accidentaly plays Ascended Depression on his phone!");
@@ -1254,8 +1243,7 @@ var Duel = class {
 				_fighter.playMove(EMOTE_PP77);
 			});
 		}
-		else if (this.PPLEVEL > 50 && randomVar == 35 && this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
-			// BIZARRE PP
+		else if (this.PPLEVEL > 50 && randomVar == 35 && this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) { // BIZARRE PP
 			this.addMessage(" -- BIZARRE PP BATTLE --");
 			this.bothFightersAction(function(_fighter) {
 				var liste = Object.keys(STAND_SUMMONS);
@@ -1264,14 +1252,12 @@ var Duel = class {
 			});
 			this.checkStandSummon();
 		}
-		else if (this.PPLEVEL > 50 && randomVar == 36) {
-			// Mega Movepool
+		else if (this.PPLEVEL > 50 && randomVar == 36) { // Mega Movepool
 			this.addMessage(" -- MEGA MOVEPOOL --");
 			this.addMessage("You get blessed by the gods and get an extended movepool for this turn!");
 			this.EVENT_MEGA_POOL = true;
 		}
-		else if (this.PPLEVEL > 50 && randomVar == 37) {
-			// PP Depression
+		else if (this.PPLEVEL > 50 && randomVar == 37) { // PP Depression
 			this.addMessage(" -- PP DEPRESSION --");
 			this.addMessage("PP Punching is not fun... Maybe you should put an end to this...? It is utter nonsense to punch PP anyway, let's just end what you shouldn't have started...");
 			this.EVENT_DEPRESSION = true;
@@ -1280,14 +1266,12 @@ var Duel = class {
 				this.addMessage("You're not even gay anymore...");
 			}
 		}
-		else if (this.PPLEVEL > 50 && randomVar == 38 && (this.MOVE_COUNT >= 10 || forcedEvent)) {
-			// Impending Bombardment
+		else if (this.PPLEVEL > 50 && randomVar == 38 && (this.MOVE_COUNT >= 10 || forcedEvent)) { // Impending Bombardment
 			this.addMessage(" -- IMPENDING BOMBARDMENT --");
 			this.addMessage("A missile has been spotted above the battleground ! You have one turn before it hits the ground and explodes!");
 			this.EVENT_BOMB = true;
 		}
-		else if (randomVar == 39 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
-			// Judgement
+		else if (randomVar == 39 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) { // Judgement
 			this.addMessage(" -- JUDGEMENT --");
 			this.addMessage("Who do you think is better ? FriedEspinoza or espinoze ? Make your bets!");
 			this.ESPINOZA_CHOICE = EMOTE_FRIEDESPINOZA;
@@ -1295,8 +1279,7 @@ var Duel = class {
 				this.ESPINOZA_CHOICE = EMOTE_ESPINOZE;
 			}
 		}
-		else if (randomVar == 40) {
-			// Spanish Inquisition
+		else if (randomVar == 40) { // Spanish Inquisition
 			this.addMessage(" -- PENIS INQUISITION --");
 			this.addMessage("Nobody expected them, but here they are!");
 			var winner = this.getRandomFighter();
@@ -1306,8 +1289,7 @@ var Duel = class {
 			this.addMessage("They bite " + winner.getName() + "'s PP as he seems to have the toughest PP.");
 			winner.damage(Math.floor(winner.STR/10));
 		}
-		else if (this.PPLEVEL > 50 && randomVar == 41 && (this.MOVE_COUNT >= 30 || forcedEvent) && this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
-			// Kaiju Attack
+		else if (this.PPLEVEL > 50 && randomVar == 41 && (this.MOVE_COUNT >= 30 || forcedEvent) && this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) { // Kaiju Attack
 			this.addMessage(" -- KAIJU ATTACK --");
 			var winner = this.getRandomFighter();
 			if (winner.kaijuHP > 0) {
@@ -1320,16 +1302,14 @@ var Duel = class {
 				winner.resetArmy();
 			}
 		}
-		else if (randomVar == 42) {
-			// Nudist Beach
+		else if (randomVar == 42) { // Nudist Beach
 			this.addMessage(" -- NUDIST BEACH --");
 			this.addMessage("Fear is freedom ! Subjugation is liberation ! Contradiction is truth ! Those are the facts of this world ! And you will all surrender to them, you pigs in human clothing!");
 			this.bothFightersAction(function(_fighter) {
 				_fighter.resetBattleVariables();
 			});
 		}
-		else if (this.PPLEVEL > 100 && randomVar == 43) {
-			// Alternate Universe
+		else if (this.PPLEVEL > 100 && randomVar == 43) { // Alternate Universe
 			if (this.POOPOO_UNIVERSE) {
 				this.POOPOO_UNIVERSE = false;
 				this.ALTERNATE_MOVES = false;
@@ -1351,28 +1331,24 @@ var Duel = class {
 				this.ALTERNATE_MOVE_COUNT = this.MOVE_COUNT;
 			}
 		}
-		else if (this.PPLEVEL > 100 && randomVar == 44 && (this.MOVE_COUNT >= 1000 || forcedEvent)) {
-			// Obama
+		else if (this.PPLEVEL > 100 && randomVar == 44 && (this.MOVE_COUNT >= 1000 || forcedEvent)) { // Obama
 			this.addMessage(" -- OBAMIUM --");
 			this.addMessage("Thanks to your PP Punching, a new Obamium source has been found ! Scientists are giving you some!");
 			this.OBAMIUM = true;
 			this.OBAMIUM_DONE = true;
 		}
-		else if (this.PPLEVEL > 50 && [45, 46, 47, 48, 49].indexOf(randomVar) > -1) {
-			// PP Net more likely to happen
+		else if (this.PPLEVEL > 50 && [45, 46, 47, 48, 49].indexOf(randomVar) > -1) { // PP Net more likely to happen
 			this.FORCE_EVENT_ID = 27;
 			this.startRandomEvent();
 		}
 		else if (this.PPLEVEL > 200 && randomVar == 50 && (this.MOVE_COUNT >= 1000 || forcedEvent) &&
 			( (isPlayerExpertPP(this.FIGHTER1) && isPlayerWeebPP(this.FIGHTER1)) ||
-			(isPlayerExpertPP(this.FIGHTER2) && isPlayerWeebPP(this.FIGHTER2) && this.FIGHTER2.idUser != CLIENT.user.id) )) {
-			// Wyndoella
+			(isPlayerExpertPP(this.FIGHTER2) && isPlayerWeebPP(this.FIGHTER2) && this.FIGHTER2.idUser != CLIENT.user.id) )) { // Wyndoella
 			this.addMessage(" -- WYNDOELLA KILLS PUDDING --");
 			this.addMessage("The Universe itself challenges you!\n" + IMAGE_PP9);
 			this.triggerBossFight(new WyndoeallaBoss(this));
 		}
-		else if (this.PPLEVEL > 50 && randomVar == 51 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
-			// IKEA
+		else if (this.PPLEVEL > 50 && randomVar == 51 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) { // IKEA
 			if (this.EVENT_BOSS != null) {
 				if (this.EVENT_BOSS.isIkea) {
 					this.addMessage(" -- IKEA EXTENSION --");
@@ -1397,9 +1373,20 @@ var Duel = class {
 				this.triggerBossFight(new IKEABoss(this));
 			}
 		}
+		else if (this.PPLEVEL > 50 && randomVar == 52) { // NEIGHBOUR CHAOS
+			this.addMessage(" -- PUNCHING NEIGHBOURHOOD --");
+			this.addMessage("Some random guys are punching PP next to your location. We might inherit from the chaos they create!");
+			this.ADDITIONAL_FIGHT += 1;
+			this.MOVE_COUNT += Math.floor(getRandomPercent()*this.MOVE_COUNT*2);
+			this.sendMessages();
+
+			// trigger movecount events if
+			this.FORCE_EVENT_ID = -1;
+			this.startRandomEvent();
+			this.sendMessages();
+		}
 		// DON'T FORGET TO UPDATE FORCE EVENT IF NEW EVENTS ARE ADDED
-		else if (this.PPLEVEL > 200 && randomVar == 90 && (this.MOVE_COUNT >= 50 || forcedEvent)) {
-			// Brenn Ejaculates
+		else if (this.PPLEVEL > 200 && randomVar == 90 && (this.MOVE_COUNT >= 50 || forcedEvent)) { // Brenn Ejaculates
 			this.addMessage(" -- BRENN EJACULATES --");
 			this.addMessage("For some reasons, this summons every event!");
 			if (getRandomPercent() <= 80) {
@@ -1409,7 +1396,7 @@ var Duel = class {
 				this.addMessage("**POV: You are Brenn.**\n```Infinite cum. You sit on the toilet to jack off, but you begin to cum uncontrollably. After ten spurts you start to worry. Your hand is sticky and it reeks of semen. You desperately shove your dick into a wad of toilet paper, but that only makes your balls hurt. The cum accelerates. It’s been three minutes. You can’t stop cumming. Your bathroom floor is covered in a thin layer of baby fluid. You try to cum into the shower drain but it builds up too fast. You try the toilet. The cum is too thick to be flushed. You lock the bathroom door to prevent the cum from escaping. The air grows hot and humid from the cum. The cum accelerates. You slip and fall in your own sperm. The cum is now six inches deep, almost as long as your still-erect semen hose. Sprawled on your back, you begin to cum all over the ceiling. Globs of the sticky white fluid begin to fall like raindrops, giving you a facial with your own cum. The cum accelerates. You struggle to stand as the force of the cum begins to propel you backwards as if you were on a bukkake themed slip-and-slide. Still on your knees, the cum is now at chin height. To avoid drowning you open the bathroom door. The deluge of man juice reminds you of the Great Molasses Flood of 1919, only with cum instead of molasses. The cum accelerates. It’s been two hours. Your children and wife scream in terror as their bodies are engulfed by the snow-white sludge. Your youngest child goes under, with viscous bubbles and muffled cries rising from the goop. You plead to God to end your suffering. The cum accelerates. You squeeze your dick to stop the cum, but it begins to leak out of your asshole instead. You let go. The force of the cum tears your urethra open, leaving only a gaping hole in your crotch that spews semen. Your body picks up speed as it slides backwards along the cum. You smash through the wall, hurtling into the sky at thirty miles an hour. From a bird’s eye view you see your house is completely white. Your neighbor calls the cops. The cum accelerates. As you continue to ascend, you spot police cars racing towards your house. The cops pull out their guns and take aim, but stray loads of cum hit them in the eyes, blinding them. The cum accelerates. You are now at an altitude of 1000 feet. The SWAT team arrives. Military helicopters circle you. Hundreds of bullets pierce your body at once, yet you stay conscious. Your testicles have now grown into a substitute brain. The cum accelerates. It has been two days. With your body now destroyed, the cum begins to spray in all directions. You break the sound barrier. The government deploys fighter jets to chase you down, but the impact of your cum sends one plane crashing to the ground. The government decides to let you leave the earth. You feel your gonads start to burn up as you reach the edges of the atmosphere. You narrowly miss the ISS, giving it a new white paint job as you fly past. Physicists struggle to calculate your erratic trajectory. The cum accelerates. The cum begins to gravitate towards itself, forming a comet trail of semen. Astronomers begin calling you the “Cummet.” You are stuck in space forever, stripped of your body and senses, forced to endure an eternity of cumshots. Eventually, you stop thinking.```");
 			}
 			this.sendMessages();
-			var idList = shuffleArray([2, 3, 4, 6, 7, 8, 9, 19, 22, 23, 32, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44]);
+			var idList = shuffleArray([2, 3, 4, 6, 7, 8, 9, 19, 22, 23, 32, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 52]);
 			for (var i = 0; i < idList.length; i++) {
 				this.FORCE_EVENT_ID = idList[i];
 				this.startRandomEvent();

@@ -3479,7 +3479,7 @@ var Fighter = class {
 		_amount += this.quickeningCharges*3;
 		if (this.duel.REVERSE_DAMAGE <= 0 && this.selfReverseDamage <= 0 && !this.duel.POOPOO_UNIVERSE) {
 			this.STRValue += _amount;
-			this.duel.addMessage(this.getName() + " gets healed by " + _amount + " HP");
+			this.duel.addMessage(this.getName() + " heals " + _amount + " HP!");
 			if (_amount == 69) {
 				this.duel.addMessage("nice!");
 			}
