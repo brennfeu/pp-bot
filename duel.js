@@ -483,13 +483,16 @@ var Duel = class {
 				if (this.EVENT_BOSS != null) {
 					if (this.EVENT_BOSS.STR > 0) { // boss attacks
 						this.EVENT_BOSS.triggerBossAttack();
+						this.addMessage("-----------------");
 					}
 
 					if (this.EVENT_BOSS.STR <= 0) { // boss dies
 						this.EVENT_BOSS.triggerDeath();
+						this.addMessage("-----------------");
 					}
 					else { // boss turn change
 						this.EVENT_BOSS.turnChange();
+						this.addMessage("-----------------");
 					}
 				}
 
