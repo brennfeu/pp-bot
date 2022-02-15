@@ -550,6 +550,22 @@ CLIENT.on("message", async _message => {
 		sendCheatPanel(_message.channel, cat);
 		return;
 	}
+	if (argsUser[1] == "cheat" || argsUser[1] == "react") {
+		if (argsUser.length <= 1) {
+			return _message.reply(", please tell me the exact name of the emote you want to use.");
+		}
+
+		var duel = getDuel(_message.channel.id);
+		if (duel == null) {
+			return _message.reply(", you can only use this command during a duel.");
+		}
+		if (duel.getAttackFromEmote(argsUser[2]) == EMOTE_SKIP) {
+			return _message.reply(", sorry, I don't know this emote. Are you sure it is spelled right?");
+		}
+
+		duel.triggerReaction(argsUser[2], _user);
+		return
+	}
 	if (argsUser[1] == "training") {
 		if (getDuel(_message.channel.id) != null) {
 			return _message.reply("there's a battle going on here...");
