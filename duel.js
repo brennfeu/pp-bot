@@ -1357,7 +1357,7 @@ var Duel = class {
 		}
 		else if (this.PPLEVEL > 200 && randomVar == 50 && (this.MOVE_COUNT >= 1000 || forcedEvent) &&
 			( (isPlayerExpertPP(this.FIGHTER1) && isPlayerWeebPP(this.FIGHTER1)) ||
-			(isPlayerExpertPP(this.FIGHTER2) && isPlayerWeebPP(this.FIGHTER2) && this.FIGHTER2.idUser != CLIENT.user.id)) ) {
+			(isPlayerExpertPP(this.FIGHTER2) && isPlayerWeebPP(this.FIGHTER2) && this.FIGHTER2.idUser != CLIENT.user.id) )) {
 			// Wyndoella
 			this.addMessage(" -- WYNDOELLA KILLS PUDDING --");
 			this.addMessage("The Universe itself challenges you!\n" + IMAGE_PP9);

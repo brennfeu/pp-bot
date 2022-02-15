@@ -483,7 +483,7 @@ CLIENT.on("message", async _message => {
 	checkUpdateEncyclopedia();
 
 	// Recuperation commande
-	var argsUser = _message.content.trim().split(" ");
+	var argsUser = _message.content.trim().split(" ").filter(a => a != "");
 
 	// Ignore si bot
 	if(_message.author.bot) return;
