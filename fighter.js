@@ -3645,7 +3645,7 @@ var Fighter = class {
 		}
 
 		// Eldritch Gang
-		if (enemyPuncher.hasSynergy(SYNERGY_PP19) && getRandomPercent() <= 10 && _punch) {
+		if (_punch && enemyPuncher.hasSynergy(SYNERGY_PP19) && getRandomPercent() <= 10) {
 			this.duel.addMessage(enemyPuncher.getName() + "'s attack happens again!");
 			this.damage(ogAmount, _punch);
 		}
@@ -3950,9 +3950,9 @@ var Fighter = class {
 
 		// ImpendingDoom
 		if (this.impendingDoom == 0) {
-			this.duel.addMessage("**" + this.getName() + " cannot escape fate and dies !**");
+			this.duel.addMessage("**" + this.getName() + " cannot escape fate and dies!**");
 			if (this.doomReverse > 0) {
-				this.duel.addMessage("**" + this.getName() + " uses DOOM-REVERSE(tm) !**");
+				this.duel.addMessage("**" + this.getName() + " uses DOOM-REVERSE(tm)!**");
 				this.STRValue += (0 - this.STR) + 10;
 				this.doomReverse = 0;
 				this.duel.getOppOf(this).impendingDoom = 2;
@@ -3966,9 +3966,9 @@ var Fighter = class {
 
 		// Akame's Murasame
 		if (this.murasameCurse) {
-			this.duel.addMessage("**" + this.getName() + "'s heart stops beating !**");
+			this.duel.addMessage("**" + this.getName() + "'s heart stops beating!**");
 			if (this.doomReverse > 0) {
-				this.duel.addMessage("**" + this.getName() + " uses DOOM-REVERSE(tm) !**");
+				this.duel.addMessage("**" + this.getName() + " uses DOOM-REVERSE(tm)!**");
 				this.STRValue += (0 - this.STR) + 10;
 				this.doomReverse = 0;
 				this.murasameCurse = false;
