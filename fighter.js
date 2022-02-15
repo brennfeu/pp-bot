@@ -3387,6 +3387,7 @@ var Fighter = class {
 	damage(_amount, _punch = true) {
 		var ogAmount = _amount;
 		var enemyPuncher = this.duel.LAST_FIGHTER_TO_USE_A_MOVE;
+		if (enemyPuncher == null) enemyPuncher = this.duel.getOppOf(this);
 
 		if (_punch) {
 			_amount += enemyPuncher.quickeningCharges*3;
