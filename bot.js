@@ -127,9 +127,9 @@ function checkUpdateEncyclopedia() {
 
 			var shouldRead = false;
 			var message = "";
+			var stand = "";
 			for (var j in fullBible) {
 				var emote = "";
-				var stand = "";
 
 				if (!shouldRead && fullBible[j].includes("## ***" + encyChannels[i].topic + ":***")) { // Start
 					shouldRead = true;
