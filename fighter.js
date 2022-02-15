@@ -979,7 +979,7 @@ var Fighter = class {
 			this.duel.MOVE_COUNT += 1;
 			if (this.duel.MOVE_COUNT_TURN >= 500) {
 				if (this.duel.MOVE_COUNT_TURN == 500) {
-					this.duel.addMessage("**Move cap achieved !**");
+					this.duel.addMessage("**Move cap achieved!**");
 				}
 				return;
 			}
@@ -2299,7 +2299,7 @@ var Fighter = class {
 					}
 					this.dodgableDamages = [];
 				}
-				
+
 				if (this.godList.indexOf(GOD_PP30.name) > -1) { // Megumin
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Megumin answers his calls!");
@@ -3024,7 +3024,7 @@ var Fighter = class {
 				// Vorpal Gun
 				this.duel.addMessage(this.getName() + " raids " + this.getOppName() + "!");
 				if (getRandomPercent() <= 20) {
-					this.duel.addMessage("**Critical raid !**");
+					this.duel.addMessage("**Critical raid!**");
 					this.militaryPower += this.militaryPower;
 				}
 				this.duel.launchRaid(this);
@@ -3483,7 +3483,7 @@ var Fighter = class {
 
 		if (this.duel.INFINITE_DAMAGE >= 100) {
 			if (this.duel.INFINITE_DAMAGE == 100) {
-			    this.duel.addMessage("**Damage cap achieved !**");
+			    this.duel.addMessage("**Damage cap achieved!**");
 			}
 			return this.duel.addMessage(_amount + " damages were canceled");
 		}
@@ -3497,7 +3497,7 @@ var Fighter = class {
 		if ((getRandomPercent() < critMin || enemyPuncher.forceCritical) && _punch) {
 			_amount += _amount;
 			enemyPuncher.forceCritical = false;
-			this.duel.addMessage("**Critical Hit !**");
+			this.duel.addMessage("**Critical Hit!**");
 
 			if (enemyPuncher.hasSynergy(SYNERGY_PP22)) {
 				enemyPuncher.forceCritical = true;

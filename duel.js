@@ -359,7 +359,7 @@ var Duel = class {
 		this.TIME_STOP -= 1;
 
 		if (this.TIME_STOP <= 0  && getRandomPercent() <= this.TIME_BREAK) {
-			this.addMessage("**Time breaks !**");
+			this.addMessage("**Time breaks!**");
 			this.TIME_STOP = 1;
 		}
 
@@ -792,11 +792,11 @@ var Duel = class {
 		if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE && !(this.FIGHTER1.STR > 0 && this.FIGHTER2.STR > 0)) {
 			if (this.FIGHTER1.STR <= 0) {
 				this.FIGHTER2.mayor.hasSupplyDrops = true;
-				this.addMessage("**" + this.FIGHTER1.getName() + " has been destroyed !**");
+				this.addMessage("**" + this.FIGHTER1.getName() + " has been destroyed!**");
 			}
 			if (this.FIGHTER2.STR <= 0) {
 				this.FIGHTER1.mayor.hasSupplyDrops = true;
-				this.addMessage("**" + this.FIGHTER2.getName() + " has been destroyed !**");
+				this.addMessage("**" + this.FIGHTER2.getName() + " has been destroyed!**");
 			}
 
 			var f1 = this.FIGHTER1.mayor;
@@ -813,7 +813,7 @@ var Duel = class {
 		else if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE && !(this.FIGHTER1.STR > 0 && this.FIGHTER2.STR > 0)) {
 			if (this.FIGHTER1.STR <= 0) {
 				this.FIGHTER2_SAVE.quickeningCharges += 10;
-				this.addMessage("**" + this.FIGHTER1.getName() + " has been defeated !**");
+				this.addMessage("**" + this.FIGHTER1.getName() + " has been defeated!**");
 
 				if (this.FIGHTER1.standPower == STAND_PP3 || this.FIGHTER2.standPower == STAND_PP3) {
 					this.FIGHTER2_SAVE.playMove(EMOTE_PP58);
@@ -821,7 +821,7 @@ var Duel = class {
 			}
 			if (this.FIGHTER2.STR <= 0) {
 				this.FIGHTER1_SAVE.quickeningCharges += 10;
-				this.addMessage("**" + this.FIGHTER2.getName() + " has been defeated !**");
+				this.addMessage("**" + this.FIGHTER2.getName() + " has been defeated!**");
 
 				if (this.FIGHTER1.standPower == STAND_PP3 || this.FIGHTER2.standPower == STAND_PP3) {
 					this.FIGHTER1_SAVE.playMove(EMOTE_PP58);
@@ -1845,8 +1845,8 @@ var Duel = class {
 
 			if (caught1 && getRandomPercent() <= 2 && duel.POOPOO_UNIVERSE) {
 				duel.addMessage("**YOUR CHEATING HAS MADE THE GODS VERY ANGRY. IF YOU DON'T WANT TO RESPECT THE RULES OF THE MIGHTY PP PUNCH, THEN YOU DON'T DESERVE TO PUNCH PP.**");
-				duel.addMessage("**ESPINOZA USES HIS FINAL ABILITY, DOUBLE ARM SNIFF !**");
-				duel.addMessage("**YOU ARE BANISHED INTO THE POOPOO PUNCH UNIVERSE !**");
+				duel.addMessage("**ESPINOZA USES HIS FINAL ABILITY, DOUBLE ARM SNIFF!**");
+				duel.addMessage("**YOU ARE BANISHED INTO THE POOPOO PUNCH UNIVERSE!**");
 				duel.POOPOO_UNIVERSE = true;
 				duel.ALTERNATE_MOVES = true;
 				_fighter.attack = EMOTE_SKIP;

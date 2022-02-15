@@ -163,12 +163,10 @@ function checkUpdateEncyclopedia() {
 							if (fullBible[j].includes("-")) {
 								for (var s in STAND_SUMMONS) {
 									if (fullBible[j].includes(s)) stand = s;
-									console.log("Current Stand: " + s);
 								}
 							}
 							else if (fullBible[j].includes("Special Effects")) {
 								STAND_HELP[stand] = fullBible[j];
-								//console.log(fullBible[j]);
 							}
 						}
 					}
@@ -194,7 +192,6 @@ function checkUpdateEncyclopedia() {
 				}
 			}
 		}
-		console.log(STAND_HELP);
 	} );
 }
 
