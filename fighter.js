@@ -126,6 +126,8 @@ var Fighter = class {
 		this.inLove = 0;
 		this.huTaoBuff = 0;
 		this.bloodBlossom = 0;
+		this.ppColossus = 0;
+		this.ppColossusCountdown = 0;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -343,6 +345,9 @@ var Fighter = class {
 		if (this.hasSynergy(SYNERGY_PP0)) { // PP Harem
 			str += str;
 		}
+		if (this.ppColossus > 0) {
+			str = str*100;
+		}
 
 		if (this.duel.EVENT_BOSS != null && str <= 0) {
 			return 0;
@@ -441,6 +446,9 @@ var Fighter = class {
 
 		if (this.hasSynergy(SYNERGY_PP11) && dex <= 0) {
 			return 0;
+		}
+		if (this.ppColossus > 0) {
+			dex = dex*100;
 		}
 		if (this.akameDex > 0) {
 			 dex += dex;
@@ -553,7 +561,96 @@ var Fighter = class {
 		if (fightingStylesTxt != "") embedMessage.addField("Fighting Styles", fightingStylesTxt, true);
 
 		// STATUS
-		var statusTxt = "";
+		var statusTxt = this.getStatusTxt();
+		if (statusTxt != "") embedMessage.addField("Status", statusTxt, true);
+
+		// SYNERGIES
+		var synergyTxt = "";
+		if (this.godList.length >= GOD_LIST.length) {
+			synergyTxt += " - *PP Harem*\n";
+		}
+		else {
+			if (this.hasSynergy(SYNERGY_PP0)) {
+				synergyTxt += " - *PP Harem*\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP1)) {
+				synergyTxt += " - A Sad Witness\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP2)) {
+				synergyTxt += " - Holy Brenn Trinity\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP3)) {
+				synergyTxt += " - Unholy Pudding Trinity\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP4)) {
+				synergyTxt += " - Roleplay Group\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP5)) {
+				synergyTxt += " - Racial Paradox\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP6)) {
+				synergyTxt += " - Garbage Music Maker\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP7)) {
+				synergyTxt += " - Yaoi Fan\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP8)) {
+				synergyTxt += " - Super Predator\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP9)) {
+				synergyTxt += " - Too Smart and Too Powerful\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP10)) {
+				synergyTxt += " - Salt Master\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP11)) {
+				synergyTxt += " - Debilus Team Member\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP12)) {
+				synergyTxt += " - Waifu Body Pillow\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP13)) {
+				synergyTxt += " - Infinite Intellect\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP14)) {
+				synergyTxt += " - Wild Mage\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP15)) {
+				synergyTxt += " - Guerrier de l'Enfer\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP16)) {
+				synergyTxt += " - Too Much Dicks\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP17)) {
+				synergyTxt += " - Avatar of Tz'arkan\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP18)) {
+				synergyTxt += " - Obvious Tentacle Joke\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP19)) {
+				synergyTxt += " - Eldritch Gang\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP20)) {
+				synergyTxt += " - Master of Time\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP21)) {
+				synergyTxt += " - Big Nose\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP22)) {
+				synergyTxt += " - Extreme Karma\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP23)) {
+				synergyTxt += " - Ram Ranch\n";
+			}
+			if (this.hasSynergy(SYNERGY_PP24)) {
+				synergyTxt += " - Cosmopolitan\n";
+			}
+		}
+		if (synergyTxt != "") embedMessage.addField("Synergies", synergyTxt, true);
+
+		return embedMessage.toJSON();
+	}
+	getStatusTxt() {
 		// special status
 		if (this.randomizedStand) {
 			statusTxt += displayEmote(EMOTE_PP49) + " **Perfect Stånd Power**\n";
@@ -817,6 +914,12 @@ var Fighter = class {
 		if (this.armageddonMagic) {
 			statusTxt += displayEmote(GOD_PP34.emote) + " **Armageddon Magic**\n";
 		}
+		if (this.ppColossus > 0) {
+			statusTxt += displayEmote(EMOTE_MECHA) + " **PP Colossus**\n";
+		}
+		else if (this.ppColossusCountdown > 0) {
+			statusTxt += displayEmote(EMOTE_MECHA) + " **PP Colossus Countdown: " + this.ppColossusCountdown + "**\n";
+		}
 		if (this.isPossessed > 0) {
 			statusTxt += displayEmote(EMOTE_PP16) + " **Possessed by " + this.duel.otherFighter(this).getName() + "**\n";
 		}
@@ -845,93 +948,6 @@ var Fighter = class {
 		if (this.impendingDoom > 0) {
 			statusTxt += displayEmote(EMOTE_PP20) + " **Impending Doom: " + this.impendingDoom + " turns**\n";
 		}
-		if (statusTxt != "") embedMessage.addField("Status", statusTxt, true);
-
-		// SYNERGIES
-		var synergyTxt = "";
-		if (this.godList.length >= GOD_LIST.length) {
-			synergyTxt += " - *PP Harem*\n";
-		}
-		else {
-			if (this.hasSynergy(SYNERGY_PP0)) {
-				synergyTxt += " - *PP Harem*\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP1)) {
-				synergyTxt += " - A Sad Witness\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP2)) {
-				synergyTxt += " - Holy Brenn Trinity\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP3)) {
-				synergyTxt += " - Unholy Pudding Trinity\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP4)) {
-				synergyTxt += " - Roleplay Group\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP5)) {
-				synergyTxt += " - Racial Paradox\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP6)) {
-				synergyTxt += " - Garbage Music Maker\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP7)) {
-				synergyTxt += " - Yaoi Fan\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP8)) {
-				synergyTxt += " - Super Predator\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP9)) {
-				synergyTxt += " - Too Smart and Too Powerful\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP10)) {
-				synergyTxt += " - Salt Master\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP11)) {
-				synergyTxt += " - Debilus Team Member\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP12)) {
-				synergyTxt += " - Waifu Body Pillow\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP13)) {
-				synergyTxt += " - Infinite Intellect\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP14)) {
-				synergyTxt += " - Wild Mage\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP15)) {
-				synergyTxt += " - Guerrier de l'Enfer\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP16)) {
-				synergyTxt += " - Too Much Dicks\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP17)) {
-				synergyTxt += " - Avatar of Tz'arkan\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP18)) {
-				synergyTxt += " - Obvious Tentacle Joke\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP19)) {
-				synergyTxt += " - Eldritch Gang\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP20)) {
-				synergyTxt += " - Master of Time\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP21)) {
-				synergyTxt += " - Big Nose\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP22)) {
-				synergyTxt += " - Extreme Karma\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP23)) {
-				synergyTxt += " - Ram Ranch\n";
-			}
-			if (this.hasSynergy(SYNERGY_PP24)) {
-				synergyTxt += " - Cosmopolitan\n";
-			}
-		}
-		if (synergyTxt != "") embedMessage.addField("Synergies", synergyTxt, true);
-
-		return embedMessage.toJSON();
 	}
 
 	playMove(_newMove = this.attack) {
@@ -3322,6 +3338,18 @@ var Fighter = class {
 					this.duel.addMessage(this.getName() + " has no ability to use!");
 				}
 			}
+			else if (attack == EMOTE_MECHA) {
+				// Skip
+				if (this.isReadyForColossus()) {
+					this.duel.addMessage(this.getName() + " summons the PP Colossus!");
+					this.ppColossus = 2;
+					this.ppColossusCountdown = 12;
+				}
+				else {
+					this.duel.addMessage(this.getName() + " is not ready to call the PP Colossus.");
+				}
+				return;
+			}
 			else if (attack == EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE) {
 				// Judgement Event
 				if (this.duel.ESPINOZA_CHOICE == attack) {
@@ -3394,6 +3422,10 @@ var Fighter = class {
 				this.duel.addMessage("-----------------");
 			}
 		}
+	}
+	isReadyForColossus() {
+		if (this.ppColossusCountdown > 0 || this.ppColossus > 0) return false;
+		return this.getStatusTxt().split("\n").length >= 5
 	}
 
 	heal(_amount) {
@@ -3729,6 +3761,8 @@ var Fighter = class {
 		this.turkeyCountdown -= 1;
 		this.inLove -= 1;
 		this.huTaoBuff -= 1;
+		this.ppColossus -= 1;
+		this.ppColossusCountdown -= 1;
 
 		if (this.empressLightBuff && getRandomPercent() <= 50) {
 			this.duel.addMessage(this.getName() + " feels the blessing by the Empress of Light!");
