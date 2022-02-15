@@ -23,6 +23,7 @@ var EMOTE_ABILITY = "698163488551469056"
 
 var MOVE_HELP = {}; // loaded with the bible
 var STAND_HELP = {}; // loaded with the bible
+var REQUIEM_HELP = {}; // loaded with the bible
 
 // COMMON MOVES
 var EMOTE_PP1 = "535844749467320322"; // PunchingPP

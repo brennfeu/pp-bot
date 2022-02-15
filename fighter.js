@@ -2687,7 +2687,7 @@ var Fighter = class {
 					this.duel.addMessage(this.getName() + " evolves to Requiem!");
 					this.requiemPower = randomFromList(REQUIEM_LIST);
 
-					if (this.idUser != CLIENT.user.id) this.guildUser.send("**Requiem Acquired: " + this.requiemPower + "**");
+					if (this.idUser != CLIENT.user.id) this.guildUser.send("**Requiem Acquired!**\n" + REQUIEM_HELP[this.requiemPower]);
 				}
 				else {
 					this.duel.addMessage(this.getName() + " needs more quickening charges to deal with it!");

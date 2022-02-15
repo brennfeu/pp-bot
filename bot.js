@@ -160,6 +160,7 @@ function checkUpdateEncyclopedia() {
 						}
 
 						if (encyChannels[i].topic == "Stånds") {
+							// stands help
 							if (fullBible[j].includes("-")) {
 								for (var s in STAND_SUMMONS) {
 									if (fullBible[j].includes(s)) stand = s;
@@ -167,6 +168,13 @@ function checkUpdateEncyclopedia() {
 							}
 							else if (fullBible[j].includes("Special Effects")) {
 								STAND_HELP[stand] = fullBible[j];
+							}
+
+							// requiems help
+							if (fullBible[j].includes(":")) {
+								for (var r in REQUIEM_LIST) {
+									if (fullBible[j].includes(r)) REQUIEM_HELP[r] = fullBible[j];
+								}
 							}
 						}
 					}
