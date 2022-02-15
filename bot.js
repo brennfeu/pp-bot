@@ -158,6 +158,16 @@ function checkUpdateEncyclopedia() {
 								emote = EMOTE_LIST[k];
 							}
 						}
+
+						if (encyChannels[i].topic != "Stånds") return; // only stands
+						for (var s in STAND_SUMMONS) {
+							if (fullBible[j].includes(s)) stand = s;
+							console.log("Current Stand: " + s);
+						}
+						if (fullBible[j].includes("Special Effects")) {
+							STAND_HELP[stand] = fullBible[j];
+							console.log(fullBible[j]);
+						}
 					}
 					else if (encyChannels[i].topic == "Gods") {
 						var cutBiblePart = fullBible[j].split("*").join("");
@@ -168,20 +178,6 @@ function checkUpdateEncyclopedia() {
 							      GOD_LIST[k].name.length > GOD_LIST.find(r => r.emote == emote).name.length)) {
 								emote = GOD_LIST[k].emote;
 							}
-						}
-					}
-					else { // stands
-						console.log(fullBible[j]);
-						// get current stand
-						for (var s in STAND_SUMMONS) {
-							if (fullBible[j].includes(s)) stand = s;
-							//console.log("Current Stand: " + s);
-						}
-
-						// save effect
-						if (fullBible[j].includes("Special Effects")) {
-							STAND_HELP[stand] = fullBible[j];
-							//console.log(fullBible[j]);
 						}
 					}
 
