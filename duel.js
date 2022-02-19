@@ -591,7 +591,7 @@ var Duel = class {
 			txt += "\n"
 		}
 		if (this.ADDITIONAL_FIGHT > 0) {
-			txt += " - Additional Neighbourhood Fight(s): " + this.ADDITIONAL_FIGHT + "\n";
+			txt += " - Additional Neighbourhood Battles" + ("!"*this.ADDITIONAL_FIGHT) + "\n";
 		}
 		if (this.KIDNEY_CURSE > 0) {
 			txt += " - Kidney Curse: " + this.KIDNEY_CURSE + "\n";
@@ -1373,11 +1373,11 @@ var Duel = class {
 				this.triggerBossFight(new IKEABoss(this));
 			}
 		}
-		else if (this.PPLEVEL > 50 && randomVar == 52) { // NEIGHBOUR CHAOS
+		else if (this.PPLEVEL > 50 && [52, 53, 54].indexOf(randomVar) > -1) { // NEIGHBOUR CHAOS
 			this.addMessage(" -- PUNCHING NEIGHBOURHOOD --");
 			this.addMessage("Some random guys are punching PP next to your location. We might inherit from the chaos they create!");
 			this.ADDITIONAL_FIGHT += 1;
-			this.MOVE_COUNT += Math.floor(getRandomPercent()*this.MOVE_COUNT*2);
+			this.MOVE_COUNT += Math.floor(getRandomPercent()*this.MOVE_COUNT*2/100);
 			this.sendMessages();
 
 			// trigger movecount events if
