@@ -240,7 +240,7 @@ var GOD_PP13 = {"name": "700IQ", "emote": "617258233307987986", "type": "normal"
 var GOD_PP14 = {"name": "UREGonnaGetRAPED", "emote": "615271176314290249", "type": "normal"};
 var GOD_PP15 = {"name": "STFU Isaac", "emote": "614822537800712213", "type": "normal"};
 var GOD_PP16 = {"name": "The Man Who made a Monster", "emote": "619795568230924291", "type": "normal"};
-var GOD_PP17 = {"name": "Hitler", "emote": "622395294390157329", "type": "normal"};
+var GOD_PP17 = {"name": "", "emote": "", "type": ""}; // ADD TO THE LIST
 var GOD_PP18 = {"name": "Salt King", "emote": "650830165751889935", "type": "normal"};
 var GOD_PP19 = {"name": "Chad Brenn", "emote": "644634924477055015", "type": "normal"};
 var GOD_PP26 = {"name": "Ranger", "emote": "673882539328536576", "type": "normal"};
@@ -271,7 +271,7 @@ var GOD_PP41 = {"name": "Hu Tao", "emote": "943152053063139358", "type": "waifu"
 var GOD_PP42 = {"name": "C.C.", "emote": "943263134930599967", "type": "waifu"};
 
 var GOD_LIST = [GOD_PP1, GOD_PP2, GOD_PP3, GOD_PP5, GOD_PP6, GOD_PP7, GOD_PP8, GOD_PP9, GOD_PP10, GOD_PP11,
-		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP17, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
+		 GOD_PP12, GOD_PP13, GOD_PP14, GOD_PP15, GOD_PP16, GOD_PP18, GOD_PP19, GOD_PP20, GOD_PP21,
 		 GOD_PP22, GOD_PP23, GOD_PP24, GOD_PP25, GOD_PP26, GOD_PP27, GOD_PP30, GOD_PP31, GOD_PP32, GOD_PP33,
 		 GOD_PP34, GOD_PP35, GOD_PP36, GOD_PP37, GOD_PP38, GOD_PP39, GOD_PP40, GOD_PP41, GOD_PP42];
 
