@@ -1099,7 +1099,7 @@ var Duel = class {
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 26) { // Tragedy
 			this.addMessage(" -- TRAGEDY --");
-			if (getRandomPercent() <= 50) {
+			if (getRandomPercent() <= 20) {
 				var winner = this.getRandomFighter();
 
 				this.addMessage("apolgy for bad english");
