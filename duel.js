@@ -1073,7 +1073,7 @@ var Duel = class {
 			this.bothFightersAction(function(_fighter) {
 				_fighter.godList = [];
 				for (var i in GOD_LIST) {
-					_fighter.godList.push(GOD_LIST[i].name);
+					if (GOD_LIST[i].name != "") _fighter.godList.push(GOD_LIST[i].name);
 				}
 
 				_fighter.isBigPP = true;

@@ -1290,9 +1290,10 @@ var Fighter = class {
 			}
 			else if (attack == EMOTE_PP25) {
 				// Bombardment
-				this.duel.addMessage(this.getName() + " calls for a bombardment !!!");
+				this.duel.addMessage(this.getName() + " calls for a bombardment!!!");
+				if (this.duel.EVENT_BOSS != null) this.duel.EVENT_BOSS.damage(1000, true, new FakeBoss(_fighter.duel, "Bombardier"));
 				this.duel.bothFightersAction(function(_fighter) {
-					_fighter.damage(1000, _fighter.duel.EVENT_BOSS != null)
+					_fighter.damage(1000, true, new FakeBoss(_fighter.duel, "Bombardier"));
 				});
 			}
 			else if (attack == EMOTE_PP26) {
@@ -3500,9 +3501,9 @@ var Fighter = class {
 		}
 	}
 
-	damage(_amount, _punch = true) {
+	damage(_amount, _punch = true, _enemyPuncher = this.duel.LAST_FIGHTER_TO_USE_A_MOVE) {
 		var ogAmount = _amount;
-		var enemyPuncher = this.duel.LAST_FIGHTER_TO_USE_A_MOVE;
+		var enemyPuncher = _enemyPuncher;
 		if (enemyPuncher == null) enemyPuncher = this.duel.getOppOf(this);
 
 		// value += x
