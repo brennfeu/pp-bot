@@ -209,6 +209,7 @@ var Fighter = class {
 					r = randomFromList(GOD_LIST).name;
 					if (this.godList.indexOf(r) < 0) {
 						this.godList.push(r);
+						this.duel.addMessage(r.name + " joins " + this.getName() = "!");
 					}
 				}
 			}
@@ -3674,7 +3675,7 @@ var Fighter = class {
 
 				// killer blessing
 				if (this.STR <= 0 && _punch) {
-					enemyPuncher.bossKiller += this.grantsKillerBlessings+1;
+					enemyPuncher.bossKiller += this.grantsKillerBlessings;
 					this.grantsKillerBlessings = 0;
 				}
 
@@ -4035,13 +4036,11 @@ var Fighter = class {
 		}
 
 		if (this.randomizedStand) {
-			this.duel.addMessage(this.getName() + " randomizes his ability!");
-			this.duel.addMessage("-----------------");
-
 			var keys = Object.keys(STAND_SUMMONS);
 			this.standPower = keys[ keys.length * Math.random() << 0];
-
-			this.guildUser.send("Current Stånd Ability: " + this.standPower);
+			this.duel.addMessage(this.getName() + " randomizes his ability!");
+			this.duel.addMessage(STAND_HELP[this.standPower]);
+			this.duel.addMessage("-----------------");
 		}
 		if (this.hasSupplyDrops) {
 			var r = getRandomPercent();
