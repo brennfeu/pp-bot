@@ -209,7 +209,7 @@ var Fighter = class {
 					r = randomFromList(GOD_LIST).name;
 					if (this.godList.indexOf(r) < 0) {
 						this.godList.push(r);
-						this.duel.addMessage(r.name + " joins " + this.getName() = "!");
+						this.duel.addMessage(r.name + " joins " + this.getName() + "!");
 					}
 				}
 			}
