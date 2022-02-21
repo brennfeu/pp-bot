@@ -121,10 +121,10 @@ var Duel = class {
 		}
 
 		// Wild Start
-		if (this.PPLEVEL > 50 && getRandomPercent() <= 500) {
+		if (this.PPLEVEL > 50 && getRandomPercent() <= 5) {
 			this.addMessage("", undefined, {embed:
 				{
-					"title": "**===== WILD START =====**",
+					"title": "**WILD START**",
 					"description": "Let's make things a bit more interesting!"
 				}
 			});
@@ -962,10 +962,13 @@ var Duel = class {
 			forcedEvent = true;
 		}
 
-		if (randomVar == 2) { // PP Enlightenment
-			this.EVENT_PP_ENLIGHTENMENT = true;
-			this.addMessage(" -- PP ENLIGHTENMENT --");
-			this.addMessage("Your PP temporarily become enlightened. All moves can now be used for this turn. \nIllegal moves are still illegal.");
+		if (randomVar == 2 || true) { // PP Enlightenment
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**PP ENLIGHTENMENT**",
+					"description": "Your PP temporarily become enlightened! All moves can now be used for this turn but illegal moves are still illegal!"
+				}
+			});
 		}
 		else if (randomVar == 3) { // PP Purge
 			this.EVENT_PP_PURGE = true;
