@@ -133,28 +133,46 @@ var Duel = class {
 		}
 		// Christian
 		if (this.PPLEVEL > 50 && getRandomPercent() <= 10 && !this.CHRISTIAN_TEXT) {
-			this.addMessage("**===== CHRISTIAN GAME =====**");
-			this.addMessage("Let's be a bit more friendly for Timmy:)");
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**CHRISTIAN GAME**",
+					"description": "Let's be a bit more friendly for Timmy!"
+				}
+			});
 			this.CHRISTIAN_TEXT = true;
 		}
 		// Weeb
 		if (this.PPLEVEL > 50 && getRandomPercent() <= 10) {
-			this.addMessage("**===== WEEB =====**");
 			var bossWeeb = new WeebBoss(this);
-			this.addMessage(bossWeeb.getName() + " challenges you!\n" + IMAGE_PP7);
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**WEEB**",
+					"description": bossWeeb.getName() + " challenges you!",
+					"image": { "url": IMAGE_PP7	}
+				}
+			});
 			this.triggerBossFight(bossWeeb)
 		}
 		// Nuisance
 		if (this.PPLEVEL > 50 && getRandomPercent() <= 5) {
-			this.addMessage("**===== ROOT OF NUISANCE =====**");
-			this.addMessage("Pudding just wants to harass you during the battle!\n" + IMAGE_PP8);
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**ROOT OF NUISANCE**",
+					"description": "Pudding just wants to harass you during the battle!",
+					"image": { "url": IMAGE_PP8	}
+				}
+			});
 			this.PUDDING_NUISANCE = Math.floor(getRandomPercent()/10) + 1;
 		}
 
 		// Ram Ranch
 		if (this.FIGHTER1.hasSynergy(SYNERGY_PP23) || this.FIGHTER2.hasSynergy(SYNERGY_PP23)) {
-			this.addMessage("**===== RAM RANCH =====**");
-			this.addMessage("*Eighteen naked cowboys in the showers at Ram Ranch.\nBig hard throbbing cocks wanting to be sucked.\nEighteen naked cowboys wanting to be fucked.\nCowboys in the showers at Ram Ranch.\nOn their knees wanting to suck cowboy cocks.\nRam Ranch really rocks.*");
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**RAM RANCH**",
+					"description": "*Eighteen naked cowboys in the showers at Ram Ranch.\nBig hard throbbing cocks wanting to be sucked.\nEighteen naked cowboys wanting to be fucked.\nCowboys in the showers at Ram Ranch.\nOn their knees wanting to suck cowboy cocks.\nRam Ranch really rocks.*"
+				}
+			});
 			this.bothFightersAction(function(_fighter) {
 				_fighter.hasBoner = true;
 			});
@@ -962,57 +980,91 @@ var Duel = class {
 			forcedEvent = true;
 		}
 
-		if (randomVar == 2 || true) { // PP Enlightenment
+		if (randomVar == 2) { // PP Enlightenment
 			this.addMessage("", undefined, {embed:
 				{
 					"title": "**PP ENLIGHTENMENT**",
 					"description": "Your PP temporarily become enlightened! All moves can now be used for this turn but illegal moves are still illegal!"
 				}
 			});
+			this.EVENT_PP_ENLIGHTENMENT = true;
 		}
 		else if (randomVar == 3) { // PP Purge
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**PP PURGE**",
+					"description": "All PPs grow a mohawk and start to roam the streets! Illegal moves can now be used freely but the judge can still see you if you use unavailable moves!"
+				}
+			});
 			this.EVENT_PP_PURGE = true;
-			this.addMessage(" -- PP PURGE --");
-			this.addMessage("All PPs grow a mohawk and start to roam the streets. \nIllegal moves can now be used freely but the judge can still see you if you use unavailable moves!");
 		}
 		else if (randomVar == 4) { // Sexually Confused
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**SEXUAL CONFUSION**",
+					"description": "Your PPs are confused for this turn!"
+				}
+			});
 			this.EVENT_CONFUSION = true;
-			this.addMessage(" -- SEXUAL CONFUSION --");
-			this.addMessage("Your PPs are confused for this turn!");
 		}
 		else if (this.PPLEVEL > 100 && randomVar == 5 && (this.MOVE_COUNT >= 30 || forcedEvent)) { // Cthulhu
 			if (this.EVENT_BOSS != null && this.EVENT_BOSS.evolveToMoonLord) {
-				this.addMessage(" -- MOON LORD AWAKENS --");
-				this.addMessage("Cthulhu is blessed by the moonlight!");
-				this.addMessage("The Moon Lord has been summoned and takes control over Cthulhu's body!");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**MOON LORD AWAKENS**",
+						"description": "Cthulhu is blessed by the moonlight!\nThe Moon Lord has been summoned and takes control over Cthulhu's body!"
+					}
+				});
 				this.triggerBossFight(new MoonLordBoss(this));
 			}
 			else if (this.EVENT_BOSS != null && this.EVENT_BOSS.isMoonLord) {
-				this.addMessage(" -- MOON LORD REGENERATION --");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**MOON LORD REGENERATION**",
+						"description": "The Moon Lord is blessed by the moonlight!"
+					}
+				});
 				this.EVENT_BOSS.heal(50000);
 			}
 			else if (this.EVENT_BOSS != null) {
-				this.addMessage(" -- CTHULHU SLEEPS --");
-				this.addMessage("And nothing happens at all...");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**CTHULHU SLEEPS**",
+						"description": "And nothing happens at all..."
+					}
+				});
 			}
 			else {
-				this.addMessage(" -- CTHULHU AWAKENS --");
-				this.addMessage("You have to beat Cthulhu by punching his huge PP in order to save the world!");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**CTHULHU AWAKENS**",
+						"description": "Your duel awakened the terrific elder one! Beat him before it's too late"
+					}
+				});
 				this.triggerBossFight(new CthulhuBoss(this));
 			}
 		}
 		else if (this.PPLEVEL > 100 && randomVar == 6 && (this.MOVE_COUNT >= 30 || forcedEvent)) { // Accidental Summoning
-			this.addMessage(" -- ACCIDENTAL SUMMONING --");
 			var winner = this.getRandomFighter();
-			this.addMessage(winner.getName() + " accidentaly plays Psychodiös on his phone and it summons Satan and the Ancient Fungus!");
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**ACCIDENTAL SUMMONING**",
+					"description": winner.getName() + " accidentaly plays Psychodiös on his phone and it summons Satan and the Ancient Fungus!"
+				}
+			});
 			this.sendMessages();
+
 			winner.playMove(EMOTE_PP26);
 			winner.playMove(EMOTE_PP46);
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 7 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) { // Blood Moon
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**BLOOD MOON**",
+					"description": "If someone dies this turn, their STR automatically stays at 10 but the remaining damages goes positive in the DEX."
+				}
+			});
 			this.EVENT_BLOOD_MOON = true;
-			this.addMessage(" -- BLOOD MOON --");
-			this.addMessage("If someone dies this turn, STR automatically stays at 10 but the remaining damages goes positive in the DEX.");
 			this.bothFightersAction(function(_fighter) {
 				if (_fighter.STR <= 0) {
 					_fighter.DEXValue += (0 - _fighter.STR) + 10;
@@ -1025,58 +1077,93 @@ var Duel = class {
 			}
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 8 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) { // Ascension
-			this.addMessage(" -- ASCENSION --");
 			var winner = this.getRandomFighter();
-			this.addMessage(winner.getName() + " accidentaly plays Ascend on his phone!");
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**ASCENSION**",
+					"description": winner.getName() + " accidentaly plays Ascend on his phone!"
+				}
+			});
 			this.bothFightersAction(function(_fighter) {
 				_fighter.playMove(EMOTE_PP49);
 			});
 		}
 		else if (this.PPLEVEL > 50 && [9, 10, 11, 12, 13, 14, 15, 16, 17, 18].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 10 || forcedEvent) && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) { // Charge
-			this.addMessage(" -- GODS BIRTHDAY GIFTS --");
 			if (this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
-				this.addMessage("Gods decide to give you a regular charge each");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**GODS BIRTHDAY GIFTS**",
+						"description": "Gods decide to give you a regular charge each!"
+					}
+				});
 				this.bothFightersAction(function(_fighter) {
 					_fighter.regularCharges++;
 				});
 			}
 			else {
-				this.addMessage("Gods decide to give you 3 quickening charges each");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**GODS BIRTHDAY GIFTS**",
+						"description": "Gods decide to give you 3 quickening charges each!"
+					}
+				});
 				this.bothFightersAction(function(_fighter) {
 					_fighter.quickeningCharges += 3;
 				});
 			}
 		}
 		else if (this.PPLEVEL > 50 && [19, 20, 21].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 25 || forcedEvent) && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) { // Charge
-			this.addMessage(" -- GODS CHRISTMAS GIFTS --");
 			if (this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
-				this.addMessage("Gods decide to give you a special charge each");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**GODS CHRISTMAS GIFTS**",
+						"description": "Gods decide to give you a special charge each!"
+					}
+				});
 				this.bothFightersAction(function(_fighter) {
 					_fighter.specialCharges++;
 				});
 			}
 			else {
-				this.addMessage("Gods decide to give you 10 quickening charges each");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**GODS CHRISTMAS GIFTS**",
+						"description": "Gods decide to give you 10 quickening charges each!"
+					}
+				});
 				this.bothFightersAction(function(_fighter) {
 					_fighter.quickeningCharges += 10;
 				});
 			}
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 22) { // Huge Gay Night
-			this.addMessage(" -- HUGE GAY NIGHT --");
 			if (this.GAY_TURNS > 0) {
 				this.GAY_TURNS += 10;
-				this.addMessage("Your gayness increase by 10 turns!");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**HUGE GAY NIGHT**",
+						"description": "Your gayness now lasts for 10 more turns!"
+					}
+				});
 			}
 			else {
 				this.GAY_TURNS = 1;
-				this.addMessage("You suddenly become gay for this turn!");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**HUGE GAY NIGHT**",
+						"description": "You suddenly become gay for this turn!"
+					}
+				});
 			}
 
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 23 && (this.MOVE_COUNT >= 30 || forcedEvent) && this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) { // PP Blessing
-			this.addMessage(" -- PP BLESSING --");
-			this.addMessage("You suddenly feel new powers in your PP!");
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**PP BLESSING**",
+					"description": "You suddenly feel new powers in your PP!"
+				}
+			});
 			this.bothFightersAction(function(_fighter) {
 				_fighter.godList = [];
 				for (var i in GOD_LIST) {
@@ -1092,28 +1179,36 @@ var Duel = class {
 		}
 		else if (this.PPLEVEL > 50 && [24, 25].indexOf(randomVar) > -1 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) { // Free Lives
 			if (this.EVENT_BOSS != null) {
-				this.addMessage(" -- FREE LIVES GOOD UPDATES --");
-				this.addMessage("Let's NOT riot Free Lives HQ.");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**FREE LIVES GOOD UPDATES**",
+						"description": "Let's NOT riot Free Lives HQ."
+					}
+				});
 				if (this.EVENT_BOSS.canceledByGoodUpdates) {
 					this.EVENT_BOSS = null;
 				}
 			}
 			else {
-				this.addMessage(" -- FREE LIVES RIOT --");
-				this.addMessage("Let's riot Free Lives HQ just for fun!");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**FREE LIVES RIOT**",
+						"description": "Let's riot Free Lives HQ just for fun!"
+					}
+				});
 				this.triggerBossFight(new FreeLivesBoss(this));
 			}
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 26) { // Tragedy
-			this.addMessage(" -- TRAGEDY --");
 			if (getRandomPercent() <= 20) {
 				var winner = this.getRandomFighter();
 
-				this.addMessage("apolgy for bad english");
-				this.addMessage("where were u wen club pp die");
-				this.addMessage(winner.getName() + " was at house eating dorito when phone ring");
-				this.addMessage(this.otherFighter(winner).getName() + ': "Club pp is kil"');
-				this.addMessage(winner.getName() + ': *"no"*');
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**TRAGEDY**",
+						"description": "apolgy for bad english\nwhere were u wen club pp die\n" + winner.getName() + " was at house eating dorito when phone ring\n" + this.otherFighter(winner).getName() + ': "Club pp is kil"\n' + winner.getName() + ': *"no"*'
+					}
+				});
 			}
 			else {
 				var brennUwu = CLIENT.emojis.cache.get("655449555873038337");
@@ -1127,14 +1222,13 @@ var Duel = class {
 					}
 				}
 
-				this.addMessage("*Dispair in IV acts.*");
-				this.sendMessages();
-				this.BATTLE_CHANNEL.send(`${brennUwu} ${waifu}`);
-				this.BATTLE_CHANNEL.send(`${brennUwu} ${waifu} ${espinoza}`);
-				this.BATTLE_CHANNEL.send(`${brennUwu}`);
-				this.BATTLE_CHANNEL.send(`${rageBrenn}`);
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**TRAGEDY**",
+						"description": "*Dispair in IV acts.*\n" + `${brennUwu} ${waifu}` + "\n" + `${brennUwu} ${waifu} ${espinoza}` + "\n" + `${brennUwu}` + "\n" + `${rageBrenn}`
+					}
+				});
 			}
-			this.addMessage("-----------------");
 			this.addMessage("You both take your turn to recover from this tragedy!");
 
 			this.bothFightersAction(function(_fighter) {
@@ -1144,41 +1238,59 @@ var Duel = class {
 		else if (this.PPLEVEL > 50 && [27, 28, 29, 30, 31].indexOf(randomVar) > -1) { // PP-Net
 			this.PP_NET += 1;
 			if (this.PP_NET == 1) {
-				this.addMessage(" -- PP-NET RISING --");
-				this.addMessage("A new military AI has been created.");
-				this.addMessage("Its name: PP-Net.");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**PP-NET RISING**",
+						"description": "A new military AI has been created.\nIts name: PP-Net."
+					}
+				});
 			}
 			else if (this.PP_NET == 2) {
-				this.addMessage(" -- PP-NET RISING --");
-				this.addMessage("Rumors are saying PP-Net is growing sentient... and is doing more than it should be doing.");
-				this.addMessage("The PP Police has been replaced with robots.");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**PP-NET RISING**",
+						"description": "Rumors are saying PP-Net is growing sentient... and is doing more calculations than what was planned.\nA PP Robot Police now roams the streets."
+					}
+				});
 			}
 			else if (this.PP_NET == 3) {
-				this.addMessage(" -- PP-NET RISING --");
-				this.addMessage("PP Punching is now considered 'illegal' because 'it is too dangerous'. This is dumb.");
-				this.addMessage("Let's continue the duel, but no weird move. I don't wanna go in prison.");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**PP-NET RISING**",
+						"description": "PP Punching is now considered 'illegal' because 'it is too dangerous'. This is dumb.\nWe better hide somewhere where the PP Police can't find us."
+					}
+				});
 			}
 			else if (this.PP_NET == 4) {
-				this.addMessage(" -- FBI OPEN UP --");
-				this.addMessage("An illegal PP Punch duel has been spotted!");
-				this.addMessage("Surrender or die!");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**PP-NET RISING**",
+						"description": "An illegal PP Punch duel has been spotted! Surrender or die!"
+					}
+				});
 				if (this.EVENT_BOSS != null) {
 					this.addMessage(this.EVENT_BOSS.getName() + " surrenders!");
 				}
 				this.triggerBossFight(new PPRobotPoliceBoss(this));
 			}
 			else if (this.PP_NET == 5) {
-				this.addMessage(" -- PP-NET RISING --");
-				this.addMessage("Humans are getting hunted down by the PP Police!");
-				this.addMessage("The PP Rebellion will get its revenge!");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**PP-NET RISING**",
+						"description": "Humans are getting hunted down by the PP Police!\nThe PP Rebellion will get its revenge!"
+					}
+				});
 				var boss = new PPRobotPoliceBoss(this);
 				boss.STRValue = 2000;
 				this.triggerBossFight(boss);
 			}
 			else if (this.PP_NET == 6) {
-				this.addMessage(" -- PP-NET RISING --");
-				this.addMessage("New robots have been created to hunt us down, and suck our precious PP!");
-				this.addMessage("We have to hunt them down!");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**PP-NET RISING**",
+						"description": "New robots have been created to hunt us down, and suck our precious PP!\nWe have to hunt them down!"
+					}
+				});
 				if (this.EVENT_BOSS != null) {
 					this.addMessage(this.EVENT_BOSS.getName() + "'s PP gets harvested!");
 					this.addMessage(this.EVENT_BOSS.getName() + " dies!");
@@ -1186,17 +1298,24 @@ var Duel = class {
 				this.triggerBossFight(new PPHarvesterBoss(this));
 			}
 			else if (this.PP_NET == 7) {
-				this.addMessage(" -- PP REBELLION RISING --");
-				this.addMessage("The rebellion has prepared a serum that makes your PP faster and stronger!");
-				this.addMessage("You both get 200 STR and 200 DEX!");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**PP REBELLION RISING**",
+						"description": "The rebellion has prepared a serum that makes your PP faster and stronger! You both get 200 STR and 200 DEX!"
+					}
+				});
 				this.bothFightersAction(function(_fighter) {
 					_fighter.STRValue += 200;
 					_fighter.DEXValue += 200;
 				});
 			}
 			else if (this.PP_NET == 8) {
-				this.addMessage(" -- PP-NET RISING --");
-				this.addMessage("The PP-Net Hive-Mind is challenging you!");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**PP-NET RISING**",
+						"description": "The PP-Net Hive-Mind itself challenges you!"
+					}
+				});
 				if (this.EVENT_BOSS != null) {
 					this.addMessage(this.EVENT_BOSS.getName() + "'s PP gets harvested!");
 					this.addMessage(this.EVENT_BOSS.getName() + " dies!");
@@ -1204,13 +1323,20 @@ var Duel = class {
 				this.triggerBossFight(new PPNetHiveMindBoss(this));
 			}
 			else if (this.PP_NET < 0) {
-				this.addMessage(" -- PP-NET RISING --");
-				this.addMessage("You better destroy the PP Terminator if you don't want the PP Rebellion to be without you!");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**PP-NET RISING**",
+						"description": "You better destroy the PP Terminator if you don't want the PP Rebellion to be without you!"
+					}
+				});
 			}
 			else {
-				this.addMessage(" -- PP REBELLION RISING --");
-				this.addMessage("The rebellion gives you another shot of the serum!");
-				this.addMessage("You both get 200 STR and 200 DEX!");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**PP REBELLION RISING**",
+						"description": "The rebellion gives you another shot of the serum!\nYou both get 200 STR and 200 DEX!"
+					}
+				});
 				this.bothFightersAction(function(_fighter) {
 					_fighter.STRValue += 200;
 					_fighter.DEXValue += 200;
@@ -1219,20 +1345,34 @@ var Duel = class {
 			}
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 32) { // Day of the PP Equality
-			this.addMessage(" -- DAY OF THE PP EQUALITY --");
-			this.addMessage("Today is Day of the PP Equality ! There is no DEX modifier for moves for this turn!");
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**DAY OF THE PP EQUALITY**",
+					"description": "Today is Day of the PP Equality ! There is no DEX modifier for moves for this turn!"
+				}
+			});
 			this.EVENT_PP_EQUALITY = true;
 		}
 		else if (this.PPLEVEL > 100 && randomVar == 33 && (this.MOVE_COUNT >= 1000 || forcedEvent)) { // Eldritch Gate
-			this.addMessage(" -- ELDRITCH GATE --");
 			if (this.EVENT_BOSS != null && this.EVENT_BOSS.eldritchGateBuff) {
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**ELDRITCH GATE**",
+						"description": "The Eldritch Gate grows larger! " + this.EVENT_BOSS.getName() + " gets more power!"
+					}
+				});
 				this.addMessage("The Eldritch Gate grows bigger! " + this.EVENT_BOSS.getName() + " gets more power!");
 				this.EVENT_BOSS.heal(500000);
 				this.EVENT_BOSS.baseDamage += 1000;
 			}
 			else {
 				var boss = new SatanBoss(this);
-				this.addMessage("The Eldritch Gate has been opened! " + boss.getName() + " faces you!");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**ELDRITCH GATE**",
+						"description": "The Eldritch Gate has been opened! " + boss.getName() + " faces you!"
+					}
+				});
 				if (this.EVENT_BOSS != null) {
 					this.addMessage("He destroys " + this.EVENT_BOSS.getName() + " just to show off");
 				}
@@ -1240,16 +1380,25 @@ var Duel = class {
 			}
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 34 && (this.MOVE_COUNT >= 100 || forcedEvent)) { // Ascension Requiem
-			this.addMessage(" -- ASCENSION REQUIEM --");
 			var winner = this.getRandomFighter();
-			this.addMessage(winner.getName() + " accidentaly plays Ascended Depression on his phone!");
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**ASCENSION REQUIEM**",
+					"description": winner.getName() + " accidentaly plays Ascended Depression on his phone!"
+				}
+			});
 			this.bothFightersAction(function(_fighter) {
 				_fighter.quickeningCharges += 10;
 				_fighter.playMove(EMOTE_PP77);
 			});
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 35 && this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) { // BIZARRE PP
-			this.addMessage(" -- BIZARRE PP BATTLE --");
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**BIZARRE PP BATTLE**",
+					"description": "Holy shit! Is that a reference to...?"
+				}
+			});
 			this.bothFightersAction(function(_fighter) {
 				var liste = Object.keys(STAND_SUMMONS);
 				_fighter.currentStand = liste[Math.floor(Math.random()*liste.length)];
@@ -1258,13 +1407,21 @@ var Duel = class {
 			this.checkStandSummon();
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 36) { // Mega Movepool
-			this.addMessage(" -- MEGA MOVEPOOL --");
-			this.addMessage("You get blessed by the gods and get an extended movepool for this turn!");
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**MEGA MOVEPOOL**",
+					"description": "You get blessed by the gods and get an extended movepool for this turn!"
+				}
+			});
 			this.EVENT_MEGA_POOL = true;
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 37) { // PP Depression
-			this.addMessage(" -- PP DEPRESSION --");
-			this.addMessage("PP Punching is not fun... Maybe you should put an end to this...? It is utter nonsense to punch PP anyway, let's just end what you shouldn't have started...");
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**PP DEPRESSION**",
+					"description": "PP Punching is not fun... Maybe you should put an end to this...? It is utter nonsense to punch PP anyway, let's just end what you shouldn't have started..."
+				}
+			});
 			this.EVENT_DEPRESSION = true;
 			if (this.GAY_TURNS > 0) {
 				this.GAY_TURNS = 0;
@@ -1272,21 +1429,33 @@ var Duel = class {
 			}
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 38 && (this.MOVE_COUNT >= 10 || forcedEvent)) { // Impending Bombardment
-			this.addMessage(" -- IMPENDING BOMBARDMENT --");
-			this.addMessage("A missile has been spotted above the battleground ! You have one turn before it hits the ground and explodes!");
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**IMPENDING BOMBARDMENT**",
+					"description": "A missile has been spotted above the battleground ! You have one turn before it hits the ground and explodes!"
+				}
+			});
 			this.EVENT_BOMB = true;
 		}
 		else if (randomVar == 39 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) { // Judgement
-			this.addMessage(" -- JUDGEMENT --");
-			this.addMessage("Who do you think is better ? FriedEspinoza or espinoze ? Make your bets!");
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**JUDGEMENT**",
+					"description": "Who do you think is better? FriedEspinoza or espinoze? Make your bets!"
+				}
+			});
 			this.ESPINOZA_CHOICE = EMOTE_FRIEDESPINOZA;
 			if (getRandomPercent() <= 50) {
 				this.ESPINOZA_CHOICE = EMOTE_ESPINOZE;
 			}
 		}
 		else if (randomVar == 40) { // Spanish Inquisition
-			this.addMessage(" -- PENIS INQUISITION --");
-			this.addMessage("Nobody expected them, but here they are!");
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**PENIS INQUISITION**",
+					"description": "Nobody expected them, but here they are!"
+				}
+			});
 			var winner = this.getRandomFighter();
 			if (this.otherFighter(winner).STR > winner.STR) {
 				winner = this.otherFighter(winner);
@@ -1295,21 +1464,34 @@ var Duel = class {
 			winner.damage(Math.floor(winner.STR/10));
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 41 && (this.MOVE_COUNT >= 30 || forcedEvent) && this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) { // Kaiju Attack
-			this.addMessage(" -- KAIJU ATTACK --");
 			var winner = this.getRandomFighter();
 			if (winner.kaijuHP > 0) {
-				this.addMessage(winner.getName() + "'s kaiju gets stronger!");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**KAIJU ATTACK**",
+						"description": winner.getName() + "'s kaiju gets stronger!"
+					}
+				});
 				winner.kaijuHP += 1000;
 			}
 			else {
-				this.addMessage(winner.getName() + " gets attacked by a kaiju!");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**KAIJU ATTACK**",
+						"description": winner.getName() + " gets attacked by a kaiju!"
+					}
+				});
 				winner.kaijuHP = 1000 - winner.getTotalDefBonus() - winner.militaryPower;
 				winner.resetArmy();
 			}
 		}
 		else if (randomVar == 42) { // Nudist Beach
-			this.addMessage(" -- NUDIST BEACH --");
-			this.addMessage("Fear is freedom ! Subjugation is liberation ! Contradiction is truth ! Those are the facts of this world ! And you will all surrender to them, you pigs in human clothing!");
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**NUDIST BEACH**",
+					"description": "Fear is freedom! Subjugation is liberation! Contradiction is truth! Those are the facts of this world! And you will all surrender to them, you pigs in human clothing!"
+				}
+			});
 			this.bothFightersAction(function(_fighter) {
 				_fighter.resetBattleVariables();
 			});
@@ -1318,27 +1500,40 @@ var Duel = class {
 			if (this.POOPOO_UNIVERSE) {
 				this.POOPOO_UNIVERSE = false;
 				this.ALTERNATE_MOVES = false;
-				this.addMessage(" -- ALTERNATE PP UNIVERSE --");
-				this.addMessage("For some unknown reason, the duel gets teleported into an alternate universe!");
-				this.addMessage("You finally get out of the filthy poopoo punching world!");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**ALTERNATE PP UNIVERSE**",
+						"description": "For some unknown reason, the duel gets teleported into an alternate universe!\nYou finally get out of the filthy poopoo punching world!"
+					}
+				});
 			}
 			else if (this.ALTERNATE_MOVES) {
-				this.addMessage(" -- ALTERNATE PP UNIVERSE --");
-				this.addMessage("For some unknown reason, the duel gets teleported into an alternate universe!");
-				this.addMessage("You get back to your original world!");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**ALTERNATE PP UNIVERSE**",
+						"description": "For some unknown reason, the duel gets teleported into an alternate universe!\nYou get back to your original world!"
+					}
+				});
 				this.ALTERNATE_MOVES = false;
 			}
 			else {
-				this.addMessage(" -- ALTERNATE PP UNIVERSE --");
-				this.addMessage("For some unknown reason, the duel gets teleported into an alternate universe!");
-				this.addMessage("Each moves has the same DEX modifier, illegal chances et ability to always pass, but their effect may have slightly changed!");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**ALTERNATE PP UNIVERSE**",
+						"description": "For some unknown reason, the duel gets teleported into an alternate universe!\nEach moves has the same DEX modifier, illegal chances et ability to always pass, but their effect may have slightly changed!"
+					}
+				});
 				this.ALTERNATE_MOVES = true;
 				this.ALTERNATE_MOVE_COUNT = this.MOVE_COUNT;
 			}
 		}
 		else if (this.PPLEVEL > 100 && randomVar == 44 && (this.MOVE_COUNT >= 1000 || forcedEvent)) { // Obama
-			this.addMessage(" -- OBAMIUM --");
-			this.addMessage("Thanks to your PP Punching, a new Obamium source has been found ! Scientists are giving you some!");
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**OBAMIUM**",
+					"description": "Thanks to your PP Punching, a new Obamium source has been found! Scientists are giving you some!"
+				}
+			});
 			this.OBAMIUM = true;
 			this.OBAMIUM_DONE = true;
 		}
@@ -1349,38 +1544,59 @@ var Duel = class {
 		else if (this.PPLEVEL > 200 && randomVar == 50 && (this.MOVE_COUNT >= 1000 || forcedEvent) &&
 			( (isPlayerExpertPP(this.FIGHTER1) && isPlayerWeebPP(this.FIGHTER1)) ||
 			(isPlayerExpertPP(this.FIGHTER2) && isPlayerWeebPP(this.FIGHTER2) && this.FIGHTER2.idUser != CLIENT.user.id) )) { // Wyndoella
-			this.addMessage(" -- WYNDOELLA KILLS PUDDING --");
-			this.addMessage("The Universe itself challenges you!\n" + IMAGE_PP9);
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**WYNDOELLA KILLS PUDDING**",
+					"description": "The Universe itself challenges you!",
+					"image": { "url": IMAGE_PP9 }
+				}
+			});
 			this.triggerBossFight(new WyndoeallaBoss(this));
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 51 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) { // IKEA
 			if (this.EVENT_BOSS != null) {
 				if (this.EVENT_BOSS.isIkea) {
-					this.addMessage(" -- IKEA EXTENSION --");
-					this.addMessage("The swedish pilgrims added a new extension to the Ikea.");
+					this.addMessage("", undefined, {embed:
+						{
+							"title": "**IKEA EXTENSION**",
+							"description": "The swedish pilgrims added a new extension to the Ikea.",
+						}
+					});
 					this.EVENT_BOSS.heal(500);
 					this.EVENT_BOSS.baseDamage += 40;
 				}
 				else {
-					this.addMessage(" -- PEACEFUL IKEA --");
-					this.addMessage("Swedish pilgrims built a peaceful IKEA.");
-					this.addMessage(IMAGE_PP10);
-					this.addMessage("They offer you some ammos to help you in your battle.");
+					this.addMessage("", undefined, {embed:
+						{
+							"title": "**PEACEFUL IKEA**",
+							"description": "Swedish pilgrims built a peaceful IKEA.\nThey offer you some ammos to help you in your battle.",
+							"image": { "url": IMAGE_PP10 }
+						}
+					});
 					this.bothFightersAction(function(_fighter) {
 						_fighter.fullOfAmmo = true;
 					});
 				}
 			}
 			else {
-				this.addMessage(" -- IKEA RIOT --");
-				this.addMessage("Swedish pilgrims invaded and built an IKEA!");
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**IKEA RIOT**",
+						"description": "Swedish pilgrims invaded and built an IKEA!",
+						"image": { "url": IMAGE_PP10 }
+					}
+				});
 				this.addMessage(IMAGE_PP10);
 				this.triggerBossFight(new IKEABoss(this));
 			}
 		}
 		else if (this.PPLEVEL > 50 && [52, 53, 54].indexOf(randomVar) > -1) { // NEIGHBOUR CHAOS
-			this.addMessage(" -- PUNCHING NEIGHBOURHOOD --");
-			this.addMessage("Some random guys are punching PP next to your location. We might inherit from the chaos they create!");
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**PUNCHING NEIGHBOURHOOD**",
+					"description": "Some random guys are punching PP next to your location. We might inherit from the chaos they create!"
+				}
+			});
 			this.ADDITIONAL_FIGHT += 1;
 			this.MOVE_COUNT += Math.floor(getRandomPercent()*this.MOVE_COUNT*2/100);
 			this.sendMessages();
@@ -1392,8 +1608,12 @@ var Duel = class {
 		}
 		// DON'T FORGET TO UPDATE FORCE EVENT IF NEW EVENTS ARE ADDED
 		else if (this.PPLEVEL > 200 && randomVar == 90 && (this.MOVE_COUNT >= 50 || forcedEvent)) { // Brenn Ejaculates
-			this.addMessage(" -- BRENN EJACULATES --");
-			this.addMessage("For some reasons, this summons every event!");
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**BRENN EJACULATES**",
+					"description": "For some reasons, this summons every event!"
+				}
+			});
 			if (getRandomPercent() <= 80) {
 				this.addMessage("***splooch splooch***");
 			}
