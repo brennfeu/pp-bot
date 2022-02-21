@@ -1291,7 +1291,7 @@ var Fighter = class {
 			else if (attack == EMOTE_PP25) {
 				// Bombardment
 				this.duel.addMessage(this.getName() + " calls for a bombardment!!!");
-				if (this.duel.EVENT_BOSS != null) this.duel.EVENT_BOSS.damage(1000, true, new FakeBoss(_fighter.duel, "Bombardier"));
+				if (this.duel.EVENT_BOSS != null) this.duel.EVENT_BOSS.damage(1000, true, new FakeBoss(this.duel, "Bombardier"));
 				this.duel.bothFightersAction(function(_fighter) {
 					_fighter.damage(1000, true, new FakeBoss(_fighter.duel, "Bombardier"));
 				});

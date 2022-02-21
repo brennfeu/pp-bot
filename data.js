@@ -371,21 +371,6 @@ var RELIC_PP6 = "";
 var RELIC_PP7 = "";
 var RELIC_LIST = [  ];
 
-// AREAS
-var AREA_PP1 = {"name": "Anime Convention", "description": "No Special Effect", "minLevel": 0};
-var AREA_PP2 = {"name": "DIKEA", "description": "No Special Effect", "minLevel": 0};
-var AREA_PP3 = {"name": "High School", "description": "No Special Effect", "minLevel": 0};
-var AREA_PP4 = {"name": "Allfaiths Temple", "description": "No Special Effect", "minLevel": 0};
-var AREA_PP5 = {"name": "Christian Settlement", "description": "No Special Effect", "minLevel": 0};
-var AREA_PP6 = {"name": "Abandoned Island", "description": "No Special Effect", "minLevel": 0};
-var AREA_PP7 = {"name": "Ram Ranch", "description": "Triggers the Ram Ranch synergy.", "minLevel": 50};
-var AREA_PP8 = {"name": "Eldritch Cult HQ", "description": "The duel has 20% chance to teleport to an alternate dimension every turn.", "minLevel": 100};
-var AREA_PP8 = {"name": "Infernal Fireland", "description": "Triggers Infernal Fireland at the start of the duel.", "minLevel": 50};
-var AREA_PP9 = {"name": "Espinoza's Palace", "description": "Triggers PP Armageddon at the start of the duel, and doubles the chance of Espinoza to spawn.", "minLevel": 100};
-var AREA_PP10 = {"name": "Eldritch Realm", "description": "No Special Effect", "minLevel": 100};
-var AREA_PP11 = {"name": "Infinite Space", "description": "No Special Effect", "minLevel": 200};
-var AREA_LIST = [ AREA_PP1, AREA_PP2, AREA_PP3, AREA_PP4, AREA_PP5, AREA_PP6, AREA_PP7, AREA_PP8, AREA_PP9, AREA_PP10, AREA_PP11];
-
 // BATTLE MODES
 var NORMAL_BATTLE_MODE = 0;
 var STAND_BATTLE_MODE = 1;
@@ -418,6 +403,22 @@ var IMAGE_PP8 = "https://cdn.discordapp.com/attachments/616228498075549756/69613
 var IMAGE_PP9 = "https://cdn.discordapp.com/attachments/293809868844826626/704361750379757618/image0.png";
 var IMAGE_PP10 = "https://cdn.discordapp.com/attachments/667337519477817363/709374406014795826/image0.png";
 var IMAGE_LIST = [IMAGE_PP1, IMAGE_PP2, IMAGE_PP3, IMAGE_PP4, IMAGE_PP5, IMAGE_PP6, IMAGE_PP7, IMAGE_PP8, IMAGE_PP9, IMAGE_PP10];
+
+// AREAS
+var AREA_PP1 = {"name": "Anime Convention", "description": "No Special Effect", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945440404654944277/unknown.png", "minLevel": 0};
+var AREA_PP2 = {"name": "DIKEA", "description": "No Special Effect", "imageLink": IMAGE_PP10, "minLevel": 0};
+var AREA_PP3 = {"name": "High School", "description": "No Special Effect", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945440974346289292/unknown.png", "minLevel": 0};
+var AREA_PP4 = {"name": "Allfaiths Temple", "description": "No Special Effect", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945442102563721236/unknown.png", "minLevel": 0};
+var AREA_PP5 = {"name": "Christian Settlement", "description": "No Special Effect", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945441506880270346/unknown.png", "minLevel": 0};
+var AREA_PP6 = {"name": "Abandoned Island", "description": "No Special Effect", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945441669317279774/unknown.png", "minLevel": 0};
+var AREA_PP7 = {"name": "Ram Ranch", "description": "Triggers the Ram Ranch synergy.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945441935584292864/unknown.png", "minLevel": 50};
+var AREA_PP8 = {"name": "Eldritch Cult HQ", "description": "The duel has 20% chance to teleport to an alternate dimension every turn.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945441178369810432/unknown.png", "minLevel": 100};
+var AREA_PP8 = {"name": "Infernal Fireland", "description": "Triggers Infernal Fireland at the start of the duel.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945442621764042812/unknown.png", "minLevel": 50};
+var AREA_PP9 = {"name": "Espinoza's Palace", "description": "Triggers PP Armageddon at the start of the duel, and doubles the chance of Espinoza to spawn.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945447618329337896/unknown.png", "minLevel": 100};
+var AREA_PP10 = {"name": "Eldritch Realm", "description": "No Special Effect", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945444488002818108/unknown.png", "minLevel": 100};
+var AREA_PP11 = {"name": "Infinite Space", "description": "No Special Effect", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945443672554635265/unknown.png", "minLevel": 200};
+var AREA_LIST = [ AREA_PP1, AREA_PP2, AREA_PP3, AREA_PP4, AREA_PP5, AREA_PP6, AREA_PP7, AREA_PP8, AREA_PP9, AREA_PP10, AREA_PP11];
+
 
 // IDs
 var ID_BRENNFEU = "234439428372824075";

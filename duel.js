@@ -119,7 +119,8 @@ var Duel = class {
 		this.addMessage("", undefined, { embed:
 			{
 				"title": "Terrain: " + this.AREA.name,
-				"description": this.AREA.description
+				"description": this.AREA.description,
+				"image": { "url": this.AREA.imageLink }
 			}
 		})
 
