@@ -129,13 +129,18 @@ var Duel = class {
 				_fighter.godList = [];
 			});
 		}
+		if (this.AREA == AREA_PP6) this.FORCE_EVENT_ID = 35;
+		else if (this.AREA == AREA_PP8) this.MOVE_COUNT = 100;
+		else if (this.AREA == AREA_PP9 || this.AREA == AREA_PP10 || this.AREA == AREA_PP11) this.MOVE_COUNT = 1000;
 
 		if (this.FIGHTER1.guildUser.roles.cache.find(r => r.name == PP_SKIPPER_ROLE) && this.FIGHTER2.guildUser.roles.cache.find(r => r.name == PP_SKIPPER_ROLE)) {
 			this.MESSAGE_SKIP = true;
 		}
 
 		// Wild Start
-		if (this.PPLEVEL > 50 && getRandomPercent() <= 5) {
+		var weebPercent = 5;
+		if (this.AREA == AREA_PP1) weebPercent = 25;
+		if (this.PPLEVEL > 50 && getRandomPercent() <= weebPercent) {
 			this.addMessage("", undefined, {embed:
 				{
 					"title": "**WILD START**",
@@ -146,6 +151,7 @@ var Duel = class {
 			this.NUCLEAR_BOMB = 1;
 		}
 		// Christian
+		if (this.AREA == AREA_PP5) this.CHRISTIAN_TEXT = true;
 		if (this.PPLEVEL > 50 && getRandomPercent() <= 10 && !this.CHRISTIAN_TEXT) {
 			this.addMessage("", undefined, {embed:
 				{
@@ -180,7 +186,7 @@ var Duel = class {
 		}
 
 		// Ram Ranch
-		if (this.FIGHTER1.hasSynergy(SYNERGY_PP23) || this.FIGHTER2.hasSynergy(SYNERGY_PP23)) {
+		if (this.AREA == AREA_PP7 || this.FIGHTER1.hasSynergy(SYNERGY_PP23) || this.FIGHTER2.hasSynergy(SYNERGY_PP23)) {
 			this.addMessage("", undefined, {embed:
 				{
 					"title": "**RAM RANCH**",
@@ -936,8 +942,22 @@ var Duel = class {
 		var randomVar = getRandomPercent();
 		var forcedEvent = this.FORCE_EVENT;
 
-		if (this.FORCE_EVENT) {
-			while (!(randomVar <= 51 && randomVar >= 2)) {
+		if (this.AREA == AREA_PP4 && this.getRandomPercent() <= 25) {
+			forcedEvent = true;
+			if (this.getRandomPercent() <= 10) randomVar = 9;
+			else randomVar = 19;
+		}
+		else if (this.AREA == AREA_PP10 && this.EVENT_BOSS == null && this.getRandomPercent() <= 10) {
+			forcedEvent = true;
+			randomVar = 50;
+		}
+		else if (this.AREA == AREA_PP8 && this.getRandomPercent() <= 20) {
+			forcedEvent = true;
+			randomVar = 43;
+		}
+		// update while condition when add new event
+		else if (this.FORCE_EVENT || (this.AREA == AREA_PP3 && this.getRandomPercent() <= 25)) {
+			while (!(randomVar <= 54 && randomVar >= 2)) {
 				randomVar = getRandomPercent();
 			}
 		}
@@ -2150,6 +2170,8 @@ var Duel = class {
 			this.addMessage("This is so beautiful...");
 			this.addMessage("I love you all.");
 			this.sendMessages();
+
+			if (this.AREA == AREA_PP12) this.DOUBLE_POINTS = true;
 			this.bothFightersAction(function(_fighter) {
 				_fighter.win("half")
 			});

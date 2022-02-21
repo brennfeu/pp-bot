@@ -405,19 +405,21 @@ var IMAGE_PP10 = "https://cdn.discordapp.com/attachments/667337519477817363/7093
 var IMAGE_LIST = [IMAGE_PP1, IMAGE_PP2, IMAGE_PP3, IMAGE_PP4, IMAGE_PP5, IMAGE_PP6, IMAGE_PP7, IMAGE_PP8, IMAGE_PP9, IMAGE_PP10];
 
 // AREAS
-var AREA_PP1 = {"name": "Anime Convention", "description": "No Special Effect", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945440404654944277/unknown.png", "minLevel": 0};
-var AREA_PP2 = {"name": "DIKEA", "description": "No Special Effect", "imageLink": IMAGE_PP10, "minLevel": 0};
-var AREA_PP3 = {"name": "High School", "description": "No Special Effect", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945440974346289292/unknown.png", "minLevel": 0};
-var AREA_PP4 = {"name": "Allfaiths Temple", "description": "No Special Effect", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945442102563721236/unknown.png", "minLevel": 0};
-var AREA_PP5 = {"name": "Christian Settlement", "description": "No Special Effect", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945441506880270346/unknown.png", "minLevel": 0};
-var AREA_PP6 = {"name": "Abandoned Island", "description": "No Special Effect", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945441669317279774/unknown.png", "minLevel": 0};
-var AREA_PP7 = {"name": "Ram Ranch", "description": "Triggers the Ram Ranch synergy.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945441935584292864/unknown.png", "minLevel": 50};
-var AREA_PP8 = {"name": "Eldritch Cult HQ", "description": "The duel has 20% chance to teleport to an alternate dimension every turn.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945441178369810432/unknown.png", "minLevel": 100};
-var AREA_PP8 = {"name": "Infernal Fireland", "description": "Triggers Infernal Fireland at the start of the duel.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945442621764042812/unknown.png", "minLevel": 50};
-var AREA_PP9 = {"name": "Espinoza's Palace", "description": "Triggers PP Armageddon at the start of the duel, and doubles the chance of Espinoza to spawn.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945447618329337896/unknown.png", "minLevel": 100};
-var AREA_PP10 = {"name": "Eldritch Realm", "description": "No Special Effect", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945444488002818108/unknown.png", "minLevel": 100};
-var AREA_PP11 = {"name": "Infinite Space", "description": "No Special Effect", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945443672554635265/unknown.png", "minLevel": 200};
-var AREA_LIST = [ AREA_PP1, AREA_PP2, AREA_PP3, AREA_PP4, AREA_PP5, AREA_PP6, AREA_PP7, AREA_PP8, AREA_PP9, AREA_PP10, AREA_PP11];
+var AREA_PP1 = {"name": "Anime Convention", "description": "An endless anime convention that seems to be the home of many weebs and degenerates.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945440404654944277/unknown.png", "minLevel": 0};
+var AREA_PP2 = {"name": "DIKEA", "description": "This IKEA was built by swedish pilgrims, and it now is Pudding's home.", "imageLink": IMAGE_PP10, "minLevel": 0};
+var AREA_PP3 = {"name": "High School", "description": "It's more like a chaotic academy where people just punch each other to the death than a classic high school. Nobody seems to think of it as a bad thing, so this violent behaviour never stopped.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945440974346289292/unknown.png", "minLevel": 0};
+var AREA_PP4 = {"name": "Allfaiths Temple", "description": "An old temple in which you can pray for every existing god. There's either an incredible amount of people LARPing here, either something strange happening here.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945442102563721236/unknown.png", "minLevel": 0};
+var AREA_PP5 = {"name": "Christian Settlement", "description": "This place is largest complex of christian activities, where everyone prays The Lord every day", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945441506880270346/unknown.png", "minLevel": 25};
+var AREA_PP6 = {"name": "Abandoned Island", "description": "A remote private island known to be the ancient home of a criminal. Not only was he a friend of Espinoza, he was also conducting experiments regarding fighting spirits.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945441669317279774/unknown.png", "minLevel": 50};
+var AREA_PP7 = {"name": "Ram Ranch", "description": "I'll you what, this place really rocks. It smells weird, but it rocks.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945441935584292864/unknown.png", "minLevel": 50};
+var AREA_PP8 = {"name": "Eldritch Cult HQ", "description": "Cultists are doing rituals everywhere around you. But that's not the important part, what's important is your duel.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945441178369810432/unknown.png", "minLevel": 100};
+var AREA_PP8 = {"name": "Infernal Fireland", "description": "Plenty of forest fires have been set off as a result of Neon Hydra's escape from the circus making the nearby 100 square km into an infernal fireland.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945442621764042812/unknown.png", "minLevel": 50};
+var AREA_PP9 = {"name": "Espinoza's Palace", "description": "Home of the Eldritch God of Arm Sniffing, all around you is a chaotic armageddon.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945447618329337896/unknown.png", "minLevel": 100};
+var AREA_PP10 = {"name": "Eldritch Realm", "description": "Home of the Eldritch Gods, all around you is a chaotic armageddon.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945444488002818108/unknown.png", "minLevel": 100};
+var AREA_PP11 = {"name": "Infinite Space", "description": "PP Punching in space sounds cool, doesn't it? Just gotta hold your breath for a while.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945443672554635265/unknown.png", "minLevel": 200};
+var AREA_PP12 = {"name": "France", "description": "Who doesn't know about France? The country of croissants, omelettes du fromage, wine, good bread, cheese and a lot more! As a wise man once said: 'I give the cigarette to the bébé'.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945458168731942922/unknown.png", "minLevel": 0};
+var AREA_LIST = [ AREA_PP1, AREA_PP2, AREA_PP3, AREA_PP4, AREA_PP5, AREA_PP6, AREA_PP7, AREA_PP8, AREA_PP9,
+		AREA_PP10, AREA_PP11, AREA_PP12];
 
 
 // IDs

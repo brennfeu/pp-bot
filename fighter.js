@@ -3482,6 +3482,10 @@ var Fighter = class {
 
 	heal(_amount) {
 		_amount += this.quickeningCharges*3;
+		if (this.duel.AREA == AREA_PP10) {
+			_amount += Math.floor(_amount/2);
+		}
+		
 		if (this.duel.REVERSE_DAMAGE <= 0 && this.selfReverseDamage <= 0 && !this.duel.POOPOO_UNIVERSE) {
 			this.STRValue += _amount;
 			this.duel.addMessage(this.getName() + " heals " + _amount + " HP!");
@@ -3528,6 +3532,9 @@ var Fighter = class {
 		if (this.duel.STEEL_PROTECTION) {
 			// Steel
 			_amount -= Math.floor(_amount/10*9);
+		}
+		if (this.duel.AREA == AREA_PP10) {
+			_amount += Math.floor(_amount/2);
 		}
 		if (enemyPuncher.hasSynergy(SYNERGY_PP16) && _punch) {
 			// Too Much Dicks

@@ -56,7 +56,10 @@ var Boss = class extends Fighter {
     rollEspinozaMimic() {
         if (this.duel.PPLEVEL < 100) return false;
 
-        if (getRandomPercent() <= this.mimicPercentage) {
+        var percentage = this.mimicPercentage;
+        if (this.AREA == AREA_PP9) percentage += percentage;
+
+        if (getRandomPercent() <= percentage) {
             if (this.puddingLaughIfMimic) {
                 this.duel.addMessage("You hear Pudding laughing in the distance.");
             }
@@ -169,6 +172,8 @@ var IKEABoss = class extends Boss {
         super(_duel, "IKEA", 500);
         this.baseDamage = 40;
         this.mimicPercentage = 20;
+
+        if (this.duel.AREA == AREA_PP2) this.STRValue = this.STRValue*4;
 
         this.imageURL = "https://cdn.discordapp.com/attachments/715322091804819486/942778851841441812/unknown.png";
 
