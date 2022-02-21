@@ -942,21 +942,21 @@ var Duel = class {
 		var randomVar = getRandomPercent();
 		var forcedEvent = this.FORCE_EVENT;
 
-		if (this.AREA == AREA_PP4 && this.getRandomPercent() <= 25) {
+		if (this.AREA == AREA_PP4 && getRandomPercent() <= 25) {
 			forcedEvent = true;
-			if (this.getRandomPercent() <= 10) randomVar = 9;
+			if (getRandomPercent() <= 10) randomVar = 9;
 			else randomVar = 19;
 		}
-		else if (this.AREA == AREA_PP10 && this.EVENT_BOSS == null && this.getRandomPercent() <= 10) {
+		else if (this.AREA == AREA_PP10 && this.EVENT_BOSS == null && getRandomPercent() <= 10) {
 			forcedEvent = true;
 			randomVar = 50;
 		}
-		else if (this.AREA == AREA_PP8 && this.getRandomPercent() <= 20) {
+		else if (this.AREA == AREA_PP8 && getRandomPercent() <= 20) {
 			forcedEvent = true;
 			randomVar = 43;
 		}
 		// update while condition when add new event
-		else if (this.FORCE_EVENT || (this.AREA == AREA_PP3 && this.getRandomPercent() <= 25)) {
+		else if (this.FORCE_EVENT || (this.AREA == AREA_PP3 && getRandomPercent() <= 25)) {
 			while (!(randomVar <= 54 && randomVar >= 2)) {
 				randomVar = getRandomPercent();
 			}
