@@ -1348,7 +1348,7 @@ var Duel = class {
 			this.addMessage("", undefined, {embed:
 				{
 					"title": "**DAY OF THE PP EQUALITY**",
-					"description": "Today is Day of the PP Equality ! There is no DEX modifier for moves for this turn!"
+					"description": "Today is Day of the PP Equality! There is no DEX modifier for moves for this turn!"
 				}
 			});
 			this.EVENT_PP_EQUALITY = true;
@@ -1802,6 +1802,12 @@ var Duel = class {
 			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP8).name, fighter.user);
 		}
 
+		if (this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_MECHA) > -1 && this.FIGHTER2.isReadyForColossus()) {
+			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_MECHA).name, fighter.user);
+		}
+		if (this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_ABILITY) > -1) {
+			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_ABILITY).name, fighter.user);
+		}
 		for (i = 0; i < RARE_EMOTE_LIST.length; i++) { // Rare Moves
 			if (this.LIST_AVAILABLE_ATTACKS.indexOf(RARE_EMOTE_LIST[i]) > -1) {
 				return this.triggerReaction(CLIENT.emojis.cache.get(RARE_EMOTE_LIST[i]).name, fighter.user);
