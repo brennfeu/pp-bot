@@ -91,6 +91,13 @@ var Duel = class {
 		this.AUDIO_CHANNEL = null;
 		this.CURRENT_THEME = null;
 
+		if (getRandomPercent() < 10) {
+			this.addMessage("**TIME FOR A D-D-D-D-D-D-DUEL**");
+		}
+		else {
+			this.addMessage("**TIME FOR A DUEL**");
+		}
+
 		this.FIGHTER1 = new Fighter(_message.author.id, this.BATTLE_CHANNEL.id);
 		if (!_alone) {
 			this.FIGHTER2 = new Fighter(_message.mentions.users.last().id, this.BATTLE_CHANNEL.id);
@@ -101,6 +108,7 @@ var Duel = class {
 		}
 
 		this.PPLEVEL = Math.min(getWinCounter(this.FIGHTER1.idUser), getWinCounter(this.FIGHTER2.idUser));
+		this.addMessage("PP Level: " + this.PPLEVEL);
 
 		if (this.PPLEVEL <= 50 || this.EASY_DUEL) {
 			this.bothFightersAction(function(_fighter) {
@@ -112,22 +120,14 @@ var Duel = class {
 			this.MESSAGE_SKIP = true;
 		}
 
-		if (getRandomPercent() < 10) {
-			this.addMessage("**TIME FOR A D-D-D-D-D-D-DUEL**");
-		}
-		else {
-			this.addMessage("**TIME FOR A DUEL**");
-		}
-		this.addMessage("PP Level: " + this.PPLEVEL);
-
 		// Wild Start
 		if (this.PPLEVEL > 50 && getRandomPercent() <= 500) {
-			this.addMessage("", undefined,
+			this.addMessage("", undefined, {embed:
 				{
 					"title": "**===== WILD START =====**",
 					"description": "Let's make things a bit more interesting!"
 				}
-			);
+			});
 			this.REVERSE_DAMAGE = 1;
 			this.NUCLEAR_BOMB = 1;
 		}
