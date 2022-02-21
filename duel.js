@@ -121,9 +121,13 @@ var Duel = class {
 		this.addMessage("PP Level: " + this.PPLEVEL);
 
 		// Wild Start
-		if (this.PPLEVEL > 50 && getRandomPercent() <= 5) {
-			this.addMessage("**===== WILD START =====**");
-			this.addMessage("Let's make things a bit more interesting!");
+		if (this.PPLEVEL > 50 && getRandomPercent() <= 500) {
+			this.addMessage("", undefined,
+				{
+					"title": "**===== WILD START =====**",
+					"description": "Let's make things a bit more interesting!"
+				}
+			);
 			this.REVERSE_DAMAGE = 1;
 			this.NUCLEAR_BOMB = 1;
 		}
