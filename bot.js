@@ -629,7 +629,7 @@ CLIENT.on("message", async _message => {
 		}
 
 		if (getRandomPercent() <= 2) {
-			return _message.channel.send("Oops, looks like there was an error:\n<Error>: \"I don't care about your duel\"");
+			return _message.channel.send("Sorry I've chosen to ignore your request because it is complete shit.");
 		}
 
 		var duel = new Duel(false);

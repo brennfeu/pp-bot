@@ -361,6 +361,31 @@ var REQUIEM_PP9 = "Porcupine Tree";
 var REQUIEM_LIST = [REQUIEM_PP1, REQUIEM_PP2, REQUIEM_PP3, REQUIEM_PP4, REQUIEM_PP5, REQUIEM_PP6, REQUIEM_PP7,
 		     REQUIEM_PP8, REQUIEM_PP9];
 
+// RELICS
+var RELIC_PP1 = "";
+var RELIC_PP2 = "";
+var RELIC_PP3 = "";
+var RELIC_PP4 = "";
+var RELIC_PP5 = "";
+var RELIC_PP6 = "";
+var RELIC_PP7 = "";
+var RELIC_LIST = [  ];
+
+// AREAS
+var AREA_PP1 = {"name": "Anime Convention", "description": "No Special Effect", "minLevel": 0};
+var AREA_PP2 = {"name": "DIKEA", "description": "No Special Effect", "minLevel": 0};
+var AREA_PP3 = {"name": "High School", "description": "No Special Effect", "minLevel": 0};
+var AREA_PP4 = {"name": "Allfaiths Temple", "description": "No Special Effect", "minLevel": 0};
+var AREA_PP5 = {"name": "Christian Settlement", "description": "No Special Effect", "minLevel": 0};
+var AREA_PP6 = {"name": "Abandoned Island", "description": "No Special Effect", "minLevel": 0};
+var AREA_PP7 = {"name": "Ram Ranch", "description": "Triggers the Ram Ranch synergy.", "minLevel": 50};
+var AREA_PP8 = {"name": "Eldritch Cult HQ", "description": "The duel has 20% chance to teleport to an alternate dimension every turn.", "minLevel": 100};
+var AREA_PP8 = {"name": "Infernal Fireland", "description": "Triggers Infernal Fireland at the start of the duel.", "minLevel": 50};
+var AREA_PP9 = {"name": "Espinoza's Palace", "description": "Triggers PP Armageddon at the start of the duel, and doubles the chance of Espinoza to spawn.", "minLevel": 100};
+var AREA_PP10 = {"name": "Eldritch Realm", "description": "No Special Effect", "minLevel": 100};
+var AREA_PP11 = {"name": "Infinite Space", "description": "No Special Effect", "minLevel": 200};
+var AREA_LIST = [ AREA_PP1, AREA_PP2, AREA_PP3, AREA_PP4, AREA_PP5, AREA_PP6, AREA_PP7, AREA_PP8, AREA_PP9, AREA_PP10, AREA_PP11];
+
 // BATTLE MODES
 var NORMAL_BATTLE_MODE = 0;
 var STAND_BATTLE_MODE = 1;

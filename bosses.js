@@ -54,10 +54,11 @@ var Boss = class extends Fighter {
         this.rollEspinozaMimic();
     }
     rollEspinozaMimic() {
+        if (this.duel.PPLEVEL < 100) return false;
+
         if (getRandomPercent() <= this.mimicPercentage) {
             if (this.puddingLaughIfMimic) {
                 this.duel.addMessage("You hear Pudding laughing in the distance.");
-                this.duel.addMessage("-----------------");
             }
             this.duel.addMessage(this.getName() + " was only a mimic!");
 

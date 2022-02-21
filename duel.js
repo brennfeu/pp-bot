@@ -36,6 +36,8 @@ var Duel = class {
 		this.DAMAGE_COUNT = 0;
 		this.MOVE_COUNT_TURN = 0;
 
+		this.AREA = null;
+
 		this.ILLEGAL_BOMBING = false;
 		this.BOREAL_WORLD = false;
 		this.BLIND_COUNTDOWN = 0;
@@ -109,6 +111,17 @@ var Duel = class {
 
 		this.PPLEVEL = Math.min(getWinCounter(this.FIGHTER1.idUser), getWinCounter(this.FIGHTER2.idUser));
 		this.addMessage("PP Level: " + this.PPLEVEL);
+
+		while (this.AREA == null) {
+			var randomArea = randomFromList(AREA_LIST);
+			if (this.PPLEVEL >= randomArea.minLevel) this.AREA = randomArea;
+		}
+		this.addMessage("", undefined, { embed:
+			{
+				"title": "Terrain: " + this.AREA.name,
+				"description": this.AREA.description
+			}
+		})
 
 		if (this.PPLEVEL <= 50 || this.EASY_DUEL) {
 			this.bothFightersAction(function(_fighter) {
