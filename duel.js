@@ -131,8 +131,8 @@ var Duel = class {
 			});
 		}
 		if (this.AREA == AREA_PP6) this.FORCE_EVENT_ID = 35;
-		else if (this.AREA == AREA_PP8) this.MOVE_COUNT = 100;
-		else if (this.AREA == AREA_PP9 || this.AREA == AREA_PP10 || this.AREA == AREA_PP11) this.MOVE_COUNT = 1000;
+		if (this.AREA == AREA_PP8 || this.AREA == AREA_PP11) this.INFERNAL_FIRELAND = true;
+		if (this.AREA == AREA_PP9 || this.AREA == AREA_PP10 || this.AREA == AREA_PP11) this.PP_ARMAGEDDON = true;
 
 		if (this.FIGHTER1.guildUser.roles.cache.find(r => r.name == PP_SKIPPER_ROLE) && this.FIGHTER2.guildUser.roles.cache.find(r => r.name == PP_SKIPPER_ROLE)) {
 			this.MESSAGE_SKIP = true;
