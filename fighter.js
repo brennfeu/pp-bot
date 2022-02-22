@@ -4055,14 +4055,15 @@ var Fighter = class {
 
 		// Espinoza Waifu Stealer
 		if (this.duel.MOVE_COUNT > 30 && this.godList.indexOf(GOD_PP12.name) > -1) {
-			for (var i in this.duel.getOppOf(this).godList) {
-				if (this.duel.getOppOf(this).godList[i].type == "waifu") {
-					this.duel.addMessage(this.getName() + " uses Espinoza sniffes " + this.duel.getOppOf(this).getName() + "!");
-					this.duel.addMessage(this.duel.getOppOf(this).godList[i].name + " leaves " + this.duel.getOppOf(this).getName() + " for " + this.getName() + "!");
+			var opp = this.duel.getOppOf(this);
+			for (var i in opp.godList) {
+				if (opp.godList[i].type == "waifu") {
+					this.duel.addMessage(this.getName() + " uses Espinoza sniffes " + opp.getName() + "!");
+					this.duel.addMessage(opp.godList[i].name + " leaves " + opp.getName() + " for " + this.getName() + "!");
 					this.duel.addMessage("Espinoza truly is a waifu stealer!");
 
-					this.duel.getOppOf(this).godList.splice(this.duel.getOppOf(this).godList.indexOf(this.duel.getOppOf(this).godList[i].name), 1);
-					this.godList.push(this.duel.getOppOf(this).godList[i].name);
+					this.godList.push(opp.godList[i].name);
+					opp.godList.splice(opp.godList.indexOf(opp.godList[i].name), 1);
 					this.duel.addMessage("-----------------");
 				}
 			}
