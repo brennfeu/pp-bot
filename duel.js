@@ -37,6 +37,7 @@ var Duel = class {
 		this.MOVE_COUNT_TURN = 0;
 
 		this.AREA = null;
+		this.RELIC_TREASURE = RELIC_LIST.slice();
 
 		this.ILLEGAL_BOMBING = false;
 		this.BOREAL_WORLD = false;
@@ -1494,6 +1495,7 @@ var Duel = class {
 			if (this.otherFighter(winner).STR > winner.STR) {
 				winner = this.otherFighter(winner);
 			}
+			if (this.EVENT_BOSS != null) winner = this.EVENT_BOSS;
 			this.addMessage("They bite " + winner.getName() + "'s PP as he seems to have the toughest PP.");
 			winner.damage(Math.floor(winner.STR/10));
 		}
@@ -1638,6 +1640,28 @@ var Duel = class {
 			// trigger movecount events if
 			this.FORCE_EVENT_ID = -1;
 			this.startRandomEvent();
+			this.sendMessages();
+		}
+		else if (this.PPLEVEL > 50 && [55, 56, 57, 58, 59, 60, 61, 62, 63, 64].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 5 || forcedEvent)) { // GILGAMESH
+			if (this.EVENT_BOSS != null) {
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**GILGAMESH**",
+						"description": "The King of Heroes helps " + this.EVENT_BOSS.getName() + "!"
+					}
+				});
+				this.EVENT_BOSS.getRandomRelic();
+			}
+			else {
+				this.addMessage("", undefined, {embed:
+					{
+						"title": "**GILGAMESH**",
+						"description": "The King of Heroes challenges you!"
+					}
+				});
+				this.triggerBossFight(new GilgameshBoss());
+			}
+
 			this.sendMessages();
 		}
 		// DON'T FORGET TO UPDATE FORCE EVENT IF NEW EVENTS ARE ADDED

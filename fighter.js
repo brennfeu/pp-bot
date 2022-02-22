@@ -31,6 +31,7 @@ var Fighter = class {
 		this.godList = [];
 		this.standPower = _stand;
 		this.requiemPower = null;
+		this.relics = [];
 
 		this.currentStand = null;
 		this.usedMoves = [];
@@ -573,6 +574,11 @@ var Fighter = class {
 		// STATUS
 		var statusTxt = this.getStatusTxt();
 		if (statusTxt != "") embedMessage.addField("Status", statusTxt, true);
+
+		// RELICS
+		var relicsTxt = "";
+		for (var i in this.relics) relicsTxt += this.relics[i] + "\n";
+		if (relicsTxt != "") embedMessage.addField("Relics", relicsTxt, true);
 
 		// SYNERGIES
 		var synergyTxt = "";
@@ -3681,10 +3687,13 @@ var Fighter = class {
 				// Damage
 				this.STRValue -= _amount;
 
-				// killer blessing
+				// killer blessing and relics
 				if (this.STR <= 0 && _punch) {
 					enemyPuncher.bossKiller += this.grantsKillerBlessings;
 					this.grantsKillerBlessings = 0;
+
+					enemyPuncher.relics = enemyPuncher.relics.concat(this.relics);
+					this.relics = [];
 				}
 
 				if (enemyPuncher.standPower == STAND_PP12 && _punch) { // Space Metal
@@ -4200,6 +4209,16 @@ var Fighter = class {
 			}
 		}
 		return true;
+	}
+	hasRelic(_relic) {
+		return this.relics.indexOf(_relic) > -1;
+	}
+	getRandomRelic() {
+		if (this.duel.RELIC_TREASURE.length == 0) return;
+
+		var randomRelic = randomFromList(this.duel.RELIC_TREASURE);
+		this.relics.push(randomRelic);
+		this.duel.RELIC_TREASURE.splice(this.duel.RELIC_TREASURE.indexOf(randomRelic), 1);
 	}
 
 	resetBattleVariables() {

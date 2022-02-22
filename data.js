@@ -362,14 +362,17 @@ var REQUIEM_LIST = [REQUIEM_PP1, REQUIEM_PP2, REQUIEM_PP3, REQUIEM_PP4, REQUIEM_
 		     REQUIEM_PP8, REQUIEM_PP9];
 
 // RELICS
-var RELIC_PP1 = "";
-var RELIC_PP2 = "";
-var RELIC_PP3 = "";
-var RELIC_PP4 = "";
-var RELIC_PP5 = "";
-var RELIC_PP6 = "";
-var RELIC_PP7 = "";
-var RELIC_LIST = [  ];
+var RELIC_PP1 = "Legato";
+var RELIC_PP2 = "Holy Prepuce";
+var RELIC_PP3 = "Ultimate Bleach";
+var RELIC_PP4 = "Nerdy Kiwi";
+var RELIC_PP5 = "Amogus Plush";
+var RELIC_PP6 = "Shark Suit";
+var RELIC_PP7 = "Aeolia";
+var RELIC_PP8 = "Door Bro License";
+var RELIC_PP9 = "Brocas Helm";
+var RELIC_PP10 = "Senjougahara Figure";
+var RELIC_LIST = [ RELIC_PP1, RELIC_PP2, RELIC_PP3, RELIC_PP4, RELIC_PP5, RELIC_PP6, RELIC_PP7, RELIC_PP8, RELIC_PP9, RELIC_PP10 ];
 
 // BATTLE MODES
 var NORMAL_BATTLE_MODE = 0;

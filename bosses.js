@@ -228,7 +228,7 @@ var PuddingBlobBoss = class extends Boss {
         this.godList.push(GOD_PP14.name);
 
         this.mimicPercentage = 5;
-        this.this.grantsKillerBlessings = 3;
+        this.grantsKillerBlessings = 3;
         this.puddingLaughIfMimic = true;
     }
 
@@ -244,6 +244,35 @@ var PuddingBlobBoss = class extends Boss {
         else {
             this.duel.addMessage("Pudding is bored of this, he will stop sending you blobs...");
         }
+    }
+}
+
+var GilgameshBoss = class extends Boss {
+    constructor(_duel) {
+        super(_duel, "Gilgamesh", 1);
+        if (this.duel.RELIC_TREASURE.length > 0) {
+            var bossValue = RELIC_LIST.length - this.duel.RELIC_TREASURE.length;
+
+            for (var i = 0; i < this.bossValue+1; i++) this.getRandomRelic();
+        }
+        else {
+            var bossValue = RELIC_LIST.length*2;
+        }
+
+        this.baseDamage = 10 + 20*bossValue;
+        this.grantsKillerBlessings = 3 + 2*bossValue;
+        this.STRValue = 100 + 400*bossValue;
+
+        this.mimicPercentage = 2*bossValue;
+
+        this.imageURL = "https://cdn.discordapp.com/attachments/667337519477817363/945632793273188382/unknown.png";
+
+        this.godList = [];
+    }
+
+    triggerDeath() {
+        this.duel.addMessage(this.getName() + " will come back!");
+        super.triggerDeath();
     }
 }
 
