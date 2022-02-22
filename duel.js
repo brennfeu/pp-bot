@@ -213,11 +213,11 @@ var Duel = class {
 		this.addMessage("", true, {embed: this.FIGHTER1.toString()});
 		this.addMessage("", true, {embed: this.FIGHTER2.toString()});
 		this.addMessage("**===== SOME STATS =====**");
-		var txt = "- Number of moves: " + this.MOVE_COUNT;
+		var txt = "- Total Move Count: " + this.MOVE_COUNT;
 		if (this.MOVE_COUNT == 69) {
 			txt += " (hahaha)";
 		}
-		txt += "\n- Number of damages inflicted: " + this.DAMAGE_COUNT;
+		txt += "\n- Total Inflicted Damage: " + this.DAMAGE_COUNT;
 		if (this.DAMAGE_COUNT == 69) {
 			txt += " (hahaha)";
 		}

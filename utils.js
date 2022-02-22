@@ -127,7 +127,7 @@ function randomFromList(_list) {
 	if (_list.length == 0) {
 		return null;
 	}
-	return shuffleArray(_list)[0];
+	return shuffleArray(_list.slice())[0];
 }
 
 function fibonacciNumber(_n) {
