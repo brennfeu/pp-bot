@@ -538,7 +538,7 @@ var Fighter = class {
 			godsText += "\n" + displayEmote(EMOTE_PP51) + " Regular Charges: " + this.regularCharges;
 		}
 		if (this.specialCharges > 0) {
-			godsText += "\n" + displayEmote(EMOTE_PP52) + "Special Charges: " + this.specialCharges;
+			godsText += "\n" + displayEmote(EMOTE_PP52) + " Special Charges: " + this.specialCharges;
 		}
 		if (godsText != "") embedMessage.addField("Faith", godsText, true);
 
@@ -3485,7 +3485,7 @@ var Fighter = class {
 		if (this.duel.AREA == AREA_PP10) {
 			_amount += Math.floor(_amount/2);
 		}
-		
+
 		if (this.duel.REVERSE_DAMAGE <= 0 && this.selfReverseDamage <= 0 && !this.duel.POOPOO_UNIVERSE) {
 			this.STRValue += _amount;
 			this.duel.addMessage(this.getName() + " heals " + _amount + " HP!");

@@ -375,8 +375,8 @@ var Duel = class {
 		if (this.CHRISTIAN_TEXT) {
 			_texte = changeTextChristian(_texte);
 		}
-		if (this.INFERNAL_FIRELAND && getRandomPercent() <= 10) {
-			_texte += " **IT'S AN INFERNAL FIRELAND**"
+		if (this.INFERNAL_FIRELAND && getRandomPercent() <= 5) {
+			_texte += "\n**IT'S AN INFERNAL FIRELAND**"
 		}
 		if (this.MESSAGE_SKIP && !_forceAppear) {
 			return;
@@ -919,14 +919,12 @@ var Duel = class {
 		}
 
 		if (this.FIGHTER1.STR <= 0 && this.FIGHTER2.STR <= 0) {
-			this.addMessage("-----------------");
 			this.addMessage("Both of you lost. No one won this time. You losers.");
 			this.stopDuel();
 			return;
 		}
 		this.bothFightersAction(function(_fighter) {
 			if (_fighter.STR <= 0 && _fighter.duel.EVENT_BOSS == null) {
-				_fighter.duel.addMessage("-----------------");
 				if (_fighter.grabbedPP > 0) {
 					_fighter.duel.addMessage("*Confusion* was " + _fighter.getName() + "'s epitaph.");
 				}
