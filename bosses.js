@@ -1,5 +1,9 @@
 var Boss = class extends Fighter {
     constructor(_duel, _name, _baseHP) {
+        if (_duel == undefined) { // default constructor
+			return;
+		}
+
         super(CLIENT.user.id, _duel.BATTLE_CHANNEL.id);
         this.bossName = _name;
         this.destroyerOfWorlds = false;
@@ -30,6 +34,21 @@ var Boss = class extends Fighter {
         return this.imageURL;
     }
 
+    // better scaling with infernalfireland/pparmageddon
+    get STR() {
+        var str = super.STR;
+
+        if (this.duel.PP_ARMAGEDDON) {
+            str = Math.floor(str/100);
+        }
+        else if (this.duel.INFERNAL_FIRELAND) {
+            str = Math.floor(str/10);
+        }
+
+        return str;
+    }
+
+    // 0
     get DEX() {
         return 0;
     }
@@ -89,6 +108,8 @@ var Boss = class extends Fighter {
 
         var damage = this.baseDamage;
         if (this.isMoonLord && this.duel.EVENT_BLOOD_MOON) damage += damage;
+        if (this.duel.PP_ARMAGEDDON) damage = damage*100000;
+        else if (this.duel.INFERNAL_FIRELAND) damage = damage*100;
 
         if (randomFighter.cthulhuShield > 0) {
             this.duel.addMessage(randomFighter.getName() + " reflects the damages!");
