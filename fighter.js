@@ -3855,8 +3855,8 @@ var Fighter = class {
 		this.inLove -= 1;
 
 		if (this.empressLightBuff && getRandomPercent() <= 50) {
-			this.duel.addMessage(this.getName() + " feels the blessing by the Empress of Light!");
 			this.duel.addMessage("-----------------");
+			this.duel.addMessage(this.getName() + " feels the blessing by the Empress of Light!");
 		}
 		else { // timed effects -= 1
 			this.doomReverse -= 1;
@@ -3894,6 +3894,7 @@ var Fighter = class {
 				nbTries += 1;
 			}
 			if (nbTries < 100) {
+				this.duel.addMessage("-----------------");
 				this.godList.push(randomGod.name);
 				this.duel.addMessage(this.getName() + " becomes a " + randomGod.name + " Priest!");
 			}
@@ -3903,6 +3904,7 @@ var Fighter = class {
 
 		// Turkey
 		if (this.turkeyCountdown >= 0) {
+			this.duel.addMessage("-----------------");
 			if (this.turkeyCountdown == 0) {
 				this.duel.addMessage(this.getName() + " explodes!");
 				this.damage(1000, false);
@@ -3910,11 +3912,11 @@ var Fighter = class {
 			else {
 				this.duel.addMessage(this.getName() + " has " + this.turkeyCountdown + " turn(s) left!");
 			}
-			this.duel.addMessage("-----------------");
 		}
 
 		// Bleed (SawBlade)
 		if (this.bleedDamage > 0) {
+			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " bleeds!");
 			var bleedDamage = this.bleedDamage;
 			if (this.isSalty) {
@@ -3926,10 +3928,10 @@ var Fighter = class {
 			else {
 				this.damage(bleedDamage, false);
 			}
-			this.duel.addMessage("-----------------");
 		}
 		// Melt
 		if (this.meltingDamage > 0) {
+			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " melts!");
 			if (this.hasSynergy(SYNERGY_PP4)) {
 				this.heal(this.meltingDamage);
@@ -3937,19 +3939,19 @@ var Fighter = class {
 			else {
 				this.damage(this.meltingDamage, false);
 			}
-			this.duel.addMessage("-----------------");
 		}
 
 		// blood blossom
 		if (this.bloodBlossom > 0) {
+			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " burns!");
 			this.damage(Maths.floor(this.STR/10), false);
 			this.bloodBlossom -= 1;
-			this.duel.addMessage("-----------------");
 		}
 
 		// Pig
 		if (this.pigHeal > 0) {
+			this.duel.addMessage("-----------------");
 			if (this.isCowBoy) {
 				this.duel.addMessage(this.getName() + " squeezes hog YEEHAAAAAW!");
 				this.heal(this.pigHeal*3);
@@ -3958,75 +3960,76 @@ var Fighter = class {
 				this.duel.addMessage(this.getName() + " squeezes hog!");
 				this.heal(this.pigHeal);
 			}
-			this.duel.addMessage("-----------------");
 		}
 		// holy prepuce
 		if (this.hasRelic(RELIC_PP2) && getRandomPercent() <= 25) {
+			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " feels holy!");
 			this.heal(Maths.max(this.DEX, 10));
-			this.duel.addMessage("-----------------");
 		}
 
 		// Charges
 		if (this.gettingRegularCharge == 0) {
+			this.duel.addMessage("-----------------");
 			this.regularCharges += 1;
 			this.duel.addMessage(this.getName() + " uses his long nose to get a regular charge!");
-			this.duel.addMessage("-----------------");
 		}
 		if (this.gettingSpecialCharge == 0) {
+			this.duel.addMessage("-----------------");
 			this.specialCharges += 1;
 			this.duel.addMessage(this.getName() + " uses his long nose to get a special charge!");
-			this.duel.addMessage("-----------------");
 		}
 
 		// Hive Pack
 		if (this.hivePack > 0 && getRandomPercent() <= this.hivePack) {
+			this.duel.addMessage("-----------------");
 			this.duel.getOppOf(this).hasBurst = 2;
 			this.duel.addMessage(this.getName() + "'s bees attack " + this.duel.getOppOf(this).getName() + "!");
-			this.duel.addMessage("-----------------");
 		}
 
 		// Geass
 		if (this.duel.EVENT_BOSS == null && this.kingsPower > 0 && getRandomPercent() <= this.hivePack) {
+			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " uses his geass!");
 			this.duel.otherFighter(this).isPossessed = 2;
 		}
 
 		// Boss Killer
 		if (this.bossKiller > 0) {
+			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " gets +1 DEX thanks to the Killer Adrenaline!");
 			this.DEXValue += 1;
 			this.heal(30);
-			this.duel.addMessage("-----------------");
 			this.bossKiller -= 1;
 		}
 
 		// The Man Who Made a Monster regular move
 		if (this.tearDrinker > 0) {
+			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " drinks salty tears!");
 			this.heal(this.tearDrinker);
 			if (this.hasSynergy(SYNERGY_PP10)) {
 				this.duel.getOppOf(this).damage(this.tearDrinker);
 			}
-			this.duel.addMessage("-----------------");
 		}
 
 		// Boreal Summon
 		if (this.borealSummon == 0) {
+			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " summons the Boreal World!");
 			this.duel.BOREAL_WORLD = true;
-			this.duel.addMessage("-----------------");
 		}
 		// Perfect Machine + Boreal Flame
 		if (this.standPower == STAND_PP2 && this.borealSummon < 0 && !this.duel.BOREAL_WORLD) {
+			this.duel.addMessage("-----------------");
 			this.borealSummon = 10;
 			this.duel.addMessage(this.getName() + " starts summoning the Boreal World!");
 		}
 
 		// Concepts of Maths
 		if (this.standPower == STAND_PP14) {
-			this.playMove(EMOTE_PP73);
 			this.duel.addMessage("-----------------");
+			this.playMove(EMOTE_PP73);
 		}
 
 		// Beyond the Space, Beyond the Time
@@ -4042,6 +4045,7 @@ var Fighter = class {
 
 		// Eldritch Pudding
 		if (this.tentacles > 0) {
+			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " attacks with tentacles!");
 			for (var i = 0; i < this.tentacles; i++) {
 				this.duel.getOppOf(this).damage(10);
@@ -4062,6 +4066,7 @@ var Fighter = class {
 			var opp = this.duel.getOppOf(this);
 			for (var i in opp.godList) {
 				if (opp.godList[i].type == "waifu") {
+					this.duel.addMessage("-----------------");
 					this.duel.addMessage(this.getName() + " uses Espinoza sniffes " + opp.getName() + "!");
 					this.duel.addMessage(opp.godList[i].name + " leaves " + opp.getName() + " for " + this.getName() + "!");
 					this.duel.addMessage("Espinoza truly is a waifu stealer!");
@@ -4075,46 +4080,47 @@ var Fighter = class {
 
 		// Synergies
 		if (this.hasSynergy(SYNERGY_PP1)) {
+			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " remembers haunting memories...");
 			this.duel.addMessage("Rage makes him build up 10 damages");
 			this.bonusDamage += 10;
-			this.duel.addMessage("-----------------");
 		}
 		if (this.hasSynergy(SYNERGY_PP2)) {
+			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " gets healed by the Holy Brenn Trinity!");
 			this.heal(5);
-			this.duel.addMessage("-----------------");
 		}
 		if (this.hasSynergy(SYNERGY_PP3)) {
+			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getOppName() + " gets hurt by the Unholy Pudding Trinity!");
 			this.duel.getOppOf(this).damage(5);
-			this.duel.addMessage("-----------------");
 		}
 		if (this.hasSynergy(SYNERGY_PP6)) {
+			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " plays garbage music");
 			this.duel.addMessage(this.duel.getOppOf(this).getName() + "'s ears starts bleeding");
 			this.duel.getOppOf(this).bleedDamage++;
-			this.duel.addMessage("-----------------");
 		}
 		if (this.hasSynergy(SYNERGY_PP7) && getRandomPercent() <= 10) {
+			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + "'s Yaoi starts!");
 			if (this.duel.GAY_TURNS < 2) {
 				this.duel.GAY_TURNS = 0;
 			}
 			this.duel.GAY_TURNS += 2;
-			this.duel.addMessage("-----------------");
 		}
 
 		if (this.randomizedStand) {
+			this.duel.addMessage("-----------------");
 			var keys = Object.keys(STAND_SUMMONS);
 			this.standPower = keys[ keys.length * Math.random() << 0];
 			this.duel.addMessage(this.getName() + " randomizes his ability!");
 			this.duel.addMessage(STAND_HELP[this.standPower]);
-			this.duel.addMessage("-----------------");
 		}
 		if (this.hasSupplyDrops) {
 			var r = getRandomPercent();
 			if (r <= 50) {
+				this.duel.addMessage("-----------------");
 				this.duel.addMessage(this.getName() + " gets a supply drop!");
 
 				if (r <= 10) { // Pill
@@ -4133,8 +4139,6 @@ var Fighter = class {
 					this.duel.addMessage(this.getName() + " gets binoculars!");
 					this.playMove(EMOTE_PP13);
 				}
-
-				this.duel.addMessage("-----------------");
 			}
 		}
 
@@ -4145,17 +4149,18 @@ var Fighter = class {
 
 		// Ryuko Special
 		if (this.hasKamui) {
+			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + "'s Kamui drains his blood!");
 			this.damage(20, false);
 			if (this.STR <= 40) {
 				this.hasKamui = false;
 				this.duel.addMessage(this.getName() + "'s Kamui leaves him to prevent his death!");
 			}
-			this.duel.addMessage("-----------------");
 		}
 
 		// ImpendingDoom
 		if (this.impendingDoom == 0) {
+			this.duel.addMessage("-----------------");
 			this.duel.addMessage("**" + this.getName() + " cannot escape fate and dies!**");
 			if (this.doomReverse > 0) {
 				this.duel.addMessage("**" + this.getName() + " uses DOOM-REVERSE(tm)!**");
@@ -4167,11 +4172,11 @@ var Fighter = class {
 				this.extraLife = 0;
 				this.STRValue -= this.STR;
 			}
-			this.duel.addMessage("-----------------");
 		}
 
 		// Akame's Murasame
 		if (this.murasameCurse) {
+			this.duel.addMessage("-----------------");
 			this.duel.addMessage("**" + this.getName() + "'s heart stops beating!**");
 			if (this.doomReverse > 0) {
 				this.duel.addMessage("**" + this.getName() + " uses DOOM-REVERSE(tm)!**");
@@ -4182,7 +4187,6 @@ var Fighter = class {
 			else {
 				this.STRValue -= this.STR;
 			}
-			this.duel.addMessage("-----------------");
 		}
 
 		if (this.futureMemories == 0 ||

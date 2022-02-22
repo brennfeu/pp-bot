@@ -427,7 +427,6 @@ var Duel = class {
 			this.TIME_COMPRESSION -= 1;
 
 			for (var nbTurn = 0; nbTurn < nbTurnChanges; nbTurn++) {
-				this.addMessage("**===== TURN CHANGE =====**");
 				if (nbTurn == 0) {
 					this.sendMessages();
 				}
@@ -518,6 +517,7 @@ var Duel = class {
 				if (this.EVENT_BLOOD_MOON) {
 					this.bothFightersAction(function(_fighter) {
 						if (_fighter.STR <= 0) {
+							this.duel.addMessage("-----------------");
 							_fighter.DEXValue += (0 - _fighter.STR) + 10;
 							_fighter.STRValue += (0 - _fighter.STR) + 10;
 							_fighter.duel.addMessage(_fighter.getName() + " got saved thanks to the Blood Moon");
@@ -528,8 +528,8 @@ var Duel = class {
 				// Bosses
 				if (this.EVENT_BOSS != null) {
 					if (this.EVENT_BOSS.STR > 0) { // boss attacks
+						this.duel.addMessage("-----------------");
 						this.EVENT_BOSS.triggerBossAttack();
-						this.addMessage("-----------------");
 					}
 
 					if (this.EVENT_BOSS.STR <= 0) { // boss dies
@@ -578,20 +578,15 @@ var Duel = class {
 				}
 
 				// events
-				if (!this.EASY_DUEL) {
-					this.addMessage("**===== EVENTS =====**");
-					this.startRandomEvent();
-				}
+				if (!this.EASY_DUEL) this.startRandomEvent();
 			}
 			this.sendMessages();
 		}
 
-		this.addMessage("**===== DEATH CHECK =====**");
 		this.checkDeath();
 		if (this.DEAD_DUEL) return;
 
-		if (this.INFERNAL_FIRELAND) {
-			// Give back instrument if needed (new life, stand battle etc...)
+		if (this.INFERNAL_FIRELAND) { // Give back instrument if needed (new life, stand battle etc...)
 			this.bothFightersAction(function(_fighter) {
 				if (_fighter.infernalInstrument <= 0) {
 					if (_fighter.duel.otherFighter(_fighter).infernalInstrument != 1) {
@@ -604,10 +599,7 @@ var Duel = class {
 			});
 		}
 
-		this.addMessage("\n\n**===== NEW TURN =====**", true);
-		this.sendMessages();
-
-		this.addMessage("**=== FIGHTERS ===**", true);
+		this.addMessage("**=== NEW TURN ===**", true);
 		this.sendMessages();
 		if (this.EVENT_BOSS == null) {
 			this.addMessage("", true, {embed: this.FIGHTER1.toString()});
