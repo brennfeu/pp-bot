@@ -631,7 +631,9 @@ var Duel = class {
 			txt += "\n"
 		}
 		if (this.ADDITIONAL_FIGHT > 0) {
-			txt += " - Additional Neighbourhood Battles" + ("!"*this.ADDITIONAL_FIGHT) + "\n";
+			txt += " - Additional Neighbourhood Battles";
+			for (var i = 0; i < this.ADDITIONAL_FIGHT; i++) txt += "!";
+			txt += "\n";
 		}
 		if (this.KIDNEY_CURSE > 0) {
 			txt += " - Kidney Curse: " + this.KIDNEY_CURSE + "\n";
