@@ -2036,7 +2036,7 @@ var Duel = class {
 			// Satan Hand
 			dont.push(EMOTE_PP77);
 		}
-		if (!this.DUEL.CHRISTIAN_TEXT) {
+		if (!this.CHRISTIAN_TEXT) {
 			dont.push(EMOTE_PP80);
 		}
 
