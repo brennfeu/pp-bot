@@ -1888,11 +1888,6 @@ var Duel = class {
 		if (this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_ABILITY) > -1) {
 			return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_ABILITY).name, fighter.user);
 		}
-		for (i = 0; i < RARE_EMOTE_LIST.length; i++) { // Rare Moves
-			if (this.LIST_AVAILABLE_ATTACKS.indexOf(RARE_EMOTE_LIST[i]) > -1) {
-				return this.triggerReaction(CLIENT.emojis.cache.get(RARE_EMOTE_LIST[i]).name, fighter.user);
-			}
-		}
 		for (var i in GOD_LIST) { // God
 			if (this.LIST_AVAILABLE_ATTACKS.indexOf(GOD_LIST[i].emote) > -1) {
 				return this.triggerReaction(CLIENT.emojis.cache.get(GOD_LIST[i].emote).name, fighter.user);
@@ -2040,6 +2035,9 @@ var Duel = class {
 		if (this.quickeningCharges < 10) {
 			// Satan Hand
 			dont.push(EMOTE_PP77);
+		}
+		if (!this.DUEL.CHRISTIAN_TEXT) {
+			dont.push(EMOTE_PP80);
 		}
 
 		if (dont.indexOf(fighter.oldAttack) > -1) {
