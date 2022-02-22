@@ -965,8 +965,13 @@ var Duel = class {
 
 		if (this.MOVE_COUNT >= 10000) {
 			// Heat death of the universe
-			this.addMessage(" -- HEAT DEATH OF THE UNIVERSE --");
-			this.addMessage("*You punched PP so much, the world collapses. Good job! You don’t get to go to work tomorrow. Or school. Or anything else. You wanna know why? Well... you see... YOU FUCKED IT ALL UP!!!*\n" + IMAGE_PP2);
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**HEAT DEATH OF THE UNIVERSE**",
+					"description": "You punched PP so much, the world collapses. Good job! You don’t get to go to work tomorrow. Or school. Or anything else. You wanna know why? Well... you see... YOU FUCKED IT ALL UP!!!",
+					"image": { "url": IMAGE_PP2 }
+				}
+			});
 			if (this.ALTERNATE_MOVES) {
 				this.addMessage("**You are sent back to your original reality!**");
 				this.MOVE_COUNT = this.ALTERNATE_MOVE_COUNT;
@@ -984,8 +989,13 @@ var Duel = class {
 			this.stopDuel();
 			for (var i in DUEL_LIST) {
 				if (DUEL_LIST[i].BATTLE_CHANNEL.id != this.BATTLE_CHANNEL.id) {
-					DUEL_LIST[i].addMessage(" -- HEAT DEATH OF THE UNIVERSE --");
-					DUEL_LIST[i].addMessage("*The Universe suddenly collapses.*\n" + IMAGE_PP2);
+					this.addMessage("", undefined, {embed:
+						{
+							"title": "**HEAT DEATH OF THE UNIVERSE**",
+							"description": "The Universe suddenly collapses!",
+							"image": { "url": IMAGE_PP2 }
+						}
+					});
 					DUEL_LIST[i].MOVE_COUNT = 1000000;
 					DUEL_LIST[i].stopDuel();
 				}
@@ -994,9 +1004,12 @@ var Duel = class {
 		}
 		if (this.PPLEVEL > 50 && !this.INFERNAL_FIRELAND && this.MOVE_COUNT >= 100) {
 			// INFERNAL FIRELAND
-			this.addMessage(" -- INFERNAL FIRELAND --");
-			this.addMessage("Plenty of forest fires have been set off as a result of your PP punching, making the nearby 100 square km into an Infernal Fireland!");
-			this.addMessage("The victory will be determined by your proficiency in your instrument. You two dueling souls have to come up with a solo each... the best one crowning the victory!");
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**INFERNAL FIRELAND**",
+					"description": "Plenty of forest fires have been set off as a result of your PP punching, making the nearby 100 square km into an Infernal Fireland!\nThe victory will be determined by your proficiency in your instrument. You two dueling souls have to come up with a solo each... the best one crowning the victory!"
+				}
+			});
 			var winner = this.getRandomFighter();
 			winner.infernalInstrument = 1; // Guitar
 			this.otherFighter(winner).infernalInstrument = 2; // Synth
@@ -1005,8 +1018,12 @@ var Duel = class {
 		if (this.PPLEVEL > 50 && !this.PP_ARMAGEDDON && this.MOVE_COUNT >= 1000) {
 			// PP ARMAGEDDON
 			this.PP_ARMAGEDDON = true;
-			this.addMessage(" -- PP ARMAGEDDON --");
-			this.addMessage("PPs have ascended, the end is near!");
+			this.addMessage("", undefined, {embed:
+				{
+					"title": "**PP ARMAGEDDON**",
+					"description": "PP Punching has ascended, the end is near!"
+				}
+			});
 		}
 
 		if (this.FORCE_EVENT_ID != 0) {
@@ -1622,7 +1639,6 @@ var Duel = class {
 						"image": { "url": IMAGE_PP10 }
 					}
 				});
-				this.addMessage(IMAGE_PP10);
 				this.triggerBossFight(new IKEABoss(this));
 			}
 		}
