@@ -253,7 +253,7 @@ var GilgameshBoss = class extends Boss {
         if (this.duel.RELIC_TREASURE.length > 0) {
             var bossValue = RELIC_LIST.length - this.duel.RELIC_TREASURE.length;
 
-            for (var i = 0; i < this.bossValue+1; i++) this.getRandomRelic();
+            for (var i = 0; i <= this.bossValue; i++) this.getRandomRelic();
         }
         else {
             var bossValue = RELIC_LIST.length*2;

@@ -344,6 +344,7 @@ var Duel = class {
 		if (_texte == undefined && _other == undefined) {
 			console.log("Empty message at:");
 			console.trace();
+			return;
 		}
 
 		var uwu = this.UWU_TEXT || this.POOPOO_UNIVERSE;

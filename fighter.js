@@ -43,6 +43,7 @@ var Fighter = class {
 		// Battle variables
 		this.resetBattleVariables();
 		this.dexMalus = 0;
+		this.hasBoomerang = 0;
 		this.turkeyCountdown = -1;
 		this.isPossessed = 0;
 		this.isCircumcised = false;
@@ -577,7 +578,7 @@ var Fighter = class {
 
 		// RELICS
 		var relicsTxt = "";
-		for (var i in RELIC_LIST) if (this.hasRelic(RELIC_LIST[i])) relicsTxt += RELIC_LIST[i][i] + "\n";
+		for (var i in RELIC_LIST) if (this.hasRelic(RELIC_LIST[i])) relicsTxt += RELIC_LIST[i] + "\n";
 		if (relicsTxt != "") embedMessage.addField("Relics", relicsTxt, true);
 
 		// SYNERGIES
