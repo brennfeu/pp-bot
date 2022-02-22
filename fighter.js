@@ -335,6 +335,9 @@ var Fighter = class {
 		if (this.hasSynergy(SYNERGY_PP24)) {
 			str += 15;
 		}
+		if (this.hasRelic(RELIC_PP6)) {
+			str += 20;
+		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			str += 50;
 			if (this.ultimatePPBuff) {
@@ -436,6 +439,9 @@ var Fighter = class {
 		}
 		if (this.requiemPower != null && this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
 			dex += 30;
+		}
+		if (this.hasRelic(RELIC_PP6)) {
+			dex += 5;
 		}
 		if (this.hasSynergy(SYNERGY_PP8)) {
 			dex += 10;
@@ -544,6 +550,11 @@ var Fighter = class {
 		}
 		if (godsText != "") embedMessage.addField("Faith", godsText, true);
 
+		// RELICS
+		var relicsTxt = "";
+		for (var i in RELIC_LIST) if (this.hasRelic(RELIC_LIST[i])) relicsTxt += "- " + RELIC_LIST[i] + "\n";
+		if (relicsTxt != "") embedMessage.addField("Relics", relicsTxt, true);
+
 		// FIGHTING STYLES
 		var fightingStylesTxt = "";
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
@@ -575,11 +586,6 @@ var Fighter = class {
 		// STATUS
 		var statusTxt = this.getStatusTxt();
 		if (statusTxt != "") embedMessage.addField("Status", statusTxt, true);
-
-		// RELICS
-		var relicsTxt = "";
-		for (var i in RELIC_LIST) if (this.hasRelic(RELIC_LIST[i])) relicsTxt += RELIC_LIST[i] + "\n";
-		if (relicsTxt != "") embedMessage.addField("Relics", relicsTxt, true);
 
 		// SYNERGIES
 		var synergyTxt = "";
@@ -3570,7 +3576,14 @@ var Fighter = class {
 			this.duel.addMessage("Virus effect triggers!");
 			_amount = _amount*100;
 		}
+		if (enemyPuncher.hasRelic(RELIC_PP8) && getRandomPercent() <= 25) {
+			this.duel.addMessage("Door Bro guides " + enemyPuncher.getName() + "'s attack!");
+			_amount += Math.floor(_amount/2);
+		}
 		// value -= x
+		if (this.hasRelic(RELIC_PP10) && _punch) {
+			_amount -= Math.floor(_amount*0.15);
+		}
 		if (this.standPower == STAND_PP1 && _punch) {
 			// Iron Maiden
 			_amount -= 10;
@@ -3588,18 +3601,18 @@ var Fighter = class {
 		}
 		this.duel.INFINITE_DAMAGE += 1;
 
+		// crit
 		var critMin = 5;
-		if (enemyPuncher.kungFu) {
-			critMin += 15;
-		}
+		if (enemyPuncher.kungFu) critMin += 15;
+		if (enemyPuncher.hasRelic(RELIC_PP6)) critMin += 10;
 		critMin += this.lifeFibers*5;
-		if ((getRandomPercent() < critMin || enemyPuncher.forceCritical) && _punch) {
+		if (_punch && (getRandomPercent() < critMin || enemyPuncher.forceCritical)) {
 			_amount += _amount;
 			enemyPuncher.forceCritical = false;
 			this.duel.addMessage("**Critical Hit!**");
 
-			if (enemyPuncher.hasSynergy(SYNERGY_PP22)) {
-				enemyPuncher.forceCritical = true;
+			if (this.hasSynergy(SYNERGY_PP22)) {
+				this.forceCritical = true;
 			}
 		}
 
@@ -3764,6 +3777,11 @@ var Fighter = class {
 			}
 		}
 
+		// amogus plush
+		if (this.hasRelic(RELIC_PP5) && _punch) {
+			enemyPuncher.madnessStacks += 1;
+		}
+
 		if (this.klaxoTails && _punch) {
 			for (var i = 0; i < 8; i++) {
 				if (getRandomPercent() <= 10) {
@@ -3771,6 +3789,12 @@ var Fighter = class {
 					enemyPuncher.damage(this.STR/10);
 				}
 			}
+		}
+
+		// ultimate bleach
+		if (_punch && enemyPuncher.hasRelic(RELIC_PP3) && getRandomPercent() <= 10) {
+			this.duel.addMessage(this.getName() + " gets confused!");
+			this.grabbedPP = 2;
 		}
 
 		// DoomReverse
@@ -3837,7 +3861,7 @@ var Fighter = class {
 			this.duel.addMessage(this.getName() + " feels the blessing by the Empress of Light!");
 			this.duel.addMessage("-----------------");
 		}
-		else {
+		else { // timed effects -= 1
 			this.doomReverse -= 1;
 			this.hasBoomerang -= 1;
 			this.isLucky -= 1;
@@ -3856,6 +3880,22 @@ var Fighter = class {
 				this.acidArmor -= 1;
 			}
 		}
+
+		// Kiwi
+		if (this.hasRelic(RELIC_PP4) && getRandomPercent() <= 10) {
+			var randomGod = randomFromList(GOD_LIST);
+			var nbTries = 0;
+			while ((this.godList.indexOf(randomGod.name) > -1 || randomGod.type != "waifu") && nbTries < 100) {
+				randomGod = randomFromList(GOD_LIST);
+				nbTries += 1;
+			}
+			if (nbTries < 100) {
+				this.godList.push(randomGod.name);
+				this.duel.addMessage(this.getName() + " becomes a " + randomGod.name + " Priest!");
+			}
+		}
+
+		if (this.hasRelic(RELIC_PP11) && this.godList.indexOf(GOD_PP37.name) < 0) this.godList.push(GOD_PP37.name);
 
 		// Turkey
 		if (this.turkeyCountdown >= 0) {
@@ -3898,6 +3938,7 @@ var Fighter = class {
 
 		// blood blossom
 		if (this.bloodBlossom > 0) {
+			this.duel.addMessage(this.getName() + " burns!");
 			this.damage(Maths.floor(this.STR/10), false);
 			this.bloodBlossom -= 1;
 			this.duel.addMessage("-----------------");
@@ -3913,6 +3954,12 @@ var Fighter = class {
 				this.duel.addMessage(this.getName() + " squeezes hog!");
 				this.heal(this.pigHeal);
 			}
+			this.duel.addMessage("-----------------");
+		}
+		// holy prepuce
+		if (this.hasRelic(RELIC_PP2) && getRandomPercent() <= 25) {
+			this.duel.addMessage(this.getName() + " feels holy!");
+			this.heal(Maths.max(this.DEX, 10));
 			this.duel.addMessage("-----------------");
 		}
 
@@ -4220,6 +4267,8 @@ var Fighter = class {
 		var randomRelic = randomFromList(this.duel.RELIC_TREASURE);
 		this.relics.push(randomRelic);
 		this.duel.RELIC_TREASURE.splice(this.duel.RELIC_TREASURE.indexOf(randomRelic), 1);
+
+		if (this.hasRelic(RELIC_PP11) && this.godList.indexOf(GOD_PP37.name) < 0) this.godList.push(GOD_PP37.name);
 	}
 
 	resetBattleVariables() {
