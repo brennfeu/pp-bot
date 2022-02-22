@@ -173,7 +173,7 @@ function checkUpdateEncyclopedia() {
 							// requiems help
 							if (fullBible[j].includes(":")) {
 								for (var r in REQUIEM_LIST) {
-									if (fullBible[j].includes(r)) REQUIEM_HELP[REQUIEM_LIST[r]] = fullBible[j];
+									if (fullBible[j].includes(REQUIEM_LIST[r])) REQUIEM_HELP[REQUIEM_LIST[r]] = fullBible[j];
 								}
 							}
 						}
