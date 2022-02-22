@@ -3895,7 +3895,7 @@ var Fighter = class {
 			}
 		}
 
-		if (this.hasRelic(RELIC_PP11) && this.godList.indexOf(GOD_PP37.name) < 0) this.godList.push(GOD_PP37.name);
+		if (this.hasRelic(RELIC_PP10) && this.godList.indexOf(GOD_PP37.name) < 0) this.godList.push(GOD_PP37.name);
 
 		// Turkey
 		if (this.turkeyCountdown >= 0) {
@@ -4268,7 +4268,7 @@ var Fighter = class {
 		this.relics.push(randomRelic);
 		this.duel.RELIC_TREASURE.splice(this.duel.RELIC_TREASURE.indexOf(randomRelic), 1);
 
-		if (this.hasRelic(RELIC_PP11) && this.godList.indexOf(GOD_PP37.name) < 0) this.godList.push(GOD_PP37.name);
+		if (this.hasRelic(RELIC_PP10) && this.godList.indexOf(GOD_PP37.name) < 0) this.godList.push(GOD_PP37.name);
 	}
 
 	resetBattleVariables() {
