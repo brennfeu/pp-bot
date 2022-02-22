@@ -173,7 +173,7 @@ function checkUpdateEncyclopedia() {
 							// requiems help
 							if (fullBible[j].includes(":")) {
 								for (var r in REQUIEM_LIST) {
-									if (fullBible[j].includes(r)) REQUIEM_HELP[r] = fullBible[j];
+									if (fullBible[j].includes(r)) REQUIEM_HELP[REQUIEM_LIST[r]] = fullBible[j];
 								}
 							}
 						}
@@ -192,7 +192,7 @@ function checkUpdateEncyclopedia() {
 					else if (encyChannels[i].topic == "Relics") {
 						for (var k in RELIC_LIST) {
 							if (fullBible[j].includes(RELIC_LIST[k])) {
-								RELIC_HELP[k] = fullBible[j];
+								RELIC_HELP[RELIC_LIST[k]] = fullBible[j];
 							}
 						}
 					}
