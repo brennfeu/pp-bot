@@ -25,6 +25,7 @@ var EMOTE_MECHA = "943254946638344262"
 var MOVE_HELP = {}; // loaded with the bible
 var STAND_HELP = {}; // loaded with the bible
 var REQUIEM_HELP = {}; // loaded with the bible
+var RELICS_HELP = {}; // loaded with the bible
 
 // COMMON MOVES
 var EMOTE_PP1 = "535844749467320322"; // PunchingPP

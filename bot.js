@@ -189,6 +189,13 @@ function checkUpdateEncyclopedia() {
 							}
 						}
 					}
+					else if (encyChannels[i].topic == "Relics") {
+						for (var k in RELIC_LIST) {
+							if (fullBible[j].includes(RELIC_LIST[k])) {
+								RELIC_HELP[k] = fullBible[j];
+							}
+						}
+					}
 
 					if (emote != "") {
 						var emote2 = CLIENT.emojis.cache.get(emote);
@@ -200,6 +207,11 @@ function checkUpdateEncyclopedia() {
 				}
 			}
 		}
+
+		console.log(MOVE_HELP);
+		console.log(STAND_HELP);
+		console.log(REQUIEM_HELP);
+		console.log(RELIC_HELP);
 	} );
 }
 

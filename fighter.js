@@ -4273,6 +4273,9 @@ var Fighter = class {
 		this.relics.push(randomRelic);
 		this.duel.RELIC_TREASURE.splice(this.duel.RELIC_TREASURE.indexOf(randomRelic), 1);
 
+		this.duel.addMessage(this.getName() + " gets: " + randomRelic);
+		this.duel.addMessage(RELIC_HELP[randomRelic]);
+
 		if (this.hasRelic(RELIC_PP10) && this.godList.indexOf(GOD_PP37.name) < 0) this.godList.push(GOD_PP37.name);
 	}
 
