@@ -1283,9 +1283,10 @@ var Duel = class {
 				this.addMessage("", undefined, {embed:
 					{
 						"title": "**TRAGEDY**",
-						"description": "*Dispair in IV acts.*\n" + `${brennUwu} ${waifu}` + "\n" + `${brennUwu} ${waifu} ${espinoza}` + "\n" + `${brennUwu}` + "\n" + `${rageBrenn}`
+						"description": "*Dispair in IV acts.*"
 					}
 				});
+				this.addMessage(`${brennUwu} ${waifu}` + "\n" + `${brennUwu} ${waifu} ${espinoza}` + "\n" + `${brennUwu}` + "\n" + `${rageBrenn}`);
 			}
 			this.addMessage("You both take your turn to recover from this tragedy!");
 

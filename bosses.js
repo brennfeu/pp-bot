@@ -121,7 +121,7 @@ var Boss = class extends Fighter {
         return randomFighter.damage(damage, false);
     }
 }
-var FakeBoss = class extends Fighter {
+var FakeBoss = class extends Boss {
     constructor(_duel, _name) {
         super(_duel, _name, 1);
         this.grantsKillerBlessings = 1;
