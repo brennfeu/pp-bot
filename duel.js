@@ -886,15 +886,12 @@ var Duel = class {
 				}
 			}
 			this.bothFightersAction(function(_fighter) {
-				if (_fighter.STR > 0) {
-					var _fighterSave = _fighter.duel.FIGHTER1_SAVE;
-					if (_fighter.duel.FIGHTER2_SAVE.user.id == _fighter.user.id) _fighterSave = _fighter.duel.FIGHTER2_SAVE;
+				var _fighterSave = _fighter.duel.FIGHTER1_SAVE;
+				if (_fighter.duel.FIGHTER2_SAVE.user.id == _fighter.user.id) _fighterSave = _fighter.duel.FIGHTER2_SAVE;
 
+				if (_fighter.STR > 0) { // if won stand battle
 					_fighterSave.standPower = _fighter.standPower;
 					_fighterSave.requiemPower = _fighter.requiemPower;
-					if (_fighter.infernalInstrument > 0) {
-						_fighterSave.infernalInstrument = _fighter.infernalInstrument;
-					}
 					_fighterSave.randomizedStand = _fighter.randomizedStand; // Perfect Machine
 					if (_fighter.standPower == STAND_PP8) { // Black Clouds & Silver Linings
 						_fighterSave.extraLife = 1;
@@ -905,6 +902,11 @@ var Duel = class {
 					if (_fighter.standPower == STAND_PP17) { // Titans of Creation
 						_fighterSave.selfReverseDamage = 2;
 					}
+				}
+
+				_fighterSave.relics = _fighterSave.relics.concat(_fighter.requiemPower);
+				if (_fighter.infernalInstrument > 0) {
+					_fighterSave.infernalInstrument = _fighter.infernalInstrument;
 				}
 			});
 
