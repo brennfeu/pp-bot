@@ -3853,9 +3853,6 @@ var Fighter = class {
 		this.satanicReverse -= 1;
 		this.turkeyCountdown -= 1;
 		this.inLove -= 1;
-		this.huTaoBuff -= 1;
-		this.ppColossus -= 1;
-		this.ppColossusCountdown -= 1;
 
 		if (this.empressLightBuff && getRandomPercent() <= 50) {
 			this.duel.addMessage(this.getName() + " feels the blessing by the Empress of Light!");
@@ -3871,6 +3868,9 @@ var Fighter = class {
 			this.selfReverseDamage -= 1;
 			this.akameDex -= 1;
 			this.akameKill -= 1;
+			this.huTaoBuff -= 1;
+			this.ppColossus -= 1;
+			this.ppColossusCountdown -= 1;
 
 			if (this.sporeSac && getRandomPercent() <= 75 && this.acidArmor > 0) {
 				this.duel.addMessage(this.getName() + "'s acid armor stays for longer.");
@@ -3880,6 +3880,10 @@ var Fighter = class {
 				this.acidArmor -= 1;
 			}
 		}
+
+		// masks
+		if (this.hasRelic(RELIC_PP1)) this.STRValue += Math.floor(this.STR/10);
+		if (this.hasRelic(RELIC_PP7)) this.DEXValue += 1;
 
 		// Kiwi
 		if (this.hasRelic(RELIC_PP4) && getRandomPercent() <= 10) {
