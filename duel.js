@@ -943,6 +943,7 @@ var Duel = class {
 	startRandomEvent() {
 		var randomVar = getRandomPercent();
 		var forcedEvent = this.FORCE_EVENT;
+		var eventHappened = false;
 
 		if (this.AREA == AREA_PP4 && getRandomPercent() <= 25) {
 			forcedEvent = true;
@@ -1015,6 +1016,7 @@ var Duel = class {
 			winner.infernalInstrument = 1; // Guitar
 			this.otherFighter(winner).infernalInstrument = 2; // Synth
 			this.INFERNAL_FIRELAND = true;
+			eventHappened = true;
 		}
 		if (this.PPLEVEL > 50 && !this.PP_ARMAGEDDON && this.MOVE_COUNT >= 1000) {
 			// PP ARMAGEDDON
@@ -1025,6 +1027,7 @@ var Duel = class {
 					"description": "PP Punching has ascended, the end is near!"
 				}
 			});
+			eventHappened = true;
 		}
 
 		if (this.FORCE_EVENT_ID != 0) {
@@ -1714,7 +1717,7 @@ var Duel = class {
 			// CIVILISATION (civilisation command)
 			this.startCityMode()
 		}
-		else if (!forcedEvent) {
+		else if (!forcedEvent && !eventHappened) {
 			this.addMessage("No event this turn...");
 		}
 	}
@@ -2522,7 +2525,7 @@ var Duel = class {
 			listeAttaques.push(EMOTE_PP52);
 		}
 
-		if (this.PPLEVEL <= 50) {
+		if (this.PPLEVEL >= 50) {
 			if (this.FIGHTER1.isReadyForColossus() || this.FIGHTER2.isReadyForColossus()) {
 				listeAttaques.push(EMOTE_MECHA);
 			}
