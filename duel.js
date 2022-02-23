@@ -1663,8 +1663,8 @@ var Duel = class {
 			if (this.EVENT_BOSS != null) {
 				this.addMessage("", undefined, {embed:
 					{
-						"title": "**GILGAMESH**",
-						"description": "The King of Heroes helps " + this.EVENT_BOSS.getName() + "!"
+						"title": "**KING OF HEROES**",
+						"description": "Gilgamesh helps " + this.EVENT_BOSS.getName() + "!"
 					}
 				});
 				this.EVENT_BOSS.getRandomRelic();
@@ -1672,8 +1672,8 @@ var Duel = class {
 			else {
 				this.addMessage("", undefined, {embed:
 					{
-						"title": "**GILGAMESH**",
-						"description": "The King of Heroes challenges you!"
+						"title": "**KING OF HEROES**",
+						"description": "Gilgamesh challenges you!"
 					}
 				});
 				this.triggerBossFight(new GilgameshBoss(this));
