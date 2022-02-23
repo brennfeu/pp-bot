@@ -440,9 +440,9 @@ var Duel = class {
 
 				this.bothFightersAction(function(_fighter) {
 					if (_fighter.pushedDamages > 0) {
+						_fighter.duel.addMessage("-----------------");
 						_fighter.damage(_fighter.pushedDamages, false);
 						_fighter.pushedDamages = 0;
-						_fighter.duel.addMessage("-----------------");
 					}
 				});
 
@@ -450,20 +450,21 @@ var Duel = class {
 				this.PUDDING_NUISANCE -= 1;
 
 				if (this.NUCLEAR_BOMB == 0) {
+					this.addMessage("-----------------");
 					this.addMessage("The Nuclear Bomb explodes now!\n" + IMAGE_PP1);
 					this.bothFightersAction(function(_fighter) {
 						_fighter.damage(1000000000, false);
 					});
-					this.addMessage("-----------------");
 				}
 				if (this.EVENT_BOMB) {
+					this.addMessage("-----------------");
 					this.addMessage("The bomb hits the ground!");
 					this.bothFightersAction(function(_fighter) {
 						_fighter.damage(1000, false);
 					});
-					this.addMessage("-----------------");
 				}
 				if (this.STORM_COUNTDOWN > 0) {
+					this.addMessage("-----------------");
 					var fighter = this.getRandomFighter();
 					if (fighter.infernalInstrument == 1) {
 						this.addMessage(fighter.getName() + " gets striked by lightning!");
@@ -477,9 +478,9 @@ var Duel = class {
 						this.addMessage(this.getOppOf(fighter).getOppName() + " gets striked by lightning!");
 						fighter.damage(40*this.STORM_COUNTDOWN);
 					}
-					this.addMessage("-----------------");
 				}
 				if (this.DARKNESS_COUNTDOWN > 0) {
+					this.addMessage("-----------------");
 					var fighter = this.getRandomFighter();
 					this.addMessage(fighter.getName() + " gets touched by the darkness!");
 					if (fighter.infernalInstrument == 2) {
@@ -490,15 +491,14 @@ var Duel = class {
 						fighter.madnessStacks += this.DARKNESS_COUNTDOWN*2;
 						this.addMessage(fighter.getName() + " gets " + (this.DARKNESS_COUNTDOWN*2) + " madness stacks!");
 					}
-					this.addMessage("-----------------");
 				}
 				if (this.PUDDING_NUISANCE == 0) {
 					if (this.EVENT_BOSS != null) {
 						this.addMessage(this.EVENT_BOSS.getName() + "'s boss fight is canceled by Pudding.");
 					}
 					this.triggerBossFight(new PuddingBlobBoss(this));
-					this.addMessage("A Pudding Blob has been created!");
 					this.addMessage("-----------------");
+					this.addMessage("A Pudding Blob has been created!");
 				}
 				if (this.POOPOO_UNIVERSE) {
 					this.bothFightersAction(function(_fighter) {
@@ -922,7 +922,7 @@ var Duel = class {
 		}
 		this.bothFightersAction(function(_fighter) {
 			if (_fighter.STR <= 0 && _fighter.duel.EVENT_BOSS == null) {
-				this.addMessage("-----------------");
+				_fighter.duel.addMessage("-----------------");
 				if (_fighter.grabbedPP > 0) {
 					_fighter.duel.addMessage("*Confusion* was " + _fighter.getName() + "'s epitaph.");
 				}
@@ -2281,6 +2281,13 @@ var Duel = class {
 				this.addMessage(this.otherFighter(winner).getName() + " burst!");
 				winner.hasBurst = 2;
 			}
+			// Mech
+			if (this.otherFighter(winner).attack == EMOTE_PP68) {
+				this.addMessage("-----------------");
+				this.addMessage(winner.getName() + " triggers " + this.otherFighter(winner).getName() + "'s Mech!");
+				this.addMessage(this.otherFighter(winner).getName() + " shoots!");
+				winner.damage(50);
+			}
 
 			// Fighting Styles Move
 			if ([ EMOTE_PP38, EMOTE_PP40, EMOTE_PP41 ].indexOf(this.otherFighter(winner).attack) > -1) {
@@ -2288,48 +2295,52 @@ var Duel = class {
 			}
 			// Scout
 			if (this.otherFighter(winner).attack == EMOTE_PP13) {
+				this.addMessage("-----------------");
 				this.otherFighter(winner).playMove();
 			}
 			// BronanSlam
 			if (this.otherFighter(winner).attack == EMOTE_PP42 && (this.otherFighter(winner).megaBuildUp > 0 || this.otherFighter(winner).bonusDamage > 0)) {
-				this.otherFighter(winner).playMove();
+					this.addMessage("-----------------");
+					this.otherFighter(winner).playMove();
 			}
 			// Intimidates
 			if (this.otherFighter(winner).attack == EMOTE_PP28) {
+				this.addMessage("-----------------");
 				this.otherFighter(winner).playMove();
 			}
 			// LivingGod
 			if (this.otherFighter(winner).attack == EMOTE_PP49) {
+				this.addMessage("-----------------");
 				this.otherFighter(winner).playMove();
 			}
 			// High Five Emote
 			if (this.otherFighter(winner).attack == EMOTE_PP32 && this.BLIND_COUNTDOWN > 0) {
+				this.addMessage("-----------------");
 				this.otherFighter(winner).playMove();
-			}
-			// Mech
-			if (this.otherFighter(winner).attack == EMOTE_PP68) {
-				this.addMessage(winner.getName() + " triggers " + this.otherFighter(winner).getName() + "'s Mech!");
-				this.addMessage(this.otherFighter(winner).getName() + " shoots!");
-				winner.damage(50);
 			}
 			// Requiem
 			if (this.otherFighter(winner).attack == EMOTE_ABILITY && this.otherFighter(winner).requiemPower != null) {
+				this.addMessage("-----------------");
 				this.otherFighter(winner).playMove();
 			}
 			// Dual Loop
 			if (this.otherFighter(winner).attack == EMOTE_PP55) {
+				this.addMessage("-----------------");
 				this.otherFighter(winner).playMove();
 			}
 			// D-Mail
 			if (this.otherFighter(winner).attack == EMOTE_SKIP && this.otherFighter(winner).futureMemories == 0) {
+				this.addMessage("-----------------");
 				this.otherFighter(winner).playMove();
 			}
 			// Shiny Stone
 			if (this.otherFighter(winner).attack == EMOTE_PP145) {
+				this.addMessage("-----------------");
 				this.otherFighter(winner).playMove();
 			}
 			// Gravity Globe
 			if (this.otherFighter(winner).attack == EMOTE_PP146) {
+				this.addMessage("-----------------");
 				this.otherFighter(winner).playMove();
 			}
 		}

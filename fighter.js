@@ -986,7 +986,7 @@ var Fighter = class {
 		return statusTxt;
 	}
 	getNbStatus() {
-		return this.getStatusTxt().split("\n").length;
+		return this.getStatusTxt().split("\n").length-1;
 	}
 
 	playMove(_newMove = this.attack) {

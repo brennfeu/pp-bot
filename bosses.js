@@ -108,8 +108,8 @@ var Boss = class extends Fighter {
 
         var damage = this.baseDamage;
         if (this.isMoonLord && this.duel.EVENT_BLOOD_MOON) damage += damage;
-        if (this.duel.PP_ARMAGEDDON) damage = damage*100000;
-        else if (this.duel.INFERNAL_FIRELAND) damage = damage*100;
+        if (this.duel.PP_ARMAGEDDON) damage = damage*1000;
+        else if (this.duel.INFERNAL_FIRELAND) damage = damage*10;
 
         if (randomFighter.cthulhuShield > 0) {
             this.duel.addMessage(randomFighter.getName() + " reflects the damages!");
