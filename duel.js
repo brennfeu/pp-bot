@@ -460,7 +460,7 @@ var Duel = class {
 					this.addMessage("-----------------");
 					this.addMessage("The bomb hits the ground!");
 					this.bothFightersAction(function(_fighter) {
-						_fighter.damage(1000, false);
+						_fighter.damage(1000, true, new FakeBoss(this.duel, "Bombardier"));
 					});
 				}
 				if (this.STORM_COUNTDOWN > 0) {
