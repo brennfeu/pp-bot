@@ -1487,11 +1487,12 @@ var Fighter = class {
 				this.duel.addMessage(this.getName() + " wants a fast PP...");
 				if (this.isFastPP) {
 					this.duel.addMessage("...but he already had one!");
+					this.DEXValue += 5;
 				}
 				else {
 					this.isFastPP = true;
 					this.duel.addMessage("...and now he got it!");
-					this.DEXValue += 10;
+					this.DEXValue += 5;
 				}
 			}
 			else if (attack == EMOTE_PP39) {
@@ -1506,11 +1507,12 @@ var Fighter = class {
 				this.duel.addMessage(this.getName() + " wants a big PP...");
 				if (this.isBigPP) {
 					this.duel.addMessage("...but he already had one!");
+					this.STRValue += 20;
 				}
 				else {
 					this.isBigPP = true;
 					this.duel.addMessage("...and now he got it!");
-					this.DEXValue += 10;
+					this.STRValue += 20;
 				}
 			}
 			else if (attack == EMOTE_PP41) {
@@ -1518,6 +1520,7 @@ var Fighter = class {
 				this.duel.addMessage(this.getName() + " wants a drunk PP...");
 				if (this.isDrunkPP) {
 					this.duel.addMessage("...but he already had one!");
+					this.DEXValue += 5;
 				}
 				else {
 					this.isDrunkPP = true;
@@ -3260,7 +3263,7 @@ var Fighter = class {
 				if (this.duel.EVENT_BOSS != null) {
 					this.duel.addMessage(this.duel.EVENT_BOSS.getName() + " suddenly runs away.");
 				}
-				this.triggerBossFight(new SexStarvedMongoBoss(this.duel));
+				this.duel.triggerBossFight(new SexStarvedMongoBoss(this.duel));
 				this.duel.addMessage("Mongo has appeared, and he is sex-starved!");
 				this.duel.addMessage("-----------------");
 			}

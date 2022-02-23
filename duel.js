@@ -915,12 +915,14 @@ var Duel = class {
 		}
 
 		if (this.FIGHTER1.STR <= 0 && this.FIGHTER2.STR <= 0) {
+			this.duel.addMessage("-----------------");
 			this.addMessage("Both of you lost. No one won this time. You losers.");
 			this.stopDuel();
 			return;
 		}
 		this.bothFightersAction(function(_fighter) {
 			if (_fighter.STR <= 0 && _fighter.duel.EVENT_BOSS == null) {
+				this.duel.addMessage("-----------------");
 				if (_fighter.grabbedPP > 0) {
 					_fighter.duel.addMessage("*Confusion* was " + _fighter.getName() + "'s epitaph.");
 				}
@@ -1712,9 +1714,6 @@ var Duel = class {
 			// CIVILISATION (civilisation command)
 			this.startCityMode()
 		}
-		else if (!forcedEvent && !eventHappened) {
-			this.addMessage("No event this turn...");
-		}
 	}
 	triggerBossFight(_boss) {
 		this.EVENT_BOSS = _boss;
@@ -2283,6 +2282,10 @@ var Duel = class {
 				winner.hasBurst = 2;
 			}
 
+			// Fighting Styles Move
+			if ([ EMOTE_PP38, EMOTE_PP40, EMOTE_PP41 ].indexOf(this.otherFighter(winner).attack) > -1) {
+				this.otherFighter(winner).playMove();
+			}
 			// Scout
 			if (this.otherFighter(winner).attack == EMOTE_PP13) {
 				this.otherFighter(winner).playMove();
