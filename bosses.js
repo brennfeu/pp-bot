@@ -493,8 +493,9 @@ var ObamiumEspinozaBoss = class extends RaidBossEspinozaBoss {
 
 var WyndoeallaBoss = class extends Boss {
     constructor(_duel) {
-        super(_duel, "Wyndoella", Math.pow(10, 99));
-        this.baseDamage = Math.pow(10, 99);
+        super(_duel, "Wyndoella", Math.pow(10, 10));
+        this.baseDamage = Math.pow(10, 5);
+        this.grantsKillerBlessings = Math.pow(10, 99);
         this.winsIfHeatDeath = true;
 
         this.imageURL = "https://cdn.discordapp.com/attachments/715322091804819486/942783201494044742/unknown.png";
@@ -506,8 +507,27 @@ var WyndoeallaBoss = class extends Boss {
     }
 
     triggerDeath() {
-        this.duel.addMessage(this.getName() + " somehow is... defeated...");
-        this.MOVE_COUNT = 1000000;
-        super.triggerDeath();
+        this.duel.addMessage(this.getName() + " unleashes its true form!");
+        this.duel.triggerBossFight(new WyndoeallaFinalBoss(this.duel));
+    }
+}
+var WyndoeallaFinalBoss = class extends Boss {
+    constructor(_duel) {
+        super(_duel, "Wyndoella", Math.pow(10, 99));
+        this.baseDamage = Math.pow(10, 99);
+        this.grantsKillerBlessings = Math.pow(10, 99);
+        this.winsIfHeatDeath = true;
+
+        this.imageURL = "https://cdn.discordapp.com/attachments/715322091804819486/942783201494044742/unknown.png";
+
+        this.godList = [];
+        for (var i in GOD_LIST) {
+            this.godList.push(GOD_LIST[i].name);
+        }
+    }
+
+    triggerDeath() {
+        this.duel.addMessage(this.getName() + " resurrects!");
+        this.duel.triggerBossFight(new WyndoeallaFinalBoss(this.duel));
     }
 }
