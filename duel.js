@@ -517,7 +517,7 @@ var Duel = class {
 				if (this.EVENT_BLOOD_MOON) {
 					this.bothFightersAction(function(_fighter) {
 						if (_fighter.STR <= 0) {
-							this.duel.addMessage("-----------------");
+							this.addMessage("-----------------");
 							_fighter.DEXValue += (0 - _fighter.STR) + 10;
 							_fighter.STRValue += (0 - _fighter.STR) + 10;
 							_fighter.duel.addMessage(_fighter.getName() + " got saved thanks to the Blood Moon");
@@ -528,7 +528,7 @@ var Duel = class {
 				// Bosses
 				if (this.EVENT_BOSS != null) {
 					if (this.EVENT_BOSS.STR > 0) { // boss attacks
-						this.duel.addMessage("-----------------");
+						this.addMessage("-----------------");
 						this.EVENT_BOSS.triggerBossAttack();
 					}
 
@@ -915,14 +915,14 @@ var Duel = class {
 		}
 
 		if (this.FIGHTER1.STR <= 0 && this.FIGHTER2.STR <= 0) {
-			this.duel.addMessage("-----------------");
+			this.addMessage("-----------------");
 			this.addMessage("Both of you lost. No one won this time. You losers.");
 			this.stopDuel();
 			return;
 		}
 		this.bothFightersAction(function(_fighter) {
 			if (_fighter.STR <= 0 && _fighter.duel.EVENT_BOSS == null) {
-				this.duel.addMessage("-----------------");
+				this.addMessage("-----------------");
 				if (_fighter.grabbedPP > 0) {
 					_fighter.duel.addMessage("*Confusion* was " + _fighter.getName() + "'s epitaph.");
 				}
@@ -1744,9 +1744,9 @@ var Duel = class {
 				this.godList = [];
 				this.godList.push(shuffleArray(GOD_LIST)[0].name);
 
-				this.duel.addMessage("-----------------");
+				this.addMessage("-----------------");
 				this.playMove(EMOTE_PP51);
-				this.duel.addMessage("-----------------");
+				this.addMessage("-----------------");
 				this.playMove(EMOTE_PP52);
 				this.godList = godListMemory.slice();
 			});
