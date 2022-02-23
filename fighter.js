@@ -2075,11 +2075,11 @@ var Fighter = class {
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("Hu Tao answers his calls!");
 					this.duel.addMessage(this.getName() + " sacrifices 30% of his STR to enter the Paramita Papilio state.");
-					var hpvalue = Math.floor(this.STR/30);
+					var hpValue = Math.floor(this.STR/30);
 					this.STRValue -= hpValue;
 					this.huTaoBuff = 6;
 				}
-				if (this.godList.indexOf(GOD_PP41.name) > -1) { // C.C.
+				if (this.godList.indexOf(GOD_PP42.name) > -1) { // C.C.
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("C.C. answers his calls!");
 					if (this.knightmareBuff) {
@@ -2476,7 +2476,7 @@ var Fighter = class {
 					this.duel.getOppOf(this).damage(value);
 					this.heal(value);
 				}
-				if (this.godList.indexOf(GOD_PP41.name) > -1) { // C.C.
+				if (this.godList.indexOf(GOD_PP42.name) > -1) { // C.C.
 					this.duel.addMessage("-----------------");
 					this.duel.addMessage("C.C. answers his calls!");
 					this.duel.addMessage(this.getName() + " recieves the Power of the Kings!");
