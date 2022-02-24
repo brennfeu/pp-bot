@@ -39,10 +39,10 @@ var Boss = class extends Fighter {
         var str = super.STR;
 
         if (this.duel.PP_ARMAGEDDON) {
-            str = Math.floor(str/100);
+            str -= 90000;
         }
         else if (this.duel.INFERNAL_FIRELAND) {
-            str = Math.floor(str/10);
+            str -= 900;
         }
 
         return str;

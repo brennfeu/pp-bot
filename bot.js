@@ -228,6 +228,18 @@ function setBotActivity(_texte = "Lonely PP Squeezing :(") {
 	CLIENT.user.setPresence({ activity: { name: texte } })
 }
 
+function sendErrorToDev(_err) {
+	console.log("ERROR:")
+	console.log(_err);
+	CLIENT.users.cache.find(a => a.id == ID_BRENNFEU).send(_err);
+	for (var i in DUEL_LIST) {
+		DUEL_LIST[i].addMessage("**An error occured and I will soon restart. The dev has been notified of this and will work on it if he's not too lazy. I'm sorry to end your duel like this.**");
+		DUEL_LIST[i].FIGHTER1.win("half");
+		DUEL_LIST[i].FIGHTER2.win("half");
+	}
+	CLIENT.exit();
+}
+
 function updatePlayer(_fighterID, _username) {
 	var result = executeQuery("SELECT id, points FROM Player WHERE id = " + _fighterID)
 
@@ -506,7 +518,7 @@ CLIENT.on('ready', () => {
 });
 
 // This event will run on every single message received, from any channel or DM.
-CLIENT.on("message", async _message => {
+CLIENT.on("message", async _message => { try {
 	killDeadDuels();
 	setBotActivity();
 	skipWaitingDuels();
@@ -815,9 +827,10 @@ CLIENT.on("message", async _message => {
 	}
 
 	return _message.reply("I don't know this command, try using the help command!");
+} catch(e) { sendErrorToDev(e) }
 });
 
-CLIENT.on('messageReactionAdd', (_reaction, _user) => {
+CLIENT.on('messageReactionAdd', (_reaction, _user) => { try {
 	killDeadDuels();
 	setBotActivity();
 	checkMusicLoops();
@@ -877,11 +890,10 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => {
 			return;
 		}
 	}
+} catch(e) { sendErrorToDev(e) }
 });
 
 CLIENT.on('error', (_error) => {
-	console.log("ERROR:")
-	console.log(_error);
-	CLIENT.users.cache.find(a => a.id == ID_BRENNFEU).send(_error);
+	sendErrorToDev(_error);
 })
 CLIENT.login(process.env.BOT_TOKEN);
