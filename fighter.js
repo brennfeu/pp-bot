@@ -3789,7 +3789,7 @@ var Fighter = class {
 			for (var i = 0; i < 8; i++) {
 				if (getRandomPercent() <= 10) {
 					this.duel.addMessage(this.getName() + "'s tail #" + (i+1) + " attacks back!");
-					enemyPuncher.damage(this.STR/10);
+					enemyPuncher.damage(Maths.floor(this.STR/10));
 				}
 			}
 		}

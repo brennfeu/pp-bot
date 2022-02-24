@@ -233,11 +233,18 @@ function sendErrorToDev(_err) {
 	console.log(_err);
 	CLIENT.users.cache.find(a => a.id == ID_BRENNFEU).send(_err);
 	for (var i in DUEL_LIST) {
+		DUEL_LIST[i].LIST_MESSAGES = [];
+		DUEL_LIST[i].LIST_MESSAGES_OTHER = [];
+
 		DUEL_LIST[i].addMessage("**An error occured and I will soon restart. The dev has been notified of this and will work on it if he's not too lazy. I'm sorry to end your duel like this.**");
 		DUEL_LIST[i].FIGHTER1.win("half");
 		DUEL_LIST[i].FIGHTER2.win("half");
+		DUEL_LIST[i].sendMessages();
 	}
-	CLIENT.exit();
+	DUEL_LIST = [];
+	setTimeout(function() {
+	    CLIENT.destroy();
+	}, 5000);
 }
 
 function updatePlayer(_fighterID, _username) {

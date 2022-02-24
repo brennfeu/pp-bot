@@ -146,6 +146,13 @@ var CthulhuBoss = class extends Boss {
 
     triggerDeath() {
         this.duel.addMessage(this.getName() + " goes back to sleep to heal his poor PP!");
+        
+        this.duel.bothFightersAction(function(_fighter) {
+            grantPlayerExpertPP(_fighter);
+        });
+        this.addMessage("**You are now PP Experts.**");
+        this.addMessage("**You have gained access to the eldritch gods.**");
+
         super.triggerDeath();
     }
 }
@@ -162,7 +169,7 @@ var MoonLordBoss = class extends CthulhuBoss {
     triggerDeath() {
         this.duel.addMessage(this.getName() + " goes back into hiding behind the moon!");
 
-        this.bothFightersAction(function(_fighter) {
+        this.duel.bothFightersAction(function(_fighter) {
             grantPlayerExpertPP(_fighter);
         });
         this.addMessage("**You are now PP Experts.**");
@@ -473,7 +480,7 @@ var RaidBossEspinozaBoss = class extends Boss {
 
     triggerDeath() {
         this.duel.addMessage(this.getName() + " abandons!");
-        this.bothFightersAction(function(_fighter) {
+        this.duel.bothFightersAction(function(_fighter) {
             grantPlayerWeebPP(_fighter);
         });
         this.addMessage("**You now have a Weeb PP.**");

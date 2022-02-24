@@ -533,6 +533,7 @@ var Duel = class {
 					}
 
 					if (this.EVENT_BOSS.STR <= 0) { // boss dies
+						this.addMessage("-----------------");
 						this.EVENT_BOSS.triggerDeath();
 					}
 					else { // boss turn change
