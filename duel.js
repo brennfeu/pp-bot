@@ -242,6 +242,7 @@ var Duel = class {
 		this.FIGHTER1.isDrunkPP = false;
 		this.FIGHTER1.isHockeyPuckPP = false;
 		this.FIGHTER1.isAlienPP = true;
+		this.FIGHTER1.riotShield = true;
 		this.FIGHTER2 = new Fighter(CLIENT.user.id, this.BATTLE_CHANNEL.id);
 
 		this.PPLEVEL = getWinCounter(this.FIGHTER1.idUser);
@@ -253,7 +254,7 @@ var Duel = class {
 		this.addMessage("As you can see, there are only 2 stats in the game: **STR** and **DEX**.");
 		this.addMessage("**STR** is about how strong you can punch PP. The more you have, the more damages your punches will deal. It's also your **HP**, so don't get it below 0!");
 		this.addMessage("-----------------");
-		this.addMessage("**DEX** is about the probability you have to punch. Each turn, each fighter selects a move. Then, there is **DEX** random roll based on your current DEX. If the results are the same +-10, both fighters use their move. Else, only the one with the higher result do.");
+		this.addMessage("**DEX** is about the probability you have to punch. Each turn, each fighter selects a move. Then, there is **DEX random roll** based on your current DEX. If the results are the same +-10, both fighters use their move. Else, only the one with the higher result do.");
 		this.addMessage("When you miss a move, you get +5 DEX stackable effect. The effects gets discarded when you manage to play a move.");
 		this.addMessage("-----------------");
 		this.addMessage("Each move has specific actions, and only 5 are allowed for 1 turn.");
@@ -304,10 +305,13 @@ var Duel = class {
 			}
 			this.addMessage("Winning a fight grants a certain amount of **PP Points**. When a duel starts, its **PP Level** is determined by the lowest PP Points count of both fighters.");
 			this.addMessage("When the **PP Level** reaches certain values, additional game mechanics are unlocked, starting at level 50");
-
-			if (this.PPLEVEL < 50) return tutorialNextTurn();
-
 			this.addMessage("-----------------");
+
+			if (this.PPLEVEL < 50) {
+				this.addMessage("Come back once you reach 50 PP Points to learn about **Gods**!");
+				return tutorialNextTurn();
+			}
+
 			this.addMessage("One of those new mechanics are **Gods**!");
 			this.addMessage("You can have up to 3 gods when starting a duel. It works the same way as fighting styles, except their use is different.");
 			this.addMessage("You can call your **gods** powers using a charge you get with events. There are 2 kind of charges: **regular** and **special**, each calling all your gods **regular** or **special** moves.");
