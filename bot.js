@@ -237,14 +237,14 @@ function sendErrorToDev(_err) {
 		DUEL_LIST[i].LIST_MESSAGES_OTHER = [];
 
 		DUEL_LIST[i].addMessage("**An error occured and I will soon restart. The dev has been notified of this and will work on it if he's not too lazy. I'm sorry to end your duel like this.**");
-		DUEL_LIST[i].FIGHTER1.win("half");
-		DUEL_LIST[i].FIGHTER2.win("half");
+		DUEL_LIST[i].FIGHTER1.win("quarter");
+		DUEL_LIST[i].FIGHTER2.win("quarter");
 		DUEL_LIST[i].sendMessages();
 	}
 	DUEL_LIST = [];
 	setTimeout(function() {
 	    CLIENT.destroy();
-	}, 5000);
+	}, 30000);
 }
 
 function updatePlayer(_fighterID, _username) {
@@ -554,14 +554,17 @@ CLIENT.on("message", async _message => { try {
 
 	if (argsUser[1] == "rank") {
 		// RANK
-		var firstTxt = "**" + _message.author.username + "**"
-		if (isPlayerWeebPP(_message.author.id)) firstTxt += " - Weeb";
-		if (isPlayerExpertPP(_message.author.id)) firstTxt += " - PP Expert";
-		if (isPlayerDestroyer(_message.author.id)) firstTxt += " - Destroyer of Worlds";
+		var author = _message.author;
+		if (_message.mentions.users.array().length > 1) author = _message.mentions.users.last();
+
+		var firstTxt = "**" + author.username + "**"
+		if (isPlayerWeebPP(author.id)) firstTxt += " - Weeb";
+		if (isPlayerExpertPP(author.id)) firstTxt += " - PP Expert";
+		if (isPlayerDestroyer(author.id)) firstTxt += " - Destroyer of Worlds";
 		_message.channel.send(firstTxt + ":")
 
-		_message.channel.send("You have " + getWinCounter(_message.author.id) + " PP Points\nYour Rank is #" + getRank(_message.author.id));
-		_message.channel.send("Current build:\n" + buildToString(getPlayerBuild(_message.author.id)));
+		_message.channel.send("You have " + getWinCounter(author.id) + " PP Points\nYour Rank is #" + getRank(author.id));
+		_message.channel.send("Current build:\n" + buildToString(getPlayerBuild(author.id)));
 		return;
 	}
 	if (argsUser[1] == "ranks") {
@@ -680,7 +683,7 @@ CLIENT.on("message", async _message => { try {
 
 		return _message.channel.send("Video proof of " + _message.author.username + " punching " + _message.mentions.users.last().username + "'s PP:\n" + IMAGE_PP5);
 	}
-	if (argsUser[1] == "quit") {
+	if (argsUser[1] == "quit" || argsUser[1] == "stop") {
 		if (getDuel(_message.channel.id) != null) {
 			var duel = getDuel(_message.channel.id);
 			if (_message.author.id == duel.FIGHTER1.user.id) {

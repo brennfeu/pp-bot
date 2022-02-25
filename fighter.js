@@ -355,10 +355,10 @@ var Fighter = class {
 			str += str;
 		}
 		if (this.ppColossus > 0) {
-			str = str*100;
+			str = str*10;
 		}
 		else if (this.ppKnightmare > 0) {
-			str = str*10;
+			str = str*5;
 		}
 
 		if (this.duel.EVENT_BOSS != null && str <= 0) {
@@ -463,10 +463,10 @@ var Fighter = class {
 			return 0;
 		}
 		if (this.ppColossus > 0) {
-			dex = dex*100;
+			dex = dex*10;
 		}
 		else if (this.ppKnightmare > 0) {
-			dex = dex*10;
+			dex = dex*5;
 		}
 		if (this.akameDex > 0) {
 			 dex += dex;
@@ -4233,6 +4233,9 @@ var Fighter = class {
 		}
 		if (_param == "half") {
 			nb = Math.floor(nb/2);
+		}
+		if (_param == "quarter") {
+			nb = Math.floor(nb/4)+1;
 		}
 		if (this.duel.DOUBLE_POINTS) {
 			nb += nb;
