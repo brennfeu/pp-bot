@@ -234,7 +234,6 @@ var Duel = class {
 		this.GUILD = this.BATTLE_CHANNEL.guild;
 		this.TUTORIAL = true;
 		this.NB_TURNS = 0;
-		this.PPLEVEL = getWinCounter(this.FIGHTER1.idUser);
 
 		this.FIGHTER1 = new Fighter(_message.author.id, this.BATTLE_CHANNEL.id);
 		this.FIGHTER1.godList = [];
@@ -244,6 +243,8 @@ var Duel = class {
 		this.FIGHTER1.isHockeyPuckPP = false;
 		this.FIGHTER1.isAlienPP = true;
 		this.FIGHTER2 = new Fighter(CLIENT.user.id, this.BATTLE_CHANNEL.id);
+
+		this.PPLEVEL = getWinCounter(this.FIGHTER1.idUser);
 
 		this.addMessage("**TIME FOR A TUTORIAL**");
 		this.addMessage("Welcome to the PP Punch Arena!\nThis bot allows you to play PP Punch Duels in discord. It's actually an rpg strategy fighting game");
