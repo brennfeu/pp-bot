@@ -234,6 +234,7 @@ var Duel = class {
 		this.GUILD = this.BATTLE_CHANNEL.guild;
 		this.TUTORIAL = true;
 		this.NB_TURNS = 0;
+		this.PPLEVEL = getWinCounter(this.FIGHTER1.idUser);
 
 		this.FIGHTER1 = new Fighter(_message.author.id, this.BATTLE_CHANNEL.id);
 		this.FIGHTER1.godList = [];
@@ -251,8 +252,8 @@ var Duel = class {
 		this.addMessage("As you can see, there are only 2 stats in the game: **STR** and **DEX**.");
 		this.addMessage("**STR** is about how strong you can punch PP. The more you have, the more damages your punches will deal. It's also your **HP**, so don't get it below 0!");
 		this.addMessage("-----------------");
-		this.addMessage("**DEX** is about the probability you have to punch. Each turn, each fighter selects a move. Then, there is **DEX** roll: **DEX+[0-50]**. If the results are the same +-10, both fighters use their move. Else, only the one with the higher result do.");
-		this.addMessage("When you miss a move, you get +5 DEX stackable effect. It gets back to normal when you manage to play a move.");
+		this.addMessage("**DEX** is about the probability you have to punch. Each turn, each fighter selects a move. Then, there is **DEX** random roll based on your current DEX. If the results are the same +-10, both fighters use their move. Else, only the one with the higher result do.");
+		this.addMessage("When you miss a move, you get +5 DEX stackable effect. The effects gets discarded when you manage to play a move.");
 		this.addMessage("-----------------");
 		this.addMessage("Each move has specific actions, and only 5 are allowed for 1 turn.");
 		this.addMessage("It looks like this:");
@@ -272,7 +273,7 @@ var Duel = class {
 		if (this.NB_TURNS == 1) {
 			this.addMessage("-----------------");
 			if ([EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5].indexOf(this.FIGHTER1.attack) < 0) {
-				this.addMessage("Cheating already ? If this were a real duel, you could have been caught!");
+				this.addMessage("Cheating already? If this were a real duel, you could have been caught!");
 				this.addMessage("Anyway, now you know how to choose a move.");
 			}
 			else {
@@ -282,7 +283,6 @@ var Duel = class {
 			this.addMessage("", true, {embed: this.FIGHTER1.toString()});
 			this.addMessage("**Fighting styles** are permanent effects you starts with, depending on your choice. Using the '*@PP_Arbitrator custom*' command allows you to choose your fighting styles.");
 			this.addMessage("**Status** are effects you get during the battle. Some are good to get, some aren't. Some are permanent, some aren't.");
-			this.addMessage("We'll get to **Synergies** later.");
 			this.addMessage("-----------------");
 			this.addMessage("Here are some moves that grants effects to you and/or the opponent:");
 			this.sendMessages();
@@ -301,7 +301,13 @@ var Duel = class {
 				this.addMessage("Come on, there's no point cheating, it's the tutorial!");
 				this.addMessage("-----------------");
 			}
-			this.addMessage("Another things you have to learn about are **Gods**!");
+			this.addMessage("Winning a fight grants a certain amount of **PP Points**. When a duel starts, its **PP Level** is determined by the lowest PP Points count of both fighters.");
+			this.addMessage("When the **PP Level** reaches certain values, additional game mechanics are unlocked, starting at level 50");
+
+			if (this.PPLEVEL < 50) return tutorialNextTurn();
+
+			this.addMessage("-----------------");
+			this.addMessage("One of those new mechanics are **Gods**!");
 			this.addMessage("You can have up to 3 gods when starting a duel. It works the same way as fighting styles, except their use is different.");
 			this.addMessage("You can call your **gods** powers using a charge you get with events. There are 2 kind of charges: **regular** and **special**, each calling all your gods **regular** or **special** moves.");
 			this.addMessage("There are some **Gods Synergies** that grants permanent effects.");
@@ -323,10 +329,6 @@ var Duel = class {
 		}
 		else if (this.NB_TURNS == 3) {
 			this.addMessage("-----------------");
-			if ([EMOTE_PP85, EMOTE_PP103, EMOTE_PP119, EMOTE_PP128, EMOTE_PP98].indexOf(this.FIGHTER1.attack) < 0) {
-				this.addMessage("Come on, there's no point cheating, it's the tutorial!");
-				this.addMessage("-----------------");
-			}
 			this.addMessage("Now you know part of the theory! The only remaining things to learn are what the moves do in practice.");
 			this.addMessage("The **PP Bible** can help you if you feel lost about something: https://github.com/brennfeu/pp-bot/wiki/PP-Bible. You can also get a link using the '*@PP_Arbitrator help*' command.");
 			this.addMessage("It's way easier and more fun to learn by playing with a friend, but you can also fight against the 'AI' using the training command!");
