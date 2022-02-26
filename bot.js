@@ -242,9 +242,6 @@ function sendErrorToDev(_err) {
 		DUEL_LIST[i].sendMessages();
 	}
 	DUEL_LIST = [];
-	setTimeout(function() {
-	    CLIENT.destroy();
-	}, 30000);
 }
 
 function updatePlayer(_fighterID, _username) {
