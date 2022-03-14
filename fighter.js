@@ -2624,8 +2624,8 @@ var Fighter = class {
 				var duel = this.duel;
 				duel.FIGHTER1.duel = null;
 				duel.FIGHTER2.duel = null;
-				duel.EVENT_BOSS.duel = null;
 				try {
+					duel.EVENT_BOSS.duel = null;
 					duel.FIGHTER1_SAVE.duel = null;
 					duel.FIGHTER2_SAVE.duel = null;
 				}
@@ -2635,15 +2635,15 @@ var Fighter = class {
 				duel.CHECKPOINT_DUEL = cloneObject(duel);
 				duel.FIGHTER1.duel = duel;
 				duel.FIGHTER2.duel = duel;
-				duel.EVENT_BOSS.duel = duel;
 				duel.CHECKPOINT_DUEL.FIGHTER1.duel = duel.CHECKPOINT_DUEL;
 				duel.CHECKPOINT_DUEL.FIGHTER2.duel = duel.CHECKPOINT_DUEL;
-				duel.CHECKPOINT_DUEL.EVENT_BOSS.duel = duel.CHECKPOINT_DUEL;
 				try {
 					duel.FIGHTER1_SAVE.duel = duel;
 					duel.FIGHTER2_SAVE.duel = duel;
+					duel.EVENT_BOSS.duel = duel;
 					duel.CHECKPOINT_DUEL.FIGHTER1_SAVE.duel = duel.CHECKPOINT_DUEL;
 					duel.CHECKPOINT_DUEL.FIGHTER2_SAVE.duel = duel.CHECKPOINT_DUEL;
+					duel.CHECKPOINT_DUEL.EVENT_BOSS.duel = duel.CHECKPOINT_DUEL;
 				}
 				catch(e) {
 					// saves are null
