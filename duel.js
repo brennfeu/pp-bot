@@ -265,10 +265,9 @@ var Duel = class {
 			var _list = [ EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5 ];
 			for (var i in _list) {
 				_message2.react(_list[i]);
-				
-				var duel = getDuel(_message2.channel.id);
-				var txt = `${getEmote(duel.LIST_AVAILABLE_ATTACKS[i])} `;
-				txt += MOVE_HELP[duel.LIST_AVAILABLE_ATTACKS[i]];
+
+				var txt = `${getEmote(_list[i])} `;
+				txt += MOVE_HELP[_list[i]];
 				_message2.channel.send(txt);
 			}
 		}).catch(function(e) {console.log(e);});
@@ -298,9 +297,8 @@ var Duel = class {
 				for (var i in _list) {
 					_message2.react(_list[i]);
 
-					var duel = getDuel(_message2.channel.id);
-					var txt = `${getEmote(duel.LIST_AVAILABLE_ATTACKS[i])} `;
-					txt += MOVE_HELP[duel.LIST_AVAILABLE_ATTACKS[i]];
+					var txt = `${getEmote(_list[i])} `;
+					txt += MOVE_HELP[_list[i]];
 					_message2.channel.send(txt);
 				}
 			}).catch(function(e) {console.log(e);});
@@ -340,9 +338,8 @@ var Duel = class {
 				for (var i in _list) {
 					_message2.react(_list[i]);
 
-					var duel = getDuel(_message2.channel.id);
-					var txt = `${getEmote(duel.LIST_AVAILABLE_ATTACKS[i])} `;
-					txt += MOVE_HELP[duel.LIST_AVAILABLE_ATTACKS[i]];
+					var txt = `${getEmote(_list[i])} `;
+					txt += MOVE_HELP[_list[i]];
 					_message2.channel.send(txt);
 				}
 			}).catch(function(e) {console.log(e);});
