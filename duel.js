@@ -139,9 +139,7 @@ var Duel = class {
 		}
 
 		// Wild Start
-		var weebPercent = 5;
-		if (this.AREA == AREA_PP1) weebPercent = 25;
-		if (this.PPLEVEL > 50 && getRandomPercent() <= weebPercent) {
+		if (this.PPLEVEL > 50 && getRandomPercent() <= 5) {
 			this.addMessage("", undefined, {embed:
 				{
 					"title": "**WILD START**",
@@ -163,7 +161,9 @@ var Duel = class {
 			this.CHRISTIAN_TEXT = true;
 		}
 		// Weeb
-		if (this.PPLEVEL > 50 && getRandomPercent() <= 10) {
+		var weebPercent = 10;
+		if (this.AREA == AREA_PP1) weebPercent = 80;
+		if (this.PPLEVEL > 50 && getRandomPercent() <= weebPercent) {
 			var bossWeeb = new WeebBoss(this);
 			this.addMessage("", undefined, {embed:
 				{
