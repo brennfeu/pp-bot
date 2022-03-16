@@ -266,6 +266,7 @@ var Duel = class {
 			for (var i in _list) {
 				_message2.react(_list[i]);
 				
+				var duel = getDuel(_message2.channel.id);
 				var txt = `${getEmote(duel.LIST_AVAILABLE_ATTACKS[i])} `;
 				txt += MOVE_HELP[duel.LIST_AVAILABLE_ATTACKS[i]];
 				_message2.channel.send(txt);
@@ -297,6 +298,7 @@ var Duel = class {
 				for (var i in _list) {
 					_message2.react(_list[i]);
 
+					var duel = getDuel(_message2.channel.id);
 					var txt = `${getEmote(duel.LIST_AVAILABLE_ATTACKS[i])} `;
 					txt += MOVE_HELP[duel.LIST_AVAILABLE_ATTACKS[i]];
 					_message2.channel.send(txt);
@@ -338,6 +340,7 @@ var Duel = class {
 				for (var i in _list) {
 					_message2.react(_list[i]);
 
+					var duel = getDuel(_message2.channel.id);
 					var txt = `${getEmote(duel.LIST_AVAILABLE_ATTACKS[i])} `;
 					txt += MOVE_HELP[duel.LIST_AVAILABLE_ATTACKS[i]];
 					_message2.channel.send(txt);
