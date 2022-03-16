@@ -346,9 +346,9 @@ var Duel = class {
 		}
 		else if (this.NB_TURNS == 3) {
 			this.addMessage("-----------------");
-			this.addMessage("Now you know part of the theory! Now, you only lack practice.");
-			this.addMessage("The **PP Bible** can help you if you feel lost about something: https://github.com/brennfeu/pp-bot/wiki/PP-Bible. You can also get a link using the '*@PP_Arbitrator help*' command.");
-			this.addMessage("It's way easier and more fun to learn through playing with a friend, but you can also fight against the 'AI' using the training command!");
+			this.addMessage("Now you know part of the theory! The **PP Bible** can help you if you feel lost about something: https://github.com/brennfeu/pp-bot/wiki/PP-Bible.");
+			this.addMessage("You can also get a link using the '*@PP_Arbitrator help*' command.");
+			this.addMessage("Regarding actual practice, it's way easier and more fun to learn through playing with a friend, but you can also challenge the 'AI' using the training command!");
 			this.addMessage("-----------------");
 			this.addMessage("That's it, the tutorial is over! I hope you have fun with this bot! :)");
 			this.sendMessages();
