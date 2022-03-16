@@ -254,8 +254,8 @@ var Duel = class {
 		this.addMessage("As you can see, there are only 2 stats in the game: **STR** and **DEX**.");
 		this.addMessage("**STR** is about how strong you can punch PP. The more you have, the more damage your punches will deal. It's also your **HP**, which means that getting it below 0 has the side effect of making you not being alive anymore (and thus, losing the duel).");
 		this.addMessage("-----------------");
-		this.addMessage("**DEX** is about the likeliness to land your hits. Each turn, each fighter selects a move. Then, there is **DEX random roll** based on your current DEX. If the results are close enough, both fighters use their move. Else, only the ighter with the higher DEX roll result do.");
-		this.addMessage("When you miss a move, you get +5 DEX stackable effect. The effects gets discarded when you manage to play a move.");
+		this.addMessage("**DEX** is about the likeliness to land your hits. Each turn, each fighter selects a move. Then, there is **DEX random roll** based on their current DEX. If both fighters' results are close enough, both fighters use their move. Else, only the one with the higher DEX roll result do.");
+		this.addMessage("When you miss a move, you get +5 DEX stackable effect. The effects gets discarded when you finally manage to land a move.");
 		this.addMessage("-----------------");
 		this.addMessage("Each move has specific actions, and only 5 are allowed for 1 turn.");
 		this.addMessage("It looks like this:");
