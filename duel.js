@@ -248,13 +248,13 @@ var Duel = class {
 		this.PPLEVEL = getWinCounter(this.FIGHTER1.idUser);
 
 		this.addMessage("**TIME FOR A TUTORIAL**");
-		this.addMessage("Welcome to the PP Punch Arena!\nThis bot allows you to play PP Punch Duels in discord. It's actually an rpg strategy fighting game");
-		this.addMessage("First, let me teach you about the fighters!");
+		this.addMessage("Welcome to the PP Punch Arena!\nThis bot allows you to play PP Punch Duels in discord. It's actually an rpg strategy fighting game!");
+		this.addMessage("First, let me teach you about the fighters.");
 		this.addMessage("", true, {embed: this.FIGHTER1.toString()});
 		this.addMessage("As you can see, there are only 2 stats in the game: **STR** and **DEX**.");
-		this.addMessage("**STR** is about how strong you can punch PP. The more you have, the more damages your punches will deal. It's also your **HP**, so don't get it below 0!");
+		this.addMessage("**STR** is about how strong you can punch PP. The more you have, the more damage your punches will deal. It's also your **HP**, which means that getting it below 0 has the side effect of making you not being alive anymore (and thus, losing the duel).");
 		this.addMessage("-----------------");
-		this.addMessage("**DEX** is about the probability you have to punch. Each turn, each fighter selects a move. Then, there is **DEX random roll** based on your current DEX. If the results are the same +-10, both fighters use their move. Else, only the one with the higher result do.");
+		this.addMessage("**DEX** is about the likeliness to land your hits. Each turn, each fighter selects a move. Then, there is **DEX random roll** based on your current DEX. If the results are close enough, both fighters use their move. Else, only the ighter with the higher DEX roll result do.");
 		this.addMessage("When you miss a move, you get +5 DEX stackable effect. The effects gets discarded when you manage to play a move.");
 		this.addMessage("-----------------");
 		this.addMessage("Each move has specific actions, and only 5 are allowed for 1 turn.");
@@ -262,11 +262,14 @@ var Duel = class {
 		this.sendMessages();
 
 		this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction!").then(function (_message2) {
-			_message2.react(EMOTE_PP1);
-			_message2.react(EMOTE_PP2);
-			_message2.react(EMOTE_PP3);
-			_message2.react(EMOTE_PP4);
-			_message2.react(EMOTE_PP5);
+			var _list = [ EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5 ];
+			for (var i in _list) {
+				_message2.react(_list[i]);
+				
+				var txt = `${getEmote(duel.LIST_AVAILABLE_ATTACKS[i])} `;
+				txt += MOVE_HELP[duel.LIST_AVAILABLE_ATTACKS[i]];
+				_message2.channel.send(txt);
+			}
 		}).catch(function(e) {console.log(e);});
 	}
 	tutorialNextTurn() {
@@ -275,7 +278,7 @@ var Duel = class {
 		if (this.NB_TURNS == 1) {
 			this.addMessage("-----------------");
 			if ([EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5].indexOf(this.FIGHTER1.attack) < 0) {
-				this.addMessage("Cheating already? If this were a real duel, you could have been caught!");
+				this.addMessage("Cheating already? If this were a real duel, you could have been caught and suffered the consequences!");
 				this.addMessage("Anyway, now you know how to choose a move.");
 			}
 			else {
@@ -290,11 +293,14 @@ var Duel = class {
 			this.sendMessages();
 
 			this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction!").then(function (_message2) {
-				_message2.react(EMOTE_PP7);
-				_message2.react(EMOTE_PP17);
-				_message2.react(EMOTE_PP19);
-				_message2.react(EMOTE_PP21);
-				_message2.react(EMOTE_PP22);
+				var _list = [ EMOTE_PP7, EMOTE_PP17, EMOTE_PP19, EMOTE_PP21, EMOTE_PP22 ];
+				for (var i in _list) {
+					_message2.react(_list[i]);
+
+					var txt = `${getEmote(duel.LIST_AVAILABLE_ATTACKS[i])} `;
+					txt += MOVE_HELP[duel.LIST_AVAILABLE_ATTACKS[i]];
+					_message2.channel.send(txt);
+				}
 			}).catch(function(e) {console.log(e);});
 		}
 		else if (this.NB_TURNS == 2) {
@@ -308,13 +314,13 @@ var Duel = class {
 			this.addMessage("-----------------");
 
 			if (this.PPLEVEL < 50) {
-				this.addMessage("Come back once you reach 50 PP Points to learn about **Gods**!");
+				this.addMessage("You may come back to the tutorial once you reach 50 PP Points to learn about **Gods**!");
 				return tutorialNextTurn();
 			}
 
 			this.addMessage("One of those new mechanics are **Gods**!");
 			this.addMessage("You can have up to 3 gods when starting a duel. It works the same way as fighting styles, except their use is different.");
-			this.addMessage("You can call your **gods** powers using a charge you get with events. There are 2 kind of charges: **regular** and **special**, each calling all your gods **regular** or **special** moves.");
+			this.addMessage("You can call your **gods** powers using a charge you get with events. There are 2 kind of charges: **regular** and **special**, each calling all your gods' **regular** or **special** moves.");
 			this.addMessage("There are some **Gods Synergies** that grants permanent effects.");
 			this.addMessage("-----------------");
 			this.addMessage("Let's say you are a Priest of **700IQ**, **Salt King** and **Brenn**.");
@@ -323,22 +329,28 @@ var Duel = class {
 			this.FIGHTER1.regularCharges = 1;
 			this.FIGHTER1.specialCharges = 1;
 			this.addMessage("", true, {embed: this.FIGHTER1.toString()});
-			this.addMessage("It gave you a synergy ! This one makes sure that you can't get below 0 **DEX**.");
+			this.addMessage("This god combination gave you a synergy. This one makes sure that you can't get below 0 **DEX**.");
 			this.addMessage("Here are the moves that allows you to unleash your **Gods**:");
 			this.sendMessages();
 
 			this.BATTLE_CHANNEL.send("\n\nChoose your attack with a reaction!").then(function (_message2) {
-				_message2.react(EMOTE_PP51);
-				_message2.react(EMOTE_PP52);
+				var _list = [ EMOTE_PP51, EMOTE_PP52 ];
+				for (var i in _list) {
+					_message2.react(_list[i]);
+
+					var txt = `${getEmote(duel.LIST_AVAILABLE_ATTACKS[i])} `;
+					txt += MOVE_HELP[duel.LIST_AVAILABLE_ATTACKS[i]];
+					_message2.channel.send(txt);
+				}
 			}).catch(function(e) {console.log(e);});
 		}
 		else if (this.NB_TURNS == 3) {
 			this.addMessage("-----------------");
-			this.addMessage("Now you know part of the theory! The only remaining things to learn are what the moves do in practice.");
+			this.addMessage("Now you know part of the theory! Now, you only lack practice.");
 			this.addMessage("The **PP Bible** can help you if you feel lost about something: https://github.com/brennfeu/pp-bot/wiki/PP-Bible. You can also get a link using the '*@PP_Arbitrator help*' command.");
-			this.addMessage("It's way easier and more fun to learn by playing with a friend, but you can also fight against the 'AI' using the training command!");
+			this.addMessage("It's way easier and more fun to learn through playing with a friend, but you can also fight against the 'AI' using the training command!");
 			this.addMessage("-----------------");
-			this.addMessage("That's it, the tutorial is over! I hope you have fun :)");
+			this.addMessage("That's it, the tutorial is over! I hope you have fun with this bot! :)");
 			this.sendMessages();
 
 			this.DEAD_DUEL = true;
