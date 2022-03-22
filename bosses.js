@@ -57,7 +57,7 @@ var Boss = class extends Fighter {
         super.turnChange();
         this.dexMalus = 0;
 
-        if (this.STR <= 0) return triggerDeath();
+        if (this.STR <= 0) return this.triggerDeath();
     }
 
     triggerDeath() {
