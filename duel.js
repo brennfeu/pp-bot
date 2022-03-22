@@ -2363,6 +2363,11 @@ var Duel = class {
 				this.addMessage("-----------------");
 				this.otherFighter(winner).playMove();
 			}
+			// PP Colossus
+			if (this.otherFighter(winner).attack == EMOTE_MECHA) {
+				this.addMessage("-----------------");
+				this.otherFighter(winner).playMove();
+			}
 		}
 		if (this.MOVE_COUNT_TURN >= 500) {
 			this.sendMessages(1);
