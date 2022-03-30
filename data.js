@@ -82,8 +82,8 @@ var EMOTE_PP49 = "358188173651607552"; // Soup
 var EMOTE_PP50 = "342313262651670528"; // Perhaps
 
 // GOD MOVES
-var EMOTE_PP51 = "615518949110448129"; // Priest move
-var EMOTE_PP52 = "615516249912508419"; // Special Priest Move
+var EMOTE_PP51 = "958643638299156480"; // Priest move
+var EMOTE_PP52 = "958643750152859709"; // Special Priest Move
 
 // ANIMATED MOVES
 var EMOTE_PP53 = "645196083516932107"; // Singular Explosion
@@ -133,10 +133,10 @@ var EMOTE_PP77 = "715323501858390036"; // SatanHand
 var EMOTE_PP78 = "715323503175401514"; // SatanSkull
 
 // RARE MOVES
-var EMOTE_PP79 = "667336163396288522"; // Eye of Truth
-var EMOTE_PP80 = "710747094423699499"; // Fherla
-var EMOTE_PP81 = "718182412114460704"; // Melodia
-var EMOTE_PP148 = "646671968728514561"; // sex
+var EMOTE_PP79 = "958643389090398249"; // Eye of Truth
+var EMOTE_PP80 = "958643143455170570"; // Fherla
+var EMOTE_PP81 = "958643252175708210"; // Melodia
+var EMOTE_PP148 = "958643506870636595"; // sex
 
 // CIV SHRINE MOVES
 var EMOTE_PP82 = "680064464883548279"; // Familiar Shrine
@@ -226,33 +226,33 @@ var OTHER_EMOTE_LIST = [EMOTE_ABILITY, EMOTE_MECHA, EMOTE_FRIEDESPINOZA, EMOTE_E
 var EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST)
 	.concat(RARE_EMOTE_LIST).concat(CIV_EMOTE_LIST).concat(INFERNAL_EMOTE_LIST).concat(OTHER_EMOTE_LIST);
 
-var GOD_PP1 = {"name": "Mongo", "emote": "644643782888783892", "type": "normal"};
-var GOD_PP2 = {"name": "Hermit", "emote": "674635214005207040", "type": "normal"};
-var GOD_PP3 = {"name": "LeprePuds", "emote": "616332243337609257", "type": "normal"};
+var GOD_PP1 = {"name": "Mongo", "emote": "958636274699358210", "type": "normal"};
+var GOD_PP2 = {"name": "Hermit", "emote": "958636461471711232", "type": "normal"};
+var GOD_PP3 = {"name": "LeprePuds", "emote": "958636615125860382", "type": "normal"};
 var GOD_PP4 = {"name": "", "emote": "", "type": "normal"}; // ADD TO THE LIST
-var GOD_PP5 = {"name": "Hello There Puds", "emote": "614823329731313670", "type": "normal"};
-var GOD_PP6 = {"name": "DickDickSon666", "emote": "616877566396989451", "type": "normal"};
-var GOD_PP7 = {"name": "Minecraft Villager", "emote": "644621040093364283", "type": "normal"};
-var GOD_PP8 = {"name": "Fabulous Toast Man", "emote": "614823500951060481", "type": "normal"};
-var GOD_PP9 = {"name": "Brenn", "emote": "615268884651442186", "type": "normal"};
-var GOD_PP10 = {"name": "Fabio", "emote": "618037444222255104", "type": "normal"};
-var GOD_PP11 = {"name": "Country Music Brenn", "emote": "614825720962744344", "type": "normal"};
-var GOD_PP13 = {"name": "700IQ", "emote": "617258233307987986", "type": "normal"};
-var GOD_PP14 = {"name": "UREGonnaGetWHAT", "emote": "615271176314290249", "type": "normal"};
-var GOD_PP15 = {"name": "STFU Isaac", "emote": "614822537800712213", "type": "normal"};
-var GOD_PP16 = {"name": "The Man Who made a Monster", "emote": "619795568230924291", "type": "normal"};
+var GOD_PP5 = {"name": "Hello There Puds", "emote": "958636743844847636", "type": "normal"};
+var GOD_PP6 = {"name": "DickDickSon666", "emote": "958636968529506325", "type": "normal"};
+var GOD_PP7 = {"name": "Minecraft Villager", "emote": "958637129330741278", "type": "normal"};
+var GOD_PP8 = {"name": "Fabulous Toast Man", "emote": "958637275493842994", "type": "normal"};
+var GOD_PP9 = {"name": "Brenn", "emote": "958637583200575529", "type": "normal"};
+var GOD_PP10 = {"name": "Fabio", "emote": "958637716667506698", "type": "normal"};
+var GOD_PP11 = {"name": "Country Music Brenn", "emote": "958637886603927552", "type": "normal"};
+var GOD_PP13 = {"name": "700IQ", "emote": "958638015306154015", "type": "normal"};
+var GOD_PP14 = {"name": "UREGonnaGetWHAT", "emote": "958638178737201162", "type": "normal"};
+var GOD_PP15 = {"name": "STFU Isaac", "emote": "958638672947851284", "type": "normal"};
+var GOD_PP16 = {"name": "The Man Who made a Monster", "emote": "958639345500307486", "type": "normal"};
 var GOD_PP17 = {"name": "", "emote": "", "type": ""}; // ADD TO THE LIST
-var GOD_PP18 = {"name": "Salt King", "emote": "650830165751889935", "type": "normal"};
-var GOD_PP19 = {"name": "Chad Brenn", "emote": "644634924477055015", "type": "normal"};
-var GOD_PP26 = {"name": "Ranger", "emote": "673882539328536576", "type": "normal"};
+var GOD_PP18 = {"name": "Salt King", "emote": "958639477717340230", "type": "normal"};
+var GOD_PP19 = {"name": "Chad Brenn", "emote": "958639633275691008", "type": "normal"};
+var GOD_PP26 = {"name": "Ranger", "emote": "958639742054973450", "type": "normal"};
 var GOD_PP29 = {"name": "", "emote": "", "type": "normal"}; // ADD TO THE LIST
 
-var GOD_PP21 = {"name": "D.I.C.K.", "emote": "644617343456247829", "type": "eldritch"};
-var GOD_PP22 = {"name": "Satan", "emote": "715323505448714240", "type": "eldritch"};
-var GOD_PP23 = {"name": "Ancient Fungus", "emote": "671347173270618112", "type": "eldritch"};
-var GOD_PP24 = {"name": "Time Cube", "emote": "671347614431576065", "type": "eldritch"};
-var GOD_PP25 = {"name": "Cthulhu", "emote": "715323505104650268", "type": "eldritch"};
-var GOD_PP12 = {"name": "Espinoza", "emote": "615887132157804564", "type": "eldritch"};
+var GOD_PP21 = {"name": "D.I.C.K.", "emote": "958642374907678720", "type": "eldritch"};
+var GOD_PP22 = {"name": "Satan", "emote": "958642482323816458", "type": "eldritch"};
+var GOD_PP23 = {"name": "Ancient Fungus", "emote": "958642597772017694", "type": "eldritch"};
+var GOD_PP24 = {"name": "Time Cube", "emote": "958642729913565205", "type": "eldritch"};
+var GOD_PP25 = {"name": "Cthulhu", "emote": "958642845235965952", "type": "eldritch"};
+var GOD_PP12 = {"name": "Espinoza", "emote": "958642206808358942", "type": "eldritch"};
 
 var GOD_PP20 = {"name": "Mikasa", "emote": "721676575841714186", "type": "waifu"};
 var GOD_PP27 = {"name": "Kurisu", "emote": "721676572108783636", "type": "waifu"};
