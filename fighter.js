@@ -1835,9 +1835,9 @@ var Fighter = class {
 					this.duel.addMessage(this.getName() + " licks his wounds!");
 					this.heal(Math.floor(this.damageTaken/2));
 				}
-				if (this.godList.indexOf(GOD_PP14.name) > -1) { // UREGonnaGETRaped
+				if (this.godList.indexOf(GOD_PP14.name) > -1) { // UREGonnaGETWhat
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage("Rapist Pudding answers his calls!");
+					this.duel.addMessage("Rapper Pudding answers his calls!");
 					this.duel.addMessage(this.getName() + " gives a boner punch to " + this.getOppName() + "!");
 					this.hasBoner = true;
 					this.duel.getOppOf(this).damage(Math.floor((this.STR - (this.DEX/2))/5));
@@ -2247,9 +2247,9 @@ var Fighter = class {
 						this.duel.addMessage(this.getName() + " barks like the furry he is!");
 					}
 				}
-				if (this.godList.indexOf(GOD_PP14.name) > -1) { // UREGonnaGETRaped
+				if (this.godList.indexOf(GOD_PP14.name) > -1) { // UREGonnaGETWhat
 					this.duel.addMessage("-----------------");
-					this.duel.addMessage("Rapist Pudding answers his calls!");
+					this.duel.addMessage("Rapper Pudding answers his calls!");
 					this.duel.addMessage(this.getName() + " sensually touches " + this.getOppName() + "'s PP...");
 					this.duel.bothFightersAction(function(_fighter) {
 						_fighter.hasBoner = true;
