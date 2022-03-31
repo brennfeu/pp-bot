@@ -231,7 +231,6 @@ function setBotActivity(_texte = "Lonely PP Squeezing :(") {
 function sendErrorToDev(_err) {
 	console.log("ERROR:")
 	console.log(_err);
-	CLIENT.users.cache.find(a => a.id == ID_BRENNFEU).send(_err);
 	for (var i in DUEL_LIST) {
 		DUEL_LIST[i].LIST_MESSAGES = [];
 		DUEL_LIST[i].LIST_MESSAGES_OTHER = [];
@@ -242,6 +241,7 @@ function sendErrorToDev(_err) {
 		DUEL_LIST[i].sendMessages();
 	}
 	DUEL_LIST = [];
+	CLIENT.users.cache.find(a => a.id == ID_BRENNFEU).send(_err.toString());
 }
 
 function updatePlayer(_fighterID, _username) {
