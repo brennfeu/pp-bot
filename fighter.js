@@ -4429,7 +4429,7 @@ var City = class extends Fighter {
 		if (buildingTxt != "") embedMessage.addField("Buildings", buildingTxt, true);
 
 		// STATUS
-		statusTxt = ""
+		var statusTxt = ""
 		if (this.kaijuHP > 0) {
 			statusTxt += " - **Kaiju HP: " + this.kaijuHP + "**\n";
 		}
