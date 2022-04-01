@@ -3538,7 +3538,7 @@ var Fighter = class {
 			_amount += 10;
 		}
 		if (enemyPuncher.huTaoBuff > 0 && _punch) {
-			_amount += Maths.floor(enemyPuncher.STR/20);
+			_amount += Math.floor(enemyPuncher.STR/20);
 		}
 		if (enemyPuncher.flugelBlood && enemyPuncher.DEX > this.DEX && _punch) {
 			// Jibril Special
@@ -3789,7 +3789,7 @@ var Fighter = class {
 			for (var i = 0; i < 8; i++) {
 				if (getRandomPercent() <= 10) {
 					this.duel.addMessage(this.getName() + "'s tail #" + (i+1) + " attacks back!");
-					enemyPuncher.damage(Maths.floor(this.STR/10));
+					enemyPuncher.damage(Math.floor(this.STR/10));
 				}
 			}
 		}
@@ -3948,7 +3948,7 @@ var Fighter = class {
 		if (this.bloodBlossom > 0) {
 			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " burns!");
-			this.damage(Maths.floor(this.STR/10), false);
+			this.damage(Math.floor(this.STR/10), false);
 			this.bloodBlossom -= 1;
 		}
 
@@ -3968,7 +3968,7 @@ var Fighter = class {
 		if (this.hasRelic(RELIC_PP2) && getRandomPercent() <= 25) {
 			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " feels holy!");
-			this.heal(Maths.max(this.DEX, 10));
+			this.heal(Math.max(this.DEX, 10));
 		}
 
 		// Charges
