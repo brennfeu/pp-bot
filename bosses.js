@@ -146,7 +146,7 @@ var CthulhuBoss = class extends Boss {
 
     triggerDeath() {
         this.duel.addMessage(this.getName() + " goes back to sleep to heal his poor PP!");
-        
+
         this.duel.bothFightersAction(function(_fighter) {
             grantPlayerExpertPP(_fighter);
         });
@@ -158,7 +158,10 @@ var CthulhuBoss = class extends Boss {
 }
 var MoonLordBoss = class extends CthulhuBoss {
     constructor(_duel) {
-        super(_duel, "Moon Lord", 500000);
+        super(_duel);
+        this.bossName = "Moon Lord";
+        this.STRValue = 500000;
+
         this.baseDamage = 2000;
 
         this.imageURL = "https://cdn.discordapp.com/attachments/715322091804819486/942778125211828264/unknown.png";
@@ -490,7 +493,10 @@ var RaidBossEspinozaBoss = class extends Boss {
 }
 var ObamiumEspinozaBoss = class extends RaidBossEspinozaBoss {
     constructor(_duel) {
-        super(_duel, "Obamium Espinoza", Math.pow(10, 10));
+        super(_duel);
+        this.bossName = "Obamium Espinoza";
+        this.STRValue = Math.pow(10, 10);
+
         this.baseDamage = 1000000;
         this.mimicPercentage = 20;
 
