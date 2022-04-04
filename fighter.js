@@ -3168,7 +3168,7 @@ var Fighter = class {
 				else {
 					this.duel.addMessage(this.getName() + " summons the Royal Gel!");
 					this.duel.addMessage("A Pudding Blob has been created!");
-					this.triggerBossFight(new PuddingBlobBoss(this.duel));
+					this.duel.triggerBossFight(new PuddingBlobBoss(this.duel));
 				}
 				this.duel.EVENT_BOSS.bossTriggeredAt = this.duel.otherFighter(this);
 			}
