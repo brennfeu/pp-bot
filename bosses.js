@@ -150,8 +150,8 @@ var CthulhuBoss = class extends Boss {
         this.duel.bothFightersAction(function(_fighter) {
             grantPlayerExpertPP(_fighter);
         });
-        this.addMessage("**You are now PP Experts.**");
-        this.addMessage("**You have gained access to the eldritch gods.**");
+        this.duel.addMessage("**You are now PP Experts.**");
+        this.duel.addMessage("**You have gained access to the eldritch gods.**");
 
         super.triggerDeath();
     }
@@ -172,8 +172,8 @@ var MoonLordBoss = class extends CthulhuBoss {
         this.duel.bothFightersAction(function(_fighter) {
             grantPlayerExpertPP(_fighter);
         });
-        this.addMessage("**You are now PP Experts.**");
-        this.addMessage("**You have gained access to the eldritch gods.**");
+        this.duel.addMessage("**You are now PP Experts.**");
+        this.duel.addMessage("**You have gained access to the eldritch gods.**");
 
         super.super.triggerDeath();
     }
@@ -483,7 +483,7 @@ var RaidBossEspinozaBoss = class extends Boss {
         this.duel.bothFightersAction(function(_fighter) {
             grantPlayerWeebPP(_fighter);
         });
-        this.addMessage("**You now have a Weeb PP.**");
+        this.duel.addMessage("**You now have a Weeb PP.**");
 
         super.triggerDeath();
     }
