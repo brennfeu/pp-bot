@@ -1616,8 +1616,8 @@ var Duel = class {
 			this.startRandomEvent();
 		}
 		else if (this.PPLEVEL > 200 && randomVar == 50 && (this.MOVE_COUNT >= 1000 || forcedEvent) &&
-			( (isPlayerExpertPP(this.FIGHTER1) && isPlayerWeebPP(this.FIGHTER1)) ||
-			(isPlayerExpertPP(this.FIGHTER2) && isPlayerWeebPP(this.FIGHTER2) && this.FIGHTER2.idUser != CLIENT.user.id) )) { // Wyndoella
+			( (isPlayerExpertPP(this.FIGHTER1.idUser) && isPlayerWeebPP(this.FIGHTER1.idUser)) ||
+			(isPlayerExpertPP(this.FIGHTER2.idUser) && isPlayerWeebPP(this.FIGHTER2.idUser) && this.FIGHTER2.idUser != CLIENT.user.id) )) { // Wyndoella
 			this.addMessage("", undefined, {embed:
 				{
 					"title": "**WYNDOELLA KILLS PUDDING**",
