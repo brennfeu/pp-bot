@@ -421,7 +421,7 @@ var AREA_PP8 = {"name": "Infernal Fireland", "description": "Plenty of forest fi
 var AREA_PP9 = {"name": "Espinoza's Palace", "description": "Home of the Eldritch God of Arm Sniffing, all around you is a chaotic armageddon.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945447618329337896/unknown.png", "minLevel": 100};
 var AREA_PP10 = {"name": "Eldritch Realm", "description": "Home of the Eldritch Gods, all around you is a chaotic armageddon.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945444488002818108/unknown.png", "minLevel": 100};
 var AREA_PP11 = {"name": "Infinite Space", "description": "PP Punching in space sounds cool, doesn't it? Just gotta hold your breath for a while.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945443672554635265/unknown.png", "minLevel": 200};
-var AREA_PP12 = {"name": "France", "description": "Who doesn't know about France? The country of croissants, omelettes du fromage, wine, good bread, cheese and a lot more! As a wise man once said: 'I give the cigarette to the bébé'.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/945458168731942922/unknown.png", "minLevel": 0};
+var AREA_PP12 = {"name": "France", "description": "Who doesn't know about France? The country of croissants, omelettes du fromage, wine, good bread, cheese and a lot more! As a wise man once said: 'I give the cigarette to the bébé'.", "imageLink": "https://cdn.discordapp.com/attachments/667337519477817363/960874946601549874/unknown.png", "minLevel": 0};
 var AREA_LIST = [ AREA_PP1, AREA_PP2, AREA_PP3, AREA_PP4, AREA_PP5, AREA_PP6, AREA_PP7, AREA_PP8, AREA_PP9,
 		AREA_PP10, AREA_PP11, AREA_PP12];
 
