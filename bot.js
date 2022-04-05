@@ -57,7 +57,7 @@ function killDeadDuels() {
 }
 function skipWaitingDuels() {
 	for (var i = DUEL_LIST.length - 1; i >= 0; i--) {
-		if (DUEL_LIST[i].TIMESTAMP + (3 * 60*1000) < +new Date()) {
+		if (DUEL_LIST[i].TIMESTAMP + (60*1000) < +new Date()) {
 			if (DUEL_LIST[i].TUTORIAL) {
 				DUEL_LIST[i].addMessage("Tutoriel cancelled:(")
 				DUEL_LIST[i].sendMessages();
