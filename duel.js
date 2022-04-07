@@ -2854,6 +2854,8 @@ var Duel = class {
 				return 50;
 			case EMOTE_PP144:
 				return 60;
+			case EMOTE_SKIP:
+				return -99999999999;
 		}
 		return 0;
 	}
