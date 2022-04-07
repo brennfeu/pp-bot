@@ -351,15 +351,15 @@ var PPNetHiveMindBoss = class extends Boss {
         this.duel.addMessage(this.getName() + " is destroyed!");
         super.triggerDeath();
 
-        this.duel.addMessage("PP-Net is shut down ! Long live the human PPs!");
+        this.duel.addMessage("PP-Net is shut down! Long live the human PPs!");
         this.duel.addMessage("-----------------");
         this.duel.addMessage("As you read the changelog, you see that a PP Terminator has been sent to the past to kill the past you!");
         this.duel.addMessage("-----------------");
         this.duel.addMessage("**ANOTHER TIME, ANOTHER PLACE**");
         this.duel.addMessage("-----------------");
-        this.duel.addMessage(this.duel.FIGHTER1.getName() + ": *'I challenge you to a PP Punch duel !'*");
-        this.duel.addMessage(this.duel.FIGHTER2.getName() + ": *'Alright, let's do this !'*");
-        this.duel.addMessage(this.duel.FIGHTER1.getName() + ": *'Wait what is this thing ?'*");
+        this.duel.addMessage(this.duel.FIGHTER1.getName() + ": *'I challenge you to a PP Punch duel!'*");
+        this.duel.addMessage(this.duel.FIGHTER2.getName() + ": *'Alright, let's do this!'*");
+        this.duel.addMessage(this.duel.FIGHTER1.getName() + ": *'Wait what is this thing?'*");
         this.duel.addMessage("-----------------");
         this.duel.sendMessages();
 
@@ -368,7 +368,7 @@ var PPNetHiveMindBoss = class extends Boss {
         this.duel.FIGHTER1 = new Fighter(this.duel.FIGHTER1.idUser, this.duel.BATTLE_CHANNEL.id);
         this.duel.FIGHTER2 = new Fighter(this.duel.FIGHTER2.idUser, this.duel.BATTLE_CHANNEL.id);
 
-        this.duel.triggerBossFight(new PPTerminatorBoss(this));
+        this.duel.triggerBossFight(new PPTerminatorBoss(this.duel));
     }
 }
 var PPTerminatorBoss = class extends Boss {
