@@ -89,7 +89,7 @@ var Fighter = class {
 		this.impendingDoom = 0;
 		this.redPillAddiction = 0;
 		this.satanicMoveMultiplier = false;
-		this.ultimatePPBuff = true;
+		this.ultimatePPBuff = 0;
 		this.goldenSpoons = 0;
 		this.megaBuildUp = 0;
 		this.futureMemories = -1;
@@ -176,21 +176,23 @@ var Fighter = class {
 		else { // Create a fighter
 			if (this.userBuild.fightingstyles.indexOf(BIG_PP_ROLE) > -1) {
 				this.isBigPP = true;
+				this.ultimatePPBuff += 1;
 			}
 			if (this.userBuild.fightingstyles.indexOf(FAST_PP_ROLE) > -1) {
 				this.isFastPP = true;
+				this.ultimatePPBuff += 1;
 			}
 			if (this.userBuild.fightingstyles.indexOf(DRUNK_PP_ROLE) > -1) {
 				this.isDrunkPP = true;
+				this.ultimatePPBuff += 1;
 			}
 			if (this.userBuild.fightingstyles.indexOf(HOCKEY_PUCK_PP_ROLE) > -1) {
 				this.isHockeyPuckPP = true;
+				this.ultimatePPBuff += 1;
 			}
 			if (this.userBuild.fightingstyles.indexOf(ALIEN_PP_ROLE) > -1) {
 				this.isAlienPP = true;
-			}
-			if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
-				this.ultimatePPBuff = false;
+				this.ultimatePPBuff += 1;
 			}
 
 			for (var i in GOD_LIST) {
@@ -339,10 +341,7 @@ var Fighter = class {
 			str += 20;
 		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
-			str += 50;
-			if (this.ultimatePPBuff) {
-				str += 50;
-			}
+			str += 50 + ((5-this.ultimatePPBuff)*10);
 		}
 		if (this.duel.INFERNAL_FIRELAND) {
 			str += 1000;
@@ -450,10 +449,7 @@ var Fighter = class {
 			dex += 5;
 		}
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
-			dex += 50;
-			if (this.ultimatePPBuff) {
-				dex += 50;
-			}
+			dex += 50 + ((5-this.ultimatePPBuff)*10);
 		}
 		if (this.duel.PP_ARMAGEDDON) {
 			dex += 200;
@@ -559,8 +555,22 @@ var Fighter = class {
 		var fightingStylesTxt = "";
 		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
 			fightingStylesTxt += displayEmote(EMOTE_PP4) + " *Ultimate PP";
-			if (this.ultimatePPBuff) {
-				fightingStylesTxt += " II";
+			switch (this.ultimatePPBuff) {
+				case 5:
+					fightingStylesTxt += " N";
+					break;
+				case 3:
+					fightingStylesTxt += " II";
+					break;
+				case 2:
+					fightingStylesTxt += " III";
+					break;
+				case 1:
+					fightingStylesTxt += " IV";
+					break;
+				case 0:
+					fightingStylesTxt += " V";
+					break;
 			}
 			fightingStylesTxt += "*";
 		}
