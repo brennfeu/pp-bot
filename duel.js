@@ -2854,8 +2854,6 @@ var Duel = class {
 				return 50;
 			case EMOTE_PP144:
 				return 60;
-			case EMOTE_SKIP:
-				return -99999999999;
 		}
 		return 0;
 	}
@@ -2864,6 +2862,8 @@ var Duel = class {
 			return 0;
 		}
 		switch(_move) {
+			case EMOTE_SKIP:
+				return -99999999999;
 			case EMOTE_PP3:
 				return -40;
 			case EMOTE_PP26:
