@@ -6,6 +6,7 @@ var Duel = class {
 		this.INFINITE_DAMAGE = 0;
 		this.TIMESTAMP = +new Date();
 		this.LIST_AVAILABLE_ATTACKS = [];
+		this.LAST_EMOTE_MESSAGE = null;
 
 		this.FIGHTER1_SAVE = null;
 		this.FIGHTER2_SAVE = null;
@@ -798,8 +799,10 @@ var Duel = class {
 			gay = "opponent's ";
 		}
 
-		this.BATTLE_CHANNEL.send("Choose your " + gay + "attack with a reaction!").then(function (_message2) {
+		this.BATTLE_CHANNEL.send("Choose your " + gay + "attack with a reaction!").then(function (_message2, _moveCount = this.MOVE_COUNT) {
 			var duel = getDuel(_message2.channel.id);
+			if (_moveCount != duel.MOVE_COUNT) return;
+			
 			for (var i in duel.LIST_AVAILABLE_ATTACKS) {
 				if (duel.LIST_AVAILABLE_ATTACKS[i] != EMOTE_DEAD && duel.LIST_AVAILABLE_ATTACKS[i] != EMOTE_SKIP) {
 					_message2.react(duel.LIST_AVAILABLE_ATTACKS[i]);
