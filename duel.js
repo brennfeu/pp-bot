@@ -801,8 +801,6 @@ var Duel = class {
 
 		var sendEmotesFunction = function(_message2) {
 			var duel = getDuel(_message2.channel.id);
-			console.log(duel.MOVE_COUNT);
-			console.log(this.moveCount);
 			if (duel.MOVE_COUNT != this.moveCount) return;
 			
 			for (var i in duel.LIST_AVAILABLE_ATTACKS) {
