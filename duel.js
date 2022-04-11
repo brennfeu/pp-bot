@@ -799,7 +799,7 @@ var Duel = class {
 			gay = "opponent's ";
 		}
 
-		this.BATTLE_CHANNEL.send("Choose your " + gay + "attack with a reaction!").then(function (_message2) {
+		var sendEmotesFunction = function(_message2) {
 			var duel = getDuel(_message2.channel.id);
 			console.log(duel.MOVE_COUNT);
 			console.log(this.moveCount);
@@ -814,10 +814,11 @@ var Duel = class {
 
 					_message2.channel.send(txt);
 				}
-			}.bind({ moveCount: this.MOVE_COUNT })
-		}).catch(function(e) {
-			// LEVEL ALREADY DEAD
-		});
+			}
+		}
+		this.BATTLE_CHANNEL.send("Choose your " + gay + "attack with a reaction!")
+			.then(sendEmotesFunction.bind({ moveCount: this.MOVE_COUNT }))
+			.catch(function(e) { });
 	}
 
 	checkDeath() {
