@@ -247,8 +247,8 @@ var WeebBoss = class extends Boss {
 var PuddingBlobBoss = class extends Boss {
     constructor(_duel) {
         super(_duel, "Pudding Blob", 10);
-        this.STRValue = 10*this.duel.MOVE_COUNT;
-        this.baseDamage = 2*this.duel.MOVE_COUNT;
+        this.STRValue = 10*this.duel.MOVE_COUNT + 10;
+        this.baseDamage = 2*this.duel.MOVE_COUNT + 2;
 
         this.imageURL = "https://cdn.discordapp.com/attachments/715322091804819486/942781193039003688/unknown.png";
 
