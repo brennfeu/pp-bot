@@ -799,9 +799,11 @@ var Duel = class {
 			gay = "opponent's ";
 		}
 
-		this.BATTLE_CHANNEL.send("Choose your " + gay + "attack with a reaction!").then(function (_message2, _moveCount = this.MOVE_COUNT) {
+		this.BATTLE_CHANNEL.send("Choose your " + gay + "attack with a reaction!").then(function (_message2) {
 			var duel = getDuel(_message2.channel.id);
-			if (_moveCount != duel.MOVE_COUNT) return;
+			console.log(duel.MOVE_COUNT);
+			console.log(this.moveCount);
+			if (duel.MOVE_COUNT != this.moveCount) return;
 			
 			for (var i in duel.LIST_AVAILABLE_ATTACKS) {
 				if (duel.LIST_AVAILABLE_ATTACKS[i] != EMOTE_DEAD && duel.LIST_AVAILABLE_ATTACKS[i] != EMOTE_SKIP) {
@@ -812,7 +814,7 @@ var Duel = class {
 
 					_message2.channel.send(txt);
 				}
-			}
+			}.bind({ moveCount: this.MOVE_COUNT })
 		}).catch(function(e) {
 			// LEVEL ALREADY DEAD
 		});
