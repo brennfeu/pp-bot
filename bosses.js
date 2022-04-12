@@ -415,7 +415,7 @@ var SatanBoss = class extends Boss {
         this.duel.addMessage(this.getName() + " summons his true form!");
         this.duel.addMessage("-----------------");
 
-        if (!rollEspinozaMimic()) this.duel.triggerBossFight(new SatanTrueFormBoss(this.duel));
+        if (!this.rollEspinozaMimic()) this.duel.triggerBossFight(new SatanTrueFormBoss(this.duel));
     }
 }
 var SatanTrueFormBoss = class extends Boss {
