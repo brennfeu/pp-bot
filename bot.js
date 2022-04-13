@@ -367,11 +367,9 @@ function grantPlayerAchievement(_fighter, _achievement) {
     if (_fighter.idUser == CLIENT.user.id) return;
     updatePlayer(_fighter.user.id, _fighter.user.username.secureXSS());
 
-    var ach_id = ACHIEVEMENT_LIST.indexOf(_achievement);
     var current_unlocked = getPlayerAchievements(_fighter.idUser);
-
-    if (current_unlocked.charAt(ach_id) == "1") return;
-    executeQuery("UPDATE Player SET achievements = '" + current_unlocked.replaceAt(ach_id, '1') + "' WHERE id = " + _fighter.idUser);
+    if (current_unlocked.charAt(_achievement) == "1") return;
+    executeQuery("UPDATE Player SET achievements = '" + current_unlocked.replaceAt(_achievement, '1') + "' WHERE id = " + _fighter.idUser);
 
     var embedMessage = new DISCORD.MessageEmbed();
     embedMessage.setColor("RANDOM");
