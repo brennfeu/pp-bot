@@ -1244,7 +1244,7 @@ var Fighter = class {
 			}
 
 			this.duel.DAMAGE_COUNT += _amount;
-            if (_enemyPuncher.isKicking && _amount >= 10000) grantPlayerAchievement(_enemyPuncher, 4); // Kick
+            if (enemyPuncher.isKicking && _amount >= 10000) grantPlayerAchievement(_enemyPuncher, 4); // Kick
 
 			if (enemyPuncher.standPower == STAND_PP4 && _punch) { // Above the Light
 				enemyPuncher.heal(Math.floor(_amount / 3));
