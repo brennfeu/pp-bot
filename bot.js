@@ -345,7 +345,7 @@ function getPlayerAchievements(_fighterID) {
     if (result.length == 0) return addFighterToDB(_fighterID, "???");
 
     var result2 = executeQuery("SELECT achievements FROM Player WHERE id = " + _fighterID);
-    while (result2.length < ACHIEVEMENT_LIST.length) result2 += "0";
+    while (result2[0].length < ACHIEVEMENT_LIST.length) result2 += "0";
     return result2[0].achievements;
 }
 function grantPlayerExpertPP(_fighter) {
