@@ -373,9 +373,9 @@ function grantPlayerAchievement(_fighter, _achievement) {
 
     var embedMessage = new DISCORD.MessageEmbed();
     embedMessage.setColor("RANDOM");
-    embedMessage.setThumbnail(ACHIEVEMENT_LIST[ach_id].imageLink);
+    embedMessage.setThumbnail(ACHIEVEMENT_LIST[_achievement].imageLink);
     embedMessage.setTitle("**Achievement Unlocked!**");
-    embedMessage.setDescription(ACHIEVEMENT_LIST[ach_id].name + "\n" + ACHIEVEMENT_LIST[ach_id].description);
+    embedMessage.setDescription(ACHIEVEMENT_LIST[_achievement].name + "\n" + ACHIEVEMENT_LIST[_achievement].description);
 
     _fighter.guildUser.send("", {embed: embedMessage.toJSON()});
 }
