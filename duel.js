@@ -1004,6 +1004,7 @@ var Duel = class {
 				this.addMessage(this.EVENT_BOSS.getName() + " is defeated!");
 				this.bothFightersAction(function(_fighter) {
 					_fighter.win();
+                    grantPlayerAchievement(_fighter, 1); // Punch PP Really Hard
 					grantPlayerDestroyer(_fighter);
 				});
 				this.addMessage("**Congratulations! You beat the PP Puncher final boss!**");
@@ -2013,6 +2014,9 @@ var Duel = class {
 			this.addMessage("This is so beautiful...");
 			this.addMessage("I love you all.");
 			this.sendMessages();
+
+            if (this.FIGHTER1.isPossessed > 0) grantPlayerAchievement(this.FIGHTER2, 2);
+            if (this.FIGHTER2.isPossessed > 0) grantPlayerAchievement(this.FIGHTER1, 2);
 
 			if (this.AREA == AREA_PP12) this.DOUBLE_POINTS = true;
 			this.bothFightersAction(function(_fighter) {

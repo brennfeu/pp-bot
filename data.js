@@ -425,6 +425,15 @@ var AREA_PP12 = {"name": "France", "description": "Who doesn't know about France
 var AREA_LIST = [ AREA_PP1, AREA_PP2, AREA_PP3, AREA_PP4, AREA_PP5, AREA_PP6, AREA_PP7, AREA_PP8, AREA_PP9,
 		AREA_PP10, AREA_PP11, AREA_PP12];
 
+var ACHIEVEMENT_PP1 = {"name": "Punch PP", "description": "Win your first battle!", "imageLink": "https://cdn.discordapp.com/attachments/715322091804819486/963720136626413608/unknown.png"};
+var ACHIEVEMENT_PP2 = {"name": "Punch PP Really Hard", "description": "Beat the game!", "imageLink": "https://media.discordapp.net/attachments/715322091804819486/963720252812849152/unknown.png"};
+var ACHIEVEMENT_PP3 = {"name": "Don't Force Love", "description": "Possess your opponent and force them to high five you!", "imageLink": "https://cdn.discordapp.com/attachments/715322091804819486/963720432882712576/unknown.png"};
+var ACHIEVEMENT_PP4 = {"name": "No Weak Point", "description": "Survive the hologram move through strength alone!", "imageLink": "https://media.discordapp.net/attachments/715322091804819486/963720331548295188/unknown.png"};
+var ACHIEVEMENT_PP5 = {"name": "Illegal but Powerful", "description": "Show your opponent what a good kick is!", "imageLink": "https://media.discordapp.net/attachments/715322091804819486/963720295871561728/unknown.png"};
+var ACHIEVEMENT_PP6 = {"name": "Chosen by the Fungus", "description": "Obtain significant power from the Ancient Fungus!", "imageLink": "https://media.discordapp.net/attachments/715322091804819486/963720404411744306/unknown.png"};
+var ACHIEVEMENT_PP7 = {"name": "Unbeatable", "description": "Resurrects by cranking your hog!", "imageLink": "https://media.discordapp.net/attachments/715322091804819486/963720372203700274/unknown.png"};
+var ACHIEVEMENT_LIST = [ ACHIEVEMENT_PP1, ACHIEVEMENT_PP2, ACHIEVEMENT_PP3, ACHIEVEMENT_PP4, ACHIEVEMENT_PP5, ACHIEVEMENT_PP6, ACHIEVEMENT_PP7 ];
+
 
 // IDs
 var ID_BRENNFEU = "234439428372824075";

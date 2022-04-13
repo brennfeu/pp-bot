@@ -30,6 +30,9 @@ var DUEL_LIST = [];
 String.prototype.secureXSS = function(){
 	return this.replace(/</g, "&lt;").replace(/>/g, "&gt;");
 };
+String.prototype.replaceAt = function(index, replacement) {
+    return this.substring(0, index) + replacement + this.substring(index + replacement.length);
+}
 
 function getDuel(_id) {
 	for (var i in DUEL_LIST) {
@@ -318,7 +321,6 @@ function buildToString(_build) {
 
 function isPlayerExpertPP(_fighterID) {
 	var result = executeQuery("SELECT id, points FROM Player WHERE id = " + _fighterID)
-
 	if (result.length == 0) return addFighterToDB(_fighterID, "???");
 
 	var result2 = executeQuery("SELECT expertPP FROM Player WHERE id = " + _fighterID);
@@ -326,7 +328,6 @@ function isPlayerExpertPP(_fighterID) {
 }
 function isPlayerWeebPP(_fighterID) {
 	var result = executeQuery("SELECT id, points FROM Player WHERE id = " + _fighterID)
-
 	if (result.length == 0) return addFighterToDB(_fighterID, "???");
 
 	var result2 = executeQuery("SELECT weebPP FROM Player WHERE id = " + _fighterID);
@@ -334,26 +335,51 @@ function isPlayerWeebPP(_fighterID) {
 }
 function isPlayerDestroyer(_fighterID) {
 	var result = executeQuery("SELECT id, points FROM Player WHERE id = " + _fighterID)
-
 	if (result.length == 0) return addFighterToDB(_fighterID, "???");
 
 	var result2 = executeQuery("SELECT destroyer FROM Player WHERE id = " + _fighterID);
 	return result2[0].destroyer == 1;
 }
+function getPlayerAchievements(_fighterID) {
+    var result = executeQuery("SELECT id, points FROM Player WHERE id = " + _fighterID)
+    if (result.length == 0) return addFighterToDB(_fighterID, "???");
+
+    var result2 = executeQuery("SELECT achievements FROM Player WHERE id = " + _fighterID);
+    while (result2.length < ACHIEVEMENT_LIST.length) result2 += "0";
+    return result2[0].achievements;
+}
 function grantPlayerExpertPP(_fighter) {
-	updatePlayer(_fighter.user.id, _fighter.user.username.secureXSS())
+	updatePlayer(_fighter.user.id, _fighter.user.username.secureXSS());
 
 	executeQuery("UPDATE Player SET expertPP = 1 WHERE id = " + _fighter.user.id);
 }
 function grantPlayerWeebPP(_fighter) {
-	updatePlayer(_fighter.user.id, _fighter.user.username.secureXSS())
+	updatePlayer(_fighter.user.id, _fighter.user.username.secureXSS());
 
 	executeQuery("UPDATE Player SET weebPP = 1 WHERE id = " + _fighter.user.id);
 }
 function grantPlayerDestroyer(_fighter) {
-	updatePlayer(_fighter.user.id, _fighter.user.username.secureXSS())
+	updatePlayer(_fighter.user.id, _fighter.user.username.secureXSS());
 
 	executeQuery("UPDATE Player SET destroyer = 1 WHERE id = " + _fighter.user.id);
+}
+function grantPlayerAchievement(_fighter, _achievement) {
+    if (_fighter.idUser == CLIENT.user.id) return;
+    updatePlayer(_fighter.user.id, _fighter.user.username.secureXSS());
+
+    var ach_id = ACHIEVEMENT_LIST.indexOf(_achievement);
+    var current_unlocked = getPlayerAchievements();
+
+    if (current_unlocked.charAt(ach_id) == "1") return;
+    executeQuery("UPDATE Player SET achievements = '" + current_unlocked.replaceAt(ach_id, '1') + "' WHERE id = " + _fighter.user.id);
+
+    var embedMessage = new DISCORD.MessageEmbed();
+    embedMessage.setColor("RANDOM");
+    embedMessage.setThumbnail(ACHIEVEMENT_LIST[ach_id].imageLink);
+    embedMessage.setTitle("**Achievement Unlocked!**");
+    embedMessage.setDescription(ACHIEVEMENT_LIST[ach_id].name + "\n" + ACHIEVEMENT_LIST[ach_id].description);
+
+    _fighter.guildUser.send("", {embed: embedMessage.toJSON()});
 }
 
 function toggleFightingStyle(_fighterID, _fightingStyle) {
@@ -771,6 +797,20 @@ CLIENT.on("message", async _message => { try {
 		return;
 
 	}
+    if (argsUser[1] == "achievements") {
+        var unlocks = getPlayerAchievements(_message.author.id);
+        for (var i in ACHIEVEMENT_LIST) {
+            var embedMessage = new DISCORD.MessageEmbed();
+            if (unlocks.charAt(i) == '1') embedMessage.setColor("GREEN");
+            else embedMessage.setColor("RED");
+            embedMessage.setThumbnail(ACHIEVEMENT_LIST[i].imageLink);
+            embedMessage.setTitle(ACHIEVEMENT_LIST[i].name);
+            embedMessage.setDescription(ACHIEVEMENT_LIST[i].description);
+
+            _fighter.guildUser.send("", {embed: embedMessage.toJSON()});
+        }
+        return;
+    }
 	if (argsUser[1] == "help") {
 		// HELP
 		return _message.reply("you should read the PP Bible here: https://github.com/brennfeu/pp-bot/wiki/PP-Bible");

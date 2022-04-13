@@ -1244,6 +1244,7 @@ var Fighter = class {
 			}
 
 			this.duel.DAMAGE_COUNT += _amount;
+            if (_enemyPuncher.isKicking && _amount >= 10000) grantPlayerAchievement(_enemyPuncher, 4); // Kick
 
 			if (enemyPuncher.standPower == STAND_PP4 && _punch) { // Above the Light
 				enemyPuncher.heal(Math.floor(_amount / 3));
@@ -1466,14 +1467,19 @@ var Fighter = class {
 		// Pig
 		if (this.pigHeal > 0) {
 			this.duel.addMessage("-----------------");
+            var pigHeal;
 			if (this.isCowBoy) {
 				this.duel.addMessage(this.getName() + " squeezes hog YEEHAAAAAW!");
-				this.heal(this.pigHeal*3);
+				pigHeal = this.pigHeal*3;
 			}
 			else {
 				this.duel.addMessage(this.getName() + " squeezes hog!");
-				this.heal(this.pigHeal);
+				pigHeal = this.pigHeal;
 			}
+
+            var isDead = this.STR <= 0;
+            this.heal(pigHeal);
+            if (isDead && this.STR > 0) grantPlayerAchievement(this, 6);
 		}
 		// holy prepuce
 		if (this.hasRelic(RELIC_PP2) && getRandomPercent() <= 25) {
@@ -1757,6 +1763,7 @@ var Fighter = class {
 		}
 
 		this.duel.addMessage(this.getName() + " wins " + nb + " PP Points!");
+        if (nb > 0) grantPlayerAchievement(this, 0); // Punch PP
 		addWinCounter(this, nb);
 	}
 

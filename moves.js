@@ -80,7 +80,9 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
             else {
                 this.duel.addMessage(this.getName() + " insults " + this.getOppName() + " with all his power!");
             }
+
             this.duel.getOppOf(this).damage(500);
+            if (this.duel.getOppOf(this).STR > 0) grantPlayerAchievement(this.duel.getOppOf(this), 3)
         }
         else if (attack == EMOTE_PP4) {
             // Flex
@@ -100,7 +102,9 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
         else if (attack == EMOTE_PP6) {
             // Kick
             this.duel.addMessage(this.getName() + " kicks " + this.getOppName() + "'s PP!");
+            this.isKicking = true;
             this.duel.getOppOf(this).damage(Math.floor(20 + this.STR/5)*3);
+            this.isKicking = false;
         }
         else if (attack == EMOTE_PP7) {
             // Turkey
@@ -574,13 +578,17 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 if (this.duel.UWU_TEXT) {
                     this.duel.YES_TEXT = 1;
                 }
+
                 var chaosNumber = getRandomPercent();
+                if (chaosNumber >= 90) grantPlayerAchievement(this, 5);
                 var winner = this.duel.getRandomFighter();
                 if (winner.eldritchFriend) {
                     chaosNumber += 20;
                 }
+
                 this.duel.addMessage("He will use " + chaosNumber + "% of his power in " + winner.getName() + "!");
                 chaosNumber = Math.floor(chaosNumber/4);
+                
                 var i;
                 for (i = 0; i < chaosNumber; i++) {
                     this.duel.addMessage("-----------------");
