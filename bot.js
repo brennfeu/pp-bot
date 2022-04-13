@@ -372,7 +372,7 @@ function grantPlayerAchievement(_fighter, _achievement) {
     executeQuery("UPDATE Player SET achievements = '" + current_unlocked.replaceAt(_achievement, '1') + "' WHERE id = " + _fighter.idUser);
 
     var embedMessage = new DISCORD.MessageEmbed();
-    embedMessage.setColor("RANDOM");
+    embedMessage.setColor("GREEN");
     embedMessage.setThumbnail(ACHIEVEMENT_LIST[_achievement].imageLink);
     embedMessage.setTitle("**Achievement Unlocked!**");
     embedMessage.setDescription(ACHIEVEMENT_LIST[_achievement].name + "\n" + ACHIEVEMENT_LIST[_achievement].description);
