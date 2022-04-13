@@ -6,6 +6,9 @@ eval(fs.readFileSync("fighter.js").toString());
 eval(fs.readFileSync("duel.js").toString());
 eval(fs.readFileSync("bosses.js").toString());
 
+eval(fs.readFileSync("ai.js").toString());
+eval(fs.readFileSync("moves.js").toString());
+
 eval(fs.readFileSync("utils.js").toString());
 eval(fs.readFileSync("db.js").toString());
 
