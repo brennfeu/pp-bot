@@ -375,7 +375,7 @@ function grantPlayerAchievement(_fighter, _achievement) {
     embedMessage.setColor("GREEN");
     embedMessage.setThumbnail(ACHIEVEMENT_LIST[_achievement].imageLink);
     embedMessage.setTitle("**Achievement Unlocked!**");
-    embedMessage.setDescription(ACHIEVEMENT_LIST[_achievement].name + "\n" + ACHIEVEMENT_LIST[_achievement].description);
+    embedMessage.setDescription("**" + ACHIEVEMENT_LIST[_achievement].name + "**\n" + ACHIEVEMENT_LIST[_achievement].description);
 
     _fighter.guildUser.send("", {embed: embedMessage.toJSON()});
 }
