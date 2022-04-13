@@ -1,4 +1,4 @@
-Fighter.playMove = function(_newMove = this.attack) {
+Fighter.prototype.playMove = function(_newMove = this.attack) {
     this.duel.INFINITE_DAMAGE = 0;
     this.duel.LAST_FIGHTER_TO_USE_A_MOVE = this;
 

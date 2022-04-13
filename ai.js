@@ -1,4 +1,4 @@
-Duel.botReacts = function() {
+Duel.prototype.botReacts = function() {
     if (this.FIGHTER2.user.id != CLIENT.user.id) return;
     var i = 0;
     var fighter = this.FIGHTER2;
