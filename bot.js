@@ -351,17 +351,17 @@ function getPlayerAchievements(_fighterID) {
 function grantPlayerExpertPP(_fighter) {
 	updatePlayer(_fighter.user.id, _fighter.user.username.secureXSS());
 
-	executeQuery("UPDATE Player SET expertPP = 1 WHERE id = " + _fighter.user.id);
+	executeQuery("UPDATE Player SET expertPP = 1 WHERE id = " + _fighter.idUser);
 }
 function grantPlayerWeebPP(_fighter) {
 	updatePlayer(_fighter.user.id, _fighter.user.username.secureXSS());
 
-	executeQuery("UPDATE Player SET weebPP = 1 WHERE id = " + _fighter.user.id);
+	executeQuery("UPDATE Player SET weebPP = 1 WHERE id = " + _fighter.idUser);
 }
 function grantPlayerDestroyer(_fighter) {
 	updatePlayer(_fighter.user.id, _fighter.user.username.secureXSS());
 
-	executeQuery("UPDATE Player SET destroyer = 1 WHERE id = " + _fighter.user.id);
+	executeQuery("UPDATE Player SET destroyer = 1 WHERE id = " + _fighter.idUser);
 }
 function grantPlayerAchievement(_fighter, _achievement) {
     if (_fighter.idUser == CLIENT.user.id) return;
@@ -371,7 +371,7 @@ function grantPlayerAchievement(_fighter, _achievement) {
     var current_unlocked = getPlayerAchievements();
 
     if (current_unlocked.charAt(ach_id) == "1") return;
-    executeQuery("UPDATE Player SET achievements = '" + current_unlocked.replaceAt(ach_id, '1') + "' WHERE id = " + _fighter.user.id);
+    executeQuery("UPDATE Player SET achievements = '" + current_unlocked.replaceAt(ach_id, '1') + "' WHERE id = " + _fighter.idUser);
 
     var embedMessage = new DISCORD.MessageEmbed();
     embedMessage.setColor("RANDOM");
