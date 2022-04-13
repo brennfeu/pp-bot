@@ -807,7 +807,7 @@ CLIENT.on("message", async _message => { try {
             embedMessage.setTitle(ACHIEVEMENT_LIST[i].name);
             embedMessage.setDescription(ACHIEVEMENT_LIST[i].description);
 
-            _fighter.guildUser.send("", {embed: embedMessage.toJSON()});
+            _message.channel.send("", {embed: embedMessage.toJSON()});
         }
         return;
     }
