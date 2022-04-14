@@ -282,8 +282,8 @@ function addWinCounter(_fighter, _number) {
 	console.log(_fighter.getName() + " wins: " + _number);
 	executeQuery("UPDATE Player SET points = " + (_number+getWinCounter(_fighter.user.id)) + " WHERE id = " + _fighter.user.id);
 }
-function getTopFighters() {
-	return executeQuery("SELECT * FROM Player ORDER BY points DESC LIMIT 10");
+function getTopFighters(_limit = 10) {
+	return executeQuery("SELECT * FROM Player ORDER BY points DESC LIMIT " + _limit);
 }
 
 function getPlayerBuild(_fighterID) {
@@ -347,6 +347,9 @@ function getPlayerAchievements(_fighterID) {
     var result2 = executeQuery("SELECT achievements FROM Player WHERE id = " + _fighterID);
     while (result2[0].length < ACHIEVEMENT_LIST.length) result2[0] += "0";
     return result2[0].achievements;
+}
+function getPlayerAchievementsPercent(_fighterID) {
+    return Math.floor((getPlayerAchievements(_fighterID).split("1").length - 1)*100/ACHIEVEMENT_LIST.length);
 }
 function grantPlayerExpertPP(_fighter) {
 	updatePlayer(_fighter.user.id, _fighter.user.username.secureXSS());
@@ -589,13 +592,21 @@ CLIENT.on("message", async _message => { try {
 		_message.channel.send(firstTxt + ":")
 
 		_message.channel.send("You have " + getWinCounter(author.id) + " PP Points\nYour Rank is #" + getRank(author.id));
-		_message.channel.send("Current build:\n" + buildToString(getPlayerBuild(author.id)));
+        _message.channel.send("Current build:\n" + buildToString(getPlayerBuild(author.id)));
+		_message.channel.send("Achievements: " + getPlayerAchievementsPercent() + "%");
 		return;
 	}
 	if (argsUser[1] == "ranks") {
 		// RANKS
-		var topFighters = getTopFighters();
-		_message.channel.send("TOP 10 PP PUNCHERS:")
+        if (argsUser.length > 1 && argsUser[2] == "full")  {
+            var topFighters = getTopFighters(500);
+            _message.channel.send("TOP 500 PP PUNCHERS:")
+        }
+        else {
+            var topFighters = getTopFighters();
+            _message.channel.send("TOP 10 PP PUNCHERS:")
+        }
+
 		for (var i in topFighters) {
 			_message.channel.send("#" + (1+parseInt(i)) + ": " + topFighters[i].username + " (" + topFighters[i].points + " PP Points)");
 		}
