@@ -593,7 +593,7 @@ CLIENT.on("message", async _message => { try {
 
 		_message.channel.send("You have " + getWinCounter(author.id) + " PP Points\nYour Rank is #" + getRank(author.id));
         _message.channel.send("Current build:\n" + buildToString(getPlayerBuild(author.id)));
-		_message.channel.send("Achievements: " + getPlayerAchievementsPercent() + "%");
+		_message.channel.send("Achievements: " + getPlayerAchievementsPercent(author.id) + "%");
 		return;
 	}
 	if (argsUser[1] == "ranks") {
