@@ -569,7 +569,7 @@ CLIENT.on("message", async _message => { try {
 
 	// PM
 	if(_message.channel.type == "dm") {
-		_message.channel.send("**PP Cancer Translation:**\n\n" + changeTextRandomSpoil(changeTextLeet(changeTextRandomCap(changeTextRussian(changeTextUwu(_message.content.trim()))))));
+		_message.channel.send(changeTextLeet(changeTextRandomCap(changeTextRussian(changeTextUwu(_message.content.trim())))));
 		return;
 	}
 
