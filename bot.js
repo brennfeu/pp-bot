@@ -289,7 +289,7 @@ function getTopFighters(_limit = 10) {
 function getPlayerBuild(_fighterID) {
 	var result = executeQuery("SELECT id, points FROM Player WHERE id = " + _fighterID)
 
-	if (result.length == 0) return addFighterToDB(_fighterID, "???");
+	if (result.length == 0) addFighterToDB(_fighterID, "???");
 
 	var result2 = executeQuery("SELECT build FROM Player WHERE id = " + _fighterID)
 	return JSON.parse(result2[0].build);
