@@ -312,6 +312,8 @@ var PPRobotPoliceBoss = class extends Boss {
         super(_duel, "PP Robot Police", 750);
         this.baseDamage = 30;
 
+        this.imageURL = "https://cdn.discordapp.com/attachments/667337519477817363/965248419079798804/unknown.png";
+
         this.godList = [];
         this.godList.push(GOD_PP16.name);
     }
@@ -330,6 +332,8 @@ var PPHarvesterBoss = class extends Boss {
         super(_duel, "PP Harvester", 1500);
         this.baseDamage = 50;
 
+        this.imageURL = "https://cdn.discordapp.com/attachments/667337519477817363/965245941168898128/unknown.png";
+
         this.godList.push(GOD_PP16.name);
     }
 
@@ -343,6 +347,8 @@ var PPNetHiveMindBoss = class extends Boss {
     constructor(_duel) {
         super(_duel, "PP-Net Hive Mind", 20000);
         this.baseDamage = 100;
+
+        this.imageURL = "https://cdn.discordapp.com/attachments/667337519477817363/965247591212281866/unknown.png";
 
         this.godList.push(GOD_PP16.name);
     }
@@ -375,6 +381,8 @@ var PPTerminatorBoss = class extends Boss {
     constructor(_duel) {
         super(_duel, "PP Terminator", 1500);
         this.baseDamage = 25;
+
+        this.imageURL = "https://cdn.discordapp.com/attachments/667337519477817363/965245403954044958/unknown.png";
 
         this.godList.push(GOD_PP16.name);
     }

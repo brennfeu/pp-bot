@@ -279,10 +279,10 @@ var Fighter = class {
 		if (this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE && this.requiemPower != null) {
 			name += " Requiem";
 		}
-		return name.secureXSS();
+		return name;
 	}
 	getBaseName() {
-		return this.user.username;
+		return this.user.username.secureXSS();
 	}
 	getImageURL() {
 		try { return this.guildUser.user.displayAvatarURL(); }
