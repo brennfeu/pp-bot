@@ -51,6 +51,7 @@ function killDeadDuels() {
 				DUEL_LIST[i].addMessage("-----------------");
 				DUEL_LIST[i].sendMessages();
 				var duel = DUEL_LIST[i].CHECKPOINT_DUEL;
+				duel.TIMESTAMP = DUEL_LIST[i].TIMESTAMP;
 				DUEL_LIST[i] = duel;
 				DUEL_LIST[i].CHECKPOINT_DUEL = null;
 				DUEL_LIST[i].newTurnDuel();
