@@ -1510,7 +1510,7 @@ var Duel = class {
 			this.addMessage("", undefined, {embed:
 				{
 					"title": "**IMPENDING BOMBARDMENT**",
-					"description": "A missile has been spotted above the battleground ! You have one turn before it hits the ground and explodes!"
+					"description": "A missile has been spotted above the battleground! You have one turn before it hits the ground and explodes!"
 				}
 			});
 			this.EVENT_BOMB = true;
