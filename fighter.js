@@ -1035,7 +1035,7 @@ var Fighter = class {
 	damage(_amount, _punch = true, _enemyPuncher = this.duel.LAST_FIGHTER_TO_USE_A_MOVE) {
 		var ogAmount = _amount;
 		var enemyPuncher = _enemyPuncher;
-		if (enemyPuncher == null) enemyPuncher = this.duel.getOppOf(this);
+		if (enemyPuncher == null || enemyPuncher.idUser == this.idUser) enemyPuncher = this.duel.getOppOf(this);
 
 		// value += x
 		if (_punch) {
