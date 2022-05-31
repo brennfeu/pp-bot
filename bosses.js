@@ -269,7 +269,7 @@ var PuddingBlobBoss = class extends Boss {
         this.duel.addMessage(this.getName() + " is destroyed!");
         super.triggerDeath();
 
-        if (getRandomPercent() <= 75) {
+        if (getRandomPercent() <= 80) {
             this.duel.PUDDING_NUISANCE = Math.floor(getRandomPercent()/10) + 1;
         }
         else {
