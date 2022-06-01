@@ -1,8 +1,8 @@
 var Boss = class extends Fighter {
     constructor(_duel, _name, _baseHP) {
         if (_duel == undefined) { // default constructor
-			return;
-		}
+		return;
+	}
 
         super(CLIENT.user.id, _duel.BATTLE_CHANNEL.id);
         this.bossName = _name;
@@ -84,7 +84,7 @@ var Boss = class extends Fighter {
             }
             this.duel.addMessage(this.getName() + " was only a mimic!");
 
-            if (this.duel.OBAMIUM_DONE && getRandomPercent() <= 75) {
+            if (this.duel.OBAMIUM_DONE) {
                 this.duel.addMessage(this.getName() + " is in fact Obamium Espinoza!\n" + IMAGE_PP6);
                 this.duel.addMessage("-----------------");
                 this.duel.triggerBossFight(new ObamiumEspinozaBoss(this.duel));
