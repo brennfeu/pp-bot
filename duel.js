@@ -366,7 +366,19 @@ var Duel = class {
 			console.trace();
 			return;
 		}
+		
+		// numbers scientific notation
+		var l = _texte.split(" ");
+		for (var i in l) {
+		    if (isNaN(l[i])) continue;
 
+		    if (l[i].length > 10) {
+			l[i] = Number.parseFloat(l[i]).toExponential(5);
+		    }
+		}
+		_texte = l.join(" ");
+
+		// UwU mode
 		var uwu = this.UWU_TEXT || this.POOPOO_UNIVERSE;
 		for (var i in IMAGE_LIST) {
 			if (_texte.includes(IMAGE_LIST[i])) {
