@@ -920,7 +920,7 @@ var Duel = class {
 					}
 				}
 
-				_fighterSave.relics = _fighterSave.relics.concat(_fighter.requiemPower);
+				_fighterSave.relics = _fighterSave.relics.concat(_fighter.relics);
 				if (_fighter.infernalInstrument > 0) {
 					_fighterSave.infernalInstrument = _fighter.infernalInstrument;
 				}
