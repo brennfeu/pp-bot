@@ -370,11 +370,10 @@ var Duel = class {
 		// numbers scientific notation
 		var l = _texte.split(" ");
 		for (var i in l) {
-		    if (isNaN(l[i])) continue;
+			if (isNaN(l[i])) continue;
 
-		    if (l[i].length > 10) {
-			l[i] = Number.parseFloat(l[i]).toExponential(5);
-		    }
+			var pattern = /(-?\d+)(\d{3})/;
+			while (pattern.test(l[i])) l[i] = l[i].replace(pattern, "$1,$2");
 		}
 		_texte = l.join(" ");
 
