@@ -1985,13 +1985,6 @@ var Duel = class {
 		if (this.DEAD_DUEL) return;
 
 		this.bothFightersAction(function(_fighter) {
-			// Jew Hitler Paradox
-			if (_fighter.hasSynergy(SYNERGY_PP5) && getRandomPercent() <= 10) {
-				_fighter.duel.addMessage(_fighter.getName() + " gets the Racial Paradox Effect!");
-				_fighter.duel.sendMessages();
-				_fighter.attack = _fighter.duel.getRandomEmote(false);
-			}
-
 			// Wild Mage
 			if (_fighter.hasSynergy(SYNERGY_PP14) && getRandomPercent() <= 10) {
 				_fighter.duel.addMessage(_fighter.getName() + " feels the wild magic kicking in!");

@@ -613,9 +613,6 @@ var Fighter = class {
 			if (this.hasSynergy(SYNERGY_PP4)) {
 				synergyTxt += " - Roleplay Group\n";
 			}
-			if (this.hasSynergy(SYNERGY_PP5)) {
-				synergyTxt += " - Racial Paradox\n";
-			}
 			if (this.hasSynergy(SYNERGY_PP6)) {
 				synergyTxt += " - Garbage Music Maker\n";
 			}
