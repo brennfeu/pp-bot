@@ -86,13 +86,11 @@ var Boss = class extends Fighter {
 
             if (this.duel.OBAMIUM_DONE) {
                 this.duel.addMessage(this.getName() + " is in fact Obamium Espinoza!\n" + IMAGE_PP6);
-                this.duel.addMessage("-----------------");
                 this.duel.triggerBossFight(new ObamiumEspinozaBoss(this.duel));
                 return true;
             }
             else {
                 this.duel.addMessage(this.getName() + " is in fact Raid Boss Espinoza!\n" + IMAGE_PP4);
-                this.duel.addMessage("-----------------");
                 this.duel.triggerBossFight(new RaidBossEspinozaBoss(this.duel));
                 return true;
             }
