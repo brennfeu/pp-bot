@@ -1188,7 +1188,7 @@ var Fighter = class {
 			if (_amount <= 0) {
 				return this.duel.addMessage(this.getName() + " takes no damage!");
 			}
-			else if (enemyPuncher.boneGlove) {
+			else if (_punch && enemyPuncher.boneGlove) {
 				this.duel.addMessage(this.getName() + " takes " + _amount + " bleed stacks!");
 				if (_amount == 69) {
 					this.duel.addMessage("lmao!");
@@ -1278,11 +1278,12 @@ var Fighter = class {
 
 		// Acid
 		if (this.acidArmor >= 1 && _punch) {
-			this.duel.addMessage(this.getName() + " has an acid armor!");
 			if (enemyPuncher.hasSynergy(SYNERGY_PP4)) {
+				this.duel.addMessage(this.getName() + "'s acid armor heals " + enemyPuncher.getName() + "!");
 				enemyPuncher.heal(10);
 			}
 			else {
+				this.duel.addMessage(this.getName() + "'s acid armor hurts " + enemyPuncher.getName() + "!");
 				if (this.sporeSac) {
 					enemyPuncher.damage(10 + Math.floor(_amount/10), false);
 				}
