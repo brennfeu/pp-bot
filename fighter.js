@@ -758,7 +758,7 @@ var Fighter = class {
 			statusTxt += displayEmote(GOD_PP41.emote) + " Paramita Papilio (for " + this.huTaoBuff + " turns)\n";
 		}
 		if (this.bossKiller > 0) {
-			statusTxt += displayEmote(EMOTE_PP73) + " Killer Adrenaline (for " + this.bossKiller + " turns)\n";
+			statusTxt += displayEmote(EMOTE_PP97) + " Killer Adrenaline (for " + this.bossKiller + " turns)\n";
 		}
 		if (this.selfReverseDamage > 0) {
 			statusTxt += displayEmote(EMOTE_PP15) + " Damage Reversed (for " + this.selfReverseDamage + " turns)\n";
