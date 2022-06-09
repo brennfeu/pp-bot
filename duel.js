@@ -366,16 +366,9 @@ var Duel = class {
 			console.trace();
 			return;
 		}
-		
-		// numbers scientific notation
-		var l = _texte.split(" ");
-		for (var i in l) {
-			if (isNaN(l[i])) continue;
 
-			var pattern = /(-?\d+)(\d{3})/;
-			while (pattern.test(l[i])) l[i] = l[i].replace(pattern, "$1,$2");
-		}
-		_texte = l.join(" ");
+		// numbers scientific notation
+		_texte = sciText(_texte);
 
 		// UwU mode
 		var uwu = this.UWU_TEXT || this.POOPOO_UNIVERSE;
@@ -414,7 +407,9 @@ var Duel = class {
 		if (this.MESSAGE_SKIP && !_forceAppear) {
 			return;
 		}
-		if (this.LIST_MESSAGES.length > 0 && this.LIST_MESSAGES_OTHER[this.LIST_MESSAGES.length-1] == undefined && _texte.length + this.LIST_MESSAGES[this.LIST_MESSAGES.length-1].length + "\n".length < 20*this.LIST_MESSAGES.length && _texte.length + this.LIST_MESSAGES[this.LIST_MESSAGES.length-1].length + "\n".length < 2000) {
+		if (this.LIST_MESSAGES.length > 0 && this.LIST_MESSAGES_OTHER[this.LIST_MESSAGES.length-1] == undefined &&
+          _texte.length + this.LIST_MESSAGES[this.LIST_MESSAGES.length-1].length + "\n".length < 20*this.LIST_MESSAGES.length &&
+          _texte.length + this.LIST_MESSAGES[this.LIST_MESSAGES.length-1].length + "\n".length < 2000) {
 			this.LIST_MESSAGES[this.LIST_MESSAGES.length-1] = this.LIST_MESSAGES[this.LIST_MESSAGES.length-1] + "\n" + _texte;
 			this.LIST_MESSAGES_OTHER[this.LIST_MESSAGES.length-1] = _other;
 		}

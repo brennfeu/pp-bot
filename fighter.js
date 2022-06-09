@@ -495,16 +495,10 @@ var Fighter = class {
 		}
 
 		// STATS
-		var statsTxt = "**STR:** " + this.STR;
-		if (this.STR == 69) {
-			statsTxt += " (lmao)";
-		}
-		statsTxt += "    //    **DEX:** " + this.DEX;
-		if (this.DEX == 69) {
-			statsTxt += " (lmao)";
-		}
+		var statsTxt = "**STR:** " + sciText(this.STR);
+		statsTxt += "    //    **DEX:** " + sciText(this.DEX);
 		if (this.dexMalus > 0) {
-			statsTxt += "\n - DEX Bonus: **" + this.dexMalus + "**";
+			statsTxt += "\n - DEX Bonus: **" + sciText(this.dexMalus) + "**";
 		}
 		embedMessage.setDescription(statsTxt);
 
@@ -545,12 +539,12 @@ var Fighter = class {
 		if (this.specialCharges > 0) {
 			godsText += "\n" + displayEmote(EMOTE_PP52) + " Special Charges: " + this.specialCharges;
 		}
-		if (godsText != "") embedMessage.addField("Faith", godsText, true);
+		if (godsText != "") embedMessage.addField("Faith", sciText(godsText), true);
 
 		// RELICS
 		var relicsTxt = "";
 		for (var i in RELIC_LIST) if (this.hasRelic(RELIC_LIST[i])) relicsTxt += "- " + RELIC_LIST[i] + "\n";
-		if (relicsTxt != "") embedMessage.addField("Relics", relicsTxt, true);
+		if (relicsTxt != "") embedMessage.addField("Relics", sciText(relicsTxt), true);
 
 		// FIGHTING STYLES
 		var fightingStylesTxt = "";
@@ -592,11 +586,11 @@ var Fighter = class {
 				fightingStylesTxt += displayEmote(EMOTE_PP34) + " Alien PP\n";
 			}
 		}
-		if (fightingStylesTxt != "") embedMessage.addField("Fighting Styles", fightingStylesTxt, true);
+		if (fightingStylesTxt != "") embedMessage.addField("Fighting Styles", sciText(fightingStylesTxt), true);
 
 		// STATUS
 		var statusTxt = this.getStatusTxt();
-		if (statusTxt != "") embedMessage.addField("Status", statusTxt, true);
+		if (statusTxt != "") embedMessage.addField("Status", sciText(statusTxt), true);
 
 		// SYNERGIES
 		var synergyTxt = "";
@@ -680,7 +674,7 @@ var Fighter = class {
 				synergyTxt += " - Cosmopolitan\n";
 			}
 		}
-		if (synergyTxt != "") embedMessage.addField("Synergies", synergyTxt, true);
+		if (synergyTxt != "") embedMessage.addField("Synergies", sciText(synergyTxt), true);
 
 		return embedMessage.toJSON();
 	}
