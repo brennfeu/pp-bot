@@ -588,7 +588,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
 
                 this.duel.addMessage("He will use " + chaosNumber + "% of his power in " + winner.getName() + "!");
                 chaosNumber = Math.floor(chaosNumber/4);
-                
+
                 var i;
                 for (i = 0; i < chaosNumber; i++) {
                     this.duel.addMessage("-----------------");
@@ -2308,6 +2308,17 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
             else {
                 this.duel.addMessage(this.getName() + " gets the Blessing of the Empress of Light!");
                 this.empressLightBuff = true;
+            };
+        }
+        else if (attack == EMOTE_PP151) {
+            // Bone Helm
+            this.duel.MOVE_COUNT += 33;
+            if (this.boneHelm) {
+                this.duel.addMessage(this.getName() + " already wears a Bone Helm!");
+            }
+            else {
+                this.duel.addMessage(this.getName() + " starts wearing a Bone Helm!");
+                this.boneHelm = true;
             };
         }
         else if (attack == EMOTE_ABILITY) {

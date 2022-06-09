@@ -132,7 +132,8 @@ var Fighter = class {
 		this.ppColossusCountdown = 0;
 		this.kingsPower = 0;
 		this.knightmareBuff = false;
-		this.ppKnightmare = 0
+        this.ppKnightmare = 0;
+		this.boneHelm = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -877,6 +878,9 @@ var Fighter = class {
 		if (this.shinyStone) {
 			statusTxt += displayEmote(EMOTE_PP145) + " Shiny Stone\n";
 		}
+		if (this.boneHelm) {
+			statusTxt += displayEmote(EMOTE_PP151) + " Bone Helm\n";
+		}
 		if (this.satanicMoveMultiplier) {
 			statusTxt += displayEmote(GOD_PP22.emote) + " Satanic Move Multiplier\n";
 		}
@@ -1044,6 +1048,10 @@ var Fighter = class {
 			_amount += enemyPuncher.bonusDamage;
 			enemyPuncher.bonusDamage = 0;
 		}
+        if (enemyPuncher.boneHelm && _punch) {
+            var boneHelmBleed = Math.floor(_amount*0.1);
+            _amount -= boneHelmBleed;
+        }
 		if (enemyPuncher.kungFu && _punch) {
 			// Signpost
 			_amount += 10;
@@ -1241,6 +1249,10 @@ var Fighter = class {
 					this.duel.addMessage(this.getName() + " flinched!");
 					this.hasBurst = 2;
 				}
+                if (_punch && enemyPuncher.boneHelm) {
+    				this.duel.addMessage(this.getName() + " takes " + boneHelmBleed + " bleed stacks!");
+                    this.bleedDamage += boneHelmBleed;
+                }
 			}
 
 			this.duel.DAMAGE_COUNT += _amount;
