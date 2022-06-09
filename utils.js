@@ -142,7 +142,7 @@ function fibonacciNumber(_n) {
 }
 
 function sciText(_texte) {
-    var l = _texte.split(" ");
+    var l = _texte.toString().split(" ");
     for (var i in l) {
         if (isNaN(l[i])) continue;
 
