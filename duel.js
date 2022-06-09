@@ -311,7 +311,7 @@ var Duel = class {
 				this.addMessage("-----------------");
 			}
 			this.addMessage("Winning a fight grants a certain amount of **PP Points**. When a duel starts, its **PP Level** is determined by the lowest PP Points count of both fighters.");
-			this.addMessage("When the **PP Level** reaches certain values, additional game mechanics are unlocked, starting at level 50");
+			this.addMessage("When the **PP Level** reaches certain values, additional game mechanics are unlocked, starting at level 50.");
 			this.addMessage("-----------------");
 
 			if (this.PPLEVEL < 50) {
