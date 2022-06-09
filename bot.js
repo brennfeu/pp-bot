@@ -141,14 +141,14 @@ function checkUpdateEncyclopedia() {
 				}
 				else if ((fullBible[j].includes("## ") || j == fullBible.length-1) && !fullBible[j].includes("### ") && shouldRead) { // End (I check the start of the next one)
 					shouldRead = false;
-					encyChannels[i].send(message);
+					encyChannels[i].send(sciText(message));
 					message = "";
 					var date = new Date();
 					encyChannels[i].send("*Last updated: " + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() + "*");
 				}
 				else if (shouldRead) {
 					if (message.length + fullBible[j].length > 1900) {
-						encyChannels[i].send(message);
+						encyChannels[i].send(sciText(message));
 						message = "";
 					}
 
