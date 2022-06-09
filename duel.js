@@ -316,7 +316,7 @@ var Duel = class {
 
 			if (this.PPLEVEL < 50) {
 				this.addMessage("You may come back to the tutorial once you reach 50 PP Points to learn about **Gods**!");
-				return tutorialNextTurn();
+				return this.tutorialNextTurn();
 			}
 
 			this.addMessage("One of those new mechanics are **Gods**!");
