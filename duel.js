@@ -2693,7 +2693,7 @@ var Duel = class {
 		_function(_firstFighter);
 		_function(this.otherFighter(_firstFighter));
 	}
-    allFighersAction(_function, _firstFighter = this.getRandomFighter()) {
+    allFightersAction(_function, _firstFighter = this.getRandomFighter()) {
         this.bothFightersAction(_function, _firstFighter);
 
         if (this.EVENT_BOSS != null) {
