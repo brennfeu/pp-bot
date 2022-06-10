@@ -2401,7 +2401,7 @@ var Duel = class {
 			}
 		}
 
-		this.LIST_AVAILABLE_ATTACKS = listeAttaques;
+		this.LIST_AVAILABLE_ATTACKS = listeAttaques.slice(0, 20);
 	}
 	getRandomEmote(_canBeIllegal = true) {
 		var legalList = [];

@@ -982,7 +982,7 @@ var Fighter = class {
 			statusTxt += displayEmote(GOD_PP16.emote) + " **Summoning the Monster (" + (4-this.summonTankCountdown) + "/3)**\n";
 		}
 		if (this.standPower != null && !this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE && !this.randomizedStand) {
-			statusTxt += displayEmote(GOD_PP2.emote) + " **Stånd Power: " + this.standPower + "**\n";
+			statusTxt += displayEmote(EMOTE_PP77) + " **Stånd Power: " + this.standPower + "**\n";
 		}
 		if (this.extraLife > 0) {
 			statusTxt += displayEmote(EMOTE_PP58) + " **Extra lives: " + this.extraLife;
@@ -1352,9 +1352,9 @@ var Fighter = class {
 			this.dexMalus += 5;
 
 			if (this.shinyStone) {
+                this.duel.addMessage("-----------------");
 				this.duel.addMessage(this.getName() + "'s Shiny Stone heals him!");
 				this.heal(Math.floor(this.STR/10));
-				this.duel.addMessage("-----------------");
 			}
 		}
 		else {
