@@ -195,7 +195,7 @@ var Duel = class {
 					"description": "*Eighteen naked cowboys in the showers at Ram Ranch.\nBig hard throbbing cocks wanting to be sucked.\nEighteen naked cowboys wanting to be fucked.\nCowboys in the showers at Ram Ranch.\nOn their knees wanting to suck cowboy cocks.\nRam Ranch really rocks.*"
 				}
 			});
-			this.bothFightersAction(function(_fighter) {
+			this.allFightersAction(function(_fighter) {
 				_fighter.hasBoner = true;
 			});
 		}
@@ -464,7 +464,7 @@ var Duel = class {
 				this.RUSSIAN_TEXT -= 1;
 				this.SPOIL_TEXT -= 1;
 
-				this.bothFightersAction(function(_fighter) {
+				this.allFightersAction(function(_fighter) {
 					if (_fighter.pushedDamages > 0) {
 						_fighter.duel.addMessage("-----------------");
 						_fighter.damage(_fighter.pushedDamages, false);
@@ -478,14 +478,14 @@ var Duel = class {
 				if (this.NUCLEAR_BOMB == 0) {
 					this.addMessage("-----------------");
 					this.addMessage("The Nuclear Bomb explodes now!\n" + IMAGE_PP1);
-					this.bothFightersAction(function(_fighter) {
+					this.allFightersAction(function(_fighter) {
 						_fighter.damage(1000000000, false);
 					});
 				}
 				if (this.EVENT_BOMB) {
 					this.addMessage("-----------------");
 					this.addMessage("The bomb hits the ground!");
-					this.bothFightersAction(function(_fighter) {
+					this.allFightersAction(function(_fighter) {
 						_fighter.damage(1000, true, new FakeBoss(_fighter.duel, "Bombardier"));
 					});
 				}
@@ -527,8 +527,8 @@ var Duel = class {
 					this.addMessage("A Pudding Blob has been created!");
 				}
 				if (this.POOPOO_UNIVERSE) {
-					this.bothFightersAction(function(_fighter) {
-						_fighter.madnessStacks += 1;
+					this.allFightersAction(function(_fighter) {
+						if (!_fighter.eldritchFriend) _fighter.madnessStacks += 1;
 					});
 					if (getRandomPercent() <= 13) {
 						this.FORCE_EVENT_ID = 37; // PP Depression
@@ -541,7 +541,7 @@ var Duel = class {
 
 				// Blood Moon Save
 				if (this.EVENT_BLOOD_MOON) {
-					this.bothFightersAction(function(_fighter) {
+					this.allFightersAction(function(_fighter) {
 						if (_fighter.STR <= 0) {
 							this.addMessage("-----------------");
 							_fighter.DEXValue += (0 - _fighter.STR) + 10;
@@ -570,11 +570,9 @@ var Duel = class {
 				this.bothFightersAction(function(_fighter) {
 					_fighter.turnChange();
 				});
-				this.bothFightersAction(function(_fighter) {
+				this.allFightersAction(function(_fighter) {
 					// Overcircumcised = immune to status effects
-					if (_fighter.isOverCircumcised) {
-						_fighter.resetBattleVariables()
-					}
+					if (_fighter.isOverCircumcised) _fighter.resetBattleVariables()
 				});
 
 				this.STEEL_PROTECTION = false;
@@ -832,7 +830,7 @@ var Duel = class {
 				_fighter.STRValue -= _fighter.STR+100;
 			}
 		});
-		this.bothFightersAction(function(_fighter) {
+		this.allFightersAction(function(_fighter) {
 			if (_fighter.STR <= 0 && _fighter.extraLife > 0) {
 				_fighter.duel.addMessage(_fighter.getName() + " uses an extra life!");
 				var extra = _fighter.extraLife - 1;
@@ -856,7 +854,7 @@ var Duel = class {
 					_fighter.duel.FIGHTER1.extraLife = extra;
 					_fighter.duel.FIGHTER1.attack = "";
 				}
-				else {
+                else if (_fighter.idUser == _fighter.duel.FIGHTER2.idUser) {
 					if (_fighter.extraLifeDuplication != null) {
 						_fighter.duel.FIGHTER2 = _fighter.extraLifeDuplication;
 						_fighter.duel.addMessage(_fighter.getName() + "'s temporal duplication replaces him!");
@@ -865,7 +863,18 @@ var Duel = class {
 						_fighter.duel.FIGHTER2 = new Fighter(_fighter.duel.FIGHTER2.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
 					}
 					_fighter.duel.FIGHTER2.extraLife = extra;
-					_fighter.duel.FIGHTER1.attack = "";
+					_fighter.duel.FIGHTER2.attack = "";
+				}
+                else if (_fighter.idUser == _fighter.duel.EVENT_BOSS.idUser) {
+					if (_fighter.extraLifeDuplication != null) {
+						_fighter.duel.EVENT_BOSS = _fighter.extraLifeDuplication;
+						_fighter.duel.addMessage(_fighter.getName() + "'s temporal duplication replaces him!");
+					}
+					else {
+						_fighter.duel.EVENT_BOSS = new Fighter(_fighter.duel.EVENT_BOSS.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
+					}
+					_fighter.duel.EVENT_BOSS.extraLife = extra;
+					_fighter.duel.EVENT_BOSS.attack = "";
 				}
 			}
 		});
@@ -886,7 +895,7 @@ var Duel = class {
 
 			this.CURRENT_BATTLE_MODE = NORMAL_BATTLE_MODE;
 
-			this.bothFightersAction(function(_fighter) {
+			this.allFightersAction(function(_fighter) {
 				_fighter.attack = "";
 			});
 		}
@@ -1148,11 +1157,11 @@ var Duel = class {
 				}
 			});
 			this.EVENT_BLOOD_MOON = true;
-			this.bothFightersAction(function(_fighter) {
+			this.allFightersAction(function(_fighter) {
 				if (_fighter.STR <= 0) {
 					_fighter.DEXValue += (0 - _fighter.STR) + 10;
 					_fighter.STRValue += (0 - _fighter.STR) + 10;
-					_fighter.duel.addMessage(_fighter.getName() + " got saved thanks to the Blood Moon");
+					_fighter.duel.addMessage(_fighter.getName() + " got saved thanks to the Blood Moon!");
 				}
 			});
 			if (this.EVENT_BOSS != null && this.EVENT_BOSS.isMoonLord) {
@@ -1167,7 +1176,7 @@ var Duel = class {
 					"description": winner.getName() + " accidentaly plays Ascend on his phone!"
 				}
 			});
-			this.bothFightersAction(function(_fighter) {
+			this.allFightersAction(function(_fighter) {
 				_fighter.playMove(EMOTE_PP49);
 			});
 		}
@@ -1179,7 +1188,7 @@ var Duel = class {
 						"description": "Gods decide to give you a regular charge each!"
 					}
 				});
-				this.bothFightersAction(function(_fighter) {
+				this.allFightersAction(function(_fighter) {
 					_fighter.regularCharges++;
 				});
 			}
@@ -1190,7 +1199,7 @@ var Duel = class {
 						"description": "Gods decide to give you 3 quickening charges each!"
 					}
 				});
-				this.bothFightersAction(function(_fighter) {
+				this.allFightersAction(function(_fighter) {
 					_fighter.quickeningCharges += 3;
 				});
 			}
@@ -1203,7 +1212,7 @@ var Duel = class {
 						"description": "Gods decide to give you a special charge each!"
 					}
 				});
-				this.bothFightersAction(function(_fighter) {
+				this.allFightersAction(function(_fighter) {
 					_fighter.specialCharges++;
 				});
 			}
@@ -1214,7 +1223,7 @@ var Duel = class {
 						"description": "Gods decide to give you 10 quickening charges each!"
 					}
 				});
-				this.bothFightersAction(function(_fighter) {
+				this.allFightersAction(function(_fighter) {
 					_fighter.quickeningCharges += 10;
 				});
 			}
@@ -1247,7 +1256,7 @@ var Duel = class {
 					"description": "You suddenly feel new powers in your PP!"
 				}
 			});
-			this.bothFightersAction(function(_fighter) {
+			this.allFightersAction(function(_fighter) {
 				_fighter.godList = [];
 				for (var i in GOD_LIST) {
 					if (GOD_LIST[i].name != "") _fighter.godList.push(GOD_LIST[i].name);
@@ -1315,7 +1324,7 @@ var Duel = class {
 			}
 			this.addMessage("You both take your turn to recover from this tragedy!");
 
-			this.bothFightersAction(function(_fighter) {
+			this.allFightersAction(function(_fighter) {
 				_fighter.attack = EMOTE_SKIP;
 			});
 		}
@@ -1577,7 +1586,7 @@ var Duel = class {
 					"description": "Fear is freedom! Subjugation is liberation! Contradiction is truth! Those are the facts of this world! And you will all surrender to them, you pigs in human clothing!"
 				}
 			});
-			this.bothFightersAction(function(_fighter) {
+			this.allFightersAction(function(_fighter) {
 				_fighter.resetBattleVariables();
 			});
 		}
@@ -2684,7 +2693,14 @@ var Duel = class {
 		_function(_firstFighter);
 		_function(this.otherFighter(_firstFighter));
 	}
-	getRandomFighter() {
+    allFighersAction(_function, _firstFighter = this.getRandomFighter()) {
+        this.bothFightersAction(_function, _firstFighter);
+
+        if (this.EVENT_BOSS != null) {
+            _function(this.EVENT_BOSS);
+        }
+    }
+    getRandomFighter() {
 		if (this.TUTORIAL) {
 			return this.FIGHTER1;
 		}

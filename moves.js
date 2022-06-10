@@ -112,7 +112,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
             if (this.duel.UWU_TEXT) {
                 this.duel.SEXY_TEXT = 11;
             }
-            this.duel.bothFightersAction(function(_fighter) {
+            this.duel.allFightersAction(function(_fighter) {
                 _fighter.heal(300);
                 _fighter.turkeyCountdown = 6;
                 if (_fighter.isOverCircumcised) {
@@ -317,8 +317,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
         else if (attack == EMOTE_PP25) {
             // Bombardment
             this.duel.addMessage(this.getName() + " calls for a bombardment!!!");
-            if (this.duel.EVENT_BOSS != null) this.duel.EVENT_BOSS.damage(1000, true, new FakeBoss(this.duel, "Bombardier"));
-            this.duel.bothFightersAction(function(_fighter) {
+            this.duel.allFightersAction(function(_fighter) {
                 _fighter.damage(1000, true, new FakeBoss(_fighter.duel, "Bombardier"));
             });
         }
@@ -348,7 +347,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     this.duel.TRIGGERED_CHAOS = true;
                 }
                 else {
-                    this.duel.bothFightersAction(function(_fighter) {
+                    this.duel.allFightersAction(function(_fighter) {
                         _fighter.duel.addMessage("-----------------");
                         _fighter.playMove(_fighter.duel.getRandomEmote(false));
                         _fighter.duel.addMessage("-----------------");
@@ -397,7 +396,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
             else {
                 this.duel.addMessage(this.getName() + " sets up a barrel!");
                 this.duel.addMessage("It explodes!");
-                this.duel.bothFightersAction(function(_fighter) {
+                this.duel.allFightersAction(function(_fighter) {
                     _fighter.damage(200, false);
                 });
             }
@@ -639,7 +638,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
             if (this.duel.UWU_TEXT) {
                 this.duel.RUSSIAN_TEXT = 4;
             }
-            this.duel.bothFightersAction(function(_fighter) {
+            this.duel.allFightersAction(function(_fighter) {
                 _fighter.STRValue += Math.floor((getRandomPercent() - 50)/2);
                 _fighter.DEXValue += Math.floor((getRandomPercent() - 50)/2);
             });
@@ -690,7 +689,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 }
                 else if (randomEvent <= 75) {
                     this.duel.addMessage("Natural values have been doubled!");
-                    this.duel.bothFightersAction(function(_fighter) {
+                    this.duel.allFightersAction(function(_fighter) {
                         _fighter.STRvalue = _fighter.STRValue*2;
                         _fighter.DEXvalue = _fighter.DEXValue*2;
                     });
@@ -1608,7 +1607,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
             // PP Duel
             this.duel.MOVE_COUNT += 33;
             this.duel.addMessage(this.getName() + " asks for a PP Duel!");
-            this.duel.bothFightersAction(function(_fighter) {
+            this.duel.allFightersAction(function(_fighter) {
                 _fighter.STRValue -= _fighter.STR-10;
                 _fighter.DEXValue -= _fighter.DEX-10;
                 _fighter.bleedDamage = 0;
@@ -1906,13 +1905,13 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
             this.duel.addMessage(this.getName() + " summons Fherla - Strawberry Girl!");
             if (this.duel.CHRISTIAN_TEXT) {
                 this.duel.addMessage("PP Punching is so good. Please continue!");
-                this.duel.bothFightersAction(function(_fighter) {
+                this.duel.allFightersAction(function(_fighter) {
                     _fighter.heal(Math.floor(Math.random() * 10000000000000));
                 });
             }
             else {
                 this.duel.addMessage("PP Punching is so filthy. May the chat be purged of this nonsense.");
-                this.duel.bothFightersAction(function(_fighter) {
+                this.duel.allFightersAction(function(_fighter) {
                     _fighter.damage(Math.floor(Math.random() * 10000000000000), false);
                 });
             }
@@ -2463,7 +2462,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
         else if (attack == EMOTE_OBOMBA) {
             // Obama Event
             this.duel.addMessage(this.getName() + " summons the **Obomba**!");
-            this.duel.bothFightersAction(function(_fighter) {
+            this.duel.allFightersAction(function(_fighter) {
                 _fighter.damage(_fighter.STR, false);
             });
         }
