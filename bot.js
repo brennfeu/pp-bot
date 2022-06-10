@@ -596,7 +596,7 @@ CLIENT.on("message", async _message => { try {
         }
 
 		for (var i in topFighters) {
-			_message.channel.send("#" + (1+parseInt(i)) + ": " + topFighters[i].username + " (" + topFighters[i].points + " PP Points)");
+			_message.channel.send("#" + (1+parseInt(i)) + ": " + topFighters[i].username + " (" + sciText(topFighters[i].points) + " PP Points)");
 		}
 		return;
 	}
