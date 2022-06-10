@@ -771,10 +771,12 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 this.isLucky = 4;
                 this.badLuck = false;
             }
-            if (this.godList.indexOf(GOD_PP4.name) > -1) { //
+            if (this.godList.indexOf(GOD_PP4.name) > -1) { // Empress Theresa
                 this.duel.addMessage("-----------------");
-                this.duel.addMessage(" answers his calls!");
-                // TODO
+                this.duel.addMessage("Empress Theresa answers his calls!");
+                this.duel.addMessage(this.getName() + " recieves supply drops!");
+                this.hasSupplyDrops = true;
+                this.duel.increaseTheresaInfluence();
             }
             if (this.godList.indexOf(GOD_PP5.name) > -1) { // Hello There Puds
                 this.duel.addMessage("-----------------");
@@ -1126,7 +1128,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 this.duel.addMessage("-----------------");
                 this.duel.addMessage("Mongo answers his calls!");
                 if (this.trueBarbarian) {
-                    this.duel.addMessage(this.getName() + " is already barbarian enough!");
+                    this.duel.addMessage(this.getName() + " is already barbaric enough!");
                 }
                 else {
                     this.duel.addMessage(this.getName() + " becomes a true barbarian from the north!");
@@ -1156,10 +1158,17 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 }
                 this.DEXValue += 20;
             }
-            if (this.godList.indexOf(GOD_PP4.name) > -1) { //
+            if (this.godList.indexOf(GOD_PP4.name) > -1) { // Empress Theresa
                 this.duel.addMessage("-----------------");
-                this.duel.addMessage(" answers his calls!");
-                // TODO
+                this.duel.addMessage("Empress Theresa answers his calls!");
+                if (this.hal) {
+                    this.duel.addMessage(this.getName() + " gains nothing.");
+                }
+                else {
+                    this.duel.addMessage(this.getName() + " recieves HAL!");
+                    this.hal = true;
+                }
+                this.duel.increaseTheresaInfluence();
             }
             if (this.godList.indexOf(GOD_PP5.name) > -1) { // Hello There Puds
                 this.duel.addMessage("-----------------");

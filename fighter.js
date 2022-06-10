@@ -134,6 +134,7 @@ var Fighter = class {
 		this.knightmareBuff = false;
         this.ppKnightmare = 0;
 		this.boneHelm = false;
+        this.hal = false;
 
 		// Check Bad Values
 		if (this.STR <= 0) {
@@ -440,6 +441,9 @@ var Fighter = class {
 		if (this.requiemPower != null && this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
 			dex += 30;
 		}
+        if (this.godList.indexOf(GOD_PP4.name) > -1) {
+            dex += this.duel.THERESA_INFLUENCE*5;
+        }
 		if (this.hasRelic(RELIC_PP6)) {
 			dex += 5;
 		}
@@ -682,7 +686,7 @@ var Fighter = class {
 			statusTxt += displayEmote(EMOTE_PP49) + " **Perfect Stånd Power**\n";
 		}
 		if (this.hasSupplyDrops) {
-			statusTxt += displayEmote(EMOTE_PP72) + " **Gets Supply Drops**\n";
+			statusTxt += displayEmote(EMOTE_PP72) + " **Supply Drops Receiver**\n";
 		}
 		if (this.infernalInstrument == 1) {
 			statusTxt += displayEmote(EMOTE_ABILITY) + " **";
@@ -919,6 +923,12 @@ var Fighter = class {
 		if (this.knightmareBuff) {
 			statusTxt += displayEmote(GOD_PP42.emote) + " Knightmare Knowledge\n";
 		}
+        if (this.godList.indexOf(GOD_PP4.name) > -1 && this.duel.THERESA_INFLUENCE > 0) {
+            statusTxt += displayEmote(GOD_PP4.emote) + " Friend of Theresa\n";
+        }
+        if (this.hal) {
+            statusTxt += displayEmote(GOD_PP4.emote) + " HAL\n";
+        }
 		if (this.badLuck) {
 			statusTxt += displayEmote(GOD_PP15.emote) + " Unlucky\n";
 		}
@@ -972,7 +982,7 @@ var Fighter = class {
 			statusTxt += displayEmote(GOD_PP16.emote) + " **Summoning the Monster (" + (4-this.summonTankCountdown) + "/3)**\n";
 		}
 		if (this.standPower != null && !this.duel.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE && !this.randomizedStand) {
-			statusTxt += displayEmote(EMOTE_PP73) + " **Stånd Power: " + this.standPower + "**\n";
+			statusTxt += displayEmote(GOD_PP2.emote) + " **Stånd Power: " + this.standPower + "**\n";
 		}
 		if (this.extraLife > 0) {
 			statusTxt += displayEmote(EMOTE_PP58) + " **Extra lives: " + this.extraLife;
@@ -1518,6 +1528,13 @@ var Fighter = class {
 			this.duel.otherFighter(this).isPossessed = 2;
 		}
 
+        // HAL
+        if (this.hal) {
+            this.duel.addMessage("-----------------");
+			this.DEXValue += 1;
+			this.duel.addMessage("HAL grants " + this.getName() + " +1 DEX!");
+        }
+
 		// Boss Killer
 		if (this.bossKiller > 0) {
 			this.duel.addMessage("-----------------");
@@ -1645,7 +1662,7 @@ var Fighter = class {
 			var r = getRandomPercent();
 			if (r <= 50) {
 				this.duel.addMessage("-----------------");
-				this.duel.addMessage(this.getName() + " gets a supply drop!");
+				this.duel.addMessage(this.getName() + " recieves supplies!");
 
 				if (r <= 10) { // Pill
 					this.playMove(EMOTE_PP18);

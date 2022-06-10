@@ -68,6 +68,7 @@ var Duel = class {
 		this.REVERSED_GRAVITY = false;
 		this.POOPOO_UNIVERSE = false;
 		this.ADDITIONAL_FIGHT = 0;
+        this.THERESA_INFLUENCE = 0;
 
 		this.PP_ARMAGEDDON = false;
 		this.INFERNAL_FIRELAND = false;
@@ -705,6 +706,9 @@ var Duel = class {
 		if (this.DARKNESS_COUNTDOWN > 0) {
 			txt += " - Eldritch Darkness Power: " + this.DARKNESS_COUNTDOWN + "\n";
 		}
+        if (this.THERESA_INFLUENCE > 0) {
+            txt += " - Empress Theresa Influence Level: " + this.THERESA_INFLUENCE + "\n";
+        }
 		if (this.PP_NET > 0 && this.PP_NET < 200) {
 			txt += " - PP-Net Rising: Step " + this.PP_NET + "\n";
 		}
@@ -2251,6 +2255,26 @@ var Duel = class {
 		this.CURRENT_BATTLE_MODE = CITY_BATTLE_MODE;
 		this.KIDNEY_CURSE = 0;
 	}
+
+    increaseTheresaInfluence() {
+        this.duel.addMessage("-----------------");
+        this.duel.addMessage("Empress Theresa reshapes the world in her image. Her influence increases.");
+        this.THERESA_INFLUENCE += 1;
+        if (this.THERESA_INFLUENCE == 0)
+            this.duel.addMessage("24 hours daylight is now a thing.");
+        else if (this.THERESA_INFLUENCE == 1)
+            this.duel.addMessage("Winter has been eliminated.");
+        else if (this.THERESA_INFLUENCE == 2)
+            this.duel.addMessage("She creates her own personal island.");
+        else if (this.THERESA_INFLUENCE == 3)
+            this.duel.addMessage("She creates a new land specifically for winter sports.");
+        else if (this.THERESA_INFLUENCE == 4)
+            this.duel.addMessage("She makes all the civilians of Isreal leave and walk to a new land. wait what?");
+        else {
+            this.duel.addMessage("This is a dangerous game, Theresa.");
+            this.FORCE_EVENT = 50;
+        }
+    }
 
 	setRandomAttackList() {
 		var listeAttaques = [];

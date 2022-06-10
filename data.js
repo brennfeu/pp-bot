@@ -231,7 +231,6 @@ var EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_L
 var GOD_PP1 = {"name": "Mongo", "emote": "958636274699358210", "type": "normal"};
 var GOD_PP2 = {"name": "Hermit", "emote": "958636461471711232", "type": "normal"};
 var GOD_PP3 = {"name": "LeprePuds", "emote": "958636615125860382", "type": "normal"};
-var GOD_PP4 = {"name": "", "emote": "", "type": "normal"}; // ADD TO THE LIST
 var GOD_PP5 = {"name": "Hello There Puds", "emote": "958636743844847636", "type": "normal"};
 var GOD_PP6 = {"name": "DickDickSon666", "emote": "958636968529506325", "type": "normal"};
 var GOD_PP7 = {"name": "Minecraft Villager", "emote": "958637129330741278", "type": "normal"};
@@ -255,6 +254,7 @@ var GOD_PP23 = {"name": "Ancient Fungus", "emote": "958642597772017694", "type":
 var GOD_PP24 = {"name": "Time Cube", "emote": "958642729913565205", "type": "eldritch"};
 var GOD_PP25 = {"name": "Cthulhu", "emote": "958642845235965952", "type": "eldritch"};
 var GOD_PP12 = {"name": "Espinoza", "emote": "958642206808358942", "type": "eldritch"};
+var GOD_PP4 = {"name": "Empress Theresa", "emote": "984741432327807017", "type": "eldritch"};
 
 var GOD_PP20 = {"name": "Mikasa", "emote": "721676575841714186", "type": "waifu"};
 var GOD_PP27 = {"name": "Kurisu", "emote": "721676572108783636", "type": "waifu"};
