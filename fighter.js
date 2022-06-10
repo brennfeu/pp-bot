@@ -1800,7 +1800,7 @@ var Fighter = class {
 			return true;
 		}
 		for (var i in _synergy) {
-            var g = GOD_LIST.find(r => r.name == this.godList[j]);
+            var g = GOD_LIST.find(r => r.name == _synergy[i].name);
             if (g == undefined) g = { };
 
 			if (this.godList.indexOf(_synergy[i].name) < 0 && _synergy[i] != g.type) {
