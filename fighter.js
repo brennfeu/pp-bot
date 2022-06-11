@@ -1795,7 +1795,7 @@ var Fighter = class {
 
 		for (var i in _synergy) {
 			// _synergy[i] is a god
-			if (_synergy[i].name != undefined) if (this.godList.indexOf(_synergy[i].name) < 0) return false;
+			if (_synergy[i].name != undefined) { if (this.godList.indexOf(_synergy[i].name) < 0) { return false; } }
 
 			// _synergy[i] is a god type
 			else {
