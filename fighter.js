@@ -1803,9 +1803,8 @@ var Fighter = class {
 			// _synergy[i] is a god type
 			else {
 				var hasType = false;
-				for (var j in this.godList) {
-					var g = GOD_LIST.find(r => r.name == this.godList[j].name);
-					if (g.type == _synergy[i]) hasType = true;
+				for (var j in GOD_LIST) {
+					if (this.godList.indexOf(GOD_LIST[j].name) > -1 && GOD_LIST[j].type == _synergy[i]) hasType = true;
 				}
 				if (!hasType) return false;
 			}
