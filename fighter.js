@@ -1799,9 +1799,12 @@ var Fighter = class {
 
 			// _synergy[i] is a god type
 			else {
-				console.log("test");
 				var hasType = false;
+				console.log(_synergy[i]);
 				for (var j in GOD_LIST) {
+					console.log(GOD_LIST[j]);
+					console.log(this.godList.indexOf(GOD_LIST[j].name) > -1);
+					console.log(GOD_LIST[j].type == _synergy[i]);
 					if (this.godList.indexOf(GOD_LIST[j].name) > -1 && GOD_LIST[j].type == _synergy[i]) { hasType = true; console.log(_synergy[i]); console.log(GOD_LIST[j]); }
 				}
 				if (!hasType) return false;
