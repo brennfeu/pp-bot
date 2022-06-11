@@ -69,7 +69,7 @@ var Fighter = class {
 		this.grabbedPP = 0;
 		this.legAimer = false;
 		this.livingGod = false;
-		this.liberatedPP = false;
+		this.liberatedPP = 0;
 		this.mikasaBuff = 0;
 		this.dualWield = false;
 		this.bossKiller = 0;
@@ -398,9 +398,6 @@ var Fighter = class {
 		}
 		if (this.hasBoner) {
 			dex -= 20;
-		}
-		if (this.liberatedPP) {
-			dex += 200;
 		}
 		if (this.mikasaBuff > 0) {
 			dex += 30;
@@ -750,6 +747,9 @@ var Fighter = class {
 		if (this.huTaoBuff > 0) {
 			statusTxt += displayEmote(GOD_PP41.emote) + " Paramita Papilio (for " + this.huTaoBuff + " turns)\n";
 		}
+		if (this.liberatedPP > 0) {
+			statusTxt += displayEmote(EMOTE_PP61) + " Liberated PP (for " + this.liberatedPP + " turns)\n";
+		}
 		if (this.bossKiller > 0) {
 			statusTxt += displayEmote(EMOTE_PP97) + " Killer Adrenaline (for " + this.bossKiller + " turns)\n";
 		}
@@ -940,9 +940,6 @@ var Fighter = class {
 		}
 		if (this.silenced) {
 			statusTxt += displayEmote(GOD_PP33.emote) + " Silenced\n";
-		}
-		if (this.liberatedPP) {
-			statusTxt += displayEmote(EMOTE_PP61) + " Liberated PP\n";
 		}
 		if (this.hasBoner) {
 			statusTxt += displayEmote(GOD_PP14.emote) + " Big Boner Mmmmmmh...\n";
@@ -1228,6 +1225,11 @@ var Fighter = class {
 
 					enemyPuncher.relics = enemyPuncher.relics.concat(this.relics);
 					this.relics = [];
+
+					if (this.liberatedPP > 0) {
+						this.duel.addMessage(this.getName() + "'s PP shall stay liberated!");
+						this.playMove(EMOTE_PP24);
+					}
 				}
 
 				if (enemyPuncher.standPower == STAND_PP12 && _punch) { // Space Metal
@@ -1290,15 +1292,15 @@ var Fighter = class {
 		if (this.acidArmor >= 1 && _punch) {
 			if (enemyPuncher.hasSynergy(SYNERGY_PP4)) {
 				this.duel.addMessage(this.getName() + "'s acid armor heals " + enemyPuncher.getName() + "!");
-				enemyPuncher.heal(10);
+				enemyPuncher.heal(Math.floor(_amount/10));
 			}
 			else {
 				this.duel.addMessage(this.getName() + "'s acid armor hurts " + enemyPuncher.getName() + "!");
 				if (this.sporeSac) {
-					enemyPuncher.damage(10 + Math.floor(_amount/10), false);
+					enemyPuncher.damage(Math.floor(_amount/4), false);
 				}
 				else {
-					enemyPuncher.damage(10, false);
+					enemyPuncher.damage(Math.floor(_amount/10), false);
 				}
 			}
 		}
@@ -1397,8 +1399,9 @@ var Fighter = class {
 			this.huTaoBuff -= 1;
 			this.ppColossus -= 1;
 			this.ppColossusCountdown -= 1;
+			this.liberatedPP -= 1;
 
-			if (this.sporeSac && getRandomPercent() <= 75 && this.acidArmor > 0) {
+			if (this.sporeSac && getRandomPercent() <= 90 && this.acidArmor > 0) {
 				this.duel.addMessage(this.getName() + "'s acid armor stays for longer.");
 				this.duel.addMessage("-----------------");
 			}

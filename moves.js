@@ -1615,27 +1615,19 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
         else if (attack == EMOTE_PP60) {
             // PP Duel
             this.duel.MOVE_COUNT += 33;
-            this.duel.addMessage(this.getName() + " asks for a PP Duel!");
+            this.duel.addMessage(this.getName() + " turns the duel into a mutual sacrifice!");
             this.duel.allFightersAction(function(_fighter) {
-                _fighter.STRValue -= _fighter.STR-10;
-                _fighter.DEXValue -= _fighter.DEX-10;
+                _fighter.STRValue -= Math.floor(_fighter.STR*0.09);
+                _fighter.DEXValue -= Math.floor(_fighter.DEX*0.09);
                 _fighter.bleedDamage = 0;
             });
         }
         else if (attack == EMOTE_PP61) {
             // Liberate PP
             this.duel.MOVE_COUNT += 33;
-            this.duel.addMessage(this.getName() + " liberates his opponent's PP!");
-            if (!this.duel.getOppOf(this).liberatedPP) {
-                this.resetBattleVariables();
-                this.duel.addMessage(this.getName() + " takes " + this.duel.getOppOf(this).DEXValue + " DEX from " + this.duel.getOppOf(this).getName() + "!");
-                this.DEXValue += this.duel.getOppOf(this).DEX;
-                this.duel.getOppOf(this).DEXValue = 0;
-                this.duel.getOppOf(this).liberatedPP = true;
-            }
-            else {
-                this.duel.addMessage("But " + this.duel.getOppOf(this).getName() + " has already been liberated!");
-            }
+            this.duel.addMessage(this.getName() + " liberates his PP!");
+            this.resetBattleVariables();
+            this.liberatedPP = 4;
         }
         else if (attack == EMOTE_PP62) {
             // Duel Checkpoint
