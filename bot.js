@@ -249,9 +249,10 @@ function sendErrorToDev(_err) {
 	}
 	DUEL_LIST = [];
 
-	var brenn = await CLIENT.users.fetch(ID_BRENNFEU);
-	brenn.send(_err.stack);
-	brenn.send(_err.toString());
+	CLIENT.users.fetch(ID_BRENNFEU).then(function(_brenn) {
+		brenn.send(_brenn.stack);
+		brenn.send(_brenn.toString());
+	});
 }
 
 function updatePlayer(_fighterID, _username) {
