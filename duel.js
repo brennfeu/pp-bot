@@ -994,7 +994,7 @@ var Duel = class {
 			forcedEvent = true;
 			randomVar = 50;
 		}
-		else if (this.AREA == AREA_PP8 && getRandomPercent() <= 20) {
+		else if (this.AREA == AREA_PP13 && getRandomPercent() <= 20) {
 			forcedEvent = true;
 			randomVar = 43;
 		}
@@ -2552,10 +2552,10 @@ var Duel = class {
 			attackPower += _city.lastSummonValue;
 			this.addMessage("Omega Bullets doubles the last unit's military power!");
 		}
-		if (_city.silverBullets && _target.armyJammed && !_city.duel.BOSS_FIGHT != null) {
+		if (_city.silverBullets && _target.armyJammed && _city.duel.BOSS_FIGHT == null) {
 			attackPower += attackPower;
 		}
-		if (_city.armyMindControl && !_city.duel.BOSS_FIGHT != null) {
+		if (_city.armyMindControl && _city.duel.BOSS_FIGHT == null) {
 			attackPower += Math.min(200, _target.militaryPower);
 			defencePower -= Math.min(200, _target.militaryPower);
 		}
@@ -2567,7 +2567,7 @@ var Duel = class {
 			this.addMessage("The army explodes!");
 			attackPower = 0;
 		}
-		if (_target.armyDefence && !_city.duel.BOSS_FIGHT != null) {
+		if (_target.armyDefence && _city.duel.BOSS_FIGHT == null) {
 			defencePower += Math.floor(_target.militaryPower/2);
 		}
 

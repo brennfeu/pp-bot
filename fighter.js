@@ -1676,7 +1676,7 @@ var Fighter = class {
 				else if (r <= 40) { // AmmoCrate
 					this.playMove(EMOTE_PP72);
 				}
-				else if (r <= 50) { // Scout
+				else { // Scout
 					this.duel.addMessage(this.getName() + " gets binoculars!");
 					this.playMove(EMOTE_PP13);
 				}
@@ -1843,7 +1843,7 @@ var Fighter = class {
 var City = class extends Fighter {
 	constructor(_mayor, _idDuel) {
 		if (_mayor == undefined) { // default constructor
-			return;
+			return super();
 		}
 		super(_mayor.idUser, _idDuel);
 

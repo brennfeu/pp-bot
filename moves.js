@@ -549,7 +549,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
             // BrocketeerDive
             this.duel.addMessage(this.getName() + " punches " + this.getOppName() + "'s PP with his head!");
             this.duel.getOppOf(this).damage(Math.floor(10 + this.STR / 10));
-            if (!this.duel.EVENT_BOSS != null) {
+            if (this.duel.EVENT_BOSS == null) {
                 this.duel.getOppOf(this).hasBurst = 2;
             }
         }
@@ -1058,9 +1058,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 this.duel.addMessage("Senjouahara answers his calls!");
                 this.duel.addMessage(this.getName() + " staples " + this.getOppName() + "'s PP!")
                 this.duel.getOppOf(this).damage(Math.floor(this.STR/10));
-                if (!this.duel.EVENT_BOSS != null) {
-                    this.duel.getOppOf(this).bleedDamage += Math.floor(this.STR/10);
-                }
+                this.duel.getOppOf(this).bleedDamage += Math.floor(this.STR/10);
             }
             if (this.godList.indexOf(GOD_PP38.name) > -1) { // Akame
                 this.duel.addMessage("-----------------");
@@ -1801,7 +1799,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
             this.duel.addMessage(this.getName() + " summons the Eye of Truth!");
             this.duel.addMessage("The Eye of Truth will reveal the moves of " + this.getName() + "'s soul!");
             var moveId = parseInt(this.guildUser.user.id.slice(9, this.guildUser.user.id.length));
-            var effectId = moveId%6;
+            var effectId;
             var subEffectId;
             var value = 0;
             var debuffList = ["bleedDamage", "meltingDamage", "madnessStack"];

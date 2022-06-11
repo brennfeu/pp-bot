@@ -58,8 +58,6 @@ function changeTextRandomCap(_texte) {
 	return _texte;
 }
 function changeTextRussian(_texte) {
-	var lettres = _texte.split(" ");
-
 	_texte = _texte.split(" ");
 	for (var i in _texte) {
 		if (getRandomPercent() <= 10 && /^[a-zA-Z]+$/.test(_texte[i])) {

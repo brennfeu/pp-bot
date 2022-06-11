@@ -1,8 +1,8 @@
 var Boss = class extends Fighter {
     constructor(_duel, _name, _baseHP) {
         if (_duel == undefined) { // default constructor
-		return;
-	}
+    		return super();
+    	}
 
         super(CLIENT.user.id, _duel.BATTLE_CHANNEL.id);
         this.bossName = _name;
@@ -94,7 +94,6 @@ var Boss = class extends Fighter {
                 this.duel.triggerBossFight(new RaidBossEspinozaBoss(this.duel));
                 return true;
             }
-            return false;
         }
     }
 
