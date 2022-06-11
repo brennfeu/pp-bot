@@ -248,8 +248,10 @@ function sendErrorToDev(_err) {
 		DUEL_LIST[i].sendMessages();
 	}
 	DUEL_LIST = [];
-	CLIENT.users.cache.find(a => a.id == ID_BRENNFEU).send(_err.stack);
-	CLIENT.users.cache.find(a => a.id == ID_BRENNFEU).send(_err.toString());
+
+	var brenn = await CLIENT.users.fetch(ID_BRENNFEU);
+	brenn.send(_err.stack);
+	brenn.send(_err.toString());
 }
 
 function updatePlayer(_fighterID, _username) {

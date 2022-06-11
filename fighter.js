@@ -602,9 +602,6 @@ var Fighter = class {
 			synergyTxt += " - *PP Harem*\n";
 		}
 		else {
-			if (this.hasSynergy(SYNERGY_PP0)) {
-				synergyTxt += " - *PP Harem*\n";
-			}
 			if (this.hasSynergy(SYNERGY_PP1)) {
 				synergyTxt += " - A Sad Witness\n";
 			}
@@ -1804,7 +1801,7 @@ var Fighter = class {
 			else {
 				var hasType = false;
 				for (var j in GOD_LIST) {
-					if (this.godList.indexOf(GOD_LIST[j].name) > -1 && GOD_LIST[j].type == _synergy[i]) hasType = true;
+					if (this.godList.indexOf(GOD_LIST[j].name) > -1 && GOD_LIST[j].type == _synergy[i]) { hasType = true; console.log(_synergy[i]); console.log(GOD_LIST[j]); }
 				}
 				if (!hasType) return false;
 			}
