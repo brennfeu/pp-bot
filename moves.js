@@ -1615,9 +1615,8 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
             this.duel.MOVE_COUNT += 33;
             this.duel.addMessage(this.getName() + " turns the duel into a mutual sacrifice!");
             this.duel.allFightersAction(function(_fighter) {
-                _fighter.STRValue -= Math.floor(_fighter.STR*0.09);
-                _fighter.DEXValue -= Math.floor(_fighter.DEX*0.09);
-                _fighter.bleedDamage = 0;
+                _fighter.STRValue -= Math.floor(_fighter.STR*0.99);
+                _fighter.DEXValue -= Math.floor(_fighter.DEX*0.99);
             });
         }
         else if (attack == EMOTE_PP61) {
