@@ -429,6 +429,7 @@ var Duel = class {
 		}
 		this.LIST_MESSAGES = [];
 		this.LIST_MESSAGES_OTHER = [];
+		this.TIMESTAMP = +new Date();
 	}
 
 	newTurnDuel() {
@@ -1764,9 +1765,7 @@ var Duel = class {
 	}
 
 	triggerReaction(_emote, _user) {
-		if (this.EASY_DUEL && this.LIST_AVAILABLE_ATTACKS.indexOf(this.getAttackFromEmote(_emote)) < 0) {
-			return;
-		}
+		if (this.EASY_DUEL && this.LIST_AVAILABLE_ATTACKS.indexOf(this.getAttackFromEmote(_emote)) < 0) return;
 
 		// Save Me Move
 		if (this.getAttackFromEmote(_emote) == EMOTE_PP31 && this.SAVE_LIST.indexOf(_user.id) < 0 && !_user.bot) {

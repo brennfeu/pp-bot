@@ -1793,18 +1793,21 @@ var Fighter = class {
 	}
 
 	hasSynergy(_synergy) {
-		if (this.forcedSynergies.indexOf(_synergy) > -1) {
-			return true;
-		}
-		if (this.godList.length >= GOD_LIST.length) { // PP Harem
-			return true;
-		}
-		for (var i in _synergy) {
-            var g = GOD_LIST.find(r => r.name == _synergy[i].name);
-            if (g == undefined) g = { };
+		if (this.forcedSynergies.indexOf(_synergy) > -1) return true;
+		if (this.godList.length >= GOD_LIST.length) return true;
 
-			if (this.godList.indexOf(_synergy[i].name) < 0 && _synergy[i] != g.type) {
-				return false;
+		for (var i in _synergy) {
+			// _synergy[i] is a god
+			if (_synergy[i].name != undefined) if (this.godList.indexOf(_synergy[i].name) < 0) return false;
+
+			// _synergy[i] is a god type
+			else {
+				var hasType = false;
+				for (var j in this.godList) {
+					var g = GOD_LIST.find(r => r.name == this.godList[j].name);
+					if (g.type == _synergy[i]) hasType = true;
+				}
+				if (!hasType) return false;
 			}
 		}
 		return true;
