@@ -108,8 +108,21 @@ var Duel = class {
 			this.FIGHTER2 = new Fighter(_message.mentions.users.last().id, this.BATTLE_CHANNEL.id);
 		}
 		else {
+			// BOT
 			this.FIGHTER2 = new Fighter(CLIENT.user.id, this.BATTLE_CHANNEL.id);
 			this.FIGHTER2.STRValue = 100;
+			if (getWinCounter(this.FIGHTER1.idUser) > 500) { // HARDMODE
+				this.FIGHTER2.bossKiller = 100000;
+				this.FIGHTER2.DEXValue += 10;
+				
+				this.DOUBLE_POINTS = true;
+			}
+
+			// RANDOM FIGHTING STYLES
+			if (getRandomPercent() <= 10) { this.FIGHTER2.isBigPP = true; this.ultimatePPBuff += 1; }
+			if (getRandomPercent() <= 10) { this.FIGHTER2.isFastPP = true; this.ultimatePPBuff += 1; }
+			if (getRandomPercent() <= 10) { this.FIGHTER2.isDrunkPP = true; this.ultimatePPBuff += 1; }
+			if (getRandomPercent() <= 10) { this.FIGHTER2.isAlienPP = true; this.ultimatePPBuff += 1; }
 		}
 
 		this.PPLEVEL = Math.min(getWinCounter(this.FIGHTER1.idUser), getWinCounter(this.FIGHTER2.idUser));

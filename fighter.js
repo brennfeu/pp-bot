@@ -227,7 +227,6 @@ var Fighter = class {
 			this.STRValue = 70;
 			this.DEXValue = 20;
 
-
 			if (this.godList.indexOf(GOD_PP25.name) > -1) { // Cthulhu Special Effect
 				this.STRValue += 30;
 				this.cthulhuShield = 1;
