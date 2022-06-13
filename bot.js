@@ -250,8 +250,8 @@ function sendErrorToDev(_err) {
 	DUEL_LIST = [];
 
 	CLIENT.users.fetch(ID_BRENNFEU).then(function(_brenn) {
-		brenn.send(_brenn.stack);
-		brenn.send(_brenn.toString());
+		_brenn.send(_err.stack);
+		_brenn.send(_err.toString());
 	});
 }
 
