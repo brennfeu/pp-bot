@@ -114,7 +114,7 @@ var Duel = class {
 			if (getWinCounter(this.FIGHTER1.idUser) > 500) { // HARDMODE
 				this.FIGHTER2.bossKiller = 100000;
 				this.FIGHTER2.DEXValue += 10;
-				
+
 				this.DOUBLE_POINTS = true;
 			}
 
@@ -975,6 +975,12 @@ var Duel = class {
 			this.addMessage("-----------------");
 			this.addMessage("Both of you lost. No one won this time. You losers.");
 			this.stopDuel();
+			addWinCounter({
+				user: {
+					id: 0,
+					username: "Espinoza"
+				}
+			}, Math.floor(this.MOVE_COUNT/10));
 			return;
 		}
 		this.bothFightersAction(function(_fighter) {
@@ -2269,21 +2275,21 @@ var Duel = class {
 	}
 
     increaseTheresaInfluence() {
-        this.duel.addMessage("-----------------");
-        this.duel.addMessage("Empress Theresa reshapes the world in her image. Her influence increases.");
+        this.addMessage("-----------------");
+        this.addMessage("Empress Theresa reshapes the world in her image. Her influence increases.");
         this.THERESA_INFLUENCE += 1;
         if (this.THERESA_INFLUENCE == 0)
-            this.duel.addMessage("24 hours daylight is now a thing.");
+            this.addMessage("24 hours daylight is now a thing.");
         else if (this.THERESA_INFLUENCE == 1)
-            this.duel.addMessage("Winter has been eliminated.");
+            this.addMessage("Winter has been eliminated.");
         else if (this.THERESA_INFLUENCE == 2)
-            this.duel.addMessage("She creates her own personal island.");
+            this.addMessage("She creates her own personal island.");
         else if (this.THERESA_INFLUENCE == 3)
-            this.duel.addMessage("She creates a new land specifically for winter sports.");
+            this.addMessage("She creates a new land specifically for winter sports.");
         else if (this.THERESA_INFLUENCE == 4)
-            this.duel.addMessage("She makes all the civilians of Isreal leave and walk to a new land. wait what?");
+            this.addMessage("She makes all the civilians of Isreal leave and walk to a new land. wait what?");
         else {
-            this.duel.addMessage("This is a dangerous game, Theresa.");
+            this.addMessage("This is a dangerous game, Theresa.");
             this.FORCE_EVENT = 50;
         }
     }

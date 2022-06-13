@@ -2443,7 +2443,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
         else if (attack == EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE) {
             // Judgement Event
             if (this.duel.ESPINOZA_CHOICE == attack) {
-                this.duel.addMessage(this.getName() + " guessed right !:)");
+                this.duel.addMessage(this.getName() + " guessed right! :)");
                 if (this.godList.indexOf(GOD_PP12.name) > 0) {
                     this.duel.addMessage("He gets 10 DEX!");
                     this.DEXValue += 10;
@@ -2454,7 +2454,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 }
             }
             else {
-                this.duel.addMessage(this.getName() + " guessed wrong !:(");
+                this.duel.addMessage(this.getName() + " guessed wrong! :(");
             }
         }
         else if (attack == EMOTE_OBOMBA) {
