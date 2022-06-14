@@ -242,17 +242,14 @@ function sendErrorToDev(_err) {
 		DUEL_LIST[i].LIST_MESSAGES = [];
 		DUEL_LIST[i].LIST_MESSAGES_OTHER = [];
 
-		DUEL_LIST[i].addMessage("**An error occured and I will soon restart. The dev has been notified of this and will work on it if he's not too lazy. I'm sorry to end your duel like this.**");
+        DUEL_LIST[i].addMessage("**An error occured and I might soon restart. Reporting the issue would be greatly appreciated! I'm sorry to end your duel like this, some PP Points should still be awarded.**");
+        DUEL_LIST[i].addMessage(_err.stack.toString());
+		DUEL_LIST[i].addMessage(_err.toString());
 		DUEL_LIST[i].FIGHTER1.win("quarter");
 		DUEL_LIST[i].FIGHTER2.win("quarter");
 		DUEL_LIST[i].sendMessages();
 	}
 	DUEL_LIST = [];
-
-	CLIENT.users.fetch(ID_BRENNFEU).then(function(_brenn) {
-		_brenn.send(_err.stack);
-		_brenn.send(_err.toString());
-	});
 }
 
 function updatePlayer(_fighterID, _username) {
@@ -283,7 +280,7 @@ function getRank(_fighterID) {
 function addWinCounter(_fighter, _number) {
 	updatePlayer(_fighter.user.id, _fighter.user.username.secureXSS())
 
-	console.log(_fighter.getName() + " wins: " + _number);
+	if (_fighter.getName != undefined) console.log(_fighter.getName() + " wins: " + _number);
 	executeQuery("UPDATE Player SET points = " + (_number+getWinCounter(_fighter.user.id)) + " WHERE id = " + _fighter.user.id);
 }
 function getTopFighters(_limit = 10) {
