@@ -143,6 +143,7 @@ function sciText(_texte) {
     var l = _texte.toString().split(" ");
     for (var i in l) {
         if (isNaN(l[i])) continue;
+        if (l[i].includes("e")) continue; // power of 10 notation
 
         var pattern = /(-?\d+)(\d{3})/;
         while (pattern.test(l[i])) l[i] = l[i].replace(pattern, "$1,$2");

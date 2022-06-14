@@ -1387,7 +1387,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 this.duel.addMessage("-----------------");
                 this.duel.addMessage("Kurisu answers his calls!");
                 this.duel.addMessage(this.getName() + " sends his current mind to his past self!");
-                this.duel.addMessage("Timeline changes ! " + this.getName() + " had in fact dodged the " + this.dodgableDamages.length + " previous attacks!");
+                this.duel.addMessage("The timeline shifts! " + this.getName() + " had in fact dodged the " + this.dodgableDamages.length + " previous attacks!");
                 for (var i in this.dodgableDamages) {
                     this.STRValue += this.dodgableDamages[i];
                 }
@@ -1599,12 +1599,12 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 this.duel.getOppOf(this).playMove(EMOTE_PP47);
                 this.duel.addMessage("-----------------");
                 this.duel.addMessage("Haha just kidding!");
-                this.duel.addMessage("Unless I wasn't ?");
+                this.duel.addMessage("Unless I wasn't?");
                 this.duel.addMessage("Nah it was a joke!");
                 this.duel.addMessage("Unless...?");
-                this.duel.addMessage("Gonna cry ?");
-                this.duel.addMessage("Gonna piss your pant maybe ?");
-                this.duel.addMessage("Maybe shit and cum ?");
+                this.duel.addMessage("Gonna cry?");
+                this.duel.addMessage("Gonna piss your pants maybe?");
+                this.duel.addMessage("Maybe shit and cum?");
             }
             else {
                 this.duel.addMessage(this.getName() + " needs to get even closer!");

@@ -539,6 +539,7 @@ var Fighter = class {
 		if (this.specialCharges > 0) {
 			godsText += "\n" + displayEmote(EMOTE_PP52) + " Special Charges: " + this.specialCharges;
 		}
+        if (godsText.length > 1000) godsText = godsText.substring(0, 1000) + "...";
 		if (godsText != "") embedMessage.addField("Faith", sciText(godsText), true);
 
 		// RELICS
@@ -593,6 +594,7 @@ var Fighter = class {
 
 		// STATUS
 		var statusTxt = this.getStatusTxt();
+        if (statusTxt.length > 1000) statusTxt = statusTxt.substring(0, 1000) + "...";
 		if (statusTxt != "") embedMessage.addField("Status", sciText(statusTxt), true);
 
 		// SYNERGIES

@@ -870,7 +870,7 @@ CLIENT.on("message", async _message => { try {
 			}
 		}
 		catch(e) {
-			return _message.reply("wat ?");
+			return _message.reply("huh?");
 		}
 	}
 	if (argsUser.length > 3) {

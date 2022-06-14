@@ -278,6 +278,8 @@ var PuddingBlobBoss = class extends Boss {
 var GilgameshBoss = class extends Boss {
     constructor(_duel) {
         super(_duel, "Gilgamesh", 1);
+        if (_duel == null) return; // default constructor
+
         if (this.duel.RELIC_TREASURE.length > 0) {
             var bossValue = RELIC_LIST.length - this.duel.RELIC_TREASURE.length;
 
