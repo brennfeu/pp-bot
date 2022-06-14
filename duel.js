@@ -517,7 +517,7 @@ var Duel = class {
 					}
 					else {
 						this.addMessage(this.getOppOf(fighter).getOppName() + " gets striked by lightning!");
-						fighter.damage(40*this.STORM_COUNTDOWN);
+						fighter.damage(45*this.STORM_COUNTDOWN);
 					}
 				}
 				if (this.DARKNESS_COUNTDOWN > 0) {
@@ -529,8 +529,8 @@ var Duel = class {
 						fighter.DEXValue += this.DARKNESS_COUNTDOWN*2;
 					}
 					else {
-						fighter.madnessStacks += this.DARKNESS_COUNTDOWN*2;
-						this.addMessage(fighter.getName() + " gets " + (this.DARKNESS_COUNTDOWN*2) + " madness stacks!");
+						fighter.madnessStacks += this.DARKNESS_COUNTDOWN;
+						this.addMessage(fighter.getName() + " gets " + this.DARKNESS_COUNTDOWN + " madness stacks!");
 					}
 				}
 				if (this.PUDDING_NUISANCE == 0) {
@@ -1816,6 +1816,11 @@ var Duel = class {
 
 		if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
 			if (this.CURRENT_FIGHTER.user.id == _user.id) {
+                if (duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.getAttackFromEmote(_emote)) < 0) {
+                    duel.addMessage("Stop cheating, this isn't the time.");
+                    return duel.sendMessages();
+                }
+
 				this.CURRENT_FIGHTER.attack = this.getAttackFromEmote(_emote);
 				this.addMessage(this.CURRENT_FIGHTER.getName() + ": " + _emote, true);
 				this.sendMessages();
@@ -1855,7 +1860,7 @@ var Duel = class {
 			if (duel.GAY_TURNS > 0 && duel.TIME_STOP <= 0) {
 				if (_user.id == _fighter.user.id) {
 					if (duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.getAttackFromEmote(_emote)) < 0) {
-						duel.addMessage("Gay people can't cheat...");
+						duel.addMessage("Don't you know that gay people can't cheat?");
 						return duel.sendMessages();
 					}
 					else if (duel.otherFighter(_fighter).STR <= 0) {

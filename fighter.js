@@ -309,7 +309,7 @@ var Fighter = class {
 			str += 50;
 		}
 		if (this.mikasaBuff > 0) {
-			str += 30;
+			str += 50;
 		}
 		if (this.satanMask) {
 			str += 50;
@@ -399,7 +399,7 @@ var Fighter = class {
 			dex -= 20;
 		}
 		if (this.mikasaBuff > 0) {
-			dex += 30;
+			dex += 10;
 		}
 		if (this.duel.getOppOf(this).helldogMask) {
 			dex -= 20;
