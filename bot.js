@@ -463,7 +463,7 @@ async function sendCheatPanel(_channel, _category = null) {
 		"Cheat Panel: Gods III": [],
 		"Cheat Panel: Other": [
 			EMOTE_ABILITY, EMOTE_MECHA, EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE, EMOTE_OBAMAHEDRON, EMOTE_OBAMASPHERE,
-			EMOTE_OBOMBA, EMOTE_SKIPPER
+			EMOTE_OBOMBA, EMOTE_BOSS_ATTACK
 		]
 	}
 	for (var i in GOD_LIST) {

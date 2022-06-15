@@ -2480,6 +2480,31 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 _fighter.DEXValue += Math.floor(Math.random() * Math.pow(10, getRandomPercent()));
             });
         }
+        else if (attack == EMOTE_BOSS_ATTACK) {
+            if (this instanceof Boss) {
+                var randomFighter = this.duel.getRandomFighter();
+                if (this.bossTriggeredAt != null) randomFighter = this.bossTriggeredAt;
+
+                this.duel.addMessage(this.getName() + " attacks " + randomFighter.getName() + "!");
+
+                var damage = this.baseDamage;
+                if (this.isMoonLord && this.duel.EVENT_BLOOD_MOON) damage += damage;
+                if (this.duel.PP_ARMAGEDDON) damage = damage*1000;
+                else if (this.duel.INFERNAL_FIRELAND) damage = damage*10;
+
+                if (randomFighter.cthulhuShield > 0) {
+                    this.duel.addMessage(randomFighter.getName() + " reflects the damages!");
+                    randomFighter.cthulhuShield -= 1;
+                    this.damage(damage);
+                }
+                else {
+                    randomFighter.damage(damage, false);
+                }
+            }
+            else {
+                this.playMove(EMOTE_PP1)
+            }
+        }
         else if (attack == EMOTE_DEAD) {
             // Dead (Cthulhu battle)
             if (this.STRValue < 70) {

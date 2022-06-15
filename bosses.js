@@ -97,25 +97,17 @@ var Boss = class extends Fighter {
         }
     }
 
+    selectMove() {
+        if (this.attack != "") return;
+
+        if (this.specialCharges > 0 && this.duel.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP52) > -1) return this.attack = EMOTE_PP52;
+        if (this.regularCharges > 0 && this.duel.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP51) > -1) return this.attack = EMOTE_PP51;
+
+        this.attack = EMOTE_BOSS_ATTACK;
+    }
     triggerBossAttack() {
-        var randomFighter = this.duel.getRandomFighter();
-        if (this.bossTriggeredAt != null) randomFighter = this.bossTriggeredAt;
-
-        this.duel.addMessage(this.getName() + " attacks " + randomFighter.getName() + "!");
-
-        var damage = this.baseDamage;
-        if (this.isMoonLord && this.duel.EVENT_BLOOD_MOON) damage += damage;
-        if (this.duel.PP_ARMAGEDDON) damage = damage*1000;
-        else if (this.duel.INFERNAL_FIRELAND) damage = damage*10;
-
-        if (randomFighter.cthulhuShield > 0) {
-            this.duel.addMessage(randomFighter.getName() + " reflects the damages!");
-            randomFighter.cthulhuShield -= 1;
-            this.damage(damage);
-
-            return false;
-        }
-        return randomFighter.damage(damage, false);
+        this.selectMove();
+        return this.playMove();
     }
 }
 var FakeBoss = class extends Boss {
