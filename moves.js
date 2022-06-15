@@ -1984,18 +1984,18 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
             this.lastSummonValue = units[attack][1];
 
             if (this.alphaBullets && this.militaryPower == 0) {
-                this.militaryPower += units[attack][1];
-                this.lastSummonValue += units[attack][1];
+                this.militaryPower += units[attack][1]*50;
+                this.lastSummonValue += units[attack][1]*50;
                 this.duel.addMessage("Alpha Bullets doubles the military power gained!");
             }
 
             if (getRandomPercent() <= 5 && units[attack][2].indexOf("armyJammed") < 0) {
                 this.duel.addMessage("This one looks jammed!");
-                this.militaryPower += units[attack][1];
+                this.militaryPower += this.militaryPower;
                 this.armyJammed = true;
             }
 
-            this.militaryPower += units[attack][1];
+            this.militaryPower += units[attack][1]*50;
             for (var i in units[attack][2]) {
                 this[units[attack][2][i]] = true;
                 if (units[attack][2] == "armyAgony") {
@@ -2008,7 +2008,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 this.duel.addMessage("It attacks the kaiju!");
                 this.resetArmy();
                 if (this.kaijuHP <= 0) {
-                    this.duel.addMessage("And The kaiju dies!");
+                    this.duel.addMessage("And the giant beast dies!");
                     this.bossKiller = 11;
                 }
             }

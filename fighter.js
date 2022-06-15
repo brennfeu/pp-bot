@@ -1850,7 +1850,7 @@ var City = class extends Fighter {
 		}
 		super(_mayor.idUser, _idDuel);
 
-		this.STRValue = 2000;
+		this.STRValue = 100000;
 		this.DEXValue = 0;
 		this.godList = [];
 
@@ -1892,13 +1892,13 @@ var City = class extends Fighter {
 	}
 
 	get STR() {
-		var str = super.STR + this.junkCount*200;
+		var str = super.STR + this.junkCount*10000;
 
 		if (this.peaceShrine) {
-			str += 500;
+			str += 25000;
 		}
 		if (this.angelShrine) {
-			str += 500;
+			str += 50000;
 		}
 
 		return str;
@@ -1917,98 +1917,95 @@ var City = class extends Fighter {
 
 		// STATS
 		var statsTxt = "**STR:** " + this.STR;
-		if (this.STR == 69) {
-			statsTxt += " (lmao)";
-		}
 		embedMessage.setDescription(statsTxt);
 
 
 		// BUILDINGS
 		var buildingTxt = "";
 		if (this.familiarShrine) {
-			buildingTxt += " - Familiar Shrine\n";
+			buildingTxt += displayEmote(EMOTE_PP82) + " Familiar Shrine\n";
 		}
 		if (this.junkShrine) {
-			buildingTxt += " - Junk Shrine\n";
+			buildingTxt += displayEmote(EMOTE_PP83) + " Junk Shrine\n";
 		}
 		if (this.glassShrine) {
-			buildingTxt += " - Glass Shrine\n";
+			buildingTxt += displayEmote(EMOTE_PP84) + " Glass Shrine\n";
 		}
 		if (this.diceShrine) {
-			buildingTxt += " - Dice Shrine\n";
+			buildingTxt += displayEmote(EMOTE_PP85) + " Dice Shrine\n";
 		}
 		if (this.angelShrine) {
-			buildingTxt += " - Angel Shrine\n";
+			buildingTxt += displayEmote(EMOTE_PP86) + " Angel Shrine\n";
 		}
 		if (this.peaceShrine) {
-			buildingTxt += " - Peace Shrine\n";
+			buildingTxt += displayEmote(EMOTE_PP87) + " Peace Shrine\n";
 		}
 		if (this.yvShrine) {
-			buildingTxt += " - YV Shrine\n";
+			buildingTxt += displayEmote(EMOTE_PP88) + " YV Shrine\n";
 		}
 		if (this.heroShrine) {
-			buildingTxt += " - Hero Shrine\n";
+			buildingTxt += displayEmote(EMOTE_PP89) + " Hero Shrine\n";
 		}
 		if (this.cleanseShrine) {
-			buildingTxt += " - Cleanse Shrine\n";
+			buildingTxt += displayEmote(EMOTE_PP90) + " Cleanse Shrine\n";
 		}
 		if (this.bloodShrine) {
-			buildingTxt += " - Blood Shrine\n";
+			buildingTxt += displayEmote(EMOTE_PP91) + " Blood Shrine\n";
 		}
 		if (this.beholsterShrine) {
-			buildingTxt += " - Beholster Shrine\n";
+			buildingTxt += displayEmote(EMOTE_PP92) + " Beholster Shrine\n";
 		}
 		if (this.ammoShrine) {
-			buildingTxt += " - Ammo Shrine\n";
+			buildingTxt += displayEmote(EMOTE_PP93) + " Ammo Shrine\n";
 		}
 		if (this.challengeShrine) {
-			buildingTxt += " - Challenge Shrine\n";
+			buildingTxt += displayEmote(EMOTE_PP117) + " Challenge Shrine\n";
 		}
 		if (this.blankShrine) {
-			buildingTxt += " - Blank Shrine\n";
+			buildingTxt += displayEmote(EMOTE_PP122) + " Blank Shrine\n";
 		}
 		if (buildingTxt != "") embedMessage.addField("Buildings", buildingTxt, true);
 
 		// STATUS
 		var statusTxt = ""
 		if (this.kaijuHP > 0) {
-			statusTxt += " - **Kaiju HP: " + this.kaijuHP + "**\n";
+			statusTxt += displayEmote(EMOTE_PP76) + " **Kaiju HP: " + this.kaijuHP + "**\n";
 		}
 		if (this.debuffFire > 0) {
-			statusTxt += " - Burning (for " + this.debuffFire + " turns)\n";
+			statusTxt += displayEmote(EMOTE_PP36) + " Burning (for " + this.debuffFire + " turns)\n";
 		}
 		if (this.armyResurectionCountdown > 0) {
-			statusTxt += " - Army Resurection in " + this.armyResurectionCountdown + " turns\n";
+			statusTxt += displayEmote(EMOTE_PP97) + " Army Resurection in " + this.armyResurectionCountdown + " turns\n";
 		}
 		if (this.junkCount > 0) {
-			statusTxt += " - Junks: " + this.junkCount + "\n";
+			statusTxt += displayEmote(EMOTE_PP113) + " Junks: " + this.junkCount + "\n";
 		}
 		if (this.glassGuonStones > 0) {
-			statusTxt += " - Glass Guon Stones: " + this.glassGuonStones + "\n";
+			statusTxt += displayEmote(EMOTE_PP125) + " Glass Guon Stones: " + this.glassGuonStones + "\n";
 		}
 		if (this.redGuonStones > 0) {
-			statusTxt += " - Red Guon Stones: " + this.redGuonStones + "\n";
+			statusTxt += displayEmote(EMOTE_PP126) + " Red Guon Stones: " + this.redGuonStones + "\n";
 		}
 		if (this.greenGuonStones > 0) {
-			statusTxt += " - Green Guon Stones: " + this.greenGuonStones + "\n";
+			statusTxt += displayEmote(EMOTE_PP127) + " Green Guon Stones: " + this.greenGuonStones + "\n";
 		}
 		if (this.serJunkan) {
-			statusTxt += " - Ser Junkan\n";
+			statusTxt += displayEmote(EMOTE_PP115) + " Ser Junkan\n";
 		}
 		if (this.alphaBullets) {
-			statusTxt += " - Alpha Bullet\n";
+			statusTxt += displayEmote(EMOTE_PP118) + " Alpha Bullet\n";
 		}
 		if (this.omegaBullets) {
-			statusTxt += " - Omega Bullets\n";
+			statusTxt += displayEmote(EMOTE_PP119) + " Omega Bullets\n";
 		}
 		if (this.hotLead) {
-			statusTxt += "\n - Hot Lead\n";
+			statusTxt += displayEmote(EMOTE_PP120) + " Hot Lead\n";
 		}
 		if (this.ghostBullets) {
-			statusTxt += "\n - Ghost Bullets\n";
+			statusTxt += displayEmote(EMOTE_PP121) + " Ghost Bullets\n";
 		}
 		if (this.silverBullets) {
-			statusTxt += "\n - Silver Bullets\n";
+			statusTxt += displayEmote(EMOTE_PP123) + " Silver Bullets\n";
 		}
 		if (statusTxt != "") embedMessage.addField("Status", statusTxt, true);
 
@@ -2016,31 +2013,31 @@ var City = class extends Fighter {
 		if (this.militaryPower > 0) {
 			var txt = "";
 			if (this.armyJammed) {
-				txt += "\n - **Jammed**";
+				txt += displayEmote(EMOTE_PP98) + " **Jammed**\n";
 			}
 			if (this.armyAgony > 0) {
-				txt += "\n - Army Agony Countdown: " + this.armyAgony;
+				txt += displayEmote(EMOTE_PP96) + " Army Agony Countdown: " + this.armyAgony + "\n";
 			}
 			if (this.armyResurrects) {
-				txt += "\n - Undead Army";
+				txt += displayEmote(EMOTE_PP97) + " Undead Army\n";
 			}
 			if (this.armyPiercing) {
-				txt += "\n - Phasing Damages";
+				txt += displayEmote(EMOTE_PP112) + " Phasing Damages\n";
 			}
 			if (this.armyMindControl) {
-				txt += "\n - Mind Control";
+				txt += displayEmote(EMOTE_PP106) + " Mind Control\n";
 			}
 			if (this.armyBlessing) {
-				txt += "\n - Eldritch Blessing";
+				txt += displayEmote(EMOTE_PP102) + " Eldritch Blessing\n";
 			}
 			if (this.armyBouncing) {
-				txt += "\n - Bouncing Attacks";
+				txt += displayEmote(EMOTE_PP103) + " Bouncing Attacks\n";
 			}
 			if (this.armyDefence) {
-				txt += "\n - Highly Defensive";
+				txt += displayEmote(EMOTE_PP99) + " Highly Defensive\n";
 			}
 			if (this.armyUnstable) {
-				txt += "\n - Unstable";
+				txt += displayEmote(EMOTE_PP108) + " Unstable\n";
 			}
 			embedMessage.addField("Military Power: " + this.militaryPower, txt, true);
 		}
@@ -2064,12 +2061,12 @@ var City = class extends Fighter {
 		if (this.kaijuHP > 0) {
 			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " is damaged by the kaiju!");
-			this.damage(150, false);
+			this.damage(75000, false);
 		}
 		if (this.debuffFire > 0) {
 			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " burns!");
-			this.damage(100, false);
+			this.damage(5000, false);
 		}
 		if (this.armyAgony == 1) {
 			this.duel.addMessage("-----------------");
@@ -2084,10 +2081,9 @@ var City = class extends Fighter {
 		}
 		if (this.yvShrine && getRandomPercent() <= 25) {
 			this.duel.addMessage("-----------------");
-			this.heal(100);
+			this.heal(5000);
 		}
 
-		this.duel.addMessage("-----------------");
 		this.mayor.turnChange();
 	}
 
@@ -2115,9 +2111,9 @@ var City = class extends Fighter {
 	}
 
 	getTotalDefBonus() {
-		var def = this.glassGuonStones*40 + this.redGuonStones*20 + this.greenGuonStones*20;
+		var def = this.glassGuonStones*2000 + this.redGuonStones*1000 + this.greenGuonStones*1000;
 		if (this.serJunkan) {
-			def += 40*this.junkCount;
+			def += 2000*this.junkCount;
 		}
 		return def;
 	}

@@ -2580,8 +2580,8 @@ var Duel = class {
 			attackPower += attackPower;
 		}
 		if (_city.armyMindControl && _city.duel.BOSS_FIGHT == null) {
-			attackPower += Math.min(200, _target.militaryPower);
-			defencePower -= Math.min(200, _target.militaryPower);
+			attackPower += Math.min(10000, _target.militaryPower);
+			defencePower -= Math.min(10000, _target.militaryPower);
 		}
 		if (_city.armyBlessing && getRandomPercent() <= 50) {
 			this.addMessage("The army has been blessed by the eldritch gods!");
