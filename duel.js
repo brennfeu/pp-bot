@@ -126,7 +126,9 @@ var Duel = class {
 		}
 
 		this.PPLEVEL = Math.min(getWinCounter(this.FIGHTER1.idUser), getWinCounter(this.FIGHTER2.idUser));
-		this.addMessage("PP Level: " + this.PPLEVEL);
+        var currentProgression = "*Basic PP Punching*";
+        if (this.PPLEVEL >= 50) currentProgression = "**PP Mayhem**";
+		this.addMessage("PP Level: " + this.PPLEVEL + " - " + currentProgression);
 
 		while (this.AREA == null) {
 			var randomArea = randomFromList(AREA_LIST);
@@ -1090,7 +1092,7 @@ var Duel = class {
         // main progression events more likely to trigger
         if (this.FORCE_EVENT_ID == 0 && this.EVENT_BOSS != null) {
             // cthulhu
-            if ((!isPlayerExpertPP(this.FIGHTER1) || !isPlayerExpertPP(FIGHTER2)) && this.INFERNAL_FIRELAND && getRandomPercent() <= 5) this.FORCE_EVENT_ID = 5;
+            if ((!isPlayerExpertPP(this.FIGHTER1.idUser) || !isPlayerExpertPP(this.FIGHTER2.idUser)) && this.INFERNAL_FIRELAND && getRandomPercent() <= 5) this.FORCE_EVENT_ID = 5;
 
             // wyndoella
             if ((!this.FIGHTER1.destroyerOfWorlds || !this.FIGHTER2.destroyerOfWorlds) && this.PP_ARMAGEDDON && getRandomPercent() <= 5) this.FORCE_EVENT_ID = 50;
