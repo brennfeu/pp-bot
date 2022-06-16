@@ -112,7 +112,7 @@ var Duel = class {
 			this.FIGHTER2 = new Fighter(CLIENT.user.id, this.BATTLE_CHANNEL.id);
 			this.FIGHTER2.STRValue = 100;
 			if (getWinCounter(this.FIGHTER1.idUser) > 500) { // HARDMODE
-				this.FIGHTER2.bossKiller = 100000;
+				this.FIGHTER2.bossKiller = 20;
 				this.FIGHTER2.DEXValue += 10;
 
 				this.DOUBLE_POINTS = true;
@@ -1087,6 +1087,16 @@ var Duel = class {
 			});
 		}
 
+        // main progression events more likely to trigger
+        if (this.FORCE_EVENT_ID == 0 && this.EVENT_BOSS != null) {
+            // cthulhu
+            if ((!isPlayerExpertPP(this.FIGHTER1) || !isPlayerExpertPP(FIGHTER2)) && this.INFERNAL_FIRELAND && getRandomPercent() <= 5) this.FORCE_EVENT_ID = 5;
+
+            // wyndoella
+            if ((!this.FIGHTER1.destroyerOfWorlds || !this.FIGHTER2.destroyerOfWorlds) && this.PP_ARMAGEDDON && getRandomPercent() <= 5) this.FORCE_EVENT_ID = 50;
+        }
+
+
 		if (this.FORCE_EVENT_ID != 0) {
 			randomVar = this.FORCE_EVENT_ID;
 			this.FORCE_EVENT_ID = 0;
@@ -1635,7 +1645,7 @@ var Duel = class {
 				this.addMessage("**===== EVENT =====**", undefined, {embed:
 					{
 						"title": "**ALTERNATE PP UNIVERSE**",
-						"description": "For some unknown reason, the duel gets teleported into an alternate universe!\nEach moves has the same DEX modifier, illegal chances et ability to always pass, but their effect may have slightly changed!"
+						"description": "For some unknown reason, the duel gets teleported into an alternate universe!\nEach moves has the same DEX modifier, illegal chances and ability to always pass, but their effect may have slightly changed!"
 					}
 				});
 				this.ALTERNATE_MOVES = true;
@@ -1989,7 +1999,7 @@ var Duel = class {
 				duel.sendMessages();
 			}
 
-			if (caught1 && getRandomPercent() <= 5) {
+			if (caught1 && getRandomPercent() <= 5 && !this.POOPOO_UNIVERSE) {
 				duel.addMessage("**YOUR CHEATING HAS MADE THE GODS VERY ANGRY. IF YOU DON'T WANT TO RESPECT THE RULES OF THE MIGHTY PP PUNCH, THEN YOU DON'T DESERVE TO PUNCH PP.**");
 				duel.addMessage("**ESPINOZA USES HIS FINAL ABILITY, DOUBLE ARM SNIFF!**");
 				duel.addMessage("**YOU ARE BANISHED INTO THE POOPOO PUNCH UNIVERSE!**");
