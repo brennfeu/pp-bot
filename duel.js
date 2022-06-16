@@ -889,7 +889,7 @@ var Duel = class {
 						_fighter.duel.addMessage(_fighter.getName() + "'s temporal duplication replaces him!");
 					}
 					else {
-						_fighter.duel.EVENT_BOSS = new Fighter(_fighter.duel.EVENT_BOSS.idUser, _fighter.duel.BATTLE_CHANNEL.id, stand);
+						_fighter.duel.EVENT_BOSS = eval('new ' + _fighter.constructor.name + '(_fighter.duel);');
 					}
 					_fighter.duel.EVENT_BOSS.extraLife = extra;
 					_fighter.duel.EVENT_BOSS.attack = "";
@@ -1002,7 +1002,6 @@ var Duel = class {
 	startRandomEvent() {
 		var randomVar = getRandomPercent();
 		var forcedEvent = this.FORCE_EVENT;
-		var eventHappened = false;
 
 		if (this.AREA == AREA_PP4 && getRandomPercent() <= 25) {
 			forcedEvent = true;
@@ -1026,7 +1025,7 @@ var Duel = class {
 
 		if (this.MOVE_COUNT >= 10000) {
 			// Heat death of the universe
-			this.addMessage("**===== EVENT =====**",, undefined, {embed:
+			this.addMessage("**===== EVENT =====**", undefined, {embed:
 				{
 					"title": "**HEAT DEATH OF THE UNIVERSE**",
 					"description": "You punched PP so much, the world collapses. Good job! You don’t get to go to work tomorrow. Or school. Or anything else. You wanna know why? Well... you see... YOU FUCKED IT ALL UP!!!",
@@ -1040,18 +1039,18 @@ var Duel = class {
 				return;
 			}
 			if (this.EVENT_BOSS != null && this.EVENT_BOSS.winsIfHeatDeath) {
-				this.addMessage(this.EVENT_BOSS.getName() + " is defeated!");
+				this.addMessage("**" + this.EVENT_BOSS.getName() + " is defeated!**");
 				this.bothFightersAction(function(_fighter) {
 					_fighter.win();
                     grantPlayerAchievement(_fighter, 1); // Punch PP Really Hard
 					grantPlayerDestroyer(_fighter);
 				});
-				this.addMessage("**Congratulations! You beat the PP Puncher final boss!**");
+				this.addMessage("**Congratulations! You defeated God!**");
 			}
 			this.stopDuel();
 			for (var i in DUEL_LIST) {
 				if (DUEL_LIST[i].BATTLE_CHANNEL.id != this.BATTLE_CHANNEL.id) {
-					this.addMessage("**===== EVENT =====**",, undefined, {embed:
+					this.addMessage("**===== EVENT =====**", undefined, {embed:
 						{
 							"title": "**HEAT DEATH OF THE UNIVERSE**",
 							"description": "The Universe suddenly collapses!",
@@ -1066,7 +1065,7 @@ var Duel = class {
 		}
 		if (this.PPLEVEL > 50 && !this.INFERNAL_FIRELAND && this.MOVE_COUNT >= 100) {
 			// INFERNAL FIRELAND
-			this.addMessage("**===== EVENT =====**",, undefined, {embed:
+			this.addMessage("**===== EVENT =====**", undefined, {embed:
 				{
 					"title": "**INFERNAL FIRELAND**",
 					"description": "Plenty of forest fires have been set off as a result of your PP punching, making the nearby 100 square km into an Infernal Fireland!\nThe victory will be determined by your proficiency in your instrument. You two dueling souls have to come up with a solo each... the best one crowning the victory!"
@@ -1076,18 +1075,16 @@ var Duel = class {
 			winner.infernalInstrument = 1; // Guitar
 			this.otherFighter(winner).infernalInstrument = 2; // Synth
 			this.INFERNAL_FIRELAND = true;
-			eventHappened = true;
 		}
 		if (this.PPLEVEL > 50 && !this.PP_ARMAGEDDON && this.MOVE_COUNT >= 1000) {
 			// PP ARMAGEDDON
 			this.PP_ARMAGEDDON = true;
-			this.addMessage("**===== EVENT =====**",, undefined, {embed:
+			this.addMessage("**===== EVENT =====**", undefined, {embed:
 				{
 					"title": "**PP ARMAGEDDON**",
 					"description": "PP Punching has ascended, the end is near!"
 				}
 			});
-			eventHappened = true;
 		}
 
 		if (this.FORCE_EVENT_ID != 0) {
@@ -1780,6 +1777,9 @@ var Duel = class {
 		}
 	}
 	triggerBossFight(_boss) {
+        if (this.EVENT_BOSS != null && (this.EVENT_BOSS instanceof WyndoeallaBoss || this.EVENT_BOSS instanceof WyndoeallaFinalBoss)) {
+            return this.addMessage("**YOU FOOL! YOU CANNOT ESCAPE WYNDOELLA!");
+        }
 		this.EVENT_BOSS = _boss;
 	}
 
@@ -1989,10 +1989,11 @@ var Duel = class {
 				duel.sendMessages();
 			}
 
-			if (caught1 && getRandomPercent() <= 2 && duel.POOPOO_UNIVERSE) {
+			if (caught1 && getRandomPercent() <= 5) {
 				duel.addMessage("**YOUR CHEATING HAS MADE THE GODS VERY ANGRY. IF YOU DON'T WANT TO RESPECT THE RULES OF THE MIGHTY PP PUNCH, THEN YOU DON'T DESERVE TO PUNCH PP.**");
 				duel.addMessage("**ESPINOZA USES HIS FINAL ABILITY, DOUBLE ARM SNIFF!**");
 				duel.addMessage("**YOU ARE BANISHED INTO THE POOPOO PUNCH UNIVERSE!**");
+				duel.sendMessages();
 				duel.POOPOO_UNIVERSE = true;
 				duel.ALTERNATE_MOVES = true;
 				_fighter.attack = EMOTE_SKIP;
@@ -2000,8 +2001,8 @@ var Duel = class {
 			}
 
 			// Caught cheating --> test si malus dex
-			if (caught1 && (getRandomPercent() >= 10 || _fighter.hasSynergy(SYNERGY_PP9) || _fighter.duel.EVENT_DEPRESSION)) {
-				duel.addMessage(_fighter.getName() + " is doing illegal stuff ! He loses 20 DEX and 10 STR.");
+			else if (caught1 && (getRandomPercent() >= 10 || _fighter.hasSynergy(SYNERGY_PP9) || _fighter.duel.EVENT_DEPRESSION)) {
+				duel.addMessage(_fighter.getName() + " is doing illegal stuff! He loses 20 DEX and 10 STR.");
 				duel.sendMessages();
 				_fighter.STRValue -= 10;
 				_fighter.DEXValue -= 20;
@@ -2295,7 +2296,7 @@ var Duel = class {
             this.addMessage("She makes all the civilians of Isreal leave and walk to a new land. wait what?");
         else {
             this.addMessage("This is a dangerous game, Theresa.");
-            this.FORCE_EVENT = 50;
+            this.FORCE_EVENT_ID = 50;
         }
     }
 

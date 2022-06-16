@@ -435,7 +435,8 @@ async function sendCheatPanel(_channel, _category = null) {
 		],
 		"Cheat Panel: Normal Moves III": [
 			EMOTE_PP41, EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP47, EMOTE_PP48,
-			EMOTE_PP49, EMOTE_PP50],
+			EMOTE_PP49, EMOTE_PP50
+        ],
 		"Cheat Panel: Priest Moves": GOD_EMOTE_LIST,
 		"Cheat Panel: Infernal Moves": INFERNAL_EMOTE_LIST,
 		"Cheat Panel: Animated Moves": SPECIAL_EMOTE_LIST,
