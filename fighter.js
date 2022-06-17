@@ -768,7 +768,7 @@ var Fighter = class {
 			statusTxt += displayEmote(EMOTE_PP61) + " Liberated PP (for " + this.liberatedPP + " turns)\n";
 		}
 		if (this.bossKiller > 0) {
-			statusTxt += displayEmote(EMOTE_PP97) + " Killer Adrenaline (for " + this.bossKiller + " turns)\n";
+			statusTxt += displayEmote(EMOTE_GU18) + " Killer Adrenaline (for " + this.bossKiller + " turns)\n";
 		}
 		if (this.selfReverseDamage > 0) {
 			statusTxt += displayEmote(EMOTE_PP15) + " Damage Reversed (for " + this.selfReverseDamage + " turns)\n";
