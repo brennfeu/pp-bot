@@ -12,6 +12,10 @@ eval(fs.readFileSync("moves.js").toString());
 eval(fs.readFileSync("utils.js").toString());
 eval(fs.readFileSync("db.js").toString());
 
+eval(fs.readFileSync("dlc/gungeon-data.js").toString());
+eval(fs.readFileSync("dlc/gungeon.js").toString());
+
+
 // VARIABLES
 var DISCORD = require("discord.js");
 var CLIENT = new DISCORD.Client();
@@ -89,22 +93,6 @@ function skipWaitingDuels() {
 		}
 	}
 }
-function checkCityNameChange(_message) {
-	var duel = getDuel(_message.channel.id);
-	if (duel == null || duel.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
-		return;
-	}
-	if (_message.content.length > 500) {
-		return;
-	}
-
-	duel.bothFightersAction(function(_fighter) {
-		if (_fighter.customName == null && _message.author.id == _fighter.idUser && _fighter.idUser != CLIENT.user.id) {
-			_fighter.customName = _message.content.secureXSS();
-			_fighter.duel.BATTLE_CHANNEL.send(_fighter.mayor.getName() + " changed his city name!");
-		}
-	});
-}
 function checkMusicLoops() {
 	for (var i = DUEL_LIST.length - 1; i >= 0; i--) {
 		DUEL_LIST[i].setMusic(DUEL_LIST[i].getBattleTheme())
@@ -153,8 +141,7 @@ function checkUpdateEncyclopedia() {
 					}
 
 					if (encyChannels[i].topic == "Moves"
-					   || encyChannels[i].topic == "Stånds"
-					   || encyChannels[i].topic == "Civilisation Mode") {
+					   || encyChannels[i].topic == "Stånds") {
 						var cutBiblePart = fullBible[j].split(" ").join("").split("*").join("").split(".").join("");
 						for (var k in EMOTE_LIST) {
 							if ((cutBiblePart.includes(getEmote(EMOTE_LIST[k]).name + ":")
@@ -442,23 +429,6 @@ async function sendCheatPanel(_channel, _category = null) {
 		"Cheat Panel: Animated Moves": SPECIAL_EMOTE_LIST,
 		"Cheat Panel: Stånds Moves": STAND_EMOTE_LIST,
 		"Cheat Panel: Rare Moves": RARE_EMOTE_LIST,
-		"Cheat Panel: Civilisation Moves I": [
-			EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP86, EMOTE_PP87, EMOTE_PP88, EMOTE_PP89,
-			EMOTE_PP90, EMOTE_PP91, EMOTE_PP92, EMOTE_PP93, EMOTE_PP117
-		],
-		"Cheat Panel: Civilisation Moves II": [
-			EMOTE_PP94, EMOTE_PP95, EMOTE_PP96, EMOTE_PP97, EMOTE_PP98, EMOTE_PP99, EMOTE_PP100, EMOTE_PP101,
-			EMOTE_PP102, EMOTE_PP103, EMOTE_PP104, EMOTE_PP105, EMOTE_PP106, EMOTE_PP107, EMOTE_PP108,
-			EMOTE_PP109, EMOTE_PP110, EMOTE_PP111, EMOTE_PP112
-		],
-		"Cheat Panel: Civilisation Moves III": [
-			EMOTE_PP113, EMOTE_PP114, EMOTE_PP115, EMOTE_PP116, EMOTE_PP118, EMOTE_PP119, EMOTE_PP120,
-			EMOTE_PP121, EMOTE_PP123, EMOTE_PP125, EMOTE_PP126, EMOTE_PP127
-		],
-		"Cheat Panel: Civilisation Moves IV": [
-			EMOTE_PP124, EMOTE_PP128, EMOTE_PP129, EMOTE_PP130, EMOTE_PP131, EMOTE_PP132, EMOTE_PP133,
-			EMOTE_PP134
-		],
 		"Cheat Panel: Gods I": [], // filled later in a loop
 		"Cheat Panel: Gods II": [],
 		"Cheat Panel: Gods III": [],
@@ -547,7 +517,6 @@ CLIENT.on("message", async _message => { try {
 	killDeadDuels();
 	setBotActivity();
 	skipWaitingDuels();
-	checkCityNameChange(_message);
 	checkMusicLoops();
 	checkUpdateEncyclopedia();
 
@@ -621,9 +590,6 @@ CLIENT.on("message", async _message => { try {
 				case "stånd":
 					cat = "stånds";
 					break;
-				case "civ":
-					cat = "civilisation";
-					break;
 			}
 		}
 
@@ -655,19 +621,6 @@ CLIENT.on("message", async _message => { try {
 		DUEL_LIST.push(duel);
 
 		duel.startDuel(_message, true);
-
-		return;
-	}
-	if (argsUser[1] == "civilisation") {
-		if (getDuel(_message.channel.id) != null) {
-			return _message.reply("there's a battle going on here...");
-		}
-
-		var duel = new Duel();
-		DUEL_LIST.push(duel);
-
-		duel.startDuel(_message, true);
-		duel.FORCE_EVENT_ID = 300;
 
 		return;
 	}

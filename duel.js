@@ -784,35 +784,19 @@ var Duel = class {
 			this.addMessage("**=== MOVE SELECT ===**", true);
 			this.sendMessages();
 
-			if (this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) {
-				// HighFiveEmote - Stop move_list
-				if (this.STOPPED_MOVE_LIST.length >= 1) {
-					this.LIST_AVAILABLE_ATTACKS = this.STOPPED_MOVE_LIST;
-					this.STOPPED_MOVE_LIST = [];
-				}
-				else {
-					this.setRandomAttackList();
-				}
+            if (this.STOPPED_MOVE_LIST.length >= 1) { // HighFiveEmote - Stop move_list
+                this.LIST_AVAILABLE_ATTACKS = this.STOPPED_MOVE_LIST;
+                this.STOPPED_MOVE_LIST = [];
+            }
+            else {
+                this.setRandomAttackList();
+            }
 
-				this.showMovepool();
+            this.showMovepool();
 
-				if (this.FIGHTER2.user.id == CLIENT.user.id) {
-					this.botReacts();
-				}
-			}
-			else {
-				this.CURRENT_FIGHTER = this.getRandomFighter();
-				this.setRandomAttackList();
-
-				this.addMessage("**=== " + this.CURRENT_FIGHTER.getName() + " ===**", true);
-				this.sendMessages();
-
-				this.showMovepool();
-
-				if (this.CURRENT_FIGHTER.user.id == CLIENT.user.id) {
-					this.botReacts();
-				}
-			}
+            if (this.FIGHTER2.user.id == CLIENT.user.id) {
+                this.botReacts();
+            }
 		}
 
 		// Stop FORCE_SATAN
@@ -901,28 +885,7 @@ var Duel = class {
 				}
 			}
 		});
-		if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE && !(this.FIGHTER1.STR > 0 && this.FIGHTER2.STR > 0)) {
-			if (this.FIGHTER1.STR <= 0) {
-				this.FIGHTER2.mayor.hasSupplyDrops = true;
-				this.addMessage("**" + this.FIGHTER1.getName() + " has been destroyed!**");
-			}
-			if (this.FIGHTER2.STR <= 0) {
-				this.FIGHTER1.mayor.hasSupplyDrops = true;
-				this.addMessage("**" + this.FIGHTER2.getName() + " has been destroyed!**");
-			}
-
-			var f1 = this.FIGHTER1.mayor;
-			var f2 = this.FIGHTER2.mayor
-			this.FIGHTER1 = f1;
-			this.FIGHTER2 = f2;
-
-			this.CURRENT_BATTLE_MODE = NORMAL_BATTLE_MODE;
-
-			this.allFightersAction(function(_fighter) {
-				_fighter.attack = "";
-			});
-		}
-		else if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE && !(this.FIGHTER1.STR > 0 && this.FIGHTER2.STR > 0)) {
+		if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE && !(this.FIGHTER1.STR > 0 && this.FIGHTER2.STR > 0)) {
 			if (this.FIGHTER1.STR <= 0) {
 				this.FIGHTER2_SAVE.quickeningCharges += 10;
 				this.addMessage("**" + this.FIGHTER1.getName() + " has been defeated!**");
@@ -1186,7 +1149,7 @@ var Duel = class {
 			winner.playMove(EMOTE_PP26);
 			winner.playMove(EMOTE_PP46);
 		}
-		else if (this.PPLEVEL > 50 && randomVar == 7 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) { // Blood Moon
+		else if (this.PPLEVEL > 50 && randomVar == 7) { // Blood Moon
 			this.addMessage("**===== EVENT =====**", undefined, {embed:
 				{
 					"title": "**BLOOD MOON**",
@@ -1205,7 +1168,7 @@ var Duel = class {
 				this.addMessage(this.EVENT_BOSS.getName() + " is blessed by the Blood Moon.");
 			}
 		}
-		else if (this.PPLEVEL > 50 && randomVar == 8 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) { // Ascension
+		else if (this.PPLEVEL > 50 && randomVar == 8) { // Ascension
 			var winner = this.getRandomFighter();
 			this.addMessage("**===== EVENT =====**", undefined, {embed:
 				{
@@ -1217,7 +1180,7 @@ var Duel = class {
 				_fighter.playMove(EMOTE_PP49);
 			});
 		}
-		else if (this.PPLEVEL > 50 && [9, 10, 11, 12, 13, 14, 15, 16, 17, 18].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 10 || forcedEvent) && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) { // Charge
+		else if (this.PPLEVEL > 50 && [9, 10, 11, 12, 13, 14, 15, 16, 17, 18].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 10 || forcedEvent)) { // Charge
 			if (this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
 				this.addMessage("**===== EVENT =====**", undefined, {embed:
 					{
@@ -1241,7 +1204,7 @@ var Duel = class {
 				});
 			}
 		}
-		else if (this.PPLEVEL > 50 && [19, 20, 21].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 25 || forcedEvent) && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) { // Charge
+		else if (this.PPLEVEL > 50 && [19, 20, 21].indexOf(randomVar) > -1 && (this.MOVE_COUNT >= 25 || forcedEvent)) { // Charge
 			if (this.CURRENT_BATTLE_MODE == NORMAL_BATTLE_MODE) {
 				this.addMessage("**===== EVENT =====**", undefined, {embed:
 					{
@@ -1306,7 +1269,7 @@ var Duel = class {
 				_fighter.isAlienPP = true;
 			});
 		}
-		else if (this.PPLEVEL > 50 && [24, 25].indexOf(randomVar) > -1 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) { // Free Lives
+		else if (this.PPLEVEL > 50 && [24, 25].indexOf(randomVar) > -1) { // Free Lives
 			if (this.EVENT_BOSS != null) {
 				this.addMessage("**===== EVENT =====**", undefined, {embed:
 					{
@@ -1567,7 +1530,7 @@ var Duel = class {
 			});
 			this.EVENT_BOMB = true;
 		}
-		else if (randomVar == 39 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) { // Judgement
+		else if (randomVar == 39) { // Judgement
 			this.addMessage("**===== EVENT =====**", undefined, {embed:
 				{
 					"title": "**JUDGEMENT**",
@@ -1594,27 +1557,8 @@ var Duel = class {
 			this.addMessage("They bite " + winner.getName() + "'s PP as he seems to have the toughest PP.");
 			winner.damage(Math.floor(winner.STR/10));
 		}
-		else if (this.PPLEVEL > 50 && randomVar == 41 && (this.MOVE_COUNT >= 30 || forcedEvent) && this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) { // Kaiju Attack
-			var winner = this.getRandomFighter();
-			if (winner.kaijuHP > 0) {
-				this.addMessage("**===== EVENT =====**", undefined, {embed:
-					{
-						"title": "**KAIJU ATTACK**",
-						"description": winner.getName() + "'s kaiju gets stronger!"
-					}
-				});
-				winner.kaijuHP += 1000;
-			}
-			else {
-				this.addMessage("**===== EVENT =====**", undefined, {embed:
-					{
-						"title": "**KAIJU ATTACK**",
-						"description": winner.getName() + " gets attacked by a kaiju!"
-					}
-				});
-				winner.kaijuHP = 1000 - winner.getTotalDefBonus() - winner.militaryPower;
-				winner.resetArmy();
-			}
+        // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+		else if (randomVar == 41) { // Kaiju Attack
 		}
 		else if (randomVar == 42) { // Nudist Beach
 			this.addMessage("**===== EVENT =====**", undefined, {embed:
@@ -1684,7 +1628,7 @@ var Duel = class {
 			});
 			this.triggerBossFight(new WyndoeallaBoss(this));
 		}
-		else if (this.PPLEVEL > 50 && randomVar == 51 && this.CURRENT_BATTLE_MODE != CITY_BATTLE_MODE) { // IKEA
+		else if (this.PPLEVEL > 50 && randomVar == 51) { // IKEA
 			if (this.EVENT_BOSS != null) {
 				if (this.EVENT_BOSS.isIkea) {
 					this.addMessage("**===== EVENT =====**", undefined, {embed:
@@ -1780,21 +1724,10 @@ var Duel = class {
 				this.sendMessages();
 			}
 		}
-		else if (randomVar == 200) {
-			// TEST
-			this.addMessage(" -- DEV TEST EVENT --");
-			this.addMessage("I use this fake event to test things. Don't worry it cannot appear in normal games.");
-
-			this.startCityMode();
-		}
-		else if (randomVar == 300) {
-			// CIVILISATION (civilisation command)
-			this.startCityMode()
-		}
 	}
 	triggerBossFight(_boss) {
-        if (this.EVENT_BOSS != null && (this.EVENT_BOSS instanceof WyndoeallaBoss || this.EVENT_BOSS instanceof WyndoeallaFinalBoss)) {
-            return this.addMessage("**YOU FOOL! YOU CANNOT ESCAPE WYNDOELLA!");
+        if (this.EVENT_BOSS != null && (this.EVENT_BOSS instanceof WyndoeallaBoss || this.EVENT_BOSS instanceof WyndoeallaFinalBoss) && !(_boss instanceof WyndoeallaBoss || _boss instanceof WyndoeallaFinalBoss)) {
+            return this.addMessage("**YOU FOOL! YOU CANNOT ESCAPE WYNDOELLA!**");
         }
 		this.EVENT_BOSS = _boss;
 	}
@@ -1828,45 +1761,6 @@ var Duel = class {
 				this.playMove(EMOTE_PP52);
 				this.godList = godListMemory.slice();
 			});
-		}
-
-		if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
-			if (this.CURRENT_FIGHTER.user.id == _user.id) {
-                if (this.LIST_AVAILABLE_ATTACKS.indexOf(this.getAttackFromEmote(_emote)) < 0) {
-                    this.addMessage("Stop cheating, this isn't the time.");
-                    return this.sendMessages();
-                }
-
-				this.CURRENT_FIGHTER.attack = this.getAttackFromEmote(_emote);
-				this.addMessage(this.CURRENT_FIGHTER.getName() + ": " + _emote, true);
-				this.sendMessages();
-
-				this.CURRENT_FIGHTER.playMove();
-
-				if (!this.otherFighter(this.CURRENT_FIGHTER).attackedThisTurn) {
-					this.CURRENT_FIGHTER = this.otherFighter(this.CURRENT_FIGHTER);
-					this.setRandomAttackList();
-
-					this.addMessage("**=== " + this.CURRENT_FIGHTER.getName() + " ===**", true);
-					this.sendMessages();
-
-					this.showMovepool();
-
-					if (this.CURRENT_FIGHTER.grabbedPP > 0) {
-						this.CURRENT_FIGHTER.attack = EMOTE_SKIP;
-						this.launchAttacks();
-					}
-					else if (this.CURRENT_FIGHTER.user.id == CLIENT.user.id) {
-						this.botReacts();
-					}
-				}
-				else {
-					this.newTurnDuel();
-				}
-			}
-
-			this.sendMessages();
-			return;
 		}
 
 		// Assigne attaque
@@ -2100,7 +1994,7 @@ var Duel = class {
 
 		if ((dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) ||
 		    this.AUTO_MOVES_COUNTDOWN > 0 || this.EVENT_BOSS != null || this.otherFighter(winner).legAimer ||
-		    this.TIME_STOP > 0 || this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
+		    this.TIME_STOP > 0) {
 			this.addMessage("Both opponents attack this turn!");
 			this.sendMessages();
 
@@ -2279,22 +2173,6 @@ var Duel = class {
 		}
 		this.sendMessages();
 	}
-	startCityMode() {
-		if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) return;
-
-		this.addMessage("**===== CIVILISATION BATTLE MODE =====**");
-		this.addMessage("Both fighters starts a new civilisation as their leader. Your next message will be the name of your city!");
-
-		this.bothFightersAction(function(_fighter) {
-			_fighter.resetBattleVariables();
-		});
-
-		this.FIGHTER1 = new City(this.FIGHTER1, this.BATTLE_CHANNEL.id);
-		this.FIGHTER2 = new City(this.FIGHTER2, this.BATTLE_CHANNEL.id);
-
-		this.CURRENT_BATTLE_MODE = CITY_BATTLE_MODE;
-		this.KIDNEY_CURSE = 0;
-	}
 
     increaseTheresaInfluence() {
         this.addMessage("-----------------");
@@ -2363,26 +2241,6 @@ var Duel = class {
 				}
 				nbTries += 1;
 			}
-		}
-		else if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
-			var max = 5;
-			if (this.CURRENT_FIGHTER.diceShrine) {
-				max = 10;
-			}
-			for (var i = 0; i < max; i++) {
-				var currentLength = listeAttaques.length;
-				var nbTries = 0;
-
-				while (listeAttaques.length <= currentLength && nbTries < 100) {
-					nbTries += 1;
-					emote = this.getRandomCivEmote(this.CURRENT_FIGHTER);
-
-					if (listeAttaques.indexOf(emote) < 0) {
-						listeAttaques.push(emote);
-					}
-				}
-			}
-
 		}
 		else {
 			var commonMoves = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5];
@@ -2492,81 +2350,7 @@ var Duel = class {
 			goodList = goodList.splice(goodList.indexOf(EMOTE_PP77), 1);
 		}
 
-		if (this.CURRENT_BATTLE_MODE == CITY_BATTLE_MODE) {
-			goodList = CIV_EMOTE_LIST;
-		}
-
 		return randomFromList(goodList);
-	}
-	getRandomCivEmote(_city) {
-		var listeEmote = [EMOTE_PP82, EMOTE_PP83, EMOTE_PP84, EMOTE_PP85, EMOTE_PP87, EMOTE_PP88, EMOTE_PP90,
-				  EMOTE_PP124, EMOTE_PP129];
-
-		if (_city.familiarShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP94, EMOTE_PP95,
-							EMOTE_PP93, EMOTE_PP122, EMOTE_PP92]);
-			listeEmote.splice(listeEmote.indexOf(EMOTE_PP82), 1);
-		}
-		if (_city.junkShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP113,
-						       EMOTE_PP132]);
-			listeEmote.splice(listeEmote.indexOf(EMOTE_PP83), 1);
-			if (getRandomPercent() <= 5) {
-				listeEmote = listeEmote.concat([EMOTE_PP114, EMOTE_PP115, EMOTE_PP116]);
-			}
-		}
-		if (_city.diceShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP101,
-						       EMOTE_PP133]);
-			listeEmote.splice(listeEmote.indexOf(EMOTE_PP85), 1);
-		}
-		if (_city.peaceShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP86]);
-			listeEmote.splice(listeEmote.indexOf(EMOTE_PP87), 1);
-		}
-		if (_city.cleanseShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP110, EMOTE_PP111,
-						       EMOTE_PP134]);
-			listeEmote.splice(listeEmote.indexOf(EMOTE_PP90), 1);
-		}
-		if (_city.ammoShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP96, EMOTE_PP97, EMOTE_PP98, EMOTE_PP99,
-							EMOTE_PP117, EMOTE_PP91]);
-			listeEmote.splice(listeEmote.indexOf(EMOTE_PP93), 1);
-		}
-		if (_city.challengeShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP102,
-						       EMOTE_PP130]);
-			listeEmote.splice(listeEmote.indexOf(EMOTE_PP117), 1);
-		}
-		if (_city.blankShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP118, EMOTE_PP119, EMOTE_PP120, EMOTE_PP121, EMOTE_PP123]);
-			listeEmote.splice(listeEmote.indexOf(EMOTE_PP122), 1);
-		}
-		if (_city.angelShrine) {
-			listeEmote.splice(listeEmote.indexOf(EMOTE_PP86), 1);
-		}
-		if (_city.bloodShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP100, EMOTE_PP105, EMOTE_PP112,
-						       EMOTE_PP128]);
-			listeEmote.splice(listeEmote.indexOf(EMOTE_PP91), 1);
-		}
-		if (_city.beholsterShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP106, EMOTE_PP109,
-						       EMOTE_PP131]);
-			listeEmote.splice(listeEmote.indexOf(EMOTE_PP92), 1);
-		}
-		if (_city.glassShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP103, EMOTE_PP104, EMOTE_PP107, EMOTE_PP108,
-						       EMOTE_PP125, EMOTE_PP126, EMOTE_PP127]);
-			listeEmote.splice(listeEmote.indexOf(EMOTE_PP84), 1);
-		}
-		if (_city.yvShrine) {
-			listeEmote = listeEmote.concat([EMOTE_PP129]);
-			listeEmote.splice(listeEmote.indexOf(EMOTE_PP88), 1);
-		}
-
-		return randomFromList(listeEmote);
 	}
 	getAttackFromEmote(_emote) {
 		for (var i in EMOTE_LIST) {
@@ -2580,104 +2364,6 @@ var Duel = class {
 			}
 		}
 		return EMOTE_SKIP;
-	}
-
-	launchRaid(_city, _special = "") {
-		var _target = this.otherFighter(_city);
-		var attackPower = _city.militaryPower;
-		var defencePower = _target.militaryPower + _target.getTotalDefBonus();
-
-		var phaseLevel = 0;
-
-		if (_city.omegaBullets) {
-			attackPower += _city.lastSummonValue;
-			this.addMessage("Omega Bullets doubles the last unit's military power!");
-		}
-		if (_city.silverBullets && _target.armyJammed && _city.duel.BOSS_FIGHT == null) {
-			attackPower += attackPower;
-		}
-		if (_city.armyMindControl && _city.duel.BOSS_FIGHT == null) {
-			attackPower += Math.min(10000, _target.militaryPower);
-			defencePower -= Math.min(10000, _target.militaryPower);
-		}
-		if (_city.armyBlessing && getRandomPercent() <= 50) {
-			this.addMessage("The army has been blessed by the eldritch gods!");
-			attackPower += attackPower;
-		}
-		if (_city.armyUnstable && getRandomPercent() <= 25) {
-			this.addMessage("The army explodes!");
-			attackPower = 0;
-		}
-		if (_target.armyDefence && _city.duel.BOSS_FIGHT == null) {
-			defencePower += Math.floor(_target.militaryPower/2);
-		}
-
-		if (_city.duel.BOSS_FIGHT != null) {
-			return _target.damage(attackPower);
-		}
-
-		if (_city.armyPiercing) {
-			phaseLevel += 0.25;
-		}
-		if (_city.ghostBullets) {
-			phaseLevel += 0.25;
-		}
-		if (_special == "blast") {
-			phaseLevel += 0.5;
-		}
-		if (phaseLevel > 0) {
-			this.addMessage("A part of " + _city.getName() + "'s army is in the city and attacks it!");
-			_target.damage(Math.floor(attackPower*phaseLevel));
-			attackPower -= Math.floor(attackPower*phaseLevel);
-		}
-
-		if (attackPower <= defencePower) {
-			this.addMessage("The raid fails!");
-			_city.resetArmy();
-			if (attackPower > defencePower - _target.militaryPower) {
-				_target.militaryPower -= attackPower - defencePower + _target.militaryPower;
-			}
-		}
-		else {
-			this.addMessage("The raid is a success!");
-
-			if (_special == "light") {
-				attackPower += Math.floor(defencePower/2);
-			}
-			_target.damage(attackPower - defencePower);
-
-			if (_city.hotLead) {
-				_target.debuffFire = 4;
-			}
-			if (getRandomPercent() <= _target.redGuonStones*10) {
-				_city.debuffFire = _target.redGuonStones + 1;
-			}
-			if (getRandomPercent() <= _target.greenGuonStones*10) {
-				_target.heal(Math.floor((attackPower - defencePower)/2));
-			}
-			if (_special == "raid") {
-				_target.grabbedPP = 1;
-			}
-			if (_special == "destroy") {
-				var list = shuffleArray(["familiar", "junk", "glass", "dice", "angel", "peace", "yv", "hero",
-							"cleanse", "blood", "beholster", "ammo", "challenge", "blank"]);
-				for (var i in list) {
-					if (_target[list[i] + "Shrine"]) {
-						this.addMessage(_target.getName() + "'s " + list[i] + " shrine has been destroyed!");
-						_target[list[i] + "Shrine"] = false;
-						break;
-					}
-				}
-			}
-
-			if (_city.armyBouncing) {
-				_city.armyBouncing = false;
-				this.launchRaid(_city);
-			}
-
-			_target.resetArmy();
-			_city.resetArmy();
-		}
 	}
 
 	illegalGetCaught(_percentage) {
