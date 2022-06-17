@@ -150,6 +150,7 @@ var Fighter = class {
 			// Natural values
 			this.STRValue = 150;
 			this.DEXValue = 40;
+            this.AETValue = 0;
 
 			if (this.standPower == STAND_PP2) { // Boreal Flame
 				this.borealSummon = 10;
@@ -226,6 +227,7 @@ var Fighter = class {
 			// Natural values
 			this.STRValue = 70;
 			this.DEXValue = 20;
+            this.AETValue = 0;
 
 			if (this.godList.indexOf(GOD_PP25.name) > -1) { // Cthulhu Special Effect
 				this.STRValue += 30;
@@ -474,6 +476,13 @@ var Fighter = class {
 		}
 		return dex;
 	}
+
+    // fighter.INT
+    get AET() {
+        var aet = this.AETValue;
+
+        return aet;
+    }
 
 	// fighter.toString
 	toString() {
@@ -1247,7 +1256,7 @@ var Fighter = class {
 					enemyPuncher.heal(10);
 				}
 				if (enemyPuncher.akameKill > 0 && _punch) {
-					this.duel.addMessage(this.getName() + " gets Murasame's poisonous curse!");
+					this.duel.addMessage(this.getName() + " recieves Murasame's poisonous curse!");
 					this.murasameCurse = true;
 				}
 				if (this.madnessStacks > 0 && getRandomPercent() <= 10+this.madnessStacks && _punch) {

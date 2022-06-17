@@ -381,7 +381,7 @@ function grantPlayerAchievement(_fighter, _achievement) {
     embedMessage.setTitle("**Achievement Unlocked!**");
     embedMessage.setDescription("**" + ACHIEVEMENT_LIST[_achievement].name + "**\n" + ACHIEVEMENT_LIST[_achievement].description);
 
-    _fighter.guildUser.send("", {embed: embedMessage.toJSON()});
+    try { _fighter.guildUser.send("", {embed: embedMessage.toJSON()}); } catch(e) {}
 }
 
 function toggleFightingStyle(_fighterID, _fightingStyle) {

@@ -40,6 +40,8 @@ var Duel = class {
 		this.AREA = null;
 		this.RELIC_TREASURE = RELIC_LIST.slice();
 
+        this.WORLD_MERGE = false;
+
 		this.ILLEGAL_BOMBING = false;
 		this.BOREAL_WORLD = false;
 		this.BLIND_COUNTDOWN = 0;
@@ -128,6 +130,7 @@ var Duel = class {
 		this.PPLEVEL = Math.min(getWinCounter(this.FIGHTER1.idUser), getWinCounter(this.FIGHTER2.idUser));
         var currentProgression = "*Basic PP Punching*";
         if (this.PPLEVEL >= 50) currentProgression = "**PP Mayhem**";
+        if (this.FIGHTER1.destroyerOfWorlds && this.FIGHTER2.destroyerOfWorlds) { currentProgression = "***Infinite PP Annihilation***"; this.WORLD_MERGE = true; }
 		this.addMessage("PP Level: " + this.PPLEVEL + " - " + currentProgression);
 
 		while (this.AREA == null) {
@@ -834,7 +837,7 @@ var Duel = class {
 					var txt = `${getEmote(duel.LIST_AVAILABLE_ATTACKS[i])} `;
 					txt += MOVE_HELP[duel.LIST_AVAILABLE_ATTACKS[i]];
 
-					_message2.channel.send(txt);
+					_message2.channel.send(sciText(txt));
 				}
 			}
 		}
@@ -1095,9 +1098,10 @@ var Duel = class {
             if ((!isPlayerExpertPP(this.FIGHTER1.idUser) || !isPlayerExpertPP(this.FIGHTER2.idUser)) && this.INFERNAL_FIRELAND && getRandomPercent() <= 5) this.FORCE_EVENT_ID = 5;
 
             // wyndoella
-            if ((!this.FIGHTER1.destroyerOfWorlds || !this.FIGHTER2.destroyerOfWorlds) && this.PP_ARMAGEDDON && getRandomPercent() <= 5) this.FORCE_EVENT_ID = 50;
+            var prob = 5;
+            if (this.AREA == AREA_PP11) prob = 25;
+            if ((!this.FIGHTER1.destroyerOfWorlds || !this.FIGHTER2.destroyerOfWorlds) && this.PP_ARMAGEDDON && getRandomPercent() <= prob) this.FORCE_EVENT_ID = 50;
         }
-
 
 		if (this.FORCE_EVENT_ID != 0) {
 			randomVar = this.FORCE_EVENT_ID;
@@ -1132,7 +1136,7 @@ var Duel = class {
 			});
 			this.EVENT_CONFUSION = true;
 		}
-		else if (this.PPLEVEL > 100 && randomVar == 5 && (this.MOVE_COUNT >= 30 || forcedEvent)) { // Cthulhu
+		else if (this.PPLEVEL > 50 && randomVar == 5 && (this.MOVE_COUNT >= 30 || forcedEvent)) { // Cthulhu
 			if (this.EVENT_BOSS != null && this.EVENT_BOSS.evolveToMoonLord) {
 				this.addMessage("**===== EVENT =====**", undefined, {embed:
 					{
