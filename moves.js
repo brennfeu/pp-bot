@@ -2035,6 +2035,29 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 this.guShrine = attack;
                 this.duel.GU_NEXT_FLOOR_COUNTDOWN -= 1;
                 break;
+            case(EMOTE_GU15):
+            case(EMOTE_GU16):
+            case(EMOTE_GU17):
+            case(EMOTE_GU18):
+            case(EMOTE_GU19):
+            case(EMOTE_GU20):
+            case(EMOTE_GU21):
+            case(EMOTE_GU22):
+            case(EMOTE_GU23):
+            case(EMOTE_GU24):
+            case(EMOTE_GU25):
+            case(EMOTE_GU26):
+            case(EMOTE_GU27):
+            case(EMOTE_GU28):
+            case(EMOTE_GU29):
+            case(EMOTE_GU30):
+            case(EMOTE_GU31):
+            case(EMOTE_GU32):
+            case(EMOTE_GU33):
+                var unit = getGungeonUnitData(attack);
+                this.duel.addMessage(unit.name + " follows " + this.getName() + "!");
+                this.guBattalionPower += (unit.power*GUNGEON_FLOORS_SCALING[this.duel.GU_CURRENT_FLOOR]) + this.AET;
+                break;
 
             case(EMOTE_ABILITY): // Requiems
                 if (this.requiemPower != null && this.requiemCooldown <= 0) {

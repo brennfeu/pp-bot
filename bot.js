@@ -412,17 +412,17 @@ function displayEmote(_id) {
 
 async function sendCheatPanel(_channel, _category = null) {
 	var emotes = {
-		"Cheat Panel: Normal Moves I": [
+		"Cheat Panel: Regular Moves I": [
 			EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8,
 			EMOTE_PP9, EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16,
 			EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20
 		],
-		"Cheat Panel: Normal Moves II": [
+		"Cheat Panel: Regular Moves II": [
 			EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28,
 			EMOTE_PP29, EMOTE_PP30, EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP36,
 			EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40
 		],
-		"Cheat Panel: Normal Moves III": [
+		"Cheat Panel: Regular Moves III": [
 			EMOTE_PP41, EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP47, EMOTE_PP48,
 			EMOTE_PP49, EMOTE_PP50
         ],

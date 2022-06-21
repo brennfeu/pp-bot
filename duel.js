@@ -1774,7 +1774,9 @@ var Duel = class {
         if (this.EVENT_BOSS != null && (this.EVENT_BOSS instanceof WyndoeallaBoss || this.EVENT_BOSS instanceof WyndoeallaFinalBoss) && !(_boss instanceof WyndoeallaBoss || _boss instanceof WyndoeallaFinalBoss)) {
             return this.addMessage("**YOU FOOL! YOU CANNOT ESCAPE WYNDOELLA!**");
         }
-		this.EVENT_BOSS = _boss;
+
+        for (var i in this.MERGED_WORLDS) if (this.MERGED_WORLDS[i].fighterInitFunction != undefined) this.MERGED_WORLDS[i].fighterInitFunction(_boss);
+        this.EVENT_BOSS = _boss;
 	}
 
 	triggerReaction(_emote, _user) {
@@ -2230,6 +2232,7 @@ var Duel = class {
         this.MERGED_WORLDS.push(_w);
 
         if (_w.duelInitFunction != undefined) _w.duelInitFunction(this);
+        if (_w.fighterInitFunction != undefined) this.allFightersAction(_w.fighterInitFunction);
     }
 
     increaseTheresaInfluence() {
@@ -2302,6 +2305,7 @@ var Duel = class {
 		}
 		else {
 			var commonMoves = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5];
+            for (var i in this.MERGED_WORLDS) commonMoves.push(this.getRandomEmote());
 
 			for (var i in commonMoves) {
 				if (this.KIDNEY_CURSE <= i || this.KIDNEY_CURSE <= 0) {
