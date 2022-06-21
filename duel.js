@@ -41,6 +41,11 @@ var Duel = class {
 		this.RELIC_TREASURE = RELIC_LIST.slice();
 
         this.WORLD_MERGE = false;
+        this.MERGED_WORLDS = [];
+
+        // DLCs
+        this.GU_CURRENT_FLOOR = null;
+        this.GU_NEXT_FLOOR_COUNTDOWN = null;
 
 		this.ILLEGAL_BOMBING = false;
 		this.BOREAL_WORLD = false;
@@ -157,6 +162,17 @@ var Duel = class {
 		if (this.FIGHTER1.guildUser.roles.cache.find(r => r.name == PP_SKIPPER_ROLE) && this.FIGHTER2.guildUser.roles.cache.find(r => r.name == PP_SKIPPER_ROLE)) {
 			this.MESSAGE_SKIP = true;
 		}
+
+        // World Merge
+        if (this.WORLD_MERGE) {
+            this.addMessage("", undefined, {embed:
+                {
+                    "title": "**WORLD MERGE**",
+                    "description": "The fabric of reality is shattered and worlds start merging into one singularity!"
+                }
+            });
+            this.triggerWorldMerge(randomFromList(MERGABLE_WORLDS));
+        }
 
 		// Wild Start
 		if (this.PPLEVEL > 50 && getRandomPercent() <= 5) {
@@ -643,6 +659,17 @@ var Duel = class {
 				}
 			});
 		}
+        if (this.GU_CURRENT_FLOOR != null && this.GU_NEXT_FLOOR_COUNTDOWN <= 0) {
+            if ([FLOOR_GU1, FLOOR_GU2, FLOOR_GU3, FLOOR_GU4].indexOf(this.GU_CURRENT_FLOOR) >= 0) {
+                this.GU_NEXT_FLOOR_COUNTDOWN = 2+Math.floor(getRandomPercent()/25);
+                this.GU_CURRENT_FLOOR = GUNGEON_FLOORS_UNITS.keys()[GUNGEON_FLOORS_UNITS.keys().indexOf(this.GU_CURRENT_FLOOR)+1];
+                this.addMessage("You both enter the Gungeon's next chamber.");
+            }
+            else if (this.GU_CURRENT_FLOOR == FLOOR_GU5 && this.EVENT_BOSS == null) {
+                this.addMessage("You reach the end of the Gungeon's Forge where lies the High Dragun.");
+                this.triggerBossFight(new GungeonDragun(this));
+            }
+        }
 
 		this.addMessage("**=== NEW TURN ===**", true);
 		this.sendMessages();
@@ -727,6 +754,9 @@ var Duel = class {
 		}
         if (this.THERESA_INFLUENCE > 0) {
             txt += " - Empress Theresa Influence Level: " + this.THERESA_INFLUENCE + "\n";
+        }
+        if (this.GU_CURRENT_FLOOR != null) {
+            txt += " - " + this.GU_CURRENT_FLOOR + "\n";
         }
 		if (this.PP_NET > 0 && this.PP_NET < 200) {
 			txt += " - PP-Net Rising: Step " + this.PP_NET + "\n";
@@ -1557,9 +1587,8 @@ var Duel = class {
 			this.addMessage("They bite " + winner.getName() + "'s PP as he seems to have the toughest PP.");
 			winner.damage(Math.floor(winner.STR/10));
 		}
-        // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 		else if (randomVar == 41) { // Kaiju Attack
-		}
+		} // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
 		else if (randomVar == 42) { // Nudist Beach
 			this.addMessage("**===== EVENT =====**", undefined, {embed:
 				{
@@ -1702,6 +1731,22 @@ var Duel = class {
 
 			this.sendMessages();
 		}
+        else if (this.WORLD_MERGE && [65, 66, 67].indexOf(randomVar) > -1 && this.MERGED_WORLDS.length < MERGABLE_WORLDS.length) { // WORLD MERGE
+            this.addMessage("**===== EVENT =====**", undefined, {embed:
+                {
+                    "title": "**WORLD MERGE**",
+                    "description": "All shall be one and one shall be all. Let us all reach for the Singular Point of Truth."
+                }
+            });
+
+            var worlds = shuffleArray(MERGABLE_WORLDS);
+            for (var i in worlds) {
+                if (this.MERGED_WORLDS.indexOf(worlds[i]) < 0) {
+                    this.triggerWorldMerge(world[i]);
+                    break;
+                }
+            }
+        }
 		// DON'T FORGET TO UPDATE FORCE EVENT IF NEW EVENTS ARE ADDED
 		else if (this.PPLEVEL > 200 && randomVar == 90 && (this.MOVE_COUNT >= 50 || forcedEvent)) { // Brenn Ejaculates
 			this.addMessage("**===== EVENT =====**", undefined, {embed:
@@ -1717,7 +1762,7 @@ var Duel = class {
 				this.addMessage("**POV: You are Brenn.**\n```Infinite cum. You sit on the toilet to jack off, but you begin to cum uncontrollably. After ten spurts you start to worry. Your hand is sticky and it reeks of semen. You desperately shove your dick into a wad of toilet paper, but that only makes your balls hurt. The cum accelerates. It’s been three minutes. You can’t stop cumming. Your bathroom floor is covered in a thin layer of baby fluid. You try to cum into the shower drain but it builds up too fast. You try the toilet. The cum is too thick to be flushed. You lock the bathroom door to prevent the cum from escaping. The air grows hot and humid from the cum. The cum accelerates. You slip and fall in your own sperm. The cum is now six inches deep, almost as long as your still-erect semen hose. Sprawled on your back, you begin to cum all over the ceiling. Globs of the sticky white fluid begin to fall like raindrops, giving you a facial with your own cum. The cum accelerates. You struggle to stand as the force of the cum begins to propel you backwards as if you were on a bukkake themed slip-and-slide. Still on your knees, the cum is now at chin height. To avoid drowning you open the bathroom door. The deluge of man juice reminds you of the Great Molasses Flood of 1919, only with cum instead of molasses. The cum accelerates. It’s been two hours. Your children and wife scream in terror as their bodies are engulfed by the snow-white sludge. Your youngest child goes under, with viscous bubbles and muffled cries rising from the goop. You plead to God to end your suffering. The cum accelerates. You squeeze your dick to stop the cum, but it begins to leak out of your asshole instead. You let go. The force of the cum tears your urethra open, leaving only a gaping hole in your crotch that spews semen. Your body picks up speed as it slides backwards along the cum. You smash through the wall, hurtling into the sky at thirty miles an hour. From a bird’s eye view you see your house is completely white. Your neighbor calls the cops. The cum accelerates. As you continue to ascend, you spot police cars racing towards your house. The cops pull out their guns and take aim, but stray loads of cum hit them in the eyes, blinding them. The cum accelerates. You are now at an altitude of 1000 feet. The SWAT team arrives. Military helicopters circle you. Hundreds of bullets pierce your body at once, yet you stay conscious. Your testicles have now grown into a substitute brain. The cum accelerates. It has been two days. With your body now destroyed, the cum begins to spray in all directions. You break the sound barrier. The government deploys fighter jets to chase you down, but the impact of your cum sends one plane crashing to the ground. The government decides to let you leave the earth. You feel your gonads start to burn up as you reach the edges of the atmosphere. You narrowly miss the ISS, giving it a new white paint job as you fly past. Physicists struggle to calculate your erratic trajectory. The cum accelerates. The cum begins to gravitate towards itself, forming a comet trail of semen. Astronomers begin calling you the “Cummet.” You are stuck in space forever, stripped of your body and senses, forced to endure an eternity of cumshots. Eventually, you stop thinking.```");
 			}
 			this.sendMessages();
-			var idList = shuffleArray([2, 3, 4, 6, 7, 8, 9, 19, 22, 23, 32, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 52, 55]);
+			var idList = shuffleArray([2, 3, 4, 6, 7, 8, 9, 19, 22, 23, 32, 34, 35, 36, 38, 39, 40, 41, 42, 43, 44, 52, 65]);
 			for (var i = 0; i < idList.length; i++) {
 				this.FORCE_EVENT_ID = idList[i];
 				this.startRandomEvent();
@@ -2174,6 +2219,19 @@ var Duel = class {
 		this.sendMessages();
 	}
 
+    triggerWorldMerge(_w) {
+        this.addMessage("**===== WORLD MERGE =====**", undefined, {embed:
+            {
+                "title": _w.name,
+                "description": _w.description,
+                "image": { "url": _w.imageURL }
+            }
+        });
+        this.MERGED_WORLDS.push(_w);
+
+        if (_w.duelInitFunction != undefined) _w.duelInitFunction(this);
+    }
+
     increaseTheresaInfluence() {
         this.addMessage("-----------------");
         this.addMessage("Empress Theresa reshapes the world in her image. Her influence increases.");
@@ -2308,47 +2366,31 @@ var Duel = class {
 
 		for (var i in NORMAL_EMOTE_LIST) {
 			if ([EMOTE_PP36, EMOTE_PP47].indexOf(NORMAL_EMOTE_LIST[i]) < 0) {
-				if (this.getRisk(NORMAL_EMOTE_LIST[i]) == 0) {
-					legalList.push(NORMAL_EMOTE_LIST[i]);
-				}
+				if (this.getRisk(NORMAL_EMOTE_LIST[i]) == 0) legalList.push(NORMAL_EMOTE_LIST[i]);
 				illegalList.push(NORMAL_EMOTE_LIST[i]);
 			}
 		}
 
-		if (_canBeIllegal) {
-			goodList = illegalList;
-		}
-		else {
-			goodList = legalList;
-		}
+		if (_canBeIllegal) goodList = illegalList;
+		else goodList = legalList;
 
-		if (this.ILLEGAL_BOMBING) {
-			goodList.push(EMOTE_PP36);
-		}
-		if (!this.DISABLE_ABANDON) {
-			goodList.push(EMOTE_PP47);
-		}
-		if (this.INFERNAL_FIRELAND || getRandomPercent() <= 5) {
-			goodList = goodList.concat(INFERNAL_EMOTE_LIST);
-		}
-		if (this.PP_ARMAGEDDON || getRandomPercent() <= 3) {
-			goodList = goodList.concat(SPECIAL_EMOTE_LIST);
-		}
-		if (this.PP_NET == 3 || this.EASY_DUEL) {
-			goodList = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP4, EMOTE_PP5, EMOTE_PP8, EMOTE_PP12, EMOTE_PP13,
+		if (this.ILLEGAL_BOMBING) goodList.push(EMOTE_PP36);
+		if (!this.DISABLE_ABANDON) goodList.push(EMOTE_PP47);
+		if (this.INFERNAL_FIRELAND || getRandomPercent() <= 5) goodList = goodList.concat(INFERNAL_EMOTE_LIST);
+		if (this.PP_ARMAGEDDON || getRandomPercent() <= 3) goodList = goodList.concat(SPECIAL_EMOTE_LIST);
+
+        for (var i in this.MERGED_WORLDS) {
+            if (this.MERGED_WORLDS[i].emotes != undefined) goodList = goodList.concat(this.MERGED_WORLDS[i].emotes);
+
+            if (this.MERGED_WORLDS[i] == DLC_GUNGEON) goodList = goodList.concat(GUNGEON_FLOORS_UNITS[this.GU_CURRENT_FLOOR]);
+        }
+
+		if (this.PP_NET == 3 || this.EASY_DUEL) goodList = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP4, EMOTE_PP5, EMOTE_PP8, EMOTE_PP12, EMOTE_PP13,
 				EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP21, EMOTE_PP22, EMOTE_PP30, EMOTE_PP31,
 				EMOTE_PP39, EMOTE_PP42, EMOTE_PP45];
-		}
-		if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) {
-			goodList = STAND_EMOTE_LIST;
-		}
-		if (getRandomPercent() <= 3 && !this.EASY_DUEL) {
-			goodList = goodList.concat(RARE_EMOTE_LIST);
-		}
-		if (goodList.indexOf(EMOTE_PP77) > -1 && (this.FIGHTER1.quickeningCharges < 10 || this.FIGHTER2.quickeningCharges < 10)) {
-			// Satan Hand
-			goodList = goodList.splice(goodList.indexOf(EMOTE_PP77), 1);
-		}
+		if (this.CURRENT_BATTLE_MODE == STAND_BATTLE_MODE) goodList = STAND_EMOTE_LIST;
+		if (getRandomPercent() <= 3 && !this.EASY_DUEL) goodList = goodList.concat(RARE_EMOTE_LIST);
+		if (goodList.indexOf(EMOTE_PP77) > -1 && (this.FIGHTER1.quickeningCharges < 10 || this.FIGHTER2.quickeningCharges < 10)) goodList = goodList.splice(goodList.indexOf(EMOTE_PP77), 1);
 
 		return randomFromList(goodList);
 	}

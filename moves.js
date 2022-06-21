@@ -2017,6 +2017,25 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 };
                 break;
 
+            case(EMOTE_GU1): // Shrines
+            case(EMOTE_GU2):
+            case(EMOTE_GU3):
+            case(EMOTE_GU4):
+            case(EMOTE_GU5):
+            case(EMOTE_GU6):
+            case(EMOTE_GU7):
+            case(EMOTE_GU8):
+            case(EMOTE_GU9):
+            case(EMOTE_GU10):
+            case(EMOTE_GU11):
+            case(EMOTE_GU12):
+            case(EMOTE_GU13):
+            case(EMOTE_GU14):
+                this.duel.addMessage(this.getName() + " prays to the " + getGungeonShrineName(attack) + " Shrine.");
+                this.guShrine = attack;
+                this.duel.GU_NEXT_FLOOR_COUNTDOWN -= 1;
+                break;
+
             case(EMOTE_ABILITY): // Requiems
                 if (this.requiemPower != null && this.requiemCooldown <= 0) {
                     this.MOVE_COUNT += 999

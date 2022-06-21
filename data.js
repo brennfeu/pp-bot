@@ -27,6 +27,8 @@ var STAND_HELP = {}; // loaded with the bible
 var REQUIEM_HELP = {}; // loaded with the bible
 var RELIC_HELP = {}; // loaded with the bible
 
+var MERGABLE_WORLDS = []; // filled with each dlc
+
 // COMMON MOVES
 var EMOTE_PP1 = "535844749467320322"; // PunchingPP
 var EMOTE_PP2 = "535240768441548810"; // PunchingPPReallyHard
@@ -157,6 +159,7 @@ var INFERNAL_EMOTE_LIST = [EMOTE_PP135, EMOTE_PP136, EMOTE_PP137, EMOTE_PP138, E
                 EMOTE_PP142, EMOTE_PP143, EMOTE_PP144, EMOTE_PP145, EMOTE_PP146, EMOTE_PP147, EMOTE_PP149, EMOTE_PP150,
                 EMOTE_PP151];
 var OTHER_EMOTE_LIST = [EMOTE_ABILITY, EMOTE_MECHA, EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE, EMOTE_OBAMAHEDRON, EMOTE_OBAMASPHERE, EMOTE_OBOMBA];
+
 var EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST)
 	.concat(RARE_EMOTE_LIST).concat(INFERNAL_EMOTE_LIST).concat(OTHER_EMOTE_LIST);
 
@@ -358,6 +361,7 @@ var AREA_PP13 = {"name": "Eldritch Cult HQ", "description": "Cultists are doing 
 var AREA_LIST = [ AREA_PP1, AREA_PP2, AREA_PP3, AREA_PP4, AREA_PP5, AREA_PP6, AREA_PP7, AREA_PP8, AREA_PP9,
 		AREA_PP10, AREA_PP11, AREA_PP12, AREA_PP13 ];
 
+// ACHIEVEMENTS
 var ACHIEVEMENT_PP1 = {"name": "Punch PP", "description": "Win your first battle!", "imageLink": "https://cdn.discordapp.com/attachments/715322091804819486/963720136626413608/unknown.png"};
 var ACHIEVEMENT_PP2 = {"name": "Punch PP Really Hard", "description": "Beat the game!", "imageLink": "https://media.discordapp.net/attachments/715322091804819486/963720252812849152/unknown.png"};
 var ACHIEVEMENT_PP3 = {"name": "Don't Force Love", "description": "Possess your opponent and force them to high five you!", "imageLink": "https://cdn.discordapp.com/attachments/715322091804819486/963720432882712576/unknown.png"};

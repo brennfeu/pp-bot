@@ -13,6 +13,7 @@ eval(fs.readFileSync("utils.js").toString());
 eval(fs.readFileSync("db.js").toString());
 
 eval(fs.readFileSync("dlc/gungeon-data.js").toString());
+eval(fs.readFileSync("dlc/gungeon-bosses.js").toString());
 eval(fs.readFileSync("dlc/gungeon.js").toString());
 
 
@@ -428,7 +429,10 @@ async function sendCheatPanel(_channel, _category = null) {
 		"Cheat Panel: Infernal Moves": INFERNAL_EMOTE_LIST,
 		"Cheat Panel: Animated Moves": SPECIAL_EMOTE_LIST,
 		"Cheat Panel: Stånds Moves": STAND_EMOTE_LIST,
-		"Cheat Panel: Rare Moves": RARE_EMOTE_LIST,
+        "Cheat Panel: Rare Moves": RARE_EMOTE_LIST,
+        "Cheat Panel: Battalion I": GUNGEON_UNIT_EMOTE_LIST,
+		"Cheat Panel: Battalion II": GUNGEON_RAID_EMOTE_LIST,
+        "Cheat Panel: Battalion III": GUNGEON_SHRINE_EMOTE_LIST,
 		"Cheat Panel: Gods I": [], // filled later in a loop
 		"Cheat Panel: Gods II": [],
 		"Cheat Panel: Gods III": [],

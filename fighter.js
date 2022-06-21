@@ -480,6 +480,7 @@ var Fighter = class {
     // fighter.INT
     get AET() {
         var aet = this.AETValue;
+        aet += this.duel.MERGED_WORLDS.length*25;
 
         return aet;
     }
@@ -608,6 +609,16 @@ var Fighter = class {
 		var statusTxt = this.getStatusTxt();
         if (statusTxt.length > 1000) statusTxt = statusTxt.substring(0, 1000) + "...";
 		if (statusTxt != "") embedMessage.addField("Status", sciText(statusTxt), true);
+
+        // MERGED WORLDS
+        for (var i in this.duel.MERGED_WORLDS) {
+            var _function = this.duel.MERGED_WORLDS[i].statusFunction;
+            if (_function != undefined) {
+                var worldTxt = this[_function]();
+                if (worldTxt.length > 1000) worldTxt = worldTxt.substring(0, 1000) + "...";
+        		if (worldTxt != "") embedMessage.addField(this.duel.MERGED_WORLDS[i], sciText(worldTxt), true);
+            }
+        }
 
 		// SYNERGIES
 		var synergyTxt = "";
