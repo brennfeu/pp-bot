@@ -662,7 +662,7 @@ var Duel = class {
         if (this.GU_CURRENT_FLOOR != null && this.GU_NEXT_FLOOR_COUNTDOWN <= 0) {
             if ([FLOOR_GU1, FLOOR_GU2, FLOOR_GU3, FLOOR_GU4].indexOf(this.GU_CURRENT_FLOOR) >= 0) {
                 this.GU_NEXT_FLOOR_COUNTDOWN = 2+Math.floor(getRandomPercent()/25);
-                this.GU_CURRENT_FLOOR = GUNGEON_FLOORS_UNITS.keys()[GUNGEON_FLOORS_UNITS.keys().indexOf(this.GU_CURRENT_FLOOR)+1];
+                this.GU_CURRENT_FLOOR = Object.keys(GUNGEON_FLOORS_UNITS)[Object.keys(GUNGEON_FLOORS_UNITS).indexOf(this.GU_CURRENT_FLOOR)+1];
                 this.addMessage("You both enter the Gungeon's next chamber.");
             }
             else if (this.GU_CURRENT_FLOOR == FLOOR_GU5 && this.EVENT_BOSS == null) {
@@ -1775,7 +1775,6 @@ var Duel = class {
             return this.addMessage("**YOU FOOL! YOU CANNOT ESCAPE WYNDOELLA!**");
         }
 
-        for (var i in this.MERGED_WORLDS) if (this.MERGED_WORLDS[i].fighterInitFunction != undefined) this.MERGED_WORLDS[i].fighterInitFunction(_boss);
         this.EVENT_BOSS = _boss;
 	}
 
@@ -2037,7 +2036,13 @@ var Duel = class {
 			winner = winner.duel.otherFighter(winner);
 		}
 
-		var priorityMoves = [EMOTE_PP15, EMOTE_PP29, EMOTE_PP11]; // Hobro / Steel / Barrel
+		var priorityMoves = [ EMOTE_PP15, EMOTE_PP29, EMOTE_PP11 ]; // Hobro / Steel / Barrel
+        var autoPassMoves = [ EMOTE_PP38, EMOTE_PP40, EMOTE_PP41, EMOTE_PP13, EMOTE_PP28, EMOTE_PP49, EMOTE_PP55, EMOTE_PP145, EMOTE_PP146, EMOTE_MECHA ];
+        autoPassMoves = autoPassMoves.concat(GUNGEON_SHRINE_EMOTE_LIST).concat(GUNGEON_UNIT_EMOTE_LIST);
+        if (this.otherFighter(winner).megaBuildUp > 0 || this.otherFighter(winner).bonusDamage > 0) autoPassMoves.push(EMOTE_PP42);
+        if (this.BLIND_COUNTDOWN > 0) autoPassMoves.push(EMOTE_PP32);
+        if (this.otherFighter(winner).requiemPower != null) autoPassMoves.push(EMOTE_ABILITY);
+        if (this.otherFighter(winner).futureMemories == 0) autoPassMoves.push(EMOTE_SKIP);
 
 		if ((dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) ||
 		    this.AUTO_MOVES_COUNTDOWN > 0 || this.EVENT_BOSS != null || this.otherFighter(winner).legAimer ||
@@ -2093,62 +2098,8 @@ var Duel = class {
 				winner.damage(50);
 			}
 
-			// Fighting Styles Move
-			if ([ EMOTE_PP38, EMOTE_PP40, EMOTE_PP41 ].indexOf(this.otherFighter(winner).attack) > -1) {
-				this.otherFighter(winner).playMove();
-			}
-			// Scout
-			if (this.otherFighter(winner).attack == EMOTE_PP13) {
-				this.addMessage("-----------------");
-				this.otherFighter(winner).playMove();
-			}
-			// BronanSlam
-			if (this.otherFighter(winner).attack == EMOTE_PP42 && (this.otherFighter(winner).megaBuildUp > 0 || this.otherFighter(winner).bonusDamage > 0)) {
-					this.addMessage("-----------------");
-					this.otherFighter(winner).playMove();
-			}
-			// Intimidates
-			if (this.otherFighter(winner).attack == EMOTE_PP28) {
-				this.addMessage("-----------------");
-				this.otherFighter(winner).playMove();
-			}
-			// LivingGod
-			if (this.otherFighter(winner).attack == EMOTE_PP49) {
-				this.addMessage("-----------------");
-				this.otherFighter(winner).playMove();
-			}
-			// High Five Emote
-			if (this.otherFighter(winner).attack == EMOTE_PP32 && this.BLIND_COUNTDOWN > 0) {
-				this.addMessage("-----------------");
-				this.otherFighter(winner).playMove();
-			}
-			// Requiem
-			if (this.otherFighter(winner).attack == EMOTE_ABILITY && this.otherFighter(winner).requiemPower != null) {
-				this.addMessage("-----------------");
-				this.otherFighter(winner).playMove();
-			}
-			// Dual Loop
-			if (this.otherFighter(winner).attack == EMOTE_PP55) {
-				this.addMessage("-----------------");
-				this.otherFighter(winner).playMove();
-			}
-			// D-Mail
-			if (this.otherFighter(winner).attack == EMOTE_SKIP && this.otherFighter(winner).futureMemories == 0) {
-				this.addMessage("-----------------");
-				this.otherFighter(winner).playMove();
-			}
-			// Shiny Stone
-			if (this.otherFighter(winner).attack == EMOTE_PP145) {
-				this.addMessage("-----------------");
-				this.otherFighter(winner).playMove();
-			}
-			// Gravity Globe
-			if (this.otherFighter(winner).attack == EMOTE_PP146) {
-				this.addMessage("-----------------");
-				this.otherFighter(winner).playMove();
-			}
-			// PP Colossus
-			if (this.otherFighter(winner).attack == EMOTE_MECHA) {
+			// always pass moves
+			if (autoPassMoves.indexOf(this.otherFighter(winner).attack) > -1) {
 				this.addMessage("-----------------");
 				this.otherFighter(winner).playMove();
 			}

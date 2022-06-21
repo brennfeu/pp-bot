@@ -234,6 +234,8 @@ var Fighter = class {
 				this.cthulhuShield = 1;
 			}
 		}
+
+        for (var i in this.MERGED_WORLDS) if (this.MERGED_WORLDS[i].fighterInitFunction != undefined) this.MERGED_WORLDS[i].fighterInitFunction(this);
 	}
 
 	getName() {
