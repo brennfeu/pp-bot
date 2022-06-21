@@ -131,10 +131,11 @@ var CthulhuBoss = class extends Boss {
         }
 
         this.evolveToMoonLord = true;
+        this.deathSentence = " goes back to sleep to heal his poor PP!";
     }
 
     triggerDeath() {
-        this.duel.addMessage(this.getName() + " goes back to sleep to heal his poor PP!");
+        this.duel.addMessage(this.getName() + this.deathSentence);
 
         this.duel.bothFightersAction(function(_fighter) {
             grantPlayerExpertPP(_fighter);
@@ -156,18 +157,7 @@ var MoonLordBoss = class extends CthulhuBoss {
         this.imageURL = "https://cdn.discordapp.com/attachments/715322091804819486/942778125211828264/unknown.png";
 
         this.isMoonLord = true;
-    }
-
-    triggerDeath() {
-        this.duel.addMessage(this.getName() + " goes back into hiding behind the moon!");
-
-        this.duel.bothFightersAction(function(_fighter) {
-            grantPlayerExpertPP(_fighter);
-        });
-        this.duel.addMessage("**You are now PP Experts.**");
-        this.duel.addMessage("**You have gained access to the eldritch gods.**");
-
-        super.super.triggerDeath();
+        this.deathSentence = " goes back into hiding behind the moon!";
     }
 }
 

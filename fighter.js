@@ -235,7 +235,7 @@ var Fighter = class {
 			}
 		}
 
-        for (var i in this.MERGED_WORLDS) if (this.MERGED_WORLDS[i].fighterInitFunction != undefined) this.MERGED_WORLDS[i].fighterInitFunction(this);
+        for (var i in this.duel.MERGED_WORLDS) if (this.duel.MERGED_WORLDS[i].fighterInitFunction != undefined) this.duel.MERGED_WORLDS[i].fighterInitFunction(this);
 	}
 
 	getName() {
