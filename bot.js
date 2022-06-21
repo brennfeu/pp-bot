@@ -142,7 +142,8 @@ function checkUpdateEncyclopedia() {
 					}
 
 					if (encyChannels[i].topic == "Moves"
-					   || encyChannels[i].topic == "Stånds") {
+					   || encyChannels[i].topic == "Stånds"
+                       || encyChannels[i].topic == "Gungeon Battalion") {
 						var cutBiblePart = fullBible[j].split(" ").join("").split("*").join("").split(".").join("");
 						for (var k in EMOTE_LIST) {
 							if ((cutBiblePart.includes(getEmote(EMOTE_LIST[k]).name + ":")
@@ -430,12 +431,12 @@ async function sendCheatPanel(_channel, _category = null) {
 		"Cheat Panel: Animated Moves": SPECIAL_EMOTE_LIST,
 		"Cheat Panel: Stånds Moves": STAND_EMOTE_LIST,
         "Cheat Panel: Rare Moves": RARE_EMOTE_LIST,
-        "Cheat Panel: Battalion I": GUNGEON_UNIT_EMOTE_LIST,
-		"Cheat Panel: Battalion II": GUNGEON_RAID_EMOTE_LIST,
-        "Cheat Panel: Battalion III": GUNGEON_SHRINE_EMOTE_LIST,
 		"Cheat Panel: Gods I": [], // filled later in a loop
 		"Cheat Panel: Gods II": [],
 		"Cheat Panel: Gods III": [],
+        "Cheat Panel: Gungeon Battalion I": GUNGEON_SHRINE_EMOTE_LIST,
+		"Cheat Panel: Gungeon Battalion II": GUNGEON_UNIT_EMOTE_LIST,
+        "Cheat Panel: Gungeon Battalion III": GUNGEON_RAID_EMOTE_LIST,
 		"Cheat Panel: Other": [
 			EMOTE_ABILITY, EMOTE_MECHA, EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE, EMOTE_OBAMAHEDRON, EMOTE_OBAMASPHERE,
 			EMOTE_OBOMBA, EMOTE_BOSS_ATTACK
