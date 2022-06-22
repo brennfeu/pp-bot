@@ -2337,7 +2337,10 @@ var Duel = class {
         for (var i in this.MERGED_WORLDS) {
             if (this.MERGED_WORLDS[i].emotes != undefined) goodList = goodList.concat(this.MERGED_WORLDS[i].emotes);
 
-            if (this.MERGED_WORLDS[i] == DLC_GUNGEON) goodList = goodList.concat(GUNGEON_FLOORS_UNITS[this.GU_CURRENT_FLOOR]);
+            if (this.MERGED_WORLDS[i] == DLC_GUNGEON) {
+                goodList = goodList.concat(GUNGEON_FLOORS_UNITS[this.GU_CURRENT_FLOOR]).concat([ EMOTE_GU23 ]);
+                if ((this.FIGHTER1.STR > 0 && this.FIGHTER1.guJammedBattalion) || (this.FIGHTER2.STR > 0 && this.FIGHTER2.guJammedBattalion)) goodList.push(EMOTE_GU19);
+            }
         }
 
 		if (this.PP_NET == 3 || this.EASY_DUEL) goodList = [EMOTE_PP1, EMOTE_PP2, EMOTE_PP4, EMOTE_PP5, EMOTE_PP8, EMOTE_PP12, EMOTE_PP13,

@@ -2033,9 +2033,10 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
             case(EMOTE_GU14):
                 this.duel.addMessage(this.getName() + " prays to the " + getGungeonShrineName(attack) + " Shrine.");
                 this.guShrine = attack;
+
                 this.duel.GU_NEXT_FLOOR_COUNTDOWN -= 1;
                 break;
-            case(EMOTE_GU15):
+            case(EMOTE_GU15): // Units
             case(EMOTE_GU16):
             case(EMOTE_GU17):
             case(EMOTE_GU18):
@@ -2057,6 +2058,22 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 var unit = getGungeonUnitData(attack);
                 this.duel.addMessage(unit.name + " follows " + this.getName() + "!");
                 this.guBattalionPower += (unit.power*GUNGEON_FLOORS_SCALING[this.duel.GU_CURRENT_FLOOR]) + this.AET;
+
+                if (unit.explodes) this.guBattalionExplodes = true;
+                if (unit.strengthInNumbers) this.guBattalionPower += Math.floor(this.guBattalionPower*0.2);
+
+                this.duel.GU_NEXT_FLOOR_COUNTDOWN -= 1;
+                break;
+            case(EMOTE_GU33): // Rusty Sidearm
+                this.duel.addMessage(this.getName() + " shoots " + this.getOppName() + " with his Rusty Sidearm!");
+                this.duel.getOppOf(this).damage(this.guBattalionPower);
+
+                if (this.guBattalionExplodes) {
+                    this.guBattalionPower -= 50;
+                    this.duel.getOppOf(this).damage(Math.floor(this.guBattalionPower/2));
+                }
+
+                this.duel.GU_NEXT_FLOOR_COUNTDOWN -= 1;
                 break;
 
             case(EMOTE_ABILITY): // Requiems

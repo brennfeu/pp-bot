@@ -13,6 +13,7 @@ var DLC_GUNGEON = {
     "fighterInitFunction": function(_fighter) {
         _fighter.guShrine = "";
         _fighter.guBattalionPower = 0;
+        _fighter.guBattalionExplodes = false;
     }
 }
 MERGABLE_WORLDS.push(DLC_GUNGEON);
@@ -40,23 +41,29 @@ function getGungeonUnitData(_emote) {
     switch(_emote) {
         case EMOTE_GU15: return {
             "name": "Bullet Kin",
-            "power": 15
+            "power": 15,
+            "strengthInNumbers": true
         }; // Bullet Kin
         case EMOTE_GU16: return {
             "name": "Bandana Bullet Kin",
-            "power": 15
+            "power": 15,
+            "strengthInNumbers": true
         }; // Bandana Bullet Kin
         case EMOTE_GU17: return {
             "name": "Agonizer",
-            "power": 50
+            "power": 50,
+            "explodes": true
         }; // Agonizer
         case EMOTE_GU18: return {
             "name": "Gunreaper",
-            "power": 0
+            "power": 0,
+            "reaper": true
         }; // Gunreaper
         case EMOTE_GU19: return {
             "name": "Lord of the Jammed",
-            "power": 0
+            "power": 0,
+            "jammed": true,
+            "reaper": true
         }; // Lord of the Jammed
         case EMOTE_GU20: return {
             "name": "Shelleton",
@@ -88,15 +95,18 @@ function getGungeonUnitData(_emote) {
         }; // Gun Nut
         case EMOTE_GU27: return {
             "name": "Killithid",
-            "power": 45
+            "power": 45,
+            "steal": true
         }; // Killithid
         case EMOTE_GU28: return {
             "name": "Muzzle Flare",
-            "power": 16
+            "power": 16,
+            "fast": true
         }; // Muzzle Flare
         case EMOTE_GU29: return {
             "name": "Muzzle Wisp",
-            "power": 19
+            "power": 19,
+            "fast": true
         }; // Muzzle Wisp
         case EMOTE_GU30: return {
             "name": "Phaser Spider",
@@ -104,15 +114,18 @@ function getGungeonUnitData(_emote) {
         }; // Phaser Spider
         case EMOTE_GU31: return {
             "name": "Skullet",
-            "power": 16
+            "power": 16,
+            "strengthInNumbers": true
         }; // Skullet
         case EMOTE_GU32: return {
             "name": "Skullmet",
-            "power": 22
+            "power": 22,
+            "strengthInNumbers": true
         }; // Skullmet
         case EMOTE_GU33: return {
             "name": "Spectral Gun Nut",
-            "power": 54
+            "power": 54,
+            "jammed": true
         }; // Spectral Gun Nut
         default: return {}
     }
@@ -121,10 +134,11 @@ function getGungeonUnitData(_emote) {
 Fighter.prototype.getGungeonStatus = function() {
     var gungeonTxt = "";
 
-    // battalion
-    if (this.guBattalionPower > 0) gungeonTxt += displayEmote(EMOTE_GU15) + " Battalion Power: " + this.guBattalionPower + "\n";
     // shrine
     if (this.guShrine != "") gungeonTxt += displayEmote(this.guShrine) + " " + getGungeonShrineName(this.guShrine) + " Shrine Blessing";
+    // battalion
+    if (this.guBattalionPower > 0) gungeonTxt += displayEmote(EMOTE_GU15) + " Battalion Power: " + this.guBattalionPower + "\n";
+    if (this.guBattalionExplodes) gungeonTxt += displayEmote(EMOTE_GU17) + " Explosive Battalion\n";
 
     return gungeonTxt;
 }
