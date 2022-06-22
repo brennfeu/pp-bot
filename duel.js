@@ -1945,7 +1945,7 @@ var Duel = class {
 				duel.sendMessages();
 			}
 
-			if (caught1 && getRandomPercent() <= 5 && !this.POOPOO_UNIVERSE) {
+			if (caught1 && getRandomPercent() <= 5 && !duel.POOPOO_UNIVERSE) {
 				duel.addMessage("**YOUR CHEATING HAS MADE THE GODS VERY ANGRY. IF YOU DON'T WANT TO RESPECT THE RULES OF THE MIGHTY PP PUNCH, THEN YOU DON'T DESERVE TO PUNCH PP.**");
 				duel.addMessage("**ESPINOZA USES HIS FINAL ABILITY, DOUBLE ARM SNIFF!**");
 				duel.addMessage("**YOU ARE BANISHED INTO THE POOPOO PUNCH UNIVERSE!**");

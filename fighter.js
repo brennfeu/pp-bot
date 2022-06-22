@@ -484,6 +484,13 @@ var Fighter = class {
         var aet = this.AETValue;
         aet += this.duel.MERGED_WORLDS.length*25;
 
+        if (this.duel.INFERNAL_FIRELAND) {
+			aet = aet*10;
+		}
+		if (this.duel.PP_ARMAGEDDON) {
+			aet = aet*1000;
+		}
+
         return aet;
     }
 
