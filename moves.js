@@ -228,7 +228,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     while (fibonacciNumber(i) < this.pigHeal) {
                         i += 1;
                     }
-                    this.pigHeal += fibonacciNumber(i-1);
+                    this.pigHeal = fibonacciNumber(i+3);
                 }
                 if (this.hasBoner) {
                     this.duel.addMessage(this.getName() + " loses his boner!");

@@ -1476,7 +1476,7 @@ var Duel = class {
 			});
 			this.EVENT_PP_EQUALITY = true;
 		}
-		else if (this.PPLEVEL > 100 && randomVar == 33 && (this.MOVE_COUNT >= 1000 || forcedEvent)) { // Eldritch Gate
+		else if (this.PPLEVEL > 100 && randomVar == 33 && (this.PP_ARMAGEDDON || forcedEvent)) { // Eldritch Gate
 			if (this.EVENT_BOSS != null && this.EVENT_BOSS.eldritchGateBuff) {
 				this.addMessage("**===== EVENT =====**", undefined, {embed:
 					{
@@ -1502,7 +1502,7 @@ var Duel = class {
 				this.triggerBossFight(boss);
 			}
 		}
-		else if (this.PPLEVEL > 50 && randomVar == 34 && (this.MOVE_COUNT >= 100 || forcedEvent)) { // Ascension Requiem
+		else if (this.PPLEVEL > 50 && randomVar == 34 && (this.INFERNAL_FIRELAND || this.PP_ARMAGEDDON || forcedEvent)) { // Ascension Requiem
 			var winner = this.getRandomFighter();
 			this.addMessage("**===== EVENT =====**", undefined, {embed:
 				{
