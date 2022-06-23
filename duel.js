@@ -663,10 +663,12 @@ var Duel = class {
             if ([FLOOR_GU1, FLOOR_GU2, FLOOR_GU3, FLOOR_GU4].indexOf(this.GU_CURRENT_FLOOR) >= 0) {
                 this.GU_NEXT_FLOOR_COUNTDOWN = 2+Math.floor(getRandomPercent()/25);
                 this.GU_CURRENT_FLOOR = Object.keys(GUNGEON_FLOORS_UNITS)[Object.keys(GUNGEON_FLOORS_UNITS).indexOf(this.GU_CURRENT_FLOOR)+1];
-                this.addMessage("You both enter the Gungeon's next chamber.");
+				this.addMessage("-----------------");
+				this.addMessage("**You both enter the Gungeon's next chamber.**");
             }
             else if (this.GU_CURRENT_FLOOR == FLOOR_GU5 && this.EVENT_BOSS == null) {
-                this.addMessage("You reach the end of the Gungeon's Forge where lies the High Dragun.");
+                this.addMessage("-----------------");
+				this.addMessage("**You reach the end of the Gungeon's Forge where lies the High Dragun.**");
                 this.triggerBossFight(new GungeonDragun(this));
             }
         }

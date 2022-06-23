@@ -2061,6 +2061,9 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
 
                 if (unit.explodes) this.guBattalionExplodes = true;
                 if (unit.strengthInNumbers) this.guBattalionPower += Math.floor(this.guBattalionPower*0.2);
+                if (unit.chance && getRandomPercent() <= 10) this.guBattalionPower += this.guBattalionPower;
+                if (unit.cube) { this.guBattalionPower += this.guCube*(unit.power*GUNGEON_FLOORS_SCALING[this.duel.GU_CURRENT_FLOOR]); this.guCube += 1; }
+                if (unit.doubleCubeChance && getRandomPercent() <= 50) this.guCube += 1;
 
                 this.duel.GU_NEXT_FLOOR_COUNTDOWN -= 1;
                 break;

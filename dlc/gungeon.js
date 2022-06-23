@@ -14,6 +14,7 @@ var DLC_GUNGEON = {
         _fighter.guShrine = "";
         _fighter.guBattalionPower = 0;
         _fighter.guBattalionExplodes = false;
+        _fighter.guCube = 0;
     }
 }
 MERGABLE_WORLDS.push(DLC_GUNGEON);
@@ -72,10 +73,11 @@ function getGungeonUnitData(_emote) {
         case EMOTE_GU21: return {
             "name": "Chain Gunner",
             "power": 90
-        };  // Chain Gunner
+        }; // Chain Gunner
         case EMOTE_GU22: return {
             "name": "Chancebulon",
-            "power": 50
+            "power": 50,
+            "chance": true
         }; // Chancebulon
         case EMOTE_GU23: return {
             "name": "Confirmed",
@@ -83,11 +85,14 @@ function getGungeonUnitData(_emote) {
         }; // Confirmed
         case EMOTE_GU24: return {
             "name": "Cubelead",
-            "power": 19
+            "power": 19,
+            "cube": true,
+            "doubleCubeChance": true
         }; // Cubelead
         case EMOTE_GU25: return {
             "name": "Cubulon",
-            "power": 30
+            "power": 30,
+            "cube": true
         }; // Cubulon
         case EMOTE_GU26: return {
             "name": "Gun Nut",
@@ -135,9 +140,10 @@ Fighter.prototype.getGungeonStatus = function() {
     var gungeonTxt = "";
 
     // shrine
-    if (this.guShrine != "") gungeonTxt += displayEmote(this.guShrine) + " " + getGungeonShrineName(this.guShrine) + " Shrine Blessing";
+    if (this.guShrine != "") gungeonTxt += displayEmote(this.guShrine) + " " + getGungeonShrineName(this.guShrine) + " Shrine Blessing\n";
     // battalion
     if (this.guBattalionPower > 0) gungeonTxt += displayEmote(EMOTE_GU15) + " Battalion Power: " + this.guBattalionPower + "\n";
+    if (this.guCube > 0) gungeonTxt += displayEmote(EMOTE_GU25) + " Cubes: " + this.guCube + "\n";
     if (this.guBattalionExplodes) gungeonTxt += displayEmote(EMOTE_GU17) + " Explosive Battalion\n";
 
     return gungeonTxt;
