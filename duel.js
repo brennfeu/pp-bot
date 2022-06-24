@@ -2045,6 +2045,7 @@ var Duel = class {
         if (this.BLIND_COUNTDOWN > 0) autoPassMoves.push(EMOTE_PP32);
         if (this.otherFighter(winner).requiemPower != null) autoPassMoves.push(EMOTE_ABILITY);
         if (this.otherFighter(winner).futureMemories == 0) autoPassMoves.push(EMOTE_SKIP);
+        if (this.otherFighter(winner).guBattalionFast) autoPassMoves = autoPassMoves.concat(GUNGEON_RAID_EMOTE_LIST);
 
 		if ((dexAttack1 - dexAttack2 <= 10 && dexAttack1 - dexAttack2 >= -10) ||
 		    this.AUTO_MOVES_COUNTDOWN > 0 || this.EVENT_BOSS != null || this.otherFighter(winner).legAimer ||

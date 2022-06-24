@@ -2056,24 +2056,61 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
             case(EMOTE_GU32):
             case(EMOTE_GU33):
                 var unit = getGungeonUnitData(attack);
-                this.duel.addMessage(unit.name + " follows " + this.getName() + "!");
-                this.guBattalionPower += (unit.power*GUNGEON_FLOORS_SCALING[this.duel.GU_CURRENT_FLOOR]) + this.AET;
+                var isJammed = getRandomPercent() <= 5;
 
-                if (unit.explodes) this.guBattalionExplodes = true;
+                this.duel.addMessage(unit.name + " follows " + this.getName() + "!");
+                this.guBattalionPower += Math.floor(unit.power*GUNGEON_FLOORS_SCALING[this.duel.GU_CURRENT_FLOOR]) + this.AET;
+                if (isJammed) {
+                    this.duel.addMessage("A cursed aura surrounds it.");
+                    this.guBattalionPower += Math.floor(unit.power*GUNGEON_FLOORS_SCALING[this.duel.GU_CURRENT_FLOOR]*3.5)+10;
+                    this.guBattalionJammed = true;
+                }
+
                 if (unit.strengthInNumbers) this.guBattalionPower += Math.floor(this.guBattalionPower*0.2);
                 if (unit.chance && getRandomPercent() <= 10) this.guBattalionPower += this.guBattalionPower;
-                if (unit.cube) { this.guBattalionPower += this.guCube*(unit.power*GUNGEON_FLOORS_SCALING[this.duel.GU_CURRENT_FLOOR]); this.guCube += 1; }
+                if (unit.cube) { this.guBattalionPower += this.guCube*Math.floor(unit.power*GUNGEON_FLOORS_SCALING[this.duel.GU_CURRENT_FLOOR]); this.guCube += 1; }
                 if (unit.doubleCubeChance && getRandomPercent() <= 50) this.guCube += 1;
+                if (unit.steal) { this.guBattalionPower += Math.floor(this.duel.getOppOf(this).guBattalionPower/10); this.duel.getOppOf(this).guBattalionPower -= Math.floor(this.duel.getOppOf(this).guBattalionPower/10); }
+
+                if (unit.explodes) this.guBattalionExplodes = true;
+                if (unit.reaper) this.guBattalionReaper = true;
+                if (unit.jammed) this.guBattalionJammed = true;
+                if (unit.fast) this.guBattalionFast = true;
 
                 this.duel.GU_NEXT_FLOOR_COUNTDOWN -= 1;
                 break;
-            case(EMOTE_GU33): // Rusty Sidearm
-                this.duel.addMessage(this.getName() + " shoots " + this.getOppName() + " with his Rusty Sidearm!");
-                this.duel.getOppOf(this).damage(this.guBattalionPower);
+            case(EMOTE_GU33): // Guns
+            case(EMOTE_GU34):
+            case(EMOTE_GU35):
+            case(EMOTE_GU36):
+            case(EMOTE_GU37):
+            case(EMOTE_GU38):
+            case(EMOTE_GU39):
+            case(EMOTE_GU40):
+                this.duel.addMessage(this.getName() + " shoots " + this.getOppName() + "!");
+
+                var v = this.guBattalionPower;
+                if (attack == EMOTE_GU36 && this.guBattalionJammed) v += Math.floor(this.guBattalionPower/2);
+                if (attack == EMOTE_GU38 && !this.guBattalionJammed) v += Math.floor(this.guBattalionPower*0.3);
+                if (attack == EMOTE_GU40) v += this.DEX;
+                if (attack == EMOTE_GU34) v += v*2;
+                if (attack == EMOTE_GU39 && getRandomPercent() <= 20) v += v;
+                this.duel.getOppOf(this).damage(v);
 
                 if (this.guBattalionExplodes) {
                     this.guBattalionPower -= 50;
+                    this.duel.addMessage(this.getName() + "'s Battalion explodes!");
                     this.duel.getOppOf(this).damage(Math.floor(this.guBattalionPower/2));
+                }
+                if (attack == EMOTE_GU34) {
+                    this.guBattalionPower = 1;
+                }
+                if (attack == EMOTE_GU35) {
+                    this.duel.addMessage(this.duel.getOppOf(this).getName() + " bleeds!");
+                    this.duel.getOppOf(this).bleedDamage += Math.floor(v/10);
+                }
+                if (attack == EMOTE_GU37) {
+                    this.duel.getOppOf(this).guShrine = "";
                 }
 
                 this.duel.GU_NEXT_FLOOR_COUNTDOWN -= 1;

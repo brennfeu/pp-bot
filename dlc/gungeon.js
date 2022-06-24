@@ -15,6 +15,9 @@ var DLC_GUNGEON = {
         _fighter.guBattalionPower = 0;
         _fighter.guBattalionExplodes = false;
         _fighter.guCube = 0;
+        _fighter.guBattalionReaper = false;
+        _fighter.guBattalionJammed = false;
+        _fighter.guBattalionFast = false;
     }
 }
 MERGABLE_WORLDS.push(DLC_GUNGEON);
@@ -145,6 +148,9 @@ Fighter.prototype.getGungeonStatus = function() {
     if (this.guBattalionPower > 0) gungeonTxt += displayEmote(EMOTE_GU15) + " Battalion Power: " + this.guBattalionPower + "\n";
     if (this.guCube > 0) gungeonTxt += displayEmote(EMOTE_GU25) + " Cubes: " + this.guCube + "\n";
     if (this.guBattalionExplodes) gungeonTxt += displayEmote(EMOTE_GU17) + " Explosive Battalion\n";
+    if (this.guBattalionFast) gungeonTxt += displayEmote(EMOTE_GU28) + " Fast Battalion\n";
+    if (this.guBattalionJammed) gungeonTxt += displayEmote(EMOTE_GU19) + " Jammed Battalion\n";
+    if (this.guBattalionReaper) gungeonTxt += displayEmote(EMOTE_GU18) + " Reaper Battalion\n";
 
     return gungeonTxt;
 }
