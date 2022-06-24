@@ -1576,13 +1576,12 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 duel.FIGHTER1.duel = null;
                 duel.FIGHTER2.duel = null;
                 try {
-                    duel.EVENT_BOSS.duel = null;
                     duel.FIGHTER1_SAVE.duel = null;
                     duel.FIGHTER2_SAVE.duel = null;
-                }
-                catch(e) {
-                    // saves are null
-                }
+                } catch(e) {}
+                try {
+                    duel.EVENT_BOSS.duel = null;
+                } catch(e) {}
                 duel.CHECKPOINT_DUEL = cloneObject(duel);
                 duel.FIGHTER1.duel = duel;
                 duel.FIGHTER2.duel = duel;
@@ -1591,14 +1590,15 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 try {
                     duel.FIGHTER1_SAVE.duel = duel;
                     duel.FIGHTER2_SAVE.duel = duel;
-                    duel.EVENT_BOSS.duel = duel;
                     duel.CHECKPOINT_DUEL.FIGHTER1_SAVE.duel = duel.CHECKPOINT_DUEL;
                     duel.CHECKPOINT_DUEL.FIGHTER2_SAVE.duel = duel.CHECKPOINT_DUEL;
+                }
+                catch(e) {}
+                try {
+                    duel.EVENT_BOSS.duel = duel;
                     duel.CHECKPOINT_DUEL.EVENT_BOSS.duel = duel.CHECKPOINT_DUEL;
                 }
-                catch(e) {
-                    // saves are null
-                }
+                catch(e) {}
                 break;
             case(EMOTE_PP63): // Xenomorph
                 this.duel.addMessage(this.getName() + " slashes " + this.getOppName() + "!");
@@ -2032,6 +2032,9 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 this.duel.addMessage(this.getName() + " prays to the " + getGungeonShrineName(attack) + " Shrine.");
                 this.guShrine = attack;
 
+                if (attack == EMOTE_GU8) this.guBattalionJammed = true;
+                if (attack == EMOTE_GU9) this.guBattalionJammed = false;
+
                 this.duel.GU_NEXT_FLOOR_COUNTDOWN -= 1;
                 break;
             case(EMOTE_GU15): // Units
@@ -2054,9 +2057,10 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
             case(EMOTE_GU32):
             case(EMOTE_GU33):
                 var unit = getGungeonUnitData(attack);
-                var isJammed = getRandomPercent() <= 5;
+                if (this.guShrine == EMOTE_GU8) var isJammed = getRandomPercent() <= 15;
+                else var isJammed = getRandomPercent() <= 5;
 
-                this.duel.addMessage(unit.name + " follows " + this.getName() + "!");
+                this.duel.addMessage("A " + unit.name + " follows " + this.getName() + "!");
                 this.guBattalionPower += Math.floor(unit.power*GUNGEON_FLOORS_SCALING[this.duel.GU_CURRENT_FLOOR]) + this.AET;
                 if (isJammed) {
                     this.duel.addMessage("A cursed aura surrounds it.");
@@ -2065,7 +2069,9 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 }
 
                 if (unit.strengthInNumbers) this.guBattalionPower += Math.floor(this.guBattalionPower*0.2);
-                if (unit.chance && getRandomPercent() <= 10) this.guBattalionPower += this.guBattalionPower;
+                if ((unit.chance || this.guShrine == EMOTE_GU4) && getRandomPercent() <= 10) this.guBattalionPower += this.guBattalionPower;
+                if (this.guShrine == EMOTE_GU9) this.guBattalionPower += this.AET;
+                else if (this.guShrine == EMOTE_GU10) this.guBattalionPower += this.bleedDamage;
                 if (unit.cube) { this.guBattalionPower += this.guCube*Math.floor(unit.power*GUNGEON_FLOORS_SCALING[this.duel.GU_CURRENT_FLOOR]); this.guCube += 1; }
                 if (unit.doubleCubeChance && getRandomPercent() <= 50) this.guCube += 1;
                 if (unit.steal) { this.guBattalionPower += Math.floor(this.duel.getOppOf(this).guBattalionPower/10); this.duel.getOppOf(this).guBattalionPower -= Math.floor(this.duel.getOppOf(this).guBattalionPower/10); }
@@ -2086,6 +2092,16 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
             case(EMOTE_GU39):
             case(EMOTE_GU40):
                 this.duel.addMessage(this.getName() + " shoots " + this.getOppName() + "!");
+
+                if (this.getOppOf(this).guShrine == EMOTE_GU3) {
+                    this.duel.addMessage(this.getOppName() + "'s glass blessing breaks!");
+                    this.getOppOf(this).guShrine = "";
+                    break;
+                }
+                if (this.getOppOf(this).guShrine == EMOTE_GU14 && getRandomPercent() <= 20) {
+                    this.duel.addMessage(this.getOppName() + " uses a blank at the right time!");
+                    break;
+                }
 
                 var v = this.guBattalionPower;
                 if (attack == EMOTE_GU36 && this.guBattalionJammed) v += Math.floor(this.guBattalionPower/2);
@@ -2112,6 +2128,9 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 }
 
                 this.duel.GU_NEXT_FLOOR_COUNTDOWN -= 1;
+
+                if (shrine == EMOTE_GU11 && getRandomPercent() <= 10) this.playMove(randomFromList(GUNGEON_RAID_EMOTE_LIST));
+                if (shrine == EMOTE_GU12 && getRandomPercent() <= 10) this.playMove(attack);
                 break;
 
             case(EMOTE_ABILITY): // Requiems
@@ -2232,7 +2251,6 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 else {
                     this.duel.addMessage(this.getName() + " is not ready to call the PP Colossus.");
                 }
-                return;
                 break;
             case(EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE): // Judgement Event
                 if (this.duel.ESPINOZA_CHOICE == attack) {
