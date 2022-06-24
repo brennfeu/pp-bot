@@ -358,6 +358,7 @@ var Fighter = class {
 		if (this.hasSynergy(SYNERGY_PP0)) { // PP Harem
 			str += str;
 		}
+		if (this.guShrine == EMOTE_GU5) str = Math.floor(str*0.65);
 		if (this.ppColossus > 0) {
 			str = str*10;
 		}
@@ -484,11 +485,19 @@ var Fighter = class {
         var aet = this.AETValue;
         aet += this.duel.MERGED_WORLDS.length*25;
 
-        if (this.duel.PP_ARMAGEDDON) {
+		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
+			aet += 50 + ((5-this.ultimatePPBuff)*10);
+		}
+
+		if (this.duel.PP_ARMAGEDDON) {
 			aet = aet*10000;
 		}
         else if (this.duel.INFERNAL_FIRELAND) {
 			aet = aet*10;
+		}
+
+		if (this.livingGod) {
+			aet += 10000;
 		}
 
         return aet;

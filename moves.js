@@ -2109,6 +2109,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 if (attack == EMOTE_GU40) v += this.DEX;
                 if (attack == EMOTE_GU34) v += v*2;
                 if (attack == EMOTE_GU39 && getRandomPercent() <= 20) v += v;
+                if (this.guShrine == EMOTE_GU5) v += Math.floor(v*0.25);
                 this.duel.getOppOf(this).damage(v);
 
                 if (this.guBattalionExplodes) {
@@ -2129,11 +2130,12 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 if (attack == EMOTE_GU37) {
                     this.duel.getOppOf(this).guShrine = "";
                 }
+                if (this.guShrine == EMOTE_GU13) this.DEXValue += 1;
 
                 this.duel.GU_NEXT_FLOOR_COUNTDOWN -= 1;
 
-                if (shrine == EMOTE_GU11 && getRandomPercent() <= 10) this.playMove(randomFromList(GUNGEON_RAID_EMOTE_LIST));
-                if (shrine == EMOTE_GU12 && getRandomPercent() <= 10) this.playMove(attack);
+                if (this.guShrine == EMOTE_GU11 && getRandomPercent() <= 10) this.playMove(randomFromList(GUNGEON_RAID_EMOTE_LIST));
+                if (this.guShrine == EMOTE_GU12 && getRandomPercent() <= 10) this.playMove(attack);
                 break;
 
             case(EMOTE_ABILITY): // Requiems
