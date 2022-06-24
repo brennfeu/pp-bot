@@ -740,7 +740,7 @@ var Duel = class {
 			txt += " - Moves have no DEX modifier for this turn!\n";
 		}
 		if (this.EVENT_BOMB) {
-			txt += " - A bomb will explode next turn!\n";
+			txt += " - **A bomb will explode next turn!**\n";
 		}
 		if (this.REVERSED_GRAVITY) {
 			txt += " - Gravity is reversed!\n";
@@ -2447,6 +2447,7 @@ var Duel = class {
 		_function(this.otherFighter(_firstFighter));
 	}
     allFightersAction(_function, _firstFighter = this.getRandomFighter()) {
+        if (_firstFighter == this.EVENT_BOSS) _firstFighter = this.getRandomFighter();
         this.bothFightersAction(_function, _firstFighter);
 
         if (this.EVENT_BOSS != null) {

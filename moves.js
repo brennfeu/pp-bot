@@ -299,7 +299,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 break;
             case(EMOTE_PP26): // Big Satan
                 if (!this.duel.ALTERNATE_MOVES) {
-                    this.duel.addMessage(this.getName() + " summons Satan chaotic powers !!!");
+                    this.duel.addMessage(this.getName() + " summons Satan's chaotic powers!");
                     this.duel.DISABLE_ABANDON = true;
                     if (this.duel.EVENT_BOSS != null && this.duel.EVENT_BOSS.eldritchGateBuff) {
                         // Satan Boss
