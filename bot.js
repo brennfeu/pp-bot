@@ -130,7 +130,7 @@ function checkUpdateEncyclopedia() {
 				}
 				else if ((fullBible[j].includes("## ") || j == fullBible.length-1) && !fullBible[j].includes("### ") && shouldRead) { // End (I check the start of the next one)
 					shouldRead = false;
-					encyChannels[i].send(sciText(message));
+					if (message.trim().length > 0) encyChannels[i].send(sciText(message));
 					message = "";
 					var date = new Date();
 					encyChannels[i].send("*Last updated: " + date.getDate() + "/" + (date.getMonth()+1) + "/" + date.getFullYear() + "*");
