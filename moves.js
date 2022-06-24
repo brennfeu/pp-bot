@@ -2116,6 +2116,9 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     this.duel.addMessage(this.getName() + "'s Battalion explodes!");
                     this.duel.getOppOf(this).damage(Math.floor(this.guBattalionPower/2));
                 }
+                if (this.guBattalionReaper) {
+                    this.bossKiller += 5;
+                }
                 if (attack == EMOTE_GU34) {
                     this.guBattalionPower = 1;
                 }
