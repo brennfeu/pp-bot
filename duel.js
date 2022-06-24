@@ -661,7 +661,7 @@ var Duel = class {
 		}
         if (this.GU_CURRENT_FLOOR != null && this.GU_NEXT_FLOOR_COUNTDOWN <= 0) {
             if ([FLOOR_GU1, FLOOR_GU2, FLOOR_GU3, FLOOR_GU4].indexOf(this.GU_CURRENT_FLOOR) >= 0) {
-                this.GU_NEXT_FLOOR_COUNTDOWN = 2+Math.floor(getRandomPercent()/25);
+                this.GU_NEXT_FLOOR_COUNTDOWN = 3+Math.floor(getRandomPercent()/25);
                 this.GU_CURRENT_FLOOR = Object.keys(GUNGEON_FLOORS_UNITS)[Object.keys(GUNGEON_FLOORS_UNITS).indexOf(this.GU_CURRENT_FLOOR)+1];
 				this.addMessage("-----------------");
 				this.addMessage("**You both enter the Gungeon's next chamber.**");
