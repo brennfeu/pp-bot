@@ -2093,12 +2093,12 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
             case(EMOTE_GU40):
                 this.duel.addMessage(this.getName() + " shoots " + this.getOppName() + "!");
 
-                if (this.getOppOf(this).guShrine == EMOTE_GU3) {
-                    this.duel.addMessage(this.getOppName() + "'s glass blessing breaks!");
-                    this.getOppOf(this).guShrine = "";
+                if (this.duel.getOppOf(this).guShrine == EMOTE_GU3) {
+                    this.duel.addMessage(this.getOppName() + "'s glass blessing protects him!");
+                    this.duel.getOppOf(this).guShrine = "";
                     break;
                 }
-                if (this.getOppOf(this).guShrine == EMOTE_GU14 && getRandomPercent() <= 20) {
+                if (this.duel.getOppOf(this).guShrine == EMOTE_GU14 && getRandomPercent() <= 20) {
                     this.duel.addMessage(this.getOppName() + " uses a blank at the right time!");
                     break;
                 }
