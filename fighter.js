@@ -632,7 +632,7 @@ var Fighter = class {
         for (var i in this.duel.MERGED_WORLDS) {
             var _function = this.duel.MERGED_WORLDS[i].statusFunction;
             if (_function != undefined) {
-                var worldTxt = this[_function]();
+                var worldTxt = sciText(this[_function]());
                 if (worldTxt.length > 1000) worldTxt = worldTxt.substring(0, 1000) + "...";
         		if (worldTxt != "") embedMessage.addField(this.duel.MERGED_WORLDS[i].name, sciText(worldTxt), true);
             }

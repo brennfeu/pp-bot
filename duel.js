@@ -250,13 +250,7 @@ var Duel = class {
 		this.addMessage("", true, {embed: this.FIGHTER2.toString()});
 		this.addMessage("**===== SOME STATS =====**");
 		var txt = "- Total Move Count: " + this.MOVE_COUNT;
-		if (this.MOVE_COUNT == 69) {
-			txt += " (hahaha)";
-		}
-		txt += "\n- Total Inflicted Damage: " + this.DAMAGE_COUNT;
-		if (this.DAMAGE_COUNT == 69) {
-			txt += " (hahaha)";
-		}
+		txt += " \n- Total Inflicted Damage: " + this.DAMAGE_COUNT;
 		this.addMessage(txt);
 		this.sendMessages();
 
@@ -2344,7 +2338,7 @@ var Duel = class {
                 goodList = goodList.concat(GUNGEON_FLOORS_UNITS[this.GU_CURRENT_FLOOR]).concat([ EMOTE_GU23 ]);
                 if ((this.FIGHTER1.STR > 0 && this.FIGHTER1.guJammedBattalion) || (this.FIGHTER2.STR > 0 && this.FIGHTER2.guJammedBattalion)) goodList.push(EMOTE_GU19);
 
-                if (this.GU_CURRENT_FLOOR != FLOOR_GU1) goodList.splice(goodList.indexOf(EMOTE_GU8), 1); 
+                if (this.GU_CURRENT_FLOOR != FLOOR_GU1) goodList.splice(goodList.indexOf(EMOTE_GU8), 1);
             }
         }
 
