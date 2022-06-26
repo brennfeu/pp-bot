@@ -2091,6 +2091,14 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
             case(EMOTE_GU38):
             case(EMOTE_GU39):
             case(EMOTE_GU40):
+                if (this.guShrine == EMOTE_GU11 && this.guBeholsterList.length < 6) {
+                    this.duel.addMessage(this.getName() + " makes an offering to the " + getGungeonShrineName(EMOTE_GU11) + "!");
+                    this.guBeholsterList.push(attack);
+
+                    if (this.guBeholsterList.length >= 6) this.duel.addMessage("**Behold!**");
+                    break;
+                }
+
                 this.duel.addMessage(this.getName() + " shoots " + this.getOppName() + "!");
 
                 if (this.duel.getOppOf(this).guShrine == EMOTE_GU3) {
@@ -2134,8 +2142,8 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
 
                 this.duel.GU_NEXT_FLOOR_COUNTDOWN -= 1;
 
+                if (this.guShrine == EMOTE_GU7 && getRandomPercent() <= 10) this.playMove(attack);
                 if (this.guShrine == EMOTE_GU11 && getRandomPercent() <= 10) this.playMove(randomFromList(GUNGEON_RAID_EMOTE_LIST));
-                if (this.guShrine == EMOTE_GU12 && getRandomPercent() <= 10) this.playMove(attack);
                 break;
 
             case(EMOTE_ABILITY): // Requiems

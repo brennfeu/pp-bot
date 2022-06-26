@@ -2024,6 +2024,14 @@ var Duel = class {
 			}
 		});
 
+		// Peace Shrine
+		this.bothFightersAction(function(_fighter) {
+			if (_fighter.guShrine == EMOTE_GU6 &&
+			this.LIST_AVAILABLE_ATTACKS.filter(function(n) { return GUNGEON_RAID_EMOTE_LIST.indexOf(n) !== -1; }).length > 0) {
+				_fighter.heal(Math.floor(_fighter.STR*0.35));
+			}
+		});
+
 		var winner = this.FIGHTER2;
 		if (dexAttack1 > dexAttack2) {
 			winner = this.FIGHTER1;

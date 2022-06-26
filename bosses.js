@@ -354,6 +354,7 @@ var PPNetHiveMindBoss = class extends Boss {
         this.duel.FIGHTER2_SAVE = this.duel.FIGHTER2;
         this.duel.FIGHTER1 = new Fighter(this.duel.FIGHTER1.idUser, this.duel.BATTLE_CHANNEL.id);
         this.duel.FIGHTER2 = new Fighter(this.duel.FIGHTER2.idUser, this.duel.BATTLE_CHANNEL.id);
+        this.duel.BATTLE_MODE_SAVE = this.duel.CURRENT_BATTLE_MODE;
 
         this.duel.triggerBossFight(new PPTerminatorBoss(this.duel));
     }
@@ -379,6 +380,7 @@ var PPTerminatorBoss = class extends Boss {
 
         this.duel.FIGHTER1 = this.duel.FIGHTER1_SAVE;
         this.duel.FIGHTER2 = this.duel.FIGHTER2_SAVE;
+        this.duel.CURRENT_BATTLE_MODE = this.duel.BATTLE_MODE_SAVE;
 
         this.duel.PP_NET = 200;
     }

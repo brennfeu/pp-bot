@@ -18,6 +18,7 @@ var DLC_GUNGEON = {
         _fighter.guBattalionReaper = false;
         _fighter.guBattalionJammed = false;
         _fighter.guBattalionFast = false;
+        _fighter.guBeholsterList = [];
     }
 }
 MERGABLE_WORLDS.push(DLC_GUNGEON);
@@ -30,7 +31,7 @@ function getGungeonShrineName(_emote) {
         case EMOTE_GU4: return "Dice";
         case EMOTE_GU5: return "Angel";
         case EMOTE_GU6: return "Peace";
-        case EMOTE_GU7: return "YV";
+        case EMOTE_GU7: return "Y.V.";
         case EMOTE_GU8: return "Hero";
         case EMOTE_GU9: return "Cleanse";
         case EMOTE_GU10: return "Blood";

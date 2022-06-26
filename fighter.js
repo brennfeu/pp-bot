@@ -1663,6 +1663,12 @@ var Fighter = class {
 			}
 		}
 
+		// Beholster Shrine
+		if (this.guBeholsterList != undefined && this.guBeholsterList.length >= 6) {
+			this.duel.addMessage("-----------------");
+			this.playMove(randomFromList(this.guBeholsterList));
+		}
+
 		// Synergies
 		if (this.hasSynergy(SYNERGY_PP1)) {
 			this.duel.addMessage("-----------------");
