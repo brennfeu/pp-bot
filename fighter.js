@@ -640,9 +640,8 @@ var Fighter = class {
 
 		// SYNERGIES
 		var synergyTxt = "";
-		if (this.godList.length >= GOD_LIST.length) {
-			synergyTxt += "- *PP Harem*\n";
-		}
+        if (this.guShrine == EMOTE_GU11 && this.guBeholsterList.length >= 6) synergyTxt += "- *Behold!*\n";
+		if (this.godList.length >= GOD_LIST.length) synergyTxt += "- *PP Harem*\n";
 		else {
 			if (this.hasSynergy(SYNERGY_PP1)) {
 				synergyTxt += "- A Sad Witness\n";
