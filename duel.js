@@ -2042,7 +2042,7 @@ var Duel = class {
 
 		var priorityMoves = [ EMOTE_PP15, EMOTE_PP29, EMOTE_PP11 ]; // Hobro / Steel / Barrel
         var autoPassMoves = [ EMOTE_PP38, EMOTE_PP40, EMOTE_PP41, EMOTE_PP13, EMOTE_PP28, EMOTE_PP49, EMOTE_PP55, EMOTE_PP145, EMOTE_PP146, EMOTE_MECHA ];
-        autoPassMoves = autoPassMoves.concat(GUNGEON_SHRINE_EMOTE_LIST).concat(GUNGEON_UNIT_EMOTE_LIST);
+        autoPassMoves = autoPassMoves.concat(GUNGEON_SHRINE_EMOTE_LIST).concat(GUNGEON_UNIT_EMOTE_LIST).concat(GUNGEON_OTHER_EMOTE_LIST);
         if (this.otherFighter(winner).megaBuildUp > 0 || this.otherFighter(winner).bonusDamage > 0) autoPassMoves.push(EMOTE_PP42);
         if (this.BLIND_COUNTDOWN > 0) autoPassMoves.push(EMOTE_PP32);
         if (this.otherFighter(winner).requiemPower != null) autoPassMoves.push(EMOTE_ABILITY);
@@ -2347,6 +2347,8 @@ var Duel = class {
                 if ((this.FIGHTER1.STR > 0 && this.FIGHTER1.guJammedBattalion) || (this.FIGHTER2.STR > 0 && this.FIGHTER2.guJammedBattalion)) goodList.push(EMOTE_GU19);
 
                 if (this.GU_CURRENT_FLOOR != FLOOR_GU1) goodList.splice(goodList.indexOf(EMOTE_GU8), 1);
+                if ((this.FIGHTER1.guShrine == EMOTE_GU2 || this.FIGHTER2.guShrine == EMOTE_GU2) && getRandomPercent() <= 10) goodList = [ EMOTE_GU41 ]; // Junk
+                if (this.GU_CURRENT_FLOOR == FLOOR_GU3 && getRandomPercent() <= 5) goodList = [ EMOTE_GU42 ]; // Gnawed Key
             }
         }
 

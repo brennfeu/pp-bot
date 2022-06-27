@@ -437,6 +437,7 @@ async function sendCheatPanel(_channel, _category = null) {
         "Cheat Panel: Gungeon Battalion I": GUNGEON_SHRINE_EMOTE_LIST,
 		"Cheat Panel: Gungeon Battalion II": GUNGEON_UNIT_EMOTE_LIST,
         "Cheat Panel: Gungeon Battalion III": GUNGEON_RAID_EMOTE_LIST,
+        "Cheat Panel: Gungeon Battalion IV": GUNGEON_OTHER_EMOTE_LIST,
 		"Cheat Panel: Other": [
 			EMOTE_ABILITY, EMOTE_MECHA, EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE, EMOTE_OBAMAHEDRON, EMOTE_OBAMASPHERE,
 			EMOTE_OBOMBA, EMOTE_BOSS_ATTACK

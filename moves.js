@@ -2145,6 +2145,24 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 if (this.guShrine == EMOTE_GU7 && getRandomPercent() <= 10) this.playMove(attack);
                 if (this.guShrine == EMOTE_GU11 && getRandomPercent() <= 10) this.playMove(randomFromList(GUNGEON_RAID_EMOTE_LIST));
                 break;
+            case(EMOTE_GU41): // Junk
+                if (this.guShrine == EMOTE_GU2) {
+                    this.duel.addMessage(this.getName() + " offers Junk to the Junk Shrine.");
+                    this.duel.addMessage(this.getName() + "'s Battalion is empowered by Junk!");
+                    this.guBattalionPower += this.AET*2;
+                }
+                else {
+                    this.duel.addMessage(this.getName() + " found some junk on the ground and picks it up.");
+                }
+                break;
+            case(EMOTE_GU42): // Rat Key
+                this.duel.addMessage(this.getName() + " buys the Gnawed Key.");
+                if (this.duel.GU_CURRENT_FLOOR != FLOOR_GU3) {
+                    this.duel.addMessage("Unfortunately, it can't be used in the chamber.");
+                    break;
+                }
+                this.duel.addMessage("**TODO TODO TODO TODO TODO**");
+                break;
 
             case(EMOTE_ABILITY): // Requiems
                 if (this.requiemPower != null && this.requiemCooldown <= 0) {
