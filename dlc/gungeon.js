@@ -8,6 +8,7 @@ var DLC_GUNGEON = {
     "duelInitFunction": function(_duel) {
         _duel.GU_CURRENT_FLOOR = FLOOR_GU1;
         _duel.GU_NEXT_FLOOR_COUNTDOWN = 3+Math.floor(getRandomPercent()/25);
+        _duel.GU_BABY_SERPENT = false;
     },
 
     "fighterInitFunction": function(_fighter) {

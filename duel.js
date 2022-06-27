@@ -665,6 +665,11 @@ var Duel = class {
 				this.addMessage("**You reach the end of the Gungeon's Forge where lies the High Dragun.**");
                 this.triggerBossFight(new GungeonDragun(this));
             }
+            else if (this.GU_CURRENT_FLOOR == FLOOR_GUS3 && this.EVENT_BOSS == null) {
+                this.addMessage("-----------------");
+				this.addMessage("**The Resourceful Rat faces you, ready to fight!**");
+                this.triggerBossFight(new GungeonRat1(this));
+            }
         }
 
 		this.addMessage("**=== NEW TURN ===**", true);
@@ -2340,9 +2345,15 @@ var Duel = class {
 		if (this.PP_ARMAGEDDON || getRandomPercent() <= 3) goodList = goodList.concat(SPECIAL_EMOTE_LIST);
 
         for (var i in this.MERGED_WORLDS) {
+			if (this.MERGED_WORLDS[i] == DLC_GUNGEON &&
+				this.EVENT_BOSS != null &&
+				this.EVENT_BOSS instanceof GungeonRat3) continue; // no gungeon emotes against his punchout
+
             if (this.MERGED_WORLDS[i].emotes != undefined) goodList = goodList.concat(this.MERGED_WORLDS[i].emotes);
 
             if (this.MERGED_WORLDS[i] == DLC_GUNGEON) {
+				if (this.GU_CURRENT_FLOOR == FLOOR_GUS3) goodList = []; // only gungeon emotes in rat's lair
+
                 goodList = goodList.concat(GUNGEON_FLOORS_UNITS[this.GU_CURRENT_FLOOR]).concat([ EMOTE_GU23 ]);
                 if ((this.FIGHTER1.STR > 0 && this.FIGHTER1.guJammedBattalion) || (this.FIGHTER2.STR > 0 && this.FIGHTER2.guJammedBattalion)) goodList.push(EMOTE_GU19);
 
