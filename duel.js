@@ -573,7 +573,7 @@ var Duel = class {
 				if (this.EVENT_BLOOD_MOON) {
 					this.allFightersAction(function(_fighter) {
 						if (_fighter.STR <= 0) {
-							this.addMessage("-----------------");
+							_fighter.duel.addMessage("-----------------");
 							_fighter.DEXValue += (0 - _fighter.STR) + 10;
 							_fighter.STRValue += (0 - _fighter.STR) + 10;
 							_fighter.duel.addMessage(_fighter.getName() + " got saved thanks to the Blood Moon");
@@ -2357,8 +2357,10 @@ var Duel = class {
             if (this.MERGED_WORLDS[i] == DLC_GUNGEON) {
 				if (this.GU_CURRENT_FLOOR == FLOOR_GUS3) goodList = []; // only gungeon emotes in rat's lair
 
-                goodList = goodList.concat(GUNGEON_FLOORS_UNITS[this.GU_CURRENT_FLOOR]).concat([ EMOTE_GU23 ]);
+                goodList = goodList.concat(GUNGEON_FLOORS_UNITS[this.GU_CURRENT_FLOOR]).concat([ EMOTE_GU23 ]).concat(this.GU_BOSS_DROP_MOVES);
                 if ((this.FIGHTER1.STR > 0 && this.FIGHTER1.guJammedBattalion) || (this.FIGHTER2.STR > 0 && this.FIGHTER2.guJammedBattalion)) goodList.push(EMOTE_GU19);
+
+                if (getRandomPercent() <= 5) goodList.push(GUNGEON_OTHER_EMOTE_LIST);
 
                 if (this.GU_CURRENT_FLOOR != FLOOR_GU1) goodList.splice(goodList.indexOf(EMOTE_GU8), 1);
                 if ((this.FIGHTER1.guShrine == EMOTE_GU2 || this.FIGHTER2.guShrine == EMOTE_GU2) && getRandomPercent() <= 10) goodList = [ EMOTE_GU41 ]; // Junk

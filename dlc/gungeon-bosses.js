@@ -90,6 +90,7 @@ var GungeonRat3 = class extends Boss {
             _fighter.fullOfAmmo = true;
             _fighter.guBattalionPower += _fighter.AET*3;
         });
+        this.duel.GU_BOSS_DROP_MOVES = this.duel.GU_BOSS_DROP_MOVES.concat([ EMOTE_GU43, EMOTE_GU44, EMOTE_GU45 ]);
         this.duel.GU_BABY_SERPENT = true;
         this.duel.addMessage("-----------------");
         this.duel.GU_NEXT_FLOOR_COUNTDOWN = 3+Math.floor(getRandomPercent()/25);

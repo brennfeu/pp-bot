@@ -513,6 +513,7 @@ var WyndoeallaBoss = class extends Boss {
     triggerDeath() {
         this.duel.addMessage(this.getName() + " unleashes its true form!");
         this.duel.triggerBossFight(new WyndoeallaFinalBoss(this.duel));
+        this.duel.MOVE_COUNT += 1000;
     }
 }
 var WyndoeallaFinalBoss = class extends Boss {
@@ -533,5 +534,6 @@ var WyndoeallaFinalBoss = class extends Boss {
     triggerDeath() {
         this.duel.addMessage(this.getName() + " resurrects!");
         this.duel.triggerBossFight(new WyndoeallaFinalBoss(this.duel));
+        this.duel.MOVE_COUNT += 5000;
     }
 }

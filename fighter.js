@@ -524,9 +524,9 @@ var Fighter = class {
 
 		// STATS
 		var statsTxt = "**STR:** " + sciText(this.STR);
-		statsTxt += "    //    **DEX:** " + sciText(this.DEX);
+		statsTxt += "   //   **DEX:** " + sciText(this.DEX);
         if (this.duel.WORLD_MERGE) {
-            statsTxt += "    //    **AET:** " + sciText(this.AET);
+            statsTxt += "   //   **AET:** " + sciText(this.AET);
         }
 		if (this.dexMalus > 0) {
 			statsTxt += "\n - DEX Bonus: **" + sciText(this.dexMalus) + "**";

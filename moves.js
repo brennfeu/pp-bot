@@ -2129,6 +2129,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     this.bossKiller += 5;
                 }
                 if (attack == EMOTE_GU34) {
+                    this.duel.addMessage(this.getName() + "'s own Battalion barely survives the shot!");
                     this.guBattalionPower = 1;
                 }
                 if (attack == EMOTE_GU35) {
@@ -2152,7 +2153,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     this.guBattalionPower += this.AET*2;
                 }
                 else {
-                    this.duel.addMessage(this.getName() + " found some junk on the ground and picks it up.");
+                    this.duel.addMessage(this.getName() + " finds some junk on the ground and picks it up.");
                 }
                 break;
             case(EMOTE_GU42): // Rat Key
