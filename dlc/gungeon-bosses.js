@@ -7,7 +7,31 @@ var GungeonDragun = class extends Boss {
     }
 
     triggerDeath() {
-        this.duel.addMessage("The " + this.getName() + " roars and explodes, as his skull falls on the ground!");
+        if (this.duel.GU_BABY_SERPENT) {
+            this.duel.addMessage("The " + this.getName() + " roars and explodes, as his skull falls on the ground!");
+            super.triggerDeath();
+            this.duel.addMessage("-----------------");
+            this.duel.addMessage("**You both enter the Gungeon's final chamber.**");
+            this.duel.GU_CURRENT_FLOOR = FLOOR_GU6;
+        }
+        else {
+            this.duel.addMessage("The " + this.getName() + " eats the gun serpent, regenerating a new advanced body!");
+            this.duel.GU_BABY_SERPENT = false;
+            this.duel.addMessage("-----------------");
+            this.duel.triggerBossFight(new GungeonAdvancedDragun(this.duel));
+        }
+    }
+}
+var GungeonAdvancedDragun = class extends Boss {
+    constructor(_duel) {
+        super(_duel, "Advanced Dragun", 5200);
+        this.baseDamage = 200;
+
+        this.imageURL = "https://cdn.discordapp.com/attachments/667337519477817363/991240296950140979/unknown.png";
+    }
+
+    triggerDeath() {
+        this.duel.addMessage("The " + this.getName() + " roars and explodes!");
         super.triggerDeath();
         this.duel.addMessage("-----------------");
         this.duel.addMessage("**You both enter the Gungeon's final chamber.**");
@@ -60,6 +84,7 @@ var GungeonRat3 = class extends Boss {
 
     triggerDeath() {
         this.duel.addMessage("**The " + this.getName() + " has been defeated!**");
+        this.duel.addMessage("```Pity me, for my story is a tragedy. I was born in the hold of a tradesman's ship, where my mischief made our nest among the refuse. When the tradesman changed routes, the food they previously hauled was replaced with weaponry. I watched my brothers and sisters starve, though I vowed to protect them. So I learned to steal, from the captain's personal stores. It was sadly... not enough. My efforts to feed them only prolonged their suffering. I couldn't steal enough; it became an obsession. I knew that the end was coming. Eventually, driven mad with hunger, my mischief turned on each other. The weakest went first, but soon, the last of my kin were gone, eaten by their brethren. When the trader finally docked, I escaped his ship... and found myself here, trapped in time. I have clawed a home here from nothing. My own kingdom. But here I lie, cut down by a usurper with the pettiest of intent. Revenge? You do not know pain.. I have one last thing to ask... Take off your mask, so that I may see your face with my own eyes. ... Oh. That's... actually your face. Ha! I realize now... It seems... I never knew... True tragedy.```");
         this.duel.addMessage("You both gather some loot, and stumble upon a floating gun serpent that follows you.");
         this.duel.bothFightersAction(function(_fighter) {
             _fighter.fullOfAmmo = true;
@@ -67,8 +92,8 @@ var GungeonRat3 = class extends Boss {
         });
         this.duel.GU_BABY_SERPENT = true;
         this.duel.addMessage("-----------------");
-        this.GU_NEXT_FLOOR_COUNTDOWN = 3+Math.floor(getRandomPercent()/25);
-        this.GU_CURRENT_FLOOR = FLOOR_GU4;
+        this.duel.GU_NEXT_FLOOR_COUNTDOWN = 3+Math.floor(getRandomPercent()/25);
+        this.duel.GU_CURRENT_FLOOR = FLOOR_GU4;
         this.addMessage("**You both enter the Gungeon's next chamber.**");
     }
 }

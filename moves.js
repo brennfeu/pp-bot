@@ -2163,7 +2163,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 }
                 this.duel.addMessage("-----------------");
                 this.duel.addMessage("**You both enter a Secret Chamber.**");
-                this.GU_NEXT_FLOOR_COUNTDOWN = 3+Math.floor(getRandomPercent()/25);
+                this.duel.GU_NEXT_FLOOR_COUNTDOWN = 3+Math.floor(getRandomPercent()/25);
                 this.duel.GU_CURRENT_FLOOR = FLOOR_GUS3;
                 break;
 

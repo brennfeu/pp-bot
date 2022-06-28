@@ -726,6 +726,9 @@ var Duel = class {
 		if (this.ILLEGAL_JEWS) {
 			txt += " - Minecraft Villager are illegal!\n";
 		}
+        if (this.GU_BABY_SERPENT) {
+            txt += " - A Baby Gun Serpent follows you\n";
+        }
 		if (this.EVENT_BLOOD_MOON) {
 			txt += " - The Blood Moon is up in the sky!\n";
 		}
