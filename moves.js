@@ -2089,6 +2089,8 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
             case(EMOTE_GU39):
             case(EMOTE_GU40):
             case(EMOTE_GU45):
+            case(EMOTE_GU47):
+            case(EMOTE_GU50):
                 if (this.guShrine == EMOTE_GU11 && this.guBeholsterList.length < 6) {
                     this.duel.addMessage(this.getName() + " makes an offering to the " + getGungeonShrineName(EMOTE_GU11) + "!");
                     this.guBeholsterList.push(attack);
@@ -2144,6 +2146,8 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 }
                 if (attack == EMOTE_GU37) this.duel.getOppOf(this).guShrine = "";
                 if (attack == EMOTE_GU45) this.duel.getOppOf(this).encheesed = 3;
+                if (attack == EMOTE_GU47) this.duel.getOppOf(this).burningStacks += Math.floor(v/10);
+                if (attack == EMOTE_GU50) this.duel.getOppOf(this).burningStacks += Math.floor(v/5);
                 if (this.guShrine == EMOTE_GU13) this.DEXValue += 1;
 
                 if (this.guShrine == EMOTE_GU7 && getRandomPercent() <= 10) this.playMove(attack);

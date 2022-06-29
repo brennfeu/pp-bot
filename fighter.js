@@ -872,6 +872,9 @@ var Fighter = class {
 		if (this.meltingDamage > 0) {
 			statusTxt += displayEmote(EMOTE_PP75) + " Acid: " + this.meltingDamage + "\n";
 		}
+        if (this.burningStacks > 0) {
+			statusTxt += displayEmote(EMOTE_PP75) + " Burning Damage: " + this.burningStacks + "\n";
+		}
 		if (this.bloodBlossom > 0) {
 			statusTxt += displayEmote(GOD_PP41.emote) + " Blood Blossoms: " + this.bloodBlossom + "\n";
 		}
@@ -1517,6 +1520,18 @@ var Fighter = class {
 				this.damage(this.meltingDamage, false);
 			}
 		}
+        // Burn
+        if (this.burningStacks > 0) {
+            this.duel.addMessage("-----------------");
+			this.duel.addMessage(this.getName() + " burns!");
+			if (this.hasSynergy(SYNERGY_PP4)) {
+				this.heal(this.burningStacks);
+			}
+			else {
+				this.damage(this.burningStacks, false);
+			}
+            this.burningStacks -= 1+Math.floor(this.burningStacks*0.2);
+        }
 
 		// blood blossom
 		if (this.bloodBlossom > 0) {
@@ -1897,6 +1912,7 @@ var Fighter = class {
 		this.madnessStacks = 0;
 		this.bloodBlossom = 0;
         this.encheesed = 0;
+        this.burningStacks = 0;
 		// TODO keep up to date --> negative effects only
 	}
 }
