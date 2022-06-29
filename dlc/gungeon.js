@@ -23,6 +23,8 @@ var DLC_GUNGEON = {
         _fighter.guBeholsterList = [];
         _fighter.guResourcefulSack = false;
         _fighter.guResourcefulSackDamage = 0;
+        _fighter.guGunSoul = false;
+        _fighter.guGunSoulSTR = -1;
     }
 }
 MERGABLE_WORLDS.push(DLC_GUNGEON);
@@ -158,6 +160,8 @@ Fighter.prototype.getGungeonStatus = function() {
     if (this.guBattalionReaper) gungeonTxt += displayEmote(EMOTE_GU18) + " Reaper Battalion\n";
     // other
     if (this.guResourcefulSack) gungeonTxt += (displayEmote(EMOTE_GU43)) + " Resourceful Sack Damage: " + this.guResourcefulSackDamage + "\n";
+    if (this.guGunSoul) gungeonTxt += (displayEmote(EMOTE_GU46)) + " **Gun Soul**\n";
+    else if (this.guGunSoulSTR > -1) gungeonTxt += (displayEmote(EMOTE_GU46)) + " Gun Soul STR Requirement: " + this.guGunSoulSTR + "\n";
 
     return gungeonTxt;
 }

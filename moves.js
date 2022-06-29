@@ -58,6 +58,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 this.duel.addMessage("The Kidney Curse diminishes...");
             }
         }
+        if (GUNGEON_EMOTE_LIST.indexOf(attack) > -1) this.duel.GU_NEXT_FLOOR_COUNTDOWN -= 1;
 
         switch(attack) {
             case(EMOTE_PP1): // Punching PP
@@ -2034,8 +2035,6 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
 
                 if (attack == EMOTE_GU8) this.guBattalionJammed = true;
                 if (attack == EMOTE_GU9) this.guBattalionJammed = false;
-
-                this.duel.GU_NEXT_FLOOR_COUNTDOWN -= 1;
                 break;
             case(EMOTE_GU15): // Units
             case(EMOTE_GU16):
@@ -2080,8 +2079,6 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 if (unit.reaper) this.guBattalionReaper = true;
                 if (unit.jammed) this.guBattalionJammed = true;
                 if (unit.fast) this.guBattalionFast = true;
-
-                this.duel.GU_NEXT_FLOOR_COUNTDOWN -= 1;
                 break;
             case(EMOTE_GU33): // Guns
             case(EMOTE_GU34):
@@ -2149,8 +2146,6 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 if (attack == EMOTE_GU45) this.duel.getOppOf(this).encheesed = 3;
                 if (this.guShrine == EMOTE_GU13) this.DEXValue += 1;
 
-                this.duel.GU_NEXT_FLOOR_COUNTDOWN -= 1;
-
                 if (this.guShrine == EMOTE_GU7 && getRandomPercent() <= 10) this.playMove(attack);
                 if (this.guShrine == EMOTE_GU11 && getRandomPercent() <= 10) this.playMove(randomFromList(GUNGEON_RAID_EMOTE_LIST));
                 break;
@@ -2187,6 +2182,15 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
             case(EMOTE_GU44): // Partially Eaten Cheese
                 this.duel.addMessage(this.getName() + " turns into a wheel of cheese!");
                 break;
+            // 45 = Elimentaler, see Guns moves
+            case(EMOTE_GU46): // Gun Soul
+            if (this.guGunSoulSTR > 0) this.duel.addMessage(this.getName() + " gets back his Gun Soul!");
+            else if (!this.guGunSoul) this.duel.addMessage(this.getName() + " gets a Gun Soul!");
+            else this.duel.addMessage(this.getName() + " already has a Gun Soul.");
+
+            this.guGunSoul = true;
+            this.guGunSoulSTR = -1;
+            break;
 
             case(EMOTE_ABILITY): // Requiems
                 if (this.requiemPower != null && this.requiemCooldown <= 0) {

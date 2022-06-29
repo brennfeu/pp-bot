@@ -1735,6 +1735,14 @@ var Fighter = class {
 			}
 		}
 
+        // Gun Soul
+        if (this.guGunSoulSTR != undefined && this.guGunSoulSTR > -1 && this.STR >= this.guGunSoulSTR) {
+            this.duel.addMessage("-----------------");
+			this.duel.addMessage(this.getName() + " takes back his Gun Soul!");
+            this.guGunSoulSTR = -1;
+            this.guGunSoul = true;
+        }
+
 		// PP Armageddon
 		if (this.duel.PP_ARMAGEDDON) {
 			this.STRValue -= 5000;

@@ -7,6 +7,8 @@ var GungeonDragun = class extends Boss {
     }
 
     triggerDeath() {
+        this.duel.GU_BOSS_DROP_MOVES = this.duel.GU_BOSS_DROP_MOVES.concat([ EMOTE_GU46, EMOTE_GU47, EMOTE_GU48 ]);
+
         if (this.duel.GU_BABY_SERPENT) {
             this.duel.addMessage("The " + this.getName() + " roars and explodes, as his skull falls on the ground!");
             super.triggerDeath();
@@ -32,6 +34,7 @@ var GungeonAdvancedDragun = class extends Boss {
 
     triggerDeath() {
         this.duel.addMessage("The " + this.getName() + " roars and explodes!");
+        this.duel.GU_BOSS_DROP_MOVES = this.duel.GU_BOSS_DROP_MOVES.concat([ EMOTE_GU49, EMOTE_GU50 ]);
         super.triggerDeath();
         this.duel.addMessage("-----------------");
         this.duel.addMessage("**You both enter the Gungeon's final chamber.**");
