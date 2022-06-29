@@ -2091,6 +2091,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
             case(EMOTE_GU38):
             case(EMOTE_GU39):
             case(EMOTE_GU40):
+            case(EMOTE_GU45):
                 if (this.guShrine == EMOTE_GU11 && this.guBeholsterList.length < 6) {
                     this.duel.addMessage(this.getName() + " makes an offering to the " + getGungeonShrineName(EMOTE_GU11) + "!");
                     this.guBeholsterList.push(attack);
@@ -2118,6 +2119,14 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 if (attack == EMOTE_GU34) v += v*2;
                 if (attack == EMOTE_GU39 && getRandomPercent() <= 20) v += v;
                 if (this.guShrine == EMOTE_GU5) v += Math.floor(v*0.25);
+                if (this.guResourcefulSack) {
+                    v += this.guResourcefulSackDamage;
+                }
+                if (this.duel.getOppOf(this).guResourcefulSack) {
+                    var stolenBullets = Math.floor(v*0.1);
+                    v -= stolenBullets;
+                    this.duel.getOppOf(this).guResourcefulSackDamage += stolenBullets;
+                }
                 this.duel.getOppOf(this).damage(v);
 
                 if (this.guBattalionExplodes) {
@@ -2136,9 +2145,8 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     this.duel.addMessage(this.duel.getOppOf(this).getName() + " bleeds!");
                     this.duel.getOppOf(this).bleedDamage += Math.floor(v/10);
                 }
-                if (attack == EMOTE_GU37) {
-                    this.duel.getOppOf(this).guShrine = "";
-                }
+                if (attack == EMOTE_GU37) this.duel.getOppOf(this).guShrine = "";
+                if (attack == EMOTE_GU45) this.duel.getOppOf(this).encheesed = 3;
                 if (this.guShrine == EMOTE_GU13) this.DEXValue += 1;
 
                 this.duel.GU_NEXT_FLOOR_COUNTDOWN -= 1;
@@ -2166,6 +2174,18 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 this.duel.addMessage("**You both enter a Secret Chamber.**");
                 this.duel.GU_NEXT_FLOOR_COUNTDOWN = 3+Math.floor(getRandomPercent()/25);
                 this.duel.GU_CURRENT_FLOOR = FLOOR_GUS3;
+                break;
+            case(EMOTE_GU43): // Resourceful Sack
+                if (!this.guResourcefulSack) {
+                    this.guResourcefulSack = true;
+                    this.duel.addMessage(this.getName() + " gets the Resourceful Sack!");
+                }
+                else {
+                    this.duel.addMessage(this.getName() + " already has the Resourceful Sack.");
+                }
+                break;
+            case(EMOTE_GU44): // Partially Eaten Cheese
+                this.duel.addMessage(this.getName() + " turns into a wheel of cheese!");
                 break;
 
             case(EMOTE_ABILITY): // Requiems

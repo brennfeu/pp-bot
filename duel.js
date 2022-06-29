@@ -2048,8 +2048,8 @@ var Duel = class {
 			winner = winner.duel.otherFighter(winner);
 		}
 
-		var priorityMoves = [ EMOTE_PP15, EMOTE_PP29, EMOTE_PP11 ]; // Hobro / Steel / Barrel
-        var autoPassMoves = [ EMOTE_PP38, EMOTE_PP40, EMOTE_PP41, EMOTE_PP13, EMOTE_PP28, EMOTE_PP49, EMOTE_PP55, EMOTE_PP145, EMOTE_PP146, EMOTE_MECHA ];
+		var priorityMoves = [ EMOTE_PP15, EMOTE_PP29, EMOTE_PP11, EMOTE_GU44 ]; // Hobro / Steel / Barrel
+        var autoPassMoves = [ EMOTE_PP38, EMOTE_PP40, EMOTE_PP41, EMOTE_PP13, EMOTE_PP28, EMOTE_PP49, EMOTE_PP55, EMOTE_PP145, EMOTE_PP146, EMOTE_MECHA, EMOTE_GU33 ];
         autoPassMoves = autoPassMoves.concat(GUNGEON_SHRINE_EMOTE_LIST).concat(GUNGEON_UNIT_EMOTE_LIST).concat(GUNGEON_OTHER_EMOTE_LIST);
         if (this.otherFighter(winner).megaBuildUp > 0 || this.otherFighter(winner).bonusDamage > 0) autoPassMoves.push(EMOTE_PP42);
         if (this.BLIND_COUNTDOWN > 0) autoPassMoves.push(EMOTE_PP32);

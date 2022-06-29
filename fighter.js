@@ -430,6 +430,7 @@ var Fighter = class {
 		if (this.quickeningCharges > 0) {
 			dex += this.quickeningCharges;
 		}
+        if (this.encheesed > 0) dex -= this.encheesed*5;
 		if (this.standPower == STAND_PP1) {
 			dex += 5;
 		}
@@ -800,6 +801,9 @@ var Fighter = class {
 		}
 		if (this.selfReverseDamage > 0) {
 			statusTxt += displayEmote(EMOTE_PP15) + " Damage Reversed (for " + this.selfReverseDamage + " turns)\n";
+		}
+		if (this.encheesed > 0) {
+			statusTxt += displayEmote(EMOTE_GU44) + " Encheesed (for " + this.encheesed + " turns)\n"
 		}
 		if (this.futureMemories > 0) {
 			statusTxt += displayEmote(GOD_PP27.emote) + " Has Knowledge of the Future (of the next " + this.futureMemories + " turns)\n"
@@ -1202,10 +1206,8 @@ var Fighter = class {
 			// Drunk PP
 			this.duel.addMessage(this.getName() + " felt nothing because too drunk!");
 		}
-		else if (this.attack == EMOTE_PP10 && _punch) {
-			// Tank
-			this.duel.addMessage(this.getName() + " felt nothing!");
-		}
+		else if (this.attack == EMOTE_PP10 && _punch) this.duel.addMessage(this.getName() + " felt nothing!"); // Tank
+        else if (this.attack == EMOTE_GU44) this.duel.addMessage(this.getName() + " felt nothing!"); // Partially Eaten Cheese
 		else if (this.ironProtection > 0 && _punch) {
 			// Iron Maiden
 			this.duel.addMessage(this.getName() + " felt nothing!");
@@ -1426,6 +1428,7 @@ var Fighter = class {
 		this.satanicReverse -= 1;
 		this.turkeyCountdown -= 1;
 		this.inLove -= 1;
+        if (this.encheesed > 0) this.encheesed -= 1;
 
 		if (this.empressLightBuff && getRandomPercent() <= 50) {
 			this.duel.addMessage("-----------------");
@@ -1885,6 +1888,7 @@ var Fighter = class {
 		this.meltingDamage = 0;
 		this.madnessStacks = 0;
 		this.bloodBlossom = 0;
+        this.encheesed = 0;
 		// TODO keep up to date --> negative effects only
 	}
 }
