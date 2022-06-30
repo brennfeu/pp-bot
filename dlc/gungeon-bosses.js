@@ -14,6 +14,7 @@ var GungeonDragun = class extends Boss {
             super.triggerDeath();
             this.duel.addMessage("-----------------");
             this.duel.addMessage("**You both enter the Gungeon's final chamber.**");
+            this.duel.GU_NEXT_FLOOR_COUNTDOWN = 5+Math.floor(getRandomPercent()/10);
             this.duel.GU_CURRENT_FLOOR = FLOOR_GU6;
         }
         else {
@@ -38,7 +39,23 @@ var GungeonAdvancedDragun = class extends Boss {
         super.triggerDeath();
         this.duel.addMessage("-----------------");
         this.duel.addMessage("**You both enter the Gungeon's final chamber.**");
+        this.duel.GU_NEXT_FLOOR_COUNTDOWN = 5+Math.floor(getRandomPercent()/10);
         this.duel.GU_CURRENT_FLOOR = FLOOR_GU6;
+    }
+}
+
+var GungeonLich1 = class extends Boss {
+    constructor(_duel) {
+        super(_duel, "Lich", 6500);
+        this.baseDamage = 500;
+
+        this.imageURL = "https://cdn.discordapp.com/attachments/667337519477817363/991985124516298862/unknown.png";
+    }
+
+    triggerDeath() {
+        this.duel.addMessage("The " + this.getName() + " has been bested!");
+        this.duel.GU_BOSS_DROP_MOVES = this.duel.GU_BOSS_DROP_MOVES.concat([ EMOTE_GU51 ]);
+        super.triggerDeath();
     }
 }
 

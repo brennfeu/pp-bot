@@ -1330,6 +1330,9 @@ var Fighter = class {
 				this.playMove(EMOTE_PP51);
 				this.godList = godListMemory.slice();
 			}
+            if (this.guGrail && _punch && getRandomPercent() <= 50) { // Holey Grail
+                this.playMove(randomFromList(GUNGEON_RAID_EMOTE_LIST));
+            }
 		}
 
 		// blood blossom
@@ -1564,6 +1567,16 @@ var Fighter = class {
 			this.duel.addMessage(this.getName() + " feels holy!");
 			this.heal(Math.max(this.DEX, 10));
 		}
+        // flask
+        if (this.guFlask != undefined && this.guFlask > -1) {
+            this.guFlask -= 1;
+            if (this.guFlask <= 0) {
+    			this.duel.addMessage("-----------------");
+    			this.duel.addMessage(this.getName() + "'s Flask refills!");
+                this.heal(Math.floor(this.STR*0.35));
+                this.guFlask = 2;
+            }
+        }
 
 		// Charges
 		if (this.gettingRegularCharge == 0) {
@@ -1871,9 +1884,17 @@ var Fighter = class {
 		if (this.forcedSynergies.indexOf(_synergy) > -1) return true;
 		if (this.godList.length >= GOD_LIST.length) return true;
 
+        var hasUsedEyeBullets = false;
 		for (var i in _synergy) {
 			// _synergy[i] is a god
-			if (_synergy[i].name != undefined) { if (this.godList.indexOf(_synergy[i].name) < 0) { return false; } }
+			if (_synergy[i].name != undefined && this.godList.indexOf(_synergy[i].name) < 0) {
+                if (this.guEyeBullets && !hasUsedEyeBullets) {
+                    hasUsedEyeBullets = true;
+                }
+                else {
+                    return false;
+                }
+            }
 
 			// _synergy[i] is a god type
 			else {
@@ -1881,7 +1902,14 @@ var Fighter = class {
 				for (var j in GOD_LIST) {
 					if (this.godList.indexOf(GOD_LIST[j].name) > -1 && GOD_LIST[j].type == _synergy[i]) { hasType = true; }
 				}
-				if (!hasType) return false;
+				if (!hasType) {
+                    if (this.guEyeBullets && !hasUsedEyeBullets) {
+                        hasUsedEyeBullets = true;
+                    }
+                    else {
+                        return false;
+                    }
+                }
 			}
 		}
 		return true;

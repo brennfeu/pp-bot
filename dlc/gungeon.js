@@ -25,6 +25,9 @@ var DLC_GUNGEON = {
         _fighter.guResourcefulSackDamage = 0;
         _fighter.guGunSoul = false;
         _fighter.guGunSoulSTR = -1;
+        _fighter.guFlask = -1;
+        _fighter.guGrail = false;
+        _fighter.guEyeBullets = false;
     }
 }
 MERGABLE_WORLDS.push(DLC_GUNGEON);
@@ -159,7 +162,10 @@ Fighter.prototype.getGungeonStatus = function() {
     if (this.guBattalionJammed) gungeonTxt += displayEmote(EMOTE_GU19) + " Jammed Battalion\n";
     if (this.guBattalionReaper) gungeonTxt += displayEmote(EMOTE_GU18) + " Reaper Battalion\n";
     // other
+    if (this.guFlask > -1) gungeonTxt += (displayEmote(EMOTE_GU48)) + " Old Knight's Flask Refill in " + this.guFlask + " turns\n";
     if (this.guResourcefulSack) gungeonTxt += (displayEmote(EMOTE_GU43)) + " Resourceful Sack Damage: " + this.guResourcefulSackDamage + "\n";
+    if (this.guEyeBullets) gungeonTxt += (displayEmote(EMOTE_GU51)) + " Lich's Eye Bullets\n";
+    if (this.guGrail) gungeonTxt += (displayEmote(EMOTE_GU49)) + " Holey Grail\n";
     if (this.guGunSoul) gungeonTxt += (displayEmote(EMOTE_GU46)) + " **Gun Soul**\n";
     else if (this.guGunSoulSTR > -1) gungeonTxt += (displayEmote(EMOTE_GU46)) + " Gun Soul STR Requirement: " + this.guGunSoulSTR + "\n";
 

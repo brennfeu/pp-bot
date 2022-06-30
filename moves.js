@@ -2188,13 +2188,38 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 break;
             // 45 = Elimentaler, see Guns moves
             case(EMOTE_GU46): // Gun Soul
-            if (this.guGunSoulSTR > 0) this.duel.addMessage(this.getName() + " gets back his Gun Soul!");
-            else if (!this.guGunSoul) this.duel.addMessage(this.getName() + " gets a Gun Soul!");
-            else this.duel.addMessage(this.getName() + " already has a Gun Soul.");
+                if (this.guGunSoulSTR > 0) this.duel.addMessage(this.getName() + " gets back his Gun Soul!");
+                else if (!this.guGunSoul) this.duel.addMessage(this.getName() + " gets a Gun Soul!");
+                else this.duel.addMessage(this.getName() + " already has a Gun Soul.");
 
-            this.guGunSoul = true;
-            this.guGunSoulSTR = -1;
-            break;
+                this.guGunSoul = true;
+                this.guGunSoulSTR = -1;
+                break;
+            // 47 = Dragunfire, see Guns moves
+            case(EMOTE_GU48): // Old Knight's Flask
+                this.duel.addMessage(this.getName() + " gathers the Old Knight's Flask!");
+                this.heal(Math.floor(this.STR*0.35));
+                this.guFlask = 3;
+                break;
+            // 49 = High Dragunfire, see Guns moves
+            case(EMOTE_GU50): // Holey Grail
+                if (!this.guGrail) {
+                    this.guGrail = true;
+                    this.duel.addMessage(this.getName() + " gets the Holey Grail!");
+                }
+                else {
+                    this.duel.addMessage(this.getName() + " already has the Holey Grail.");
+                }
+                break;
+            case(EMOTE_GU51): // Lich's Eye Bullets
+                if (!this.guEyeBullets) {
+                    this.guEyeBullets = true;
+                    this.duel.addMessage(this.getName() + " gets the Lich's Eye Bullets!");
+                }
+                else {
+                    this.duel.addMessage(this.getName() + " already has the Lich's Eye Bullets.");
+                }
+                break;
 
             case(EMOTE_ABILITY): // Requiems
                 if (this.requiemPower != null && this.requiemCooldown <= 0) {

@@ -665,6 +665,11 @@ var Duel = class {
 				this.addMessage("**You reach the end of the Gungeon's Forge where lies the High Dragun.**");
                 this.triggerBossFight(new GungeonDragun(this));
             }
+            else if (this.GU_CURRENT_FLOOR == FLOOR_GU5 && this.EVENT_BOSS == null) {
+                this.addMessage("-----------------");
+				this.addMessage("**You reach the end of Bullet Hell where lies the Lich.**");
+                this.triggerBossFight(new GungeonLich1(this));
+            }
             else if (this.GU_CURRENT_FLOOR == FLOOR_GUS3 && this.EVENT_BOSS == null) {
                 this.addMessage("-----------------");
 				this.addMessage("**The Resourceful Rat faces you, ready to fight!**");
