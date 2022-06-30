@@ -12,9 +12,12 @@ eval(fs.readFileSync("moves.js").toString());
 eval(fs.readFileSync("utils.js").toString());
 eval(fs.readFileSync("db.js").toString());
 
+// DLCs
 eval(fs.readFileSync("dlc/gungeon-data.js").toString());
 eval(fs.readFileSync("dlc/gungeon-bosses.js").toString());
 eval(fs.readFileSync("dlc/gungeon.js").toString());
+
+eval(fs.readFileSync("dlc/genshin.js").toString());
 
 
 // VARIABLES
@@ -447,10 +450,10 @@ async function sendCheatPanel(_channel, _category = null) {
 		if (GOD_LIST[i].type == "normal") {
 			emotes["Cheat Panel: Gods I"].push(GOD_LIST[i].emote)
 		}
-		else if (GOD_LIST[i].type == "eldritch") {
+		else if (GOD_LIST[i].type == "waifu") {
 			emotes["Cheat Panel: Gods II"].push(GOD_LIST[i].emote)
 		}
-		else if (GOD_LIST[i].type == "waifu") {
+		else if (GOD_LIST[i].type == "eldritch") {
 			emotes["Cheat Panel: Gods III"].push(GOD_LIST[i].emote)
 		}
 	}
