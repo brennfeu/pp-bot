@@ -615,8 +615,11 @@ CLIENT.on("message", async _message => { try {
 		return;
 	}
     if (argsUser[1] == "bible") {
+        console.log()
         for (var i in BIBLE_ORDER) {
-            if (BIBLE_ORDER[i] != undefined) _message.channel.send(FULL_BIBLE[BIBLE_ORDER[i]]);
+            if (BIBLE_ORDER[i] != undefined) {
+                for (var j in FULL_BIBLE[BIBLE_ORDER[i]]) _message.channel.send(FULL_BIBLE[BIBLE_ORDER[i]][j]);
+            }
         }
 		return;
     }
