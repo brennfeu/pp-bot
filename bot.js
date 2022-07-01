@@ -607,10 +607,11 @@ CLIENT.on("message", async _message => { try {
 		sendCheatPanel(_message.channel, cat);
 		return;
 	}
-    if (argsUser[1] == "cheatpanel") {
+    if (argsUser[1] == "bible") {
         for (var i in FULL_BIBLE) {
             _message.channel.send(FULL_BIBLE[i]);
         }
+		return;
     }
 	if (argsUser[1] == "cheat" || argsUser[1] == "react") {
 		if (argsUser.length <= 1) {
