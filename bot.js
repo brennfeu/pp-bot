@@ -102,6 +102,7 @@ function checkMusicLoops() {
 		DUEL_LIST[i].setMusic(DUEL_LIST[i].getBattleTheme())
 	}
 }
+
 function checkUpdateEncyclopedia() {
  	if (LAST_ENCY_UPDATE + (300 * 60*1000) > +new Date()) {
 		return;
@@ -131,9 +132,11 @@ function checkUpdateEncyclopedia() {
 
 				if (!shouldRead && fullBible[j].includes("## ***" + encyChannels[i].topic + ":***")) { // Start
 					shouldRead = true;
+                    BIBLE_ORDER[j] = encyChannels[i].topic;
 				}
 				else if ((fullBible[j].includes("## ") || j == fullBible.length-1) && !fullBible[j].includes("### ") && shouldRead) { // End (I check the start of the next one)
 					shouldRead = false;
+                    addTextToBibleCat(encyChannels[i].topic, sciText(message));
 					if (message.trim().length > 0) encyChannels[i].send(sciText(message));
 					message = "";
 					var date = new Date();
@@ -141,7 +144,7 @@ function checkUpdateEncyclopedia() {
 				}
 				else if (shouldRead) {
 					if (message.length + fullBible[j].length > 1900) {
-                        FULL_BIBLE.push(sciText(message));
+                        addTextToBibleCat(encyChannels[i].topic, sciText(message));
 						encyChannels[i].send(sciText(message));
 						message = "";
 					}
@@ -214,6 +217,10 @@ function checkUpdateEncyclopedia() {
 		console.log(REQUIEM_HELP);
 		console.log(RELIC_HELP);
 	} );
+}
+function addTextToBibleCat(_cat, _txt) {
+    if (FULL_BIBLE[_cat] == undefined) FULL_BIBLE[_cat] = [];
+    FULL_BIBLE[_cat].push(_txt);
 }
 
 function setBotActivity(_texte = "Lonely PP Squeezing :(") {
@@ -608,8 +615,8 @@ CLIENT.on("message", async _message => { try {
 		return;
 	}
     if (argsUser[1] == "bible") {
-        for (var i in FULL_BIBLE) {
-            _message.channel.send(FULL_BIBLE[i]);
+        for (var i in BIBLE_ORDER) {
+            if (BIBLE_ORDER[i] != undefined) _message.channel.send(FULL_BIBLE[BIBLE_ORDER[i]]);
         }
 		return;
     }
