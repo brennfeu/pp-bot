@@ -107,6 +107,7 @@ function checkUpdateEncyclopedia() {
 		return;
 	}
 	LAST_ENCY_UPDATE = +new Date();
+    FULL_BIBLE = [];
 
 	var httpReq = new XMLHttpRequest(); // a new request
 	httpReq.open("GET", RAW_BIBLE_LINK, false);
@@ -140,6 +141,7 @@ function checkUpdateEncyclopedia() {
 				}
 				else if (shouldRead) {
 					if (message.length + fullBible[j].length > 1900) {
+                        FULL_BIBLE.push(sciText(message));
 						encyChannels[i].send(sciText(message));
 						message = "";
 					}
@@ -605,6 +607,11 @@ CLIENT.on("message", async _message => { try {
 		sendCheatPanel(_message.channel, cat);
 		return;
 	}
+    if (argsUser[1] == "cheatpanel") {
+        for (var i in FULL_BIBLE) {
+            _message.channel.send(FULL_BIBLE[i]);
+        }
+    }
 	if (argsUser[1] == "cheat" || argsUser[1] == "react") {
 		if (argsUser.length <= 1) {
 			return _message.reply(", please tell me the exact name of the emote you want to use.");

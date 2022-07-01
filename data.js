@@ -22,6 +22,7 @@ var EMOTE_OBOMBA = "693158300698673193";
 var EMOTE_ABILITY = "698163488551469056"
 var EMOTE_MECHA = "943254946638344262"
 
+var FULL_BIBLE = []; // loaded with the bible
 var MOVE_HELP = {}; // loaded with the bible
 var STAND_HELP = {}; // loaded with the bible
 var REQUIEM_HELP = {}; // loaded with the bible
