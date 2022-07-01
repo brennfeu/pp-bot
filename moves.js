@@ -188,7 +188,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 this.duel.getOppOf(this).bleedDamage += Math.floor(this.STR/15);
                 break;
             case(EMOTE_PP15): // Hobro
-                this.duel.addMessage(this.getName() + " reverses the damages and heals!");
+                this.duel.addMessage(this.getName() + " reverses the damage and heals!");
                 if (this.duel.REVERSE_DAMAGE < 0) {
                     this.duel.REVERSE_DAMAGE = 1;
                 }
@@ -1743,7 +1743,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     }
                     else if (subEffectId%12 == 3) {
                         value = Math.floor(this.damageTaken/10);
-                        this.duel.addMessage("**Value:** based on " + this.getName() + "'s total taken damages.");
+                        this.duel.addMessage("**Value:** based on " + this.getName() + "'s total taken damage.");
                     }
                     else if (subEffectId%12 == 4) {
                         value = Math.floor(this.usedMoves.length/2);
@@ -1763,7 +1763,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     }
                     else if (subEffectId%12 == 8) {
                         value = Math.floor(this.duel.getOppOf(this).damageTaken/10);
-                        this.duel.addMessage("**Value:** based on " + this.duel.getOppOf(this).getName() + "'s total taken damages.");
+                        this.duel.addMessage("**Value:** based on " + this.duel.getOppOf(this).getName() + "'s total taken damage.");
                     }
                     else if (subEffectId%12 == 9) {
                         value = Math.floor(this.duel.getOppOf(this).usedMoves.length/2);
@@ -1775,7 +1775,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     }
                     else {
                         value = Math.floor(this.duel.DAMAGE_COUNT/15);
-                        this.duel.addMessage("**Value:** based on total damages count.");
+                        this.duel.addMessage("**Value:** based on total damage count.");
                     }
                     value += 10;
 
@@ -2388,14 +2388,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     if (this.duel.PP_ARMAGEDDON) damage = damage*1000;
                     else if (this.duel.INFERNAL_FIRELAND) damage = damage*10;
 
-                    if (randomFighter.cthulhuShield > 0) {
-                        this.duel.addMessage(randomFighter.getName() + " reflects the damages!");
-                        randomFighter.cthulhuShield -= 1;
-                        this.damage(damage);
-                    }
-                    else {
-                        randomFighter.damage(damage, false);
-                    }
+                    randomFighter.damage(damage);
                 }
                 else {
                     this.playMove(EMOTE_PP1)

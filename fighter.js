@@ -859,7 +859,7 @@ var Fighter = class {
 			statusTxt += displayEmote(EMOTE_PP42) + " Build-Up multiplier: " + this.megaBuildUp + "\n";
 		}
 		if (this.bonusDamage > 0) {
-			statusTxt += displayEmote(EMOTE_PP42) + " Build-Up damages: " + this.bonusDamage + "\n";
+			statusTxt += displayEmote(EMOTE_PP42) + " Build-Up damage: " + this.bonusDamage + "\n";
 		}
 		if (this.bleedDamage > 0 || this.isSalty) {
 			statusTxt += displayEmote(EMOTE_PP14) + " Haemorrhage: " + this.bleedDamage;
@@ -931,7 +931,7 @@ var Fighter = class {
 			statusTxt += displayEmote(GOD_PP31.emote) + " Wearing a Kamui\n";
 		}
 		if (this.forceCritical) {
-			statusTxt += displayEmote(EMOTE_PP42) + " Ready to Inflict Critical Damages\n";
+			statusTxt += displayEmote(EMOTE_PP42) + " Ready to Inflict a Critical Hit\n";
 		}
 		if (this.flugelBlood) {
 			statusTxt += displayEmote(GOD_PP32.emote) + " Flugel Blood\n";
@@ -1165,7 +1165,7 @@ var Fighter = class {
 			if (this.duel.INFINITE_DAMAGE == 100) {
 			    this.duel.addMessage("**Damage cap achieved!**");
 			}
-			return this.duel.addMessage(_amount + " damages were canceled");
+			return this.duel.addMessage(_amount + " damage were canceled");
 		}
 		this.duel.INFINITE_DAMAGE += 1;
 
@@ -1210,6 +1210,17 @@ var Fighter = class {
 		}
 		else if (this.attack == EMOTE_PP10 && _punch) this.duel.addMessage(this.getName() + " felt nothing!"); // Tank
         else if (this.attack == EMOTE_GU44) this.duel.addMessage(this.getName() + " felt nothing!"); // Partially Eaten Cheese
+		else if (this.standPower == STAND_PP6 && getRandomPercent() <= 25 && _punch) {
+			// Sham Mirrors
+			this.duel.addMessage(this.getName() + " reflects the damage!");
+			enemyPuncher.damage(_amount);
+		}
+		else if (this.tempestBuff && _amount > 0 && getRandomPercent() >= 33 && _punch) {
+			// Tempest (Ais buff)
+			this.duel.addMessage(this.getName() + "'s Tempest protects him!");
+			enemyPuncher.damage(Math.floor(this.STR/10));
+			_amount = Math.floor(_amount/2);
+		}
 		else if (this.ironProtection > 0 && _punch) {
 			// Iron Maiden
 			this.duel.addMessage(this.getName() + " felt nothing!");
@@ -1221,20 +1232,13 @@ var Fighter = class {
 		}
 		else if (this.isProtected && _punch) {
 			// RiotShield
-			this.duel.addMessage(this.getName() + " reflects the damages!");
+			this.duel.addMessage(this.getName() + " reflects the damage!");
 			this.isProtected = false;
 			enemyPuncher.damage(_amount);
 		}
-		else if (this.standPower == STAND_PP6 && getRandomPercent() <= 25 && _punch) {
-			// Sham Mirrors
-			this.duel.addMessage(this.getName() + " reflects the damages!");
-			enemyPuncher.damage(_amount);
-		}
-		else if (this.tempestBuff && _amount > 0 && getRandomPercent() >= 33 && _punch) {
-			// Tempest (Ais buff)
-			this.duel.addMessage(this.getName() + "'s Tempest protects him!");
-			enemyPuncher.damage(Math.floor(this.STR/10));
-			_amount = Math.floor(_amount/2);
+		else if (this.cthulhuShield > 0) {
+			this.duel.addMessage(this.getName() + "'s Cthulhu Shield cancels the damage!");
+			this.cthulhuShield -= 1;
 		}
 		else {
 			if (_amount <= 0) {
@@ -1696,7 +1700,7 @@ var Fighter = class {
 		if (this.hasSynergy(SYNERGY_PP1)) {
 			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " remembers haunting memories...");
-			this.duel.addMessage("Rage makes him build up 10 damages");
+			this.duel.addMessage("Rage makes him build up 10 damage!");
 			this.bonusDamage += 10;
 		}
 		if (this.hasSynergy(SYNERGY_PP2)) {

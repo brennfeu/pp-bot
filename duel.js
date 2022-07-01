@@ -581,6 +581,10 @@ var Duel = class {
 					});
 				}
 
+				this.bothFightersAction(function(_fighter) {
+					_fighter.turnChange();
+				});
+
 				// Bosses
 				if (this.EVENT_BOSS != null) {
 					if (this.EVENT_BOSS.STR > 0) { // boss attacks
@@ -597,9 +601,6 @@ var Duel = class {
 					}
 				}
 
-				this.bothFightersAction(function(_fighter) {
-					_fighter.turnChange();
-				});
 				this.allFightersAction(function(_fighter) {
 					// Overcircumcised = immune to status effects
 					if (_fighter.isOverCircumcised) _fighter.resetBattleVariables()
@@ -711,7 +712,7 @@ var Duel = class {
 			txt += " - Kidney Curse: " + this.KIDNEY_CURSE + "\n";
 		}
 		if (this.REVERSE_DAMAGE > 0) {
-			txt += " - Damages and heals are reversed for " + this.REVERSE_DAMAGE + " turns!\n";
+			txt += " - Damage and heals are reversed for " + this.REVERSE_DAMAGE + " turns!\n";
 		}
 		if (this.GAY_TURNS > 0) {
 			txt += " - You are both gay for " + this.GAY_TURNS + " turns!\n";
