@@ -618,6 +618,7 @@ CLIENT.on("message", async _message => { try {
         console.log()
         for (var i in BIBLE_ORDER) {
             if (BIBLE_ORDER[i] != undefined) {
+                _message.channel.send("**===== " + BIBLE_ORDER[i] + " =====**");
                 for (var j in FULL_BIBLE[BIBLE_ORDER[i]]) _message.channel.send(FULL_BIBLE[BIBLE_ORDER[i]][j]);
             }
         }
