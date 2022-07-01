@@ -2150,8 +2150,8 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 if (attack == EMOTE_GU50) this.duel.getOppOf(this).burningStacks += Math.floor(v/5);
                 if (this.guShrine == EMOTE_GU13) this.DEXValue += 1;
 
-                if (this.guShrine == EMOTE_GU7 && getRandomPercent() <= 10) this.playMove(attack);
-                if (this.guShrine == EMOTE_GU11 && getRandomPercent() <= 10) this.playMove(randomFromList(GUNGEON_RAID_EMOTE_LIST));
+                if (this.guShrine == EMOTE_GU12 && getRandomPercent() <= 10) this.playMove(attack);
+                if (this.guShrine == EMOTE_GU7 && getRandomPercent() <= 10) this.playMove(randomFromList(GUNGEON_RAID_EMOTE_LIST));
                 break;
             case(EMOTE_GU41): // Junk
                 if (this.guShrine == EMOTE_GU2) {

@@ -4,6 +4,7 @@ var DLC_GUNGEON = {
     "imageURL": "https://cdn.discordapp.com/attachments/667337519477817363/988351065936265246/unknown.png",
     "statusFunction": "getGungeonStatus",
     "emotes": GUNGEON_RAID_EMOTE_LIST.concat(GUNGEON_SHRINE_EMOTE_LIST),
+    "synergies": GUNGEON_SYNERGIES,
 
     "duelInitFunction": function(_duel) {
         _duel.GU_CURRENT_FLOOR = FLOOR_GU1;

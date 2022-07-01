@@ -880,7 +880,8 @@ var Duel = class {
             if (_fighter.STR <= 0 && _fighter.guGunSoul) {
                 _fighter.duel.addMessage(_fighter.getName() + " uses his Gun Soul!");
                 _fighter.resetBattleVariables();
-                _fighter.STRValue = Math.floor(_fighter.duel.getOppOf(_fighter).STRValue*0.35);
+                if (_fighter.hasSynergy(SYNERGY_GU2)) _fighter.STRValue = Math.floor(_fighter.duel.getOppOf(_fighter).STRValue*0.7);
+                else _fighter.STRValue = Math.floor(_fighter.duel.getOppOf(_fighter).STRValue*0.35);
                 _fighter.guGunSoulSTR = _fighter.duel.getOppOf(_fighter).STR;
                 _fighter.guGunSoul = false;
             }

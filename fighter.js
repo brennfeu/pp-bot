@@ -641,7 +641,6 @@ var Fighter = class {
 
 		// SYNERGIES
 		var synergyTxt = "";
-        if (this.guShrine == EMOTE_GU11 && this.guBeholsterList.length >= 6) synergyTxt += "- *Behold!*\n";
 		if (this.godList.length >= GOD_LIST.length) synergyTxt += "- *PP Harem*\n";
 		else {
 			if (this.hasSynergy(SYNERGY_PP1)) {
@@ -1693,12 +1692,6 @@ var Fighter = class {
 			}
 		}
 
-		// Beholster Shrine
-		if (this.guBeholsterList != undefined && this.guBeholsterList.length >= 6) {
-			this.duel.addMessage("-----------------");
-			this.playMove(randomFromList(this.guBeholsterList));
-		}
-
 		// Synergies
 		if (this.hasSynergy(SYNERGY_PP1)) {
 			this.duel.addMessage("-----------------");
@@ -1730,6 +1723,10 @@ var Fighter = class {
 			}
 			this.duel.GAY_TURNS += 2;
 		}
+        if (this.hasSynergy(SYNERGY_GU1)) {
+			this.duel.addMessage("-----------------");
+			this.playMove(randomFromList(this.guBeholsterList));
+        }
 
 		if (this.randomizedStand) {
 			this.duel.addMessage("-----------------");
@@ -1881,6 +1878,15 @@ var Fighter = class {
 	}
 
 	hasSynergy(_synergy) {
+        if (_synergy == SYNERGY_GU1) {
+            if (this.guShrine == EMOTE_GU11 && this.guBeholsterList.length >= 6) return true;
+            return false;
+        }
+        else if (_synergy == SYNERGY_GU2) {
+            if (this.guGunSoul && this.guFlask > -1) return true;
+            return false;
+        }
+
 		if (this.forcedSynergies.indexOf(_synergy) > -1) return true;
 		if (this.godList.length >= GOD_LIST.length) return true;
 
