@@ -1600,8 +1600,17 @@ var Duel = class {
 			this.addMessage("They bite " + winner.getName() + "'s PP as he seems to have the toughest PP.");
 			winner.damage(Math.floor(winner.STR/10));
 		}
-		else if (randomVar == 41) { // Kaiju Attack
-		} // TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO TODO
+		else if (this.PPLEVEL > 50 && randomVar == 41) { // Jordan Dies
+			this.addMessage("**===== EVENT =====**", undefined, {embed:
+				{
+					"title": "**JORDAN DIES**",
+					"description": "Jordan dies of PP Punch. You both are somewhat responsible for it, and feel the adrenaline of someone who killed in cold blood."
+				}
+			});
+			this.allFightersAction(function(_fighter) {
+				_fighter.bossKiller += 5;
+			});
+		}
 		else if (randomVar == 42) { // Nudist Beach
 			this.addMessage("**===== EVENT =====**", undefined, {embed:
 				{
