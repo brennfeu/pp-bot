@@ -615,7 +615,18 @@ CLIENT.on("message", async _message => { try {
 		return;
 	}
     if (argsUser[1] == "bible") {
-        console.log()
+		if (argsUser.length > 1) {
+			for (var i in BIBLE_ORDER) {
+				var split = BIBLE_ORDER[i].split(" ");
+				for (var k in split) {
+					if (BIBLE_ORDER[i] != undefined && argsUser[2].toLowerCase() == split[k].toLowerCase()) {
+		                _message.channel.send("**===== " + BIBLE_ORDER[i] + " =====**");
+		                for (var j in FULL_BIBLE[BIBLE_ORDER[i]]) _message.channel.send(FULL_BIBLE[BIBLE_ORDER[i]][j]);
+						return;
+		            }
+				}
+	        }
+		}
         for (var i in BIBLE_ORDER) {
             if (BIBLE_ORDER[i] != undefined) {
                 _message.channel.send("**===== " + BIBLE_ORDER[i] + " =====**");
