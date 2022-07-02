@@ -3,16 +3,6 @@ Duel.prototype.botReacts = function() {
     var i = 0;
     var fighter = this.FIGHTER2;
 
-    if (this.AUTO_MOVES_COUNTDOWN <= 0 && !fighter.legAimer && (this.GAY_TURNS > 0 || (this.otherFighter(fighter).isPossessed > 0 && this.otherFighter(fighter).DEX > this.DEX))) {
-        var dumbMoves = [EMOTE_PP47, EMOTE_PP9, EMOTE_PP41, EMOTE_PP50];
-        for (i = 0; i < dumbMoves.length; i++) { // opponent plays garbage moves
-            if (this.LIST_AVAILABLE_ATTACKS.indexOf(dumbMoves[i]) > -1) {
-                return this.triggerReaction(CLIENT.emojis.cache.get(dumbMoves[i]).name, fighter.user);
-            }
-        }
-        return this.triggerReaction(CLIENT.emojis.cache.get(this.LIST_AVAILABLE_ATTACKS[Math.floor(Math.random()*this.LIST_AVAILABLE_ATTACKS.length)]).name, this.FIGHTER2.user);
-    }
-
     if (fighter.STR < this.otherFighter(fighter).STR && fighter.DEX < this.otherFighter(fighter).DEX && this.otherFighter(fighter).isPossessed > 0 && this.LIST_AVAILABLE_ATTACKS.indexOf(EMOTE_PP5) > -1) {
         // High Five
         return this.triggerReaction(CLIENT.emojis.cache.get(EMOTE_PP5).name, fighter.user);

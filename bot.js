@@ -626,6 +626,7 @@ CLIENT.on("message", async _message => { try {
 		            }
 				}
 	        }
+			return _message.reply(", sorry, I don't know this category. Are you sure it is spelled right?");
 		}
         for (var i in BIBLE_ORDER) {
             if (BIBLE_ORDER[i] != undefined) {
@@ -649,7 +650,7 @@ CLIENT.on("message", async _message => { try {
 		}
 
 		duel.triggerReaction(argsUser[2], _message.author);
-		return
+		return;
 	}
 	if (argsUser[1] == "training") {
 		if (getDuel(_message.channel.id) != null) {

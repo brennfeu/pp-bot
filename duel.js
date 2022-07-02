@@ -845,11 +845,6 @@ var Duel = class {
 		}
 	}
 	showMovepool() {
-		var gay = "";
-		if (this.GAY_TURNS > 0) {
-			gay = "opponent's ";
-		}
-
 		var sendEmotesFunction = function(_message2) {
 			var duel = getDuel(_message2.channel.id);
 			if (duel.MOVE_COUNT != this.moveCount) return;
@@ -865,7 +860,7 @@ var Duel = class {
 				}
 			}
 		}
-		this.BATTLE_CHANNEL.send("Choose your " + gay + "attack with a reaction!")
+		this.BATTLE_CHANNEL.send("Choose your attack with a reaction!")
 			.then(sendEmotesFunction.bind({ moveCount: this.MOVE_COUNT }))
 			.catch(function(e) { });
 	}
@@ -1831,24 +1826,7 @@ var Duel = class {
 		this.bothFightersAction(function(_fighter) {
 			var duel = _fighter.duel
 
-			if (duel.GAY_TURNS > 0 && duel.TIME_STOP <= 0) {
-				if (_user.id == _fighter.user.id) {
-					if (duel.LIST_AVAILABLE_ATTACKS.indexOf(duel.getAttackFromEmote(_emote)) < 0) {
-						duel.addMessage("Don't you know that gay people can't cheat?");
-						return duel.sendMessages();
-					}
-					else if (duel.otherFighter(_fighter).STR <= 0) {
-						// opponent dead (boss battle)
-						return;
-					}
-					else {
-						duel.otherFighter(_fighter).attack = duel.getAttackFromEmote(_emote);
-						duel.addMessage(duel.otherFighter(_fighter).getName() + ": " + _emote, true);
-						duel.sendMessages();
-					}
-				}
-			}
-			else if (_fighter.duel.TIME_STOP > 0 && _fighter.duel.TIME_STOP_ID != _fighter.idUser) { // if weak --> skip time skip
+			if (_fighter.duel.TIME_STOP > 0 && _fighter.duel.TIME_STOP_ID != _fighter.idUser) { // if weak --> skip time skip
 				return;
 			}
 			else if (_fighter.attack == EMOTE_DEAD || _fighter.attack == EMOTE_SKIP) { // no choice

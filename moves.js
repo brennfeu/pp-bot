@@ -769,7 +769,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 if (this.godList.indexOf(GOD_PP10.name) > -1) { // Fabio
                     this.duel.addMessage("-----------------");
                     this.duel.addMessage("Fabio answers his calls!");
-                    this.duel.addMessage(this.getName() + " makes you all turn gay!");
+                    this.duel.addMessage(this.getName() + " turns you gay!");
                     this.duel.GAY_TURNS = 5;
                 }
                 if (this.godList.indexOf(GOD_PP11.name) > -1) { // Country Music Brenn

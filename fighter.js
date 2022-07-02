@@ -1336,6 +1336,13 @@ var Fighter = class {
             if (this.guGrail && _punch && getRandomPercent() <= 50) { // Holey Grail
                 this.playMove(randomFromList(GUNGEON_RAID_EMOTE_LIST));
             }
+			if (_punch && enemyPuncher.hasRelic(RELIC_PP11)) this.DEXValue -= 1; // demon core
+			if (this.isAlienPP && _punch) enemyPuncher.bleedDamage += 3; // Alien PP
+			if (_punch && enemyPuncher.hasRelic(RELIC_PP3) && getRandomPercent() <= 10) { // ultimate bleach
+				this.duel.addMessage(this.getName() + " gets confused!");
+				this.grabbedPP = 2;
+			}
+			if (this.duel.GAY_TURNS > 0) this.DEXValue += Math.floor(_amount/10);
 		}
 
 		// blood blossom
@@ -1364,9 +1371,6 @@ var Fighter = class {
 		// amogus plush
 		if (this.hasRelic(RELIC_PP5) && _punch)	enemyPuncher.madnessStacks += 1;
 
-		// demon core
-		if (_punch && enemyPuncher.hasRelic(RELIC_PP11)) this.DEXValue -= 1;
-
 		// 02
 		if (this.klaxoTails && _punch) {
 			for (var i = 0; i < 8; i++) {
@@ -1377,21 +1381,11 @@ var Fighter = class {
 			}
 		}
 
-		// ultimate bleach
-		if (_punch && enemyPuncher.hasRelic(RELIC_PP3) && getRandomPercent() <= 10) {
-			this.duel.addMessage(this.getName() + " gets confused!");
-			this.grabbedPP = 2;
-		}
-
 		// DoomReverse
 		if (this.STR <= 0 && this.doomReverse >= 1) {
 			this.duel.addMessage(this.getName() + " uses DOOM-REVERSE(tm)!");
 			this.STRValue += (0 - this.STR) + 10;
 			this.doomReverse = 0;
-		}
-		// Alien PP
-		if (this.isAlienPP && _punch) {
-			enemyPuncher.bleedDamage += 3;
 		}
 
 		// Eldritch Gang
