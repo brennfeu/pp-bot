@@ -1362,10 +1362,12 @@ var Fighter = class {
 		}
 
 		// amogus plush
-		if (this.hasRelic(RELIC_PP5) && _punch) {
-			enemyPuncher.madnessStacks += 1;
-		}
+		if (this.hasRelic(RELIC_PP5) && _punch)	enemyPuncher.madnessStacks += 1;
 
+		// demon core
+		if (_punch && enemyPuncher.hasRelic(RELIC_PP11)) this.DEXValue -= 1;
+
+		// 02
 		if (this.klaxoTails && _punch) {
 			for (var i = 0; i < 8; i++) {
 				if (getRandomPercent() <= 10) {
