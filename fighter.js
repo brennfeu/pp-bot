@@ -177,26 +177,12 @@ var Fighter = class {
 			}
 		}
 		else { // Create a fighter
-			if (this.userBuild.fightingstyles.indexOf(BIG_PP_ROLE) > -1) {
-				this.isBigPP = true;
-				this.ultimatePPBuff += 1;
-			}
-			if (this.userBuild.fightingstyles.indexOf(FAST_PP_ROLE) > -1) {
-				this.isFastPP = true;
-				this.ultimatePPBuff += 1;
-			}
-			if (this.userBuild.fightingstyles.indexOf(DRUNK_PP_ROLE) > -1) {
-				this.isDrunkPP = true;
-				this.ultimatePPBuff += 1;
-			}
-			if (this.userBuild.fightingstyles.indexOf(HOCKEY_PUCK_PP_ROLE) > -1) {
-				this.isHockeyPuckPP = true;
-				this.ultimatePPBuff += 1;
-			}
-			if (this.userBuild.fightingstyles.indexOf(ALIEN_PP_ROLE) > -1) {
-				this.isAlienPP = true;
-				this.ultimatePPBuff += 1;
-			}
+            for (var i in FIGHTING_STYLE_LIST) {
+                if (this.userBuild.fightingstyles.indexOf(FIGHTING_STYLE_LIST[i].name) > -1) {
+    				this[FIGHTING_STYLE_LIST[i].fighterStatus] = true;
+    				this.ultimatePPBuff += 1;
+    			}
+            }
 
 			for (var i in GOD_LIST) {
 				if (this.userBuild.gods.indexOf(GOD_LIST[i].name) > -1) {
@@ -585,7 +571,9 @@ var Fighter = class {
 
 		// FIGHTING STYLES
 		var fightingStylesTxt = "";
-		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
+        var hasAllStyles = true;
+        for (var i in FIGHTING_STYLE_LIST) if (!this[FIGHTING_STYLE_LIST[i].fighterStatus]) hasAllStyles = false;
+		if (hasAllStyles) {
 			fightingStylesTxt += displayEmote(EMOTE_PP4) + " *Ultimate PP";
 			switch (this.ultimatePPBuff) {
 				case 5:
@@ -610,21 +598,11 @@ var Fighter = class {
 			fightingStylesTxt += "*";
 		}
 		else {
-			if (this.isBigPP) {
-				fightingStylesTxt += displayEmote(EMOTE_PP40) + " Big PP\n";
-			}
-			if (this.isFastPP) {
-				fightingStylesTxt += displayEmote(EMOTE_PP38) + " Fast PP\n";
-			}
-			if (this.isDrunkPP) {
-				fightingStylesTxt += displayEmote(EMOTE_PP41) + " Drunken PP\n";
-			}
-			if (this.isHockeyPuckPP) {
-				fightingStylesTxt += displayEmote(EMOTE_PP9) + " Hockey Puck PP\n";
-			}
-			if (this.isAlienPP) {
-				fightingStylesTxt += displayEmote(EMOTE_PP34) + " Alien PP\n";
-			}
+            for (var i in FIGHTING_STYLE_LIST) {
+                if (this[FIGHTING_STYLE_LIST[i].fighterStatus]) {
+    				fightingStylesTxt += displayEmote(FIGHTING_STYLE_LIST[i].emote) + " " + FIGHTING_STYLE_LIST[i].name + "\n";
+    			}
+            }
 		}
 		if (fightingStylesTxt != "") embedMessage.addField("Fighting Styles", sciText(fightingStylesTxt), true);
 

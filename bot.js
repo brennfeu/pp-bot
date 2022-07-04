@@ -891,36 +891,13 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => { try {
 
 	// CHANGE ROLE
 	if (_user.bot) return;
-	if (_reaction.emoji.id == EMOTE_PP38) {
-		// Fast PP
-		toggleFightingStyle(_user.id, FAST_PP_ROLE);
-		reactionChannel.send(buildToString(getPlayerBuild(_user.id)));
-		return;
-	}
-	else if (_reaction.emoji.id == EMOTE_PP40) {
-		// Big PP
-		toggleFightingStyle(_user.id, BIG_PP_ROLE);
-		reactionChannel.send(buildToString(getPlayerBuild(_user.id)));
-		return;
-	}
-	else if (_reaction.emoji.id == EMOTE_PP41) {
-		// Drunk PP
-		toggleFightingStyle(_user.id, DRUNK_PP_ROLE);
-		reactionChannel.send(buildToString(getPlayerBuild(_user.id)));
-		return;
-	}
-	else if (_reaction.emoji.id == EMOTE_PP34) {
-		// Alien PP
-		toggleFightingStyle(_user.id, ALIEN_PP_ROLE);
-		reactionChannel.send(buildToString(getPlayerBuild(_user.id)));
-		return;
-	}
-	else if (_reaction.emoji.id == EMOTE_PP9) {
-		// Hockey Puck PP
-		toggleFightingStyle(_user.id, HOCKEY_PUCK_PP_ROLE);
-		reactionChannel.send(buildToString(getPlayerBuild(_user.id)));
-		return;
-	}
+    for (var i in FIGHTING_STYLE_LIST) {
+        if (_reaction.emoji.id == FIGHTING_STYLE_LIST[i].emote) {
+            toggleFightingStyle(_user.id, FIGHTING_STYLE_LIST[i].name);
+    		reactionChannel.send(buildToString(getPlayerBuild(_user.id)));
+    		return;
+        }
+    }
 
 	// gods
 	for (var i in GOD_LIST) {

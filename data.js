@@ -1,9 +1,3 @@
-var FAST_PP_ROLE = "Fast PP";
-var BIG_PP_ROLE = "Big PP";
-var ALIEN_PP_ROLE = "Alien PP";
-var DRUNK_PP_ROLE = "Drunken PP";
-var HOCKEY_PUCK_PP_ROLE = "Hockey Puck PP";
-
 var PP_EXPERT_ROLE = "PP Expert";
 var PP_SKIPPER_ROLE = "PP Skipper";
 var WEEB_PP_ROLE = "Weeb PP";
@@ -165,6 +159,35 @@ var OTHER_EMOTE_LIST = [EMOTE_ABILITY, EMOTE_MECHA, EMOTE_FRIEDESPINOZA, EMOTE_E
 
 var EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_LIST).concat(STAND_EMOTE_LIST)
 	.concat(RARE_EMOTE_LIST).concat(INFERNAL_EMOTE_LIST).concat(OTHER_EMOTE_LIST);
+
+// STYLES
+var FAST_PP_ROLE = {
+    "name": "Fast PP",
+    "emotes": EMOTE_PP38,
+    "fighterStatus": "isFastPP"
+};
+var BIG_PP_ROLE = {
+    "name": "Big PP",
+    "emotes": EMOTE_PP40,
+    "fighterStatus": "isBigPP"
+};
+var ALIEN_PP_ROLE = {
+    "name": "Alien PP",
+    "emotes": EMOTE_PP34,
+    "fighterStatus": "isAlienPP"
+};
+var DRUNK_PP_ROLE = {
+    "name": "Drunken PP",
+    "emotes": EMOTE_PP41,
+    "fighterStatus": "isDrunkPP"
+};
+var HOCKEY_PUCK_PP_ROLE = {
+    "name": "Hockey Puck PP",
+    "emotes": EMOTE_PP9,
+    "fighterStatus": "isHockeyPuckPP"
+};
+var FIGHTING_STYLE_LIST = [ FAST_PP_ROLE, BIG_PP_ROLE, ALIEN_PP_ROLE,
+    DRUNK_PP_ROLE, HOCKEY_PUCK_PP_ROLE ];
 
 var GOD_PP1 = {"name": "Mongo", "emote": "958636274699358210", "type": "normal"};
 var GOD_PP2 = {"name": "Hermit", "emote": "958636461471711232", "type": "normal"};
