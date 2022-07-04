@@ -619,14 +619,14 @@ CLIENT.on("message", async _message => { try {
 			for (var i in BIBLE_ORDER) {
 				var split = BIBLE_ORDER[i].split(" ");
 				for (var k in split) {
-					if (BIBLE_ORDER[i] != undefined && argsUser[2].toLowerCase() == split[k].toLowerCase()) {
+					if (BIBLE_ORDER[i] != undefined && split[k] != undefined && argsUser[2].toLowerCase() == split[k].toLowerCase()) {
 		                _message.channel.send("**===== " + BIBLE_ORDER[i] + " =====**");
 		                for (var j in FULL_BIBLE[BIBLE_ORDER[i]]) _message.channel.send(FULL_BIBLE[BIBLE_ORDER[i]][j]);
 						return;
 		            }
 				}
 	        }
-			return _message.reply(", sorry, I don't know this category. Are you sure it is spelled right?");
+			return _message.reply("sorry, I don't know this category. Are you sure it's spelled right?");
 		}
         for (var i in BIBLE_ORDER) {
             if (BIBLE_ORDER[i] != undefined) {
@@ -646,7 +646,7 @@ CLIENT.on("message", async _message => { try {
 			return _message.reply(", you can only use this command during a duel.");
 		}
 		if (duel.getAttackFromEmote(argsUser[2]) == EMOTE_SKIP) {
-			return _message.reply(", sorry, I don't know this emote. Are you sure it is spelled right?");
+			return _message.reply("sorry, I don't know this emote. Are you sure it is spelled right?");
 		}
 
 		duel.triggerReaction(argsUser[2], _message.author);
