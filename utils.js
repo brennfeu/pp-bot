@@ -140,7 +140,7 @@ function fibonacciNumber(_n) {
 }
 
 function sciText(_texte) {
-    var l = _texte.toString().split(" ");
+    var l = _texte.toString().split("\n").join(" \n").split(" ");
     for (var i in l) {
         if (isNaN(l[i])) continue;
         if (l[i].includes("e")) continue; // power of 10 notation

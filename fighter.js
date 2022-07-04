@@ -233,6 +233,10 @@ var Fighter = class {
 				this.STRValue += 30;
 				this.cthulhuShield = 1;
 			}
+            if (this.destroyerOfWorlds) { // slight buff
+                this.STRValue += 30;
+                this.DEXValue += 5;
+            }
 		}
 
         for (var i in this.duel.MERGED_WORLDS) if (this.duel.MERGED_WORLDS[i].fighterInitFunction != undefined) this.duel.MERGED_WORLDS[i].fighterInitFunction(this);
@@ -722,7 +726,7 @@ var Fighter = class {
 		var statusTxt = "";
 		// special status
 		if (this.randomizedStand) {
-			statusTxt += displayEmote(EMOTE_PP49) + " **Perfect Stånd Power**\n";
+			statusTxt += displayEmote(EMOTE_PP62) + " **Perfect Stånd Power**\n";
 		}
 		if (this.hasSupplyDrops) {
 			statusTxt += displayEmote(EMOTE_PP72) + " **Supply Drops Receiver**\n";

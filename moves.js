@@ -2340,7 +2340,8 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     this.duel.addMessage(this.getName() + " is not ready to call the PP Colossus.");
                 }
                 break;
-            case(EMOTE_FRIEDESPINOZA || attack == EMOTE_ESPINOZE): // Judgement Event
+            case(EMOTE_FRIEDESPINOZA): // Judgement Event
+            case(EMOTE_ESPINOZE):
                 if (this.duel.ESPINOZA_CHOICE == attack) {
                     this.duel.addMessage(this.getName() + " guessed right! :)");
                     if (this.godList.indexOf(GOD_PP12.name) > 0) {
@@ -2348,7 +2349,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                         this.DEXValue += 10;
                     }
                     else {
-                        this.duel.addMessage("He gets Espinoza as a God!");
+                        this.duel.addMessage("Espinoza joins him!");
                         this.godList.push(GOD_PP12.name);
                     }
                 }

@@ -694,105 +694,105 @@ var Duel = class {
 
 		var txt = "**=== GLOBAL STATUS ===**\n";
 		if (this.CHECKPOINT_DUEL != null) {
-			txt += " - **Saved State**\n";
+			txt += displayEmote(EMOTE_PP49) + " **Saved State**\n";
 		}
 		if (this.BLIND_COUNTDOWN > 0) {
-			txt += " - WTF I'M FUCKING BLIND!";
+			txt += displayEmote(EMOTE_PP35) + " WTF I'M FUCKING BLIND!";
 			if (this.BLIND_COUNTDOWN < 100) {
 				txt += " (for " + this.BLIND_COUNTDOWN + " turns)";
 			}
 			txt += "\n"
 		}
 		if (this.ADDITIONAL_FIGHT > 0) {
-			txt += " - Additional Neighbourhood Battles";
+			txt += displayEmote(EMOTE_PP1) + " Additional Neighbourhood Battles";
 			for (var i = 0; i < this.ADDITIONAL_FIGHT; i++) txt += "!";
 			txt += "\n";
 		}
 		if (this.KIDNEY_CURSE > 0) {
-			txt += " - Kidney Curse: " + this.KIDNEY_CURSE + "\n";
+			txt += displayEmote(EMOTE_PP33) + " Kidney Curse: " + this.KIDNEY_CURSE + "\n";
 		}
 		if (this.REVERSE_DAMAGE > 0) {
-			txt += " - Damage and heals are reversed for " + this.REVERSE_DAMAGE + " turns!\n";
+			txt += displayEmote(EMOTE_PP15) + " Damage and heals are reversed for " + this.REVERSE_DAMAGE + " turns!\n";
 		}
 		if (this.GAY_TURNS > 0) {
-			txt += " - You are both gay for " + this.GAY_TURNS + " turns!\n";
+			txt += displayEmote(GOD_PP10.emote) + " You are both gay for " + this.GAY_TURNS + " turns!\n";
 		}
 		if (this.ATTACK_MISS_COUNTDOWN > 0) {
-			txt += " - Attacks are twice as powerful for " + this.ATTACK_MISS_COUNTDOWN + " turns!\n";
+			txt += displayEmote(EMOTE_PP54) + " Attacks are twice as powerful for " + this.ATTACK_MISS_COUNTDOWN + " turns!\n";
 		}
 		if (this.AUTO_MOVES_COUNTDOWN > 0) {
-			txt += " - Both fighters always play for " + this.AUTO_MOVES_COUNTDOWN + " turns!\n";
+			txt += displayEmote(EMOTE_PP55) + " Both fighters always play for " + this.AUTO_MOVES_COUNTDOWN + " turns!\n";
 		}
 		if (this.NUCLEAR_BOMB > 0) {
-			txt += " - The Nuclear Bomb will explode in " + this.NUCLEAR_BOMB + " turns!\n";
+			txt += displayEmote(EMOTE_PP53) + " The Nuclear Bomb will explode in " + this.NUCLEAR_BOMB + " turns!\n";
 		}
 		if (this.FORCE_EVENT) {
-			txt += " - Events will occur every turns!\n";
+			txt += displayEmote(EMOTE_PP50) + " Events will occur every turns!\n";
 		}
 		if (this.ILLEGAL_JEWS) {
-			txt += " - Minecraft Villager are illegal!\n";
+			txt += displayEmote(GOD_PP17.emote) + " Minecraft Villager are illegal!\n";
 		}
         if (this.GU_BABY_SERPENT) {
-            txt += " - A Baby Gun Serpent follows you\n";
+            txt += displayEmote(EMOTE_GU47) + " A Baby Gun Serpent follows you\n";
         }
 		if (this.EVENT_BLOOD_MOON) {
-			txt += " - The Blood Moon is up in the sky!\n";
+			txt += displayEmote(EMOTE_GU19) + " The Blood Moon is up in the sky!\n";
 		}
 		if (this.EVENT_PP_ENLIGHTENMENT) {
-			txt += " - You can use moves that aren't in this turn's movepool!\n";
+			txt += displayEmote(EMOTE_OBOMBA) + " You can use moves that aren't in this turn's movepool!\n";
 		}
 		if (this.EVENT_PP_PURGE) {
-			txt += " - Illegal moves are legal for this turn!\n";
+			txt += displayEmote(EMOTE_PP49) + " Illegal moves are legal for this turn!\n";
 		}
 		if (this.EVENT_PP_EQUALITY) {
-			txt += " - Moves have no DEX modifier for this turn!\n";
+			txt += displayEmote(EMOTE_PP3) + " Moves have no DEX modifier for this turn!\n";
 		}
 		if (this.EVENT_BOMB) {
-			txt += " - **A bomb will explode next turn!**\n";
+			txt += displayEmote(EMOTE_PP25) + " **A bomb will explode next turn!**\n";
 		}
 		if (this.REVERSED_GRAVITY) {
-			txt += " - Gravity is reversed!\n";
+			txt += displayEmote(EMOTE_PP146) + " Gravity is reversed!\n";
 		}
 		if (this.BOREAL_WORLD) {
-			txt += " - Boreal Fog is everywhere!\n";
+			txt += displayEmote(EMOTE_PP77) + " Boreal Fog is everywhere!\n";
 		}
 		if (this.STORM_COUNTDOWN > 0) {
-			txt += " - Storm Power: " + this.STORM_COUNTDOWN + "\n";
+			txt += displayEmote(EMOTE_ABILITY) + " Storm Power: " + this.STORM_COUNTDOWN + "\n";
 		}
 		if (this.DARKNESS_COUNTDOWN > 0) {
-			txt += " - Eldritch Darkness Power: " + this.DARKNESS_COUNTDOWN + "\n";
+			txt += displayEmote(EMOTE_ABILITY) + " Eldritch Darkness Power: " + this.DARKNESS_COUNTDOWN + "\n";
 		}
         if (this.THERESA_INFLUENCE > 0) {
-            txt += " - Empress Theresa Influence Level: " + this.THERESA_INFLUENCE + "\n";
+            txt += displayEmote(GOD_PP4.emote) + " Empress Theresa Influence Level: " + this.THERESA_INFLUENCE + "\n";
         }
         if (this.GU_CURRENT_FLOOR != null) {
-            txt += " - " + this.GU_CURRENT_FLOOR + "\n";
+            txt += displayEmote(EMOTE_GU15) + " " + this.GU_CURRENT_FLOOR + "\n";
         }
 		if (this.PP_NET > 0 && this.PP_NET < 200) {
-			txt += " - PP-Net Rising: Step " + this.PP_NET + "\n";
+			txt += displayEmote(EMOTE_PP11) + " PP-Net Rising: Step " + this.PP_NET + "\n";
 		}
 		if (this.POOPOO_UNIVERSE) {
-			txt += " - **ALTERNATE POOPOO UNIVERSE**\n";
+			txt += displayEmote(GOD_PP12.emote) + " **ALTERNATE POOPOO UNIVERSE**\n";
 		}
 		else if (this.ALTERNATE_MOVES) {
-			txt += " - **ALTERNATE PP UNIVERSE**\n";
+			txt += displayEmote(GOD_PP23.emote) + " **ALTERNATE PP UNIVERSE**\n";
 		}
 		if (this.INFERNAL_FIRELAND) {
-			txt += " - **INFERNAL FIRELAND**\n";
+			txt += displayEmote(randomFromList(INFERNAL_EMOTE_LIST)) + " **INFERNAL FIRELAND**\n";
 		}
 		if (this.PP_ARMAGEDDON) {
-			txt += " - **PP ARMAGEDDON**\n";
+			txt += displayEmote(randomFromList(SPECIAL_EMOTE_LIST)) + " **PP ARMAGEDDON**\n";
 		}
 		if (this.TIME_STOP > 0) {
-			txt += " - **TIME STOPPED FOR " + this.TIME_STOP + " TURNS**\n";
+			txt += displayEmote(EMOTE_ABILITY) + " **TIME STOPPED FOR " + this.TIME_STOP + " TURNS**\n";
 		}
 		else if (this.TIME_COMPRESSION > 0) {
-			txt += " - **TIME COMPRESSED FOR " + this.TIME_COMPRESSION + " TURNS**\n";
+			txt += displayEmote(EMOTE_ABILITY) + " **TIME COMPRESSED FOR " + this.TIME_COMPRESSION + " TURNS**\n";
 		}
 		if (this.TIME_BREAK > 0) {
-			txt += " - **TIME BREAKING PROBABILITY: " + this.TIME_BREAK + "%**\n";
+			txt += displayEmote(EMOTE_ABILITY) + " **TIME BREAKING PROBABILITY: " + this.TIME_BREAK + "%**\n";
 		}
-		txt += "Move Count: " + this.MOVE_COUNT;
+		txt += displayEmote(EMOTE_PP13) + " Move Count: " + this.MOVE_COUNT;
 		this.addMessage(txt);
 
 		this.bothFightersAction(function(_fighter) {
