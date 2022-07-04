@@ -22,11 +22,7 @@ var Fighter = class {
 		this.grantsKillerBlessings = 30;
 
 		// set roles
-		this.isBigPP = false;
-		this.isFastPP = false;
-		this.isDrunkPP = false;
-		this.isHockeyPuckPP = false;
-		this.isAlienPP = false;
+		for (var i in FIGHTING_STYLE_LIST) this[FIGHTING_STYLE_LIST[i].fighterStatus] = false;
 
 		this.godList = [];
 		this.standPower = _stand;
@@ -335,7 +331,7 @@ var Fighter = class {
 		if (this.hasRelic(RELIC_PP6)) {
 			str += 20;
 		}
-		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
+		if (this.hasAllStyles()) {
 			str += 50 + ((5-this.ultimatePPBuff)*10);
 		}
 		if (this.duel.INFERNAL_FIRELAND) {
@@ -445,7 +441,7 @@ var Fighter = class {
 		if (this.hasSynergy(SYNERGY_PP24)) {
 			dex += 5;
 		}
-		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
+		if (this.hasAllStyles()) {
 			dex += 50 + ((5-this.ultimatePPBuff)*10);
 		}
 		if (this.duel.PP_ARMAGEDDON) {
@@ -476,7 +472,7 @@ var Fighter = class {
         var aet = this.AETValue;
         aet += this.duel.MERGED_WORLDS.length*25;
 
-		if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
+		if (this.hasAllStyles()) {
 			aet += 50 + ((5-this.ultimatePPBuff)*10);
 		}
 
@@ -571,9 +567,7 @@ var Fighter = class {
 
 		// FIGHTING STYLES
 		var fightingStylesTxt = "";
-        var hasAllStyles = true;
-        for (var i in FIGHTING_STYLE_LIST) if (!this[FIGHTING_STYLE_LIST[i].fighterStatus]) hasAllStyles = false;
-		if (hasAllStyles) {
+		if (this.hasAllStyles()) {
 			fightingStylesTxt += displayEmote(EMOTE_PP4) + " *Ultimate PP";
 			switch (this.ultimatePPBuff) {
 				case 5:
@@ -593,6 +587,21 @@ var Fighter = class {
 					break;
 				case 0:
 					fightingStylesTxt += " V";
+					break;
+				case -1:
+					fightingStylesTxt += " VI";
+					break;
+				case -2:
+					fightingStylesTxt += " VII";
+					break;
+				case -3:
+					fightingStylesTxt += " VIII";
+					break;
+				case -4:
+					fightingStylesTxt += " IX";
+					break;
+				case -5:
+					fightingStylesTxt += " X";
 					break;
 			}
 			fightingStylesTxt += "*";
@@ -1031,6 +1040,10 @@ var Fighter = class {
 		return this.getStatusTxt().split("\n").length-1;
 	}
 
+    hasAllStyles() {
+        for (var i in FIGHTING_STYLE_LIST) if (!this[FIGHTING_STYLE_LIST[i].fighterStatus]) return false;
+        return true;
+    }
 	isReadyForColossus() {
 		if (this.ppColossusCountdown > 0 || this.ppColossus > 0) return false;
 
@@ -1280,7 +1293,8 @@ var Fighter = class {
 					this.duel.addMessage(this.getName() + " recieves Murasame's poisonous curse!");
 					this.murasameCurse = true;
 				}
-				if (this.madnessStacks > 0 && getRandomPercent() <= 10+this.madnessStacks && _punch) {
+				if ((this.madnessStacks > 0 && getRandomPercent() <= 10+this.madnessStacks && _punch) ||
+                (_punch && enemyPuncher.isScarredPP && getRandomPercent() <= 10)) {
 					this.duel.addMessage(this.getName() + " flinched!");
 					this.hasBurst = 2;
 				}

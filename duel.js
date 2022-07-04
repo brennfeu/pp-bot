@@ -126,10 +126,12 @@ var Duel = class {
 			}
 
 			// RANDOM FIGHTING STYLES
-			if (getRandomPercent() <= 10) { this.FIGHTER2.isBigPP = true; this.ultimatePPBuff += 1; }
-			if (getRandomPercent() <= 10) { this.FIGHTER2.isFastPP = true; this.ultimatePPBuff += 1; }
-			if (getRandomPercent() <= 10) { this.FIGHTER2.isDrunkPP = true; this.ultimatePPBuff += 1; }
-			if (getRandomPercent() <= 10) { this.FIGHTER2.isAlienPP = true; this.ultimatePPBuff += 1; }
+            for (var i in FIGHTING_STYLE_LIST) {
+                if (getRandomPercent() <= 10) {
+                    this.FIGHTER2[FIGHTING_STYLE_LIST[i].fighterStatus] = true;
+                    this.FIGHTER2.ultimatePPBuff += 1;
+                }
+            }
 		}
 
 		this.PPLEVEL = Math.min(getWinCounter(this.FIGHTER1.idUser), getWinCounter(this.FIGHTER2.idUser));

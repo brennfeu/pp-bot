@@ -186,8 +186,13 @@ var HOCKEY_PUCK_PP_ROLE = {
     "emote": EMOTE_PP9,
     "fighterStatus": "isHockeyPuckPP"
 };
+var SCARRED_PP_ROLE = {
+    "name": "Scarred PP",
+    "emote": EMOTE_PP14,
+    "fighterStatus": "isScarredPP"
+};
 var FIGHTING_STYLE_LIST = [ FAST_PP_ROLE, BIG_PP_ROLE, ALIEN_PP_ROLE,
-    DRUNK_PP_ROLE, HOCKEY_PUCK_PP_ROLE ];
+    DRUNK_PP_ROLE, HOCKEY_PUCK_PP_ROLE, SCARRED_PP_ROLE ];
 
 var GOD_PP1 = {"name": "Mongo", "emote": "958636274699358210", "type": "normal"};
 var GOD_PP2 = {"name": "Hermit", "emote": "958636461471711232", "type": "normal"};

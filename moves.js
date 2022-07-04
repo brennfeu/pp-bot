@@ -186,6 +186,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
             case(EMOTE_PP14): // SawBlade
                 this.duel.addMessage(this.getName() + " cuts " + this.duel.getOppOf(this).getName() + "'s PP!");
                 this.duel.getOppOf(this).bleedDamage += Math.floor(this.STR/15);
+                if (getRandomPercent() <= 10) this.duel.getOppOf(this).isScarredPP = true;
                 break;
             case(EMOTE_PP15): // Hobro
                 this.duel.addMessage(this.getName() + " reverses the damage and heals!");
@@ -616,7 +617,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 break;
             case(EMOTE_PP50): // Perhaps
                 this.duel.addMessage(this.getName() + " thinks about life and the universe...");
-                if (this.isBigPP && this.isFastPP && this.isAlienPP && this.isDrunkPP && this.isHockeyPuckPP) {
+                if (this.hasAllStyles()) {
                     var randomEvent = getRandomPercent();
                     // Events, chance at becoming god, making everything proc twice, both players getting 0 dex.
                     if (randomEvent <= 25) {

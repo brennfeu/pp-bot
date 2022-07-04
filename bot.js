@@ -744,11 +744,9 @@ CLIENT.on("message", async _message => { try {
 		var user = guild.members.cache.get(_message.author.id);
 
 		_message.reply("change your style with a reaction.").then(function (_message2) {
-			_message2.react(EMOTE_PP38); // Fast PP
-			_message2.react(EMOTE_PP40); // Big PP
-			_message2.react(EMOTE_PP9); // Hockey Puck PP
-			_message2.react(EMOTE_PP34); // Alien PP
-			_message2.react(EMOTE_PP41); // Drunk PP
+            for (var i in FIGHTING_STYLE_LIST) {
+                _message2.react(FIGHTING_STYLE_LIST[i].emote);
+            }
 		}).catch(function(e) {
 			console.log(e);
 		});
