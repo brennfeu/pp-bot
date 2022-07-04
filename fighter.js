@@ -630,7 +630,7 @@ var Fighter = class {
 
 		// STATUS
 		var statusTxt = this.getStatusTxt();
-        if (statusTxt.length > 1000) statusTxt = statusTxt.substring(0, 1000) + "...";
+        if (statusTxt.length > 1020) statusTxt = statusTxt.substring(0, 1020) + "...";
 		if (statusTxt != "") embedMessage.addField("Status", sciText(statusTxt), true);
 
         // MERGED WORLDS
@@ -638,7 +638,7 @@ var Fighter = class {
             var _function = this.duel.MERGED_WORLDS[i].statusFunction;
             if (_function != undefined) {
                 var worldTxt = sciText(this[_function]());
-                if (worldTxt.length > 1000) worldTxt = worldTxt.substring(0, 1000) + "...";
+                if (worldTxt.length > 1020) worldTxt = worldTxt.substring(0, 1020) + "...";
         		if (worldTxt != "") embedMessage.addField(this.duel.MERGED_WORLDS[i].name, sciText(worldTxt), true);
             }
         }

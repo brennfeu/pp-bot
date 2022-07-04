@@ -407,35 +407,37 @@ var Duel = class {
 			}
 		}
 
-		if (uwu) {
-			_texte = changeTextUwu(_texte);
+        if (!_texte.includes('<:')) {
+            if (uwu) {
+    			_texte = changeTextUwu(_texte);
 
-			if (this.POOPOO_UNIVERSE) {
-				_texte = changeTextPoopoo(_texte);
-			}
+    			if (this.POOPOO_UNIVERSE) {
+    				_texte = changeTextPoopoo(_texte);
+    			}
 
-			if (this.RUSSIAN_TEXT > 0 || this.POOPOO_UNIVERSE) {
-				_texte = changeTextRussian(_texte);
-			}
-			if (this.GOD_TEXT > 0 || this.POOPOO_UNIVERSE) {
-				_texte = changeTextRandomCap(_texte);
-			}
-			if (this.YES_TEXT > 0 || this.POOPOO_UNIVERSE) {
-				_texte = changeTextLeet(_texte);
-			}
-			if (this.SPOIL_TEXT > 0 || this.POOPOO_UNIVERSE) {
-				_texte = changeTextRandomSpoil(_texte);
-			}
-		}
-		if (this.CHRISTIAN_TEXT) {
-			_texte = changeTextChristian(_texte);
-		}
-		if (this.INFERNAL_FIRELAND && getRandomPercent() <= 5) {
-			_texte += "\n**IT'S AN INFERNAL FIRELAND**"
-		}
-		if (this.MESSAGE_SKIP && !_forceAppear) {
-			return;
-		}
+    			if (this.RUSSIAN_TEXT > 0 || this.POOPOO_UNIVERSE) {
+    				_texte = changeTextRussian(_texte);
+    			}
+    			if (this.GOD_TEXT > 0 || this.POOPOO_UNIVERSE) {
+    				_texte = changeTextRandomCap(_texte);
+    			}
+    			if (this.YES_TEXT > 0 || this.POOPOO_UNIVERSE) {
+    				_texte = changeTextLeet(_texte);
+    			}
+    			if (this.SPOIL_TEXT > 0 || this.POOPOO_UNIVERSE) {
+    				_texte = changeTextRandomSpoil(_texte);
+    			}
+    		}
+    		if (this.CHRISTIAN_TEXT) {
+    			_texte = changeTextChristian(_texte);
+    		}
+    		if (this.INFERNAL_FIRELAND && getRandomPercent() <= 5) {
+    			_texte += "\n**IT'S AN INFERNAL FIRELAND**"
+    		}
+        }
+
+        if (this.MESSAGE_SKIP && !_forceAppear) return;
+
 		if (this.LIST_MESSAGES.length > 0 && this.LIST_MESSAGES_OTHER[this.LIST_MESSAGES.length-1] == undefined &&
           _texte.length + this.LIST_MESSAGES[this.LIST_MESSAGES.length-1].length + "\n".length < 20*this.LIST_MESSAGES.length &&
           _texte.length + this.LIST_MESSAGES[this.LIST_MESSAGES.length-1].length + "\n".length < 2000) {
