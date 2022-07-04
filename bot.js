@@ -615,11 +615,11 @@ CLIENT.on("message", async _message => { try {
 		return;
 	}
     if (argsUser[1] == "bible") {
-		if (argsUser.length > 1) {
+		if (argsUser.length > 2) {
 			for (var i in BIBLE_ORDER) {
 				var split = BIBLE_ORDER[i].split(" ");
 				for (var k in split) {
-					if (BIBLE_ORDER[i] != undefined && split[k] != undefined && argsUser[2].toLowerCase() == split[k].toLowerCase()) {
+					if (BIBLE_ORDER[i] != undefined && argsUser[2].toLowerCase() == split[k].toLowerCase()) {
 		                _message.channel.send("**===== " + BIBLE_ORDER[i] + " =====**");
 		                for (var j in FULL_BIBLE[BIBLE_ORDER[i]]) _message.channel.send(FULL_BIBLE[BIBLE_ORDER[i]][j]);
 						return;
