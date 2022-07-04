@@ -769,7 +769,7 @@ var Duel = class {
             txt += displayEmote(EMOTE_GU15) + " " + this.GU_CURRENT_FLOOR + "\n";
         }
 		if (this.PP_NET > 0 && this.PP_NET < 200) {
-			txt += displayEmote(EMOTE_PP11) + " PP-Net Rising: Step " + this.PP_NET + "\n";
+			txt += displayEmote(GOD_PP16.emote) + " PP-Net Rising: Step " + this.PP_NET + "\n";
 		}
 		if (this.POOPOO_UNIVERSE) {
 			txt += displayEmote(GOD_PP12.emote) + " **ALTERNATE POOPOO UNIVERSE**\n";
@@ -2356,7 +2356,7 @@ var Duel = class {
             if (this.MERGED_WORLDS[i].emotes != undefined) goodList = goodList.concat(this.MERGED_WORLDS[i].emotes);
 
             if (this.MERGED_WORLDS[i] == DLC_GUNGEON) {
-				if (this.GU_CURRENT_FLOOR == FLOOR_GUS3) goodList = []; // only gungeon emotes in rat's lair
+				if (this.GU_CURRENT_FLOOR == FLOOR_GUS3) goodList = this.MERGED_WORLDS[i].emotes; // only gungeon emotes in rat's lair
 
                 goodList = goodList.concat(GUNGEON_FLOORS_UNITS[this.GU_CURRENT_FLOOR]).concat([ EMOTE_GU23 ]).concat(this.GU_BOSS_DROP_MOVES);
                 if ((this.FIGHTER1.STR > 0 && this.FIGHTER1.guJammedBattalion) || (this.FIGHTER2.STR > 0 && this.FIGHTER2.guJammedBattalion)) goodList.push(EMOTE_GU19);

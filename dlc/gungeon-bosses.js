@@ -92,7 +92,7 @@ var GungeonRat3 = class extends Boss {
         super(_duel, "Punch-Out Rat", 5000);
         this.baseDamage = 0;
 
-        this.imageURL = "https://cdn.discordapp.com/attachments/667337519477817363/991076754984665088/unknown.png";
+        this.imageURL = "https://cdn.discordapp.com/attachments/667337519477817363/991077871017664522/unknown.png";
     }
 
     selectMove() {
@@ -115,6 +115,6 @@ var GungeonRat3 = class extends Boss {
         this.duel.addMessage("-----------------");
         this.duel.GU_NEXT_FLOOR_COUNTDOWN = 3+Math.floor(getRandomPercent()/25);
         this.duel.GU_CURRENT_FLOOR = FLOOR_GU4;
-        this.addMessage("**You both enter the Gungeon's next chamber.**");
+        this.duel.addMessage("**You both enter the Gungeon's next chamber.**");
     }
 }
