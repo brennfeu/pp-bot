@@ -633,6 +633,8 @@ CLIENT.on("message", async _message => { try {
                 _message.channel.send("**===== " + BIBLE_ORDER[i] + " =====**");
                 for (var j in FULL_BIBLE[BIBLE_ORDER[i]]) _message.channel.send(FULL_BIBLE[BIBLE_ORDER[i]][j]);
             }
+            _message.channel.send("-----------------");
+            _message.channel.send("Have fun reading all that, nerd.");
         }
 		return;
     }

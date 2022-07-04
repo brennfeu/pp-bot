@@ -534,11 +534,11 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     }
 
                     var chaosNumber = getRandomPercent();
-                    if (chaosNumber >= 90) grantPlayerAchievement(this, 5);
                     var winner = this.duel.getRandomFighter();
                     if (winner.eldritchFriend) {
                         chaosNumber += 20;
                     }
+                    if (chaosNumber >= 90) grantPlayerAchievement(winner, 5);
 
                     this.duel.addMessage("He will use " + chaosNumber + "% of his power in " + winner.getName() + "!");
                     chaosNumber = Math.floor(chaosNumber/4);
