@@ -201,9 +201,8 @@ function checkUpdateEncyclopedia() {
 						}
 					}
 					else if (encyChannels[i].topic == "Stats") {
-						var cutBiblePart = fullBible[j].split(" ").join("").split("*").join("").split(".").join("").split("'").join("");
 						for (var k in FIGHTING_STYLE_LIST) {
-							if (cutBiblePart.includes(FIGHTING_STYLE_LIST[k].name)) {
+							if (fullBible[j].includes(FIGHTING_STYLE_LIST[k].name)) {
 								emote = FIGHTING_STYLE_LIST[k].emote;
 							}
 						}
