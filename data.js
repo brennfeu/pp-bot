@@ -163,27 +163,27 @@ var EMOTE_LIST = NORMAL_EMOTE_LIST.concat(GOD_EMOTE_LIST).concat(SPECIAL_EMOTE_L
 // STYLES
 var FAST_PP_ROLE = {
     "name": "Fast PP",
-    "emotes": EMOTE_PP38,
+    "emote": EMOTE_PP38,
     "fighterStatus": "isFastPP"
 };
 var BIG_PP_ROLE = {
     "name": "Big PP",
-    "emotes": EMOTE_PP40,
+    "emote": EMOTE_PP40,
     "fighterStatus": "isBigPP"
 };
 var ALIEN_PP_ROLE = {
     "name": "Alien PP",
-    "emotes": EMOTE_PP34,
+    "emote": EMOTE_PP34,
     "fighterStatus": "isAlienPP"
 };
 var DRUNK_PP_ROLE = {
     "name": "Drunken PP",
-    "emotes": EMOTE_PP41,
+    "emote": EMOTE_PP41,
     "fighterStatus": "isDrunkPP"
 };
 var HOCKEY_PUCK_PP_ROLE = {
     "name": "Hockey Puck PP",
-    "emotes": EMOTE_PP9,
+    "emote": EMOTE_PP9,
     "fighterStatus": "isHockeyPuckPP"
 };
 var FIGHTING_STYLE_LIST = [ FAST_PP_ROLE, BIG_PP_ROLE, ALIEN_PP_ROLE,
