@@ -13,10 +13,7 @@ eval(fs.readFileSync("utils.js").toString());
 eval(fs.readFileSync("db.js").toString());
 
 // DLCs
-eval(fs.readFileSync("dlc/gungeon-data.js").toString());
-eval(fs.readFileSync("dlc/gungeon-bosses.js").toString());
 eval(fs.readFileSync("dlc/gungeon.js").toString());
-
 eval(fs.readFileSync("dlc/genshin.js").toString());
 
 

@@ -1,3 +1,6 @@
+eval(fs.readFileSync("dlc/gungeon-data.js").toString());
+eval(fs.readFileSync("dlc/gungeon-bosses.js").toString());
+
 var DLC_GUNGEON = {
     "name": "Gungeon Battalion",
     "description": "On the planet Gunymede lies a terrible fortress in which you fell into. Gather forces and weapons to take down your opponent!",
