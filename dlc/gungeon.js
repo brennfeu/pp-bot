@@ -5,7 +5,6 @@ var DLC_GUNGEON = {
     "name": "Gungeon Battalion",
     "description": "On the planet Gunymede lies a terrible fortress in which you fell into. Gather forces and weapons to take down your opponent!",
     "imageURL": "https://cdn.discordapp.com/attachments/667337519477817363/988351065936265246/unknown.png",
-    "statusFunction": "getGungeonStatus",
     "emotes": GUNGEON_RAID_EMOTE_LIST.concat(GUNGEON_SHRINE_EMOTE_LIST),
     "synergies": GUNGEON_SYNERGIES,
 
@@ -16,6 +15,7 @@ var DLC_GUNGEON = {
         _duel.GU_BOSS_DROP_MOVES = [];
     },
 
+    "statusFunction": "getGungeonStatus",
     "fighterInitFunction": function(_fighter) {
         _fighter.guShrine = "";
         _fighter.guBattalionPower = 0;
