@@ -25,6 +25,8 @@ Fighter.prototype.getGenshinStatus = function() {
     var genshinTxt = "";
 
     for (var i in this.giSkillTrees) {
+        console.log(i);
+        console.log(this.giSkillTrees[i]);
         genshinTxt += displayEmote(i.skillEmote) + displayEmote(i.burstEmote) + " " + i.name + " Skills\n";
         if (this.giSkillTrees[i].skillCD > 0) genshinTxt += "- " + displayEmote(i.skillEmote) + " Skill CD: " + this.giSkillTrees[i].skillCD + "\n";
         if (this.giSkillTrees[i].burstCD > 0) genshinTxt += "- " + displayEmote(i.burstEmote) + " Burst CD: " + this.giSkillTrees[i].burstCD + "\n";
@@ -36,16 +38,16 @@ Fighter.prototype.getGenshinStatus = function() {
 Fighter.prototype.addGenshinSkillTree = function(_skillTree) {
     if (this.giSkillTrees[_skillTree] == undefined) {
         this.giSkillTrees[_skillTree] = {
-            "constellation": 1,
+            "constellation": 0,
             "skillCD": 0,
             "burstCD": 0
         };
-        return console.log(this.giSkillTrees);
+        return;
     }
 
     if (this.giSkillTrees[_skillTree].constellation < 6) {
         this.giSkillTrees[_skillTree].constellation += 1;
-        return console.log(this.giSkillTrees);
+        return;
     }
 
     // TODO new rolls
