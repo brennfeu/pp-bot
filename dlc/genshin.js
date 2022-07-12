@@ -48,6 +48,8 @@ Fighter.prototype.addGenshinSkillTree = function(_skillTree) {
         return;
     }
 
+    console.log(this.giSkillTrees);
+
     // TODO new rolls
 }
 Fighter.prototype.getGenshinAvailableFighterMoves = function() {
