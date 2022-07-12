@@ -671,6 +671,7 @@ CLIENT.on("message", async _message => { try {
 			}
             if (argsUser[2] == "test1") {
                 MERGABLE_WORLDS = [ DLC_GENSHIN ];
+                return _message.reply("Genshin Only DLC");
             }
 
 			if (getDuel(_message.channel.id) == null) {
