@@ -17,6 +17,7 @@ var DLC_GENSHIN = {
     "statusFunction": "getGenshinStatus",
     "fighterInitFunction": function(_fighter) {
         _fighter.giSkillTrees = {};
+        _fighter.giEnergy = 0;
     }
 }
 MERGABLE_WORLDS.push(DLC_GENSHIN);
@@ -26,10 +27,11 @@ Fighter.prototype.getGenshinStatus = function() {
 
     for (var i in this.giSkillTrees) {
         var char = GENSHIN_CHARACTER_LIST[i];
-        genshinTxt += displayEmote(char.skillEmote) + displayEmote(char.burstEmote) + " " + char.name + " Skills\n";
+        genshinTxt += displayEmote(char.skillEmote) + displayEmote(char.burstEmote) + " " + char.name + " Talents\n";
         if (this.giSkillTrees[i].skillCD > 0) genshinTxt += "- " + displayEmote(char.skillEmote) + " Skill CD: " + this.giSkillTrees[i].skillCD + "\n";
         if (this.giSkillTrees[i].burstCD > 0) genshinTxt += "- " + displayEmote(char.burstEmote) + " Burst CD: " + this.giSkillTrees[i].burstCD + "\n";
     }
+    if (this.giSkillTrees.length > 0 || this.giEnergy > 0) genshinTxt += " Energy: " + this.giEnergy + "\n";
 
     return genshinTxt;
 }
@@ -58,7 +60,7 @@ Fighter.prototype.getGenshinAvailableFighterMoves = function() {
     for (var i in this.giSkillTrees) {
         var char = GENSHIN_CHARACTER_LIST[i];
         if (this.giSkillTrees[i].skillCD <= 0) l.push(char.skillEmote);
-        if (this.giSkillTrees[i].burstCD <= 0) l.push(char.burstEmote);
+        if (this.giSkillTrees[i].burstCD <= 0 && this.giEnergy >= this.giSkillTrees[i].burstEnergyCost) l.push(char.burstEmote);
     }
 
     return l;

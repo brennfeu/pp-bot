@@ -21,7 +21,8 @@ var CHAR_GI1 = { name: "Hu Tao",
     skillCD: 5,
 
     burstEmote: EMOTE_GI4,
-    burstCD: 5
+    burstCD: 5,
+    burstEnergyCost: 60,
 }
 var CHAR_GI2 = { name: "Fischl",
     imageURL: "https://cdn.discordapp.com/attachments/682970589371170889/996321627807678544/Fischl.webp",
@@ -31,7 +32,8 @@ var CHAR_GI2 = { name: "Fischl",
     skillCD: 8,
 
     burstEmote: EMOTE_GI6,
-    burstCD: 5
+    burstCD: 5,
+    burstEnergyCost: 60,
 }
 var CHAR_GI3 = { name: "Amber",
     imageURL: "https://cdn.discordapp.com/attachments/667337519477817363/996343288007241829/Amber.webp",
@@ -41,7 +43,8 @@ var CHAR_GI3 = { name: "Amber",
     skillCD: 5,
 
     burstEmote: EMOTE_GI8,
-    burstCD: 4
+    burstCD: 4,
+    burstEnergyCost: 40,
 }
 // order: pyro / hydro / anemo / electro / dendro / cryo / geo
 var GENSHIN_FIVESTARS_CHARACTER_LIST = [ CHAR_GI1 ];
