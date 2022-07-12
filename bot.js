@@ -313,7 +313,7 @@ async function sendCheatPanel(_channel, _category = null) {
     for (var i in emotes) {
         if (emotes[i].length <= 20) final[i] = emotes[i];
         else {
-            var l = sliceIntoChunks(emotes[i]);
+            var l = sliceIntoChunks(emotes[i], 20);
             for (var j in l) final[i + " " + romanizeNumber(j)] = l[j];
         }
     }
