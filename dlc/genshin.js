@@ -26,9 +26,9 @@ Fighter.prototype.getGenshinStatus = function() {
 
     for (var i in this.giSkillTrees) {
         var char = GENSHIN_CHARACTER_LIST[i];
-        genshinTxt += displayEmote(i.skillEmote) + displayEmote(i.burstEmote) + " " + i.name + " Skills\n";
-        if (this.giSkillTrees[i].skillCD > 0) genshinTxt += "- " + displayEmote(i.skillEmote) + " Skill CD: " + this.giSkillTrees[i].skillCD + "\n";
-        if (this.giSkillTrees[i].burstCD > 0) genshinTxt += "- " + displayEmote(i.burstEmote) + " Burst CD: " + this.giSkillTrees[i].burstCD + "\n";
+        genshinTxt += displayEmote(char.skillEmote) + displayEmote(char.burstEmote) + " " + char.name + " Skills\n";
+        if (this.giSkillTrees[i].skillCD > 0) genshinTxt += "- " + displayEmote(char.skillEmote) + " Skill CD: " + this.giSkillTrees[i].skillCD + "\n";
+        if (this.giSkillTrees[i].burstCD > 0) genshinTxt += "- " + displayEmote(char.burstEmote) + " Burst CD: " + this.giSkillTrees[i].burstCD + "\n";
     }
 
     return genshinTxt;
