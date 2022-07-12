@@ -9,12 +9,17 @@ var DLC_GENSHIN = {
     "imageURL": "https://cdn.discordapp.com/attachments/667337519477817363/991992955940388904/genshin.jpg",
     "emotes": GENSHIN_AVAILABLE_EMOTE_LIST,
 
+    "duelInitFunction": function(_duel) {
+        _duel.GI_BANNER_CHAR = null;
+        _duel.newGenshinBanner();
+    },
+
     "statusFunction": "getGenshinStatus",
     "fighterInitFunction": function(_fighter) {
         _fighter.giSkillTrees = {};
     }
 }
-//MERGABLE_WORLDS.push(DLC_GENSHIN);
+MERGABLE_WORLDS.push(DLC_GENSHIN);
 
 Fighter.prototype.getGenshinStatus = function() {
     var genshinTxt = "";

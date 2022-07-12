@@ -409,7 +409,7 @@ var Duel = class {
 			}
 		}
 
-        if (!_texte.includes('<:')) {
+        if (!_texte.includes('<:') && !_texte.includes('cdn.discordapp')) {
             if (uwu) {
     			_texte = changeTextUwu(_texte);
 

@@ -2222,6 +2222,15 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 }
                 break;
 
+            case(EMOTE_GI1):
+                this.duel.addMessage(this.getName() + " wishes to meet the fated under the stars!");
+                this.genshinRoll();
+                break;
+            case(EMOTE_GI2):
+                this.duel.addMessage(this.getName() + " wishes to entwine fates and connect dreams, just as how its glimmer links stars into the shapes of a heart's desires!");
+                this.genshinRoll();
+                break;
+
             case(EMOTE_ABILITY): // Requiems
                 if (this.requiemPower != null && this.requiemCooldown <= 0) {
                     this.MOVE_COUNT += 999
