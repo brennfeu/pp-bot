@@ -349,7 +349,7 @@ function cloneObject(obj) {
 	}
 
 	// Handle Object
-	if (obj instanceof Fighter || obj instanceof Duel) {
+	if (obj instanceof Fighter || obj instanceof Duel || obj instanceof GenshinElementManager) {
 		var copy = new obj.constructor();
 		for (var attr in obj) {
 			if (obj.hasOwnProperty(attr)){

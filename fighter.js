@@ -20,6 +20,7 @@ var Fighter = class {
 		this.damageTaken = 0;
 		this.pushedDamages = 0;
 		this.grantsKillerBlessings = 30;
+		this.lastPuncher = null;
 
 		// set roles
 		for (var i in FIGHTING_STYLE_LIST) this[FIGHTING_STYLE_LIST[i].fighterStatus] = false;
@@ -1017,7 +1018,9 @@ var Fighter = class {
 	}
 
 	heal(_amount) {
+		_amount = Math.floor(_amount);
 		_amount += this.quickeningCharges*3;
+
 		if (this.duel.AREA == AREA_PP10) {
 			_amount += Math.floor(_amount/2);
 		}
@@ -1041,185 +1044,238 @@ var Fighter = class {
 		}
 	}
 
-	damage(_amount, _punch = true, _enemyPuncher = this.duel.LAST_FIGHTER_TO_USE_A_MOVE) {
+	attack(_fighter, _amount, _options = {}) {
+		// madness
+		if (_fighter != this && getRandomPercent() <= this.madnessStacks*3) {
+			this.duel.addMessage(this.getName() + " hits himself in his madness!");
+			return this.attack(_amount);
+		}
+
 		var ogAmount = _amount;
-		var enemyPuncher = _enemyPuncher;
-		if (enemyPuncher == null || enemyPuncher.idUser == this.idUser) enemyPuncher = this.duel.getOppOf(this);
 
-		// value += x
-		if (_punch) {
-			_amount += enemyPuncher.quickeningCharges*3;
+		// damage divisions
+		// NONE
 
-			_amount += enemyPuncher.bonusDamage;
-			enemyPuncher.bonusDamage = 0;
+		// damage additions
+		_amount += this.quickeningCharges*3;
+		_amount += this.bonusDamage; this.bonusDamage = 0;
+		if (this.boneHelm) { var boneHelmBleed = _amount*0.1; _amount -= boneHelmBleed; }
+		if (this.kungFu) _amount += 10; // signpost
+		if (this.huTaoBuff > 0) _amount += enemyPuncher.STR/20;
+		if (this.flugelBlood && this.DEX > _fighter.DEX) _amount += this.DEX - _fighter.DEX; // jibril
+		if (this.hasSynergy(SYNERGY_PP16) && _punch) _amount += 10; // Too Much Dick
+
+		// damage multiplications
+		if (this.megaBuildUp > 0) { // Bronan Slam
+			_amount = _amount*this.megaBuildUp;
+			this.megaBuildUp = 0;
 		}
-        if (enemyPuncher.boneHelm && _punch) {
-            var boneHelmBleed = Math.floor(_amount*0.1);
-            _amount -= boneHelmBleed;
-        }
-		if (enemyPuncher.kungFu && _punch) {
-			// Signpost
-			_amount += 10;
-		}
-		if (enemyPuncher.huTaoBuff > 0 && _punch) {
-			_amount += Math.floor(enemyPuncher.STR/20);
-		}
-		if (enemyPuncher.flugelBlood && enemyPuncher.DEX > this.DEX && _punch) {
-			// Jibril Special
-			_amount += enemyPuncher.DEX - this.DEX;
-		}
-		// value multiplicators
-		if (this.duel.STEEL_PROTECTION) {
-			// Steel
-			_amount -= Math.floor(_amount/10*9);
-		}
-		if (this.duel.AREA == AREA_PP10) {
-			_amount += Math.floor(_amount/2);
-		}
-		if (enemyPuncher.hasSynergy(SYNERGY_PP16) && _punch) {
-			// Too Much Dicks
-			_amount += 10;
-		}
-		if (this.duel.ATTACK_MISS_COUNTDOWN > 0 && getRandomPercent() < 90) {
-			// Boom Loop
+		if (this.iceWeapon) { // unused?
 			_amount += _amount;
-		}
-		if (this.duel.BARREL_DAMAGE) {
-			// Barrel
-			_amount = _amount*2;
-		}
-		if (enemyPuncher.megaBuildUp > 0 && _punch) {
-			// Bronan Slam
-			_amount = _amount*enemyPuncher.megaBuildUp;
-			enemyPuncher.megaBuildUp = 0;
-		}
-		if (enemyPuncher.iceWeapon && _punch) {
-			_amount += _amount;
-			this.duel.addMessage(enemyPuncher.getName() + "'s Magic Ice Weapon breaks on " + this.getName() + "!");
+			this.duel.addMessage(this.getName() + "'s Magic Ice Weapon breaks on " + fighter.getName() + "!");
 			enemyPuncher.iceWeapon = false;
 		}
-		if (enemyPuncher.standPower == STAND_PP16 && enemyPuncher.STR <= 15 && _punch) {
-			// Virus
+		if (this.standPower == STAND_PP16 && this.STR <= 15) { // Virus
 			this.duel.addMessage("Virus effect triggers!");
 			_amount = _amount*100;
 		}
-		if (enemyPuncher.hasRelic(RELIC_PP8) && getRandomPercent() <= 25) {
-			this.duel.addMessage("Door Bro guides " + enemyPuncher.getName() + "'s attack!");
-			_amount += Math.floor(_amount/2);
-		}
-		// value -= x
-		if (this.hasRelic(RELIC_PP10) && _punch) {
-			_amount -= Math.floor(_amount*0.15);
-		}
-		if (this.standPower == STAND_PP1 && _punch) {
-			// Iron Maiden
-			_amount -= 10;
-		}
-		if (this.hasSynergy(SYNERGY_PP12) && _punch) {
-			// Waifu Body Pillow
-			_amount -= 10;
+		if (this.hasRelic(RELIC_PP8) && getRandomPercent() <= 25) { // door bro
+			this.duel.addMessage("Door Bro guides " + this.getName() + "'s attack!");
+			_amount += _amount/2;
 		}
 
-		if (this.duel.INFINITE_DAMAGE >= 100) {
-			if (this.duel.INFINITE_DAMAGE == 100) {
-			    this.duel.addMessage("**Damage cap achieved!**");
-			}
-			return this.duel.addMessage(_amount + " damage were canceled");
-		}
-		this.duel.INFINITE_DAMAGE += 1;
+		// damage reduction
+		if (_fighter.hasRelic(RELIC_PP10)) _amount -= _amount*0.15; // Senjougahara Figure
+		if (_fighter.standPower == STAND_PP1) _amount -= 10; // Iron Maiden
+		if (_fighter.hasSynergy(SYNERGY_PP12)) _amount -= 10; // Waifu Body Pillows
 
 		// crit
 		var critMin = 5;
-		if (enemyPuncher.kungFu) critMin += 15;
-		if (enemyPuncher.hasRelic(RELIC_PP6)) critMin += 10;
 		critMin += this.lifeFibers*5;
-		if (_punch && (getRandomPercent() < critMin || enemyPuncher.forceCritical)) {
+		if (this.kungFu) critMin += 15;
+		if (this.hasRelic(RELIC_PP6)) critMin += 10;
+		if (getRandomPercent() < critMin || this.forceCritical) {
 			_amount += _amount;
-			enemyPuncher.forceCritical = false;
 			this.duel.addMessage("**Critical Hit!**");
 
-			if (this.hasSynergy(SYNERGY_PP22)) {
-				this.forceCritical = true;
+			if (_fighter.hasSynergy(SYNERGY_PP22)) _fighter.forceCritical = true;
+			this.forceCritical = false;
+		}
+
+		if (this.duel.TIME_STOP > 0) {
+			if (_amount > 0) _fighter.pushedDamages += _amount;
+			return true;
+		}
+		else if (_fighter.attack == EMOTE_PP10 && _punch) { // Tank
+			this.duel.addMessage(_fighter.getName() + " felt nothing!");
+			return false;
+		}
+        else if (_fighter.attack == EMOTE_GU44) { // Partially Eaten Cheese
+			this.duel.addMessage(_fighter.getName() + " felt nothing!");
+			return false;
+		}
+		else if (_fighter.standPower == STAND_PP6 && getRandomPercent() <= 25) { // Sham Mirrors
+			this.duel.addMessage(_fighter.getName() + " reflects the damage!");
+			_fighter.attack(this, _amount, _options);
+			return false;
+		}
+		else if (_fighter.satanicReverse > 0) { // BigSatan Alternative Move
+			this.duel.addMessage(_fighter.getName() + "'s satanic rite protects him!");
+			_fighter.attack(this, _amount, _options);
+			return false;
+		}
+		else if (this.tempestBuff && _amount > 0 && getRandomPercent() >= 33) { // Tempest (Ais buff)
+			this.duel.addMessage(_fighter.getName() + "'s Tempest protects him!");
+			_fighter.attack(this, _fighter.STR/10);
+			return false;
+		}
+		else if (this.isProtected) { // RiotShield
+			this.duel.addMessage(_fighter.getName() + " reflects the damage!");
+			_fighter.isProtected = false;
+			_fighter.attack(this, _amount, _options);
+			return false;
+		}
+		else if (_fighter.cuteFishron && _fighter.STR <= _amount) {
+			this.duel.addMessage("Cute Fishron takes the attacks for " + _fighter.getName() + "!");
+			this.duel.addMessage("He dies in an horrible and painful death...");
+			_fighter.cuteFishron = false;
+			return false;
+		}
+
+		// options
+		_options["puncher"] = this;
+		if (this.boneGlove) _options["boneGlove"] = true;
+
+		var success = _fighter.damage(_amount, _options);
+		if (!success) return false;
+
+		// attacker effects
+		if (this.standPower == STAND_PP12) _fighter.meltingDamage += 2; // Space Metal
+		if (this.standPower == STAND_PP13) _fighter.madnessStacks += 1; // The Scythe of Cosmic Chaos
+		if (this.standPower == STAND_PP17) this.heal(10); // Titans of Creation
+		if (this.akameKill > 0) {
+			this.duel.addMessage(_fighter.getName() + " recieves Murasame's poisonous curse!");
+			_fighter.murasameCurse = true;
+		}
+		if (this.boneHelm) {
+			this.duel.addMessage(_fighter.getName() + " takes " + Math.floor(boneHelmBleed) + " bleed stacks!");
+			_fighter.bleedDamage += Math.floor(boneHelmBleed);
+		}
+		if (this.standPower == STAND_PP4) this.heal(_amount/3); // Above the Light
+		if (this.standPower == STAND_PP11 && _amount >= 30) { // Refuge Denied
+			this.heal(30);
+			this.DEXValue += 10;
+			this.duel.addMessage(this.getName() + " gets 10 DEX!");
+		}
+		if (this.hasRelic(RELIC_PP11)) _fighter.DEXValue -= 1; // demon core
+		if (this.hasRelic(RELIC_PP3) && getRandomPercent() <= 10) { // ultimate bleach
+			this.duel.addMessage(_fighter.getName() + " gets confused!");
+			_fighter.grabbedPP = 2;
+		}
+		if (this.huTaoBuff > 0) { // blood blossom
+			this.duel.addMessage(_fighter.getName() + " gets a blood blossom stack!");
+			_fighter.bloodBlossom += 1;
+		}
+		if (this.hasSynergy(SYNERGY_PP19) && getRandomPercent() <= 10) { // Eldritch Gang
+			this.duel.addMessage(this.getName() + "'s attack happens again!");
+			this.attack(_fighter, ogAmount, _options);
+		}
+
+		// victim effects
+		if ((_fighter.madnessStacks > 0 && getRandomPercent() <= 10+_fighter.madnessStacks) ||
+		(this.isScarredPP && getRandomPercent() <= 10)) { // flinch
+			this.duel.addMessage(_fighter.getName() + " flinched!");
+			_fighter.hasBurst = 2;
+		}
+		if (_fighter.isAlienPP && _punch) this.bleedDamage += 3; // Alien PP
+		if (_fighter.hasRelic(RELIC_PP5)) this.madnessStacks += 1; // amogus plush
+		if (this.duel.GAY_TURNS > 0) _fighter.DEXValue += Math.floor(_amount/10); // gay turns
+		if (_fighter.standPower == STAND_PP20 && getRandomPercent() <= 25) { // Metal Resistance
+			var godListMemory = _fighter.godList.slice();
+			_fighter.godList = []
+
+			var randomGod = randomFromList(GOD_LIST);
+			while (randomGod.type != "waifu") {
+				randomGod = randomFromList(GOD_LIST);
+			}
+			_fighter.godList.push(randomGod.name);
+			_fighter.playMove(EMOTE_PP51);
+
+			_fighter.godList = godListMemory.slice();
+		}
+		if (_fighter.guGrail && getRandomPercent() <= 50) _fighter.playMove(randomFromList(GUNGEON_RAID_EMOTE_LIST)); // Holey Grail
+		if (_fighter.acidArmor >= 1) { // Acid
+			this.duel.addMessage(_fighter.getName() + "'s acid armor hurts " + enemyPuncher.getName() + "!");
+			if (_fighter.sporeSac) enemyPuncher.attack(this, _amount/4, false);
+			else enemyPuncher.attack(this, _amount/10, false);
+		}
+		if (_fighter.klaxoTails) { // 02
+			for (var i = 0; i < 8; i++) {
+				if (getRandomPercent() <= 10) {
+					this.duel.addMessage(_fighter.getName() + "'s tail #" + (i+1) + " attacks back!");
+					_fighter.attack(this, this.STR/10);
+				}
 			}
 		}
 
-		if (getRandomPercent() <= enemyPuncher.madnessStacks*3 && _punch) { // Scythe of Cosmic Chaos
-			// The Scythe of Cosmic Chaos
-			this.duel.addMessage(enemyPuncher.getName() + " hits himself in his madness!");
-			enemyPuncher.damage(_amount, false)
+		return true;
+	}
+	damage(_amount, _options = {}) {
+		// prevent infinite damage
+		this.duel.INFINITE_DAMAGE += 1;
+		if (this.duel.INFINITE_DAMAGE >= 100) {
+			if (this.duel.INFINITE_DAMAGE == 100) this.duel.addMessage("**Damage cap achieved!**");
 			return;
 		}
-		else if (this.duel.REVERSE_DAMAGE > 0 || this.selfReverseDamage > 0) {
+
+		// damage divisions
+		if (this.duel.STEEL_PROTECTION) _amount -= _amount/10*9;
+		if (this.duel.AREA == AREA_PP10) _amount += _amount/2;
+
+		// damage additions
+		// NONE
+
+		// damage multiplications
+		if (this.duel.ATTACK_MISS_COUNTDOWN > 0 && getRandomPercent() < 90) _amount += _amount;
+		if (this.duel.BARREL_DAMAGE) _amount = _amount*2;
+
+		// damage reduction
+		// NONE
+
+		if (this.duel.REVERSE_DAMAGE > 0 || this.selfReverseDamage > 0) {
+			_amount = Math.floor(_amount);
 			this.STRValue += _amount;
-			this.duel.addMessage(this.getName() + " gets healed by " + _amount + " HP");
-			if (_amount == 69) {
-				this.duel.addMessage("nice!");
-			}
-			return;
+			this.duel.addMessage(this.getName() + " heals " + _amount + " HP");
+			return true;
 		}
-		else if (this.duel.TIME_STOP > 0 && _punch) {
-			if (_amount > 0) {
-				this.pushedDamages += _amount;
-			}
-			return;
-		}
-		else if (this.isDrunkPP && getRandomPercent() < 50) {
-			// Drunk PP
+		else if (this.isDrunkPP && getRandomPercent() < 50) { // Drunk PP
 			this.duel.addMessage(this.getName() + " felt nothing because too drunk!");
+			return false;
 		}
-		else if (this.attack == EMOTE_PP10 && _punch) this.duel.addMessage(this.getName() + " felt nothing!"); // Tank
-        else if (this.attack == EMOTE_GU44) this.duel.addMessage(this.getName() + " felt nothing!"); // Partially Eaten Cheese
-		else if (this.standPower == STAND_PP6 && getRandomPercent() <= 25 && _punch) {
-			// Sham Mirrors
-			this.duel.addMessage(this.getName() + " reflects the damage!");
-			enemyPuncher.damage(_amount);
-		}
-		else if (this.tempestBuff && _amount > 0 && getRandomPercent() >= 33 && _punch) {
-			// Tempest (Ais buff)
-			this.duel.addMessage(this.getName() + "'s Tempest protects him!");
-			enemyPuncher.damage(Math.floor(this.STR/10));
-			_amount = Math.floor(_amount/2);
-		}
-		else if (this.ironProtection > 0 && _punch) {
-			// Iron Maiden
+		else if (this.ironProtection > 0 && _punch) { // Iron Maiden
 			this.duel.addMessage(this.getName() + " felt nothing!");
-		}
-		else if (this.satanicReverse > 0 && _punch) {
-			// BigSatan Alternative Move
-			this.duel.addMessage(this.getName() + "'s satanic rite protects him!");
-			enemyPuncher.damage(_amount);
-		}
-		else if (this.isProtected && _punch) {
-			// RiotShield
-			this.duel.addMessage(this.getName() + " reflects the damage!");
-			this.isProtected = false;
-			enemyPuncher.damage(_amount);
+			return false;
 		}
 		else if (this.cthulhuShield > 0) {
 			this.duel.addMessage(this.getName() + "'s Cthulhu Shield cancels the damage!");
 			this.cthulhuShield -= 1;
+			return false;
 		}
 		else {
+			_amount = Math.floor(_amount);
+			if (options["puncher"] != undefined) this.lastPuncher = options["puncher"];
+
 			if (_amount <= 0) {
-				return this.duel.addMessage(this.getName() + " takes no damage!");
+				this.duel.addMessage(this.getName() + " takes no damage!");
+				return true;
 			}
-			else if (_punch && enemyPuncher.boneGlove) {
+			else if (_options["boneGlove"]) {
 				this.duel.addMessage(this.getName() + " takes " + _amount + " bleed stacks!");
-				if (_amount == 69) {
-					this.duel.addMessage("lmao!");
-				}
 				this.bleedDamage += _amount;
-			}
-			else if (this.cuteFishron && this.STR <= _amount) {
-				this.duel.addMessage("Cute Fishron takes the attacks for " + this.getName() + "!");
-				this.duel.addMessage("He dies in an horrible and painful death...");
-				this.cuteFishron = false;
+				return true;
 			}
 			else {
 				this.duel.addMessage(this.getName() + " takes " + _amount + " damage!");
-				if (_amount == 69) {
-					this.duel.addMessage("lol");
-				}
 
 				this.damageTaken += _amount;
 				this.dodgableDamages.push(_amount);
@@ -1231,11 +1287,11 @@ var Fighter = class {
 				this.STRValue -= _amount;
 
 				// killer blessing and relics
-				if (this.STR <= 0 && _punch) {
-					enemyPuncher.bossKiller += this.grantsKillerBlessings;
+				if (this.STR <= 0) {
+					this.lastPuncher.bossKiller += this.grantsKillerBlessings;
 					this.grantsKillerBlessings = 0;
 
-					enemyPuncher.relics = enemyPuncher.relics.concat(this.relics);
+					this.lastPuncher.relics = this.lastPuncher.relics.concat(this.relics);
 					this.relics = [];
 
 					if (this.liberatedPP > 0) {
@@ -1243,102 +1299,10 @@ var Fighter = class {
 						this.playMove(EMOTE_PP24);
 					}
 				}
-
-				if (enemyPuncher.standPower == STAND_PP12 && _punch) { // Space Metal
-					this.meltingDamage += 2;
-				}
-				if (enemyPuncher.standPower == STAND_PP13 && _punch) { // The Scythe of Cosmic Chaos
-					this.madnessStacks += 1;
-				}
-				if (enemyPuncher.standPower == STAND_PP17 && _punch) { // Titans of Creation
-					enemyPuncher.heal(10);
-				}
-				if (enemyPuncher.akameKill > 0 && _punch) {
-					this.duel.addMessage(this.getName() + " recieves Murasame's poisonous curse!");
-					this.murasameCurse = true;
-				}
-				if ((this.madnessStacks > 0 && getRandomPercent() <= 10+this.madnessStacks && _punch) ||
-                (_punch && enemyPuncher.isScarredPP && getRandomPercent() <= 10)) {
-					this.duel.addMessage(this.getName() + " flinched!");
-					this.hasBurst = 2;
-				}
-                if (_punch && enemyPuncher.boneHelm) {
-    				this.duel.addMessage(this.getName() + " takes " + boneHelmBleed + " bleed stacks!");
-                    this.bleedDamage += boneHelmBleed;
-                }
 			}
 
 			this.duel.DAMAGE_COUNT += _amount;
-            if (enemyPuncher.isKicking && _amount >= 10000) grantPlayerAchievement(_enemyPuncher, 4); // Kick
-
-			if (enemyPuncher.standPower == STAND_PP4 && _punch) { // Above the Light
-				enemyPuncher.heal(Math.floor(_amount / 3));
-			}
-			if (enemyPuncher.standPower == STAND_PP11 && _amount >= 30 && _punch) { // Refuge Denied
-				enemyPuncher.heal(30);
-				enemyPuncher.DEXValue += 10;
-				this.duel.addMessage(enemyPuncher.getName() + " gets 10 DEX!");
-			}
-			if (this.standPower == STAND_PP20 && getRandomPercent() <= 25) { // Metal Resistance
-				this.duel.addMessage(this.getName() + " changes his gods for a bit!");
-				var godListMemory = this.godList.slice();
-				this.godList = []
-
-				var randomGod = randomFromList(GOD_LIST);
-				while (randomGod.type != "waifu") {
-					randomGod = randomFromList(GOD_LIST);
-				}
-				this.godList.push(randomGod.name);
-
-				this.playMove(EMOTE_PP51);
-				this.godList = godListMemory.slice();
-			}
-            if (this.guGrail && _punch && getRandomPercent() <= 50) { // Holey Grail
-                this.playMove(randomFromList(GUNGEON_RAID_EMOTE_LIST));
-            }
-			if (_punch && enemyPuncher.hasRelic(RELIC_PP11)) this.DEXValue -= 1; // demon core
-			if (this.isAlienPP && _punch) enemyPuncher.bleedDamage += 3; // Alien PP
-			if (_punch && enemyPuncher.hasRelic(RELIC_PP3) && getRandomPercent() <= 10) { // ultimate bleach
-				this.duel.addMessage(this.getName() + " gets confused!");
-				this.grabbedPP = 2;
-			}
-			if (this.duel.GAY_TURNS > 0) this.DEXValue += Math.floor(_amount/10);
-		}
-
-		// blood blossom
-		if (enemyPuncher.huTaoBuff > 0 && _punch) {
-			this.duel.addMessage(this.getName() + " gets a blood blossom stack!");
-			this.bloodBlossom += 1;
-		}
-
-		// Acid
-		if (this.acidArmor >= 1 && _punch) {
-			if (enemyPuncher.hasSynergy(SYNERGY_PP4)) {
-				this.duel.addMessage(this.getName() + "'s acid armor heals " + enemyPuncher.getName() + "!");
-				enemyPuncher.heal(Math.floor(_amount/10));
-			}
-			else {
-				this.duel.addMessage(this.getName() + "'s acid armor hurts " + enemyPuncher.getName() + "!");
-				if (this.sporeSac) {
-					enemyPuncher.damage(Math.floor(_amount/4), false);
-				}
-				else {
-					enemyPuncher.damage(Math.floor(_amount/10), false);
-				}
-			}
-		}
-
-		// amogus plush
-		if (this.hasRelic(RELIC_PP5) && _punch)	enemyPuncher.madnessStacks += 1;
-
-		// 02
-		if (this.klaxoTails && _punch) {
-			for (var i = 0; i < 8; i++) {
-				if (getRandomPercent() <= 10) {
-					this.duel.addMessage(this.getName() + "'s tail #" + (i+1) + " attacks back!");
-					enemyPuncher.damage(Math.floor(this.STR/10));
-				}
-			}
+            if (options["puncher"] != undefined && options["puncher"].isKicking && _amount >= 10000) grantPlayerAchievement(_enemyPuncher, 4); // Kick
 		}
 
 		// DoomReverse
@@ -1348,11 +1312,7 @@ var Fighter = class {
 			this.doomReverse = 0;
 		}
 
-		// Eldritch Gang
-		if (_punch && enemyPuncher.hasSynergy(SYNERGY_PP19) && getRandomPercent() <= 10) {
-			this.duel.addMessage(enemyPuncher.getName() + "'s attack happens again!");
-			this.damage(ogAmount, _punch);
-		}
+		return true;
 	}
 
 	turnChange() {
@@ -1449,7 +1409,7 @@ var Fighter = class {
 			this.duel.addMessage("-----------------");
 			if (this.turkeyCountdown == 0) {
 				this.duel.addMessage(this.getName() + " explodes!");
-				this.damage(1000, false);
+				this.damage(1000, { damageType: "explosion" });
 			}
 			else {
 				this.duel.addMessage(this.getName() + " has " + this.turkeyCountdown + " turn(s) left!");
@@ -1468,7 +1428,7 @@ var Fighter = class {
 				this.heal(bleedDamage);
 			}
 			else {
-				this.damage(bleedDamage, false);
+				this.damage(bleedDamage);
 			}
 		}
 		// Melt
@@ -1479,7 +1439,7 @@ var Fighter = class {
 				this.heal(this.meltingDamage);
 			}
 			else {
-				this.damage(this.meltingDamage, false);
+				this.damage(this.meltingDamage);
 			}
 		}
         // Burn
@@ -1490,7 +1450,7 @@ var Fighter = class {
 				this.heal(this.burningStacks);
 			}
 			else {
-				this.damage(this.burningStacks, false);
+				this.damage(this.burningStacks, { damageType: "fire" });
 			}
             this.burningStacks -= 1+Math.floor(this.burningStacks*0.2);
         }
@@ -1499,7 +1459,7 @@ var Fighter = class {
 		if (this.bloodBlossom > 0) {
 			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " burns!");
-			this.damage(Math.floor(this.STR/10), false);
+			this.damage(this.STR/10, { damageType: "fire" });
 			this.bloodBlossom -= 1;
 		}
 
@@ -1624,7 +1584,7 @@ var Fighter = class {
 			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " attacks with tentacles!");
 			for (var i = 0; i < this.tentacles; i++) {
-				this.duel.getOppOf(this).damage(10);
+				this.attack(this.duel.getOppOf(this), 10);
 				if (this.hasSynergy(SYNERGY_PP18)) {
 					this.meltingDamage += 1;
 				}
@@ -1737,7 +1697,7 @@ var Fighter = class {
 		if (this.hasKamui) {
 			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + "'s Kamui drains his blood!");
-			this.damage(20, false);
+			this.damage(20);
 			if (this.STR <= 40) {
 				this.hasKamui = false;
 				this.duel.addMessage(this.getName() + "'s Kamui leaves him to prevent his death!");

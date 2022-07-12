@@ -1,6 +1,5 @@
 eval(fs.readFileSync("dlc/genshin-data.js").toString());
 eval(fs.readFileSync("dlc/genshin-stats.js").toString());
-eval(fs.readFileSync("dlc/genshin-maths.js").toString());
 eval(fs.readFileSync("dlc/genshin-wish.js").toString());
 
 var DLC_GENSHIN = {
@@ -27,11 +26,15 @@ Fighter.prototype.getGenshinStatus = function() {
 
     for (var i in this.giSkillTrees) {
         var char = GENSHIN_CHARACTER_LIST[i];
-        genshinTxt += displayEmote(char.skillEmote) + displayEmote(char.burstEmote) + " " + char.name + " Talents\n";
+        var constellationText = "";
+        if (this.giSkillTrees[i].constellation > 0) constellationText = " C" + this.giSkillTrees[i].constellation;
+        genshinTxt += displayEmote(char.skillEmote) + displayEmote(char.burstEmote) + " " + constellationText + char.name + " Talents\n";
         if (this.giSkillTrees[i].skillCD > 0) genshinTxt += "- " + displayEmote(char.skillEmote) + " Skill CD: " + this.giSkillTrees[i].skillCD + "\n";
         if (this.giSkillTrees[i].burstCD > 0) genshinTxt += "- " + displayEmote(char.burstEmote) + " Burst CD: " + this.giSkillTrees[i].burstCD + "\n";
     }
     if (this.giSkillTrees.length > 0 || this.giEnergy > 0) genshinTxt += " Energy: " + this.giEnergy + "\n";
+
+    genshinTxt += getGenshinStatsStatus();
 
     return genshinTxt;
 }

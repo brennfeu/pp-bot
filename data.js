@@ -1,3 +1,5 @@
+// damage types: 'punch', 'explosion', 'bullets', 'fire', 'electric'
+
 var PP_EXPERT_ROLE = "PP Expert";
 var PP_SKIPPER_ROLE = "PP Skipper";
 var WEEB_PP_ROLE = "Weeb PP";

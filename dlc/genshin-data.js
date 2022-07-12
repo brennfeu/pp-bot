@@ -23,6 +23,9 @@ var CHAR_GI1 = { name: "Hu Tao",
     burstEmote: EMOTE_GI4,
     burstCD: 5,
     burstEnergyCost: 60,
+
+    statsToDisplay: [ "ATK", "HP" ],
+    ascensionStat: "TODO",
 }
 var CHAR_GI2 = { name: "Fischl",
     imageURL: "https://cdn.discordapp.com/attachments/682970589371170889/996321627807678544/Fischl.webp",
@@ -34,6 +37,9 @@ var CHAR_GI2 = { name: "Fischl",
     burstEmote: EMOTE_GI6,
     burstCD: 5,
     burstEnergyCost: 60,
+
+    statsToDisplay: [ "ATK" ],
+    ascensionStat: "TODO",
 }
 var CHAR_GI3 = { name: "Amber",
     imageURL: "https://cdn.discordapp.com/attachments/667337519477817363/996343288007241829/Amber.webp",
@@ -45,7 +51,11 @@ var CHAR_GI3 = { name: "Amber",
     burstEmote: EMOTE_GI8,
     burstCD: 4,
     burstEnergyCost: 40,
+
+    statsToDisplay: [ "ATK" ],
+    ascensionStat: "TODO",
 }
-// order: pyro / hydro / anemo / electro / dendro / cryo / geo
 var GENSHIN_FIVESTARS_CHARACTER_LIST = [ CHAR_GI1 ];
 var GENSHIN_CHARACTER_LIST = GENSHIN_FIVESTARS_CHARACTER_LIST.concat([ CHAR_GI3, CHAR_GI2 ]);
+
+var GENSHIN_ELEMENT_LIST = [ "Physical", "Pyro", "Hydro", "Anemo", "Electro", "Dendro", "Cryo", "Geo" ];
