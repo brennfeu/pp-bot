@@ -275,13 +275,13 @@ async function sendCheatPanel(_channel, _category = null) {
 		"Cheat Panel: Gods - Regular": [], // filled later in a loop
 		"Cheat Panel: Gods - Waifu": [],
 		"Cheat Panel: Gods - Eldritch": [],
-        "Cheat Panel: Genshin Skills": GENSHIN_AVAILABLE_EMOTE_LIST,
-        "Cheat Panel: Genshin Skills - 5* Talents": [], // filled later
-        "Cheat Panel: Genshin Skills - 4* Talents": [], // filled later
-        "Cheat Panel: Gungeon Battalion - Shrines": GUNGEON_SHRINE_EMOTE_LIST,
-		"Cheat Panel: Gungeon Battalion - Units": GUNGEON_UNIT_EMOTE_LIST,
-        "Cheat Panel: Gungeon Battalion - Guns": GUNGEON_RAID_EMOTE_LIST,
-        "Cheat Panel: Gungeon Battalion - Others": GUNGEON_OTHER_EMOTE_LIST,
+        "Cheat Panel: Genshin Skills Moves": GENSHIN_AVAILABLE_EMOTE_LIST,
+        "Cheat Panel: Genshin Skills - 5* Talents Moves": [], // filled later
+        "Cheat Panel: Genshin Skills - 4* Talents Moves": [], // filled later
+        "Cheat Panel: Gungeon Battalion - Shrines Moves": GUNGEON_SHRINE_EMOTE_LIST,
+		"Cheat Panel: Gungeon Battalion - Units Moves": GUNGEON_UNIT_EMOTE_LIST,
+        "Cheat Panel: Gungeon Battalion - Guns Moves": GUNGEON_RAID_EMOTE_LIST,
+        "Cheat Panel: Gungeon Battalion - Others Moves": GUNGEON_OTHER_EMOTE_LIST,
 		"Cheat Panel: Other": [
 			EMOTE_ABILITY, EMOTE_MECHA, EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE, EMOTE_OBAMAHEDRON, EMOTE_OBAMASPHERE,
 			EMOTE_OBOMBA, EMOTE_BOSS_ATTACK
@@ -300,12 +300,12 @@ async function sendCheatPanel(_channel, _category = null) {
 	}
     for (var i in GENSHIN_CHARACTER_LIST) {
         if (GENSHIN_FIVESTARS_CHARACTER_LIST.indexOf(GENSHIN_CHARACTER_LIST[i]) >= 0) {
-            emotes["Genshin Skills - 5* Talents"].push(GENSHIN_CHARACTER_LIST[i].skillEmote);
-            emotes["Genshin Skills - 5* Talents"].push(GENSHIN_CHARACTER_LIST[i].burstEmote);
+            emotes["Cheat Panel: Genshin Skills - 5* Talents Moves"].push(GENSHIN_CHARACTER_LIST[i].skillEmote);
+            emotes["Cheat Panel: Genshin Skills - 5* Talents Moves"].push(GENSHIN_CHARACTER_LIST[i].burstEmote);
         }
         else {
-            emotes["Genshin Skills - 4* Talents"].push(GENSHIN_CHARACTER_LIST[i].skillEmote);
-            emotes["Genshin Skills - 4* Talents"].push(GENSHIN_CHARACTER_LIST[i].burstEmote);
+            emotes["Cheat Panel: Genshin Skills - 4* Talents Moves"].push(GENSHIN_CHARACTER_LIST[i].skillEmote);
+            emotes["Cheat Panel: Genshin Skills - 4* Talents Moves"].push(GENSHIN_CHARACTER_LIST[i].burstEmote);
         }
     }
 
