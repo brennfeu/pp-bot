@@ -1354,8 +1354,8 @@ var Duel = class {
 				});
 			}
 			else {
-				var brennUwu = CLIENT.emojis.cache.get("655449555873038337");
-				var espinoza = CLIENT.emojis.cache.get("615887132157804564");
+				var brennUwu = CLIENT.emojis.cache.get(GOD_PP9.emote);
+				var espinoza = CLIENT.emojis.cache.get(GOD_PP12.emote);
 				var rageBrenn = CLIENT.emojis.cache.get("668946953681502248");
 				var waifu = null;
 				while (waifu == null) {
@@ -1371,7 +1371,9 @@ var Duel = class {
 						"description": "*Dispair in IV acts.*"
 					}
 				});
+                this.sendMessages();
 				this.addMessage(`${brennUwu} ${waifu}` + "\n" + `${brennUwu} ${waifu} ${espinoza}` + "\n" + `${brennUwu}` + "\n" + `${rageBrenn}`);
+                this.sendMessages();
 			}
 			this.addMessage("You both take your turn to recover from this tragedy!");
 

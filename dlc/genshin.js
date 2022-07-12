@@ -74,9 +74,9 @@ Fighter.prototype.sendGenshinSkills = function() {
         var duel = getDuel(_message2.channel.id);
         if (duel.MOVE_COUNT != this.moveCount) return;
 
-        for (var i in emotes) {
-            _message2.react(emotes[i]);
-            _message2.channel.send(sciText(displayEmote(emotes[i]) + " " + MOVE_HELP[emotes[i]]));
+        for (var i in this.emotes) {
+            _message2.react(this.emotes[i]);
+            _message2.channel.send(sciText(displayEmote(this.emotes[i]) + " " + MOVE_HELP[this.emotes[i]]));
         }
     }
     this.duel.BATTLE_CHANNEL.send(this.getName() + " Skills")
