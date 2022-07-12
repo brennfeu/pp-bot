@@ -40,15 +40,13 @@ Fighter.prototype.addGenshinSkillTree = function(_skillTree) {
             "skillCD": 0,
             "burstCD": 0
         };
-        return;
+        return console.log(this.giSkillTrees);
     }
 
     if (this.giSkillTrees[_skillTree].constellation < 6) {
         this.giSkillTrees[_skillTree].constellation += 1;
-        return;
+        return console.log(this.giSkillTrees);
     }
-
-    console.log(this.giSkillTrees);
 
     // TODO new rolls
 }
