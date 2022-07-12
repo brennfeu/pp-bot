@@ -75,12 +75,13 @@ Fighter.prototype.sendGenshinSkills = function() {
         if (duel.MOVE_COUNT != this.moveCount) return;
 
         for (var i in this.emotes) {
-            console.log(this.emotes[i]);
             _message2.react(this.emotes[i]);
-            _message2.channel.send(sciText(displayEmote(this.emotes[i]) + " " + MOVE_HELP[this.emotes[i]]));
         }
     }
     this.duel.BATTLE_CHANNEL.send(this.getName() + " Skills")
         .then(sendEmotesFunction.bind({ moveCount: this.duel.MOVE_COUNT, emotes: l }))
         .catch(function(e) { console.log(e); });
+    for (var i in l) {
+        this.duel.BATTLE_CHANNEL.send(sciText(displayEmote(l[i]) + " " + MOVE_HELP[l[i]]));
+    }
 }
