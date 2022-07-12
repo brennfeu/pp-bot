@@ -55,10 +55,10 @@ Fighter.prototype.addGenshinSkillTree = function(_skillTree) {
 Fighter.prototype.getGenshinAvailableFighterMoves = function() {
     var l = [];
 
-    var t = shuffleArray(this.giSkillTrees);
-    for (var i in t) {
-        if (t[i].skillCD <= 0) l.push(i.skillEmote);
-        if (t[i].burstCD <= 0) l.push(i.burstEmote);
+    for (var i in this.giSkillTrees) {
+        var char = GENSHIN_CHARACTER_LIST[i];
+        if (t[i].skillCD <= 0) l.push(char.skillEmote);
+        if (t[i].burstCD <= 0) l.push(char.burstEmote);
     }
 
     return l;
