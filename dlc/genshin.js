@@ -58,7 +58,7 @@ Fighter.prototype.getGenshinAvailableFighterMoves = function() {
     var t = shuffleArray(this.giSkillTrees);
     for (var i in t) {
         if (t[i].skillCD <= 0) l.push(i.skillEmote);
-        if (t[i].burstCD <= 0) l.push(i.burstCD);
+        if (t[i].burstCD <= 0) l.push(i.burstEmote);
     }
 
     return l;
