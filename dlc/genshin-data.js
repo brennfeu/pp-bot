@@ -6,12 +6,15 @@ var EMOTE_GI3 = "994142332213526569"; // Guide to Afterlife
 var EMOTE_GI4 = "994142331169148988"; // Spirit Soother
 var EMOTE_GI5 = "996320267980767262"; // Nightrider
 var EMOTE_GI6 = "996320266055585873"; // Midnight Phantasmagoria
-var GENSHIN_SKILL_TREE_EMOTE_LIST = [ EMOTE_GI3, EMOTE_GI4, EMOTE_GI5, EMOTE_GI6 ];
+var EMOTE_GI7 = "996344695091372063"; // Explosive Puppet
+var EMOTE_GI8 = "996344696001548350"; // Fiery Rain
+var GENSHIN_SKILL_TREE_EMOTE_LIST = [ EMOTE_GI3, EMOTE_GI4, EMOTE_GI5, EMOTE_GI6, EMOTE_GI7, EMOTE_GI8 ];
 EMOTE_LIST = EMOTE_LIST.concat(GENSHIN_AVAILABLE_EMOTE_LIST).concat(GENSHIN_SKILL_TREE_EMOTE_LIST);
 
 // CD = og cd / 3
 var CHAR_GI1 = { name: "Hu Tao",
     imageURL: "https://cdn.discordapp.com/attachments/682970589371170889/996321606815207434/Hu_Tao.webp",
+    element: "Pyro",
     bannerName: "Moment of Bloom",
 
     skillEmote: EMOTE_GI3,
@@ -20,8 +23,19 @@ var CHAR_GI1 = { name: "Hu Tao",
     burstEmote: EMOTE_GI4,
     burstCD: 5
 }
+var CHAR_GI3 = { name: "Amber",
+    imageURL: "https://cdn.discordapp.com/attachments/667337519477817363/996343288007241829/Amber.webp",
+    element: "Pyro",
+
+    skillEmote: EMOTE_GI7,
+    skillCD: 5,
+
+    burstEmote: EMOTE_GI8,
+    burstCD: 4
+}
 var CHAR_GI2 = { name: "Fischl",
     imageURL: "https://cdn.discordapp.com/attachments/682970589371170889/996321627807678544/Fischl.webp",
+    element: "Electro",
 
     skillEmote: EMOTE_GI5,
     skillCD: 8,
@@ -29,5 +43,6 @@ var CHAR_GI2 = { name: "Fischl",
     burstEmote: EMOTE_GI6,
     burstCD: 5
 }
+// order: pyro / hydro / anemo / electro / dendro / cryo / geo
 var GENSHIN_FIVESTARS_CHARACTER_LIST = [ CHAR_GI1 ];
-var GENSHIN_CHARACTER_LIST = GENSHIN_FIVESTARS_CHARACTER_LIST.concat([ CHAR_GI2 ]);
+var GENSHIN_CHARACTER_LIST = GENSHIN_FIVESTARS_CHARACTER_LIST.concat([ CHAR_GI2, CHAR_GI3 ]);

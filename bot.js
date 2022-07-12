@@ -266,34 +266,22 @@ function displayEmote(_id) {
 
 async function sendCheatPanel(_channel, _category = null) {
 	var emotes = {
-		"Cheat Panel: Regular Moves I": [
-			EMOTE_PP1, EMOTE_PP2, EMOTE_PP3, EMOTE_PP4, EMOTE_PP5, EMOTE_PP6, EMOTE_PP7, EMOTE_PP8,
-			EMOTE_PP9, EMOTE_PP10, EMOTE_PP11, EMOTE_PP12, EMOTE_PP13, EMOTE_PP14, EMOTE_PP15, EMOTE_PP16,
-			EMOTE_PP17, EMOTE_PP18, EMOTE_PP19, EMOTE_PP20
-		],
-		"Cheat Panel: Regular Moves II": [
-			EMOTE_PP21, EMOTE_PP22, EMOTE_PP23, EMOTE_PP24, EMOTE_PP25, EMOTE_PP26, EMOTE_PP27, EMOTE_PP28,
-			EMOTE_PP29, EMOTE_PP30, EMOTE_PP31, EMOTE_PP32, EMOTE_PP33, EMOTE_PP34, EMOTE_PP35, EMOTE_PP36,
-			EMOTE_PP37, EMOTE_PP38, EMOTE_PP39, EMOTE_PP40
-		],
-		"Cheat Panel: Regular Moves III": [
-			EMOTE_PP41, EMOTE_PP42, EMOTE_PP43, EMOTE_PP44, EMOTE_PP45, EMOTE_PP46, EMOTE_PP47, EMOTE_PP48,
-			EMOTE_PP49, EMOTE_PP50
-        ],
-		"Cheat Panel: Priest Moves": GOD_EMOTE_LIST,
+		"Cheat Panel: Regular Moves": NORMAL_EMOTE_LIST,
+		"Cheat Panel: Faith Moves": GOD_EMOTE_LIST,
 		"Cheat Panel: Infernal Moves": INFERNAL_EMOTE_LIST,
 		"Cheat Panel: Animated Moves": SPECIAL_EMOTE_LIST,
 		"Cheat Panel: Stånds Moves": STAND_EMOTE_LIST,
         "Cheat Panel: Rare Moves": RARE_EMOTE_LIST,
-		"Cheat Panel: Gods I": [], // filled later in a loop
-		"Cheat Panel: Gods II": [],
-		"Cheat Panel: Gods III": [],
-        "Cheat Panel: Genshin Skills I": GENSHIN_AVAILABLE_EMOTE_LIST,
-        "Cheat Panel: Genshin Skills II": GENSHIN_SKILL_TREE_EMOTE_LIST,
-        "Cheat Panel: Gungeon Battalion I": GUNGEON_SHRINE_EMOTE_LIST,
-		"Cheat Panel: Gungeon Battalion II": GUNGEON_UNIT_EMOTE_LIST,
-        "Cheat Panel: Gungeon Battalion III": GUNGEON_RAID_EMOTE_LIST,
-        "Cheat Panel: Gungeon Battalion IV": GUNGEON_OTHER_EMOTE_LIST,
+		"Cheat Panel: Gods - Regular": [], // filled later in a loop
+		"Cheat Panel: Gods - Waifu": [],
+		"Cheat Panel: Gods - Eldritch": [],
+        "Cheat Panel: Genshin Skills": GENSHIN_AVAILABLE_EMOTE_LIST,
+        "Cheat Panel: Genshin Skills - 5* Talents": [], // filled later
+        "Cheat Panel: Genshin Skills - 4* Talents": [], // filled later
+        "Cheat Panel: Gungeon Battalion - Shrines": GUNGEON_SHRINE_EMOTE_LIST,
+		"Cheat Panel: Gungeon Battalion - Units": GUNGEON_UNIT_EMOTE_LIST,
+        "Cheat Panel: Gungeon Battalion - Guns": GUNGEON_RAID_EMOTE_LIST,
+        "Cheat Panel: Gungeon Battalion - Others": GUNGEON_OTHER_EMOTE_LIST,
 		"Cheat Panel: Other": [
 			EMOTE_ABILITY, EMOTE_MECHA, EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE, EMOTE_OBAMAHEDRON, EMOTE_OBAMASPHERE,
 			EMOTE_OBOMBA, EMOTE_BOSS_ATTACK
@@ -301,24 +289,39 @@ async function sendCheatPanel(_channel, _category = null) {
 	}
 	for (var i in GOD_LIST) {
 		if (GOD_LIST[i].type == "normal") {
-			emotes["Cheat Panel: Gods I"].push(GOD_LIST[i].emote)
+			emotes["Cheat Panel: Gods - Regular"].push(GOD_LIST[i].emote);
 		}
 		else if (GOD_LIST[i].type == "waifu") {
-			emotes["Cheat Panel: Gods II"].push(GOD_LIST[i].emote)
+			emotes["Cheat Panel: Gods - Waifu"].push(GOD_LIST[i].emote);
 		}
 		else if (GOD_LIST[i].type == "eldritch") {
-			emotes["Cheat Panel: Gods III"].push(GOD_LIST[i].emote)
+			emotes["Cheat Panel: Gods - Eldritch"].push(GOD_LIST[i].emote);
 		}
 	}
+    for (var i in GENSHIN_CHARACTER_LIST) {
+        if (GENSHIN_FIVESTARS_CHARACTER_LIST.indexOf(GENSHIN_CHARACTER_LIST[i]) >= 0) {
+            emotes["Genshin Skills - 5* Talents"].push(GENSHIN_CHARACTER_LIST[i].skillEmote);
+            emotes["Genshin Skills - 5* Talents"].push(GENSHIN_CHARACTER_LIST[i].burstEmote);
+        }
+        else {
+            emotes["Genshin Skills - 4* Talents"].push(GENSHIN_CHARACTER_LIST[i].skillEmote);
+            emotes["Genshin Skills - 4* Talents"].push(GENSHIN_CHARACTER_LIST[i].burstEmote);
+        }
+    }
 
-	var final = {}
+    var final = {}
+    for (var i in emotes) {
+        if (emotes[i].length <= 20) final[i] = emotes[i];
+        else {
+            var l = sliceIntoChunks(emotes[i]);
+            for (var j in l) final[i + " " + romanizeNumber(j)] = l[j];
+        }
+    }
+
 	if (_category != null) {
 		for (var i in emotes) {
-			if (i.toLowerCase().includes(_category.toLowerCase())) final[i] = emotes[i];
+			if (i.toLowerCase().includes(_category.toLowerCase())) final[i] = final[i];
 		}
-	}
-	else {
-		final = emotes;
 	}
 
 	for (var i in final) {

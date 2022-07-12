@@ -1656,6 +1656,11 @@ var Duel = class {
 				this.ALTERNATE_MOVES = true;
 				this.ALTERNATE_MOVE_COUNT = this.MOVE_COUNT;
 			}
+
+            if (this.WORLD_MERGE && getRandomPercent() <= 50) {
+                this.FORCE_EVENT_ID = 65;
+                this.startRandomEvent();
+            }
 		}
 		else if (this.PPLEVEL > 100 && randomVar == 44 && (this.MOVE_COUNT >= 1000 || forcedEvent)) { // Obama
 			this.addMessage("**===== EVENT =====**", undefined, {embed:

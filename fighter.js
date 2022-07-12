@@ -568,43 +568,7 @@ var Fighter = class {
 		// FIGHTING STYLES
 		var fightingStylesTxt = "";
 		if (this.hasAllStyles()) {
-			fightingStylesTxt += displayEmote(EMOTE_PP4) + " *Ultimate PP";
-			switch (this.ultimatePPBuff) {
-				case 5:
-					fightingStylesTxt += " N";
-					break;
-				case 4:
-					fightingStylesTxt += " I";
-					break;
-				case 3:
-					fightingStylesTxt += " II";
-					break;
-				case 2:
-					fightingStylesTxt += " III";
-					break;
-				case 1:
-					fightingStylesTxt += " IV";
-					break;
-				case 0:
-					fightingStylesTxt += " V";
-					break;
-				case -1:
-					fightingStylesTxt += " VI";
-					break;
-				case -2:
-					fightingStylesTxt += " VII";
-					break;
-				case -3:
-					fightingStylesTxt += " VIII";
-					break;
-				case -4:
-					fightingStylesTxt += " IX";
-					break;
-				case -5:
-					fightingStylesTxt += " X";
-					break;
-			}
-			fightingStylesTxt += "*";
+			fightingStylesTxt += displayEmote(EMOTE_PP4) + " *Ultimate PP" + romanizeNumber(5-this.ultimatePPBuff) + "*";
 		}
 		else {
             for (var i in FIGHTING_STYLE_LIST) {
