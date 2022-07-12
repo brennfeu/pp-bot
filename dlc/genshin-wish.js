@@ -21,6 +21,6 @@ Fighter.prototype.genshinRoll = function() {
 
     this.duel.addMessage(this.getName() + " obtains " + char.name + "!");
     this.duel.addMessage(char.imageURL);
-    this.sendMessages();
+    this.duel.sendMessages();
     this.addGenshinSkillTree(char);
 }
