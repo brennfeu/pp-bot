@@ -55,10 +55,31 @@ Fighter.prototype.addGenshinSkillTree = function(_skillTree) {
 Fighter.prototype.getGenshinAvailableFighterMoves = function() {
     var l = [];
 
-    for (var i in this.giSkillTrees) {
-        if (this.giSkillTrees[i].skillCD <= 0) l.push(i.skillEmote);
-        if (this.giSkillTrees[i].burstCD <= 0) l.push(i.burstCD);
+    var t = shuffleArray(this.giSkillTrees);
+    for (var i in t) {
+        if (t[i].skillCD <= 0) l.push(i.skillEmote);
+        if (t[i].burstCD <= 0) l.push(i.burstCD);
     }
 
     return l;
+}
+Fighter.prototype.sendGenshinSkills = function() {
+    if (this.duel.MERGED_WORLDS.indexOf(DLC_GENSHIN) < 0) return;
+
+    var l = this.getGenshinAvailableFighterMoves().slice(0, 20);
+    if (l.length <= 0) return;
+
+    this.duel.sendMessages();
+    var sendEmotesFunction = function(_message2) {
+        var duel = getDuel(_message2.channel.id);
+        if (duel.MOVE_COUNT != this.moveCount) return;
+
+        for (var i in emotes) {
+            _message2.react(emotes[i]);
+            _message2.channel.send(sciText(displayEmote(emotes[i]) + " " + MOVE_HELP[emotes[i]]));
+        }
+    }
+    this.duel.BATTLE_CHANNEL.send(this.getName() + " Skills")
+        .then(sendEmotesFunction.bind({ moveCount: this.duel.MOVE_COUNT, emotes: l }))
+        .catch(function(e) { });
 }

@@ -686,12 +686,16 @@ var Duel = class {
 		this.sendMessages();
 		if (this.EVENT_BOSS == null) {
 			this.addMessage("", true, {embed: this.FIGHTER1.toString()});
+            this.FIGHTER1.sendGenshinSkills();
 			this.addMessage("**===== /VS/ =====**", true);
 			this.addMessage("", true, {embed: this.FIGHTER2.toString()});
+            this.FIGHTER2.sendGenshinSkills();
 		}
 		else {
 			this.addMessage("", true, {embed: this.FIGHTER1.toString()});
+            this.FIGHTER1.sendGenshinSkills();
 			this.addMessage("", true, {embed: this.FIGHTER2.toString()});
+            this.FIGHTER2.sendGenshinSkills();
 			this.addMessage("**===== /VS/ =====**", true);
 			this.addMessage("", true, {embed: this.EVENT_BOSS.toString()});
 		}
