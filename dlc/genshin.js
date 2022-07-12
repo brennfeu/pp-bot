@@ -81,5 +81,5 @@ Fighter.prototype.sendGenshinSkills = function() {
     }
     this.duel.BATTLE_CHANNEL.send(this.getName() + " Skills")
         .then(sendEmotesFunction.bind({ moveCount: this.duel.MOVE_COUNT, emotes: l }))
-        .catch(function(e) { });
+        .catch(function(e) { console.log(e); });
 }
