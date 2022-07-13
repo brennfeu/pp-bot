@@ -1846,9 +1846,23 @@ var Duel = class {
 			});
 		}
 
+        // check if genshin talent
+        var isGenshinTalent = false;
+        if (this.MERGED_WORLDS.indexOf(DLC_GENSHIN) > -1) {
+            this.bothFightersAction(function(_fighter) {
+                var duel = _fighter.duel;
+
+    			if (_user.id == _fighter.user.id && _fighter.getGenshinAvailableFighterMoves().indexOf(_emote) > -1) {
+                    isGenshinTalent = true;
+                    _fighter.playMove(_emote);
+                }
+    		});
+        }
+        if (isGenshinTalent) return;
+
 		// Assigne attaque
 		this.bothFightersAction(function(_fighter) {
-			var duel = _fighter.duel
+			var duel = _fighter.duel;
 
 			if (_fighter.duel.TIME_STOP > 0 && _fighter.duel.TIME_STOP_ID != _fighter.idUser) { // if weak --> skip time skip
 				return;
@@ -1870,6 +1884,7 @@ var Duel = class {
 			}
 		});
 
+        // tutorial
 		if (this.FIGHTER1.attack != "" && this.TUTORIAL) {
 			return this.tutorialNextTurn();
 		}

@@ -4,8 +4,8 @@ eval(fs.readFileSync("dlc/genshin-elements.js").toString());
 eval(fs.readFileSync("dlc/genshin-wish.js").toString());
 
 var DLC_GENSHIN = {
-    "name": "Teyvat Skills",
-    "description": "You arrive in Teyvat, still ready to take down your opponent. Roll for characters and obtain their abilities!",
+    "name": "Teyvat Elements",
+    "description": "You arrive in Teyvat, still ready to take down your opponent. Roll for characters and obtain their talents!",
     "imageURL": "https://cdn.discordapp.com/attachments/667337519477817363/991992955940388904/genshin.jpg",
     "emotes": GENSHIN_AVAILABLE_EMOTE_LIST,
 
@@ -33,7 +33,7 @@ Fighter.prototype.getGenshinStatus = function() {
         if (this.giSkillTrees[i].skillCD > 0) genshinTxt += "- " + displayEmote(char.skillEmote) + " Skill CD: " + this.giSkillTrees[i].skillCD + "\n";
         if (this.giSkillTrees[i].burstCD > 0) genshinTxt += "- " + displayEmote(char.burstEmote) + " Burst CD: " + this.giSkillTrees[i].burstCD + "\n";
     }
-    if (this.giSkillTrees.length > 0 || this.giEnergy > 0) genshinTxt += " Energy: " + this.giEnergy + "\n";
+    if (Object.keys(this.giSkillTrees).length > 0 || this.giEnergy > 0) genshinTxt += "Energy: " + this.giEnergy + "\n";
 
     genshinTxt += this.getGenshinStatsStatus();
 
@@ -84,7 +84,7 @@ Fighter.prototype.sendGenshinSkills = function() {
             _message2.react(this.emotes[i]);
         }
     }
-    this.duel.BATTLE_CHANNEL.send(this.getName() + " Skills")
+    this.duel.BATTLE_CHANNEL.send("Talents")
         .then(sendEmotesFunction.bind({ moveCount: this.duel.MOVE_COUNT, emotes: l }))
         .catch(function(e) { console.log(e); });
     for (var i in l) {
