@@ -1608,7 +1608,7 @@ var Duel = class {
 			}
 			if (this.EVENT_BOSS != null) winner = this.EVENT_BOSS;
 			this.addMessage("They bite " + winner.getName() + "'s PP as he seems to have the toughest PP.");
-			new FakeBoss(_fighter.duel, "Bombardier").attackFighter(winner, winner.STR/10, { damageType: "punch" });
+			new FakeBoss(this, "Spanish Inquisition").attackFighter(winner, winner.STR/10, { damageType: "punch" });
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 41) { // Jordan Dies
 			this.addMessage("**===== EVENT =====**", undefined, {embed:

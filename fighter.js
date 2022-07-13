@@ -1126,7 +1126,7 @@ var Fighter = class {
 		}
 		else if (this.tempestBuff && _amount > 0 && getRandomPercent() >= 33) { // Tempest (Ais buff)
 			this.duel.addMessage(_fighter.getName() + "'s Tempest protects him!");
-			_fighter.attackFighter(this, _fighter.STR/10);
+			_fighter.attackFighter(this, _fighter.STR/10, { damageType: "wind" });
 			return false;
 		}
 		else if (this.isProtected) { // RiotShield
@@ -1206,14 +1206,14 @@ var Fighter = class {
 		if (_fighter.guGrail && getRandomPercent() <= 50) _fighter.playMove(randomFromList(GUNGEON_RAID_EMOTE_LIST)); // Holey Grail
 		if (_fighter.acidArmor >= 1) { // Acid
 			this.duel.addMessage(_fighter.getName() + "'s acid armor hurts " + enemyPuncher.getName() + "!");
-			if (_fighter.sporeSac) enemyPuncher.attackFighter(this, _amount/4, false);
-			else enemyPuncher.attackFighter(this, _amount/10, false);
+			if (_fighter.sporeSac) enemyPuncher.attackFighter(this, _amount/4, { damageType: "acid" });
+			else enemyPuncher.attackFighter(this, _amount/10, { damageType: "acid" });
 		}
 		if (_fighter.klaxoTails) { // 02
 			for (var i = 0; i < 8; i++) {
 				if (getRandomPercent() <= 10) {
 					this.duel.addMessage(_fighter.getName() + "'s tail #" + (i+1) + " attacks back!");
-					_fighter.attackFighter(this, this.STR/10);
+					_fighter.attackFighter(this, this.STR/10, { damageType: "punch" });
 				}
 			}
 		}
@@ -1439,7 +1439,7 @@ var Fighter = class {
 				this.heal(this.meltingDamage);
 			}
 			else {
-				this.damage(this.meltingDamage);
+				this.damage(this.meltingDamage, { damageType: "acid" });
 			}
 		}
         // Burn
@@ -1584,7 +1584,7 @@ var Fighter = class {
 			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " attacks with tentacles!");
 			for (var i = 0; i < this.tentacles; i++) {
-				this.attackFighter(this.duel.getOppOf(this), 10);
+				this.attackFighter(this.duel.getOppOf(this), 10, { damageType: "punch" });
 				if (this.hasSynergy(SYNERGY_PP18)) {
 					this.meltingDamage += 1;
 				}

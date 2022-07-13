@@ -66,14 +66,14 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
         switch(attack) {
             case(EMOTE_PP1): // Punching PP
                 this.duel.addMessage(this.getName() + " punches " + this.getOppName() + "'s PP!");
-                this.attackFighter(oppFighter, 10 + this.STR/10);
+                this.attackFighter(oppFighter, 10 + this.STR/10, { damageType: "punch" });
                 if (getRandomPercent() <= 2) {
                     this.duel.addMessage(IMAGE_PP5);
                 }
                 break;
             case(EMOTE_PP2): // Punching PP Really Hard
                 this.duel.addMessage(this.getName() + " punches " + this.getOppName() + "'s PP really hard!");
-                this.attackFighter(oppFighter, 20 + this.STR/8);
+                this.attackFighter(oppFighter, 20 + this.STR/8, { damageType: "punch" });
                 break;
             case(EMOTE_PP3): // Hologram
                 if (!this.duel.ALTERNATE_MOVES) {
@@ -83,7 +83,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     this.duel.addMessage(this.getName() + " insults " + this.getOppName() + " with all his power!");
                 }
 
-                this.attackFighter(oppFighter, 500);
+                this.attackFighter(oppFighter, 500, { damageType: "punch" });
                 if (oppFighter.STR > 0) grantPlayerAchievement(oppFighter, 3)
                 break;
             case(EMOTE_PP4): // Flex
@@ -96,13 +96,13 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 }
                 else {
                     this.duel.addMessage(this.getName() + " slaps " + this.getOppName());
-                    this.attackFighter(oppFighter, 10 + this.STR/10);
+                    this.attackFighter(oppFighter, 10 + this.STR/10, { damageType: "punch" });
                 }
                 break;
             case(EMOTE_PP6): // Kick
                 this.duel.addMessage(this.getName() + " kicks " + this.getOppName() + "'s PP!");
                 this.isKicking = true;
-                this.attackFighter(oppFighter, (20 + this.STR/5)*3);
+                this.attackFighter(oppFighter, (20 + this.STR/5)*3, { damageType: "punch" });
                 this.isKicking = false;
                 break;
             case(EMOTE_PP7): // Turkey
@@ -401,7 +401,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 break;
             case(EMOTE_PP33): // Headless - Big Kidney Stone
                 this.duel.addMessage(this.getName() + " shoots a big kidney stone!");
-                this.attackFighter(oppFighter, 50);
+                this.attackFighter(oppFighter, 50, { damageType: "punch" });
                 this.damage(50);
                 if (this.attack == attack) {
                     this.duel.KIDNEY_CURSE += 1;
@@ -454,7 +454,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 break;
             case(EMOTE_PP37): // Disembowled - Kidney Stone
                 this.duel.addMessage(this.getName() + " shoots a kidney stone!");
-                this.attackFighter(oppFighter, 25);
+                this.attackFighter(oppFighter, 25, { damageType: "punch" });
                 this.damage(25);
                 if (this.attack == attack) {
                     this.duel.KIDNEY_CURSE += 1;
@@ -509,10 +509,8 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 break;
             case(EMOTE_PP43): // BrocketeerDive
                 this.duel.addMessage(this.getName() + " punches " + this.getOppName() + "'s PP with his head!");
-                this.attackFighter(oppFighter, 10 + this.STR/10);
-                if (this.duel.EVENT_BOSS == null) {
-                    oppFighter.hasBurst = 2;
-                }
+                this.attackFighter(oppFighter, 10 + this.STR/10, { damageType: "punch" });
+                oppFighter.hasBurst = 2;
                 break;
             case(EMOTE_PP44): // Kamikaze
                 if (!this.duel.ALTERNATE_MOVES) {
@@ -811,7 +809,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     this.duel.addMessage("Rapper Pudding answers his calls!");
                     this.duel.addMessage(this.getName() + " gives a boner punch to " + this.getOppName() + "!");
                     this.hasBoner = true;
-                    this.attackFighter(oppFighter, (this.STR - (this.DEX/2))/5);
+                    this.attackFighter(oppFighter, (this.STR - (this.DEX/2))/5, { damageType: "punch" });
                 }
                 if (this.godList.indexOf(GOD_PP15.name) > -1) { // STFU Isaac
                     this.duel.addMessage("-----------------");
@@ -1010,7 +1008,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     this.duel.addMessage("-----------------");
                     this.duel.addMessage("Senjouahara answers his calls!");
                     this.duel.addMessage(this.getName() + " staples " + this.getOppName() + "'s PP!")
-                    this.attackFighter(oppFighter, this.STR/10);
+                    this.attackFighter(oppFighter, this.STR/10, { damageType: "punch" });
                     oppFighter.bleedDamage += Math.floor(this.STR/10);
                 }
                 if (this.godList.indexOf(GOD_PP38.name) > -1) { // Akame
@@ -1155,7 +1153,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     this.duel.addMessage("-----------------");
                     this.duel.addMessage("Fabulous Toast Man answers his calls!");
                     this.duel.addMessage(this.getName() + " calls for a bit of power from all his gods!");
-                    this.attackFighter(oppFighter, this.godList.length*this.STR/10);
+                    this.attackFighter(oppFighter, this.godList.length*this.STR/10, { damageType: "punch" });
                 }
                 if (this.godList.indexOf(GOD_PP9.name) > -1) { // Brenn
                     this.duel.addMessage("-----------------");
@@ -1229,7 +1227,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     this.duel.bothFightersAction(function(_fighter) {
                         _fighter.hasBoner = true;
                     });
-                    this.attackFighter(oppFighter, this.STR/2);
+                    this.attackFighter(oppFighter, this.STR/2, { damageType: "punch" });
                 }
                 if (this.godList.indexOf(GOD_PP15.name) > -1) { // STFU Isaac
                     this.duel.addMessage("-----------------");
@@ -1607,7 +1605,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 break;
             case(EMOTE_PP63): // Xenomorph
                 this.duel.addMessage(this.getName() + " slashes " + this.getOppName() + "!");
-                this.attackFighter(oppFighter, this.DEX/2);
+                this.attackFighter(oppFighter, this.DEX/2, { damageType: "punch" });
                 break;
             case(EMOTE_PP64): // XenoHead
                 this.xenoMask = true;
@@ -1633,7 +1631,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 break;
             case(EMOTE_PP67): // RageSatan
                 this.duel.addMessage(this.getName() + " punches " + this.getOppName() + "!");
-                this.attackFighter(oppFighter, 20 + this.STR/8);
+                this.attackFighter(oppFighter, 20 + this.STR/8, { damageType: "punch" });
                 break;
             case(EMOTE_PP68): // Mech
                 this.duel.addMessage(this.getName() + " hides in his Mech!");
@@ -1648,7 +1646,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 this.ragingSpirit += 1;
                 this.duel.addMessage(this.getName() + " summons " + this.ragingSpirit + " Lost Souls!");
                 for (var j = 0; j < this.ragingSpirit; j++) {
-                    this.attackFighter(oppFighter, 5 + this.STR/10);
+                    this.attackFighter(oppFighter, 5 + this.STR/10, { damageType: "explosion" });
                 }
                 break;
             case(EMOTE_PP70): // HellDogHead
@@ -1676,9 +1674,9 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 break;
             case(EMOTE_PP74): // Sword
                 this.duel.addMessage(this.getName() + " attacks " + this.getOppName() + " with a sword!");
-                if (this.STR > oppFighter.STR) this.attackFighter(oppFighter, this.STR - oppFighter.STR);
-                else if (this.standPower == STAND_PP18) this.attackFighter(oppFighter, oppFighter.STR - this.STR); // Fantasien 1998
-                else this.attackFighter(oppFighter, 10 + this.STR/10);
+                if (this.STR > oppFighter.STR) this.attackFighter(oppFighter, this.STR - oppFighter.STR, { damageType: "sword" });
+                else if (this.standPower == STAND_PP18) this.attackFighter(oppFighter, oppFighter.STR - this.STR, { damageType: "sword" }); // Fantasien 1998
+                else this.attackFighter(oppFighter, 10 + this.STR/10, { damageType: "sword" });
                 break;
             case(EMOTE_PP75): // AcidShot
                 this.duel.addMessage(this.getName() + " shoots acid at " + oppFighter.getName() + "!");
@@ -1708,8 +1706,8 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 break;
             case(EMOTE_PP78): // SatanSkull
                 this.duel.addMessage(this.getName() + " summons the Satan Horns!");
-                this.attackFighter(oppFighter, 20 + this.STR/8);
-                this.attackFighter(oppFighter, 20 + this.STR/8);
+                this.attackFighter(oppFighter, 20 + this.STR/8, { damageType: "punch" });
+                this.attackFighter(oppFighter, 20 + this.STR/8, { damageType: "punch" });
                 break;
             case(EMOTE_PP79): // Eye of Truth
                 this.duel.addMessage(this.getName() + " summons the Eye of Truth!");
@@ -1826,7 +1824,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 else {
                     this.duel.addMessage("PP Punching is so filthy. May the chat be purged of this nonsense.");
                     this.duel.allFightersAction(function(_fighter) {
-                        new FakeBoss(_fighter.duel, "Fherla - Strawberry Girl").attackFighter(_fighter, Math.random() * 10000000000000);
+                        new FakeBoss(_fighter.duel, "Fherla - Strawberry Girl").attackFighter(_fighter, Math.random() * 10000000000000, { damageType: "punch" });
                     });
                 }
                 break;
@@ -1863,7 +1861,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 this.duel.addMessage(this.getName() + " gets a tentacle and attacks!");
                 this.tentacles += 1;
                 for (var i = 0; i < this.tentacles; i++) {
-                    this.attackFighter(oppFighter, this.STR/10);
+                    this.attackFighter(oppFighter, this.STR/10, { damageType: "punch" });
                     if (this.hasSynergy(SYNERGY_PP18)) {
                         this.meltingDamage += 1;
                     }
@@ -2396,7 +2394,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     if (this.duel.PP_ARMAGEDDON) damage = damage*1000;
                     else if (this.duel.INFERNAL_FIRELAND) damage = damage*10;
 
-                    this.attackFighter(randomFighter, damage);
+                    this.attackFighter(randomFighter, damage, { damageType: "punch" });
                 }
                 else {
                     this.playMove(EMOTE_PP1)
