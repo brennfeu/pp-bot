@@ -1853,7 +1853,8 @@ var Duel = class {
 
     			if (_user.id == _fighter.user.id && _fighter.getGenshinAvailableFighterMoves().indexOf(duel.getAttackFromEmote(_emote)) > -1) {
                     isGenshinTalent = true;
-                    _fighter.playMove(_emote);
+                    _fighter.playMove(duel.getAttackFromEmote(_emote));
+                    duel.sendMessages();
                 }
     		});
         }
