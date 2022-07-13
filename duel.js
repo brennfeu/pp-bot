@@ -513,14 +513,14 @@ var Duel = class {
 					this.addMessage("-----------------");
 					this.addMessage("The Nuclear Bomb explodes now!\n" + IMAGE_PP1);
 					this.allFightersAction(function(_fighter) {
-						new FakeBoss(_fighter.duel, "Bombardier").attack(_fighter, 1000000000, { damageType: "explosion" });
+						new FakeBoss(_fighter.duel, "Bombardier").attackFighter(_fighter, 1000000000, { damageType: "explosion" });
 					});
 				}
 				if (this.EVENT_BOMB) {
 					this.addMessage("-----------------");
 					this.addMessage("The bomb hits the ground!");
 					this.allFightersAction(function(_fighter) {
-						new FakeBoss(_fighter.duel, "Bombardier").attack(_fighter, 1000, { damageType: "explosion" });
+						new FakeBoss(_fighter.duel, "Bombardier").attackFighter(_fighter, 1000, { damageType: "explosion" });
 					});
 				}
 				if (this.STORM_COUNTDOWN > 0) {
@@ -1608,7 +1608,7 @@ var Duel = class {
 			}
 			if (this.EVENT_BOSS != null) winner = this.EVENT_BOSS;
 			this.addMessage("They bite " + winner.getName() + "'s PP as he seems to have the toughest PP.");
-			new FakeBoss(_fighter.duel, "Bombardier").attack(winner, winner.STR/10, { damageType: "punch" });
+			new FakeBoss(_fighter.duel, "Bombardier").attackFighter(winner, winner.STR/10, { damageType: "punch" });
 		}
 		else if (this.PPLEVEL > 50 && randomVar == 41) { // Jordan Dies
 			this.addMessage("**===== EVENT =====**", undefined, {embed:
@@ -2125,7 +2125,7 @@ var Duel = class {
 				this.addMessage("-----------------");
 				this.addMessage(winner.getName() + " triggers " + this.otherFighter(winner).getName() + "'s Mech!");
 				this.addMessage(this.otherFighter(winner).getName() + " shoots!");
-				this.otherFighter(winner).attack(winner, 50, { damageType: "bullets" });
+				this.otherFighter(winner).attackFighter(winner, 50, { damageType: "bullets" });
 			}
 
 			// always pass moves

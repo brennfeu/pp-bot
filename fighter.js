@@ -1044,11 +1044,11 @@ var Fighter = class {
 		}
 	}
 
-	attack(_fighter, _amount, _options = {}) {
+	attackFighter(_fighter, _amount, _options = {}) {
 		// madness
 		if (_fighter != this && getRandomPercent() <= this.madnessStacks*3) {
 			this.duel.addMessage(this.getName() + " hits himself in his madness!");
-			return this.attack(_amount);
+			return this.attackFighter(_amount);
 		}
 
 		var ogAmount = _amount;
@@ -1116,23 +1116,23 @@ var Fighter = class {
 		}
 		else if (_fighter.standPower == STAND_PP6 && getRandomPercent() <= 25) { // Sham Mirrors
 			this.duel.addMessage(_fighter.getName() + " reflects the damage!");
-			_fighter.attack(this, _amount, _options);
+			_fighter.attackFighter(this, _amount, _options);
 			return false;
 		}
 		else if (_fighter.satanicReverse > 0) { // BigSatan Alternative Move
 			this.duel.addMessage(_fighter.getName() + "'s satanic rite protects him!");
-			_fighter.attack(this, _amount, _options);
+			_fighter.attackFighter(this, _amount, _options);
 			return false;
 		}
 		else if (this.tempestBuff && _amount > 0 && getRandomPercent() >= 33) { // Tempest (Ais buff)
 			this.duel.addMessage(_fighter.getName() + "'s Tempest protects him!");
-			_fighter.attack(this, _fighter.STR/10);
+			_fighter.attackFighter(this, _fighter.STR/10);
 			return false;
 		}
 		else if (this.isProtected) { // RiotShield
 			this.duel.addMessage(_fighter.getName() + " reflects the damage!");
 			_fighter.isProtected = false;
-			_fighter.attack(this, _amount, _options);
+			_fighter.attackFighter(this, _amount, _options);
 			return false;
 		}
 		else if (_fighter.cuteFishron && _fighter.STR <= _amount) {
@@ -1178,7 +1178,7 @@ var Fighter = class {
 		}
 		if (this.hasSynergy(SYNERGY_PP19) && getRandomPercent() <= 10) { // Eldritch Gang
 			this.duel.addMessage(this.getName() + "'s attack happens again!");
-			this.attack(_fighter, ogAmount, _options);
+			this.attackFighter(_fighter, ogAmount, _options);
 		}
 
 		// victim effects
@@ -1206,14 +1206,14 @@ var Fighter = class {
 		if (_fighter.guGrail && getRandomPercent() <= 50) _fighter.playMove(randomFromList(GUNGEON_RAID_EMOTE_LIST)); // Holey Grail
 		if (_fighter.acidArmor >= 1) { // Acid
 			this.duel.addMessage(_fighter.getName() + "'s acid armor hurts " + enemyPuncher.getName() + "!");
-			if (_fighter.sporeSac) enemyPuncher.attack(this, _amount/4, false);
-			else enemyPuncher.attack(this, _amount/10, false);
+			if (_fighter.sporeSac) enemyPuncher.attackFighter(this, _amount/4, false);
+			else enemyPuncher.attackFighter(this, _amount/10, false);
 		}
 		if (_fighter.klaxoTails) { // 02
 			for (var i = 0; i < 8; i++) {
 				if (getRandomPercent() <= 10) {
 					this.duel.addMessage(_fighter.getName() + "'s tail #" + (i+1) + " attacks back!");
-					_fighter.attack(this, this.STR/10);
+					_fighter.attackFighter(this, this.STR/10);
 				}
 			}
 		}
@@ -1584,7 +1584,7 @@ var Fighter = class {
 			this.duel.addMessage("-----------------");
 			this.duel.addMessage(this.getName() + " attacks with tentacles!");
 			for (var i = 0; i < this.tentacles; i++) {
-				this.attack(this.duel.getOppOf(this), 10);
+				this.attackFighter(this.duel.getOppOf(this), 10);
 				if (this.hasSynergy(SYNERGY_PP18)) {
 					this.meltingDamage += 1;
 				}
