@@ -1,6 +1,7 @@
 eval(fs.readFileSync("dlc/genshin-data.js").toString());
 eval(fs.readFileSync("dlc/genshin-stats.js").toString());
 eval(fs.readFileSync("dlc/genshin-elements.js").toString());
+eval(fs.readFileSync("dlc/genshin-summons.js").toString());
 eval(fs.readFileSync("dlc/genshin-wish.js").toString());
 
 var DLC_GENSHIN = {
