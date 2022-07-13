@@ -21,3 +21,16 @@ var GenshinElementManager = class {
         return this[GENSHIN_ELEMENT_LIST[i] + "Units"] > 0;
     }
 }
+
+Fighter.prototype.recieveGenshinParticle = function(_amount, _element = "Physical") {
+    var hasElement = false;
+    for (var i in this.giSkillTrees) {
+        if (GENSHIN_CHARACTER_LIST[i].element == _element) hasElement = true;
+    }
+    if (hasElement) _amount = _amount*3;
+    if (_element == "Physical") _amount = _amount*2;
+
+    // TODO energy recharge
+
+    this.giEnergy += _amount;
+}

@@ -1735,6 +1735,14 @@ var Fighter = class {
 			}
 		}
 
+        // Genshin Summons
+        if (this.duel.MERGED_WORLDS.indexOf(DLC_GENSHIN) > -1) {
+            for (var i in this.giSummons) {
+                this.giSummons[i].turnChange();
+            }
+            this.giSummons = this.giSummons.filter(function(_obj) { return _obj.genshinSummonCountdown > 0; });
+        }
+
 		if (this.futureMemories == 0 ||
 		   (this.inLove > 0 && getRandomPercent() < 75)) {
 			this.attack = EMOTE_SKIP;

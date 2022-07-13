@@ -18,6 +18,7 @@ var DLC_GENSHIN = {
     "fighterInitFunction": function(_fighter) {
         _fighter.giSkillTrees = {};
         _fighter.giEnergy = 0;
+        _fighter.giSummons = [];
     }
 }
 MERGABLE_WORLDS.push(DLC_GENSHIN);
@@ -29,11 +30,16 @@ Fighter.prototype.getGenshinStatus = function() {
         var char = GENSHIN_CHARACTER_LIST[i];
         var constellationText = "";
         if (this.giSkillTrees[i].constellation > 0) constellationText = " C" + this.giSkillTrees[i].constellation;
-        genshinTxt += displayEmote(char.skillEmote) + displayEmote(char.burstEmote) + " " + constellationText + char.name + " Talents\n";
+        genshinTxt += displayEmote(char.skillEmote) + displayEmote(char.burstEmote) + constellationText + " " + char.name + " Talents\n";
         if (this.giSkillTrees[i].skillCD > 0) genshinTxt += "- " + displayEmote(char.skillEmote) + " Skill CD: " + this.giSkillTrees[i].skillCD + "\n";
         if (this.giSkillTrees[i].burstCD > 0) genshinTxt += "- " + displayEmote(char.burstEmote) + " Burst CD: " + this.giSkillTrees[i].burstCD + "\n";
     }
     if (Object.keys(this.giSkillTrees).length > 0 || this.giEnergy > 0) genshinTxt += "Energy: " + this.giEnergy + "\n";
+
+    for (var i in this.giSummons) {
+        if (this.giSummons[i].genshinSummonStatusEmote != null) genshinTxt += displayEmote(this.giSummons[i].genshinSummonStatusEmote) + " ";
+        genshinTxt += this.giSummons[i].getName() + " (CD: " + this.giSummons[i].genshinSummonCountdown + " turns // HP: " + this.giSummons[i].getGenshinHP() + ")\n";
+    }
 
     genshinTxt += this.getGenshinStatsStatus();
 
@@ -71,6 +77,7 @@ Fighter.prototype.getGenshinAvailableFighterMoves = function() {
 }
 Fighter.prototype.sendGenshinSkills = function() {
     if (this.duel.MERGED_WORLDS.indexOf(DLC_GENSHIN) < 0) return;
+    if (this.idUser == CLIENT.user.id) return;
 
     var l = this.getGenshinAvailableFighterMoves().slice(0, 20);
     if (l.length <= 0) return;

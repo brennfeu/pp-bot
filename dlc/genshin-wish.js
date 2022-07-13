@@ -23,4 +23,7 @@ Fighter.prototype.genshinRoll = function() {
     this.duel.addMessage(char.imageURL);
     this.duel.sendMessages();
     this.addGenshinSkillTree(char);
+
+    // random chance to get more
+    if (getRandomPercent() <= 5) this.genshinRoll();
 }

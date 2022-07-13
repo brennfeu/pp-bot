@@ -120,7 +120,6 @@ var Duel = class {
 			this.FIGHTER2.STRValue = 100;
 			if (getWinCounter(this.FIGHTER1.idUser) > 500) { // HARDMODE
 				this.FIGHTER2.bossKiller = 20;
-				this.FIGHTER2.DEXValue += 10;
 
 				this.DOUBLE_POINTS = true;
 			}

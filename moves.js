@@ -2222,8 +2222,12 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 this.genshinRoll();
                 break;
             case(EMOTE_GI2):
-                this.duel.addMessage(this.getName() + " wishes to entwine fates and connect dreams, just as how its glimmer links stars into the shapes of a heart's desires!");
+                this.duel.addMessage(this.getName() + " wishes to entwine fates and connect dreams, just as how his wish's glimmer links stars into the shapes of a heart's desires!");
                 this.genshinRoll();
+                break;
+            case(EMOTE_GI7):
+                this.duel.addMessage(this.getName() + " summons a Baron Bunny!");
+                this.giSummons.push(new GenshinBaronBunny(this));
                 break;
 
             case(EMOTE_ABILITY): // Requiems
