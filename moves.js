@@ -2396,7 +2396,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     if (this.duel.PP_ARMAGEDDON) damage = damage*1000;
                     else if (this.duel.INFERNAL_FIRELAND) damage = damage*10;
 
-                    this.attackFighter(oppFighter, damage);
+                    this.attackFighter(randomFighter, damage);
                 }
                 else {
                     this.playMove(EMOTE_PP1)

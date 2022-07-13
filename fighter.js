@@ -1063,7 +1063,7 @@ var Fighter = class {
 		if (this.kungFu) _amount += 10; // signpost
 		if (this.huTaoBuff > 0) _amount += enemyPuncher.STR/20;
 		if (this.flugelBlood && this.DEX > _fighter.DEX) _amount += this.DEX - _fighter.DEX; // jibril
-		if (this.hasSynergy(SYNERGY_PP16) && _punch) _amount += 10; // Too Much Dick
+		if (this.hasSynergy(SYNERGY_PP16)) _amount += 10; // Too Much Dick
 
 		// damage multiplications
 		if (this.megaBuildUp > 0) { // Bronan Slam
@@ -1106,7 +1106,7 @@ var Fighter = class {
 			if (_amount > 0) _fighter.pushedDamages += _amount;
 			return true;
 		}
-		else if (_fighter.attack == EMOTE_PP10 && _punch) { // Tank
+		else if (_fighter.attack == EMOTE_PP10) { // Tank
 			this.duel.addMessage(_fighter.getName() + " felt nothing!");
 			return false;
 		}
@@ -1187,7 +1187,7 @@ var Fighter = class {
 			this.duel.addMessage(_fighter.getName() + " flinched!");
 			_fighter.hasBurst = 2;
 		}
-		if (_fighter.isAlienPP && _punch) this.bleedDamage += 3; // Alien PP
+		if (_fighter.isAlienPP) this.bleedDamage += 3; // Alien PP
 		if (_fighter.hasRelic(RELIC_PP5)) this.madnessStacks += 1; // amogus plush
 		if (this.duel.GAY_TURNS > 0) _fighter.DEXValue += Math.floor(_amount/10); // gay turns
 		if (_fighter.standPower == STAND_PP20 && getRandomPercent() <= 25) { // Metal Resistance
@@ -1252,7 +1252,7 @@ var Fighter = class {
 			this.duel.addMessage(this.getName() + " felt nothing because too drunk!");
 			return false;
 		}
-		else if (this.ironProtection > 0 && _punch) { // Iron Maiden
+		else if (this.ironProtection > 0) { // Iron Maiden
 			this.duel.addMessage(this.getName() + " felt nothing!");
 			return false;
 		}
