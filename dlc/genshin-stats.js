@@ -11,36 +11,36 @@ Fighter.prototype.getGenshinStatsStatus = function() {
     var txt = "";
 
     if (stats.indexOf("HP") >= 0) {
-        txt += "**HP:** " + this.getGenshinHP();
+        txt += "**HP:** " + this.getGenshinHP() + "\n";
     }
     if (stats.indexOf("BaseATK") >= 0) {
-        txt += "**Base ATK:** " + this.getGenshinBaseATK();
+        txt += "**Base ATK:** " + this.getGenshinBaseATK() + "\n";
     }
     if (stats.indexOf("ATK") >= 0) {
-        txt += "**ATK:** " + this.getGenshinATK();
+        txt += "**ATK:** " + this.getGenshinATK() + "\n";
     }
     if (stats.indexOf("DEF") >= 0) {
-        txt += "**DEF:** " + this.getGenshinDEF();
+        txt += "**DEF:** " + this.getGenshinDEF() + "\n";
     }
     if (stats.indexOf("EM") >= 0) {
-        txt += "**Elemental Mastery:** " + this.getGenshinEM();
+        txt += "**Elemental Mastery:** " + this.getGenshinEM() + "\n";
     }
     if (stats.indexOf("ER") >= 0) {
-        txt += "**Energy Recharge:** " + this.getGenshinER();
+        txt += "**Energy Recharge:** " + this.getGenshinER() + "\n";
     }
     if (stats.indexOf("CritRate") >= 0) {
-        txt += "**Critical Rate:** " + this.getGenshinCritRate();
+        txt += "**Critical Rate:** " + this.getGenshinCritRate() + "\n";
     }
     if (stats.indexOf("CritDamage") >= 0) {
-        txt += "**Critical Damage:** " + this.getGenshinCritDamage();
+        txt += "**Critical Damage:** " + this.getGenshinCritDamage() + "\n";
     }
 
     for (var i in GENSHIN_ELEMENT_LIST) {
         if (stats.indexOf(GENSHIN_ELEMENT_LIST[i] + "Damage") >= 0) {
-            txt += "**" + GENSHIN_ELEMENT_LIST[i] + " Damage Bonus:** " + this.getGenshinElementalDamageBonus(GENSHIN_ELEMENT_LIST[i]);
+            txt += "**" + GENSHIN_ELEMENT_LIST[i] + " Damage Bonus:** " + this.getGenshinElementalDamageBonus(GENSHIN_ELEMENT_LIST[i]) + "\n";
         }
         if (stats.indexOf(GENSHIN_ELEMENT_LIST[i] + "RES") >= 0) {
-            txt += "**" + GENSHIN_ELEMENT_LIST[i] + " Resistance:** " + this.getGenshinElementalResistance(GENSHIN_ELEMENT_LIST[i]);
+            txt += "**" + GENSHIN_ELEMENT_LIST[i] + " Resistance:** " + this.getGenshinElementalResistance(GENSHIN_ELEMENT_LIST[i]) + "\n";
         }
     }
 

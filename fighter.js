@@ -1061,7 +1061,7 @@ var Fighter = class {
 		_amount += this.bonusDamage; this.bonusDamage = 0;
 		if (this.boneHelm) { var boneHelmBleed = _amount*0.1; _amount -= boneHelmBleed; }
 		if (this.kungFu) _amount += 10; // signpost
-		if (this.huTaoBuff > 0) _amount += enemyPuncher.STR/20;
+		if (this.huTaoBuff > 0) _amount += _fighter.STR/20;
 		if (this.flugelBlood && this.DEX > _fighter.DEX) _amount += this.DEX - _fighter.DEX; // jibril
 		if (this.hasSynergy(SYNERGY_PP16)) _amount += 10; // Too Much Dick
 
@@ -1072,8 +1072,8 @@ var Fighter = class {
 		}
 		if (this.iceWeapon) { // unused?
 			_amount += _amount;
-			this.duel.addMessage(this.getName() + "'s Magic Ice Weapon breaks on " + fighter.getName() + "!");
-			enemyPuncher.iceWeapon = false;
+			this.duel.addMessage(this.getName() + "'s Magic Ice Weapon breaks on " + _fighter.getName() + "!");
+			this.iceWeapon = false;
 		}
 		if (this.standPower == STAND_PP16 && this.STR <= 15) { // Virus
 			this.duel.addMessage("Virus effect triggers!");
@@ -1302,7 +1302,7 @@ var Fighter = class {
 			}
 
 			this.duel.DAMAGE_COUNT += _amount;
-            if (_options["puncher"] != undefined && _options["puncher"].isKicking && _amount >= 10000) grantPlayerAchievement(_enemyPuncher, 4); // Kick
+            if (_options["puncher"] != undefined && _options["puncher"].isKicking && _amount >= 10000) grantPlayerAchievement(_options["puncher"], 4); // Kick
 		}
 
 		// DoomReverse
