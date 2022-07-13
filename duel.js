@@ -1851,7 +1851,7 @@ var Duel = class {
             this.bothFightersAction(function(_fighter) {
                 var duel = _fighter.duel;
 
-    			if (_user.id == _fighter.user.id && _fighter.getGenshinAvailableFighterMoves().indexOf(this.getAttackFromEmote(_emote)) > -1) {
+    			if (_user.id == _fighter.user.id && _fighter.getGenshinAvailableFighterMoves().indexOf(duel.getAttackFromEmote(_emote)) > -1) {
                     isGenshinTalent = true;
                     _fighter.playMove(_emote);
                 }
