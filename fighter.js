@@ -1205,9 +1205,9 @@ var Fighter = class {
 		}
 		if (_fighter.guGrail && getRandomPercent() <= 50) _fighter.playMove(randomFromList(GUNGEON_RAID_EMOTE_LIST)); // Holey Grail
 		if (_fighter.acidArmor >= 1) { // Acid
-			this.duel.addMessage(_fighter.getName() + "'s acid armor hurts " + enemyPuncher.getName() + "!");
-			if (_fighter.sporeSac) enemyPuncher.attackFighter(this, _amount/4, { damageType: "acid" });
-			else enemyPuncher.attackFighter(this, _amount/10, { damageType: "acid" });
+			this.duel.addMessage(_fighter.getName() + "'s acid armor hurts " + this.getName() + "!");
+			if (_fighter.sporeSac) _fighter.attackFighter(this, _amount/4, { damageType: "acid" });
+			else _fighter.attackFighter(this, _amount/10, { damageType: "acid" });
 		}
 		if (_fighter.klaxoTails) { // 02
 			for (var i = 0; i < 8; i++) {
