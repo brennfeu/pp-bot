@@ -1263,7 +1263,7 @@ var Fighter = class {
 		}
 		else {
 			_amount = Math.floor(_amount);
-			if (options["puncher"] != undefined) this.lastPuncher = options["puncher"];
+			if (_options["puncher"] != undefined) this.lastPuncher = _options["puncher"];
 
 			if (_amount <= 0) {
 				this.duel.addMessage(this.getName() + " takes no damage!");
@@ -1302,7 +1302,7 @@ var Fighter = class {
 			}
 
 			this.duel.DAMAGE_COUNT += _amount;
-            if (options["puncher"] != undefined && options["puncher"].isKicking && _amount >= 10000) grantPlayerAchievement(_enemyPuncher, 4); // Kick
+            if (_options["puncher"] != undefined && _options["puncher"].isKicking && _amount >= 10000) grantPlayerAchievement(_enemyPuncher, 4); // Kick
 		}
 
 		// DoomReverse
