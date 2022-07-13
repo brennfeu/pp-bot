@@ -1287,7 +1287,7 @@ var Fighter = class {
 				this.STRValue -= _amount;
 
 				// killer blessing and relics
-				if (this.STR <= 0) {
+				if (this.STR <= 0 && this.lastPuncher != null) {
 					this.lastPuncher.bossKiller += this.grantsKillerBlessings;
 					this.grantsKillerBlessings = 0;
 
