@@ -1850,17 +1850,17 @@ var Duel = class {
         if (this.MERGED_WORLDS.indexOf(DLC_GENSHIN) > -1) {
             this.bothFightersAction(function(_fighter) {
                 var duel = _fighter.duel;
-				var emoteId = duel.getAttackFromEmote(_emote);
+				var attackEmote = duel.getAttackFromEmote(_emote);
 
-    			if (_user.id == _fighter.user.id && _fighter.getGenshinAvailableFighterMoves(emoteId).indexOf() > -1) {
+    			if (_user.id == _fighter.user.id && _fighter.getGenshinAvailableFighterMoves().indexOf(attackEmote) > -1) {
                     isGenshinTalent = true;
-                    _fighter.playMove(emoteId);
+                    _fighter.playMove(attackEmote);
                     duel.sendMessages();
 
 					// cooldown
 					for (var i in _fighter.giSkillTrees) {
-						if (GENSHIN_CHARACTER_LIST[i].skillEmote == emoteId) _fighter.giSkillTrees[i].skillCD = GENSHIN_CHARACTER_LIST[i].skillCD;
-						else if (GENSHIN_CHARACTER_LIST[i].burstEmote == emoteId) _fighter.giSkillTrees[i].burstCD = GENSHIN_CHARACTER_LIST[i].burstCD;
+						if (GENSHIN_CHARACTER_LIST[i].skillEmote == attackEmote) _fighter.giSkillTrees[i].skillCD = GENSHIN_CHARACTER_LIST[i].skillCD;
+						else if (GENSHIN_CHARACTER_LIST[i].burstEmote == attackEmote) _fighter.giSkillTrees[i].burstCD = GENSHIN_CHARACTER_LIST[i].burstCD;
 					}
                 }
     		});
