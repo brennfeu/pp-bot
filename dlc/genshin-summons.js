@@ -23,7 +23,7 @@ var GenshinBaronBunny = class extends GenshinSummon {
         if (this.genshinSummonCountdown <= 0) {
             this.duel.addMessage("-----------------");
             this.duel.addMessage("Baron Bunny explodes in flames!");
-            this.attack(this.duel.getOppOf(this.genshinSummonMaster), _fighter.getGenshinATK()*1.232, { damageType: "fire" })
+            this.attack(this.duel.getOppOf(this.genshinSummonMaster), this.genshinSummonMaster.getGenshinATK()*1.232, { damageType: "fire" })
             this.recieveGenshinParticle(4, "Pyro");
         }
     }
