@@ -1048,7 +1048,7 @@ var Fighter = class {
 		// madness
 		if (_fighter != this && getRandomPercent() <= this.madnessStacks*3) {
 			this.duel.addMessage(this.getName() + " hits himself in his madness!");
-			return this.attackFighter(_amount);
+			return this.damage(_amount);
 		}
 
 		var ogAmount = _amount;
@@ -1741,6 +1741,11 @@ var Fighter = class {
                 this.giSummons[i].turnChange();
             }
             this.giSummons = this.giSummons.filter(function(_obj) { return _obj.genshinSummonCountdown > 0; });
+
+			for (var i in this.giSkillTrees) {
+				if (this.giSkillTrees[i].skillCD > 0) this.giSkillTrees[i].skillCD -= 1;
+				if (this.giSkillTrees[i].burstCD > 0) this.giSkillTrees[i].burstCD -= 1;
+			}
         }
 
 		if (this.futureMemories == 0 ||
