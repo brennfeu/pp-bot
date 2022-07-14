@@ -1,5 +1,5 @@
-eval(fs.readFileSync("dlc/gungeon-data.js").toString());
-eval(fs.readFileSync("dlc/gungeon-bosses.js").toString());
+eval(fs.readFileSync("dlc/gungeon/data.js").toString());
+eval(fs.readFileSync("dlc/gungeon/bosses.js").toString());
 
 var DLC_GUNGEON = {
     "name": "Gungeon Battalion",

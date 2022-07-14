@@ -2,19 +2,20 @@
 var fs = require("fs");
 eval(fs.readFileSync("data.js").toString());
 
-eval(fs.readFileSync("fighter.js").toString());
-eval(fs.readFileSync("duel.js").toString());
-eval(fs.readFileSync("bosses.js").toString());
+eval(fs.readFileSync("duel/duel.js").toString());
+eval(fs.readFileSync("duel/events.js").toString());
 
-eval(fs.readFileSync("ai.js").toString());
-eval(fs.readFileSync("moves.js").toString());
+eval(fs.readFileSync("fighters/fighter.js").toString());
+eval(fs.readFileSync("fighters/bosses.js").toString());
+eval(fs.readFileSync("fighters/moves.js").toString());
+eval(fs.readFileSync("fighters/ai.js").toString());
 
 eval(fs.readFileSync("utils.js").toString());
 eval(fs.readFileSync("db.js").toString());
 
 // DLCs
-eval(fs.readFileSync("dlc/gungeon.js").toString());
-eval(fs.readFileSync("dlc/genshin.js").toString());
+eval(fs.readFileSync("dlc/gungeon/_init.js").toString());
+eval(fs.readFileSync("dlc/genshin/_init.js").toString());
 
 
 // VARIABLES
