@@ -2220,6 +2220,10 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 this.duel.addMessage(this.getName() + " wishes to meet the fated under the stars!");
                 this.genshinRoll();
                 break;
+            case(EMOTE_GI2):
+                this.duel.addMessage(this.getName() + " wishes to entwine fates and connect dreams, just as how his wish's glimmer links stars into the shapes of a heart's desires!");
+                this.genshinRoll();
+                break;
             case(EMOTE_GI9):
             case(EMOTE_GI10):
             case(EMOTE_GI11):
@@ -2234,9 +2238,12 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     }
                 }
                 break;
-            case(EMOTE_GI2):
-                this.duel.addMessage(this.getName() + " wishes to entwine fates and connect dreams, just as how his wish's glimmer links stars into the shapes of a heart's desires!");
-                this.genshinRoll();
+            case(EMOTE_GI5):
+                this.duel.addMessage(this.getName() + " summons Oz!");
+                this.giSummons = this.giSummons.filter(a => !(a instanceof GenshinOz));
+                var oz = new GenshinOz(this);
+                this.giSummons.push(oz);
+                oz.attackFighter(oppFighter, 1.1544*this.getGenshinATK(), { damageType: "electric" });
                 break;
             case(EMOTE_GI7):
                 this.duel.addMessage(this.getName() + " summons a Baron Bunny!");
@@ -2244,7 +2251,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 break;
             case(EMOTE_GI8):
                 this.duel.addMessage(this.getName() + " fires off a shower of arrows!");
-                for (var i = 0; i < 18; i++) this.attackFighter(oppFighter, 28.08*this.getGenshinATK(), { damageType: "fire" });
+                for (var i = 0; i < 18; i++) this.attackFighter(oppFighter, 0.2808*this.getGenshinATK(), { damageType: "fire" });
                 break;
 
             case(EMOTE_ABILITY): // Requiems

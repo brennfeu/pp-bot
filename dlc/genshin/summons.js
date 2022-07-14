@@ -5,6 +5,8 @@ var GenshinSummon = class extends Boss {
         this.genshinSummonMaster = _fighter;
         this.genshinSummonCountdown = _countdown;
         this.genshinSummonStatusEmote = _genshinSummonStatusEmote;
+
+        this.genshinSummonDisplaySTR = _hp != 0;
     }
 
     turnChange() {
@@ -26,5 +28,19 @@ var GenshinBaronBunny = class extends GenshinSummon {
             this.attackFighter(this.duel.getOppOf(this.genshinSummonMaster), this.genshinSummonMaster.getGenshinATK()*1.232, { damageType: "fire" })
             this.genshinSummonMaster.recieveGenshinParticle(4, "Pyro");
         }
+    }
+}
+
+var GenshinOz = class extends GenshinSummon {
+    constructor(_fighter) {
+        super(_fighter, "Oz", 4, 0, CHAR_GI2.skillEmote);
+    }
+
+    turnChange() {
+        super.turnChange();
+        this.duel.addMessage("-----------------");
+        this.duel.addMessage("Oz attacks!");
+        this.attack(this.duel.getOppOf(this.genshinSummonMaster), this.genshinSummonMaster.getGenshinATK()*0.888, { damageType: "electric" });
+        if (getRandomPercent() <= 67) this.genshinSummonMaster.recieveGenshinParticle(1, "Electro");
     }
 }

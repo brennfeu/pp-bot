@@ -39,7 +39,9 @@ Fighter.prototype.getGenshinStatus = function() {
 
     for (var i in this.giSummons) {
         if (this.giSummons[i].genshinSummonStatusEmote != null) genshinTxt += displayEmote(this.giSummons[i].genshinSummonStatusEmote) + " ";
-        genshinTxt += this.giSummons[i].getName() + " (CD: " + this.giSummons[i].genshinSummonCountdown + " turns // HP: " + this.giSummons[i].getGenshinHP() + ")\n";
+        genshinTxt += this.giSummons[i].getName() + " (CD: " + this.giSummons[i].genshinSummonCountdown + " turns";
+        if (this.giSummons[i].genshinSummonDisplaySTR) genshinTxt += " // HP: " + this.giSummons[i].getGenshinHP();
+        genshinTxt += ")\n";
     }
 
     genshinTxt += this.getGenshinStatsStatus();
