@@ -32,8 +32,8 @@ Fighter.prototype.getGenshinStatus = function() {
         var constellationText = "";
         if (this.giSkillTrees[i].constellation > 0) constellationText = " C" + this.giSkillTrees[i].constellation;
         genshinTxt += displayEmote(char.skillEmote) + displayEmote(char.burstEmote) + constellationText + " " + char.name + " Talents\n";
-        if (this.giSkillTrees[i].skillCD > 0) genshinTxt += "- " + displayEmote(char.skillEmote) + " Skill CD: " + this.giSkillTrees[i].skillCD + "\n";
-        if (this.giSkillTrees[i].burstCD > 0) genshinTxt += "- " + displayEmote(char.burstEmote) + " Burst CD: " + this.giSkillTrees[i].burstCD + "\n";
+        if (this.giSkillTrees[i].skillCD > 0) genshinTxt += displayEmote(char.skillEmote) + " Skill CD: " + this.giSkillTrees[i].skillCD + " turns\n";
+        if (this.giSkillTrees[i].burstCD > 0) genshinTxt += displayEmote(char.burstEmote) + " Burst CD: " + this.giSkillTrees[i].burstCD + " turns\n";
     }
     if (Object.keys(this.giSkillTrees).length > 0 || this.giEnergy > 0) genshinTxt += "Energy: " + this.giEnergy + "\n";
 
