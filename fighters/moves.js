@@ -2242,6 +2242,10 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 this.duel.addMessage(this.getName() + " summons a Baron Bunny!");
                 this.giSummons.push(new GenshinBaronBunny(this));
                 break;
+            case(EMOTE_GI8):
+                this.duel.addMessage(this.getName() + " fires off a shower of arrows!");
+                for (var i = 0; i < 18; i++) this.attackFighter(oppFighter, 28.08*this.getGenshinATK(), { damageType: "fire" });
+                break;
 
             case(EMOTE_ABILITY): // Requiems
                 if (this.requiemPower != null && this.requiemCooldown <= 0) {

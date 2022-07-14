@@ -71,7 +71,7 @@ Fighter.prototype.getGenshinAvailableFighterMoves = function() {
     for (var i in this.giSkillTrees) {
         var char = GENSHIN_CHARACTER_LIST[i];
         if (this.giSkillTrees[i].skillCD <= 0) l.push(char.skillEmote);
-        if (this.giSkillTrees[i].burstCD <= 0 && this.giEnergy >= this.giSkillTrees[i].burstEnergyCost) l.push(char.burstEmote);
+        if (this.giSkillTrees[i].burstCD <= 0 && this.giEnergy >= char.burstEnergyCost) l.push(char.burstEmote);
     }
 
     return l;
