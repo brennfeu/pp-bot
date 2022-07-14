@@ -2220,6 +2220,20 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 this.duel.addMessage(this.getName() + " wishes to meet the fated under the stars!");
                 this.genshinRoll();
                 break;
+            case(EMOTE_GI9):
+            case(EMOTE_GI10):
+            case(EMOTE_GI11):
+            case(EMOTE_GI12):
+            case(EMOTE_GI13):
+            case(EMOTE_GI14):
+            case(EMOTE_GI15):
+                for (var i in GENSHIN_ELEMENT_LIST) {
+                    if (getEmoteFromGenshinElement(GENSHIN_ELEMENT_LIST[i]) == attack) {
+                        this.duel.addMessage(this.getName() + " recieves some " + GENSHIN_ELEMENT_LIST[i] + " energy!");
+                        this.recieveGenshinParticle(this.AET, GENSHIN_ELEMENT_LIST[i]);
+                    }
+                }
+                break;
             case(EMOTE_GI2):
                 this.duel.addMessage(this.getName() + " wishes to entwine fates and connect dreams, just as how his wish's glimmer links stars into the shapes of a heart's desires!");
                 this.genshinRoll();

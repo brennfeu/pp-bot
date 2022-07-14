@@ -34,3 +34,16 @@ Fighter.prototype.recieveGenshinParticle = function(_amount, _element = "Physica
 
     this.giEnergy += _amount;
 }
+
+function getEmoteFromGenshinElement(_element) {
+    switch(_element) {
+        case "Pyro": return EMOTE_GI9;
+        case "Hydro": return EMOTE_GI10;
+        case "Geo": return EMOTE_GI11;
+        case "Electro": return EMOTE_GI12;
+        case "Dendro": return EMOTE_GI13;
+        case "Cryo": return EMOTE_GI14;
+        case "Anemo": return EMOTE_GI15;
+    }
+    return EMOTE_BOSS_ATTACK;
+}
