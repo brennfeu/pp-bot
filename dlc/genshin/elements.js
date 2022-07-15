@@ -6,15 +6,57 @@ var GenshinElementManager = class {
             }
         }
 
-        if (_element != null) this.affectElement(_element, _units)
+        if (_element != null) this.applyElement(_element, _units)
     }
 
-    affectElement(_element, _units) {
+    applyElement(_element, _units = 4) {
         var value = _units;
 
         // TODO
 
-        this[_element + "Units"] += value;
+        if (_units > 0 && this[_element + "Units"] < value) this[_element + "Units"] = value;
+        else if (_units < 0) this[_element + "Units"] = Math.max(0, this[_element + "Units"]-value);
+    }
+    applyElementManager(_em) {
+        for (var i in GENSHIN_ELEMENT_LIST) {
+            if (GENSHIN_ELEMENT_LIST[i] != "Physical" && _em[GENSHIN_ELEMENT_LIST[i] + "Units"] > 0) {
+                switch (GENSHIN_ELEMENT_LIST[i]) {
+                    case "Pyro":
+                        this.applyElement("Hydro", -1*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+                        this.applyElement("Cryo", -1*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+                        this.applyElement("Electro", -1*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+                        this.applyElement("Geo", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+                        this.applyElement("Anemo", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+                        break;
+                    case "Hydro":
+                        this.applyElement("Pyro", -1*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+                        this.applyElement("Electro", -1*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+                        this.applyElement("Geo", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+                        this.applyElement("Anemo", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+                        break;
+                    case "Electro":
+                        this.applyElement("Pyro", -1*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+                        this.applyElement("Cryo", -1*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+                        this.applyElement("Geo", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+                        this.applyElement("Anemo", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+                        break;
+                    case "Cryo":
+                        this.applyElement("Pyro", -1*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+                        this.applyElement("Electro", -1*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+                        this.applyElement("Geo", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+                        this.applyElement("Anemo", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+                        break;
+                    case "Anemo":
+                    case "Geo":
+                        this.applyElement("Pyro", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+                        this.applyElement("Hydro", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+                        this.applyElement("Electro", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+                        this.applyElement("Cryo", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+                        break;
+                }
+                applyElement(GENSHIN_ELEMENT_LIST[i], _em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+            }
+        }
     }
 
     isAffectedBy(_element) {
@@ -23,8 +65,8 @@ var GenshinElementManager = class {
 
     turnChange() {
         for (var i in GENSHIN_ELEMENT_LIST) {
-            if (GENSHIN_ELEMENT_LIST[i] != "Physical" && this[GENSHIN_ELEMENT_LIST[i] + "Units"] > 0) {
-                this[GENSHIN_ELEMENT_LIST[i] + "Units"] -= 1;
+            if (GENSHIN_ELEMENT_LIST[i] != "Physical") {
+                this[GENSHIN_ELEMENT_LIST[i] + "Units"] = Math.max(0, this[GENSHIN_ELEMENT_LIST[i] + "Units"]-1);
             }
         }
     }

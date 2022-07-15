@@ -498,7 +498,13 @@ var Fighter = class {
 		embedMessage.setThumbnail(this.getImageURL());
 
 		// TITLE
-		var nameTxt = "**" + this.getName() + "**";
+		var nameTxt = "";
+		if (this.duel.MERGED_WORLDS.indexOf(DLC_GENSHIN) > -1) {
+			for (var i in GENSHIN_ELEMENT_LIST) {
+				if (this.giElementManager.isAffectedBy(GENSHIN_ELEMENT_LIST[i])) nameTxt += displayEmote(getEmoteFromGenshinElement(GENSHIN_ELEMENT_LIST[i]));
+			}
+		}
+		nameTxt += "**" + this.getName() + "**";
 		if (this.destroyerOfWorlds) nameTxt += " - Destroyer of Worlds"
 		embedMessage.setTitle(nameTxt + "\n");
 
@@ -1226,6 +1232,63 @@ var Fighter = class {
 		if (this.duel.INFINITE_DAMAGE >= 100) {
 			if (this.duel.INFINITE_DAMAGE == 100) this.duel.addMessage("**Damage cap achieved!**");
 			return;
+		}
+
+		// genshin elements
+		if (this.duel.MERGED_WORLDS.indexOf(DLC_GENSHIN) > -1) {
+			var giEM = new GenshinElementManager();
+			switch(_options["damageType"]) {
+				case "fire": giEM.applyElement("Pyro"); break;
+				case "electric": giEM.applyElement("Electro"); break;
+				case "fire": giEM.applyElement("Pyro"); break;
+				case "ice": giEM.applyElement("Cryo"); break;
+				case "water": giEM.applyElement("Hydro"); break;
+				case "earth": giEM.applyElement("Geo"); break;
+				case "nature": giEM.applyElement("Dendro"); break;
+			}
+
+			// reactions
+			if (giEM.isAffectedBy("Pyro")) {
+				if (this.isAffectedBy("Electro")) {
+					this.duel.addMessage("*Electro-Charged*");
+
+					var em = this.duel.getOppOf(this).getGenshinEM();
+					if (_options["puncher"] != undefined) em = _options["puncher"].getGenshinEM();
+					this.damage(em);
+				}
+				else if (this.isAffectedBy("Cryo")) {
+					this.duel.addMessage("*Melt*");
+					_amount = _amount*2;
+				}
+				else if (this.isAffectedBy("Hydro")) {
+					this.duel.addMessage("*Reverse Vaporize*");
+					_amount = _amount*1.5;
+				}
+			}
+			if (giEM.isAffectedBy("Hydro")) {
+				if (this.isAffectedBy("Pyro")) {
+					this.duel.addMessage("*Vaporize*");
+					_amount = _amount*2;
+				}
+			}
+			if (giEM.isAffectedBy("Cryo")) {
+				if (this.isAffectedBy("Pyro")) {
+					this.duel.addMessage("*Reverse Melt*");
+					_amount = _amount*1.5;
+				}
+			}
+			if (giEM.isAffectedBy("Electro")) {
+				if (this.isAffectedBy("Pyro")) {
+					this.duel.addMessage("*Electro-Charged*");
+
+					var em = this.duel.getOppOf(this).getGenshinEM();
+					if (_options["puncher"] != undefined) em = _options["puncher"].getGenshinEM();
+					this.damage(em);
+				}
+			}
+
+			// affect element
+			this.applyElementManager(giEM);
 		}
 
 		// damage divisions
