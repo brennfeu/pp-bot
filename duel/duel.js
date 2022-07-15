@@ -1063,16 +1063,12 @@ var Duel = class {
                 var duel = _fighter.duel;
 				var attackEmote = duel.getAttackFromEmote(_emote);
 
-    			if (_user.id == _fighter.user.id && _fighter.getGenshinAvailableFighterMoves().indexOf(attackEmote) > -1) {
-                    isGenshinTalent = true;
-                    _fighter.playMove(attackEmote);
-                    duel.sendMessages();
+    			if (_user.id == _fighter.user.id && _fighter.canSelectMove() && _fighter.getGenshinAvailableFighterMoves().indexOf(attackEmote) > -1) {
+					duel.addMessage(_fighter.getName() + "'s Talent Queue: " + _emote, true);
+					duel.sendMessages();
 
-					// cooldown
-					for (var i in _fighter.giSkillTrees) {
-						if (GENSHIN_CHARACTER_LIST[i].skillEmote == attackEmote) _fighter.giSkillTrees[i].skillCD = GENSHIN_CHARACTER_LIST[i].skillCD;
-						else if (GENSHIN_CHARACTER_LIST[i].burstEmote == attackEmote) _fighter.giSkillTrees[i].burstCD = GENSHIN_CHARACTER_LIST[i].burstCD;
-					}
+					_fighter.giSkillsQueue.push(attackEmote);
+					isGenshinTalent = true;
                 }
     		});
         }
@@ -1082,13 +1078,7 @@ var Duel = class {
 		this.bothFightersAction(function(_fighter) {
 			var duel = _fighter.duel;
 
-			if (_fighter.duel.TIME_STOP > 0 && _fighter.duel.TIME_STOP_ID != _fighter.idUser) { // if weak --> skip time skip
-				return;
-			}
-			else if (_fighter.attack == EMOTE_DEAD || _fighter.attack == EMOTE_SKIP) { // no choice
-				return;
-			}
-			else if (_user.id == _fighter.user.id && _fighter.isPossessed <= 0 && _fighter.turnSkip <= 0 && _fighter.grabbedPP <= 0 && _fighter.summonTankCountdown != 1) {
+			if (_user.id == _fighter.user.id && _fighter.canSelectMove()) {
 				_fighter.attack = duel.getAttackFromEmote(_emote);
 				duel.addMessage(_fighter.getName() + ": " + _emote, true);
 				duel.sendMessages();
@@ -1116,6 +1106,25 @@ var Duel = class {
 	}
 	launchAttacks() {
 		this.addMessage("\n\n**===== ATTACKS =====**");
+
+		// talents
+		if (this.MERGED_WORLDS.indexOf(DLC_GENSHIN) > -1) {
+			this.bothFightersAction(function(_fighter) {
+				for (var s in _fighter.giSkillsQueue) {
+					if (_fighter.getGenshinAvailableFighterMoves().indexOf(_fighter.giSkillsQueue[s]) < 0) continue;
+					_fighter.playMove(_fighter.giSkillsQueue[s]);
+					_fighter.duel.addMessage("-----------------");
+
+					// cooldown
+					for (var i in _fighter.giSkillTrees) {
+						if (GENSHIN_CHARACTER_LIST[i].skillEmote == _fighter.giSkillsQueue[s]) _fighter.giSkillTrees[i].skillCD = GENSHIN_CHARACTER_LIST[i].skillCD;
+						else if (GENSHIN_CHARACTER_LIST[i].burstEmote == _fighter.giSkillsQueue[s]) _fighter.giSkillTrees[i].burstCD = GENSHIN_CHARACTER_LIST[i].burstCD;
+					}
+				}
+				_fighter.giSkillsQueue = [];
+			});
+			this.sendMessages();
+		}
 
 		this.bothFightersAction(function(_fighter) {
 			_fighter.usedMoves.push(_fighter.attack);

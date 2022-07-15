@@ -18,8 +18,10 @@ var DLC_GENSHIN = {
     "statusFunction": "getGenshinStatus",
     "fighterInitFunction": function(_fighter) {
         _fighter.giSkillTrees = {};
+        _fighter.giSkillsQueue = [];
         _fighter.giEnergy = 0;
         _fighter.giSummons = [];
+        _fighter.giElementManager = new GenshinElementManager();
     }
 }
 MERGABLE_WORLDS.push(DLC_GENSHIN);

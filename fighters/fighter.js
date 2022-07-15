@@ -1315,6 +1315,18 @@ var Fighter = class {
 		return true;
 	}
 
+	canSelectMove() {
+		if (this.duel.TIME_STOP > 0 && this.duel.TIME_STOP_ID != this.idUser) { // if weak --> skip time skip
+			return false;
+		}
+		else if (this.attack == EMOTE_DEAD || this.attack == EMOTE_SKIP) { // no choice
+			return false;
+		}
+		else if (this.isPossessed > 0 || this.turnSkip > 0 && this.grabbedPP > 0 && this.summonTankCountdown == 1) {
+			return false;
+		}
+		return true;
+	}
 	turnChange() {
 		// Clear attaque
 		this.attack = "";
@@ -1746,6 +1758,8 @@ var Fighter = class {
 				if (this.giSkillTrees[i].skillCD > 0) this.giSkillTrees[i].skillCD -= 1;
 				if (this.giSkillTrees[i].burstCD > 0) this.giSkillTrees[i].burstCD -= 1;
 			}
+
+			this.giElementManager.turnChange();
         }
 
 		if (this.futureMemories == 0 ||

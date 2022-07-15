@@ -2245,6 +2245,12 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 this.giSummons.push(oz);
                 oz.attackFighter(oppFighter, 1.1544*this.getGenshinATK(), { damageType: "electric" });
                 break;
+            case(EMOTE_GI6):
+                this.duel.addMessage(this.getName() + " takes on Oz's form!");
+                this.attackFighter(oppFighter, 2.08*this.getGenshinATK(), { damageType: "electric" });
+                this.giSummons = this.giSummons.filter(a => !(a instanceof GenshinOz));
+                this.giSummons.push(new GenshinOz(this));
+                break;
             case(EMOTE_GI7):
                 this.duel.addMessage(this.getName() + " summons a Baron Bunny!");
                 this.giSummons.push(new GenshinBaronBunny(this));

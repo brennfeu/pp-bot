@@ -20,6 +20,14 @@ var GenshinElementManager = class {
     isAffectedBy(_element) {
         return this[GENSHIN_ELEMENT_LIST[i] + "Units"] > 0;
     }
+
+    nextTurn() {
+        for (var i in GENSHIN_ELEMENT_LIST) {
+            if (GENSHIN_ELEMENT_LIST[i] != "Physical" && this[GENSHIN_ELEMENT_LIST[i] + "Units"] > 0) {
+                this[GENSHIN_ELEMENT_LIST[i] + "Units"] -= 1;
+            }
+        }
+    }
 }
 
 Fighter.prototype.recieveGenshinParticle = function(_amount, _element = "Physical") {
