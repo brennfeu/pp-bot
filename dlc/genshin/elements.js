@@ -15,7 +15,7 @@ var GenshinElementManager = class {
         // TODO
 
         if (_units > 0 && this[_element + "Units"] < value) this[_element + "Units"] = value;
-        else if (_units < 0) this[_element + "Units"] = Math.max(0, this[_element + "Units"]-value);
+        else if (_units < 0) this[_element + "Units"] = Math.max(0, this[_element + "Units"]+value);
     }
     applyElementManager(_em) {
         for (var i in GENSHIN_ELEMENT_LIST) {
