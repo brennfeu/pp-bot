@@ -60,7 +60,7 @@ var GenshinElementManager = class {
     }
 
     isAffectedBy(_element) {
-        return this[GENSHIN_ELEMENT_LIST[i] + "Units"] > 0;
+        return this[_element + "Units"] > 0;
     }
 
     turnChange() {
