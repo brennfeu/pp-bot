@@ -1249,36 +1249,36 @@ var Fighter = class {
 
 			// reactions
 			if (giEM.isAffectedBy("Pyro")) {
-				if (this.isAffectedBy("Electro")) {
+				if (this.giElementManager.isAffectedBy("Electro")) {
 					this.duel.addMessage("*Electro-Charged*");
 
 					var em = this.duel.getOppOf(this).getGenshinEM();
 					if (_options["puncher"] != undefined) em = _options["puncher"].getGenshinEM();
 					this.damage(em);
 				}
-				else if (this.isAffectedBy("Cryo")) {
+				else if (this.giElementManager.isAffectedBy("Cryo")) {
 					this.duel.addMessage("*Melt*");
 					_amount = _amount*2;
 				}
-				else if (this.isAffectedBy("Hydro")) {
+				else if (this.giElementManager.isAffectedBy("Hydro")) {
 					this.duel.addMessage("*Reverse Vaporize*");
 					_amount = _amount*1.5;
 				}
 			}
 			if (giEM.isAffectedBy("Hydro")) {
-				if (this.isAffectedBy("Pyro")) {
+				if (this.giElementManager.isAffectedBy("Pyro")) {
 					this.duel.addMessage("*Vaporize*");
 					_amount = _amount*2;
 				}
 			}
 			if (giEM.isAffectedBy("Cryo")) {
-				if (this.isAffectedBy("Pyro")) {
+				if (this.giElementManager.isAffectedBy("Pyro")) {
 					this.duel.addMessage("*Reverse Melt*");
 					_amount = _amount*1.5;
 				}
 			}
 			if (giEM.isAffectedBy("Electro")) {
-				if (this.isAffectedBy("Pyro")) {
+				if (this.giElementManager.isAffectedBy("Pyro")) {
 					this.duel.addMessage("*Electro-Charged*");
 
 					var em = this.duel.getOppOf(this).getGenshinEM();
@@ -1288,7 +1288,7 @@ var Fighter = class {
 			}
 
 			// affect element
-			this.applyElementManager(giEM);
+			this.giElementManager.applyElementManager(giEM);
 		}
 
 		// damage divisions
