@@ -40,7 +40,7 @@ var GenshinOz = class extends GenshinSummon {
         super.turnChange();
         this.duel.addMessage("-----------------");
         this.duel.addMessage("Oz attacks!");
-        this.attack(this.duel.getOppOf(this.genshinSummonMaster), this.genshinSummonMaster.getGenshinATK()*0.888, { damageType: "electric" });
+        this.attackFighter(this.duel.getOppOf(this.genshinSummonMaster), this.genshinSummonMaster.getGenshinATK()*0.888, { damageType: "electric" });
         if (getRandomPercent() <= 67) this.genshinSummonMaster.recieveGenshinParticle(1, "Electro");
     }
 }
