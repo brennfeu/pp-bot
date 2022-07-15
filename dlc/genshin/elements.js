@@ -54,7 +54,7 @@ var GenshinElementManager = class {
                         this.applyElement("Cryo", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
                         break;
                 }
-                applyElement(GENSHIN_ELEMENT_LIST[i], _em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
+                this.applyElement(GENSHIN_ELEMENT_LIST[i], _em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
             }
         }
     }
