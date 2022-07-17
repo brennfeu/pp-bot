@@ -62,6 +62,10 @@ var GenshinElementManager = class {
     isAffectedBy(_element) {
         return this[_element + "Units"] > 0;
     }
+    isFrozen() {
+        if (this.isAffectedBy("Cryo") && this.isAffectedBy("Hydro")) return true;
+        return false;
+    }
 
     turnChange() {
         for (var i in GENSHIN_ELEMENT_LIST) {
@@ -70,6 +74,11 @@ var GenshinElementManager = class {
             }
         }
     }
+}
+
+Fighter.prototype.triggerGenshinElectroCharged = function(_origin = this.duel.getOppOf(this).getGenshinEM()) {
+    this.duel.addMessage("*Electro-Charged*");
+    this.damage(_origin.getGenshinEM());
 }
 
 Fighter.prototype.recieveGenshinParticle = function(_amount, _element = "Physical") {
@@ -83,6 +92,24 @@ Fighter.prototype.recieveGenshinParticle = function(_amount, _element = "Physica
     // TODO energy recharge
 
     this.giEnergy += _amount;
+}
+
+Fighter.prototype.hasGenshinSynergy = function(_synergy) {
+    if (_synergy == SYNERGY_GI0) { // 4 different elements
+        var list = [];
+        for (var i in this.giSkillTrees) {
+            if (list.indexOf(GENSHIN_CHARACTER_LIST[i].element) < 0) list.push(GENSHIN_CHARACTER_LIST[i].element);
+        }
+
+        return list.length >= 4;
+    }
+
+    var id = GENSHIN_SYNERGIES.indexOf(_synergy);
+    var nb = 0;
+    for (var i in this.giSkillTrees) {
+        if (GENSHIN_CHARACTER_LIST[i].element == GENSHIN_ELEMENT_LIST[id+1]) nb += 1;
+    }
+    return nb >= 2;
 }
 
 function getEmoteFromGenshinElement(_element) {

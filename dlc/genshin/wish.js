@@ -27,3 +27,21 @@ Fighter.prototype.genshinRoll = function() {
     // random chance to get more
     if (getRandomPercent() <= 5) this.genshinRoll();
 }
+Fighter.prototype.addGenshinSkillTree = function(_skillTree) {
+    var index = GENSHIN_CHARACTER_LIST.indexOf(_skillTree);
+    if (this.giSkillTrees[index] == undefined) {
+        this.giSkillTrees[index] = {
+            "constellation": 0,
+            "skillCD": 0,
+            "burstCD": 0
+        };
+        return;
+    }
+
+    if (this.giSkillTrees[index].constellation < 6) {
+        this.giSkillTrees[index].constellation += 1;
+        return;
+    }
+
+    // TODO new rolls
+}

@@ -9,6 +9,7 @@ var DLC_GENSHIN = {
     "description": "You arrive in Teyvat, still ready to take down your opponent. Roll for characters and obtain their talents!",
     "imageURL": "https://cdn.discordapp.com/attachments/667337519477817363/991992955940388904/genshin.jpg",
     "emotes": GENSHIN_AVAILABLE_EMOTE_LIST,
+    "synergies": GENSHIN_SYNERGIES,
 
     "duelInitFunction": function(_duel) {
         _duel.GI_BANNER_CHAR = null;
@@ -39,6 +40,8 @@ Fighter.prototype.getGenshinStatus = function() {
     }
     if (Object.keys(this.giSkillTrees).length > 0 || this.giEnergy > 0) genshinTxt += "Energy: " + this.giEnergy + "\n";
 
+    if (this.giElementManager.isFrozen()) genshinTxt += displayEmote(EMOTE_GI14) + " **Frozen**\n";
+
     for (var i in this.giSummons) {
         if (this.giSummons[i].genshinSummonStatusEmote != null) genshinTxt += displayEmote(this.giSummons[i].genshinSummonStatusEmote) + " ";
         genshinTxt += this.giSummons[i].getName() + " (CD: " + this.giSummons[i].genshinSummonCountdown + " turns";
@@ -51,24 +54,6 @@ Fighter.prototype.getGenshinStatus = function() {
     return genshinTxt;
 }
 
-Fighter.prototype.addGenshinSkillTree = function(_skillTree) {
-    var index = GENSHIN_CHARACTER_LIST.indexOf(_skillTree);
-    if (this.giSkillTrees[index] == undefined) {
-        this.giSkillTrees[index] = {
-            "constellation": 0,
-            "skillCD": 0,
-            "burstCD": 0
-        };
-        return;
-    }
-
-    if (this.giSkillTrees[index].constellation < 6) {
-        this.giSkillTrees[index].constellation += 1;
-        return;
-    }
-
-    // TODO new rolls
-}
 Fighter.prototype.getGenshinAvailableFighterMoves = function() {
     var l = [];
 

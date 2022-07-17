@@ -363,16 +363,15 @@ var Fighter = class {
 	get DEX() {
 		var dex = this.DEXValue;
 		// Burst
-		if (this.hasBurst >= 1) {
-			return 0;
-		}
+		if (this.hasBurst >= 1) return 0;
+		// Genshin Frozen
+		if (this.duel.MERGED_WORLDS.indexOf(DLC_GENSHIN) > -1 && this.giElementManager.isFrozen()) return 0;
+
 		// BronanSlam
-		if (this.megaBuildUp > 0) {
-			dex = this.bonusDamage;
-		}
+		if (this.megaBuildUp > 0) dex = this.bonusDamage;
 
 		dex += this.dexMalus;
-		if (this.hasExamined == 1) {
+		if (this.hasExamined >= 1) {
 			dex += 30;
 		}
 		if (this.isBigPP) {
@@ -504,7 +503,7 @@ var Fighter = class {
 				if (this.giElementManager.isAffectedBy(GENSHIN_ELEMENT_LIST[i])) nameTxt += displayEmote(getEmoteFromGenshinElement(GENSHIN_ELEMENT_LIST[i]));
 			}
 		}
-		nameTxt += "**" + this.getName() + "**";
+		nameTxt += " **" + this.getName() + "**";
 		if (this.destroyerOfWorlds) nameTxt += " - Destroyer of Worlds"
 		embedMessage.setTitle(nameTxt + "\n");
 
@@ -674,6 +673,13 @@ var Fighter = class {
 			}
             if (this.hasSynergy(SYNERGY_PP14)) {
 				synergyTxt += "- Wild Mage\n";
+			}
+		}
+		for (var i in this.duel.MERGED_WORLDS) {
+			if (this.duel.MERGED_WORLDS.synergies == undefined) continue;
+
+			for (var j in this.duel.MERGED_WORLDS.synergies) {
+				if (this.hasSynergy(this.duel.MERGED_WORLDS.synergies[j])) synergyTxt += "- " + this.duel.MERGED_WORLDS.synergies[j] + "\n";
 			}
 		}
 		if (synergyTxt != "") embedMessage.addField("Synergies", sciText(synergyTxt), true);
@@ -1250,11 +1256,7 @@ var Fighter = class {
 			// reactions
 			if (giEM.isAffectedBy("Pyro")) {
 				if (this.giElementManager.isAffectedBy("Electro")) {
-					this.duel.addMessage("*Electro-Charged*");
-
-					var em = this.duel.getOppOf(this).getGenshinEM();
-					if (_options["puncher"] != undefined) em = _options["puncher"].getGenshinEM();
-					this.damage(em);
+					this.triggerGenshinElectroCharged(_options["puncher"]);
 				}
 				else if (this.giElementManager.isAffectedBy("Cryo")) {
 					this.duel.addMessage("*Melt*");
@@ -1279,11 +1281,7 @@ var Fighter = class {
 			}
 			if (giEM.isAffectedBy("Electro")) {
 				if (this.giElementManager.isAffectedBy("Pyro")) {
-					this.duel.addMessage("*Electro-Charged*");
-
-					var em = this.duel.getOppOf(this).getGenshinEM();
-					if (_options["puncher"] != undefined) em = _options["puncher"].getGenshinEM();
-					this.damage(em);
+					this.triggerGenshinElectroCharged(_options["puncher"]);
 				}
 			}
 
