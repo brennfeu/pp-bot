@@ -56,21 +56,16 @@ var GenshinElementManager = class {
         }
         for (var i in reactionDict[_element]) {
             var _units2 = this[i + "Units"];
-            var _units2toRemove = reactionDict[_element][i]*_units;
+            var _units2mult = reactionDict[_element][i];
 
-            console.log("before " + i + ": " + _units);
-            console.log(i);
-            console.log(_units2);
-            console.log(this[reactionDict[_element][i] + "Units"]);
-            if (_units2toRemove >= _units2) {
+            if (_units >= _units2*_units2mult) {
+                _units -= _units2*_units2mult;
                 this[i + "Units"] = 0;
-                _units -= _units2*this[reactionDict[_element][i] + "Units"];
             }
             else {
                 this[i + "Units"] -= _units2toRemove;
                 _units = 0;
             }
-            console.log("after: " + _units);
         }
 
         this[_element + "Units"] = Math.max(this[_element + "Units"], _units);
