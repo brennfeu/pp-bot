@@ -13,7 +13,6 @@ var GenshinElementManager = class {
 
     applyElement(_element, _units = 4) {
         var value = _units;
-
         if (_units < 0) return this[_element + "Units"] = Math.max(0, this[_element + "Units"]+value);
 
         var reactionDict = {
@@ -59,6 +58,7 @@ var GenshinElementManager = class {
             var _units2 = this[i + "Units"];
             var _units2toRemove = reactionDict[_element][i]*_units;
 
+            console.log("before " + i + ": " + _units);
             if (_units2toRemove >= _units2) {
                 this[i + "Units"] = 0;
                 _units -= _units2*this[reactionDict[_element][i] + "Units"];
@@ -67,6 +67,7 @@ var GenshinElementManager = class {
                 this[i + "Units"] -= _units2toRemove;
                 _units = 0;
             }
+            console.log("after: " + _units);
         }
 
         this[_element + "Units"] = Math.max(this[_element + "Units"], _units);

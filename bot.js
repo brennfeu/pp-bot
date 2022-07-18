@@ -676,6 +676,7 @@ CLIENT.on("message", async _message => { try {
 			}
             if (argsUser[2] == "test1") {
                 MERGABLE_WORLDS = [ DLC_GENSHIN ];
+                ADMIN_CHEAT = true;
                 return _message.reply("Genshin Only DLC");
             }
 

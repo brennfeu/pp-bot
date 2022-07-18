@@ -1915,6 +1915,7 @@ var Fighter = class {
             if (this.guGunSoul && this.guFlask > -1) return true;
             return false;
         }
+        else if (GENSHIN_SYNERGIES.indexOf(_synergy) > -1) return this.hasGenshinSynergy(_synergy);
 
 		if (this.forcedSynergies.indexOf(_synergy) > -1) return true;
 		if (this.godList.length >= GOD_LIST.length) return true;

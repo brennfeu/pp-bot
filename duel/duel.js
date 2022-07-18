@@ -1145,6 +1145,7 @@ var Duel = class {
 		this.bothFightersAction(function(_fighter) {
 			var duel = _fighter.duel;
 			if (duel.DEAD_DUEL) return;
+            if (ADMIN_CHEAT) return;
 
 			var caught1 = false;
 
