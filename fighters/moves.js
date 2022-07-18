@@ -2238,6 +2238,17 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     }
                 }
                 break;
+            case(EMOTE_GI4):
+                this.duel.addMessage(this.getName() + " commands a blazing spirit to attack!");
+                if (this.getGenshinHP() >= oppFighter.getGenshinHP()) {
+                    this.attackFighter(oppFighter, this.getGenshinATK()*3.0327, { damageType: "fire" });
+                    this.heal(this.getGenshinHP()*0.0626*randomFromList([1, 2, 3]));
+                }
+                else {
+                    this.attackFighter(oppFighter, this.getGenshinATK()*3.7909, { damageType: "fire" });
+                    this.heal(this.getGenshinHP()*0.0835*randomFromList([1, 2, 3]));
+                }
+                break;
             case(EMOTE_GI5):
                 this.duel.addMessage(this.getName() + " summons Oz!");
                 this.giSummons = this.giSummons.filter(a => !(a instanceof GenshinOz));

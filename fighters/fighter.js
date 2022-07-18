@@ -1141,7 +1141,7 @@ var Fighter = class {
 			_fighter.attackFighter(this, _fighter.STR/10, { damageType: "wind" });
 			return false;
 		}
-		else if (this.isProtected) { // RiotShield
+		else if (_fighter.isProtected) { // RiotShield
 			this.duel.addMessage(_fighter.getName() + " reflects the damage!");
 			_fighter.isProtected = false;
 			_fighter.attackFighter(this, _amount, _options);
