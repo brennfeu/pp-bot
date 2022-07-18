@@ -68,10 +68,10 @@ var GENSHIN_CHARACTER_LIST = GENSHIN_FIVESTARS_CHARACTER_LIST.concat([ CHAR_GI3,
 
 var GENSHIN_ELEMENT_LIST = [ "Physical", "Pyro", "Hydro", "Anemo", "Electro", "Dendro", "Cryo", "Geo" ];
 
-var SYNERGY_GI0 = "TODO";
-var SYNERGY_GI1 = "Pyro Resonance - TODO";
-var SYNERGY_GI2 = "Hydro Resonance - TODO";
-var SYNERGY_GI3 = "Anemo Resonance - TODO";
+var SYNERGY_GI0 = "Protective Canopy";
+var SYNERGY_GI1 = "Pyro Resonance - Fervent Flames";
+var SYNERGY_GI2 = "Hydro Resonance - Soothing Water";
+var SYNERGY_GI3 = "Anemo Resonance - High Voltage";
 var SYNERGY_GI4 = "Electro Resonance - TODO";
 var SYNERGY_GI5 = "Dendro Resonance - TODO";
 var SYNERGY_GI6 = "Cryo Resonance - TODO";

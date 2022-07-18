@@ -1243,20 +1243,22 @@ var Fighter = class {
 		// genshin elements
 		if (this.duel.MERGED_WORLDS.indexOf(DLC_GENSHIN) > -1) {
 			var giEM = new GenshinElementManager();
+            var giAttackElement = "Physical";
 			switch(_options["damageType"]) {
-				case "fire": giEM.applyElement("Pyro"); break;
-				case "electric": giEM.applyElement("Electro"); break;
-				case "fire": giEM.applyElement("Pyro"); break;
-				case "ice": giEM.applyElement("Cryo"); break;
-				case "water": giEM.applyElement("Hydro"); break;
-				case "earth": giEM.applyElement("Geo"); break;
-				case "nature": giEM.applyElement("Dendro"); break;
+				case "fire": giAttackElement = "Pyro"; break;
+				case "electric": giAttackElement = "Electro"; break;
+				case "fire": giAttackElement = "Pyro"; break;
+				case "ice": giAttackElement = "Cryo"; break;
+				case "water": giAttackElement = "Hydro"; break;
+				case "earth": giAttackElement = "Geo"; break;
+				case "nature": giAttackElement = "Dendro"; break;
 			}
+            if (giAttackElement != "Physical") giEM.applyElement(giAttackElement);
 
 			// reactions
 			if (giEM.isAffectedBy("Pyro")) {
 				if (this.giElementManager.isAffectedBy("Electro")) {
-					this.triggerGenshinElectroCharged(_options["puncher"]);
+					this.triggerGenshinOverload(_options["puncher"]);
 				}
 				else if (this.giElementManager.isAffectedBy("Cryo")) {
 					this.duel.addMessage("*Melt*");
@@ -1278,15 +1280,29 @@ var Fighter = class {
 					this.duel.addMessage("*Reverse Melt*");
 					_amount = _amount*1.5;
 				}
+                else if (this.giElementManager.isAffectedBy("Electro")) {
+                    this.triggerGenshinSuperconduct();
+                }
 			}
 			if (giEM.isAffectedBy("Electro")) {
 				if (this.giElementManager.isAffectedBy("Pyro")) {
-					this.triggerGenshinElectroCharged(_options["puncher"]);
+					this.triggerGenshinOverload(_options["puncher"]);
 				}
+                else if (this.giElementManager.isAffectedBy("Cryo")) {
+                    this.triggerGenshinSuperconduct();
+                }
 			}
 
 			// affect element
 			this.giElementManager.applyElementManager(giEM);
+
+            // RES
+            var res = this.getGenshinElementalResistance(giAttackElement);
+            var resMultiplyer = null;
+            if (res < 0) resMultiplyer = 1-(res/2);
+            else if (res < 0.75) resMultiplyer = 1-res;
+            else resMultiplyer = 1/(4*res+1);
+            _amount = _amount*resMultiplyer;
 		}
 
 		// damage divisions
@@ -1820,6 +1836,11 @@ var Fighter = class {
 				if (this.giSkillTrees[i].burstCD > 0) this.giSkillTrees[i].burstCD -= 1;
 			}
 
+            if (this.giElementManager.isElectroCharged()) {
+                this.duel.addMessage("-----------------");
+                this.triggerGenshinElectroCharged();
+            }
+            this.giSuperconductCD -= 1;
 			this.giElementManager.turnChange();
         }
 

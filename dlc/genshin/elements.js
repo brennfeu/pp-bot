@@ -12,48 +12,66 @@ var GenshinElementManager = class {
     applyElement(_element, _units = 4) {
         var value = _units;
 
-        // TODO
+        if (_units < 0) return this[_element + "Units"] = Math.max(0, this[_element + "Units"]+value);
 
-        if (_units > 0 && this[_element + "Units"] < value) this[_element + "Units"] = value;
-        else if (_units < 0) this[_element + "Units"] = Math.max(0, this[_element + "Units"]+value);
+        var reactionDict = {
+            "Pyro": {
+                "Hydro": 1,
+                "Cryo": 1,
+                "Electro": 1,
+                "Geo": 0.5,
+                "Anemo": 0.5
+            },
+            "Hydro": {
+                "Pyro": 1,
+                "Electro": 1,
+                "Geo": 0.5,
+                "Anemo": 0.5
+            },
+            "Electro": {
+                "Pyro": 1,
+                "Cryo": 1,
+                "Geo": 0.5,
+                "Anemo": 0.5
+            },
+            "Cryo": {
+                "Pyro": 1,
+                "Electro": 1,
+                "Geo": 0.5,
+                "Anemo": 0.5
+            },
+            "Geo": {
+                "Hydro": 0.5,
+                "Cryo": 0.5,
+                "Electro": 0.5,
+                "Pyro": 0.5
+            },
+            "Anemo": {
+                "Hydro": 0.5,
+                "Cryo": 0.5,
+                "Electro": 0.5,
+                "Pyro": 0.5
+            }
+        }
+        for (var i in reactionDict[_element]) {
+            var _units2 = this[i + "Units"];
+            var _units2toRemove = this[reactionDict[_element][i] + "Units"]*_units;
+
+            if (_units2toRemove >= _units2) {
+                this[i + "Units"] = 0;
+                _units -= _units2*this[reactionDict[_element][i] + "Units"];
+            }
+            else {
+                this[i + "Units"] -= _units2toRemove;
+                _units = 0;
+            }
+        }
+
+        this[_element + "Units"] = Math.max(this[_element + "Units"], _units);
     }
     applyElementManager(_em) {
         for (var i in GENSHIN_ELEMENT_LIST) {
             if (GENSHIN_ELEMENT_LIST[i] != "Physical" && _em[GENSHIN_ELEMENT_LIST[i] + "Units"] > 0) {
-                switch (GENSHIN_ELEMENT_LIST[i]) {
-                    case "Pyro":
-                        this.applyElement("Hydro", -1*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
-                        this.applyElement("Cryo", -1*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
-                        this.applyElement("Electro", -1*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
-                        this.applyElement("Geo", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
-                        this.applyElement("Anemo", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
-                        break;
-                    case "Hydro":
-                        this.applyElement("Pyro", -1*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
-                        this.applyElement("Electro", -1*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
-                        this.applyElement("Geo", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
-                        this.applyElement("Anemo", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
-                        break;
-                    case "Electro":
-                        this.applyElement("Pyro", -1*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
-                        this.applyElement("Cryo", -1*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
-                        this.applyElement("Geo", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
-                        this.applyElement("Anemo", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
-                        break;
-                    case "Cryo":
-                        this.applyElement("Pyro", -1*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
-                        this.applyElement("Electro", -1*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
-                        this.applyElement("Geo", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
-                        this.applyElement("Anemo", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
-                        break;
-                    case "Anemo":
-                    case "Geo":
-                        this.applyElement("Pyro", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
-                        this.applyElement("Hydro", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
-                        this.applyElement("Electro", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
-                        this.applyElement("Cryo", -0.5*_em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
-                        break;
-                }
                 this.applyElement(GENSHIN_ELEMENT_LIST[i], _em[GENSHIN_ELEMENT_LIST[i] + "Units"]);
             }
         }
@@ -63,22 +81,44 @@ var GenshinElementManager = class {
         return this[_element + "Units"] > 0;
     }
     isFrozen() {
-        if (this.isAffectedBy("Cryo") && this.isAffectedBy("Hydro")) return true;
-        return false;
+        return (this.isAffectedBy("Cryo") && this.isAffectedBy("Hydro"));
+    }
+    isElectroCharged() {
+        return (this.isAffectedBy("Electro") && this.isAffectedBy("Hydro"));
     }
 
     turnChange() {
         for (var i in GENSHIN_ELEMENT_LIST) {
             if (GENSHIN_ELEMENT_LIST[i] != "Physical") {
-                this[GENSHIN_ELEMENT_LIST[i] + "Units"] = Math.max(0, this[GENSHIN_ELEMENT_LIST[i] + "Units"]-1);
+                var v = 1;
+                if (GENSHIN_ELEMENT_LIST[i] == "Cryo" && this.hasSynergy(SYNERGY_GI1)) v += 0.4;
+                if (GENSHIN_ELEMENT_LIST[i] == "Pyro" && this.hasSynergy(SYNERGY_GI2)) v += 0.4;
+                if (GENSHIN_ELEMENT_LIST[i] == "Hydro" && this.hasSynergy(SYNERGY_GI3)) v += 0.4;
+
+                this[GENSHIN_ELEMENT_LIST[i] + "Units"] = Math.max(0, this[GENSHIN_ELEMENT_LIST[i] + "Units"]-v);
             }
         }
     }
 }
 
-Fighter.prototype.triggerGenshinElectroCharged = function(_origin = this.duel.getOppOf(this).getGenshinEM()) {
-    this.duel.addMessage("*Electro-Charged*");
+Fighter.prototype.triggerGenshinOverload = function(_origin = this.duel.getOppOf(this)) {
+    this.duel.addMessage("*Overload*");
     this.damage(_origin.getGenshinEM());
+
+    if (_origin.hasSynergy(SYNERGY_GI3)) _origin.recieveGenshinParticle(1, "Electro");
+}
+Fighter.prototype.triggerGenshinElectroCharged = function(_origin = this.duel.getOppOf(this)) {
+    this.duel.addMessage("*Electro-Charged*");
+    this.damage(_origin.getGenshinEM()/2);
+
+    if (_origin.hasSynergy(SYNERGY_GI3)) _origin.recieveGenshinParticle(1, "Electro");
+}
+Fighter.prototype.triggerGenshinSuperconduct = function(_origin = this.duel.getOppOf(this)) {
+    this.duel.addMessage("*Superconduct*");
+    this.damage(_origin.getGenshinEM()/5);
+    this.giSuperconductCD = 4;
+
+    if (_origin.hasSynergy(SYNERGY_GI3)) _origin.recieveGenshinParticle(1, "Electro");
 }
 
 Fighter.prototype.recieveGenshinParticle = function(_amount, _element = "Physical") {
@@ -89,9 +129,7 @@ Fighter.prototype.recieveGenshinParticle = function(_amount, _element = "Physica
     if (hasElement) _amount = _amount*3;
     if (_element == "Physical") _amount = _amount*2;
 
-    // TODO energy recharge
-
-    this.giEnergy += _amount;
+    this.giEnergy += _amount*this.getGenshinER();
 }
 
 Fighter.prototype.hasGenshinSynergy = function(_synergy) {

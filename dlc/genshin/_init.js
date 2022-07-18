@@ -22,7 +22,9 @@ var DLC_GENSHIN = {
         _fighter.giSkillsQueue = [];
         _fighter.giEnergy = 0;
         _fighter.giSummons = [];
+
         _fighter.giElementManager = new GenshinElementManager();
+        _fighter.giSuperconductCD = 0;
     }
 }
 MERGABLE_WORLDS.push(DLC_GENSHIN);
@@ -40,7 +42,9 @@ Fighter.prototype.getGenshinStatus = function() {
     }
     if (Object.keys(this.giSkillTrees).length > 0 || this.giEnergy > 0) genshinTxt += "Energy: " + this.giEnergy + "\n";
 
-    if (this.giElementManager.isFrozen()) genshinTxt += displayEmote(EMOTE_GI14) + " **Frozen**\n";
+    if (this.giElementManager.isElectroCharged()) genshinTxt += displayEmote(EMOTE_GI10) + displayEmote(EMOTE_GI12) + " **Electro-Charged**\n";
+    if (this.giElementManager.isFrozen()) genshinTxt += displayEmote(EMOTE_GI10) + displayEmote(EMOTE_GI14) + " **Frozen**\n";
+    if (this.giSuperconductCD > 0) genshinTxt += displayEmote(EMOTE_GI12) + displayEmote(EMOTE_GI14) + " **Superconduct**\n";
 
     for (var i in this.giSummons) {
         if (this.giSummons[i].genshinSummonStatusEmote != null) genshinTxt += displayEmote(this.giSummons[i].genshinSummonStatusEmote) + " ";
