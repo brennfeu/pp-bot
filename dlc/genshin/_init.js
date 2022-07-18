@@ -30,6 +30,7 @@ var DLC_GENSHIN = {
 
         _fighter.giParamitaPapilio = null;
         _fighter.giBloodBlossom = null;
+        _fighter.giFlutterBy = 0;
     }
 }
 MERGABLE_WORLDS.push(DLC_GENSHIN);

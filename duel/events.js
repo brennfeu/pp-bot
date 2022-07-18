@@ -293,11 +293,9 @@ Duel.prototype.startRandomEvent = function() {
                 if (GOD_LIST[i].name != "") _fighter.godList.push(GOD_LIST[i].name);
             }
 
-            _fighter.isBigPP = true;
-            _fighter.isFastPP = true;
-            _fighter.isDrunkPP = true;
-            _fighter.isHockeyPuckPP = true;
-            _fighter.isAlienPP = true;
+            for (var i in FIGHTING_STYLE_LIST) {
+                this[FIGHTING_STYLE_LIST[i].fighterStatus] = true;
+            }
         });
     }
     else if (this.PPLEVEL > 50 && [24, 25].indexOf(randomVar) > -1) { // Free Lives

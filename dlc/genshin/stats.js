@@ -8,6 +8,8 @@ Fighter.prototype.getGenshinStatsToDisplay = function() {
 
     if (this.giSuperconductCD > 0) l.push("PhysicalRES")
 
+    if (this.giFlutterBy > 0) l.push("CritRate");
+
     if (this.hasSynergy(SYNERGY_GI1)) l.push("ATK");
     if (this.hasSynergy(SYNERGY_GI2)) l.push("HP");
 
@@ -113,12 +115,14 @@ Fighter.prototype.getGenshinER = function() {
 Fighter.prototype.getGenshinCritRate = function() {
     var crit = 5;
 
+    if (this.giFlutterBy > 0) crit += 12;
+
     return crit;
 }
 Fighter.prototype.getGenshinCritDamage = function() {
     var crit = 50;
 
-    for (var i in this.giSkillTrees) if (GENSHIN_CHARACTER_LIST[i].ascensionStat == "CritDamage") { percentBonus += 19.2*this.getGenshinAscensionLevel() }
+    for (var i in this.giSkillTrees) if (GENSHIN_CHARACTER_LIST[i].ascensionStat == "CritDamage") { crit += 19.2*this.getGenshinAscensionLevel() }
 
     return crit;
 }

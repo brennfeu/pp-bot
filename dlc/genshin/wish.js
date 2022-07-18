@@ -43,5 +43,5 @@ Fighter.prototype.addGenshinSkillTree = function(_skillTree) {
         return;
     }
 
-    // TODO new rolls
+    if (getRandomPercent() <= 90) this.genshinRoll();
 }

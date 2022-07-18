@@ -1314,7 +1314,7 @@ var Fighter = class {
             if (_options["puncher"] != undefined) {
                 if (getRandomPercent() <= _options["puncher"].getGenshinCritRate()) {
                     this.duel.addMessage("**Critical Hit!**");
-                    _amount = _amount*(1+_options["puncher"].getGenshinCritDamage());
+                    _amount = _amount*(1+(_options["puncher"].getGenshinCritDamage()/100);
                 }
             }
 
@@ -1867,6 +1867,7 @@ var Fighter = class {
                 this.damage(this.giBloodBlossom.damage, { damageType: "fire", isGenshinSkill: true });
                 if (this.giBloodBlossom.duration <= 0) this.giBloodBlossom = null;
             }
+            this.giFlutterBy -= 1;
 
             if (this.giElementManager.isElectroCharged()) {
                 this.duel.addMessage("-----------------");
