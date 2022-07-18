@@ -1314,7 +1314,7 @@ var Fighter = class {
             if (_options["puncher"] != undefined) {
                 if (getRandomPercent() <= _options["puncher"].getGenshinCritRate()) {
                     this.duel.addMessage("**Critical Hit!**");
-                    _amount = _amount*(1+(_options["puncher"].getGenshinCritDamage()/100);
+                    _amount = _amount*(1+(_options["puncher"].getGenshinCritDamage()/100));
                 }
             }
 
