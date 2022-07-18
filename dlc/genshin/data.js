@@ -33,7 +33,7 @@ var CHAR_GI1 = { name: "Hu Tao",
     burstEnergyCost: 60,
 
     statsToDisplay: [ "ATK", "HP" ],
-    ascensionStat: "TODO",
+    ascensionStat: "CritDamage",
 }
 var CHAR_GI2 = { name: "Fischl",
     imageURL: "https://cdn.discordapp.com/attachments/682970589371170889/996321627807678544/Fischl.webp",
@@ -47,7 +47,7 @@ var CHAR_GI2 = { name: "Fischl",
     burstEnergyCost: 60,
 
     statsToDisplay: [ "ATK" ],
-    ascensionStat: "TODO",
+    ascensionStat: "ATK",
 }
 var CHAR_GI3 = { name: "Amber",
     imageURL: "https://cdn.discordapp.com/attachments/667337519477817363/996343288007241829/Amber.webp",
@@ -61,7 +61,7 @@ var CHAR_GI3 = { name: "Amber",
     burstEnergyCost: 40,
 
     statsToDisplay: [ "ATK" ],
-    ascensionStat: "TODO",
+    ascensionStat: "ATK",
 }
 var GENSHIN_FIVESTARS_CHARACTER_LIST = [ CHAR_GI1 ];
 var GENSHIN_CHARACTER_LIST = GENSHIN_FIVESTARS_CHARACTER_LIST.concat([ CHAR_GI3, CHAR_GI2 ]);

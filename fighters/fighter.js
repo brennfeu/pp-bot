@@ -1114,6 +1114,20 @@ var Fighter = class {
 			this.forceCritical = false;
 		}
 
+        // genshin effects
+        if (this.duel.MERGED_WORLDS.indexOf(DLC_GENSHIN) > -1) {
+            if (this.giParamitaPapilio != null && (_options.damageType == undefined || _options.damageType == "punch")) {
+                if (this.DEX > _fighter.DEX) {
+                    _fighter.giBloodBlossom = {
+                        "damage": 0.64*this.getGenshinATK()*this.getGenshinAscensionMultiplicator(),
+                        "duration": 2
+                    }
+                }
+                _options.damageType = "fire";
+                this.recieveGenshinParticle(randomFromList([2, 3]), "Pyro");
+            }
+        }
+
 		if (this.duel.TIME_STOP > 0) {
 			if (_amount > 0) _fighter.pushedDamages += _amount;
 			return true;
@@ -1295,6 +1309,14 @@ var Fighter = class {
 
 			// affect element
 			this.giElementManager.applyElementManager(giEM);
+
+            // crit
+            if (_options["puncher"] != undefined) {
+                if (getRandomPercent() <= _options["puncher"].getGenshinCritRate()) {
+                    this.duel.addMessage("**Critical Hit!**");
+                    _amount = _amount*(1+_options["puncher"].getGenshinCritDamage());
+                }
+            }
 
             // RES
             var res = this.getGenshinElementalResistance(giAttackElement);
@@ -1835,6 +1857,16 @@ var Fighter = class {
 				if (this.giSkillTrees[i].skillCD > 0) this.giSkillTrees[i].skillCD -= 1;
 				if (this.giSkillTrees[i].burstCD > 0) this.giSkillTrees[i].burstCD -= 1;
 			}
+
+            if (this.giParamitaPapilio != null) {
+                this.giParamitaPapilio.duration -= 1;
+                if (this.giParamitaPapilio.duration <= 0) this.giParamitaPapilio = null;
+            }
+            if (this.giBloodBlossom != null) {
+                this.giBloodBlossom.duration -= 1;
+                this.damage(this.giBloodBlossom.damage, { damageType: "fire", isGenshinSkill: true });
+                if (this.giBloodBlossom.duration <= 0) this.giBloodBlossom = null;
+            }
 
             if (this.giElementManager.isElectroCharged()) {
                 this.duel.addMessage("-----------------");

@@ -27,6 +27,9 @@ var DLC_GENSHIN = {
         _fighter.giElementManager.giElementManagerOrigin = _fighter;
 
         _fighter.giSuperconductCD = 0;
+
+        _fighter.giParamitaPapilio = null;
+        _fighter.giBloodBlossom = null;
     }
 }
 MERGABLE_WORLDS.push(DLC_GENSHIN);
@@ -47,6 +50,9 @@ Fighter.prototype.getGenshinStatus = function() {
     if (this.giElementManager.isElectroCharged()) genshinTxt += displayEmote(EMOTE_GI10) + displayEmote(EMOTE_GI12) + " **Electro-Charged**\n";
     if (this.giElementManager.isFrozen()) genshinTxt += displayEmote(EMOTE_GI10) + displayEmote(EMOTE_GI14) + " **Frozen**\n";
     if (this.giSuperconductCD > 0) genshinTxt += displayEmote(EMOTE_GI12) + displayEmote(EMOTE_GI14) + " **Superconduct**\n";
+
+    if (this.giParamitaPapilio != null) genshinTxt += displayEmote(EMOTE_GI3) + " Paramita Papilio (for " + this.giParamitaPapilio.duration + " turns)\n";
+    if (this.giBloodBlossom != null) genshinTxt += displayEmote(EMOTE_GI3) + " Blood Blossom (for " + this.giParamitaPapilio.duration + " turns)\n";
 
     for (var i in this.giSummons) {
         if (this.giSummons[i].genshinSummonStatusEmote != null) genshinTxt += displayEmote(this.giSummons[i].genshinSummonStatusEmote) + " ";

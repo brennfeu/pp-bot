@@ -2224,6 +2224,46 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 this.duel.addMessage(this.getName() + " wishes to entwine fates and connect dreams, just as how his wish's glimmer links stars into the shapes of a heart's desires!");
                 this.genshinRoll();
                 break;
+            case(EMOTE_GI3):
+                this.duel.addMessage(this.getName() + " consumes a set portion of his HP to enter the Paramita Papilio state!");
+                this.giParamitaPapilio = {
+                    "atkBoost": Math.max(4*this.getGenshinATK(), 0.0384*this.getGenshinHP()*this.getGenshinAscensionMultiplicator()),
+                    "duration": 3
+                };
+                this.STRValue -= Math.floor(this.getGenshinHP()*0.3);
+                break;
+            case(EMOTE_GI4):
+                this.duel.addMessage(this.getName() + " commands a blazing spirit to attack!");
+                if (this.getGenshinHP() >= oppFighter.getGenshinHP()) {
+                    this.attackFighter(oppFighter, this.getGenshinATK()*3.0327*this.getGenshinAscensionMultiplicator(), { damageType: "fire" });
+                    this.heal(this.getGenshinHP()*0.0626*this.getGenshinAscensionMultiplicator()*randomFromList([1, 2, 3]));
+                }
+                else {
+                    this.attackFighter(oppFighter, this.getGenshinATK()*3.7909*this.getGenshinAscensionMultiplicator(), { damageType: "fire" });
+                    this.heal(this.getGenshinHP()*0.0835*this.getGenshinAscensionMultiplicator()*randomFromList([1, 2, 3]));
+                }
+                break;
+            case(EMOTE_GI5):
+                this.duel.addMessage(this.getName() + " summons Oz!");
+                this.giSummons = this.giSummons.filter(a => !(a instanceof GenshinOz));
+                var oz = new GenshinOz(this);
+                this.giSummons.push(oz);
+                oz.attackFighter(oppFighter, 1.1544*this.getGenshinATK()*this.getGenshinAscensionMultiplicator(), { damageType: "electric", isGenshinSkill: true });
+                break;
+            case(EMOTE_GI6):
+                this.duel.addMessage(this.getName() + " takes on Oz's form!");
+                this.attackFighter(oppFighter, 2.08*this.getGenshinATK()*this.getGenshinAscensionMultiplicator(), { damageType: "electric" });
+                this.giSummons = this.giSummons.filter(a => !(a instanceof GenshinOz));
+                this.giSummons.push(new GenshinOz(this));
+                break;
+            case(EMOTE_GI7):
+                this.duel.addMessage(this.getName() + " summons a Baron Bunny!");
+                this.giSummons.push(new GenshinBaronBunny(this));
+                break;
+            case(EMOTE_GI8):
+                this.duel.addMessage(this.getName() + " fires off a shower of arrows!");
+                for (var i = 0; i < 18; i++) this.attackFighter(oppFighter, 0.2808*this.getGenshinATK()*this.getGenshinAscensionMultiplicator(), { damageType: "fire" });
+                break;
             case(EMOTE_GI9):
             case(EMOTE_GI10):
             case(EMOTE_GI11):
@@ -2237,38 +2277,6 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                         this.recieveGenshinParticle(this.AET, GENSHIN_ELEMENT_LIST[i]);
                     }
                 }
-                break;
-            case(EMOTE_GI4):
-                this.duel.addMessage(this.getName() + " commands a blazing spirit to attack!");
-                if (this.getGenshinHP() >= oppFighter.getGenshinHP()) {
-                    this.attackFighter(oppFighter, this.getGenshinATK()*3.0327, { damageType: "fire" });
-                    this.heal(this.getGenshinHP()*0.0626*randomFromList([1, 2, 3]));
-                }
-                else {
-                    this.attackFighter(oppFighter, this.getGenshinATK()*3.7909, { damageType: "fire" });
-                    this.heal(this.getGenshinHP()*0.0835*randomFromList([1, 2, 3]));
-                }
-                break;
-            case(EMOTE_GI5):
-                this.duel.addMessage(this.getName() + " summons Oz!");
-                this.giSummons = this.giSummons.filter(a => !(a instanceof GenshinOz));
-                var oz = new GenshinOz(this);
-                this.giSummons.push(oz);
-                oz.attackFighter(oppFighter, 1.1544*this.getGenshinATK(), { damageType: "electric" });
-                break;
-            case(EMOTE_GI6):
-                this.duel.addMessage(this.getName() + " takes on Oz's form!");
-                this.attackFighter(oppFighter, 2.08*this.getGenshinATK(), { damageType: "electric" });
-                this.giSummons = this.giSummons.filter(a => !(a instanceof GenshinOz));
-                this.giSummons.push(new GenshinOz(this));
-                break;
-            case(EMOTE_GI7):
-                this.duel.addMessage(this.getName() + " summons a Baron Bunny!");
-                this.giSummons.push(new GenshinBaronBunny(this));
-                break;
-            case(EMOTE_GI8):
-                this.duel.addMessage(this.getName() + " fires off a shower of arrows!");
-                for (var i = 0; i < 18; i++) this.attackFighter(oppFighter, 0.2808*this.getGenshinATK(), { damageType: "fire" });
                 break;
 
             case(EMOTE_ABILITY): // Requiems

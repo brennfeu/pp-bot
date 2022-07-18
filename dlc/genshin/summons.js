@@ -25,7 +25,7 @@ var GenshinBaronBunny = class extends GenshinSummon {
         if (this.genshinSummonCountdown <= 0) {
             this.duel.addMessage("-----------------");
             this.duel.addMessage("Baron Bunny explodes in flames!");
-            this.attackFighter(this.duel.getOppOf(this.genshinSummonMaster), this.genshinSummonMaster.getGenshinATK()*1.232, { damageType: "fire" })
+            this.attackFighter(this.duel.getOppOf(this.genshinSummonMaster), this.genshinSummonMaster.getGenshinATK()*1.232*this.genshinSummonMaster.getGenshinAscensionMultiplicator(), { damageType: "fire", isGenshinSkill: true })
             this.genshinSummonMaster.recieveGenshinParticle(4, "Pyro");
         }
     }
@@ -40,7 +40,7 @@ var GenshinOz = class extends GenshinSummon {
         super.turnChange();
         this.duel.addMessage("-----------------");
         this.duel.addMessage("Oz attacks!");
-        this.attackFighter(this.duel.getOppOf(this.genshinSummonMaster), this.genshinSummonMaster.getGenshinATK()*0.888, { damageType: "electric" });
+        this.attackFighter(this.duel.getOppOf(this.genshinSummonMaster), this.genshinSummonMaster.getGenshinATK()*0.888*this.genshinSummonMaster.getGenshinAscensionMultiplicator(), { damageType: "electric" });
         if (getRandomPercent() <= 67) this.genshinSummonMaster.recieveGenshinParticle(1, "Electro");
     }
 }

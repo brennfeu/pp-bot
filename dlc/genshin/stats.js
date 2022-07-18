@@ -3,7 +3,7 @@ Fighter.prototype.getGenshinStatsToDisplay = function() {
 
     for (var i in this.giSkillTrees) {
         l = l.concat(GENSHIN_CHARACTER_LIST[i].statsToDisplay);
-        l.push(GENSHIN_CHARACTER_LIST[i].ascensionStat);
+        if (this.getGenshinAscensionLevel() > 0) l.push(GENSHIN_CHARACTER_LIST[i].ascensionStat);
     }
 
     if (this.giSuperconductCD > 0) l.push("PhysicalRES")
@@ -36,10 +36,10 @@ Fighter.prototype.getGenshinStatsStatus = function() {
         txt += "**Energy Recharge:** " + (this.getGenshinER()*100) + "%\n";
     }
     if (stats.indexOf("CritRate") >= 0) {
-        txt += "**Critical Rate:** " + (this.getGenshinCritRate()*100) + "%\n";
+        txt += "**Critical Rate:** " + this.getGenshinCritRate() + "%\n";
     }
     if (stats.indexOf("CritDamage") >= 0) {
-        txt += "**Critical Damage:** " + (this.getGenshinCritDamage()*100) + "%\n";
+        txt += "**Critical Damage:** " + this.getGenshinCritDamage() + "%\n";
     }
 
     for (var i in GENSHIN_ELEMENT_LIST) {
@@ -52,6 +52,20 @@ Fighter.prototype.getGenshinStatsStatus = function() {
     }
 
     return txt;
+}
+
+Fighter.prototype.getGenshinAscensionLevel = function() {
+    var v = 0;
+    if (this.duel.PP_ARMAGEDDON) v = 2;
+    else if (this.duel.INFERNAL_FIRELAND) v = 1;
+
+    if (this.livingGod) v += 1;
+    if (this.hasAllStyles()) v += 1;
+
+    return v;
+}
+Fighter.prototype.getGenshinAscensionMultiplicator = function() {
+    return 1*Math.pow(1.06, this.getGenshinAscensionLevel());
 }
 
 Fighter.prototype.getGenshinHP = function() {
@@ -72,6 +86,7 @@ Fighter.prototype.getGenshinATK = function() {
     var atk = this.getGenshinBaseATK();
 
     var percentBonus = 100;
+    for (var i in this.giSkillTrees) if (GENSHIN_CHARACTER_LIST[i].ascensionStat == "ATK") { percentBonus += 12*this.getGenshinAscensionLevel() }
     if (this.hasSynergy(SYNERGY_GI1)) percentBonus += 25;
 
     return Math.floor(atk*percentBonus)/100;
@@ -102,6 +117,8 @@ Fighter.prototype.getGenshinCritRate = function() {
 }
 Fighter.prototype.getGenshinCritDamage = function() {
     var crit = 50;
+
+    for (var i in this.giSkillTrees) if (GENSHIN_CHARACTER_LIST[i].ascensionStat == "CritDamage") { percentBonus += 19.2*this.getGenshinAscensionLevel() }
 
     return crit;
 }
