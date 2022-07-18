@@ -59,6 +59,9 @@ var GenshinElementManager = class {
             var _units2toRemove = reactionDict[_element][i]*_units;
 
             console.log("before " + i + ": " + _units);
+            console.log(i);
+            console.log(_units2);
+            console.log(this[reactionDict[_element][i] + "Units"]);
             if (_units2toRemove >= _units2) {
                 this[i + "Units"] = 0;
                 _units -= _units2*this[reactionDict[_element][i] + "Units"];
