@@ -74,6 +74,7 @@ Fighter.prototype.getGenshinAvailableFighterMoves = function() {
 Fighter.prototype.sendGenshinSkills = function() {
     if (this.duel.MERGED_WORLDS.indexOf(DLC_GENSHIN) < 0) return;
     if (this.idUser == CLIENT.user.id) return;
+    if (this.STR <= 0) return;
 
     var l = this.getGenshinAvailableFighterMoves().slice(0, 20);
     if (l.length <= 0) return;

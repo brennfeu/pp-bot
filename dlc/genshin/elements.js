@@ -57,7 +57,7 @@ var GenshinElementManager = class {
         }
         for (var i in reactionDict[_element]) {
             var _units2 = this[i + "Units"];
-            var _units2toRemove = this[reactionDict[_element][i] + "Units"]*_units;
+            var _units2toRemove = reactionDict[_element][i]*_units;
 
             if (_units2toRemove >= _units2) {
                 this[i + "Units"] = 0;
