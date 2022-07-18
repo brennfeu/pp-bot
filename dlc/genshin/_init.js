@@ -24,6 +24,8 @@ var DLC_GENSHIN = {
         _fighter.giSummons = [];
 
         _fighter.giElementManager = new GenshinElementManager();
+        _fighter.giElementManager.giElementManagerOrigin = _fighter;
+
         _fighter.giSuperconductCD = 0;
     }
 }

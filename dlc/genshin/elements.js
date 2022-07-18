@@ -7,6 +7,8 @@ var GenshinElementManager = class {
         }
 
         if (_element != null) this.applyElement(_element, _units)
+
+        this.giElementManagerOrigin = null;
     }
 
     applyElement(_element, _units = 4) {
@@ -91,9 +93,11 @@ var GenshinElementManager = class {
         for (var i in GENSHIN_ELEMENT_LIST) {
             if (GENSHIN_ELEMENT_LIST[i] != "Physical") {
                 var v = 1;
-                if (GENSHIN_ELEMENT_LIST[i] == "Cryo" && this.hasSynergy(SYNERGY_GI1)) v += 0.4;
-                if (GENSHIN_ELEMENT_LIST[i] == "Pyro" && this.hasSynergy(SYNERGY_GI2)) v += 0.4;
-                if (GENSHIN_ELEMENT_LIST[i] == "Hydro" && this.hasSynergy(SYNERGY_GI3)) v += 0.4;
+                if (this.giElementManagerOrigin != null) {
+                    if (GENSHIN_ELEMENT_LIST[i] == "Cryo" && this.giElementManagerOrigin.hasSynergy(SYNERGY_GI1)) v += 0.4;
+                    if (GENSHIN_ELEMENT_LIST[i] == "Pyro" && this.giElementManagerOrigin.hasSynergy(SYNERGY_GI2)) v += 0.4;
+                    if (GENSHIN_ELEMENT_LIST[i] == "Hydro" && this.giElementManagerOrigin.hasSynergy(SYNERGY_GI3)) v += 0.4;
+                }
 
                 this[GENSHIN_ELEMENT_LIST[i] + "Units"] = Math.max(0, this[GENSHIN_ELEMENT_LIST[i] + "Units"]-v);
             }
