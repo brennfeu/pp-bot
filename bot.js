@@ -272,17 +272,17 @@ async function sendCheatPanel(_channel, _category = null) {
 		"Cheat Panel: Faith Moves": GOD_EMOTE_LIST,
 		"Cheat Panel: Infernal Moves": INFERNAL_EMOTE_LIST,
 		"Cheat Panel: Animated Moves": SPECIAL_EMOTE_LIST,
-		"Cheat Panel: Stånds Moves": STAND_EMOTE_LIST,
+		"Cheat Panel: Stånd Moves": STAND_EMOTE_LIST,
         "Cheat Panel: Rare Moves": RARE_EMOTE_LIST,
 		"Cheat Panel: Gods - Regular": [], // filled later in a loop
 		"Cheat Panel: Gods - Waifu": [],
 		"Cheat Panel: Gods - Eldritch": [],
         "Cheat Panel: Genshin Skills Moves": GENSHIN_AVAILABLE_EMOTE_LIST,
-        "Cheat Panel: Genshin Skills - 5* Talents Moves": [], // filled later
-        "Cheat Panel: Genshin Skills - 4* Talents Moves": [], // filled later
-        "Cheat Panel: Gungeon Battalion - Shrines Moves": GUNGEON_SHRINE_EMOTE_LIST,
-		"Cheat Panel: Gungeon Battalion - Units Moves": GUNGEON_UNIT_EMOTE_LIST,
-        "Cheat Panel: Gungeon Battalion - Guns Moves": GUNGEON_RAID_EMOTE_LIST,
+        "Cheat Panel: Genshin Skills - 5* Talent Moves": [], // filled later
+        "Cheat Panel: Genshin Skills - 4* Talent Moves": [], // filled later
+        "Cheat Panel: Gungeon Battalion - Shrine Moves": GUNGEON_SHRINE_EMOTE_LIST,
+		"Cheat Panel: Gungeon Battalion - Unit Moves": GUNGEON_UNIT_EMOTE_LIST,
+        "Cheat Panel: Gungeon Battalion - Gun Moves": GUNGEON_RAID_EMOTE_LIST,
         "Cheat Panel: Gungeon Battalion - Other Moves": GUNGEON_OTHER_EMOTE_LIST,
 		"Cheat Panel: Other Moves": [
 			EMOTE_ABILITY, EMOTE_MECHA, EMOTE_FRIEDESPINOZA, EMOTE_ESPINOZE, EMOTE_OBAMAHEDRON, EMOTE_OBAMASPHERE,
