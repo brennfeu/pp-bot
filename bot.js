@@ -306,8 +306,8 @@ async function sendCheatPanel(_channel, _category = null) {
             emotes["Cheat Panel: Genshin Skills - 5* Talent Moves"].push(GENSHIN_CHARACTER_LIST[i].burstEmote);
         }
         else {
-            emotes["Cheat Panel: Genshin Skills - 4* Talents Moves"].push(GENSHIN_CHARACTER_LIST[i].skillEmote);
-            emotes["Cheat Panel: Genshin Skills - 4* Talents Moves"].push(GENSHIN_CHARACTER_LIST[i].burstEmote);
+            emotes["Cheat Panel: Genshin Skills - 4* Talent Moves"].push(GENSHIN_CHARACTER_LIST[i].skillEmote);
+            emotes["Cheat Panel: Genshin Skills - 4* Talent Moves"].push(GENSHIN_CHARACTER_LIST[i].burstEmote);
         }
     }
 
