@@ -9,6 +9,7 @@ Fighter.prototype.getGenshinStatsToDisplay = function() {
     if (this.giSuperconductCD > 0) l.push("PhysicalRES")
 
     if (this.giFlutterBy > 0) l.push("CritRate");
+    if (this.hasGenshinCharAscension("Hu Tao", 2) && this.STR < this.duel.getOppOf(this).STR) l.push("PyroDamage");
 
     if (this.hasSynergy(SYNERGY_GI1)) l.push("ATK");
     if (this.hasSynergy(SYNERGY_GI2)) l.push("HP");
@@ -129,6 +130,10 @@ Fighter.prototype.getGenshinCritDamage = function() {
 
 Fighter.prototype.getGenshinElementalDamageBonus = function(_element) {
     var bonus = 0;
+
+    if (_element == "Pyro") {
+        if (this.hasGenshinCharAscension("Hu Tao", 2) && this.STR < this.duel.getOppOf(this).STR) bonus += 15;
+    }
 
     return bonus/100;
 }

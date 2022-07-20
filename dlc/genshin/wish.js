@@ -45,3 +45,13 @@ Fighter.prototype.addGenshinSkillTree = function(_skillTree) {
 
     if (getRandomPercent() <= 90) this.genshinRoll();
 }
+
+Fighter.prototype.hasGenshinCharAscension = function(_charName, _ascensionLevel) {
+    if (_ascensionLevel > this.getGenshinAscensionLevel()) return false;
+
+    for (var i in this.giSkillTrees) {
+        if (GENSHIN_CHARACTER_LIST[i].name == _charName) return true;
+    }
+
+    return false;
+}

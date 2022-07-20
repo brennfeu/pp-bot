@@ -1318,6 +1318,11 @@ var Fighter = class {
                 }
             }
 
+            // damage bonus
+            if (_options["puncher"] != undefined) {
+                _amount = _amount * (1+_options["puncher"]["getGenshin" + giAttackElement + "Damage"]());
+            }
+
             // RES
             var res = this.getGenshinElementalResistance(giAttackElement);
             var resMultiplyer = null;
@@ -1858,16 +1863,19 @@ var Fighter = class {
 				if (this.giSkillTrees[i].burstCD > 0) this.giSkillTrees[i].burstCD -= 1;
 			}
 
+            this.giFlutterBy -= 1;
             if (this.giParamitaPapilio != null) {
                 this.giParamitaPapilio.duration -= 1;
-                if (this.giParamitaPapilio.duration <= 0) this.giParamitaPapilio = null;
+                if (this.giParamitaPapilio.duration <= 0) {
+                    this.giParamitaPapilio = null;
+                    if (this.hasGenshinCharAscension("Hu Tao", 1)) this.giFlutterBy = 2;
+                }
             }
             if (this.giBloodBlossom != null) {
                 this.giBloodBlossom.duration -= 1;
                 this.damage(this.giBloodBlossom.damage, { damageType: "fire", isGenshinSkill: true });
                 if (this.giBloodBlossom.duration <= 0) this.giBloodBlossom = null;
             }
-            this.giFlutterBy -= 1;
 
             if (this.giElementManager.isElectroCharged()) {
                 this.duel.addMessage("-----------------");
