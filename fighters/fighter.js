@@ -1320,7 +1320,7 @@ var Fighter = class {
 
             // damage bonus
             if (_options["puncher"] != undefined) {
-                _amount = _amount * (1+_options["puncher"]["getGenshin" + giAttackElement + "Damage"]());
+                _amount = _amount * (1+_options["puncher"].getGenshinElementalDamageBonus(giAttackElement));
             }
 
             // RES
