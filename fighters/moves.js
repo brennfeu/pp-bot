@@ -1814,7 +1814,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                 }
                 break;
             case(EMOTE_PP80): // Fherla
-                this.duel.addMessage(this.getName() + " summons Fherla - Strawberry Girl!");
+                this.duel.addMessage(this.getName() + " summons Fherla!");
                 if (this.duel.CHRISTIAN_TEXT) {
                     this.duel.addMessage("PP Punching is so good. Please continue!");
                     this.duel.allFightersAction(function(_fighter) {
@@ -2010,6 +2010,13 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     this.duel.addMessage(this.getName() + " starts wearing a Bone Helm!");
                     this.boneHelm = true;
                 };
+                break;
+            case(EMOTE_PP152): // Punched in the PP
+                this.duel.addMessage(this.getName() + " summons Akagi!");
+                var v = 10+Math.floor(this.STR/10);
+                this.attackFighter(this, v, {damageType: "punch"});
+                this.duel.addMessage(this.getName() + " gains " + v + " DEX!");
+                this.DEXValue += v;
                 break;
 
             case(EMOTE_GU1): // Shrines
