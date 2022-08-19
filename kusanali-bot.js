@@ -4,7 +4,7 @@ function kusanaliBotMessage(_message) {
     	avatar: 'https://cdn.discordapp.com/attachments/667337519477817363/996062528973058100/unknown.png'
     })
 	.then(function(_webhook) {
-        webhookClient = new DISCORD.WebhookClient(_webhook.id, process.env.KUSANALI_TOKEN);
+        webhookClient = new DISCORD.WebhookClient(_webhook.id, _webhook.token);
 
         var embedMessage = new DISCORD.MessageEmbed();
         embedMessage.setThumbnail(_message.author.avatarURL);
@@ -16,6 +16,8 @@ function kusanaliBotMessage(_message) {
         	avatarURL: 'https://cdn.discordapp.com/attachments/667337519477817363/996062528973058100/unknown.png',
         	embeds: [ embedMessage ]
         });
+
+        _webhook.delete();
     })
 	.catch(console.error);
 }
