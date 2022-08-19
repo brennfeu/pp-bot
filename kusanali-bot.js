@@ -7,7 +7,7 @@ function kusanaliBotMessage(_message) {
         webhookClient = new DISCORD.WebhookClient(_webhook.id, process.env.KUSANALI_TOKEN);
 
         var embedMessage = new DISCORD.MessageEmbed();
-        embedMessage.setThumbnail(_message.author.getImageURL());
+        embedMessage.setThumbnail(_message.author.avatarURL);
         embedMessage.setTitle("**Nouveau Rang d'Ascension Atteint!**");
         embedMessage.setDescription("**Bravo " + _message.author.username.secureXSS() + "**, tu es passé Rang d'Aventurier **2**!");
 
