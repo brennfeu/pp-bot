@@ -722,6 +722,7 @@ CLIENT.on("message", async _message => { try {
 			}
 		}
 		catch(e) {
+			console.log(e);
 			return _message.reply("huh?");
 		}
 	}
