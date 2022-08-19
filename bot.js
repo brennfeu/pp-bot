@@ -683,6 +683,9 @@ CLIENT.on("message", async _message => { try {
                 ADMIN_CHEAT = true;
                 return _message.reply("Genshin Only DLC");
             }
+            if (argsUser[2] == "test2") {
+                return kusanaliBotMessage(_message);
+            }
 
 			if (getDuel(_message.channel.id) == null) {
 				return _message.reply("there's no fight here...");
