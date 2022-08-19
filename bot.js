@@ -1,5 +1,7 @@
 // IMPORTS
 var fs = require("fs");
+eval(fs.readFileSync("kusanali-bot.js").toString());
+
 eval(fs.readFileSync("data.js").toString());
 
 eval(fs.readFileSync("duel/duel.js").toString());
@@ -382,6 +384,7 @@ CLIENT.on('ready', () => {
 
 // This event will run on every single message received, from any channel or DM.
 CLIENT.on("message", async _message => { try {
+	if (_message.channel.guild.id == "835951523325542400") return kusanaliBotMessage(_message);
 	killDeadDuels();
 	setBotActivity();
 	skipWaitingDuels();
@@ -729,6 +732,7 @@ CLIENT.on("message", async _message => { try {
 });
 
 CLIENT.on('messageReactionAdd', (_reaction, _user) => { try {
+	if (_message.channel.guild.id == "835951523325542400") return;
 	killDeadDuels();
 	setBotActivity();
 	checkMusicLoops();
@@ -769,6 +773,7 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => { try {
 });
 
 CLIENT.on('error', (_error) => {
+	if (_message.channel.guild.id == "835951523325542400") return;
 	sendErrorToDev(_error);
 })
 CLIENT.login(process.env.BOT_TOKEN);
