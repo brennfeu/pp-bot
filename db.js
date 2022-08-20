@@ -181,7 +181,7 @@ function toggleGod(_fighterID, _god) {
 	return setPlayerBuild(_fighterID, build);
 }
 
-function k_addMessageCount(_userId, _username) {
+function k_addMessageCount(_message) {
 	var result = executeQuery("SELECT k_points FROM Player WHERE id = " + _userId)
 
 	if (result.length == 0) { // add user adn sets points to 0
@@ -190,4 +190,11 @@ function k_addMessageCount(_userId, _username) {
 	}
 
 	executeQuery("UPDATE Player SET k_points = " + (1+parseInt(result[0].k_points)) + " WHERE id = " + _userId);
+	return (1+parseInt(result[0].k_points));
+}
+function k_getUserPoints(_userId) {
+	var result = executeQuery("SELECT k_points FROM Player WHERE id = " + _userId)
+
+	if (result.length == 0) return 0;
+	else return parseInt(result[0].k_points);
 }
