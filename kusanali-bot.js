@@ -65,7 +65,7 @@ function k_sendMessage(_title, _message, _channel, _avatar = undefined) {
 
         webhookClient.send('', {
             username: 'Loli des Fleurs',
-            avatarURL: 'https://cdn.discordapp.com/attachments/715322091804819486/1010648101163380837/unknown.png',
+            avatarURL: 'https://cdn.discordapp.com/attachments/715322091804819486/1010649092805890089/unknown.png',
             embeds: [ embedMessage ]
         });
 
