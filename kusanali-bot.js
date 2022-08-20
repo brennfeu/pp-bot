@@ -2,7 +2,7 @@ function kusanaliBotMessage(_message) {
     var points = k_addMessageCount(_message.author.id, _message.author.username.secureXSS());
     for (var i in K_AR_LIST) { // check if AR up
         if (K_AR_LIST[i].xp == points) {
-            var _current_ar = i+1;
+            var _current_ar = parseInt(i)+1;
             _message.channel.createWebhook('Some-username', {
                 name: 'Kusana-Leaks',
             	avatar: 'https://cdn.discordapp.com/attachments/667337519477817363/996062528973058100/unknown.png'
