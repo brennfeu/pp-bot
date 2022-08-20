@@ -198,6 +198,9 @@ function k_getUserPoints(_userId) {
 	if (result.length == 0) return 0;
 	else return parseInt(result[0].k_points);
 }
+function k_getUserPlacement(_userId) {
+	return parseInt(executeQuery("SELECT COUNT(id) count FROM Player WHERE k_points >= ( SELECT k_points FROM Player WHERE id = " + _userId + " )")[0].count);
+}
 function k_getLeaderboard() {
 	return executeQuery("SELECT id, username, k_points FROM Player WHERE k_points>0 ORDER BY k_points DESC LIMIT 10;");
 }

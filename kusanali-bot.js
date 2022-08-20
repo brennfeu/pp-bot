@@ -1,7 +1,7 @@
 function kusanaliBotMessage(_message) {
     if(_message.author.bot) return;
 
-    updatePlayer(_message.author.id, _message.author.username.secureXSS());
+    if (getRandomPercent() < 10) updatePlayer(_message.author.id, _message.author.username.secureXSS());
     var points = k_addMessageCount(_message.author.id, _message.author.username.secureXSS());
     for (var i in K_AR_LIST) { // check if AR up
         if (K_AR_LIST[i].xp == points) {
@@ -20,13 +20,19 @@ function kusanaliBotMessage(_message) {
 	console.log(argsUser);
 
     if (argsUser[1] == "rank") {
+        var p = k_getUserPoints(_message.author.id);
+        var ar = k_getUserAR(_message.author.id);
+        var n = k_getUserPlacement(_message.author.id);
 
+        k_sendMessage(_message.author.username.secureXSS() + " Rank",
+            "Messages : " + p + "\nRang d'Aventurier : " + ar + "\nPlacement du serveur : " + n,
+            _message.channel);
     }
     if (argsUser[1] == "leaderboard") {
         var l = k_getLeaderboard();
         var txt = "";
         for (var i in l) {
-            txt += "**" + (parseInt(i)+1) + " - " + l[i].username + "**: " + l[i].xp + " EXP\n";
+            txt += "**" + (parseInt(i)+1) + " - " + l[i].username + "**: " + l[i].k_points + " messages\n";
         }
         k_sendMessage("Current Leaderboard", txt, _message.channel);
     }
@@ -40,7 +46,7 @@ function k_getUserAR(_userId) {
     }
     return 60;
 }
-function k_sendMessage(_title, _message, _channel) {
+function k_sendMessage(_title, _message, _channel, _avatar = undefined) {
     _channel.createWebhook('Some-username', {
         name: 'Kusana-Leaks',
         avatar: 'https://cdn.discordapp.com/attachments/667337519477817363/996062528973058100/unknown.png'
@@ -51,6 +57,7 @@ function k_sendMessage(_title, _message, _channel) {
         var embedMessage = new DISCORD.MessageEmbed();
         embedMessage.setTitle("**" + _title + "**");
         embedMessage.setDescription(_message);
+        if (_avatar != undefined) embedMessage.setThumbnail(_avatar);
 
         webhookClient.send('', {
             username: 'Loli des Fleurs',
