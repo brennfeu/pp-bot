@@ -24,9 +24,10 @@ function kusanaliBotMessage(_message) {
         var ar = k_getUserAR(_message.author.id);
         var n = k_getUserPlacement(_message.author.id);
 
-        k_sendMessage(_message.author.username.secureXSS() + " Rank",
-            "Messages : " + p + "\nRang d'Aventurier : " + ar + "\nPlacement du serveur : " + n,
-            _message.channel);
+        return k_sendMessage(_message.author.username.secureXSS(),
+            "Messages : **" + p + "**\nRang d'Aventurier : **" + ar + "**\nPlacement du serveur : **" + n + "**",
+            _message.channel,
+            _message.author.avatarURL());
     }
     if (argsUser[1] == "leaderboard") {
         var l = k_getLeaderboard();
@@ -34,8 +35,10 @@ function kusanaliBotMessage(_message) {
         for (var i in l) {
             txt += "**" + (parseInt(i)+1) + " - " + l[i].username + "**: " + l[i].k_points + " messages\n";
         }
-        k_sendMessage("Current Leaderboard", txt, _message.channel);
+        return k_sendMessage("Current Leaderboard", txt, _message.channel);
     }
+
+    return _message.reply("Je ne connais pas cette commande, désolé. Je ne connais que 'rank' et 'leaderboard'.");
 }
 
 function k_getUserAR(_userId) {
