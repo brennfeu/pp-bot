@@ -181,7 +181,7 @@ function toggleGod(_fighterID, _god) {
 	return setPlayerBuild(_fighterID, build);
 }
 
-function k_addMessageCount(_message) {
+function k_addMessageCount(_userId, _username) {
 	var result = executeQuery("SELECT k_points FROM Player WHERE id = " + _userId)
 
 	if (result.length == 0) { // add user adn sets points to 0
