@@ -20,12 +20,12 @@ function executeQuery(_str) {
 }
 
 function updatePlayer(_fighterID, _username) {
-	var result = executeQuery("SELECT id, points, username FROM Player WHERE id = " + _fighterID)
+	var result = executeQuery("SELECT points, username FROM Player WHERE id = " + _fighterID)
 
 	if (result.length == 0) return addFighterToDB(_fighterID, _username);
 
 	if (_username != result[0].username) {
-		executeQuery("UPDATE Player SET username = '" + _username + "' WHERE id = " + result[0].id);
+		executeQuery("UPDATE Player SET username = '" + _username + "' WHERE id = " + _fighterID);
 	}
 }
 function getWinCounter(_fighterID) {
@@ -182,12 +182,12 @@ function toggleGod(_fighterID, _god) {
 }
 
 function k_addMessageCount(_userId, _username) {
-	var result = executeQuery("SELECT id, k_points FROM Player WHERE id = " + _userId)
+	var result = executeQuery("SELECT k_points FROM Player WHERE id = " + _userId)
 
 	if (result.length == 0) { // add user adn sets points to 0
 		addFighterToDB(_userId, _username);
-		result.push({ id: _userId, k_points: 0 });
+		result.push({ k_points: 0 });
 	}
 
-	executeQuery("UPDATE Player SET k_points = " + (1+parseInt(result[0].k_points)) + " WHERE id = " + result[0].id);
+	executeQuery("UPDATE Player SET k_points = " + (1+parseInt(result[0].k_points)) + " WHERE id = " + _userId);
 }
