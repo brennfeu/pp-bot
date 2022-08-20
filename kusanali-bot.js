@@ -2,6 +2,7 @@ function kusanaliBotMessage(_message) {
     var points = k_addMessageCount(_message.author.id, _message.author.username.secureXSS());
     for (var i in K_AR_LIST) { // check if AR up
         if (K_AR_LIST[i].xp == points) {
+            var _current_ar = i+1;
             _message.channel.createWebhook('Some-username', {
                 name: 'Kusana-Leaks',
             	avatar: 'https://cdn.discordapp.com/attachments/667337519477817363/996062528973058100/unknown.png'
@@ -12,7 +13,7 @@ function kusanaliBotMessage(_message) {
                 var embedMessage = new DISCORD.MessageEmbed();
                 embedMessage.setThumbnail(_message.author.avatarURL);
                 embedMessage.setTitle("**Nouveau Rang d'Ascension Atteint !**");
-                embedMessage.setDescription("**Bravo " + _message.author.username.secureXSS() + "**, tu es passé Rang d'Aventurier **" + (1+i) + "** !");
+                embedMessage.setDescription("**Bravo " + _message.author.username.secureXSS() + "**, tu es passé Rang d'Aventurier **" + _current_ar + "** !");
 
                 webhookClient.send('', {
                 	username: 'Loli des Fleurs',
