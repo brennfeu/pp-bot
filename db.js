@@ -20,7 +20,7 @@ function executeQuery(_str) {
 }
 
 function updatePlayer(_fighterID, _username) {
-	var result = executeQuery("SELECT points, username FROM Player WHERE id = " + _fighterID)
+	var result = executeQuery("SELECT username FROM Player WHERE id = " + _fighterID)
 
 	if (result.length == 0) return addFighterToDB(_fighterID, _username);
 

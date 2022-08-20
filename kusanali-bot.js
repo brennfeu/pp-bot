@@ -1,28 +1,37 @@
 function kusanaliBotMessage(_message) {
+    if(_message.author.bot) return;
+
     updatePlayer(_message.author.id, _message.author.username.secureXSS());
     var points = k_addMessageCount(_message.author.id, _message.author.username.secureXSS());
     for (var i in K_AR_LIST) { // check if AR up
         if (K_AR_LIST[i].xp == points) {
             var _current_ar = parseInt(i)+1;
             k_sendMessage("Nouveau Rang d'Ascension Atteint !",
-                "**Bravo " + _message.author.username.secureXSS() + "**, tu es passé Rang d'Aventurier **" + _current_ar + "** !");
+                "**Bravo " + _message.author.username.secureXSS() + "**, tu es passé Rang d'Aventurier **" + _current_ar + "** !",
+                _message.channel);
         }
     }
 
     // commands
+    if (_message.mentions.users.array().length < 1) return;
+	if (_message.mentions.users.first().id != CLIENT.user.id) return;
+
     var argsUser = _message.content.trim().split(" ").filter(a => a != "");
+	console.log(argsUser);
+
     if (argsUser[1] == "rank") {
 
     }
-    if (argsUser[1] == "leaderbard") {
+    if (argsUser[1] == "leaderboard") {
         var l = k_getLeaderboard();
         var txt = "";
         for (var i in l) {
             txt += "**" + (parseInt(i)+1) + " - " + l[i].username + "**: " + l[i].xp + " EXP\n";
         }
-        k_sendMessage("Current Leaderboard", txt);
+        k_sendMessage("Current Leaderboard", txt, _message.channel);
     }
 }
+
 function k_getUserAR(_userId) {
     var p = k_getUserPoints(_userId);
 
@@ -31,8 +40,8 @@ function k_getUserAR(_userId) {
     }
     return 60;
 }
-function k_sendMessage(_title, _message) {
-    _message.channel.createWebhook('Some-username', {
+function k_sendMessage(_title, _message, _channel) {
+    _channel.createWebhook('Some-username', {
         name: 'Kusana-Leaks',
         avatar: 'https://cdn.discordapp.com/attachments/667337519477817363/996062528973058100/unknown.png'
     })
@@ -40,7 +49,6 @@ function k_sendMessage(_title, _message) {
         webhookClient = new DISCORD.WebhookClient(_webhook.id, _webhook.token);
 
         var embedMessage = new DISCORD.MessageEmbed();
-        embedMessage.setThumbnail(_message.author.avatarURL);
         embedMessage.setTitle("**" + _title + "**");
         embedMessage.setDescription(_message);
 
