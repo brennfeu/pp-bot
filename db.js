@@ -185,8 +185,10 @@ function k_addMessageCount(_userId, _username) {
 
 	if (result.length == 0) { // add user adn sets points to 0
 		addFighterToDB(_userId, _username);
+		result.id = _userId;
 		result.k_points = 0;
 	}
 
-	executeQuery("UPDATE Player SET k_points = '" + (1+parseInt(result.k_points)) + "' WHERE id = " + result[0].id);
+	console.log("UPDATE Player SET k_points = " + (1+parseInt(result.k_points)) + " WHERE id = " + result[0].id);
+	executeQuery("UPDATE Player SET k_points = " + (1+parseInt(result.k_points)) + " WHERE id = " + result[0].id);
 }
