@@ -1,34 +1,27 @@
 function kusanaliBotMessage(_message) {
+    updatePlayer(_message.author.id, _message.author.username.secureXSS());
     var points = k_addMessageCount(_message.author.id, _message.author.username.secureXSS());
     for (var i in K_AR_LIST) { // check if AR up
         if (K_AR_LIST[i].xp == points) {
             var _current_ar = parseInt(i)+1;
-            _message.channel.createWebhook('Some-username', {
-                name: 'Kusana-Leaks',
-            	avatar: 'https://cdn.discordapp.com/attachments/667337519477817363/996062528973058100/unknown.png'
-            })
-        	.then(function(_webhook) {
-                webhookClient = new DISCORD.WebhookClient(_webhook.id, _webhook.token);
-
-                var embedMessage = new DISCORD.MessageEmbed();
-                embedMessage.setThumbnail(_message.author.avatarURL);
-                embedMessage.setTitle("**Nouveau Rang d'Ascension Atteint !**");
-                embedMessage.setDescription("**Bravo " + _message.author.username.secureXSS() + "**, tu es passé Rang d'Aventurier **" + _current_ar + "** !");
-
-                webhookClient.send('', {
-                	username: 'Loli des Fleurs',
-                	avatarURL: 'https://cdn.discordapp.com/attachments/667337519477817363/996062528973058100/unknown.png',
-                	embeds: [ embedMessage ]
-                });
-
-                _webhook.delete();
-            })
-        	.catch(console.error);
+            k_sendMessage("Nouveau Rang d'Ascension Atteint !",
+                "**Bravo " + _message.author.username.secureXSS() + "**, tu es passé Rang d'Aventurier **" + _current_ar + "** !");
         }
     }
 
     // commands
-    // TODO
+    var argsUser = _message.content.trim().split(" ").filter(a => a != "");
+    if (argsUser[1] == "rank") {
+
+    }
+    if (argsUser[1] == "leaderbard") {
+        var l = k_getLeaderboard();
+        var txt = "";
+        for (var i in l) {
+            txt += "**" + (parseInt(i)+1) + " - " + l[i].username + "**: " + l[i].xp + " EXP\n";
+        }
+        k_sendMessage("Current Leaderboard", txt);
+    }
 }
 function k_getUserAR(_userId) {
     var p = k_getUserPoints(_userId);
@@ -37,6 +30,29 @@ function k_getUserAR(_userId) {
         if (K_AR_LIST[i].xp > p) return i;
     }
     return 60;
+}
+function k_sendMessage(_title, _message) {
+    _message.channel.createWebhook('Some-username', {
+        name: 'Kusana-Leaks',
+        avatar: 'https://cdn.discordapp.com/attachments/667337519477817363/996062528973058100/unknown.png'
+    })
+    .then(function(_webhook) {
+        webhookClient = new DISCORD.WebhookClient(_webhook.id, _webhook.token);
+
+        var embedMessage = new DISCORD.MessageEmbed();
+        embedMessage.setThumbnail(_message.author.avatarURL);
+        embedMessage.setTitle("**" + _title + "**");
+        embedMessage.setDescription(_message);
+
+        webhookClient.send('', {
+            username: 'Loli des Fleurs',
+            avatarURL: 'https://cdn.discordapp.com/attachments/667337519477817363/996062528973058100/unknown.png',
+            embeds: [ embedMessage ]
+        });
+
+        _webhook.delete();
+    })
+    .catch(console.error);
 }
 
 var K_AR_LIST = [
