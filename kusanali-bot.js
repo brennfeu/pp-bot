@@ -60,6 +60,7 @@ function k_sendMessage(_title, _message, _channel, _avatar = undefined) {
         var embedMessage = new DISCORD.MessageEmbed();
         embedMessage.setTitle("**" + _title + "**");
         embedMessage.setDescription(_message);
+        embedMessage.setColor([ 125, 171, 73 ]);
         if (_avatar != undefined) embedMessage.setThumbnail(_avatar);
 
         webhookClient.send('', {
