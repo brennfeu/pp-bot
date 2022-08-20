@@ -55,6 +55,8 @@ function k_sendMessage(_title, _message) {
     .catch(console.error);
 }
 
+var K_SERVER_ID = "835951523325542400";
+var K_TEST_SERVER_ID = "715322089904537731";
 var K_AR_LIST = [
     { // 1
         "xp": 0
