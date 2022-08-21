@@ -95,8 +95,6 @@ function k_checkRoles(_message) {
 
                 // check doesn't already have role
                 if (_message.member.roles.cache.get(_role.id) != undefined) return;
-                console.log(_message.member.roles.cache.get(_role.id));
-                console.log(_role);
 
                 _message.member.roles.add(_role);
                 k_sendMessage(K_PROFIL_PAIMON_CHAD,
