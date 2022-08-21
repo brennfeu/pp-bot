@@ -10,6 +10,8 @@ function kusanaliBotMessage(_message) {
                 "Nouveau Rang d'Ascension Atteint !",
                 "**Bravo " + _message.author.username.secureXSS() + "**, tu es passé Rang d'Aventurier **" + _current_ar + "** !",
                 _message.channel);
+
+            k_checkRoles(_message);
         }
     }
 
@@ -27,7 +29,7 @@ function kusanaliBotMessage(_message) {
 
         return k_sendMessage(K_PROFIL_PAIMON_STATUE,
             _message.author.username.secureXSS(),
-            "Messages : **" + p + "**\nRang d'Aventurier : **" + ar + "**\nPlacement du serveur : **" + n + "**",
+            "Messages : **" + p + "**\nRang d'Aventurier : **" + ar + "**\nPlacement du serveur : **" + n + "e**",
             _message.channel,
             _message.author.avatarURL());
     }
@@ -37,7 +39,11 @@ function kusanaliBotMessage(_message) {
         for (var i in l) {
             txt += "**" + (parseInt(i)+1) + " - " + l[i].username + "**: " + l[i].k_points + " messages\n";
         }
-        return k_sendMessage(K_PROFIL_PAIMON_STATUE, "Current Leaderboard", txt, _message.channel);
+        return k_sendMessage(K_PROFIL_PAIMON_STATUE, "Leaderboard Actuel", txt, _message.channel);
+    }
+    if (argsUser[1] == "legacy") {
+        k_sendMessage(K_PROFIL_KUSANALI, "Ajout des rôles manquants", "Les rôles manquants devraient arriver. Si ça marche.", _message.channel);
+        k_checkRoles(_message);
     }
 
     return _message.reply("Je ne connais pas cette commande, désolé. Je ne connais que 'rank' et 'leaderboard'.");
@@ -76,6 +82,30 @@ function k_sendMessage(_profil, _title, _message, _channel, _avatar = undefined)
     })
     .catch(console.error);
 }
+function k_checkRoles(_message) {
+    if (_message.guild.id != K_SERVER_ID) return;
+    var ar = k_getUserAR(_message.author.id);
+
+    for (var i in K_AR_LIST) {
+        if (i > ar) return;
+
+        if (K_AR_LIST[i].role != undefined) {
+            _message.guild.roles.fetch(K_AR_LIST[i].role)
+            .then(function(_role) {
+                // check doesn't already have role
+                var members = Array.prototype.slice.call(_role.members);
+                for (var j in members) if (members[j].id == _message.author.id) return;
+
+                _message.member.roles.add(_role);
+                k_sendMessage(K_PROFIL_PAIMON_CHAD,
+                    "Nouveau Role obtenu !",
+                    "**Bravo " + _message.author.username.secureXSS() + "**, tu as obtenu le rôle **" + _role.name + "** !",
+                    _message.channel);
+            }))
+            .catch(console.error);
+        }
+    }
+}
 
 var K_PROFIL_PAIMON_CHAD = {
     "nom": "Paimon",
@@ -107,7 +137,8 @@ var K_AR_LIST = [
         "xp": 150
     },
     { // 5
-        "xp": 223
+        "xp": 223,
+        "role": 1010685482499325992
     },
     { // 6
         "xp": 308
@@ -122,7 +153,8 @@ var K_AR_LIST = [
         "xp": 630
     },
     { // 10
-        "xp": 760
+        "xp": 760,
+        "role": 1010685477629734932
     },
     { // 11
         "xp": 903
@@ -152,7 +184,8 @@ var K_AR_LIST = [
         "xp": 2535
     },
     { // 20
-        "xp": 2813
+        "xp": 2813,
+        "role": 1010685472579784734
     },
     { // 21
         "xp": 3095
@@ -182,7 +215,8 @@ var K_AR_LIST = [
         "xp": 6645
     },
     { // 30
-        "xp": 7218
+        "xp": 7218,
+        "role": 1010685472579784734
     },
     { // 31
         "xp": 7820
@@ -212,7 +246,8 @@ var K_AR_LIST = [
         "xp": 12845
     },
     { // 40
-        "xp": 14540
+        "xp": 14540,
+        "role": 1010685457266385028
     },
     { // 41
         "xp": 15595
@@ -227,7 +262,8 @@ var K_AR_LIST = [
         "xp": 19349
     },
     { // 45
-        "xp": 20780
+        "xp": 20780,
+        "role": 1010685452782669844
     },
     { // 46
         "xp": 22315
@@ -242,7 +278,8 @@ var K_AR_LIST = [
         "xp": 27500
     },
     { // 50
-        "xp": 29420
+        "xp": 29420,
+        "role": 1010685448110211123
     },
     { // 51
         "xp": 32060
@@ -257,7 +294,8 @@ var K_AR_LIST = [
         "xp": 41420
     },
     { // 55
-        "xp": 45020
+        "xp": 45020,
+        "role": 1010685442724724756
     },
     { // 56
         "xp": 68255
@@ -272,6 +310,7 @@ var K_AR_LIST = [
         "xp": 154008
     },
     { // 60
-        "xp": 188020
+        "xp": 188020,
+        "role": 1010685437616083114
     }
 ]
