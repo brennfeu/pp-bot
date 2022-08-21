@@ -93,10 +93,10 @@ function k_checkRoles(_message) {
             console.log(K_AR_LIST[i].role);
             _message.guild.roles.fetch(K_AR_LIST[i].role)
             .then(function(_role) {
-                console.log(_role);
 
                 // check doesn't already have role
                 var members = Array.prototype.slice.call(_role.members);
+                console.log(members);
                 for (var j in members) if (members[j].id == _message.author.id) return;
 
                 _message.member.roles.add(_role);
