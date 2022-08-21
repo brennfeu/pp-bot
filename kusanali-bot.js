@@ -95,9 +95,7 @@ function k_checkRoles(_message) {
             .then(function(_role) {
 
                 // check doesn't already have role
-                var members = Array.prototype.slice.call(_role.members);
-                console.log(members);
-                for (var j in members) if (members[j].id == _message.author.id) return;
+                if (message.member.roles.cache.has(_role)) return;
 
                 _message.member.roles.add(_role);
                 k_sendMessage(K_PROFIL_PAIMON_CHAD,
