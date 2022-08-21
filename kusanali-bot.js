@@ -90,12 +90,13 @@ function k_checkRoles(_message) {
         if (parseInt(i) > ar) return;
 
         if (K_AR_LIST[i].role != undefined) {
-            console.log(K_AR_LIST[i].role);
             _message.guild.roles.fetch(K_AR_LIST[i].role)
             .then(function(_role) {
 
                 // check doesn't already have role
                 if (_message.member.roles.cache.has(_role)) return;
+                console.log(_message.member.roles.cache);
+                console.log(_role);
 
                 _message.member.roles.add(_role);
                 k_sendMessage(K_PROFIL_PAIMON_CHAD,
