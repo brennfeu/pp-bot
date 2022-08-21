@@ -44,10 +44,10 @@ function kusanaliBotMessage(_message) {
     }
     if (argsUser[1] == "legacy") {
         k_sendMessage(K_PROFIL_KUSANALI, "Ajout des rôles manquants", "Les rôles manquants devraient arriver. Si ça marche.", _message.channel);
-        k_checkRoles(_message);
+        return k_checkRoles(_message);
     }
 
-    return _message.reply("Je ne connais pas cette commande, désolé. Je ne connais que 'rank' et 'leaderboard'.");
+    return _message.reply("Je ne connais pas cette commande, désolé. Je ne connais que 'rank', 'leaderboard' et 'legacy'.");
 }
 
 function k_getUserAR(_userId) {
@@ -85,9 +85,11 @@ function k_sendMessage(_profil, _title, _message, _channel, _avatar = undefined)
 }
 function k_checkRoles(_message) {
     var ar = k_getUserAR(_message.author.id);
+    console.log(ar);
 
     for (var i in K_AR_LIST) {
-        if (i > ar) return;
+        console.log(i);
+        if (parseInt(i) > ar) return;
 
         if (K_AR_LIST[i].role != undefined) {
             console.log(K_AR_LIST[i].role);
