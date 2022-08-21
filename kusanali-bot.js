@@ -6,7 +6,8 @@ function kusanaliBotMessage(_message) {
     for (var i in K_AR_LIST) { // check if AR up
         if (K_AR_LIST[i].xp == points) {
             var _current_ar = parseInt(i)+1;
-            k_sendMessage("Nouveau Rang d'Ascension Atteint !",
+            k_sendMessage(K_PROFIL_PAIMON_CHAD,
+                "Nouveau Rang d'Ascension Atteint !",
                 "**Bravo " + _message.author.username.secureXSS() + "**, tu es passé Rang d'Aventurier **" + _current_ar + "** !",
                 _message.channel);
         }
@@ -24,7 +25,8 @@ function kusanaliBotMessage(_message) {
         var ar = k_getUserAR(_message.author.id);
         var n = k_getUserPlacement(_message.author.id);
 
-        return k_sendMessage(_message.author.username.secureXSS(),
+        return k_sendMessage(K_PROFIL_PAIMON_STATUE,
+            _message.author.username.secureXSS(),
             "Messages : **" + p + "**\nRang d'Aventurier : **" + ar + "**\nPlacement du serveur : **" + n + "**",
             _message.channel,
             _message.author.avatarURL());
@@ -35,7 +37,7 @@ function kusanaliBotMessage(_message) {
         for (var i in l) {
             txt += "**" + (parseInt(i)+1) + " - " + l[i].username + "**: " + l[i].k_points + " messages\n";
         }
-        return k_sendMessage("Current Leaderboard", txt, _message.channel);
+        return k_sendMessage(K_PROFIL_PAIMON_STATUE, "Current Leaderboard", txt, _message.channel);
     }
 
     return _message.reply("Je ne connais pas cette commande, désolé. Je ne connais que 'rank' et 'leaderboard'.");
@@ -49,7 +51,7 @@ function k_getUserAR(_userId) {
     }
     return 60;
 }
-function k_sendMessage(_title, _message, _channel, _avatar = undefined) {
+function k_sendMessage(_profil, _title, _message, _channel, _avatar = undefined) {
     _channel.createWebhook('Some-username', {
         name: 'Kusana-Leaks',
         avatar: 'https://cdn.discordapp.com/attachments/667337519477817363/996062528973058100/unknown.png'
@@ -59,23 +61,38 @@ function k_sendMessage(_title, _message, _channel, _avatar = undefined) {
 
         var embedMessage = new DISCORD.MessageEmbed();
         embedMessage.setTitle("**" + _title + "**");
-        embedMessage.setDescription(_message);
+        embedMessage.setDescription(sciText(_message));
         embedMessage.setColor([ 125, 171, 73 ]);
         if (_avatar != undefined) embedMessage.setThumbnail(_avatar);
 
         webhookClient.send('', {
-            username: 'Loli des Fleurs',
-            avatarURL: 'https://cdn.discordapp.com/attachments/715322091804819486/1010649092805890089/unknown.png',
+            username: _profil.nom,
+            avatarURL: _profil.pfp,
             embeds: [ embedMessage ]
+        })
+        .then(function() {
+            _webhook.delete();
         });
-
-        _webhook.delete();
     })
     .catch(console.error);
 }
 
+var K_PROFIL_PAIMON_CHAD = {
+    "nom": "Paimon",
+    "pfp": "https://cdn.discordapp.com/attachments/667337519477817363/1010869852635934740/unknown.png"
+}
+var K_PROFIL_PAIMON_STATUE = {
+    "nom": "Paimon",
+    "pfp": "https://cdn.discordapp.com/attachments/667337519477817363/1010869748898222140/unknown.png"
+}
+var K_PROFIL_KUSANALI = {
+    "nom": "Loli des Fleurs",
+    "pfp": "https://cdn.discordapp.com/attachments/715322091804819486/1010649092805890089/unknown.png"
+}
+
 var K_SERVER_ID = "835951523325542400";
 var K_TEST_SERVER_ID = "715322089904537731";
+
 var K_AR_LIST = [
     { // 1
         "xp": 0
