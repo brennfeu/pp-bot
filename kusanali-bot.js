@@ -12,6 +12,7 @@ function kusanaliBotMessage(_message) {
                 _message.channel);
 
             k_checkRoles(_message);
+            return;
         }
     }
 
@@ -83,15 +84,17 @@ function k_sendMessage(_profil, _title, _message, _channel, _avatar = undefined)
     .catch(console.error);
 }
 function k_checkRoles(_message) {
-    if (_message.guild.id != K_SERVER_ID) return;
     var ar = k_getUserAR(_message.author.id);
 
     for (var i in K_AR_LIST) {
         if (i > ar) return;
 
         if (K_AR_LIST[i].role != undefined) {
+            console.log(K_AR_LIST[i].role);
             _message.guild.roles.fetch(K_AR_LIST[i].role)
             .then(function(_role) {
+                console.log(_role);
+
                 // check doesn't already have role
                 var members = Array.prototype.slice.call(_role.members);
                 for (var j in members) if (members[j].id == _message.author.id) return;
