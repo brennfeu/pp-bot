@@ -94,9 +94,7 @@ function k_checkRoles(_message) {
             .then(function(_role) {
 
                 // check doesn't already have role
-                if (_message.member.roles.cache.has(_role)) return;
-                console.log(_message.member.roles.cache);
-                console.log(_role);
+                if (_message.member.roles.cache[_role.id] != undefined) return;
 
                 _message.member.roles.add(_role);
                 k_sendMessage(K_PROFIL_PAIMON_CHAD,
