@@ -101,7 +101,7 @@ function k_checkRoles(_message) {
                     "Nouveau Role obtenu !",
                     "**Bravo " + _message.author.username.secureXSS() + "**, tu as obtenu le rôle **" + _role.name + "** !",
                     _message.channel);
-            }))
+            })
             .catch(console.error);
         }
     }
