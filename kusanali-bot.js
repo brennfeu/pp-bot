@@ -57,12 +57,12 @@ function kusanaliBotMessage(_message) {
     }
     if (argsUser[1] == "help") {
         k_sendMessage(K_PROFIL_KUSANALI, "Commandes",
-            "*fleurs*: FC Loli des Fleurs !\n" +
-            "*leaderboard*: Affiche le top 10 du serveur.\n" +
-            "*legacy*: Affecte les rôles manquants.\n" +
-            "*loli*: FC Loli des Fleurs !\n" +
-            "*paypal*: Non.\n" +
-            "*rank*: Affiche ton statut actuel sur le serveur.",
+            "**fleurs**: FC Loli des Fleurs !\n" +
+            "**leaderboard**: Affiche le top 10 du serveur.\n" +
+            "**legacy**: Affecte les rôles manquants.\n" +
+            "**loli**: FC Loli des Fleurs !\n" +
+            "**paypal**: Non.\n" +
+            "**rank**: Affiche ton statut actuel sur le serveur.",
         _message.channel);
         return k_checkRoles(_message);
     }
