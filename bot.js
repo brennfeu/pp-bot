@@ -232,7 +232,7 @@ function addTextToBibleCat(_cat, _txt) {
     FULL_BIBLE[_cat].push(_txt);
 }
 
-function setBotActivity(_texte = "Lonely PP Squeezing :(") {
+function setBotActivity(_texte = "") {
 	var texte = _texte;
 	if (DUEL_LIST.length > 0) {
 		if (DUEL_LIST.length == 1) {
