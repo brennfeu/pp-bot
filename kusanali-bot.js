@@ -59,33 +59,49 @@ function k_getUserAR(_userId) {
     return 60;
 }
 function k_sendMessage(_profil, _title, _message, _channel, _avatar = undefined) {
-    _channel.createWebhook('Some-username', {
-        name: 'Kusana-Leaks',
-        avatar: 'https://cdn.discordapp.com/attachments/667337519477817363/996062528973058100/unknown.png'
-    })
-    .then(function(_webhook) {
-        webhookClient = new DISCORD.WebhookClient(_webhook.id, _webhook.token);
-
-        var embedMessage = new DISCORD.MessageEmbed();
-        embedMessage.setTitle("**" + _title + "**");
-        embedMessage.setDescription(sciText(_message));
-        embedMessage.setColor([ 125, 171, 73 ]);
-        if (_avatar != undefined) embedMessage.setThumbnail(_avatar);
-
-        webhookClient.send('', {
-            username: _profil.nom,
-            avatarURL: _profil.pfp,
-            embeds: [ embedMessage ]
-        })
-        .then(function() {
-            _webhook.delete();
-        })
-        .catch(function(_e) {
-            console.log(_e)
-            _webhook.delete();
+    _channel.fetchWebhooks()
+    .then(function(_hooks) {
+        _hooks.forEach((_value, _key) => {
+            console.log(_value);
+            console.log(_key);
         });
+
+        _channel.createWebhook('Kusana-Leaks', {
+            name: 'Kusana-Leaks',
+            avatar: 'https://cdn.discordapp.com/attachments/667337519477817363/996062528973058100/unknown.png'
+        })
+        .then(function(_webhook) {
+            k_sendWebhookMessage(_webhook, _profil, _title, _message, _channel, _avatar);
+        })
+        .catch(function(_e) { console.log(_e) });
     })
-    .catch(_e => console.log(_e));
+    .catch(function(_e) { console.log(_e) });
+}
+function k_sendWebhookMessage(_webhook, _profil, _title, _message, _channel, _avatar = undefined) {
+    webhookClient = new DISCORD.WebhookClient(_webhook.id, _webhook.token);
+
+    var embedMessage = new DISCORD.MessageEmbed();
+    embedMessage.setTitle("**" + _title + "**");
+    embedMessage.setDescription(sciText(_message));
+    embedMessage.setColor([ 125, 171, 73 ]);
+    if (_avatar != undefined) embedMessage.setThumbnail(_avatar);
+
+    webhookClient.send('', {
+        username: _profil.nom,
+        avatarURL: _profil.pfp,
+        embeds: [ embedMessage ]
+    })
+    .then(function() {
+        _webhook.delete();
+    })
+    .catch(function(_e) {
+        console.log(_e);
+        webhookClient.send(_message)
+        .catch(function(_e) {
+            console.log(_e);
+            _message.channel.send(_message);
+        })
+    });
 }
 function k_checkRoles(_message) {
     var ar = k_getUserAR(_message.author.id);
@@ -96,7 +112,6 @@ function k_checkRoles(_message) {
         if (K_AR_LIST[i].role != undefined) {
             _message.guild.roles.fetch(K_AR_LIST[i].role)
             .then(function(_role) {
-
                 // check doesn't already have role
                 if (_message.member.roles.cache.get(_role.id) != undefined) return;
 
