@@ -61,10 +61,9 @@ function k_getUserAR(_userId) {
 function k_sendMessage(_profil, _title, _message, _channel, _avatar = undefined) {
     _channel.fetchWebhooks()
     .then(function(_hooks) {
-        _hooks.forEach((_value, _key) => {
-            console.log(_value);
-            console.log(_key);
-        });
+        for (const [ _key, _value ] of _hooks) {
+            if (_value.owner.id == CLIENT.user.id) return k_sendWebhookMessage(_webhook, _profil, _title, _message, _channel, _avatar);
+        }
 
         _channel.createWebhook('Kusana-Leaks', {
             name: 'Kusana-Leaks',
@@ -90,9 +89,6 @@ function k_sendWebhookMessage(_webhook, _profil, _title, _message, _channel, _av
         username: _profil.nom,
         avatarURL: _profil.pfp,
         embeds: [ embedMessage ]
-    })
-    .then(function() {
-        _webhook.delete();
     })
     .catch(function(_e) {
         console.log(_e);
