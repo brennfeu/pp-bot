@@ -59,11 +59,13 @@ function k_getUserAR(_userId) {
     return 60;
 }
 function k_sendMessage(_profil, _title, _message, _channel, _avatar = undefined) {
+    console.log("a");
     _channel.createWebhook('Some-username', {
         name: 'Kusana-Leaks',
         avatar: 'https://cdn.discordapp.com/attachments/667337519477817363/996062528973058100/unknown.png'
     })
     .then(function(_webhook) {
+        console.log("b");
         webhookClient = new DISCORD.WebhookClient(_webhook.id, _webhook.token);
 
         var embedMessage = new DISCORD.MessageEmbed();
@@ -78,6 +80,7 @@ function k_sendMessage(_profil, _title, _message, _channel, _avatar = undefined)
             embeds: [ embedMessage ]
         })
         .then(function() {
+            console.log("c");
             _webhook.delete();
         });
     })
