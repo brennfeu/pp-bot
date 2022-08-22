@@ -16,6 +16,9 @@ function kusanaliBotMessage(_message) {
         }
     }
 
+    // thumbs up nahida
+    if (_message.content.trim() == GIF_NAHIDA) return _message.react(EMOTE_KUSANALI);
+
     // commands
     if (_message.mentions.users.array().length < 1) return;
 	if (_message.mentions.users.first().id != CLIENT.user.id) return;
@@ -46,8 +49,25 @@ function kusanaliBotMessage(_message) {
         k_sendMessage(K_PROFIL_KUSANALI, "Ajout des rôles manquants", "Les rôles manquants devraient arriver. Si ça marche.", _message.channel);
         return k_checkRoles(_message);
     }
+    if (argsUser[1] == "loli" || argsUser[1] == "fleurs") {
+        return _message.channel.send(GIF_NAHIDA);
+    }
+    if (argsUser[1] == "paypal") {
+        return _message.channel.send("Non.");
+    }
+    if (argsUser[1] == "help") {
+        k_sendMessage(K_PROFIL_KUSANALI, "Commandes",
+            "*fleurs*: FC Loli des Fleurs !\n" +
+            "*leaderboard*: Affiche le top 10 du serveur.\n" +
+            "*legacy*: Affecte les rôles manquants.\n" +
+            "*loli*: FC Loli des Fleurs !\n" +
+            "*paypal*: Non.\n" +
+            "*rank*: Affiche ton statut actuel sur le serveur.",
+        _message.channel);
+        return k_checkRoles(_message);
+    }
 
-    return _message.reply("Je ne connais pas cette commande, désolé. Je ne connais que 'rank', 'leaderboard' et 'legacy'.");
+    return _message.reply(randomFromList([ "quoi ?", "hein ?", "j'ai pas compris :/" ]));
 }
 
 function k_getUserAR(_userId) {
@@ -121,6 +141,9 @@ function k_checkRoles(_message) {
         }
     }
 }
+
+var GIF_NAHIDA = "https://tenor.com/view/genshin-impact-kusanali-nahida-gif-26148274";
+var EMOTE_KUSANALI = "1011319146186813480";
 
 var K_PROFIL_PAIMON_CHAD = {
     "nom": "Paimon",
