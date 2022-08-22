@@ -49,6 +49,13 @@ function kusanaliBotMessage(_message) {
         k_sendMessage(K_PROFIL_KUSANALI, "Ajout des rôles manquants", "Les rôles manquants devraient arriver. Si ça marche.", _message.channel);
         return k_checkRoles(_message);
     }
+    if (argsUser[1] == "links") {
+        return k_sendMessage(K_PROFIL_LIBEN, "Liens",
+            "**Twitter**: https://twitter.com/GenshinLeaksFr \n" +
+            "**Discord**: https://discord.com/invite/stftBnMhRE \n" +
+            "**Tiktok**: https://www.tiktok.com/@genshinleaksfr",
+        _message.channel);
+    }
     if (argsUser[1] == "loli" || argsUser[1] == "fleurs") {
         return _message.channel.send(GIF_NAHIDA);
     }
@@ -58,8 +65,10 @@ function kusanaliBotMessage(_message) {
     if (argsUser[1] == "help") {
         k_sendMessage(K_PROFIL_KUSANALI, "Commandes",
             "**fleurs**: FC Loli des Fleurs !\n" +
+            "**help**: Aucune idée de ce que ça fait.\n" +
             "**leaderboard**: Affiche le top 10 du serveur.\n" +
             "**legacy**: Affecte les rôles manquants.\n" +
+            "**links**: Envoie les liens vers les résaux sociaux du serveur.\n" +
             "**loli**: FC Loli des Fleurs !\n" +
             "**paypal**: Non.\n" +
             "**rank**: Affiche ton statut actuel sur le serveur.",
@@ -156,6 +165,10 @@ var K_PROFIL_PAIMON_STATUE = {
 var K_PROFIL_KUSANALI = {
     "nom": "Loli des Fleurs",
     "pfp": "https://cdn.discordapp.com/attachments/715322091804819486/1010649092805890089/unknown.png"
+}
+var K_PROFIL_LIBEN = {
+    "nom": "Liben",
+    "pfp": "https://cdn.discordapp.com/attachments/667337519477817363/1011341126080405534/unknown.png"
 }
 
 var K_SERVER_ID = "835951523325542400";
