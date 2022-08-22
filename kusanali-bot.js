@@ -62,6 +62,8 @@ function k_sendMessage(_profil, _title, _message, _channel, _avatar = undefined)
     _channel.fetchWebhooks()
     .then(function(_hooks) {
         for (const [ _key, _value ] of _hooks) {
+            console.log(_key);
+            console.log(_value);
             if (_value.owner.id == CLIENT.user.id) return k_sendWebhookMessage(_webhook, _profil, _title, _message, _channel, _avatar);
         }
 
