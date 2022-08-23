@@ -28,7 +28,7 @@ function kusanaliBotMessage(_message) {
 
     if (argsUser[1] == "rank") {
         var p = k_getUserPoints(_message.author.id);
-        var ar = k_getUserAR(_message.author.id);
+        var ar = k_getARFromPoints(p);
         var n = k_getUserPlacement(_message.author.id);
 
         return k_sendMessage(K_PROFIL_PAIMON_STATUE,
@@ -41,7 +41,7 @@ function kusanaliBotMessage(_message) {
         var l = k_getLeaderboard();
         var txt = "";
         for (var i in l) {
-            txt += "**" + (parseInt(i)+1) + " - " + l[i].username + "**: " + l[i].k_points + " messages\n";
+            txt += "**" + (parseInt(i)+1) + " - " + l[i].username + "** (AR" + k_getARFromPoints(l[i].k_points) + "): " + l[i].k_points + " messages\n";
         }
         return k_sendMessage(K_PROFIL_PAIMON_STATUE, "Leaderboard Actuel", txt, _message.channel);
     }
@@ -80,10 +80,11 @@ function kusanaliBotMessage(_message) {
 }
 
 function k_getUserAR(_userId) {
-    var p = k_getUserPoints(_userId);
-
+    return k_getARFromPoints(k_getUserPoints(_userId));
+}
+function k_getARFromPoints(_p) {
     for (var i in K_AR_LIST) {
-        if (K_AR_LIST[i].xp > p) return i;
+        if (K_AR_LIST[i].xp > _p) return i;
     }
     return 60;
 }
