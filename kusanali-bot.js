@@ -133,7 +133,7 @@ function k_checkRoles(_message) {
     var ar = k_getUserAR(_message.author.id);
 
     for (var i in K_AR_LIST) {
-        if (parseInt(i) > ar) return;
+        if (parseInt(i) >= ar) return;
 
         if (K_AR_LIST[i].role != undefined) {
             _message.guild.roles.fetch(K_AR_LIST[i].role)
