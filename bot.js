@@ -1,5 +1,7 @@
 // IMPORTS
 var fs = require("fs");
+var http = require('http');
+
 eval(fs.readFileSync("kusanali-bot.js").toString());
 
 eval(fs.readFileSync("data.js").toString());
@@ -780,3 +782,8 @@ CLIENT.on('error', (_error) => {
 	sendErrorToDev(_error);
 })
 CLIENT.login(process.env.BOT_TOKEN);
+
+http.createServer(function (req, res) {
+	res.writeHead(200, {'Content-Type': 'text/html'});
+	res.end('Server is Online! PP Arbitrator should be running');
+}).listen(process.env.PORT, process.env.IP);
