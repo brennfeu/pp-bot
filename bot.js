@@ -785,5 +785,5 @@ CLIENT.login(process.env.BOT_TOKEN);
 
 http.createServer(function (req, res) {
 	res.writeHead(200, {'Content-Type': 'text/html'});
-	res.end('Server is Online! PP Arbitrator should be running');
+	res.end('PP Arbitrator uptime: ' + CLIENT.uptime);
 }).listen(process.env.PORT, process.env.IP);
