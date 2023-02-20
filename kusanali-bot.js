@@ -51,9 +51,9 @@ function kusanaliBotMessage(_message) {
     }
     if (argsUser[1] == "links") {
         return k_sendMessage(K_PROFIL_LIBEN, "Liens",
-            "**Twitter**: https://twitter.com/GenshinLeaksFr \n" +
+            "**Twitter**: https://twitter.com/LibenWhen \n" +
             "**Discord**: https://discord.com/invite/stftBnMhRE \n" +
-            "**Tiktok**: https://www.tiktok.com/@genshinleaksfr \n" +
+            "**Tiktok**: https://www.tiktok.com/@libenwhen \n" +
             "**Paypal**: https://www.paypal.me/Libenwhen",
         _message.channel);
     }
