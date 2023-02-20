@@ -53,10 +53,11 @@ function kusanaliBotMessage(_message) {
         return k_sendMessage(K_PROFIL_LIBEN, "Liens",
             "**Twitter**: https://twitter.com/GenshinLeaksFr \n" +
             "**Discord**: https://discord.com/invite/stftBnMhRE \n" +
-            "**Tiktok**: https://www.tiktok.com/@genshinleaksfr",
+            "**Tiktok**: https://www.tiktok.com/@genshinleaksfr \n" +
+            "**Paypal**: https://www.paypal.me/Libenwhen",
         _message.channel);
     }
-    if (argsUser[1] == "loli" || argsUser[1] == "fleurs") {
+    if (argsUser[1] == "fleurs") {
         return _message.channel.send(GIF_NAHIDA);
     }
     if (argsUser[1] == "paypal") {
@@ -69,7 +70,6 @@ function kusanaliBotMessage(_message) {
             "**leaderboard**: Affiche le top 10 du serveur.\n" +
             "**legacy**: Affecte les rôles manquants.\n" +
             "**links**: Envoie les liens vers les résaux sociaux du serveur.\n" +
-            "**loli**: FC Loli des Fleurs !\n" +
             "**paypal**: Non.\n" +
             "**rank**: Affiche ton statut actuel sur le serveur.",
         _message.channel);
@@ -152,7 +152,7 @@ function k_checkRoles(_message) {
     }
 }
 
-var GIF_NAHIDA = "https://tenor.com/view/genshin-impact-kusanali-nahida-gif-26148274";
+var GIF_NAHIDA = "https://tenor.com/view/nahida-kusanali-genshin-genshin-impact-sumeru-gif-26819159";
 var EMOTE_KUSANALI = "1011319146186813480";
 
 var K_PROFIL_PAIMON_CHAD = {
