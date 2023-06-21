@@ -26,14 +26,19 @@ function kusanaliBotMessage(_message) {
     var argsUser = _message.content.trim().split(" ").filter(a => a != "");
 	console.log(argsUser);
 
-    if (argsUser[1] == "rank") {
+    if (argsUser[1] == "rank" || argsUser[1] == "status") {
         var p = k_getUserPoints(_message.author.id);
         var ar = k_getARFromPoints(p);
+        var m = k_getUserMora(_message.author.id);
         var n = k_getUserPlacement(_message.author.id);
 
         return k_sendMessage(K_PROFIL_PAIMON_STATUE,
             _message.author.username.secureXSS(),
-            "Messages : **" + p + "**\nRang d'Aventurier : **" + ar + "**\nPlacement du serveur : **" + n + "e**",
+            "Points d'Experience : **" + p +
+                "**\nRang d'Aventurier : **" + ar +
+                "**\n\nMora : **" + m +
+                "**\n\nPlacement du serveur : **" + n +
+                "e**",
             _message.channel,
             _message.author.avatarURL());
     }
@@ -41,7 +46,7 @@ function kusanaliBotMessage(_message) {
         var l = k_getLeaderboard();
         var txt = "";
         for (var i in l) {
-            txt += "**" + (parseInt(i)+1) + " - " + l[i].username + "** (AR" + k_getARFromPoints(l[i].k_points) + "): " + l[i].k_points + " messages\n";
+            txt += "**" + (parseInt(i)+1) + " - " + l[i].username + "** (AR" + k_getARFromPoints(l[i].k_points) + "): " + l[i].k_points + " xp\n";
         }
         return k_sendMessage(K_PROFIL_PAIMON_STATUE, "Leaderboard Actuel", txt, _message.channel);
     }
@@ -61,7 +66,7 @@ function kusanaliBotMessage(_message) {
         return _message.channel.send(GIF_NAHIDA);
     }
     if (argsUser[1] == "paypal") {
-        return _message.channel.send("Non.");
+        return _message.channel.send("Non.\n(paypal de liben dispo avec la commande _links_)");
     }
     if (argsUser[1] == "help") {
         k_sendMessage(K_PROFIL_KUSANALI, "Commandes",
@@ -76,7 +81,7 @@ function kusanaliBotMessage(_message) {
         return k_checkRoles(_message);
     }
 
-    return _message.reply(randomFromList([ "quoi ?", "hein ?", "j'ai pas compris :/" ]));
+    return _message.reply(randomFromList([ "quoi ?", "hein ?", "j'ai pas compris :/", "haha", "pardon ?", "j'ai pas écouté, tu peux répéter stp ?" ]));
 }
 
 function k_getUserAR(_userId) {

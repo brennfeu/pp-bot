@@ -198,6 +198,12 @@ function k_getUserPoints(_userId) {
 	if (result.length == 0) return 0;
 	else return parseInt(result[0].k_points);
 }
+function k_getUserMora(_userId) {
+	var result = executeQuery("SELECT k_mora FROM Player WHERE id = " + _userId)
+
+	if (result.length == 0) return 0;
+	else return parseInt(result[0].k_mora);
+}
 function k_getUserPlacement(_userId) {
 	return parseInt(executeQuery("SELECT COUNT(id) count FROM Player WHERE k_points >= ( SELECT k_points FROM Player WHERE id = " + _userId + " )")[0].count);
 }
