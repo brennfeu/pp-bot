@@ -32,8 +32,8 @@ function kusanaliBotMessage(_message) {
         if (dailies[i].type == "send_links") word = "http";
         else word = dailies[i].word;
 
-        var nb = ("aaa-" + _message.content.toLowerCase().trim() + "-aaa").split(word).length-1;
-        for (var i in Array.from(Array(nb).keys())) k_increaseMissionProgress(_message.author.id, dailies[i].type, _message.channel, dailies);
+        var nb = ("aaa-" + _message.content.toLowerCase() + "-aaa").split(word).length-1;
+        for (var j in Array.from(Array(nb).keys())) k_increaseMissionProgress(_message.author.id, dailies[i].type, _message.channel, dailies);
     }
 
     // thumbs up nahida
@@ -107,7 +107,7 @@ function kusanaliBotMessage(_message) {
             "**legacy**: Affecte les rôles manquants.\n" +
             "**links**: Envoie les liens vers les résaux sociaux du serveur.\n" +
             "**paypal**: Non.\n" +
-            "**rank**: Affiche ton statut actuel sur le serveur." +
+            "**rank**: Affiche ton statut actuel sur le serveur.\n" +
             "**status**: Affiche ton statut actuel sur le serveur.",
         _message.channel);
         return k_checkRoles(_message);
