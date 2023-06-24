@@ -223,7 +223,7 @@ function k_increaseMissionProgress(_userId, _missionType, _channel, _dailies = "
         if (dailies[i].progress < dailies[i].target) return;
 
         var mora = k_getUserAR(_userId)*500;
-        executeQuery('UPDATE Player SET k_mora=' + (k_getUserMora()+mora) + ' WHERE id = ' + _userId);
+        executeQuery('UPDATE Player SET k_mora=' + (k_getUserMora(_userId)+mora) + ' WHERE id = ' + _userId);
 
         var txt = K_MISSION_TITLES[dailies[i].type];
         txt = txt.replace("[x]", '**' + dailies[i].target + '**');
