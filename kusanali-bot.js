@@ -7,12 +7,15 @@ function kusanaliBotMessage(_message) {
     for (var i in K_AR_LIST) { // check if AR up
         if (K_AR_LIST[i].xp == points) {
             var _current_ar = parseInt(i)+1;
+            var _mora = _current_ar*10000;
             k_sendMessage(K_PROFIL_PAIMON_CHAD,
                 "Nouveau Rang d'Ascension Atteint !",
-                "**Bravo " + _message.author.username.secureXSS() + "**, tu es passé Rang d'Aventurier **" + _current_ar + "** !",
+                "**Bravo " + _message.author.username.secureXSS() + "**, tu es passé Rang d'Aventurier **" + _current_ar + "** !\n\nTu gagnes " + _mora + " Moras !",
                 _message.channel);
-
             k_checkRoles(_message);
+
+            _mora += k_getUserMora(_message.author.id);
+            executeQuery('UPDATE Player SET k_mora=' + mora + ' WHERE id = ' + _message.author.id);
             return;
         }
     }
@@ -29,7 +32,7 @@ function kusanaliBotMessage(_message) {
         if (dailies[i].type == "send_links") word = "http";
         else word = dailies[i].word;
 
-        var nb = _message.content.trim().split(word).length-1;
+        var nb = _message.content.toLowerCase().trim().split(word).length-1;
         for (var i in Array.from(Array(nb).keys())) k_increaseMissionProgress(_message.author.id, "use_word", _message.channel, dailies);
     }
 
@@ -40,10 +43,11 @@ function kusanaliBotMessage(_message) {
     if (_message.mentions.users.array().length < 1) return;
 	if (_message.mentions.users.first().id != CLIENT.user.id) return;
 
-    var argsUser = _message.content.trim().split(" ").filter(a => a != "");
-	console.log(argsUser);
+    var commande = _message.content.trim();
+    if (!commande.startsWith('%')) return;
+    commande = commande.substring(1);
 
-    if (argsUser[1] == "rank" || argsUser[1] == "status") {
+    if (commande == "%rank" || commande == "status") {
         var p = k_getUserPoints(_message.author.id);
         var ar = k_getARFromPoints(p);
         var m = k_getUserMora(_message.author.id);
@@ -59,7 +63,7 @@ function kusanaliBotMessage(_message) {
             _message.channel,
             _message.author.avatarURL());
     }
-    if (argsUser[1] == "leaderboard") {
+    if (commande == "leaderboard") {
         var l = k_getLeaderboard();
         var txt = "";
         for (var i in l) {
@@ -67,11 +71,11 @@ function kusanaliBotMessage(_message) {
         }
         return k_sendMessage(K_PROFIL_PAIMON_STATUE, "Leaderboard Actuel", txt, _message.channel);
     }
-    if (argsUser[1] == "legacy") {
+    if (commande == "legacy") {
         k_sendMessage(K_PROFIL_KUSANALI, "Ajout des rôles manquants", "Les rôles manquants devraient arriver. Si ça marche.", _message.channel);
         return k_checkRoles(_message);
     }
-    if (argsUser[1] == "links") {
+    if (commande == "links") {
         return k_sendMessage(K_PROFIL_LIBEN, "Liens",
             "**Twitter**: https://twitter.com/LibenWhen \n" +
             "**Discord**: https://discord.com/invite/stftBnMhRE \n" +
@@ -79,13 +83,13 @@ function kusanaliBotMessage(_message) {
             "**Paypal**: https://www.paypal.me/Libenwhen",
         _message.channel);
     }
-    if (argsUser[1] == "fleurs") {
+    if (commande == "fleurs") {
         return _message.channel.send(GIF_NAHIDA);
     }
-    if (argsUser[1] == "paypal") {
+    if (commande == "paypal") {
         return _message.channel.send("Non.\n(paypal de liben dispo avec la commande _links_)");
     }
-    if (argsUser[1] == "dailies") {
+    if (commande == "dailies") {
         var dailies = k_getUserDailyProgress(_message.author.id);
         var txt = "";
         for (var i in dailies) {
@@ -98,7 +102,7 @@ function kusanaliBotMessage(_message) {
         return k_sendMessage(K_PROFIL_KATHERYNE, "Missions Quotidiennes",
             txt, _message.channel);
     }
-    if (argsUser[1] == "help") {
+    if (commande == "help") {
         k_sendMessage(K_PROFIL_KUSANALI, "Commandes",
             "**dailies**: Affiche la listes des missions quotidiennes.\n" +
             "**fleurs**: FC Loli des Fleurs !\n" +
@@ -113,7 +117,7 @@ function kusanaliBotMessage(_message) {
         return k_checkRoles(_message);
     }
 
-    return _message.reply(randomFromList([ "quoi ?", "hein ?", "j'ai pas compris :/", "haha", "pardon ?", "j'ai pas écouté, tu peux répéter stp ?" ]));
+    return _message.reply(randomFromList([ "quoi ?", "hein ?", "j'ai pas compris :/", "haha", "pardon ?", "j'ai pas écouté, tu peux répéter stp ?", "ta gueule" ]));
 }
 
 function k_getUserAR(_userId) {
@@ -202,7 +206,7 @@ function k_generateDailyMissions() {
                 break;
             case "use_word":
                 json[currentId].target = randomFromList([2, 3, 4]);
-                json[currentId].word = randomFromList(["leak", "nahida", "loli", "genshin", "liben", "paypal", "lilas", "bio", "paimon", "dainsleif", "primo", "mora", "hentai", "abyss", "discord", "twitter"]);
+                json[currentId].word = randomFromList(["leak", "nahida", "loli", "genshin", "liben", "paypal", "lilas", "bio", "paimon", "dainsleif", "primo", "mora", "hentai", "abyss", "discord", "twitter", "kaleidoscope"]);
                 break;
         }
     }
@@ -282,7 +286,7 @@ var K_PROFIL_LIBEN = {
     "pfp": "https://cdn.discordapp.com/attachments/667337519477817363/1011341126080405534/unknown.png"
 }
 var K_PROFIL_KATHERYNE = {
-    "nom": "Catheryne",
+    "nom": "Catherine",
     "pfp": "https://cdn.discordapp.com/attachments/715322091804819486/1122174408824463440/image.png"
 }
 
