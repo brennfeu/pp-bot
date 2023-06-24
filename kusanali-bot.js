@@ -17,6 +17,17 @@ function kusanaliBotMessage(_message) {
         }
     }
 
+    // dailies
+    var dailies = k_getUserDailyProgress(_message.author.id);
+    k_increaseMissionProgress(_message.author.id, "send_messages", _message.channel, dailies);
+    if (_message.mentions.users.array().length > 0) for (var i in _message.mentions.users.array()) k_increaseMissionProgress(_message.author.id, "tag_people", _message.channel, dailies);
+    for (var i in dailies) { // use_word
+        if (dailies[i].type != "use_word") continue;
+
+        var nb = _message.content.trim().split(dailies[i].word).filter(a => a != "").length-1;
+        for (var i in Array.from(Array(nb).keys())) k_increaseMissionProgress(_message.author.id, "use_word", _message.channel, dailies);
+    }
+
     // thumbs up nahida
     if (_message.content.trim() == GIF_NAHIDA) return _message.react(EMOTE_KUSANALI);
 
@@ -73,15 +84,7 @@ function kusanaliBotMessage(_message) {
         var dailies = k_getUserDailyProgress(_message.author.id);
         var txt = "";
         for (var i in dailies) {
-            var titles = {
-                "send_messages": "Envoyer [x] messages",
-                "send_pictures": "Envoyer [x] images",
-                "use_reactions": "Utiliser [x] réactions",
-                "send_links": "Envoyer [x] liens",
-                "tag_people": "Tagger [x] personnes",
-                "use_word": "Utiliser le mot '[y]' [x] fois"
-            }
-            txt += titles[dailies[i].type];
+            txt += K_MISSION_TITLES[dailies[i].type];
             txt = txt.replace("[x]", '**' + dailies[i].target + '**');
             if (dailies[i].type  == "use_word") txt = txt.replace("[y]", '**' + dailies[i].word + '**');
             txt += " - ("  + dailies[i].progress + '/' + dailies[i].target + ")\n";
@@ -201,6 +204,27 @@ function k_generateDailyMissions() {
 
     return json;
 }
+function k_increaseMissionProgress(_userId, _missionType, _channel, _dailies = k_getUserDailyProgress(_message.author.id)) {
+    for (var i in dailies) {
+        if (dailies[i].type != _missionType) continue;
+        if (dailies[i].progress >= dailies[i].target) return;
+
+        dailies[i].progress += 1;
+        executeQuery('UPDATE Player SET k_dailies_progress=\'' + JSON.stringify(dailies) +
+    		'\'" WHERE id = ' + _userId);
+        if (dailies[i].progress < dailies[i].target) return;
+
+        var mora = k_getUserAR(_userId)*500;
+        executeQuery('UPDATE Player SET k_mora=' + mora + ' WHERE id = ' + _userId);
+
+        var txt = K_MISSION_TITLES[dailies[i].type];
+        txt = txt.replace("[x]", '**' + dailies[i].target + '**');
+        if (dailies[i].type  == "use_word") txt = txt.replace("[y]", '**' + dailies[i].word + '**');
+        txt += " - **Mission Accomplie !**\nVous avez gagné **" + mora + "** Moras !";
+        k_sendMessage(K_PROFIL_KATHERYNE, "Missions Quotidiennes",
+            txt, _channel);
+    }
+}
 
 function k_checkRoles(_message) {
     var ar = k_getUserAR(_message.author.id);
@@ -250,9 +274,18 @@ var K_PROFIL_LIBEN = {
     "pfp": "https://cdn.discordapp.com/attachments/667337519477817363/1011341126080405534/unknown.png"
 }
 var K_PROFIL_KATHERYNE = {
-    "nom": "Katheryne",
+    "nom": "Catheryne",
     "pfp": "https://cdn.discordapp.com/attachments/715322091804819486/1122174408824463440/image.png"
 }
+
+var K_MISSION_TITLES = {
+    "send_messages": "Envoyer [x] messages",
+    "send_pictures": "Envoyer [x] images",
+    "use_reactions": "Utiliser [x] réactions",
+    "send_links": "Envoyer [x] liens",
+    "tag_people": "Tagger quelqu'un [x] fois",
+    "use_word": "Utiliser le mot '[y]' [x] fois"
+};
 
 var K_SERVER_ID = "835951523325542400";
 var K_TEST_SERVER_ID = "715322089904537731";
