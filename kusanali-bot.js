@@ -33,7 +33,7 @@ function kusanaliBotMessage(_message) {
         else word = dailies[i].word;
 
         var nb = _message.content.toLowerCase().trim().split(word).length-1;
-        for (var i in Array.from(Array(nb).keys())) k_increaseMissionProgress(_message.author.id, "use_word", _message.channel, dailies);
+        for (var i in Array.from(Array(nb).keys())) k_increaseMissionProgress(_message.author.id, dailies[i].type, _message.channel, dailies);
     }
 
     // thumbs up nahida
