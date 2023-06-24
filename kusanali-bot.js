@@ -32,16 +32,12 @@ function kusanaliBotMessage(_message) {
         if (dailies[i].type == "send_links") word = "http";
         else word = dailies[i].word;
 
-        var nb = _message.content.toLowerCase().trim().split(word).length-1;
+        var nb = ("aaa-" + _message.content.toLowerCase().trim() + "-aaa").split(word).length-1;
         for (var i in Array.from(Array(nb).keys())) k_increaseMissionProgress(_message.author.id, dailies[i].type, _message.channel, dailies);
     }
 
     // thumbs up nahida
     if (_message.content.trim() == GIF_NAHIDA) return _message.react(EMOTE_KUSANALI);
-
-    // commands
-    if (_message.mentions.users.array().length < 1) return;
-	if (_message.mentions.users.first().id != CLIENT.user.id) return;
 
     var commande = _message.content.trim();
     if (!commande.startsWith('%')) return;
