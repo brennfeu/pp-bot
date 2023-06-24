@@ -24,7 +24,7 @@ function kusanaliBotMessage(_message) {
     for (var i in dailies) { // use_word
         if (dailies[i].type != "use_word") continue;
 
-        var nb = _message.content.trim().split(dailies[i].word).filter(a => a != "").length-1;
+        var nb = _message.content.trim().split(dailies[i].word).length-1;
         for (var i in Array.from(Array(nb).keys())) k_increaseMissionProgress(_message.author.id, "use_word", _message.channel, dailies);
     }
 
@@ -216,7 +216,7 @@ function k_increaseMissionProgress(_userId, _missionType, _channel, _dailies = k
         if (dailies[i].progress < dailies[i].target) return;
 
         var mora = k_getUserAR(_userId)*500;
-        executeQuery('UPDATE Player SET k_mora=' + mora + ' WHERE id = ' + _userId);
+        executeQuery('UPDATE Player SET k_mora=' + (k_getUserMora()+mora) + ' WHERE id = ' + _userId);
 
         var txt = K_MISSION_TITLES[dailies[i].type];
         txt = txt.replace("[x]", '**' + dailies[i].target + '**');
