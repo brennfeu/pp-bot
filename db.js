@@ -210,3 +210,21 @@ function k_getUserPlacement(_userId) {
 function k_getLeaderboard() {
 	return executeQuery("SELECT id, username, k_points FROM Player WHERE k_points>0 ORDER BY k_points DESC LIMIT 10;");
 }
+function k_getUserDailyProgress(_userId) {
+	var result = executeQuery("SELECT k_dailies_progress FROM Player WHERE id = " + _userId);
+
+	if (result.length == 0) return {};
+	else return JSON.parse(result[0].k_dailies_progress);
+}
+function k_checkUserDailyProgressDate(_userId) {
+	var result = executeQuery("SELECT k_dailies_progress_date FROM Player WHERE id = " + _userId);
+
+	if (result.length == 0) return false;
+	return result[0].k_dailies_progress_date == k_getToday();
+}
+function k_resetUserDailyProgress(_userId) {
+	if (k_checkUserDailyProgressDate(_userId)) return; // only if too late
+
+	executeQuery('UPDATE Player SET k_dailies_progress="' + JSON.stringify(k_generateDailyMissions()) +
+		'", k_dailies_progress_date="' + k_getToday() + '" WHERE id = ' + _userId);
+}

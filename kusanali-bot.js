@@ -2,6 +2,7 @@ function kusanaliBotMessage(_message) {
     if(_message.author.bot) return;
 
     if (getRandomPercent() < 10) updatePlayer(_message.author.id, _message.author.username.secureXSS());
+    k_resetUserDailyProgress(_message.author.id);
     var points = k_addMessageCount(_message.author.id, _message.author.username.secureXSS());
     for (var i in K_AR_LIST) { // check if AR up
         if (K_AR_LIST[i].xp == points) {
@@ -36,9 +37,9 @@ function kusanaliBotMessage(_message) {
             _message.author.username.secureXSS(),
             "Points d'Experience : **" + p +
                 "**\nRang d'Aventurier : **" + ar +
-                "**\n\nMora : **" + m +
-                "**\n\nPlacement du serveur : **" + n +
-                "e**",
+                "**\nPlacement du serveur : **" + n +
+                "e**\n\nMora : **" + m +
+                "**",
             _message.channel,
             _message.author.avatarURL());
     }
@@ -68,8 +69,29 @@ function kusanaliBotMessage(_message) {
     if (argsUser[1] == "paypal") {
         return _message.channel.send("Non.\n(paypal de liben dispo avec la commande _links_)");
     }
+    if (argsUser[1] == "dailies") {
+        var dailies = k_getUserDailyProgress(_message.author.id);
+        var txt = "";
+        for (var i in dailies) {
+            var titles = {
+                "send_messages": "Envoyer [x] messages",
+                "send_pictures": "Envoyer [x] images",
+                "use_reactions": "Utiliser [x] réactions",
+                "send_links": "Envoyer [x] liens",
+                "tag_people": "Tagger [x] personnes",
+                "use_word": "Utiliser le mot '[y]' [x] fois"
+            }
+            txt += titles[dailies[i].type];
+            txt = txt.replace("[x]", '_' + dailies[i].target + '_');
+            txt += " - ("  + dailies[i].progress + '/' + dailies[i].target + ")\n";
+        }
+
+        return k_sendMessage(K_PROFIL_PAIMON_STATUE, "Missions Quotidiennes",
+            txt, _message.channel);
+    }
     if (argsUser[1] == "help") {
         k_sendMessage(K_PROFIL_KUSANALI, "Commandes",
+            "**dailies**: Affiche la listes des missions quotidiennes.\n" +
             "**fleurs**: FC Loli des Fleurs !\n" +
             "**help**: Aucune idée de ce que ça fait.\n" +
             "**leaderboard**: Affiche le top 10 du serveur.\n" +
@@ -77,6 +99,7 @@ function kusanaliBotMessage(_message) {
             "**links**: Envoie les liens vers les résaux sociaux du serveur.\n" +
             "**paypal**: Non.\n" +
             "**rank**: Affiche ton statut actuel sur le serveur.",
+            "**status**: Affiche ton statut actuel sur le serveur.",
         _message.channel);
         return k_checkRoles(_message);
     }
@@ -93,6 +116,7 @@ function k_getARFromPoints(_p) {
     }
     return 60;
 }
+
 function k_sendMessage(_profil, _title, _message, _channel, _avatar = undefined) {
     _channel.fetchWebhooks()
     .then(function(_hooks) {
@@ -134,6 +158,25 @@ function k_sendWebhookMessage(_webhook, _profil, _title, _message, _channel, _av
         })
     });
 }
+
+function k_generateDailyMissions() {
+    var json = {};
+
+    while (Object.keys(json).length < 4) {
+        var currentId = Object.keys(json).length;
+        var randomMission = randomFromList([ "send_messages", "send_pictures", "use_reactions", "send_links", "tag_people", "use_word" ]);
+        for (var i in json) if (json[i].type == randomMission) continue;
+
+        json[currentId] = {};
+        json[currentId].type = randomMission;
+        json[currentId].progress = 0;
+        json[currentId].target = randomFromList([2, 3, 4, 5]);
+        json[currentId].completed = false;
+    }
+
+    return json;
+}
+
 function k_checkRoles(_message) {
     var ar = k_getUserAR(_message.author.id);
 
@@ -157,6 +200,11 @@ function k_checkRoles(_message) {
     }
 }
 
+function k_getToday() {
+    var today = new Date();
+    return today.toISOString().split('T')[0];
+}
+
 var GIF_NAHIDA = "https://tenor.com/view/nahida-kusanali-genshin-genshin-impact-sumeru-gif-26819159";
 var EMOTE_KUSANALI = "1011319146186813480";
 
@@ -175,6 +223,10 @@ var K_PROFIL_KUSANALI = {
 var K_PROFIL_LIBEN = {
     "nom": "Liben",
     "pfp": "https://cdn.discordapp.com/attachments/667337519477817363/1011341126080405534/unknown.png"
+}
+var K_PROFIL_KATHERYNE = {
+    "nom": "Katheryne",
+    "pfp": "https://cdn.discordapp.com/attachments/715322091804819486/1122174408824463440/image.png"
 }
 
 var K_SERVER_ID = "835951523325542400";
