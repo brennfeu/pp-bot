@@ -21,10 +21,15 @@ function kusanaliBotMessage(_message) {
     var dailies = k_getUserDailyProgress(_message.author.id);
     k_increaseMissionProgress(_message.author.id, "send_messages", _message.channel, dailies);
     if (_message.mentions.users.array().length > 0) for (var i in _message.mentions.users.array()) k_increaseMissionProgress(_message.author.id, "tag_people", _message.channel, dailies);
-    for (var i in dailies) { // use_word
-        if (dailies[i].type != "use_word") continue;
+    if (Array.from(_message.attachments).length > 0) for (var i in Array.from(_message.attachments)) k_increaseMissionProgress(_message.author.id, "send_pictures", _message.channel, dailies);
+    for (var i in dailies) { // use_word / send_links
+        if (dailies[i].type != "use_word" && dailies[i].type != "send_links") continue;
 
-        var nb = _message.content.trim().split(dailies[i].word).length-1;
+        var word = "";
+        if (dailies[i].type == "send_links") word = "http";
+        else word = dailies[i].word;
+
+        var nb = _message.content.trim().split(word).length-1;
         for (var i in Array.from(Array(nb).keys())) k_increaseMissionProgress(_message.author.id, "use_word", _message.channel, dailies);
     }
 
@@ -204,8 +209,10 @@ function k_generateDailyMissions() {
 
     return json;
 }
-function k_increaseMissionProgress(_userId, _missionType, _channel, _dailies = k_getUserDailyProgress(_message.author.id)) {
+function k_increaseMissionProgress(_userId, _missionType, _channel, _dailies = "") {
+    if (_dailies == "") _dailies = k_getUserDailyProgress(_userId);
     var dailies = _dailies;
+
     for (var i in dailies) {
         if (dailies[i].type != _missionType) continue;
         if (dailies[i].progress >= dailies[i].target) return;

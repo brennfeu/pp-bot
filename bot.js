@@ -738,7 +738,7 @@ CLIENT.on("message", async _message => { try {
 });
 
 CLIENT.on('messageReactionAdd', (_reaction, _user) => { try {
-	if ([K_SERVER_ID, K_TEST_SERVER_ID].indexOf(_reaction.message.channel.guild.id) >= 0) return;
+	if ([K_SERVER_ID, K_TEST_SERVER_ID].indexOf(_reaction.message.channel.guild.id) >= 0) return k_increaseMissionProgress(_user.id, "use_reactions", _reaction.message.channel);
 	killDeadDuels();
 	setBotActivity();
 	checkMusicLoops();
