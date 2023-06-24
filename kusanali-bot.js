@@ -10,7 +10,7 @@ function kusanaliBotMessage(_message) {
             var _mora = _current_ar*10000;
             k_sendMessage(K_PROFIL_PAIMON_CHAD,
                 "Nouveau Rang d'Ascension Atteint !",
-                "**Bravo " + _message.author.username.secureXSS() + "**, tu es passé Rang d'Aventurier **" + _current_ar + "** !\n\nTu gagnes " + _mora + " Moras !",
+                "**Bravo " + _message.author.username.secureXSS() + "**, tu es passé Rang d'Aventurier **" + _current_ar + "** !\n\nTu gagnes " + sciText(_mora) + " Moras !",
                 _message.channel);
             k_checkRoles(_message);
 
@@ -43,7 +43,7 @@ function kusanaliBotMessage(_message) {
     if (!commande.startsWith('%')) return;
     commande = commande.substring(1);
 
-    if (commande == "%rank" || commande == "status") {
+    if (commande == "rank" || commande == "status") {
         var p = k_getUserPoints(_message.author.id);
         var ar = k_getARFromPoints(p);
         var m = k_getUserMora(_message.author.id);
@@ -51,10 +51,10 @@ function kusanaliBotMessage(_message) {
 
         return k_sendMessage(K_PROFIL_PAIMON_STATUE,
             _message.author.username.secureXSS(),
-            "Points d'Experience : **" + p +
+            "Points d'Experience : **" + sciText(p) +
                 "**\nRang d'Aventurier : **" + ar +
                 "**\nPlacement du serveur : **" + n +
-                "e**\n\nMora : **" + m +
+                "e**\n\nMora : **" + sciText(m) +
                 "**",
             _message.channel,
             _message.author.avatarURL());
@@ -63,7 +63,7 @@ function kusanaliBotMessage(_message) {
         var l = k_getLeaderboard();
         var txt = "";
         for (var i in l) {
-            txt += "**" + (parseInt(i)+1) + " - " + l[i].username + "** (AR" + k_getARFromPoints(l[i].k_points) + "): " + l[i].k_points + " xp\n";
+            txt += "**" + (parseInt(i)+1) + " - " + l[i].username + "** (AR" + k_getARFromPoints(l[i].k_points) + "): " + sciText(l[i].k_points) + " xp\n";
         }
         return k_sendMessage(K_PROFIL_PAIMON_STATUE, "Leaderboard Actuel", txt, _message.channel);
     }
@@ -98,6 +98,13 @@ function kusanaliBotMessage(_message) {
         return k_sendMessage(K_PROFIL_KATHERYNE, "Missions Quotidiennes",
             txt, _message.channel);
     }
+    if (commande == "shop") {
+        return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+            "**Double XP jusqu'à demain** ( _doublexp_ ) - 20 000 Moras\n" +
+            "**Changement de couleur** ( _color_ [ _red_ / _blue_ / _green_ / _purple_ / _link_ ] ) - 50 000 Moras\n" +
+            "\nExemple de commande d'achat : ```%shop color purple```" +
+            "\n\n**LE SHOP EST ACTUELLEMENT FERMÉ**", _message.channel);
+    }
     if (commande == "help") {
         k_sendMessage(K_PROFIL_KUSANALI, "Commandes",
             "**dailies**: Affiche la listes des missions quotidiennes.\n" +
@@ -108,6 +115,7 @@ function kusanaliBotMessage(_message) {
             "**links**: Envoie les liens vers les résaux sociaux du serveur.\n" +
             "**paypal**: Non.\n" +
             "**rank**: Affiche ton statut actuel sur le serveur.\n" +
+            "**shop**: Pour dépenser les moras.\n" +
             "**status**: Affiche ton statut actuel sur le serveur.",
         _message.channel);
         return k_checkRoles(_message);
@@ -228,7 +236,7 @@ function k_increaseMissionProgress(_userId, _missionType, _channel, _dailies = "
         var txt = K_MISSION_TITLES[dailies[i].type];
         txt = txt.replace("[x]", '**' + dailies[i].target + '**');
         if (dailies[i].type  == "use_word") txt = txt.replace("[y]", '**' + dailies[i].word + '**');
-        txt += " - **Mission Accomplie !**\nVous avez gagné **" + mora + "** Moras !";
+        txt += " - **Mission Accomplie !**\nVous avez gagné **" + sciText(mora) + "** Moras !";
         k_sendMessage(K_PROFIL_KATHERYNE, "Missions Quotidiennes",
             txt, _channel);
     }
