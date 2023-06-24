@@ -82,8 +82,8 @@ function kusanaliBotMessage(_message) {
                 "use_word": "Utiliser le mot '[y]' [x] fois"
             }
             txt += titles[dailies[i].type];
-            txt = txt.replace("[x]", '__' + dailies[i].target + '__');
-            if (dailies[i].type  == "use_word") txt = txt.replace("[y]", '__' + dailies[i].word + '__');
+            txt = txt.replace("[x]", '**' + dailies[i].target + '**');
+            if (dailies[i].type  == "use_word") txt = txt.replace("[y]", '**' + dailies[i].word + '**');
             txt += " - ("  + dailies[i].progress + '/' + dailies[i].target + ")\n";
         }
 
