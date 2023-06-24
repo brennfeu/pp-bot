@@ -225,6 +225,6 @@ function k_checkUserDailyProgressDate(_userId) {
 function k_resetUserDailyProgress(_userId) {
 	if (k_checkUserDailyProgressDate(_userId)) return; // only if too late
 
-	executeQuery('UPDATE Player SET k_dailies_progress="' + JSON.stringify(k_generateDailyMissions()) +
-		'", k_dailies_progress_date="' + k_getToday() + '" WHERE id = ' + _userId);
+	executeQuery('UPDATE Player SET k_dailies_progress=\'' + JSON.stringify(k_generateDailyMissions()) +
+		'\', k_dailies_progress_date="' + k_getToday() + '" WHERE id = ' + _userId);
 }
