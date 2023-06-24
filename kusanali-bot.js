@@ -98,7 +98,7 @@ function kusanaliBotMessage(_message) {
             "**legacy**: Affecte les rôles manquants.\n" +
             "**links**: Envoie les liens vers les résaux sociaux du serveur.\n" +
             "**paypal**: Non.\n" +
-            "**rank**: Affiche ton statut actuel sur le serveur.",
+            "**rank**: Affiche ton statut actuel sur le serveur." + 
             "**status**: Affiche ton statut actuel sur le serveur.",
         _message.channel);
         return k_checkRoles(_message);
