@@ -41,7 +41,7 @@ function kusanaliBotMessage(_message) {
 
     var commande = _message.content.trim();
     if (!commande.startsWith('%')) return;
-    commande = commande.substring(1);
+    commande = commande.substring(1).split(" ")[0];
 
     if (commande == "rank" || commande == "status") {
         var p = k_getUserPoints(_message.author.id);
