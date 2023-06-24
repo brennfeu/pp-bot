@@ -212,7 +212,7 @@ function k_increaseMissionProgress(_userId, _missionType, _channel, _dailies = k
 
         dailies[i].progress += 1;
         executeQuery('UPDATE Player SET k_dailies_progress=\'' + JSON.stringify(dailies) +
-    		'\'" WHERE id = ' + _userId);
+    		'\' WHERE id = ' + _userId);
         if (dailies[i].progress < dailies[i].target) return;
 
         var mora = k_getUserAR(_userId)*500;
