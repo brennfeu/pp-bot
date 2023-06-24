@@ -82,11 +82,12 @@ function kusanaliBotMessage(_message) {
                 "use_word": "Utiliser le mot '[y]' [x] fois"
             }
             txt += titles[dailies[i].type];
-            txt = txt.replace("[x]", '_' + dailies[i].target + '_');
+            txt = txt.replace("[x]", '__' + dailies[i].target + '__');
+            if (dailies[i].type  == "use_word") txt = txt.replace("[y]", '__' + dailies[i].word + '__');
             txt += " - ("  + dailies[i].progress + '/' + dailies[i].target + ")\n";
         }
 
-        return k_sendMessage(K_PROFIL_PAIMON_STATUE, "Missions Quotidiennes",
+        return k_sendMessage(K_PROFIL_KATHERYNE, "Missions Quotidiennes",
             txt, _message.channel);
     }
     if (argsUser[1] == "help") {
@@ -98,7 +99,7 @@ function kusanaliBotMessage(_message) {
             "**legacy**: Affecte les rôles manquants.\n" +
             "**links**: Envoie les liens vers les résaux sociaux du serveur.\n" +
             "**paypal**: Non.\n" +
-            "**rank**: Affiche ton statut actuel sur le serveur." + 
+            "**rank**: Affiche ton statut actuel sur le serveur." +
             "**status**: Affiche ton statut actuel sur le serveur.",
         _message.channel);
         return k_checkRoles(_message);
@@ -165,13 +166,37 @@ function k_generateDailyMissions() {
     while (Object.keys(json).length < 4) {
         var currentId = Object.keys(json).length;
         var randomMission = randomFromList([ "send_messages", "send_pictures", "use_reactions", "send_links", "tag_people", "use_word" ]);
-        for (var i in json) if (json[i].type == randomMission) continue;
+
+        var check = true;
+        for (var i in json) if (json[i].type == randomMission) check = false;
+        if (!check) continue;
 
         json[currentId] = {};
         json[currentId].type = randomMission;
         json[currentId].progress = 0;
-        json[currentId].target = randomFromList([2, 3, 4, 5]);
         json[currentId].completed = false;
+
+        switch(randomMission) {
+            case "send_messages":
+                json[currentId].target = randomFromList([10, 15, 20, 25, 30]);
+                break;
+            case "send_pictures":
+                json[currentId].target = randomFromList([1, 1, 1, 2]);
+                break;
+            case "use_reactions":
+                json[currentId].target = randomFromList([3, 4, 5]);
+                break;
+            case "send_links":
+                json[currentId].target = randomFromList([2, 3, 4]);
+                break;
+            case "tag_people":
+                json[currentId].target = randomFromList([2, 3, 4]);
+                break;
+            case "use_word":
+                json[currentId].target = randomFromList([2, 3, 4]);
+                json[currentId].word = randomFromList(["leak", "nahida", "loli", "genshin", "liben", "paypal", "lilas", "bio", "paimon", "dainsleif", "primo", "mora", "hentai", "abyss", "discord", "twitter"]);
+                break;
+        }
     }
 
     return json;
