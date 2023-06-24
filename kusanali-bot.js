@@ -99,11 +99,29 @@ function kusanaliBotMessage(_message) {
             txt, _message.channel);
     }
     if (commande == "shop") {
-        return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
-            "**Double XP jusqu'à demain** ( _doublexp_ ) - 20 000 Moras\n" +
-            "**Changement de couleur** ( _color_ [ _red_ / _blue_ / _green_ / _purple_ / _link_ ] ) - 50 000 Moras\n" +
+        var args = commande.toLowerCase().split(" ");
+        if (args.length == 1) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+            "**Double XP jusqu'à demain** ( _doublexp_ ) - 200 000 Moras\n" +
+            "**Changement de couleur** ( _color_ [ _red_ / _blue_ / _green_ / _purple_ / _pink_ ] ) - 500 000 Moras\n" +
             "\nExemple de commande d'achat : ```%shop color purple```" +
             "\n\n**LE SHOP EST ACTUELLEMENT FERMÉ**", _message.channel);
+
+        var mora = k_getUserMora(_message.author.id);
+        if (args[1] == "doublexp") {
+            if (mora <= 200000) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+                "Vous n'avez pas assez d'argent", _message.channel);
+
+            return _message.reply("le shop est fermé. Brenn a encore rien codé.");
+        }
+        if (args[1] == "color") {
+            if (mora <= 200000) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+                "Vous n'avez pas assez d'argent", _message.channel);
+
+            return _message.reply("le shop est fermé. Brenn a encore rien codé.");
+        }
+
+        return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+            "Je n'ai pas ça en stock, désolé.", _message.channel);
     }
     if (commande == "help") {
         k_sendMessage(K_PROFIL_KUSANALI, "Commandes",
