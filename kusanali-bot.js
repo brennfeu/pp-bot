@@ -205,6 +205,7 @@ function k_generateDailyMissions() {
     return json;
 }
 function k_increaseMissionProgress(_userId, _missionType, _channel, _dailies = k_getUserDailyProgress(_message.author.id)) {
+    var dailies = _dailies;
     for (var i in dailies) {
         if (dailies[i].type != _missionType) continue;
         if (dailies[i].progress >= dailies[i].target) return;
