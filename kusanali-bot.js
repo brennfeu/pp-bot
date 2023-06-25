@@ -115,7 +115,7 @@ function kusanaliBotMessage(_message) {
             date.setDate(date.getDate() + 1); // +1 day
             var date_message = date.toLocaleString().split(',')[0];
             date = date.toISOString().split('T')[0];
-            executeQuery('UPDATE Player SET k_doublexp = "' + date + '" WHERE id = ' + _userId);
+            executeQuery('UPDATE Player SET k_doublexp = "' + date + '" WHERE id = ' + _message.author.id);
 
             return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
                 "Double XP jusqu'au " + date_message + ", très bien !", _message.channel);
