@@ -112,7 +112,8 @@ function kusanaliBotMessage(_message) {
 
             var date = k_getUserDoubleXpDate(_message.author.id);
             if (date < k_getToday(true)) date = k_getToday(true);
-            date.setDate(date.getDate() + 1); // +1 day
+            else date = new Date(date.getTime() + (60*60*24*1000)); // +1 day
+
             var date_message = formatDate(date);
             date = date.toISOString().split('T')[0];
             executeQuery('UPDATE Player SET k_doublexp = "' + date + '", k_mora = (k_mora-200000) WHERE id = ' + _message.author.id);
