@@ -113,12 +113,12 @@ function kusanaliBotMessage(_message) {
             var date = k_getUserDoubleXpDate(_message.author.id);
             if (date < k_getToday(true)) date = k_getToday(true);
             date.setDate(date.getDate() + 1); // +1 day
-            var date_message = date.toLocaleString().split(',')[0];
+            var date_message = formatDate(date);
             date = date.toISOString().split('T')[0];
-            executeQuery('UPDATE Player SET k_doublexp = "' + date + '" WHERE id = ' + _message.author.id);
+            executeQuery('UPDATE Player SET k_doublexp = "' + date + '", k_mora = (k_mora-200000) WHERE id = ' + _message.author.id);
 
             return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
-                "Double XP jusqu'au " + date_message + ", très bien !", _message.channel);
+                "Double XP jusqu'au " + date_message + " (inclus), très bien !", _message.channel);
         }
         if (args[1] == "color") {
             if (mora <= 200000) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
