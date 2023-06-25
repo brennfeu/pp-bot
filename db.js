@@ -234,5 +234,5 @@ function k_getUserDoubleXpDate(_userId) {
 	var result = executeQuery("SELECT k_doublexp FROM Player WHERE id = " + _userId);
 
 	if (result.length == 0) return 0;
-	return result[0]["k_doublexp"];
+	return parseInt(result[0]["k_doublexp"]);
 }
