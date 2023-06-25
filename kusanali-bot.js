@@ -295,6 +295,10 @@ function k_getToday() {
     var today = new Date();
     return today.getTime();
 }
+function k_getTodayDate() {
+    var today = new Date();
+    return today.toISOString().split('T')[0];
+}
 
 var GIF_NAHIDA = "https://tenor.com/view/nahida-kusanali-genshin-genshin-impact-sumeru-gif-26819159";
 var EMOTE_KUSANALI = "1011319146186813480";
