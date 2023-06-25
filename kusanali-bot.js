@@ -177,7 +177,7 @@ function k_sendWebhookMessage(_webhook, _profil, _title, _message, _channel, _av
     embedMessage.setTitle("**" + _title + "**");
     embedMessage.setDescription(sciText(_message));
     embedMessage.setColor([ 125, 171, 73 ]);
-    embedMessage.setFooter('Tapez _%help_ pour plus de détails.', 'https://cdn.discordapp.com/attachments/721498678925328434/721511440598696056/arbitrator.png');
+    embedMessage.setFooter('Tapez \'%help\' pour plus de détails.', 'https://cdn.discordapp.com/attachments/721498678925328434/721511440598696056/arbitrator.png');
     if (_avatar != undefined) embedMessage.setThumbnail(_avatar);
 
     webhookClient.send('', {
