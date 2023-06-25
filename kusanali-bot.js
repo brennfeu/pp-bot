@@ -49,13 +49,19 @@ function kusanaliBotMessage(_message) {
         var m = k_getUserMora(_message.author.id);
         var n = k_getUserPlacement(_message.author.id);
 
+        var txt = "Points d'Experience : **" + sciText(p) +
+            "**\nRang d'Aventurier : **" + ar +
+            "**\nPlacement du serveur : **" + n +
+            "e**\n\nMora : **" + sciText(m) +
+            "**";
+
+        var xp_date = k_getUserDoubleXpDate(_message.author.id);
+        if (k_getToday() < xp_date)
+            txt += "\nDouble XP jusqu'au **" + formatDate(new Date(xp_date)) + "**";
+
         return k_sendMessage(K_PROFIL_PAIMON_STATUE,
             _message.author.username.secureXSS(),
-            "Points d'Experience : **" + sciText(p) +
-                "**\nRang d'Aventurier : **" + ar +
-                "**\nPlacement du serveur : **" + n +
-                "e**\n\nMora : **" + sciText(m) +
-                "**",
+            txt,
             _message.channel,
             _message.author.avatarURL());
     }
@@ -114,7 +120,7 @@ function kusanaliBotMessage(_message) {
             date += 86400000; // +1 day
 
             var date_message = formatDate(new Date(date));
-            executeQuery('UPDATE Player SET k_doublexp = "' + date + '", k_mora = (k_mora-200000) WHERE id = ' + _message.author.id);
+            executeQuery('UPDATE Player SET k_doublexp = ' + date + ', k_mora = (k_mora-200000) WHERE id = ' + _message.author.id);
 
             return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
                 "Double XP jusqu'au " + date_message + ", très bien !", _message.channel);
