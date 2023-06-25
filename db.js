@@ -233,6 +233,6 @@ function k_resetUserDailyProgress(_userId) {
 function k_getUserDoubleXpDate(_userId) {
 	var result = executeQuery("SELECT k_doublexp FROM Player WHERE id = " + _userId);
 
-	if (result.length == 0) return Date.parse('1999-01-01');
-	return Date.parse(result[0]["k_doublexp"]);
+	if (result.length == 0) return 0;
+	return result[0]["k_doublexp"];
 }

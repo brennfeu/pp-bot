@@ -111,12 +111,13 @@ function kusanaliBotMessage(_message) {
                 "Vous n'avez pas assez de moras.", _message.channel);
 
             var date = k_getUserDoubleXpDate(_message.author.id);
-            if (new Date(date.getTime() + (60*60*24*1000) - 1) < k_getToday(true)) date = k_getToday(true);
-            else date = new Date(date.getTime() + (60*60*24*1000)); // +1 day
+            if (date < k_getToday()) date = k_getToday();
+            else date += 60*60*24*1000; // +1 day
+            date = new Date(date);
 
             var date_message = formatDate(date);
             date = date.toISOString().split('T')[0];
-            executeQuery('UPDATE Player SET k_doublexp = "' + date + '", k_mora = (k_mora-200000) WHERE id = ' + _message.author.id);
+            executeQuery('UPDATE Player SET k_doublexp = "' + date.getTime() + '", k_mora = (k_mora-200000) WHERE id = ' + _message.author.id);
 
             return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
                 "Double XP jusqu'au " + date_message + " (inclus), très bien !", _message.channel);
@@ -292,11 +293,9 @@ function k_checkRoles(_message) {
     }
 }
 
-function k_getToday(_date = false) {
+function k_getToday() {
     var today = new Date();
-
-    if (_date) return today;
-    return today.toISOString().split('T')[0];
+    return today.getTime();
 }
 
 var GIF_NAHIDA = "https://tenor.com/view/nahida-kusanali-genshin-genshin-impact-sumeru-gif-26819159";
