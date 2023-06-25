@@ -171,9 +171,8 @@ function romanizeNumber(num) {
     return roman;
 }
 
-function formatDate(date) {
-    var d = new Date(date),
-        month = '' + (d.getMonth() + 1),
+function formatDate(d) {
+    var month = '' + (d.getMonth() + 1),
         day = '' + d.getDate(),
         year = d.getFullYear();
 
