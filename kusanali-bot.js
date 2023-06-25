@@ -103,21 +103,28 @@ function kusanaliBotMessage(_message) {
         if (args.length == 1) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
             "**Double XP jusqu'à demain** ( _doublexp_ ) - 200 000 Moras\n" +
             "**Changement de couleur** ( _color_ [ _red_ / _blue_ / _green_ / _purple_ / _pink_ ] ) - 500 000 Moras\n" +
-            "\nExemple de commande d'achat : ```%shop color purple```" +
-            "\n\n**LE SHOP EST ACTUELLEMENT FERMÉ**", _message.channel);
+            "\nExemple de commande d'achat : ```%shop color purple```", _message.channel);
 
         var mora = k_getUserMora(_message.author.id);
         if (args[1] == "doublexp") {
             if (mora <= 200000) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
                 "Vous n'avez pas assez de moras.", _message.channel);
 
-            return _message.reply("le shop est fermé. Brenn a encore rien codé.");
+            var date = k_getUserDoubleXpDate(_message.author.id);
+            if (date < k_getToday(true)) date = k_getToday(true);
+            date.setDate(date.getDate() + 1); // +1 day
+            var date_message = date.toLocaleString().split(',')[0];
+            date = date.toISOString().split('T')[0];
+            executeQuery('UPDATE Player SET k_doublexp = "' + date + '" WHERE id = ' + _userId);
+
+            return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+                "Double XP jusqu'au " + date_message + ", très bien !", _message.channel);
         }
         if (args[1] == "color") {
             if (mora <= 200000) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
                 "Vous n'avez pas assez de moras.", _message.channel);
 
-            return _message.reply("le shop est fermé. Brenn a encore rien codé.");
+            return _message.reply("les couleurs sont indisponibles. Brenn a encore rien codé.");
         }
 
         return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
@@ -139,7 +146,7 @@ function kusanaliBotMessage(_message) {
         return k_checkRoles(_message);
     }
 
-    return _message.reply(randomFromList([ "quoi ?", "hein ?", "j'ai pas compris :/", "haha", "pardon ?", "j'ai pas écouté, tu peux répéter stp ?", "ta gueule" ]));
+    return _message.reply("je ne connais pas cette commande :/");
 }
 
 function k_getUserAR(_userId) {
@@ -284,8 +291,10 @@ function k_checkRoles(_message) {
     }
 }
 
-function k_getToday() {
+function k_getToday(_date = false) {
     var today = new Date();
+
+    if (_date) return today;
     return today.toISOString().split('T')[0];
 }
 

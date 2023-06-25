@@ -184,12 +184,14 @@ function toggleGod(_fighterID, _god) {
 function k_addMessageCount(_userId, _username) {
 	var result = executeQuery("SELECT k_points FROM Player WHERE id = " + _userId)
 
-	if (result.length == 0) { // add user adn sets points to 0
+	if (result.length == 0) { // add user and sets points to 0
 		addFighterToDB(_userId, _username);
 		result.push({ k_points: 0 });
 	}
+	var value = 1+parseInt(result[0].k_points);
+	if (k_getToday(true) <= k_getUserDoubleXpDate(_userId)) value += 1;
 
-	executeQuery("UPDATE Player SET k_points = " + (1+parseInt(result[0].k_points)) + " WHERE id = " + _userId);
+	executeQuery("UPDATE Player SET k_points = " + value + " WHERE id = " + _userId);
 	return (1+parseInt(result[0].k_points));
 }
 function k_getUserPoints(_userId) {
@@ -227,4 +229,10 @@ function k_resetUserDailyProgress(_userId) {
 
 	executeQuery('UPDATE Player SET k_dailies_progress=\'' + JSON.stringify(k_generateDailyMissions()) +
 		'\', k_dailies_progress_date="' + k_getToday() + '" WHERE id = ' + _userId);
+}
+function k_getUserDoubleXpDate(_userId) {
+	var result = executeQuery("SELECT k_doublexp FROM Player WHERE id = " + _userId);
+
+	if (result.length == 0) return Date.parse('1999-01-01');
+	return Date.parse(result[0]["k_doublexp"]);
 }
