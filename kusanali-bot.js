@@ -111,7 +111,7 @@ function kusanaliBotMessage(_message) {
                 "Vous n'avez pas assez de moras.", _message.channel);
 
             var date = k_getUserDoubleXpDate(_message.author.id);
-            if (date < k_getToday(true)) date = k_getToday(true);
+            if (new Date(date.getTime() + (60*60*24*1000) - 1) < k_getToday(true)) date = k_getToday(true);
             else date = new Date(date.getTime() + (60*60*24*1000)); // +1 day
 
             var date_message = formatDate(date);
