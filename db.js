@@ -189,7 +189,7 @@ function k_addMessageCount(_userId, _username) {
 		result.push({ k_points: 0 });
 	}
 	var value = 1+parseInt(result[0].k_points);
-	if (k_getToday(true) <= k_getUserDoubleXpDate(_userId)) value += 1;
+	if (k_getToday() < k_getUserDoubleXpDate(_userId)) value += 1;
 
 	executeQuery("UPDATE Player SET k_points = " + value + " WHERE id = " + _userId);
 	return (1+parseInt(result[0].k_points));

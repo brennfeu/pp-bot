@@ -172,14 +172,21 @@ function romanizeNumber(num) {
 }
 
 function formatDate(d) {
-    var month = '' + (d.getMonth() + 1),
-        day = '' + d.getDate(),
-        year = d.getFullYear();
+    var month = '' + (d.getMonth() + 1);
+    var day = '' + d.getDate();
+    var year = d.getFullYear();
 
-    if (month.length < 2)
+	var hour = d.getHours();
+	var min = d.getMinutes();
+
+	if (month.length < 2)
         month = '0' + month;
     if (day.length < 2)
         day = '0' + day;
+	if (hour.length < 2)
+        hour = '0' + hour;
+    if (min.length < 2)
+        min = '0' + min;
 
-    return [day, month, year].join('/');
+    return [day, month, year].join('/') + " - " + [hour, min].join(":");
 }
