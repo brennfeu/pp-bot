@@ -110,8 +110,7 @@ function kusanaliBotMessage(_message) {
             if (mora <= 200000) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
                 "Vous n'avez pas assez de moras.", _message.channel);
 
-            var date = k_getUserDoubleXpDate(_message.author.id);
-            if (date < k_getToday()) date = k_getToday();
+            var date = Math.max(k_getUserDoubleXpDate(_message.author.id), k_getToday());
             date += 86400000; // +1 day
 
             var date_message = formatDate(new Date(date));
