@@ -174,9 +174,18 @@ function kusanaliBotMessage(_message) {
         return _message.channel.send(GIF_ANIMATION_VOEU_5S).then(function (_message2) {
 			setTimeout(function(_message3) {
                 _message3.channel.send({ files: [
-                    'https://static.wikia.nocookie.net/gensin-impact/images/5/59/Character_Hu_Tao_Full_Wish.png/revision/latest/scale-to-width-down/1000?cb=20220507160922',
-                    'https://static.wikia.nocookie.net/gensin-impact/images/a/a3/Character_Faruzan_Full_Wish.png/revision/latest?cb=20221207033630',
-                    'https://static.wikia.nocookie.net/gensin-impact/images/c/c3/Character_Fischl_Full_Wish.png/revision/latest/scale-to-width-down/1000?cb=20220507161249'
+                    {
+                        attachment: 'https://static.wikia.nocookie.net/gensin-impact/images/5/59/Character_Hu_Tao_Full_Wish.png/revision/latest/scale-to-width-down/1000?cb=20220507160922',
+                        name: 'gacha.png'
+                    },
+                    {
+                        attachment: 'https://static.wikia.nocookie.net/gensin-impact/images/a/a3/Character_Faruzan_Full_Wish.png/revision/latest?cb=20221207033630',
+                        name: 'gacha.png'
+                    },
+                    {
+                        attachment: 'https://static.wikia.nocookie.net/gensin-impact/images/c/c3/Character_Fischl_Full_Wish.png/revision/latest/scale-to-width-down/1000?cb=20220507161249',
+                        name: 'gacha.png'
+                    }
                 ] });
                 _message3.delete();
             }, GIF_ANIMATION_TIMING, _message2);
