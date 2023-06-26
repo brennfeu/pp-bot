@@ -172,13 +172,10 @@ function kusanaliBotMessage(_message) {
 
     if (commande == "animation") {
         return _message.channel.send(GIF_ANIMATION_VOEU_5S).then(function (_message2) {
-			setInterval(function(_message3) {
-                if (_message3.channel == undefined) return;
-                var channel = _message3.channel;
+			setTimeout(function(_message3) {
+                _message3.channel.send("https://static.wikia.nocookie.net/gensin-impact/images/c/c3/Character_Fischl_Full_Wish.png/revision/latest/scale-to-width-down/1000?cb=20220507161249");
+                _message3.channel.send("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Character_Hu_Tao_Full_Wish.png/revision/latest/scale-to-width-down/1000?cb=20220507160922");
                 _message3.delete();
-
-                channel.send("https://static.wikia.nocookie.net/gensin-impact/images/c/c3/Character_Fischl_Full_Wish.png/revision/latest/scale-to-width-down/1000?cb=20220507161249");
-                channel.send("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Character_Hu_Tao_Full_Wish.png/revision/latest/scale-to-width-down/1000?cb=20220507160922");
             }, GIF_ANIMATION_TIMING, _message2);
 		});
     }
