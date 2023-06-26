@@ -126,10 +126,29 @@ function kusanaliBotMessage(_message) {
                 "Double XP jusqu'au " + date_message + ", très bien !", _message.channel);
         }
         if (args[1] == "color") {
-            if (mora <= 200000) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+            if (mora <= 500000) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
                 "Vous n'avez pas assez de moras.", _message.channel);
+            if (args.length == 2) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+                "Très bien, mais il faut me préciser la couleur.", _message.channel);
+            if (K_COLOR_ROLES[args[2]] == undefined) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+                "Je n'ai pas cette couleur en stock.", _message.channel);
 
-            return _message.reply("les couleurs sont indisponibles. Brenn a encore rien codé.");
+            for (var i in K_COLOR_ROLES) {
+                _message.guild.roles.fetch(K_COLOR_ROLES[i])
+                .then(function(_role) {
+                    if (_message.member.roles.cache.get(_role.id) == undefined) return;
+                    _message.member.roles.remove(_role);
+
+                })
+                .catch(console.error);
+            }
+            _message.guild.roles.fetch(K_COLOR_ROLES[args[2]])
+            .then(function(_role) { _message.member.roles.add(_role); })
+            .catch(console.error);
+            executeQuery('UPDATE Player SET k_mora = (k_mora-500000) WHERE id = ' + _message.author.id);
+
+            return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+                "Un changement de couleur, très bien !", _message.channel);
         }
 
         return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
@@ -149,6 +168,16 @@ function kusanaliBotMessage(_message) {
             "**status**: Affiche ton statut actuel sur le serveur.",
         _message.channel);
         return k_checkRoles(_message);
+    }
+
+    if (commande == "animation") {
+        _message.channel.send(GIF_ANIMATION_VOEU_5S).then(function (_message2) {
+			setInterval(function(_message2) {
+                _message2.channel.send("https://static.wikia.nocookie.net/gensin-impact/images/c/c3/Character_Fischl_Full_Wish.png/revision/latest/scale-to-width-down/1000?cb=20220507161249");
+                _message2.channel.send("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Character_Hu_Tao_Full_Wish.png/revision/latest/scale-to-width-down/1000?cb=20220507160922");
+                _message2.delete();
+            }, GIF_ANIMATION_TIMING);
+		});
     }
 
     return _message.reply("je ne connais pas cette commande :/");
@@ -336,6 +365,15 @@ var K_MISSION_TITLES = {
     "tag_people": "Tagger quelqu'un [x] fois",
     "use_word": "Utiliser le mot '[y]' [x] fois"
 };
+
+var K_COLOR_ROLES = {
+    "red": "",
+    "purple": ""
+}
+
+var GIF_ANIMATION_VOEU_4S = "";
+var GIF_ANIMATION_VOEU_5S = "https://cdn.discordapp.com/attachments/715322091804819486/1122796824609169448/wish.gif";
+var GIF_ANIMATION_TIMING = 3000;
 
 var K_SERVER_ID = "835951523325542400";
 var K_TEST_SERVER_ID = "715322089904537731";
