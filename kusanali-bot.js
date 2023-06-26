@@ -225,7 +225,7 @@ function kusanaliBotMessage(_message) {
             "**paypal**: Non.\n" +
             "**rank**: Affiche ton statut actuel sur le serveur.\n" +
             "**shop**: Pour dépenser les moras.\n" +
-            "**status**: Affiche ton statut actuel sur le serveur.\n",
+            "**status**: Affiche ton statut actuel sur le serveur.\n" + 
             "**wish**: Fais une multi.",
         _message.channel);
         return k_checkRoles(_message);
