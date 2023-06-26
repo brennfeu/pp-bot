@@ -193,12 +193,12 @@ function kusanaliBotMessage(_message) {
             }
         }
 
-        executeQuery('UPDATE Player SET k_wishes=(k_wishes-1), k_pity='+pity+' WHERE id = ' + _userId);
+        executeQuery('UPDATE Player SET k_wishes=(k_wishes-1), k_pity='+pity+' WHERE id = ' + _message.author.id);
         var message_files = [];
         for (var i in loot) {
-            var hasLoot = executeQuery("SELECT * FROM Inventory WHERE id_character="+loot[i].id+" AND id_player="+_userId);
-            if (count(hasLoot) > 0) executeQuery("UPDATE Inventory SET amount="+(hasLoot[0].amount+1)+" WHERE id_character="+loot[i].id+" AND id_player="+_userId);
-            else executeQuery("INSERT INTO Inventory(id_player, id_character) VALUES("+_userId+", "+loot[i].id+");");
+            var hasLoot = executeQuery("SELECT * FROM Inventory WHERE id_character="+loot[i].id+" AND id_player="+_message.author.id);
+            if (count(hasLoot) > 0) executeQuery("UPDATE Inventory SET amount="+(hasLoot[0].amount+1)+" WHERE id_character="+loot[i].id+" AND id_player="+_message.author.id);
+            else executeQuery("INSERT INTO Inventory(id_player, id_character) VALUES("+_message.author.id+", "+loot[i].id+");");
 
             var message_image = {};
             message_image["attachment"] = loot[i].art_link;
@@ -225,7 +225,7 @@ function kusanaliBotMessage(_message) {
             "**paypal**: Non.\n" +
             "**rank**: Affiche ton statut actuel sur le serveur.\n" +
             "**shop**: Pour dépenser les moras.\n" +
-            "**status**: Affiche ton statut actuel sur le serveur.\n" + 
+            "**status**: Affiche ton statut actuel sur le serveur.\n" +
             "**wish**: Fais une multi.",
         _message.channel);
         return k_checkRoles(_message);
