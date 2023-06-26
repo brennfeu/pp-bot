@@ -159,14 +159,14 @@ function kusanaliBotMessage(_message) {
             "Je n'ai pas ça en stock, désolé.", _message.channel);
     }
     if (commande == "banner") {
-        var banner = getTodaysBanner();
+        var banner = k_getTodaysBanner();
         return _message.channel.send(banner.image_link);
     }
     if (commande == "pull") {
         var voeux = k_getUserWishes(_message.author.id);
         if (voeux < 10) return _message.channel.send("Pas assez de vœux.");
 
-        var todaysElement = getTodaysBanner().element;
+        var todaysElement = k_getTodaysBanner().element;
         var pity = k_getUserPity(_message.author.id);
         var loot = [];
 
@@ -193,7 +193,6 @@ function kusanaliBotMessage(_message) {
             }
         }
 
-        console.log(loot);
         executeQuery('UPDATE Player SET k_wishes=(k_wishes-1), k_pity='+pity+' WHERE id = ' + _message.author.id);
         var message_files = [];
         for (var i in loot) {
@@ -392,7 +391,7 @@ function k_getTodayDate() {
     return today.toISOString().split('T')[0];
 }
 
-function getTodaysBanner() {
+function k_getTodaysBanner() {
     var currentDay = new Date().getDay();
     var elementsDays = [ "anemo", "geo", "electro", "dendro", "hydro", "pyro", "cryo" ]
     return K_GACHA_BANNERS.find(o => o.element == elementsDays[currentDay]);
@@ -400,6 +399,8 @@ function getTodaysBanner() {
 function k_loadGachaData() {
     K_GACHA_CHARACTERS = executeQuery("SELECT * FROM K_Character;");
     K_GACHA_BANNERS = executeQuery("SELECT * FROM K_Banner;");
+    console.log(K_GACHA_CHARACTERS);
+    console.log(K_GACHA_BANNERS);
 }
 
 var GIF_NAHIDA = "https://tenor.com/view/nahida-kusanali-genshin-genshin-impact-sumeru-gif-26819159";
