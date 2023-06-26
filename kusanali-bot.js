@@ -361,7 +361,7 @@ function k_increaseMissionProgress(_userId, _missionType, _channel, _dailies = "
     }
 
     // all dailies done ?
-    for (var i in dailies) if (dailies[i].progress < target) return;
+    for (var i in dailies) if (dailies[i].progress < dailies[i].target) return;
     executeQuery('UPDATE Player SET k_wishes=(k_wishes+1) WHERE id = ' + _userId);
     k_sendMessage(K_PROFIL_KATHERYNE, "Missions Quotidiennes",
         "Vous avez fait toutes vos missions quotidiennes.\nVoici un lot de **10 vœux** pour vos efforts.", _channel);
