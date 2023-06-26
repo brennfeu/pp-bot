@@ -170,26 +170,26 @@ function kusanaliBotMessage(_message) {
         var pity = k_getUserPity(_message.author.id);
         var loot = [];
 
-        K_GACHA_BANNERS = shuffleArray(K_GACHA_BANNERS);
-        loot.push(K_GACHA_BANNERS.find(o => o.stars == 4));
+        K_GACHA_CHARACTERS = shuffleArray(K_GACHA_CHARACTERS);
+        loot.push(K_GACHA_CHARACTERS.find(o => o.stars == 4));
         var attempts = 9; // 10 - obligatory 4 stars
 
         pity += 10;
         if (pity >= 70) { // 5* !!
             pity = 0; attempts -= 1;
 
-            K_GACHA_BANNERS = shuffleArray(K_GACHA_BANNERS);
-            loot.push(K_GACHA_BANNERS.find(o => o.stars == 5 && o.element == todaysElement));
+            K_GACHA_CHARACTERS = shuffleArray(K_GACHA_CHARACTERS);
+            loot.push(K_GACHA_CHARACTERS.find(o => o.stars == 5 && o.element == todaysElement));
         }
 
         for (var i in Array.from(Array(attempts).keys())) { // regular rolls
             if (getRandomPercent() <= 2) { // 5* !!
-                K_GACHA_BANNERS = shuffleArray(K_GACHA_BANNERS);
-                loot.push(K_GACHA_BANNERS.find(o => o.stars == 5 && o.element == todaysElement));
+                K_GACHA_CHARACTERS = shuffleArray(K_GACHA_CHARACTERS);
+                loot.push(K_GACHA_CHARACTERS.find(o => o.stars == 5 && o.element == todaysElement));
             }
             else if (getRandomPercent() <= 10) { // 4* !
-                K_GACHA_BANNERS = shuffleArray(K_GACHA_BANNERS);
-                loot.push(K_GACHA_BANNERS.find(o => o.stars == 4));
+                K_GACHA_CHARACTERS = shuffleArray(K_GACHA_CHARACTERS);
+                loot.push(K_GACHA_CHARACTERS.find(o => o.stars == 4));
             }
         }
 
@@ -399,8 +399,6 @@ function k_getTodaysBanner() {
 function k_loadGachaData() {
     K_GACHA_CHARACTERS = executeQuery("SELECT * FROM K_Character;");
     K_GACHA_BANNERS = executeQuery("SELECT * FROM K_Banner;");
-    console.log(K_GACHA_CHARACTERS);
-    console.log(K_GACHA_BANNERS);
 }
 
 var GIF_NAHIDA = "https://tenor.com/view/nahida-kusanali-genshin-genshin-impact-sumeru-gif-26819159";
