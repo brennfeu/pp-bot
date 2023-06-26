@@ -176,15 +176,15 @@ function kusanaliBotMessage(_message) {
                 _message3.channel.send({ files: [
                     {
                         attachment: 'https://static.wikia.nocookie.net/gensin-impact/images/5/59/Character_Hu_Tao_Full_Wish.png/revision/latest/scale-to-width-down/1000?cb=20220507160922',
-                        name: 'gacha.png'
+                        name: 'gacha1.png'
                     },
                     {
                         attachment: 'https://static.wikia.nocookie.net/gensin-impact/images/a/a3/Character_Faruzan_Full_Wish.png/revision/latest?cb=20221207033630',
-                        name: 'gacha.png'
+                        name: 'gacha2.png'
                     },
                     {
                         attachment: 'https://static.wikia.nocookie.net/gensin-impact/images/c/c3/Character_Fischl_Full_Wish.png/revision/latest/scale-to-width-down/1000?cb=20220507161249',
-                        name: 'gacha.png'
+                        name: 'gacha3.png'
                     }
                 ] });
                 _message3.delete();
