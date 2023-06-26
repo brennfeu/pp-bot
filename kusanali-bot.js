@@ -396,8 +396,8 @@ function getTodaysBanner() {
     return K_GACHA_BANNERS.find(o => o.element == elementsDays[currentDay]);
 }
 function k_loadGachaData() {
-    K_GACHA_CHARACTERS = executeQuery("SELECT * FROM K_Characters;");
-    K_GACHA_BANNERS = executeQuery("SELECT * FROM K_Banners;");
+    K_GACHA_CHARACTERS = executeQuery("SELECT * FROM K_Character;");
+    K_GACHA_BANNERS = executeQuery("SELECT * FROM K_Banner;");
 }
 
 var GIF_NAHIDA = "https://tenor.com/view/nahida-kusanali-genshin-genshin-impact-sumeru-gif-26819159";
