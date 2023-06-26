@@ -210,7 +210,7 @@ function k_getUserWishes(_userId) {
 	var result = executeQuery("SELECT k_wishes FROM Player WHERE id = " + _userId)
 
 	if (result.length == 0) return 0;
-	else return parseInt(result[0].k_wishes);
+	else return parseInt(result[0].k_wishes)*10;
 }
 function k_getUserPity(_userId) {
 	var result = executeQuery("SELECT k_pity FROM Player WHERE id = " + _userId)

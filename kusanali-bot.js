@@ -162,9 +162,9 @@ function kusanaliBotMessage(_message) {
         var banner = getTodaysBanner();
         return _message.channel.send(banner.image_link);
     }
-    if (commande == "wish") {
+    if (commande == "pull") {
         var voeux = k_getUserWishes(_message.author.id);
-        if (voeux < 10) _message.channel.send("Pas assez de vœux.");
+        if (voeux < 10) return _message.channel.send("Pas assez de vœux.");
 
         var todaysElement = getTodaysBanner().element;
         var pity = k_getUserPity(_message.author.id);
@@ -193,6 +193,7 @@ function kusanaliBotMessage(_message) {
             }
         }
 
+        console.log(loot);
         executeQuery('UPDATE Player SET k_wishes=(k_wishes-1), k_pity='+pity+' WHERE id = ' + _message.author.id);
         var message_files = [];
         for (var i in loot) {
@@ -223,10 +224,11 @@ function kusanaliBotMessage(_message) {
             "**legacy**: Affecte les rôles manquants.\n" +
             "**links**: Envoie les liens vers les résaux sociaux du serveur.\n" +
             "**paypal**: Non.\n" +
+            "**pull**: Fais une multi.\n" +
             "**rank**: Affiche ton statut actuel sur le serveur.\n" +
             "**shop**: Pour dépenser les moras.\n" +
             "**status**: Affiche ton statut actuel sur le serveur.\n" +
-            "**wish**: Fais une multi.",
+            "",
         _message.channel);
         return k_checkRoles(_message);
     }
