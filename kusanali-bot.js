@@ -173,8 +173,11 @@ function kusanaliBotMessage(_message) {
     if (commande == "animation") {
         return _message.channel.send(GIF_ANIMATION_VOEU_5S).then(function (_message2) {
 			setTimeout(function(_message3) {
-                _message3.channel.send("https://static.wikia.nocookie.net/gensin-impact/images/c/c3/Character_Fischl_Full_Wish.png/revision/latest/scale-to-width-down/1000?cb=20220507161249");
-                _message3.channel.send("https://static.wikia.nocookie.net/gensin-impact/images/5/59/Character_Hu_Tao_Full_Wish.png/revision/latest/scale-to-width-down/1000?cb=20220507160922");
+                _message3.channel.send({ files: [
+                    'https://static.wikia.nocookie.net/gensin-impact/images/5/59/Character_Hu_Tao_Full_Wish.png/revision/latest/scale-to-width-down/1000?cb=20220507160922',
+                    'https://static.wikia.nocookie.net/gensin-impact/images/a/a3/Character_Faruzan_Full_Wish.png/revision/latest?cb=20221207033630',
+                    'https://static.wikia.nocookie.net/gensin-impact/images/c/c3/Character_Fischl_Full_Wish.png/revision/latest/scale-to-width-down/1000?cb=20220507161249'
+                ] });
                 _message3.delete();
             }, GIF_ANIMATION_TIMING, _message2);
 		});
@@ -373,7 +376,7 @@ var K_COLOR_ROLES = {
 
 var GIF_ANIMATION_VOEU_4S = "";
 var GIF_ANIMATION_VOEU_5S = "https://cdn.discordapp.com/attachments/715322091804819486/1122796824609169448/wish.gif";
-var GIF_ANIMATION_TIMING = 6000;
+var GIF_ANIMATION_TIMING = 7000;
 
 var K_SERVER_ID = "835951523325542400";
 var K_TEST_SERVER_ID = "715322089904537731";
