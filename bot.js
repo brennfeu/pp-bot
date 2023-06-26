@@ -222,11 +222,6 @@ function checkUpdateEncyclopedia() {
 				}
 			}
 		}
-
-		console.log(MOVE_HELP);
-		console.log(STAND_HELP);
-		console.log(REQUIEM_HELP);
-		console.log(RELIC_HELP);
 	} );
 }
 function addTextToBibleCat(_cat, _txt) {
