@@ -205,7 +205,7 @@ function kusanaliBotMessage(_message) {
             try { executeQuery("INSERT INTO K_Inventory(id_character, id_player) VALUES("+
                 loot[i].id + ", " + _message.author.id + ");"); } catch(e) {}
             executeQuery("UPDATE K_Inventory SET amount=(amount+1) " +
-                "WHERE id_character=" + loot[i].id + " AND id_player=" + _message.author.id);
+                "WHERE id_character='" + loot[i].id + "' AND id_player='" + _message.author.id + "';");
 
             var message_image = {};
             message_image["attachment"] = loot[i].art_link;
@@ -219,6 +219,10 @@ function kusanaliBotMessage(_message) {
                 _message3.delete();
             }, GIF_ANIMATION_TIMING, _message2, message_files);
 		});
+    }
+    if (commande == "reset_cache") {
+        k_loadGachaData()
+        return _message.reply("fait !");
     }
     if (commande == "help") {
         k_sendMessage(K_PROFIL_KUSANALI, "Commandes",
