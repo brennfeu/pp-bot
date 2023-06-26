@@ -56,7 +56,7 @@ function kusanaliBotMessage(_message) {
             "**\nPlacement du serveur : **" + n +
             "e**\n\nVœux : **" + sciText(v) +
             "**\nPity : **" + sciText(pi) +
-            "**\nMora : **" + sciText(m) +
+            "/70**\nMora : **" + sciText(m) +
             "**";
 
         var xp_date = k_getUserDoubleXpDate(_message.author.id);
@@ -169,32 +169,38 @@ function kusanaliBotMessage(_message) {
         var todaysElement = k_getTodaysBanner().element;
         var pity = k_getUserPity(_message.author.id);
         var loot = [];
+        var animation = GIF_ANIMATION_VOEU_4S;
 
-        K_GACHA_CHARACTERS = shuffleArray(K_GACHA_CHARACTERS);
-        loot.push(K_GACHA_CHARACTERS.find(o => o.stars == 4));
+        randomCharacters = shuffleArray(K_GACHA_CHARACTERS);
+        loot.push(randomCharacters.find(o => o.stars == 4));
         var attempts = 9; // 10 - obligatory 4 stars
 
         pity += 10;
         if (pity >= 70) { // 5* !!
             pity = 0; attempts -= 1;
 
-            K_GACHA_CHARACTERS = shuffleArray(K_GACHA_CHARACTERS);
-            loot.push(K_GACHA_CHARACTERS.find(o => o.stars == 5 && o.element == todaysElement));
+            randomCharacters = shuffleArray(K_GACHA_CHARACTERS);
+            loot.push(randomCharacters.find(o => o.stars == 5 && o.element == todaysElement));
+            animation = GIF_ANIMATION_VOEU_5S;
         }
 
         for (var i in Array.from(Array(attempts).keys())) { // regular rolls
             if (getRandomPercent() <= 2) { // 5* !!
-                K_GACHA_CHARACTERS = shuffleArray(K_GACHA_CHARACTERS);
-                loot.push(K_GACHA_CHARACTERS.find(o => o.stars == 5 && o.element == todaysElement));
+                randomCharacters = shuffleArray(K_GACHA_CHARACTERS);
+                loot.push(randomCharacters.find(o => o.stars == 5 && o.element == todaysElement));
+                animation = GIF_ANIMATION_VOEU_5S;
             }
             else if (getRandomPercent() <= 10) { // 4* !
-                K_GACHA_CHARACTERS = shuffleArray(K_GACHA_CHARACTERS);
-                loot.push(K_GACHA_CHARACTERS.find(o => o.stars == 4));
+                randomCharacters = shuffleArray(K_GACHA_CHARACTERS);
+                loot.push(randomCharacters.find(o => o.stars == 4));
             }
         }
 
         executeQuery('UPDATE Player SET k_wishes=(k_wishes-1), k_pity='+pity+' WHERE id = ' + _message.author.id);
         var message_files = [];
+        loot.sort(function(a, b) {
+            return b.stars - a.stars;
+        });
         for (var i in loot) {
             try { executeQuery("INSERT INTO K_Inventory(id_character, id_player) VALUES("+
                 loot[i].id + ", " + _message.author.id + ");"); } catch(e) {}
@@ -207,7 +213,7 @@ function kusanaliBotMessage(_message) {
             message_files.push(message_image);
         }
 
-        return _message.channel.send(GIF_ANIMATION_VOEU_5S).then(function (_message2) {
+        return _message.channel.send(animation).then(function (_message2) {
 			setTimeout(function(_message3, message_files) {
                 _message3.channel.send({ files: message_files });
                 _message3.delete();
@@ -443,9 +449,9 @@ var K_COLOR_ROLES = {
 var K_GACHA_CHARACTERS = [];
 var K_GACHA_BANNERS = [];
 
-var GIF_ANIMATION_VOEU_4S = "";
+var GIF_ANIMATION_VOEU_4S = "https://cdn.discordapp.com/attachments/715322091804819486/1122928890696966164/wish4.gif";
 var GIF_ANIMATION_VOEU_5S = "https://cdn.discordapp.com/attachments/715322091804819486/1122796824609169448/wish.gif";
-var GIF_ANIMATION_TIMING = 7000;
+var GIF_ANIMATION_TIMING = 8000;
 
 var K_SERVER_ID = "835951523325542400";
 var K_TEST_SERVER_ID = "715322089904537731";
