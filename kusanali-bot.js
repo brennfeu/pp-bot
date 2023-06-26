@@ -339,6 +339,7 @@ function k_generateDailyMissions() {
 function k_increaseMissionProgress(_userId, _missionType, _channel, _dailies = "") {
     if (_dailies == "") _dailies = k_getUserDailyProgress(_userId);
     var dailies = _dailies;
+    var mission_accomplie = false;
 
     for (var i in dailies) {
         if (dailies[i].type != _missionType) continue;
@@ -358,9 +359,11 @@ function k_increaseMissionProgress(_userId, _missionType, _channel, _dailies = "
         txt += " - **Mission Accomplie !**\nVous avez gagné **" + sciText(mora) + "** Moras !";
         k_sendMessage(K_PROFIL_KATHERYNE, "Missions Quotidiennes",
             txt, _channel);
+        mission_accomplie = true;
     }
 
     // all dailies done ?
+    if (!mission_accomplie) return;
     for (var i in dailies) if (dailies[i].progress < dailies[i].target) return;
     executeQuery('UPDATE Player SET k_wishes=(k_wishes+1) WHERE id = ' + _userId);
     k_sendMessage(K_PROFIL_KATHERYNE, "Missions Quotidiennes",
@@ -400,7 +403,7 @@ function k_getTodayDate() {
 
 function k_getTodaysBanner() {
     var currentDay = new Date().getDay();
-    var elementsDays = [ "anemo", "geo", "electro", "dendro", "hydro", "pyro", "cryo" ]
+    var elementsDays = [ "cryo", "anemo", "geo", "electro", "dendro", "hydro", "pyro" ]
     return K_GACHA_BANNERS.find(o => o.element == elementsDays[currentDay]);
 }
 function k_loadGachaData() {
