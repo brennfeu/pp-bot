@@ -377,6 +377,7 @@ CLIENT.on('ready', () => {
 	console.log(`Logged in as ${CLIENT.user.tag}!`);
 	setBotActivity("nothing, I just rebooted.");
 	checkUpdateEncyclopedia();
+    k_loadGachaData();
 });
 
 // This event will run on every single message received, from any channel or DM.

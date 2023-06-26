@@ -48,11 +48,15 @@ function kusanaliBotMessage(_message) {
         var ar = k_getARFromPoints(p);
         var m = k_getUserMora(_message.author.id);
         var n = k_getUserPlacement(_message.author.id);
+        var v = k_getUserWishes(_message.author.id);
+        var pi = k_getUserPity(_message.author.id);
 
         var txt = "Points d'Experience : **" + sciText(p) +
             "**\nRang d'Aventurier : **" + ar +
             "**\nPlacement du serveur : **" + n +
-            "e**\n\nMora : **" + sciText(m) +
+            "e**\n\nVœux : **" + sciText(v) +
+            "**\nPity : **" + sciText(pi) +
+            "**\nMora : **" + sciText(m) +
             "**";
 
         var xp_date = k_getUserDoubleXpDate(_message.author.id);
@@ -89,7 +93,7 @@ function kusanaliBotMessage(_message) {
         return _message.channel.send(GIF_NAHIDA);
     }
     if (commande == "paypal") {
-        return _message.channel.send("Non.\n(paypal de liben dispo avec la commande _links_)");
+        return _message.channel.send("Non.\n(paypal de liben dispo avec la commande '%links')");
     }
     if (commande == "dailies") {
         var dailies = k_getUserDailyProgress(_message.author.id);
@@ -154,8 +158,64 @@ function kusanaliBotMessage(_message) {
         return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
             "Je n'ai pas ça en stock, désolé.", _message.channel);
     }
+    if (commande == "banner") {
+        var banner = getTodaysBanner();
+        return _message.channel.send(banner.image_link);
+    }
+    if (commande == "wish") {
+        var voeux = k_getUserWishes(_message.author.id);
+        if (voeux < 10) _message.channel.send("Pas assez de vœux.");
+
+        var todaysElement = getTodaysBanner().element;
+        var pity = k_getUserPity(_message.author.id);
+        var loot = [];
+
+        K_GACHA_BANNERS = shuffleArray(K_GACHA_BANNERS);
+        loot.push(K_GACHA_BANNERS.find(o => o.stars == 4));
+        var attempts = 9; // 10 - obligatory 4 stars
+
+        pity += 10;
+        if (pity >= 70) { // 5* !!
+            pity = 0; attempts -= 1;
+
+            K_GACHA_BANNERS = shuffleArray(K_GACHA_BANNERS);
+            loot.push(K_GACHA_BANNERS.find(o => o.stars == 5 && o.element == todaysElement));
+        }
+
+        for (var i in Array.from(Array(attempts).keys())) { // regular rolls
+            if (getRandomPercent() <= 2) { // 5* !!
+                K_GACHA_BANNERS = shuffleArray(K_GACHA_BANNERS);
+                loot.push(K_GACHA_BANNERS.find(o => o.stars == 5 && o.element == todaysElement));
+            }
+            else if (getRandomPercent() <= 10) { // 4* !
+                K_GACHA_BANNERS = shuffleArray(K_GACHA_BANNERS);
+                loot.push(K_GACHA_BANNERS.find(o => o.stars == 4));
+            }
+        }
+
+        executeQuery('UPDATE Player SET k_wishes=(k_wishes-1), k_pity='+pity+' WHERE id = ' + _userId);
+        var message_files = [];
+        for (var i in loot) {
+            var hasLoot = executeQuery("SELECT * FROM Inventory WHERE id_character="+loot[i].id+" AND id_player="+_userId);
+            if (count(hasLoot) > 0) executeQuery("UPDATE Inventory SET amount="+(hasLoot[0].amount+1)+" WHERE id_character="+loot[i].id+" AND id_player="+_userId);
+            else executeQuery("INSERT INTO Inventory(id_player, id_character) VALUES("+_userId+", "+loot[i].id+");");
+
+            var message_image = {};
+            message_image["attachment"] = loot[i].art_link;
+            message_image["name"] = 'SPOILER_gacha'+i+'.png';
+            message_files.push(message_image);
+        }
+
+        return _message.channel.send(GIF_ANIMATION_VOEU_5S).then(function (_message2) {
+			setTimeout(function(_message3, message_files) {
+                _message3.channel.send({ files: message_files });
+                _message3.delete();
+            }, GIF_ANIMATION_TIMING, _message2, message_files);
+		});
+    }
     if (commande == "help") {
         k_sendMessage(K_PROFIL_KUSANALI, "Commandes",
+            "**banner**: Affiche la bannière actuelle.\n" +
             "**dailies**: Affiche la listes des missions quotidiennes.\n" +
             "**fleurs**: FC Loli des Fleurs !\n" +
             "**help**: Aucune idée de ce que ça fait.\n" +
@@ -165,31 +225,10 @@ function kusanaliBotMessage(_message) {
             "**paypal**: Non.\n" +
             "**rank**: Affiche ton statut actuel sur le serveur.\n" +
             "**shop**: Pour dépenser les moras.\n" +
-            "**status**: Affiche ton statut actuel sur le serveur.",
+            "**status**: Affiche ton statut actuel sur le serveur.\n",
+            "**wish**: Fais une multi.",
         _message.channel);
         return k_checkRoles(_message);
-    }
-
-    if (commande == "animation") {
-        return _message.channel.send(GIF_ANIMATION_VOEU_5S).then(function (_message2) {
-			setTimeout(function(_message3) {
-                _message3.channel.send({ files: [
-                    {
-                        attachment: 'https://static.wikia.nocookie.net/gensin-impact/images/5/59/Character_Hu_Tao_Full_Wish.png/revision/latest/scale-to-width-down/1000?cb=20220507160922',
-                        name: 'gacha1.png'
-                    },
-                    {
-                        attachment: 'https://static.wikia.nocookie.net/gensin-impact/images/a/a3/Character_Faruzan_Full_Wish.png/revision/latest?cb=20221207033630',
-                        name: 'gacha2.png'
-                    },
-                    {
-                        attachment: 'https://static.wikia.nocookie.net/gensin-impact/images/c/c3/Character_Fischl_Full_Wish.png/revision/latest/scale-to-width-down/1000?cb=20220507161249',
-                        name: 'gacha3.png'
-                    }
-                ] });
-                _message3.delete();
-            }, GIF_ANIMATION_TIMING, _message2);
-		});
     }
 
     return _message.reply("je ne connais pas cette commande :/");
@@ -230,7 +269,7 @@ function k_sendWebhookMessage(_webhook, _profil, _title, _message, _channel, _av
     embedMessage.setTitle("**" + _title + "**");
     embedMessage.setDescription(sciText(_message));
     embedMessage.setColor([ 125, 171, 73 ]);
-    embedMessage.setFooter('Tapez \'%help\' pour plus de détails.', 'https://cdn.discordapp.com/attachments/721498678925328434/721511440598696056/arbitrator.png');
+    embedMessage.setFooter('Perdu ? Tapez \'%help\' pour plus de détails.', 'https://cdn.discordapp.com/attachments/721498678925328434/721511440598696056/arbitrator.png');
     if (_avatar != undefined) embedMessage.setThumbnail(_avatar);
 
     webhookClient.send('', {
@@ -312,6 +351,12 @@ function k_increaseMissionProgress(_userId, _missionType, _channel, _dailies = "
         k_sendMessage(K_PROFIL_KATHERYNE, "Missions Quotidiennes",
             txt, _channel);
     }
+
+    // all dailies done ?
+    for (var i in dailies) if (dailies[i].progress < target) return;
+    executeQuery('UPDATE Player SET k_wishes=(k_wishes+1) WHERE id = ' + _userId);
+    k_sendMessage(K_PROFIL_KATHERYNE, "Missions Quotidiennes",
+        "Vous avez fait toutes vos missions quotidiennes.\nVoici un lot de **10 vœux** pour vos efforts.", _channel);
 }
 
 function k_checkRoles(_message) {
@@ -343,6 +388,16 @@ function k_getToday() {
 function k_getTodayDate() {
     var today = new Date();
     return today.toISOString().split('T')[0];
+}
+
+function getTodaysBanner() {
+    var currentDay = new Date().getDay();
+    var elementsDays = [ "anemo", "geo", "electro", "dendro", "hydro", "pyro", "cryo" ]
+    return K_GACHA_BANNERS.find(o => o.element == elementsDays[currentDay]);
+}
+function k_loadGachaData() {
+    K_GACHA_CHARACTERS = executeQuery("SELECT * FROM K_Characters;");
+    K_GACHA_BANNERS = executeQuery("SELECT * FROM K_Banners;");
 }
 
 var GIF_NAHIDA = "https://tenor.com/view/nahida-kusanali-genshin-genshin-impact-sumeru-gif-26819159";
@@ -382,6 +437,9 @@ var K_COLOR_ROLES = {
     "red": "",
     "purple": ""
 }
+
+var K_GACHA_CHARACTERS = [];
+var K_GACHA_BANNERS = [];
 
 var GIF_ANIMATION_VOEU_4S = "";
 var GIF_ANIMATION_VOEU_5S = "https://cdn.discordapp.com/attachments/715322091804819486/1122796824609169448/wish.gif";
