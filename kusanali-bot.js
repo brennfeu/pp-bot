@@ -196,9 +196,12 @@ function kusanaliBotMessage(_message) {
         executeQuery('UPDATE Player SET k_wishes=(k_wishes-1), k_pity='+pity+' WHERE id = ' + _message.author.id);
         var message_files = [];
         for (var i in loot) {
-            var hasLoot = executeQuery("SELECT * FROM K_Inventory WHERE id_character="+loot[i].id+" AND id_player="+_message.author.id);
-            if (hasLoot.length > 0) executeQuery("UPDATE K_Inventory SET amount="+(hasLoot[0].amount+1)+" WHERE id_character="+loot[i].id+" AND id_player="+_message.author.id);
-            else executeQuery("INSERT INTO K_Inventory(id_player, id_character) VALUES("+_message.author.id+", "+loot[i].id+");");
+            var hasLoot = executeQuery("SELECT * FROM K_Inventory " +
+                "WHERE id_character=" + loot[i].id + " AND id_player=" + _message.author.id);
+            if (hasLoot.length == 0) executeQuery("INSERT INTO K_Inventory(id_player, id_character) VALUES("+
+                _message.author.id + ", " + loot[i].id + ");");
+            executeQuery("UPDATE K_Inventory SET amount=(amount+1) " +
+                "WHERE id_character=" + loot[i].id + " AND id_player=" + _message.author.id);
 
             var message_image = {};
             message_image["attachment"] = loot[i].art_link;
