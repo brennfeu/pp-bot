@@ -18,7 +18,6 @@ function kusanaliBotMessage(_message) {
 
         _mora += k_getUserMora(_message.author.id);
         executeQuery('UPDATE Player SET k_mora=' + mora + ' WHERE id = ' + _message.author.id);
-        return;
     }
 
     // dailies
