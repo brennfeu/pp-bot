@@ -236,6 +236,7 @@ function kusanaliBotMessage(_message) {
             if (characters[i].id_region != last_region) {
                 var region = K_GACHA_REGIONS.find(o => o.id == characters[i].id_region);
                 txt += "**" + region.name + "**\n";
+                last_region = characters[i].id_region;
             }
 
             txt += characters[i].name + " (" + characters[i].stars + "⭐)\n"
