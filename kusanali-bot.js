@@ -50,13 +50,15 @@ function kusanaliBotMessage(_message) {
         var n = k_getUserPlacement(_message.author.id);
         var v = k_getUserWishes(_message.author.id);
         var pi = k_getUserPity(_message.author.id);
+        var inventory = executeQuery("SELECT * FROM K_Inventory WHERE id_player = " + _message.author.id);
 
         var txt = "Points d'Experience : **" + sciText(p) +
             "**\nRang d'Aventurier : **" + ar +
             "**\nPlacement du serveur : **" + n +
             "e**\n\nVœux : **" + sciText(v) +
             "**\nPity : **" + sciText(pi) +
-            "/70**\nMora : **" + sciText(m) +
+            "/70**\nPersos : **" + inventory.length + "/" + K_GACHA_CHARACTERS.length +
+            "**\n\nMora : **" + sciText(m) +
             "**";
 
         var xp_date = k_getUserDoubleXpDate(_message.author.id);
