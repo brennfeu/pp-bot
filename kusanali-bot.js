@@ -220,6 +220,30 @@ function kusanaliBotMessage(_message) {
             }, GIF_ANIMATION_TIMING, _message2, message_files);
 		});
     }
+    if (commande == "characters") {
+        var inventory = executeQuery("SELECT * FROM K_Inventory WHERE id_player = " + _message.author.id);
+        var characters = [];
+        var txt = "";
+        var last_region = 0;
+
+        for (var i in inventory) characters.push(K_GACHA_CHARACTERS.find(o => o.id == inventory[i].id_character));
+        characters.sort(function(a, b) {
+            if (a.id_region == b.id_region) return a.name - b.name;
+            return a.id_region - b.id_region;
+        });
+
+        for (var i in characters) {
+            if (characters[i].id_region != last_region) {
+                var region = K_GACHA_REGIONS.find(o => o.id == characters[i].id_region);
+                txt += "**" + region.name + "**\n";
+            }
+
+            txt += characters[i].name + " (" + characters[i].stars + "⭐)\n"
+        }
+        if (txt == "") txt = "...";
+
+        return k_sendMessage(K_PROFIL_PAIMON_STATUE, "Inventaire de Personnages", txt, _message.channel);
+    }
     if (commande == "reset_cache") {
         k_loadGachaData()
         return _message.reply("fait !");
@@ -227,6 +251,7 @@ function kusanaliBotMessage(_message) {
     if (commande == "help") {
         k_sendMessage(K_PROFIL_KUSANALI, "Commandes",
             "**banner**: Affiche la bannière actuelle.\n" +
+            "**characters**: Affiche la liste des personnages obtenus.\n" +
             "**dailies**: Affiche la listes des missions quotidiennes.\n" +
             "**fleurs**: FC Loli des Fleurs !\n" +
             "**help**: Aucune idée de ce que ça fait.\n" +
@@ -413,6 +438,7 @@ function k_getTodaysBanner() {
 function k_loadGachaData() {
     K_GACHA_CHARACTERS = executeQuery("SELECT * FROM K_Character;");
     K_GACHA_BANNERS = executeQuery("SELECT * FROM K_Banner;");
+    K_GACHA_REGIONS = executeQuery("SELECT * FROM K_Region;");
 }
 
 var GIF_NAHIDA = "https://tenor.com/view/nahida-kusanali-genshin-genshin-impact-sumeru-gif-26819159";
@@ -455,6 +481,7 @@ var K_COLOR_ROLES = {
 
 var K_GACHA_CHARACTERS = [];
 var K_GACHA_BANNERS = [];
+var K_GACHA_REGIONS = [];
 
 var GIF_ANIMATION_VOEU_4S = "https://cdn.discordapp.com/attachments/715322091804819486/1122928890696966164/wish4.gif";
 var GIF_ANIMATION_VOEU_5S = "https://cdn.discordapp.com/attachments/715322091804819486/1122796824609169448/wish.gif";
