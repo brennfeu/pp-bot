@@ -3,21 +3,22 @@ function kusanaliBotMessage(_message) {
 
     if (getRandomPercent() < 10) updatePlayer(_message.author.id, _message.author.username.secureXSS());
     k_resetUserDailyProgress(_message.author.id);
-    var points = k_addMessageCount(_message.author.id, _message.author.username.secureXSS());
+    var points_before = k_getUserPoints(_message.author.id);
+    var points_after = k_addMessageCount(_message.author.id, _message.author.username.secureXSS());
     for (var i in K_AR_LIST) { // check if AR up
-        if (K_AR_LIST[i].xp == points) {
-            var _current_ar = parseInt(i)+1;
-            var _mora = _current_ar*10000;
-            k_sendMessage(K_PROFIL_PAIMON_CHAD,
-                "Nouveau Rang d'Ascension Atteint !",
-                "**Bravo " + _message.author.username.secureXSS() + "**, tu es passé Rang d'Aventurier **" + _current_ar + "** !\n\nTu gagnes " + sciText(_mora) + " Moras !",
-                _message.channel);
-            k_checkRoles(_message);
+        if (points_before >= K_AR_LIST[i].xp || K_AR_LIST[i].xp > points_after) continue;
 
-            _mora += k_getUserMora(_message.author.id);
-            executeQuery('UPDATE Player SET k_mora=' + mora + ' WHERE id = ' + _message.author.id);
-            return;
-        }
+        var _current_ar = parseInt(i)+1;
+        var _mora = _current_ar*10000;
+        k_sendMessage(K_PROFIL_PAIMON_CHAD,
+            "Nouveau Rang d'Ascension Atteint !",
+            "**Bravo " + _message.author.username.secureXSS() + "**, tu es passé Rang d'Aventurier **" + _current_ar + "** !\n\nTu gagnes " + sciText(_mora) + " Moras !",
+            _message.channel);
+        k_checkRoles(_message);
+
+        _mora += k_getUserMora(_message.author.id);
+        executeQuery('UPDATE Player SET k_mora=' + mora + ' WHERE id = ' + _message.author.id);
+        return;
     }
 
     // dailies
@@ -111,7 +112,7 @@ function kusanaliBotMessage(_message) {
     if (commande == "shop") {
         var args = _message.content.toLowerCase().split(" ");
         if (args.length == 1) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
-            "**Double XP jusqu'à demain** ( _doublexp_ ) - 200 000 Moras\n" +
+            "**Double XP pendant 24h** ( _doublexp_ ) - 200 000 Moras\n" +
             "**Changement de couleur** ( _color_ [ _red_ / _blue_ / _green_ / _purple_ / _pink_ ] ) - 500 000 Moras\n" +
             "\nExemple de commande d'achat : ```%shop color purple```", _message.channel);
 
@@ -190,7 +191,7 @@ function kusanaliBotMessage(_message) {
                 loot.push(randomCharacters.find(o => o.stars == 5 && o.element == todaysElement));
                 animation = GIF_ANIMATION_VOEU_5S;
             }
-            else if (getRandomPercent() <= 10) { // 4* !
+            else if (getRandomPercent() <= 5) { // 4* !
                 randomCharacters = shuffleArray(K_GACHA_CHARACTERS);
                 loot.push(randomCharacters.find(o => o.stars == 4));
             }

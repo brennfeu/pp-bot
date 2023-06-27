@@ -192,7 +192,7 @@ function k_addMessageCount(_userId, _username) {
 	if (k_getToday() < k_getUserDoubleXpDate(_userId)) value += 1;
 
 	executeQuery("UPDATE Player SET k_points = " + value + " WHERE id = " + _userId);
-	return (1+parseInt(result[0].k_points));
+	return value;
 }
 function k_getUserPoints(_userId) {
 	var result = executeQuery("SELECT k_points FROM Player WHERE id = " + _userId)
