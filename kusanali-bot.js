@@ -179,7 +179,7 @@ function kusanaliBotMessage(_message) {
             if (mora <= 500000) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
                 "Vous n'avez pas assez de moras.", _message.channel);
 
-            executeQuery('UPDATE Player SET k_wishes = (k_wishes+1) WHERE id = ' + _message.author.id);
+            executeQuery('UPDATE Player SET k_wishes = (k_wishes+1), k_mora = (k_mora-200000) WHERE id = ' + _message.author.id);
 
             return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
                 "Un lot de 10 vœux, très bien !", _message.channel);
