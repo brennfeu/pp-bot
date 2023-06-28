@@ -52,7 +52,7 @@ function kusanaliBotMessage(_message) {
         var txt = "Points d'Experience : **" + sciText(p) +
             "**\nRang d'Aventurier : **" + ar +
             "**\nPlacement du serveur : **" + n +
-            "e**\n\nAR" + (1+ar) + " à **" + sciText(next_ar) +
+            "e**\n\n**AR" + (1+ar) + "** à **" + sciText(next_ar) +
             "** xp (**" + sciText(next_ar-p) + "** restants)";
 
         return k_sendMessage(K_PROFIL_PAIMON_STATUE,
@@ -309,7 +309,7 @@ function k_getUserAR(_userId) {
 }
 function k_getARFromPoints(_p) {
     for (var i in K_AR_LIST) {
-        if (K_AR_LIST[i].xp > _p) return i;
+        if (K_AR_LIST[i].xp > _p) return parseInt(i);
     }
     return 60;
 }
