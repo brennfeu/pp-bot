@@ -43,7 +43,25 @@ function kusanaliBotMessage(_message) {
     if (!commande.startsWith('%')) return;
     commande = commande.substring(1).split(" ")[0];
 
-    if (commande == "rank" || commande == "status") {
+    if (commande == "rank") {
+        var p = k_getUserPoints(_message.author.id);
+        var ar = k_getARFromPoints(p);
+        var next_ar = K_AR_LIST[ar].xp;
+        var n = k_getUserPlacement(_message.author.id);
+
+        var txt = "Points d'Experience : **" + sciText(p) +
+            "**\nRang d'Aventurier : **" + ar +
+            "**\nPlacement du serveur : **" + n +
+            "e**\n\nAR" + (1+ar) + " à **" + sciText(next_ar) +
+            "** xp (**" + sciText(next_ar-p) + "** restants)";
+
+        return k_sendMessage(K_PROFIL_PAIMON_STATUE,
+            _message.author.username.secureXSS(),
+            txt,
+            _message.channel,
+            _message.author.avatarURL());
+    }
+    if (commande == "status") {
         var p = k_getUserPoints(_message.author.id);
         var ar = k_getARFromPoints(p);
         var m = k_getUserMora(_message.author.id);
@@ -162,7 +180,12 @@ function kusanaliBotMessage(_message) {
     }
     if (commande == "banner") {
         var banner = k_getTodaysBanner();
-        return _message.channel.send(banner.image_link);
+        _message.channel.send(banner.image_link);
+        if (banner.element != "cryo") return;
+
+        var banner_omni = K_GACHA_BANNERS.find(o => o.element == "omni");
+        _message.channel.send(banner_omni.image_link);
+        _message.channel.send("Bannière spéciale : bannière **Omni** !\n```%pull omni```");
     }
     if (commande == "pull") {
         var voeux = k_getUserWishes(_message.author.id);
@@ -173,6 +196,13 @@ function kusanaliBotMessage(_message) {
         var loot = [];
         var animation = GIF_ANIMATION_VOEU_4S;
 
+        // check omni
+        var args = _message.content.toLowerCase().split(" ");
+        if (args.length > 1 && args[1] == "omni") {
+            if (todaysElement == "cryo") todaysElement = "omni";
+            else return _message.channel.send("Bannière Omni indisponible.");
+        }
+
         randomCharacters = shuffleArray(K_GACHA_CHARACTERS);
         loot.push(randomCharacters.find(o => o.stars == 4));
         var attempts = 9; // 10 - obligatory 4 stars
@@ -182,14 +212,14 @@ function kusanaliBotMessage(_message) {
             pity = 0; attempts -= 1;
 
             randomCharacters = shuffleArray(K_GACHA_CHARACTERS);
-            loot.push(randomCharacters.find(o => o.stars == 5 && o.element == todaysElement));
+            loot.push(randomCharacters.find(o => o.stars == 5 && (o.element == todaysElement || todaysElement == "omni")));
             animation = GIF_ANIMATION_VOEU_5S;
         }
 
         for (var i in Array.from(Array(attempts).keys())) { // regular rolls
             if (getRandomPercent() <= 2) { // 5* !!
                 randomCharacters = shuffleArray(K_GACHA_CHARACTERS);
-                loot.push(randomCharacters.find(o => o.stars == 5 && o.element == todaysElement));
+                loot.push(randomCharacters.find(o => o.stars == 5 && (o.element == todaysElement || todaysElement == "omni")));
                 animation = GIF_ANIMATION_VOEU_5S;
             }
             else if (getRandomPercent() <= 5) { // 4* !
@@ -263,7 +293,7 @@ function kusanaliBotMessage(_message) {
             "**links**: Envoie les liens vers les résaux sociaux du serveur.\n" +
             "**paypal**: Non.\n" +
             "**pull**: Fais une multi.\n" +
-            "**rank**: Affiche ton statut actuel sur le serveur.\n" +
+            "**rank**: Affiche ton statut actuel sur le leaderboard.\n" +
             "**shop**: Pour dépenser les moras.\n" +
             "**status**: Affiche ton statut actuel sur le serveur.\n" +
             "",
