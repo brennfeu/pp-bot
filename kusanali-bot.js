@@ -133,6 +133,7 @@ function kusanaliBotMessage(_message) {
         if (args.length == 1) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
             "**Double XP pendant 24h** ( _doublexp_ ) - 200 000 Moras\n" +
             "**Changement de couleur** ( _color_ [ _red_ / _blue_ / _green_ / _purple_ / _pink_ ] ) - 500 000 Moras\n" +
+            "**Lot de 10 vœux** ( _wishes_ ) - 500 000 Moras\n" +
             "\nExemple de commande d'achat : ```%shop color purple```", _message.channel);
 
         var mora = k_getUserMora(_message.author.id);
@@ -173,6 +174,15 @@ function kusanaliBotMessage(_message) {
 
             return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
                 "Un changement de couleur, très bien !", _message.channel);
+        }
+        if (args[1] == "wishes") {
+            if (mora <= 500000) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+                "Vous n'avez pas assez de moras.", _message.channel);
+
+            executeQuery('UPDATE Player SET k_wishes = (k_wishes+1) WHERE id = ' + _message.author.id);
+
+            return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+                "Un lot de 10 vœux, très bien !", _message.channel);
         }
 
         return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
