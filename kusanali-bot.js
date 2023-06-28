@@ -265,13 +265,16 @@ function kusanaliBotMessage(_message) {
         });
 
         for (var i in characters) {
+            var amount = parseInt(inventory.find(o => o.id_character == characters[i].id).amount);
             if (characters[i].id_region != last_region) {
                 var region = K_GACHA_REGIONS.find(o => o.id == characters[i].id_region);
                 txt += "**" + region.name + "**\n";
                 last_region = characters[i].id_region;
             }
 
-            txt += characters[i].name + " (" + characters[i].stars + "⭐)\n"
+            txt += characters[i].name;
+            if (amount > 1) txt += " C" + (amount-1);
+            txt += " (" + characters[i].stars + "⭐)\n"
         }
         if (txt == "") txt = "...";
 
