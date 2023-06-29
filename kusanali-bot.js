@@ -38,7 +38,7 @@ function kusanaliBotMessage(_message) {
     // thumbs up nahida
     if (_message.content.trim() == GIF_NAHIDA) return _message.react(EMOTE_KUSANALI);
 
-    var commande = _message.content.trim();
+    var commande = _message.content.trim().toLowerCase();
     if (!commande.startsWith('%')) return;
     commande = commande.substring(1).split(" ")[0];
 
@@ -128,7 +128,7 @@ function kusanaliBotMessage(_message) {
             txt, _message.channel);
     }
     if (commande == "shop") {
-        var args = _message.content.toLowerCase().split(" ");
+        var args = _message.content.trim().toLowerCase().split(" ");
         if (args.length == 1) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
             "**Double XP pendant 24h** ( _doublexp_ ) - 200 000 Moras\n" +
             "**Changement de couleur** ( _color_ [ _red_ / _blue_ / _green_ / _purple_ / _pink_ ] ) - 500 000 Moras\n" +
