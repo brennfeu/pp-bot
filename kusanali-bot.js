@@ -16,8 +16,7 @@ function kusanaliBotMessage(_message) {
             _message.channel);
         k_checkRoles(_message);
 
-        _mora += k_getUserMora(_message.author.id);
-        executeQuery('UPDATE Player SET k_mora=' + mora + ' WHERE id = ' + _message.author.id);
+        executeQuery('UPDATE Player SET k_mora=(k_mora+' + mora + ') WHERE id = ' + _message.author.id);
     }
 
     // dailies
@@ -179,7 +178,7 @@ function kusanaliBotMessage(_message) {
             if (mora <= 500000) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
                 "Vous n'avez pas assez de moras.", _message.channel);
 
-            executeQuery('UPDATE Player SET k_wishes = (k_wishes+1), k_mora = (k_mora-200000) WHERE id = ' + _message.author.id);
+            executeQuery('UPDATE Player SET k_wishes = (k_wishes+1), k_mora = (k_mora-500000) WHERE id = ' + _message.author.id);
 
             return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
                 "Un lot de 10 vœux, très bien !", _message.channel);
@@ -194,8 +193,7 @@ function kusanaliBotMessage(_message) {
         if (banner.element != "cryo") return;
 
         var banner_omni = K_GACHA_BANNERS.find(o => o.element == "omni");
-        _message.channel.send(banner_omni.image_link);
-        _message.channel.send("Bannière spéciale : bannière **Omni** !\n```%pull omni```");
+        return _message.channel.send(banner_omni.image_link);
     }
     if (commande == "pull") {
         var voeux = k_getUserWishes(_message.author.id);
@@ -208,10 +206,9 @@ function kusanaliBotMessage(_message) {
 
         // check omni
         var args = _message.content.toLowerCase().split(" ");
-        if (args.length > 1 && args[1] == "omni") {
-            if (todaysElement == "cryo") todaysElement = "omni";
-            else return _message.channel.send("Bannière Omni indisponible.");
-        }
+        if (args.length > 1 && args[1] == "omni" && todaysElement != "cryo") return _message.channel.send("Bannière Omni indisponible.");
+        else if (args.length > 1 && [ "omni", "cryo" ].indexOf(args[1]) > -1 && todaysElement == "cryo") todaysElement = args[1];
+        else if (todaysElement == "cryo" && args.length <= 1) return _message.channel.send("Veuillez spécifier la bannière.\n```%pull cryo // OU // %pull omni```");
 
         randomCharacters = shuffleArray(K_GACHA_CHARACTERS);
         loot.push(randomCharacters.find(o => o.stars == 4));
@@ -291,7 +288,7 @@ function kusanaliBotMessage(_message) {
         return k_sendMessage(K_PROFIL_PAIMON_STATUE, "Inventaire de Personnages", txt, _message.channel);
     }
     if (commande == "reset_cache") {
-        k_loadGachaData()
+        k_loadGachaData();
         return _message.reply("fait !");
     }
     if (commande == "help") {
