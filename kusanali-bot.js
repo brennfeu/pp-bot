@@ -16,7 +16,7 @@ function kusanaliBotMessage(_message) {
             _message.channel);
         k_checkRoles(_message);
 
-        executeQuery('UPDATE Player SET k_mora=(k_mora+' + mora + ') WHERE id = ' + _message.author.id);
+        executeQuery('UPDATE Player SET k_mora=(k_mora+' + _mora + ') WHERE id = ' + _message.author.id);
     }
 
     // dailies
