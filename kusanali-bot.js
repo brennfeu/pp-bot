@@ -111,6 +111,9 @@ function kusanaliBotMessage(_message) {
     if (commande == "fleurs") {
         return _message.channel.send(GIF_NAHIDA);
     }
+    if (commande == "gun") {
+        return _message.channel.send(GIF_GUN);
+    }
     if (commande == "paypal") {
         return _message.channel.send("Non.\n(paypal de liben dispo avec la commande '%links')");
     }
@@ -297,7 +300,8 @@ function kusanaliBotMessage(_message) {
             "**characters**: Affiche la liste des personnages obtenus.\n" +
             "**dailies**: Affiche la listes des missions quotidiennes.\n" +
             "**fleurs**: FC Loli des Fleurs !\n" +
-            "**help**: Aucune idée de ce que ça fait.\n" +
+            "**gun**: Bam !\n" +
+            "**help**: Euh...\n" +
             "**leaderboard**: Affiche le top 10 du serveur.\n" +
             "**legacy**: Affecte les rôles manquants.\n" +
             "**links**: Envoie les liens vers les résaux sociaux du serveur.\n" +
@@ -485,6 +489,7 @@ function k_loadGachaData() {
 }
 
 var GIF_NAHIDA = "https://tenor.com/view/nahida-kusanali-genshin-genshin-impact-sumeru-gif-26819159";
+var GIF_GUN = "https://cdn.discordapp.com/attachments/715322091804819486/1128822171649708132/gun.gif";
 var EMOTE_KUSANALI = "1011319146186813480";
 
 var K_PROFIL_PAIMON_CHAD = {
