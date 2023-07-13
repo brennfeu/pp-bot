@@ -286,6 +286,7 @@ function kusanaliBotMessage(_message) {
                 last_region = characters[i].id_region;
             }
 
+            tct += "- "
             if (characters[i].stars == 5) txt += "_";
             txt += characters[i].name;
             if (amount > 1) txt += " **C" + (amount-1) + "**";
