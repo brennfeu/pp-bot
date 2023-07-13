@@ -272,7 +272,10 @@ function kusanaliBotMessage(_message) {
         characters.sort(function(a, b) {
             if (a.id_region != b.id_region) return a.id_region - b.id_region;
             if (a.stars != b.stars) return b.stars - a.stars;
-            return a.name - b.name;
+
+            if (a.name < b.name) return -1;
+            else if (a.name > b.name) return 1;
+            return 0;
         });
 
         for (var i in characters) {
