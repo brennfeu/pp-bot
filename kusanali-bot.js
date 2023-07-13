@@ -270,8 +270,9 @@ function kusanaliBotMessage(_message) {
 
         for (var i in inventory) characters.push(K_GACHA_CHARACTERS.find(o => o.id == inventory[i].id_character));
         characters.sort(function(a, b) {
-            if (a.id_region == b.id_region) return a.name - b.name;
-            return a.id_region - b.id_region;
+            if (a.id_region != b.id_region) return a.id_region - b.id_region;
+            if (a.stars != b.stars) return b.stars - a.stars;
+            return a.name - b.name;
         });
 
         for (var i in characters) {
@@ -282,9 +283,11 @@ function kusanaliBotMessage(_message) {
                 last_region = characters[i].id_region;
             }
 
+            if (characters[i].stars == 5) txt += "_";
             txt += characters[i].name;
-            if (amount > 1) txt += " C" + (amount-1);
-            txt += " (" + characters[i].stars + "⭐)\n"
+            if (amount > 1) txt += " **C" + (amount-1) + "**";
+            if (characters[i].stars == 5) txt += "_";
+            txt += "\n"
         }
         if (txt == "") txt = "...";
 
