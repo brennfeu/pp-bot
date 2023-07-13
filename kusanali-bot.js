@@ -282,7 +282,7 @@ function kusanaliBotMessage(_message) {
             var amount = parseInt(inventory.find(o => o.id_character == characters[i].id).amount);
             if (characters[i].id_region != last_region) {
                 var region = K_GACHA_REGIONS.find(o => o.id == characters[i].id_region);
-                txt += "# **" + region.name.toUpperCase() + "**\n";
+                txt += "### **" + region.name.toUpperCase() + "**\n";
                 last_region = characters[i].id_region;
             }
 
