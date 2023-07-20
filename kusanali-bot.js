@@ -37,10 +37,16 @@ function kusanaliBotMessage(_message) {
 
     // thumbs up nahida
     if (_message.content.trim() == GIF_NAHIDA) return _message.react(EMOTE_KUSANALI);
+    else if (_message.content.trim().includes("hentai")) return _message.react(EMOTE_SUS);
 
     var commande = _message.content.trim().toLowerCase();
     if (!commande.startsWith('%')) return;
     commande = commande.substring(1).split(" ")[0];
+
+
+    if (commande == "fleurs") return _message.channel.send(GIF_NAHIDA);
+    if (commande == "gun") return _message.channel.send(GIF_GUN);
+    if (commande == "kuru") return _message.channel.send(GIF_KURU);
 
     if (commande == "rank") {
         var p = k_getUserPoints(_message.author.id);
@@ -107,12 +113,6 @@ function kusanaliBotMessage(_message) {
             "**Tiktok**: https://www.tiktok.com/@libenwhen \n" +
             "**Paypal**: https://www.paypal.me/Libenwhen",
         _message.channel);
-    }
-    if (commande == "fleurs") {
-        return _message.channel.send(GIF_NAHIDA);
-    }
-    if (commande == "gun") {
-        return _message.channel.send(GIF_GUN);
     }
     if (commande == "paypal") {
         return _message.channel.send("Non.\n(paypal de liben dispo avec la commande '%links')");
@@ -306,8 +306,6 @@ function kusanaliBotMessage(_message) {
             "**banner**: Affiche la bannière actuelle.\n" +
             "**characters**: Affiche la liste des personnages obtenus.\n" +
             "**dailies**: Affiche la listes des missions quotidiennes.\n" +
-            "**fleurs**: FC Loli des Fleurs !\n" +
-            "**gun**: Bam !\n" +
             "**help**: Euh...\n" +
             "**leaderboard**: Affiche le top 10 du serveur.\n" +
             "**legacy**: Affecte les rôles manquants.\n" +
@@ -317,6 +315,12 @@ function kusanaliBotMessage(_message) {
             "**rank**: Affiche ton statut actuel sur le leaderboard.\n" +
             "**shop**: Pour dépenser les moras.\n" +
             "**status**: Affiche ton statut actuel sur le serveur.\n" +
+
+            "\n" +
+            "**fleurs**: FC Loli des Fleurs !\n" +
+            "**gun**: Bam !\n" +
+            "**kuru**: Kuru kuru !\n" +
+
             "",
         _message.channel);
         return k_checkRoles(_message);
@@ -497,7 +501,9 @@ function k_loadGachaData() {
 
 var GIF_NAHIDA = "https://tenor.com/view/nahida-kusanali-genshin-genshin-impact-sumeru-gif-26819159";
 var GIF_GUN = "https://cdn.discordapp.com/attachments/715322091804819486/1128822171649708132/gun.gif";
+var GIF_KURU = "https://tenor.com/view/kururin-kuru-kuru-herta-herta-sippining-honkai-star-rail-gif-6255874111095877274";
 var EMOTE_KUSANALI = "1011319146186813480";
+var EMOTE_SUS = "976147692214452224";
 
 var K_PROFIL_PAIMON_CHAD = {
     "nom": "Paimon",
