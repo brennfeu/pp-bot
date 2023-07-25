@@ -170,7 +170,7 @@ function kusanaliBotMessage(_message) {
                 .catch(console.error);
             }
             _message.guild.roles.fetch(K_COLOR_ROLES[args[2]])
-            .then(function(_role) { _message.member.roles.add(_role); })
+            .then(function(_role) { console.log(_role); _message.member.roles.add(_role); })
             .catch(console.error);
             executeQuery('UPDATE Player SET k_mora = (k_mora-500000) WHERE id = ' + _message.author.id);
 
@@ -537,15 +537,15 @@ var K_MISSION_TITLES = {
 };
 
 var K_COLOR_ROLES = {
-    "mondstadt": "",
-    "liyue": "",
-    "inazuma": "",
-    "sumeru": "",
-    "fontaine": "",
-    "natlan": "",
-    "snezhnaya": "",
-    "khaenri'ah": "",
-    "celestia": "",
+    "mondstadt": "1123437351180455976",
+    "liyue": "1123437365361397870",
+    "inazuma": "1123437370381963314",
+    "sumeru": "1123437408793403523",
+    "fontaine": "1123437413314871397",
+    "natlan": "1123437417840521307",
+    "snezhnaya": "1123437421858668604",
+    "khaenri'ah": "1123437426283651274",
+    "celestia": "1123437430775746681",
 }
 
 var K_GACHA_CHARACTERS = [];
