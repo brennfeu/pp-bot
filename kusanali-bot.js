@@ -140,7 +140,7 @@ function kusanaliBotMessage(_message) {
             "**Double XP pendant 24h** ( _doublexp_ ) - 200 000 Moras\n" +
             "**Changement de couleur** ( _color_ [ _mondstadt_ / _liyue_ / _inazuma_ / _sumeru_ / _fontaine_ / _natlan_ / _snezhnaya_ / _khaenri'ah_ / _celestia_ ] ) - 500 000 Moras\n" +
             "**Lot de 10 vœux** ( _wishes_ ) - 500 000 Moras\n" +
-            "\nExemple de commande d'achat : ```%shop color purple```", _message.channel);
+            "\nExemple de commande d'achat : ```%shop color inazuma```", _message.channel);
 
         var mora = k_getUserMora(_message.author.id);
         if (args[1] == "doublexp") {
