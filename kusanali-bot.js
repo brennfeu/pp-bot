@@ -38,7 +38,7 @@ function kusanaliBotMessage(_message) {
     // thumbs up nahida
     if (_message.content.trim() == GIF_NAHIDA) return _message.react(EMOTE_KUSANALI);
     else if (_message.content.trim().toLowerCase().includes("hentai")) return _message.react(EMOTE_SUS);
-    else if (_message.content.trim().includes("BONNE JOURNEE") || _message.content.trim().includes("BONNE JOURNÉE")) return_message.react("🎉");
+    else if (_message.content.trim().includes("BONNE JOURNEE") || _message.content.trim().includes("BONNE JOURNÉE")) return _message.react("🎉");
 
     var commande = _message.content.trim().toLowerCase();
     if (!commande.startsWith('%')) return;
