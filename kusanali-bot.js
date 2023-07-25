@@ -134,7 +134,7 @@ function kusanaliBotMessage(_message) {
         var args = _message.content.trim().toLowerCase().split(" ");
         if (args.length == 1) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
             "**Double XP pendant 24h** ( _doublexp_ ) - 200 000 Moras\n" +
-            "**Changement de couleur** ( _color_ [ _red_ / _blue_ / _green_ / _purple_ / _pink_ ] ) - 500 000 Moras\n" +
+            "**Changement de couleur** ( _color_ [ _mondstadt_ / _liyue_ / _inazuma_ / _sumeru_ / _fontaine_ / _natlan_ / _snezhnaya_ / _khaenri'ah_ / _celestia_ ] ) - 500 000 Moras\n" +
             "**Lot de 10 vœux** ( _wishes_ ) - 500 000 Moras\n" +
             "\nExemple de commande d'achat : ```%shop color purple```", _message.channel);
 
@@ -502,6 +502,7 @@ function k_loadGachaData() {
 var GIF_NAHIDA = "https://tenor.com/view/nahida-kusanali-genshin-genshin-impact-sumeru-gif-26819159";
 var GIF_GUN = "https://cdn.discordapp.com/attachments/715322091804819486/1128822171649708132/gun.gif";
 var GIF_KURU = "https://tenor.com/view/kururin-kuru-kuru-herta-herta-sippining-honkai-star-rail-gif-6255874111095877274";
+
 var EMOTE_KUSANALI = "1011319146186813480";
 var EMOTE_SUS = "976147692214452224";
 
@@ -536,8 +537,15 @@ var K_MISSION_TITLES = {
 };
 
 var K_COLOR_ROLES = {
-    "red": "",
-    "purple": ""
+    "mondstadt": "",
+    "liyue": "",
+    "inazuma": "",
+    "sumeru": "",
+    "fontaine": "",
+    "natlan": "",
+    "snezhnaya": "",
+    "khaenri'ah": "",
+    "celestia": "",
 }
 
 var K_GACHA_CHARACTERS = [];
