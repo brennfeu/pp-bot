@@ -37,7 +37,8 @@ function kusanaliBotMessage(_message) {
 
     // thumbs up nahida
     if (_message.content.trim() == GIF_NAHIDA) return _message.react(EMOTE_KUSANALI);
-    else if (_message.content.trim().includes("hentai")) return _message.react(EMOTE_SUS);
+    else if (_message.content.trim().toLowerCase().includes("hentai")) return _message.react(EMOTE_SUS);
+    else if (_message.content.trim().includes("BONNE JOURNEE") || _message.content.trim().includes("BONNE JOURNÉE")) return_message.react("🎉");
 
     var commande = _message.content.trim().toLowerCase();
     if (!commande.startsWith('%')) return;
@@ -47,6 +48,9 @@ function kusanaliBotMessage(_message) {
     if (commande == "fleurs") return _message.channel.send(GIF_NAHIDA);
     if (commande == "gun") return _message.channel.send(GIF_GUN);
     if (commande == "kuru") return _message.channel.send(GIF_KURU);
+    if (commande == "cryo") return _message.channel.send(GIF_CRYO);
+    if (commande == "tada") return _message.channel.send(GIF_BESTGRILS);
+    if (commande == "kafkval") return _message.channel.send(GIF_KAFKYA);
 
     if (commande == "rank") {
         var p = k_getUserPoints(_message.author.id);
@@ -170,7 +174,7 @@ function kusanaliBotMessage(_message) {
                 .catch(console.error);
             }
             _message.guild.roles.fetch(K_COLOR_ROLES[args[2]])
-            .then(function(_role) { console.log(_role); _message.member.roles.add(_role); })
+            .then(function(_role) { _message.member.roles.add(_role); })
             .catch(console.error);
             executeQuery('UPDATE Player SET k_mora = (k_mora-500000) WHERE id = ' + _message.author.id);
 
@@ -317,9 +321,12 @@ function kusanaliBotMessage(_message) {
             "**status**: Affiche ton statut actuel sur le serveur.\n" +
 
             "\n" +
-            "**fleurs**: FC Loli des Fleurs !\n" +
+            "**cryo**: " + displayEmote("1133393876548321342") + "\n" +
+            "**fleurs**: FC Loli des Fleurs\n" +
             "**gun**: Bam !\n" +
+            "**kafkval**: HSR c'est joli des fois quand même...\n" +
             "**kuru**: Kuru kuru !\n" +
+            "**tada**: HU TAO ET FISCHL WOOOOOOO !!\n" +
 
             "",
         _message.channel);
@@ -502,6 +509,9 @@ function k_loadGachaData() {
 var GIF_NAHIDA = "https://tenor.com/view/nahida-kusanali-genshin-genshin-impact-sumeru-gif-26819159";
 var GIF_GUN = "https://cdn.discordapp.com/attachments/715322091804819486/1128822171649708132/gun.gif";
 var GIF_KURU = "https://tenor.com/view/kururin-kuru-kuru-herta-herta-sippining-honkai-star-rail-gif-6255874111095877274";
+var GIF_CRYO = "https://media.discordapp.net/attachments/852660792428068874/1132449083756396615/Nouveau_projet_206_9B1F20B.gif";
+var GIF_BESTGRILS = "https://media.discordapp.net/attachments/852660792428068874/1132440942796886147/Nouveau_projet_205_60D7D23.gif";
+var GIF_KAFKYA = "https://media.discordapp.net/attachments/852660792428068874/1132453402077581322/Nouveau_projet_207_6EBC14F.gif";
 
 var EMOTE_KUSANALI = "1011319146186813480";
 var EMOTE_SUS = "976147692214452224";
