@@ -39,7 +39,7 @@ function kusanaliBotMessage(_message) {
     if (_message.content.trim() == GIF_NAHIDA) return _message.react(EMOTE_KUSANALI);
     else if (_message.content.trim().toLowerCase().includes("hentai")) return _message.react(EMOTE_SUS);
     else if (_message.content.trim().includes("BONNE JOURNEE") || _message.content.trim().includes("BONNE JOURNÉE")) {
-        if (_message.author.id == "903277873601863682" || _message.author.id == "234439428372824075") setTimeout(function() { _message.channel.send("🎉🎉 BONNE JOURNÉE 🎉🎉"); }, 5000);
+        if (_message.author.id == "903277873601863682") setTimeout(function() { _message.channel.send("🎉🎉 BONNE JOURNÉE 🎉🎉"); }, 15000);
         return _message.react("🎉");
     }
 
