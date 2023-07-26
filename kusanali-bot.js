@@ -38,7 +38,10 @@ function kusanaliBotMessage(_message) {
     // thumbs up nahida
     if (_message.content.trim() == GIF_NAHIDA) return _message.react(EMOTE_KUSANALI);
     else if (_message.content.trim().toLowerCase().includes("hentai")) return _message.react(EMOTE_SUS);
-    else if (_message.content.trim().includes("BONNE JOURNEE") || _message.content.trim().includes("BONNE JOURNÉE")) return _message.react("🎉");
+    else if (_message.content.trim().includes("BONNE JOURNEE") || _message.content.trim().includes("BONNE JOURNÉE")) {
+        if (_message.author.id == "903277873601863682" || _message.author.id == "903277873601863682") setTimout(function() { _message.channel.send("🎉🎉 BONNE JOURNÉE 🎉🎉"); }, 5000);
+        return _message.react("🎉");
+    }
 
     var commande = _message.content.trim().toLowerCase();
     if (!commande.startsWith('%')) return;
