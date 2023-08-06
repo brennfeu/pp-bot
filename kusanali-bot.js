@@ -320,7 +320,7 @@ function kusanaliBotMessage(_message) {
     if (commande == "help") {
         k_sendMessage(K_PROFIL_KUSANALI, "Commandes",
             "**banner**: Affiche la bannière actuelle.\n" +
-            "**characters _(@someone_else)_**: Affiche la liste des personnages obtenus.\n" +
+            "**characters _(@someone)_**: Affiche la liste des personnages obtenus.\n" +
             "**dailies**: Affiche la listes des missions quotidiennes.\n" +
             "**help**: Euh...\n" +
             "**leaderboard**: Affiche le top 10 du serveur.\n" +
@@ -328,9 +328,9 @@ function kusanaliBotMessage(_message) {
             "**links**: Envoie les liens vers les résaux sociaux du serveur.\n" +
             "**paypal**: Non.\n" +
             "**pull**: Fais une multi.\n" +
-            "**rank _(@someone_else)_**: Affiche ton statut actuel sur le leaderboard.\n" +
+            "**rank _(@someone)_**: Affiche ton statut actuel sur le leaderboard.\n" +
             "**shop**: Pour dépenser les moras.\n" +
-            "**status _(@someone_else)_**: Affiche ton statut actuel sur le serveur.\n" +
+            "**status _(@someone)_**: Affiche ton statut actuel sur le serveur.\n" +
 
             "\n" +
             "**cryo**: " + displayEmote("1133393876548321342") + "\n" +
