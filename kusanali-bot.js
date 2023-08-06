@@ -56,10 +56,13 @@ function kusanaliBotMessage(_message) {
     if (commande == "kafkval") return _message.channel.send(GIF_KAFKYA);
 
     if (commande == "rank") {
-        var p = k_getUserPoints(_message.author.id);
+        var command_user = _message.author;
+        if (_message.mentions.users.array().length >= 1) command_user = _message.mentions.users.last();
+
+        var p = k_getUserPoints(command_user.id);
         var ar = k_getARFromPoints(p);
         var next_ar = K_AR_LIST[ar].xp;
-        var n = k_getUserPlacement(_message.author.id);
+        var n = k_getUserPlacement(command_user.id);
 
         var txt = "Points d'Experience : **" + sciText(p) +
             "**\nRang d'Aventurier : **" + ar +
@@ -68,19 +71,22 @@ function kusanaliBotMessage(_message) {
             "** xp (**" + sciText(next_ar-p) + "** restants)";
 
         return k_sendMessage(K_PROFIL_PAIMON_STATUE,
-            _message.author.username.secureXSS(),
+            command_user.username.secureXSS(),
             txt,
             _message.channel,
-            _message.author.avatarURL());
+            command_user.avatarURL());
     }
     if (commande == "status") {
-        var p = k_getUserPoints(_message.author.id);
+        var command_user = _message.author;
+        if (_message.mentions.users.array().length >= 1) command_user = _message.mentions.users.last();
+
+        var p = k_getUserPoints(command_user.id);
         var ar = k_getARFromPoints(p);
-        var m = k_getUserMora(_message.author.id);
-        var n = k_getUserPlacement(_message.author.id);
-        var v = k_getUserWishes(_message.author.id);
-        var pi = k_getUserPity(_message.author.id);
-        var inventory = executeQuery("SELECT * FROM K_Inventory WHERE id_player = " + _message.author.id);
+        var m = k_getUserMora(command_user.id);
+        var n = k_getUserPlacement(command_user.id);
+        var v = k_getUserWishes(command_user.id);
+        var pi = k_getUserPity(command_user.id);
+        var inventory = executeQuery("SELECT * FROM K_Inventory WHERE id_player = " + command_user.id);
 
         var txt = "Points d'Experience : **" + sciText(p) +
             "**\nRang d'Aventurier : **" + ar +
@@ -91,15 +97,15 @@ function kusanaliBotMessage(_message) {
             "**\n\nMora : **" + sciText(m) +
             "**";
 
-        var xp_date = k_getUserDoubleXpDate(_message.author.id);
+        var xp_date = k_getUserDoubleXpDate(command_user.id);
         if (k_getToday() < xp_date)
             txt += "\nDouble XP jusqu'au **" + formatDate(new Date(xp_date)) + "**";
 
         return k_sendMessage(K_PROFIL_PAIMON_STATUE,
-            _message.author.username.secureXSS(),
+            command_user.username.secureXSS(),
             txt,
             _message.channel,
-            _message.author.avatarURL());
+            command_user.avatarURL());
     }
     if (commande == "leaderboard") {
         var l = k_getLeaderboard();
@@ -270,7 +276,10 @@ function kusanaliBotMessage(_message) {
 		});
     }
     if (commande == "characters") {
-        var inventory = executeQuery("SELECT * FROM K_Inventory WHERE id_player = " + _message.author.id);
+        var command_user = _message.author;
+        if (_message.mentions.users.array().length >= 1) command_user = _message.mentions.users.last();
+
+        var inventory = executeQuery("SELECT * FROM K_Inventory WHERE id_player = " + command_user.id);
         var characters = [];
         var txt = "";
         var last_region = 0;
@@ -311,7 +320,7 @@ function kusanaliBotMessage(_message) {
     if (commande == "help") {
         k_sendMessage(K_PROFIL_KUSANALI, "Commandes",
             "**banner**: Affiche la bannière actuelle.\n" +
-            "**characters**: Affiche la liste des personnages obtenus.\n" +
+            "**characters _(@someone_else)_**: Affiche la liste des personnages obtenus.\n" +
             "**dailies**: Affiche la listes des missions quotidiennes.\n" +
             "**help**: Euh...\n" +
             "**leaderboard**: Affiche le top 10 du serveur.\n" +
@@ -319,9 +328,9 @@ function kusanaliBotMessage(_message) {
             "**links**: Envoie les liens vers les résaux sociaux du serveur.\n" +
             "**paypal**: Non.\n" +
             "**pull**: Fais une multi.\n" +
-            "**rank**: Affiche ton statut actuel sur le leaderboard.\n" +
+            "**rank _(@someone_else)_**: Affiche ton statut actuel sur le leaderboard.\n" +
             "**shop**: Pour dépenser les moras.\n" +
-            "**status**: Affiche ton statut actuel sur le serveur.\n" +
+            "**status _(@someone_else)_**: Affiche ton statut actuel sur le serveur.\n" +
 
             "\n" +
             "**cryo**: " + displayEmote("1133393876548321342") + "\n" +
