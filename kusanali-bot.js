@@ -435,7 +435,7 @@ function k_generateDailyMissions() {
                 break;
             case "use_word":
                 json[currentId].target = randomFromList([2, 3, 4]);
-                json[currentId].word = randomFromList(["leak", "nahida", "loli", "genshin", "liben", "paypal", "lilas", "bio", "paimon", "dainsleif", "primo", "mora", "hentai", "abyss", "discord", "twitter", "kaleidoscope"]);
+                json[currentId].word = randomFromList(["leak", "nahida", "loli", "genshin", "liben", "paypal", "lilas", "bio", "paimon", "dainsleif", "primo", "mora", "hentai", "abyss", "discord", "twitter", "kaleidoscope", "atiss", "novel", "sdf", "fischl", "meta", "design", "lore", "archon"]);
                 break;
         }
     }
