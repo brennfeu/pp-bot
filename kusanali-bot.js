@@ -51,8 +51,8 @@ function kusanaliBotMessage(_message) {
 
             _message.member.roles.add(_role);
             k_sendMessage(K_PROFIL_PAIMON_CHAD,
-                "Nouveau Role obtenu !",
-                "**Bienvenue voyageur " + _message.author.username.secureXSS() + " !",
+                "Bienvenue Voyageur !",
+                "Vous avez maintenant le rôle " + _message.author.username.secureXSS() + " !",
                 _message.channel);
         })
         .catch(console.error);
