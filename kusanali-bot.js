@@ -43,6 +43,21 @@ function kusanaliBotMessage(_message) {
         return _message.react("🎉");
     }
 
+    if (_message.channel.guild.id == K_SERVER_ID) { // check role voyageur
+        _message.guild.roles.fetch(ROLE_VOYAGEUR)
+        .then(function(_role) {
+            // check doesn't already have role
+            if (_message.member.roles.cache.get(_role.id) != undefined) return;
+
+            _message.member.roles.add(_role);
+            k_sendMessage(K_PROFIL_PAIMON_CHAD,
+                "Nouveau Role obtenu !",
+                "**Bienvenue voyageur " + _message.author.username.secureXSS() + " !",
+                _message.channel);
+        })
+        .catch(console.error);
+    }
+
     var commande = _message.content.trim().toLowerCase();
     if (!commande.startsWith('%')) return;
     commande = commande.substring(1).split(" ")[0];
@@ -528,6 +543,8 @@ var GIF_KAFKYA = "https://media.discordapp.net/attachments/852660792428068874/11
 var EMOTE_KUSANALI = "1011319146186813480";
 var EMOTE_SUS = "976147692214452224";
 
+var ROLE_VOYAGEUR = "836619851869978714";
+
 var K_PROFIL_PAIMON_CHAD = {
     "nom": "Paimon",
     "pfp": "https://cdn.discordapp.com/attachments/667337519477817363/1010869852635934740/unknown.png"
@@ -546,7 +563,7 @@ var K_PROFIL_LIBEN = {
 }
 var K_PROFIL_KATHERYNE = {
     "nom": "Catherine",
-    "pfp": "https://cdn.discordapp.com/attachments/715322091804819486/1122174408824463440/image.png"
+    "pfp": "https://cdn.discordapp.com/attachments/715322091804819486/1145450432399945738/image.png"
 }
 
 var K_MISSION_TITLES = {
