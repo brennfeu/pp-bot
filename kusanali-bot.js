@@ -24,11 +24,13 @@ function kusanaliBotMessage(_message) {
     k_increaseMissionProgress(_message.author.id, "send_messages", _message.channel, dailies);
     if (_message.mentions.users.array().length > 0) for (var i in _message.mentions.users.array()) k_increaseMissionProgress(_message.author.id, "tag_people", _message.channel, dailies);
     if (Array.from(_message.attachments).length > 0) for (var i in Array.from(_message.attachments)) k_increaseMissionProgress(_message.author.id, "send_pictures", _message.channel, dailies);
-    for (var i in dailies) { // use_word / send_links
-        if (dailies[i].type != "use_word" && dailies[i].type != "send_links") continue;
+    for (var i in dailies) { // "use_word", "send_links", "send_messages", "use_reactions"
+        if ([ "use_word", "send_links", "send_messages", "use_reactions" ].indexOf(dailies[i].type) <= -1) continue;
 
         var word = "";
         if (dailies[i].type == "send_links") word = "http";
+        else if (dailies[i].type == "send_messages") word = "message";
+        else if (dailies[i].type == "use_reactions") word = "react";
         else word = dailies[i].word;
 
         var nb = ("aaa-" + _message.content.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") + "-aaa").split(word).length-1;
@@ -569,7 +571,7 @@ var K_PROFIL_KATHERYNE = {
 var K_MISSION_TITLES = {
     "send_messages": "Envoyer [x] messages",
     "send_pictures": "Envoyer [x] images",
-    "use_reactions": "Utiliser [x] réactions",
+    "use_reactions": "Utiliser / envoyer [x] réactions",
     "send_links": "Envoyer [x] liens",
     "tag_people": "Tagger quelqu'un [x] fois",
     "use_word": "Utiliser le mot '[y]' [x] fois"
@@ -718,7 +720,7 @@ var K_AR_LIST = [
         "xp": 12845
     },
     { // 39
-        "xp": 12845
+        "xp": 13678
     },
     { // 40
         "xp": 14540,
