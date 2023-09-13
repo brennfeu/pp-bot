@@ -166,6 +166,7 @@ function kusanaliBotMessage(_message) {
             "**Double XP pendant 24h** ( _doublexp_ ) - 200 000 Moras\n" +
             "**Changement de couleur** ( _color_ [ _mondstadt_ / _liyue_ / _inazuma_ / _sumeru_ / _fontaine_ / _natlan_ / _snezhnaya_ / _khaenri'ah_ / _celestia_ ] ) - 500 000 Moras\n" +
             "**Lot de 10 vœux** ( _wishes_ ) - 500 000 Moras\n" +
+            "**Lot de 10 vœux** ( _refund_ ) - Toute constellation au dessus de C6\n" +
             "\nExemple de commande d'achat : ```%shop color inazuma```", _message.channel);
 
         var mora = k_getUserMora(_message.author.id);
@@ -215,6 +216,19 @@ function kusanaliBotMessage(_message) {
 
             return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
                 "Un lot de 10 vœux, très bien !", _message.channel);
+        }
+        if (args[1] == "refund") {
+            var total = executeQuery('SELECT SUM(amount-6) AS total FROM K_Inventory WHERE id_player=' + command_user.id + ' AND amount > 6;')[0]["total"];
+            if (total <= 0) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+                "Vous n'avez aucune constellation à rembourser.", _message.channel);
+
+            executeQuery('UPDATE Player SET k_wishes = (k_wishes+' + total + ') WHERE id = ' + _message.author.id);
+            executeQuery('UPDATE K_Inventory SET amount=6 WHERE id_player=' + command_user.id + " AND amount > 6;");
+
+            if (total == 1) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+                "Votre constellation a bien été remboursée.", _message.channel);
+            return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+                "Vos " + total + " constellations ont bien été remboursées.", _message.channel);
         }
 
         return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
