@@ -1,7 +1,7 @@
 function kusanaliBotMessage(_message) {
     if(_message.author.bot) return;
 
-    if (getRandomPercent() < 10) updatePlayer(_message.author.id, _message.author.username.secureXSS());
+    updatePlayer(_message.author.id, _message.author.username.secureXSS());
     k_resetUserDailyProgress(_message.author.id);
     var points_before = k_getUserPoints(_message.author.id);
     var points_after = k_addMessageCount(_message.author.id, _message.author.username.secureXSS());
