@@ -1,5 +1,6 @@
 function kusanaliBotMessage(_message) {
-    if(_message.author.bot) return;
+    if (_message.author.bot) return;
+    if (_message.channel.id == "1006622544008319007") return; // zonz
 
     updatePlayer(_message.author.id, _message.author.username.secureXSS());
     k_resetUserDailyProgress(_message.author.id);
