@@ -218,12 +218,12 @@ function kusanaliBotMessage(_message) {
                 "Un lot de 10 vœux, très bien !", _message.channel);
         }
         if (args[1] == "refund") {
-            var total = executeQuery('SELECT SUM(amount-6) AS total FROM K_Inventory WHERE id_player=' + _message.author.id + ' AND amount > 6;')[0]["total"];
+            var total = executeQuery('SELECT SUM(amount-7) AS total FROM K_Inventory WHERE id_player=' + _message.author.id + ' AND amount > 7;')[0]["total"];
             if (total <= 0) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
                 "Vous n'avez aucune constellation à rembourser.", _message.channel);
 
             executeQuery('UPDATE Player SET k_wishes = (k_wishes+' + total + ') WHERE id = ' + _message.author.id);
-            executeQuery('UPDATE K_Inventory SET amount=6 WHERE id_player=' + _message.author.id + " AND amount > 6;");
+            executeQuery('UPDATE K_Inventory SET amount=7 WHERE id_player=' + _message.author.id + " AND amount > 7;");
 
             if (total == 1) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
                 "Votre constellation a bien été remboursée.", _message.channel);
