@@ -19,6 +19,22 @@ function kusanaliBotMessage(_message) {
         executeQuery('UPDATE Player SET k_mora=(k_mora+' + _mora + ') WHERE id = ' + _message.author.id);
     }
 
+    // check role voyageur
+    if (_message.channel.guild.id == K_SERVER_ID) {
+        _message.guild.roles.fetch(ROLE_VOYAGEUR)
+        .then(function(_role) {
+            // check doesn't already have role
+            if (_message.member.roles.cache.get(_role.id) != undefined) return;
+
+            _message.member.roles.add(_role);
+            k_sendMessage(K_PROFIL_PAIMON_CHAD,
+                "Bienvenue " + _message.author.username.secureXSS() + " !",
+                "Vous avez maintenant le rôle **Voyageur** !",
+                _message.channel);
+        })
+        .catch(console.error);
+    }
+
     // dailies
     var dailies = k_getUserDailyProgress(_message.author.id);
     k_increaseMissionProgress(_message.author.id, "send_messages", _message.channel, dailies);
@@ -45,25 +61,9 @@ function kusanaliBotMessage(_message) {
         return _message.react("🎉");
     }
 
-    if (_message.channel.guild.id == K_SERVER_ID) { // check role voyageur
-        _message.guild.roles.fetch(ROLE_VOYAGEUR)
-        .then(function(_role) {
-            // check doesn't already have role
-            if (_message.member.roles.cache.get(_role.id) != undefined) return;
-
-            _message.member.roles.add(_role);
-            k_sendMessage(K_PROFIL_PAIMON_CHAD,
-                "Bienvenue " + _message.author.username.secureXSS() + " !",
-                "Vous avez maintenant le rôle **Voyageur** !",
-                _message.channel);
-        })
-        .catch(console.error);
-    }
-
     var commande = _message.content.trim().toLowerCase();
     if (!commande.startsWith('%')) return;
     commande = commande.substring(1).split(" ")[0];
-
 
     if (commande == "fleurs") return _message.channel.send(GIF_NAHIDA);
     if (commande == "gun") return _message.channel.send(GIF_GUN);
@@ -71,6 +71,7 @@ function kusanaliBotMessage(_message) {
     if (commande == "cryo") return _message.channel.send(GIF_CRYO);
     if (commande == "tada") return _message.channel.send(GIF_BESTGRILS);
     if (commande == "kafkval") return _message.channel.send(GIF_KAFKYA);
+    if (commande == "cancelsdf") return _message.channel.send(GIF_CANCELSDF);
 
     if (commande == "rank") {
         var command_user = _message.author;
@@ -364,6 +365,7 @@ function kusanaliBotMessage(_message) {
             "**status _(@someone)_**: Affiche ton statut actuel sur le serveur.\n" +
 
             "\n" +
+            "**cancelsdf**: #cancelsdf\n" +
             "**cryo**: " + displayEmote("1133393876548321342") + "\n" +
             "**fleurs**: FC Loli des Fleurs\n" +
             "**gun**: Bam !\n" +
@@ -555,6 +557,7 @@ var GIF_KURU = "https://tenor.com/view/kururin-kuru-kuru-herta-herta-sippining-h
 var GIF_CRYO = "https://media.discordapp.net/attachments/852660792428068874/1132449083756396615/Nouveau_projet_206_9B1F20B.gif";
 var GIF_BESTGRILS = "https://media.discordapp.net/attachments/852660792428068874/1132440942796886147/Nouveau_projet_205_60D7D23.gif";
 var GIF_KAFKYA = "https://media.discordapp.net/attachments/852660792428068874/1132453402077581322/Nouveau_projet_207_6EBC14F.gif";
+var GIF_CANCELSDF = "https://media.discordapp.net/attachments/1011223267928981584/1140618171510968421/New_Project_79_140F995.gif";
 
 var EMOTE_KUSANALI = "1011319146186813480";
 var EMOTE_SUS = "976147692214452224";
