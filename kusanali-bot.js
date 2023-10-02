@@ -73,6 +73,7 @@ function kusanaliBotMessage(_message) {
     if (commande == "tada") return _message.channel.send(GIF_BESTGRILS);
     if (commande == "kafkval") return _message.channel.send(GIF_KAFKYA);
     if (commande == "cancelsdf") return _message.channel.send(GIF_CANCELSDF);
+    if (commande == "hornynovel") return _message.channel.send(GIF_NOVEL);
 
     if (commande == "rank") {
         var command_user = _message.author;
@@ -370,6 +371,7 @@ function kusanaliBotMessage(_message) {
             "**cryo**: " + displayEmote("1133393876548321342") + "\n" +
             "**fleurs**: FC Loli des Fleurs\n" +
             "**gun**: Bam !\n" +
+            "**hornynovel**: Bah c'est Novel quoi\n" +
             "**kafkval**: HSR c'est joli des fois quand même...\n" +
             "**kuru**: Kuru kuru !\n" +
             "**tada**: HU TAO ET FISCHL WOOOOOOO !!\n" +
@@ -559,6 +561,7 @@ var GIF_CRYO = "https://media.discordapp.net/attachments/852660792428068874/1132
 var GIF_BESTGRILS = "https://media.discordapp.net/attachments/852660792428068874/1132440942796886147/Nouveau_projet_205_60D7D23.gif";
 var GIF_KAFKYA = "https://media.discordapp.net/attachments/852660792428068874/1132453402077581322/Nouveau_projet_207_6EBC14F.gif";
 var GIF_CANCELSDF = "https://media.discordapp.net/attachments/1011223267928981584/1140618171510968421/New_Project_79_140F995.gif";
+var GIF_NOVEL = "https://cdn.discordapp.com/attachments/1011225594714914936/1158425276297003068/New_Project_118_D20A914.gif";
 
 var EMOTE_KUSANALI = "1011319146186813480";
 var EMOTE_SUS = "976147692214452224";
