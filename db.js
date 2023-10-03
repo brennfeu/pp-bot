@@ -248,3 +248,11 @@ function k_getUserDoubleXpDate(_userId) {
 	if (result.length == 0) return 0;
 	return parseInt(result[0]["k_doublexp"]);
 }
+function k_getArtworkColumn(_userId) {
+	var result = executeQuery("SELECT k_alternate_artworks FROM Player WHERE id = " + _userId);
+
+	var txt = "art_link";
+	if (result[0].k_alternate_artworks != "0") txt += "_alt" + result[0].k_alternate_artworks;
+
+	return txt;
+}

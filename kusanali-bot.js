@@ -170,6 +170,7 @@ function kusanaliBotMessage(_message) {
             "**Changement de couleur** ( _color_ [ _mondstadt_ / _liyue_ / _inazuma_ / _sumeru_ / _fontaine_ / _natlan_ / _snezhnaya_ / _khaenri'ah_ / _celestia_ ] ) - 500 000 Moras\n" +
             "**Lot de 10 vœux** ( _wishes_ ) - 500 000 Moras\n" +
             "**Lot de 10 vœux** ( _refund_ ) - Toute constellation au dessus de C6\n" +
+            "**Mode '_alternatif_'** ( _nsfw_ ) - 5 000 000 Moras\n" +
             "\nExemple de commande d'achat : ```%shop color inazuma```", _message.channel);
 
         var mora = k_getUserMora(_message.author.id);
@@ -233,6 +234,15 @@ function kusanaliBotMessage(_message) {
             return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
                 "Vos " + total + " constellations ont bien été remboursées.", _message.channel);
         }
+        if (args[1] == "nsfw") {
+            if (mora <= 5000000) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+                "Vous n'avez pas assez de moras.", _message.channel);
+
+            executeQuery('UPDATE Player SET k_alternate_artworks=1, k_mora=(k_mora-5000000) WHERE id='+_message.author.id);
+
+            return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+                "Mode '_alternatif_', je vois, très bien !", _message.channel);
+        }
 
         return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
             "Je n'ai pas ça en stock, désolé.", _message.channel);
@@ -287,6 +297,7 @@ function kusanaliBotMessage(_message) {
 
         executeQuery('UPDATE Player SET k_wishes=(k_wishes-1), k_pity='+pity+' WHERE id = ' + _message.author.id);
         var message_files = [];
+        var artwork_column = k_getArtworkColumn();
         loot.sort(function(a, b) {
             return b.stars - a.stars;
         });
@@ -297,7 +308,7 @@ function kusanaliBotMessage(_message) {
                 "WHERE id_character='" + loot[i].id + "' AND id_player='" + _message.author.id + "';");
 
             var message_image = {};
-            message_image["attachment"] = loot[i].art_link;
+            message_image["attachment"] = loot[i][artwork_column];
             message_image["name"] = 'SPOILER_gacha'+i+'.png';
             message_files.push(message_image);
         }
