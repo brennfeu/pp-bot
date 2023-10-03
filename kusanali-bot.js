@@ -297,7 +297,7 @@ function kusanaliBotMessage(_message) {
 
         executeQuery('UPDATE Player SET k_wishes=(k_wishes-1), k_pity='+pity+' WHERE id = ' + _message.author.id);
         var message_files = [];
-        var artwork_column = k_getArtworkColumn();
+        var artwork_column = k_getArtworkColumn(_message.author.id);
         loot.sort(function(a, b) {
             return b.stars - a.stars;
         });
