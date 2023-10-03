@@ -107,6 +107,7 @@ function kusanaliBotMessage(_message) {
         var v = k_getUserWishes(command_user.id);
         var pi = k_getUserPity(command_user.id);
         var inventory = executeQuery("SELECT * FROM K_Inventory WHERE id_player = " + command_user.id);
+        var artwork_column = k_getArtworkColumn(_message.author.id);
 
         var txt = "Points d'Experience : **" + sciText(p) +
             "**\nRang d'Aventurier : **" + ar +
@@ -120,6 +121,9 @@ function kusanaliBotMessage(_message) {
         var xp_date = k_getUserDoubleXpDate(command_user.id);
         if (k_getToday() < xp_date)
             txt += "\nDouble XP jusqu'au **" + formatDate(new Date(xp_date)) + "**";
+
+        if (artwork_column == "art_link_alt1")
+            txt += "\n\n**Mode NSFW** activé";
 
         return k_sendMessage(K_PROFIL_PAIMON_STATUE,
             command_user.username.secureXSS(),
