@@ -538,8 +538,16 @@ function k_sendWebhookEmbedMessage(_webhook, _profil, _embed, _channel) {
         })
     });
 }
+
+var SENDING = false;
 async function k_sendFilesAndWait(_channel, _files) {
-    await _channel.send({ files: _files });
+    SENDING = true;
+    await _channel.send({ files: _files }).then(async function (_message2) {
+        SENDING = false;
+    }).catch(function(e) {
+        console.log(e);
+    });
+    while (SENDING) {}
     return true;
 }
 
