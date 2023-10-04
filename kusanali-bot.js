@@ -374,6 +374,40 @@ function kusanaliBotMessage(_message) {
 
         return k_sendEmbedMessage(K_PROFIL_PAIMON_STATUE, embedMessage, _message.channel);
     }
+    if (commande == "gallery") {
+        var command_user = _message.author;
+        if (_message.mentions.users.array().length >= 1) command_user = _message.mentions.users.last();
+
+        var inventory = executeQuery("SELECT * FROM K_Inventory WHERE id_player = " + command_user.id);
+        var characters = [];
+
+        for (var i in inventory) characters.push(K_GACHA_CHARACTERS.find(o => o.id == inventory[i].id_character));
+        if (characters.length == 0) return _message.channel.send("...");
+        characters.sort(function(a, b) {
+            if (a.id_region != b.id_region) return a.id_region - b.id_region;
+            if (a.stars != b.stars) return b.stars - a.stars;
+
+            if (a.name < b.name) return -1;
+            else if (a.name > b.name) return 1;
+            return 0;
+        });
+
+        var artwork_column = k_getArtworkColumn(_message.author.id);
+        var last_region = characters[i].id_region;
+        var artworks = [];
+        for (var i in characters) {
+            if (artworks.length >= 9 || last_region != characters[i].id_region) { // send all messages
+                _message.channel.send({ files: artworks });
+                artworks = [];
+            }
+
+            var message_image = {};
+            message_image["attachment"] = characters[i][artwork_column];
+            message_image["name"] = 'gallery_'+i+'.png';
+            artworks.push(message_image);
+        }
+        return;
+    }
     if (commande == "reset_cache") {
         k_loadGachaData();
         return _message.reply("fait !");
@@ -381,8 +415,9 @@ function kusanaliBotMessage(_message) {
     if (commande == "help") {
         k_sendMessage(K_PROFIL_KUSANALI, "Commandes",
             "**banner**: Affiche la bannière actuelle.\n" +
-            "**characters _(@someone)_**: Affiche la liste des personnages obtenus.\n" +
+            "**characters _(@someone)_**: Affiche la liste des personnages obtenus (texte).\n" +
             "**dailies**: Affiche la listes des missions quotidiennes.\n" +
+            "**gallery _(@someone)_**: Affiche la liste des personnages obtenus (images).\n" +
             "**help**: Euh...\n" +
             "**leaderboard**: Affiche le top 10 du serveur.\n" +
             "**legacy**: Affecte les rôles manquants.\n" +
