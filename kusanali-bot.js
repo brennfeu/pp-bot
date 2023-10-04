@@ -1,4 +1,4 @@
-function kusanaliBotMessage(_message) {
+async function kusanaliBotMessage(_message) {
     if (_message.author.bot) return;
     if (_message.channel.id == "1006622544008319007") return; // zonz
 
@@ -397,7 +397,7 @@ function kusanaliBotMessage(_message) {
         var artworks = [];
         for (var i in characters) {
             if (artworks.length >= 9 || last_region != characters[i].id_region) { // send all messages
-                k_sendFilesAndWait(_message.channel, artworks);
+                await k_sendFilesAndWait(_message.channel, artworks);
                 last_region = characters[i].id_region;
                 artworks = [];
             }
@@ -438,7 +438,6 @@ function kusanaliBotMessage(_message) {
             "**kafkval**: HSR c'est joli des fois quand même...\n" +
             "**kuru**: Kuru kuru !\n" +
             "**tada**: HU TAO ET FISCHL WOOOOOOO !!\n" +
-
             "",
         _message.channel);
         return k_checkRoles(_message);
