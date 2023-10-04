@@ -1,4 +1,4 @@
-function kusanaliBotMessage(_message) {
+async function kusanaliBotMessage(_message) {
     if (_message.author.bot) return;
     if (_message.channel.id == "1006622544008319007") return; // zonz
 
@@ -337,8 +337,6 @@ function kusanaliBotMessage(_message) {
 
         var inventory = executeQuery("SELECT * FROM K_Inventory WHERE id_player = " + command_user.id);
         var characters = [];
-        var txt = "";
-        var last_region = 0;
 
         for (var i in inventory) characters.push(K_GACHA_CHARACTERS.find(o => o.id == inventory[i].id_character));
         characters.sort(function(a, b) {
@@ -350,12 +348,22 @@ function kusanaliBotMessage(_message) {
             return 0;
         });
 
+        var embedMessage = new DISCORD.MessageEmbed();
+        embedMessage.setTitle("**Inventaire de Personnages**");
+
+        var txt = "";
+        var last_region = 0;
         for (var i in characters) {
             var amount = parseInt(inventory.find(o => o.id_character == characters[i].id).amount);
             if (characters[i].id_region != last_region) {
+                if (txt != "") { // add field to embed
+                    var region = K_GACHA_REGIONS.find(o => o.id == last_region);
+                    embedMessage.addField(region.name.toUpperCase(), txt, true);
+                }
+
                 var region = K_GACHA_REGIONS.find(o => o.id == characters[i].id_region);
-                txt += "### **" + region.name.toUpperCase() + "**\n";
                 last_region = characters[i].id_region;
+                txt = "";
             }
 
             txt += "- ";
@@ -365,9 +373,48 @@ function kusanaliBotMessage(_message) {
             if (characters[i].stars == 5) txt += "_";
             txt += "\n"
         }
-        if (txt == "") txt = "...";
+        if (txt == "") embedMessage.setDescription("...");
+        else { // add field to embed
+            var region = K_GACHA_REGIONS.find(o => o.id == last_region);
+            embedMessage.addField(region.name.toUpperCase(), txt, true);
+        }
 
-        return k_sendMessage(K_PROFIL_PAIMON_STATUE, "Inventaire de Personnages", txt, _message.channel);
+        return k_sendEmbedMessage(K_PROFIL_PAIMON_STATUE, embedMessage, _message.channel);
+    }
+    if (commande == "gallery") {
+        var command_user = _message.author;
+        if (_message.mentions.users.array().length >= 1) command_user = _message.mentions.users.last();
+
+        var inventory = executeQuery("SELECT * FROM K_Inventory WHERE id_player = " + command_user.id);
+        var characters = [];
+
+        for (var i in inventory) characters.push(K_GACHA_CHARACTERS.find(o => o.id == inventory[i].id_character));
+        if (characters.length == 0) return _message.channel.send("...");
+        characters.sort(function(a, b) {
+            if (a.id_region != b.id_region) return a.id_region - b.id_region;
+            if (a.stars != b.stars) return b.stars - a.stars;
+
+            if (a.name < b.name) return -1;
+            else if (a.name > b.name) return 1;
+            return 0;
+        });
+
+        var artwork_column = k_getArtworkColumn(_message.author.id);
+        var last_region = characters[0].id_region;
+        var artworks = [];
+        for (var i in characters) {
+            if (artworks.length >= 9 || last_region != characters[i].id_region) { // send all messages
+                await k_sendFilesAndWait(_message.channel, artworks);
+                last_region = characters[i].id_region;
+                artworks = [];
+            }
+
+            var message_image = {};
+            message_image["attachment"] = characters[i][artwork_column];
+            message_image["name"] = 'gallery_'+i+'.png';
+            artworks.push(message_image);
+        }
+        return;
     }
     if (commande == "reset_cache") {
         k_loadGachaData();
@@ -376,8 +423,9 @@ function kusanaliBotMessage(_message) {
     if (commande == "help") {
         k_sendMessage(K_PROFIL_KUSANALI, "Commandes",
             "**banner**: Affiche la bannière actuelle.\n" +
-            "**characters _(@someone)_**: Affiche la liste des personnages obtenus.\n" +
+            "**characters _(@someone)_**: Affiche la liste des personnages obtenus (texte).\n" +
             "**dailies**: Affiche la listes des missions quotidiennes.\n" +
+            "**gallery _(@someone)_**: Affiche la liste des personnages obtenus (images).\n" +
             "**help**: Euh...\n" +
             "**leaderboard**: Affiche le top 10 du serveur.\n" +
             "**legacy**: Affecte les rôles manquants.\n" +
@@ -397,7 +445,6 @@ function kusanaliBotMessage(_message) {
             "**kafkval**: HSR c'est joli des fois quand même...\n" +
             "**kuru**: Kuru kuru !\n" +
             "**tada**: HU TAO ET FISCHL WOOOOOOO !!\n" +
-
             "",
         _message.channel);
         return k_checkRoles(_message);
@@ -457,6 +504,57 @@ function k_sendWebhookMessage(_webhook, _profil, _title, _message, _channel, _av
             _message.channel.send(_message);
         })
     });
+}
+function k_sendEmbedMessage(_profil, _embed, _channel) {
+    _channel.fetchWebhooks()
+    .then(function(_hooks) {
+        for (const [ _key, _value ] of _hooks) {
+            if (_value.owner.id == CLIENT.user.id) return k_sendWebhookEmbedMessage(_value, _profil, _embed, _channel);
+        }
+
+        _channel.createWebhook('Kusana-Leaks', {
+            name: 'Kusana-Leaks',
+            avatar: 'https://cdn.discordapp.com/attachments/667337519477817363/996062528973058100/unknown.png'
+        })
+        .then(function(_webhook) {
+            k_sendWebhookEmbedMessage(_webhook, _profil, _embed, _channel);
+        })
+        .catch(function(_e) { console.log(_e) });
+    })
+    .catch(function(_e) { console.log(_e) });
+}
+function k_sendWebhookEmbedMessage(_webhook, _profil, _embed, _channel) {
+    webhookClient = new DISCORD.WebhookClient(_webhook.id, _webhook.token);
+
+    var embedMessage = _embed;
+    embedMessage.setColor([ 125, 171, 73 ]);
+    embedMessage.setFooter('Perdu ? Tapez \'%help\' pour plus de détails.', 'https://cdn.discordapp.com/attachments/721498678925328434/721511440598696056/arbitrator.png');
+
+    webhookClient.send('', {
+        username: _profil.nom,
+        avatarURL: _profil.pfp,
+        embeds: [ embedMessage ]
+    })
+    .catch(function(_e) {
+        console.log(_e);
+        webhookClient.send(_message)
+        .catch(function(_e) {
+            console.log(_e);
+            _message.channel.send(_message);
+        })
+    });
+}
+
+var SENDING = false;
+async function k_sendFilesAndWait(_channel, _files) {
+    SENDING = true;
+    await _channel.send({ files: _files }).then(async function (_message2) {
+        SENDING = false;
+    }).catch(function(e) {
+        console.log(e);
+    });
+    while (SENDING) {}
+    return true;
 }
 
 function k_generateDailyMissions() {
