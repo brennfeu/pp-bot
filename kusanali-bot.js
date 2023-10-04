@@ -351,7 +351,7 @@ function kusanaliBotMessage(_message) {
             if (characters[i].id_region != last_region) {
                 if (txt != "") { // add field to embed
                     var region = K_GACHA_REGIONS.find(o => o.id == last_region);
-                    embedMessage.addField(region.name.toUpperCase(), txt);
+                    embedMessage.addField(region.name.toUpperCase(), txt, true);
                 }
 
                 var region = K_GACHA_REGIONS.find(o => o.id == characters[i].id_region);
