@@ -397,7 +397,7 @@ function kusanaliBotMessage(_message) {
         var artworks = [];
         for (var i in characters) {
             if (artworks.length >= 9 || last_region != characters[i].id_region) { // send all messages
-                k_sendFilesAndWait(artworks);
+                k_sendFilesAndWait(_message.channel, artworks);
                 last_region = characters[i].id_region;
                 artworks = [];
             }
@@ -538,8 +538,8 @@ function k_sendWebhookEmbedMessage(_webhook, _profil, _embed, _channel) {
         })
     });
 }
-async function k_sendFilesAndWait(_files) {
-    await _message.channel.send({ files: artworks });
+async function k_sendFilesAndWait(_channel, _files) {
+    await _channel.send({ files: _files });
     return true;
 }
 
