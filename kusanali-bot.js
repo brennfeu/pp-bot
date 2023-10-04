@@ -369,7 +369,7 @@ function kusanaliBotMessage(_message) {
         if (txt == "") embedMessage.setDescription("...");
         else { // add field to embed
             var region = K_GACHA_REGIONS.find(o => o.id == last_region);
-            embedMessage.addField(region.name.toUpperCase(), txt);
+            embedMessage.addField(region.name.toUpperCase(), txt, true);
         }
 
         return k_sendEmbedMessage(K_PROFIL_PAIMON_STATUE, embedMessage, _message.channel);
