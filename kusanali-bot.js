@@ -398,6 +398,7 @@ function kusanaliBotMessage(_message) {
         for (var i in characters) {
             if (artworks.length >= 9 || last_region != characters[i].id_region) { // send all messages
                 _message.channel.send({ files: artworks });
+                last_region = characters[i].id_region;
                 artworks = [];
             }
 
