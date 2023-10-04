@@ -393,7 +393,7 @@ function kusanaliBotMessage(_message) {
         });
 
         var artwork_column = k_getArtworkColumn(_message.author.id);
-        var last_region = characters[i].id_region;
+        var last_region = characters[0].id_region;
         var artworks = [];
         for (var i in characters) {
             if (artworks.length >= 9 || last_region != characters[i].id_region) { // send all messages
