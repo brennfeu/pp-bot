@@ -467,7 +467,7 @@ function k_sendEmbedMessage(_profil, _embed, _channel) {
     _channel.fetchWebhooks()
     .then(function(_hooks) {
         for (const [ _key, _value ] of _hooks) {
-            if (_value.owner.id == CLIENT.user.id) return k_sendWebhookEmbedMessage(_value, _embed, _channel);
+            if (_value.owner.id == CLIENT.user.id) return k_sendWebhookEmbedMessage(_value, _profil, _embed, _channel);
         }
 
         _channel.createWebhook('Kusana-Leaks', {
@@ -475,7 +475,7 @@ function k_sendEmbedMessage(_profil, _embed, _channel) {
             avatar: 'https://cdn.discordapp.com/attachments/667337519477817363/996062528973058100/unknown.png'
         })
         .then(function(_webhook) {
-            k_sendWebhookEmbedMessage(_webhook, _embed, _channel);
+            k_sendWebhookEmbedMessage(_webhook, _profil, _embed, _channel);
         })
         .catch(function(_e) { console.log(_e) });
     })
