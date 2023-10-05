@@ -244,8 +244,15 @@ async function kusanaliBotMessage(_message) {
 
             executeQuery('UPDATE Player SET k_alternate_artworks=1, k_mora=(k_mora-5000000) WHERE id='+_message.author.id);
 
+            _message.guild.roles.fetch(ROLE_NSFW)
+            .then(function(_role) {
+                if (_message.member.roles.cache.get(_role.id) != undefined) return;
+                _message.member.roles.add(_role);
+            })
+            .catch(console.error);
+
             return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
-                "Mode '_alternatif_', je vois, très bien !", _message.channel);
+                "Mode '_alternatif_', je vois, très bien !\nN'oubliez pas de faire vos pulls dans le channel dédié !", _message.channel);
         }
 
         return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
@@ -680,6 +687,7 @@ var EMOTE_KUSANALI = "1011319146186813480";
 var EMOTE_SUS = "976147692214452224";
 
 var ROLE_VOYAGEUR = "836619851869978714";
+var ROLE_NSFW = "1159221938141540502";
 
 var K_PROFIL_PAIMON_CHAD = {
     "nom": "Paimon",
