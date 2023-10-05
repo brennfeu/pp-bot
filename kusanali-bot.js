@@ -107,7 +107,7 @@ async function kusanaliBotMessage(_message) {
         var v = k_getUserWishes(command_user.id);
         var pi = k_getUserPity(command_user.id);
         var inventory = executeQuery("SELECT * FROM K_Inventory WHERE id_player = " + command_user.id);
-        var artwork_column = k_getArtworkColumn(_message.author.id);
+        var artwork_column = k_getArtworkColumn(command_user.id);
 
         var txt = "Points d'Experience : **" + sciText(p) +
             "**\nRang d'Aventurier : **" + ar +
