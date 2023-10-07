@@ -4,21 +4,29 @@ async function kusanaliBotMessage(_message) {
 
     updatePlayer(_message.author.id, _message.author.username.secureXSS());
     k_resetUserDailyProgress(_message.author.id);
+
+    // xp / mora si AR60+
     var points_before = k_getUserPoints(_message.author.id);
     var points_after = k_addMessageCount(_message.author.id, _message.author.username.secureXSS());
-    for (var i in K_AR_LIST) { // check if AR up
-        if (points_before >= K_AR_LIST[i].xp || K_AR_LIST[i].xp > points_after) continue;
-
-        var _current_ar = parseInt(i)+1;
-        var _mora = _current_ar*10000;
-        k_sendMessage(K_PROFIL_PAIMON_CHAD,
-            "Nouveau Rang d'Ascension Atteint !",
-            "**Bravo " + _message.author.username.secureXSS() + "**, tu es passé Rang d'Aventurier **" + _current_ar + "** !\n\nTu gagnes " + sciText(_mora) + " Moras !",
-            _message.channel);
-        k_checkRoles(_message);
-
-        executeQuery('UPDATE Player SET k_mora=(k_mora+' + _mora + ') WHERE id = ' + _message.author.id);
+    if (k_getARFromPoints(points_before) >= 60) { // money
+        executeQuery('UPDATE Player SET k_mora=(k_mora+5000) WHERE id = ' + _message.author.id);
     }
+    else { // xp
+        for (var i in K_AR_LIST) { // check if AR up
+            if (points_before >= K_AR_LIST[i].xp || K_AR_LIST[i].xp > points_after) continue;
+
+            var _current_ar = parseInt(i)+1;
+            var _mora = _current_ar*10000;
+            k_sendMessage(K_PROFIL_PAIMON_CHAD,
+                "Nouveau Rang d'Ascension Atteint !",
+                "**Bravo " + _message.author.username.secureXSS() + "**, tu es passé Rang d'Aventurier **" + _current_ar + "** !\n\nTu gagnes " + sciText(_mora) + " Moras !",
+                _message.channel);
+            k_checkRoles(_message);
+
+            executeQuery('UPDATE Player SET k_mora=(k_mora+' + _mora + ') WHERE id = ' + _message.author.id);
+        }
+    }
+
 
     // check role voyageur
     if (_message.channel.guild.id == K_SERVER_ID) {
