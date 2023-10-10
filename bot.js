@@ -376,6 +376,7 @@ function cloneObject(obj) {
 CLIENT.on('ready', () => {
 	console.log(`Logged in as ${CLIENT.user.tag}!`);
 	setBotActivity("nothing, I just rebooted.");
+    client.channels.fetch(CHANNEL_NO_MIC); // kusanali no_mic channel
 	checkUpdateEncyclopedia();
     k_loadGachaData();
 });
@@ -771,6 +772,11 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => { try {
 			return;
 		}
 	}
+} catch(e) { sendErrorToDev(e) }
+});
+
+CLIENT.on('guildMemberSpeaking', (_guildMember, _speaking) => { try {
+	if ([K_SERVER_ID, K_TEST_SERVER_ID].indexOf(_guildMember.guild.id) >= 0) return k_guildMemberSpeaking(_guildMember, _speaking);
 } catch(e) { sendErrorToDev(e) }
 });
 

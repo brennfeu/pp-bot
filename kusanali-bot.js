@@ -5,28 +5,7 @@ async function kusanaliBotMessage(_message) {
     updatePlayer(_message.author.id, _message.author.username.secureXSS());
     k_resetUserDailyProgress(_message.author.id);
 
-    // xp / mora si AR60+
-    var points_before = k_getUserPoints(_message.author.id);
-    var points_after = k_addMessageCount(_message.author.id, _message.author.username.secureXSS());
-    if (k_getARFromPoints(points_before) >= 60) { // money
-        executeQuery('UPDATE Player SET k_mora=(k_mora+5000) WHERE id = ' + _message.author.id);
-    }
-    else { // xp
-        for (var i in K_AR_LIST) { // check if AR up
-            if (points_before >= K_AR_LIST[i].xp || K_AR_LIST[i].xp > points_after) continue;
-
-            var _current_ar = parseInt(i)+1;
-            var _mora = _current_ar*10000;
-            k_sendMessage(K_PROFIL_PAIMON_CHAD,
-                "Nouveau Rang d'Ascension Atteint !",
-                "**Bravo " + _message.author.username.secureXSS() + "**, tu es passé Rang d'Aventurier **" + _current_ar + "** !\n\nTu gagnes " + sciText(_mora) + " Moras !",
-                _message.channel);
-            k_checkRoles(_message);
-
-            executeQuery('UPDATE Player SET k_mora=(k_mora+' + _mora + ') WHERE id = ' + _message.author.id);
-        }
-    }
-
+    k_addMessageCount(_message.author.id, _message.author.username.secureXSS());
 
     // check role voyageur
     if (_message.channel.guild.id == K_SERVER_ID) {
@@ -179,9 +158,11 @@ async function kusanaliBotMessage(_message) {
         var args = _message.content.trim().toLowerCase().split(" ");
         if (args.length == 1) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
             "**Double XP pendant 24h** ( _doublexp_ ) - 200 000 Moras\n" +
-            "**Changement de couleur** ( _color_ [ _mondstadt_ / _liyue_ / _inazuma_ / _sumeru_ / _fontaine_ / _natlan_ / _snezhnaya_ / _khaenri'ah_ / _celestia_ ] ) - 500 000 Moras\n" +
+            "**Changement de couleur** ( _color_ [ _mondstadt_ / _liyue_ / _inazuma_ / _sumeru_ / _fontaine_ / _natlan_ / _snezhnaya_ / _khaenri'ah_ / _celestia_ ] ) - 500 000 Moras\n\n" +
+
             "**Lot de 10 vœux** ( _wishes_ ) - 500 000 Moras\n" +
-            "**Lot de 10 vœux** ( _refund_ ) - Toute constellation au dessus de C6\n" +
+            "**Lot de 10 vœux** ( _refund_ ) - Toute constellation au dessus de C6\n\n" +
+
             "**Mode '_alternatif_'** ( _nsfw_ ) - 5 000 000 Moras\n" +
             "\nExemple de commande d'achat : ```%shop color inazuma```", _message.channel);
 
@@ -424,6 +405,21 @@ async function kusanaliBotMessage(_message) {
         }
         return;
     }
+    if (commande == "option") {
+        var args = _message.content.trim().toLowerCase().split(" ");
+        var current_options = k_getUserOptions(_message.author.id);
+        if (args.length == 1) return k_sendMessage(K_PROFIL_KUSANALI, "Les Options des Fleurs",
+            "_fullinventory_ ("+["✅", "❌"][current_options["fullinventory"]]+") : Affiche tous les personnages avec la commande %characters\n" +
+            "_autorefund_ ("+["✅", "❌"][current_options["autorefund"]]+") : Rembourse automatiquement les constellations au dessus de 6\n" +
+            "\nExemple de commande d'achat : ```%option color inazuma```", _message.channel);
+        if (["fullinventory", "autorefund"].indexOf(args[1]) <= -1) return k_sendMessage(K_PROFIL_KUSANALI, "Les Options des Fleurs",
+            "Je n'ai pas cette option, je suis désolée.", _message.channel);
+
+        current_options[args[1]] = Math.abs(current_options[args[1]]-1);
+        k_setUserOptions(_message.author.id, current_options);
+        return k_sendMessage(K_PROFIL_KUSANALI, "Les Options des Fleurs",
+            "L'option _" + args[1] + "_ a été mise à jour !", _message.channel);
+    }
     if (commande == "reset_cache") {
         k_loadGachaData();
         return _message.reply("fait !");
@@ -438,6 +434,7 @@ async function kusanaliBotMessage(_message) {
             "**leaderboard**: Affiche le top 10 du serveur.\n" +
             "**legacy**: Affecte les rôles manquants.\n" +
             "**links**: Envoie les liens vers les résaux sociaux du serveur.\n" +
+            "**option**: Permet de customiser votre experience.\n" +
             "**paypal**: Non.\n" +
             "**pull**: Fais une multi.\n" +
             "**rank _(@someone)_**: Affiche ton statut actuel sur le leaderboard.\n" +
@@ -461,6 +458,26 @@ async function kusanaliBotMessage(_message) {
     return _message.reply("je ne connais pas cette commande :/");
 }
 
+var VOCAL_TRACKING = {};
+var VOCAL_TIME = {};
+function k_guildMemberSpeaking(_guildMember, _speaking) {
+    if (_speaking) VOCAL_TRACKING[_guildMember.user.id] = Date.now();
+    else {
+        if (VOCAL_TRACKING[_guildMember.user.id] == undefined) return;
+
+        if (VOCAL_TIME[_guildMember.user.id] == undefined) VOCAL_TIME[_guildMember.user.id] = 0;
+        var total_time = VOCAL_TIME[_guildMember.user.id] + Date.now() - VOCAL_TRACKING[_guildMember.user.id];
+
+        var total_point = Math.floor(total_time / 1000);
+        var remaining_time = total_time % 1000;
+
+        var no_mic_channel = _guildMember.guild.channels.cache.get(CHANNEL_NO_MIC);
+        for (var i = 0; i < total_point; i++) k_addMessageCount(_guildMember.user.id, _guildMember.user.username.secureXSS(), no_mic_channel)
+
+        VOCAL_TIME[_guildMember.user.id] = remaining_time;
+    }
+}
+
 function k_getUserAR(_userId) {
     return k_getARFromPoints(k_getUserPoints(_userId));
 }
@@ -470,6 +487,7 @@ function k_getARFromPoints(_p) {
     }
     return 60;
 }
+
 
 function k_sendMessage(_profil, _title, _message, _channel, _avatar = undefined) {
     _channel.fetchWebhooks()
@@ -697,13 +715,15 @@ var EMOTE_SUS = "976147692214452224";
 var ROLE_VOYAGEUR = "836619851869978714";
 var ROLE_NSFW = "1159221938141540502";
 
+var CHANNEL_NO_MIC = "836404086235463721";
+
 var K_PROFIL_PAIMON_CHAD = {
     "nom": "Paimon",
     "pfp": "https://cdn.discordapp.com/attachments/667337519477817363/1010869852635934740/unknown.png"
 }
 var K_PROFIL_PAIMON_STATUE = {
     "nom": "Paimon",
-    "pfp": "https://cdn.discordapp.com/attachments/667337519477817363/1010869748898222140/unknown.png"
+    "pfp": "https://cdn.discordapp.com/attachments/715322091804819486/1161209344319303741/static_wikia_nocookie_net-latest.jpg"
 }
 var K_PROFIL_KUSANALI = {
     "nom": "Loli des Fleurs",

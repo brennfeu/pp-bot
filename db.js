@@ -181,8 +181,9 @@ function toggleGod(_fighterID, _god) {
 	return setPlayerBuild(_fighterID, build);
 }
 
-function k_addMessageCount(_userId, _username) {
-	var result = executeQuery("SELECT k_points FROM Player WHERE id = " + _userId)
+function k_addMessageCount(_userId, _username, _channel) {
+    var points_before = k_getUserPoints(_userId);
+	var result = executeQuery("SELECT k_points FROM Player WHERE id = " + _userId);
 
 	if (result.length == 0) { // add user and sets points to 0
 		addFighterToDB(_userId, _username);
@@ -192,7 +193,24 @@ function k_addMessageCount(_userId, _username) {
 	if (k_getToday() < k_getUserDoubleXpDate(_userId)) value += 1;
 
 	executeQuery("UPDATE Player SET k_points = " + value + " WHERE id = " + _userId);
-	return value;
+
+    if (k_getARFromPoints(points_before) >= 60) { // money
+        executeQuery('UPDATE Player SET k_mora=(k_mora+5000) WHERE id = ' + _userId);
+    }
+    else { // xp
+        for (var i in K_AR_LIST) { // check if AR up
+            if (points_before >= K_AR_LIST[i].xp || K_AR_LIST[i].xp > points_after) continue;
+
+            var _current_ar = parseInt(i)+1;
+            var _mora = _current_ar*10000;
+            k_sendMessage(K_PROFIL_PAIMON_CHAD,
+                "Nouveau Rang d'Ascension Atteint !",
+                "**Bravo "+_username+"**, tu es passé Rang d'Aventurier **"+_current_ar+"** !\n\nTu gagnes "+sciText(_mora)+" Moras !", _channel);
+            k_checkRoles(_message);
+
+            executeQuery('UPDATE Player SET k_mora=(k_mora+' + _mora + ') WHERE id = ' + _userId);
+        }
+    }
 }
 function k_getUserPoints(_userId) {
 	var result = executeQuery("SELECT k_points FROM Player WHERE id = " + _userId)
@@ -255,4 +273,17 @@ function k_getArtworkColumn(_userId) {
 	if (result[0].k_alternate_artworks != "0") txt += "_alt" + result[0].k_alternate_artworks;
 
 	return txt;
+}
+function k_getUserOptions(_id) {
+    var opt = executeQuery("SELECt k_options FROM Player WHERE id=" + _id)[0]["k_options"];
+    opt = JSON.parse(opt);
+
+    // default
+    if (opt.fullinventory == undefined) opt.fullinventory = 0;
+    if (opt.autorefund == undefined) opt.autorefund = 0;
+
+    return opt;
+}
+function k_setUserOptions(_id, _options) {
+    executeQuery('UPDATE Player SET k_options=\'' + JSON.stringify(_options) + '\' WHERE id = ' + _id);
 }
