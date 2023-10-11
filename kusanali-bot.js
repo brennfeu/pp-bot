@@ -673,6 +673,7 @@ function k_increaseMissionProgress(_userId, _missionType, _channel, _dailies = "
 }
 
 function k_checkRoles(_message) {
+    if (_message.guild.id != K_SERVER_ID) return;
     var ar = k_getUserAR(_message.author.id);
 
     for (var i in K_AR_LIST) {
