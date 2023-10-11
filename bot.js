@@ -775,12 +775,12 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => { try {
 } catch(e) { sendErrorToDev(e) }
 });
 
-CLIENT.on('voiceStateUpdate', (_guildMember, _speaking) => { console.log("voiceStateUpdate"); try {
-	if ([K_SERVER_ID, K_TEST_SERVER_ID].indexOf(_guildMember.guild.id) < 0) return;
+CLIENT.on('voiceStateUpdate', (_guildMember, _speaking) => { try {
+	if ([K_SERVER_ID, K_TEST_SERVER_ID].indexOf(_guildMember.guild.id) >= 0) return k_guildMemberSpeaking(_guildMember, _speaking);
 } catch(e) { sendErrorToDev(e) }
 });
-CLIENT.on('guildMemberSpeaking', (_oldState, _newState) => { console.log("guildMemberSpeaking"); try {
-	if ([K_SERVER_ID, K_TEST_SERVER_ID].indexOf(_oldState.member.guild.id) >= 0) return k_guildMemberSpeaking(_guildMember, _speaking);
+CLIENT.on('guildMemberSpeaking', (_oldState, _newState) => { try {
+	if ([K_SERVER_ID, K_TEST_SERVER_ID].indexOf(_oldState.member.guild.id) < 0) return;
 
 	if (_newState.speaking) { // joins vc
 		_newState.channel.join();
