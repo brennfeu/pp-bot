@@ -361,6 +361,7 @@ async function kusanaliBotMessage(_message) {
             if (amount > 1) txt += " **C" + (amount-1) + "**";
             if (characters[i].stars == 5) txt += "_";
             if (amount <= 0) "~~";
+            txt += amount;
             txt += "\n"
         }
         if (txt == "") embedMessage.setDescription("...");
