@@ -781,6 +781,7 @@ CLIENT.on('guildMemberSpeaking', (_guildMember, _speaking) => { try {
 });
 CLIENT.on('voiceStateUpdate', (_oldState, _newState) => { try {
 	if ([K_SERVER_ID, K_TEST_SERVER_ID].indexOf(_oldState.member.guild.id) < 0) return;
+	return;
 
 	var vc_channel = _newState.guild.channels.cache.get(_newState.channelID);
 	if (vc_channel == null) return;
