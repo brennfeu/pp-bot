@@ -782,12 +782,14 @@ CLIENT.on('guildMemberSpeaking', (_guildMember, _speaking) => { try {
 CLIENT.on('voiceStateUpdate', (_oldState, _newState) => { try {
 	if ([K_SERVER_ID, K_TEST_SERVER_ID].indexOf(_oldState.member.guild.id) < 0) return;
 
-	console.log(_newState);
+	var vc_channel = _newState.guild.channels.cache.get(_newState.channelID);
+	if (vc_channel == null) return;
+	
 	if (_newState.speaking) { // joins vc
-		_newState.channel.join();
+		vc_channel.join();
 		console.log("JOINED VC!");
 	}
-	else if (_newState.channel != null && _newState.channel.members.length == 0) { // check if no one else
+	else if (vc_channel.members.length == 0) { // check if no one else
 		_newState.channel.leave();
 		console.log("LEFT VC!");
 	}
