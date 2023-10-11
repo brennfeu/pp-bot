@@ -215,17 +215,7 @@ async function kusanaliBotMessage(_message) {
                 "Un lot de 10 vœux, très bien !", _message.channel);
         }
         if (args[1] == "refund") {
-            var total = executeQuery('SELECT SUM(amount-7) AS total FROM K_Inventory WHERE id_player=' + _message.author.id + ' AND amount > 7;')[0]["total"];
-            if (total <= 0) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
-                "Vous n'avez aucune constellation à rembourser.", _message.channel);
-
-            executeQuery('UPDATE Player SET k_wishes = (k_wishes+' + total + ') WHERE id = ' + _message.author.id);
-            executeQuery('UPDATE K_Inventory SET amount=7 WHERE id_player=' + _message.author.id + " AND amount > 7;");
-
-            if (total == 1) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
-                "Votre constellation a bien été remboursée.", _message.channel);
-            return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
-                "Vos " + total + " constellations ont bien été remboursées.", _message.channel);
+            k_checkRefund(_message);
         }
         if (args[1] == "nsfw") {
             if (mora <= 5000000) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
@@ -315,7 +305,9 @@ async function kusanaliBotMessage(_message) {
 
         return _message.channel.send(animation).then(function (_message2) {
 			setTimeout(function(_message3, message_files) {
-                _message3.channel.send({ files: message_files });
+                _message3.channel.send({ files: message_files }).then(function (_message4) {
+                    if (k_getUserOptions(_message.author.id)["autorefund"] == 1) k_checkRefund(_message);
+                });
                 _message3.delete();
             }, GIF_ANIMATION_TIMING, _message2, message_files);
 		});
@@ -328,6 +320,7 @@ async function kusanaliBotMessage(_message) {
         var characters = [];
 
         for (var i in inventory) characters.push(K_GACHA_CHARACTERS.find(o => o.id == inventory[i].id_character));
+        if (k_getUserOptions(_message.author.id)["fullinventory"] == 1) characters = K_GACHA_CHARACTERS.slice();
         characters.sort(function(a, b) {
             if (a.id_region != b.id_region) return a.id_region - b.id_region;
             if (a.stars != b.stars) return b.stars - a.stars;
@@ -343,7 +336,7 @@ async function kusanaliBotMessage(_message) {
         var txt = "";
         var last_region = 0;
         for (var i in characters) {
-            var amount = parseInt(inventory.find(o => o.id_character == characters[i].id).amount);
+            // check new region
             if (characters[i].id_region != last_region) {
                 if (txt != "") { // add field to embed
                     var region = K_GACHA_REGIONS.find(o => o.id == last_region);
@@ -355,11 +348,19 @@ async function kusanaliBotMessage(_message) {
                 txt = "";
             }
 
+            // get amount
+            var amount = 0;
+            var char = inventory.find(o => o.id_character == characters[i].id);
+            if (char != undefined) amount = char.amount;
+
+            // 1 character = 1 line
             txt += "- ";
+            if (amount <= 0) "~~";
             if (characters[i].stars == 5) txt += "_";
             txt += characters[i].name;
             if (amount > 1) txt += " **C" + (amount-1) + "**";
             if (characters[i].stars == 5) txt += "_";
+            if (amount <= 0) "~~";
             txt += "\n"
         }
         if (txt == "") embedMessage.setDescription("...");
@@ -409,8 +410,8 @@ async function kusanaliBotMessage(_message) {
         var args = _message.content.trim().toLowerCase().split(" ");
         var current_options = k_getUserOptions(_message.author.id);
         if (args.length == 1) return k_sendMessage(K_PROFIL_KUSANALI, "Les Options des Fleurs",
-            "_fullinventory_ ("+["✅", "❌"][current_options["fullinventory"]]+") : Affiche tous les personnages avec la commande %characters\n" +
-            "_autorefund_ ("+["✅", "❌"][current_options["autorefund"]]+") : Rembourse automatiquement les constellations au dessus de 6\n" +
+            "_fullinventory_ ("+["❌", "✅"][current_options["fullinventory"]]+") : Affiche tous les personnages avec la commande %characters\n" +
+            "_autorefund_ ("+["❌", "✅"][current_options["autorefund"]]+") : Rembourse automatiquement les constellations au dessus de 6\n" +
             "\nExemple de commande d'achat : ```%option color inazuma```", _message.channel);
         if (["fullinventory", "autorefund"].indexOf(args[1]) <= -1) return k_sendMessage(K_PROFIL_KUSANALI, "Les Options des Fleurs",
             "Je n'ai pas cette option, je suis désolée.", _message.channel);
@@ -488,6 +489,19 @@ function k_getARFromPoints(_p) {
     return 60;
 }
 
+function k_checkRefund(_message) {
+    var total = executeQuery('SELECT SUM(amount-7) AS total FROM K_Inventory WHERE id_player=' + _message.author.id + ' AND amount > 7;')[0]["total"];
+    if (total <= 0) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+        "Vous n'avez aucune constellation à rembourser.", _message.channel);
+
+    executeQuery('UPDATE Player SET k_wishes = (k_wishes+' + total + ') WHERE id = ' + _message.author.id);
+    executeQuery('UPDATE K_Inventory SET amount=7 WHERE id_player=' + _message.author.id + " AND amount > 7;");
+
+    if (total == 1) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+        "Votre constellation a bien été remboursée.", _message.channel);
+    return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+        "Vos " + total + " constellations ont bien été remboursées.", _message.channel);
+}
 
 function k_sendMessage(_profil, _title, _message, _channel, _avatar = undefined) {
     _channel.fetchWebhooks()
