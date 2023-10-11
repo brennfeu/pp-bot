@@ -192,7 +192,8 @@ function k_addMessageCount(_userId, _username, _channel) {
 	var value = 1+parseInt(result[0].k_points);
 	if (k_getToday() < k_getUserDoubleXpDate(_userId)) value += 1;
 
-	executeQuery("UPDATE Player SET k_points = " + value + " WHERE id = " + _userId);
+    var points_after = value;
+	executeQuery("UPDATE Player SET k_points = " + points_after + " WHERE id = " + _userId);
 
     if (k_getARFromPoints(points_before) >= 60) { // money
         executeQuery('UPDATE Player SET k_mora=(k_mora+5000) WHERE id = ' + _userId);
