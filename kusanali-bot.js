@@ -469,8 +469,8 @@ function k_guildMemberSpeaking(_guildMember, _speaking) {
         if (VOCAL_TIME[_guildMember.user.id] == undefined) VOCAL_TIME[_guildMember.user.id] = 0;
         var total_time = VOCAL_TIME[_guildMember.user.id] + Date.now() - VOCAL_TRACKING[_guildMember.user.id];
 
-        var total_point = Math.floor(total_time / 1000);
-        var remaining_time = total_time % 1000;
+        var total_point = Math.floor(total_time / 3000);
+        var remaining_time = total_time % 3000;
 
         var no_mic_channel = _guildMember.guild.channels.cache.get(CHANNEL_NO_MIC);
         for (var i = 0; i < total_point; i++) k_addMessageCount(_guildMember.user.id, _guildMember.user.username.secureXSS(), no_mic_channel)

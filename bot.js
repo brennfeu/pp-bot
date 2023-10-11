@@ -775,8 +775,21 @@ CLIENT.on('messageReactionAdd', (_reaction, _user) => { try {
 } catch(e) { sendErrorToDev(e) }
 });
 
-CLIENT.on('guildMemberSpeaking', (_guildMember, _speaking) => { try {
+CLIENT.on('voiceStateUpdate', (_guildMember, _speaking) => { try {
+	if ([K_SERVER_ID, K_TEST_SERVER_ID].indexOf(_guildMember.guild.id) < 0) return;
+} catch(e) { sendErrorToDev(e) }
+});
+CLIENT.on('guildMemberSpeaking', (_oldState, _newState) => { try {
 	if ([K_SERVER_ID, K_TEST_SERVER_ID].indexOf(_guildMember.guild.id) >= 0) return k_guildMemberSpeaking(_guildMember, _speaking);
+
+	if (_newState.speaking) { // joins vc
+		_newState.channel.join();
+		console.log("JOINED VC!");
+	}
+	else if (_newState.channel.members.length == 0) { // check if no one else
+		_newState.channel.leave();
+		console.log("LEFT VC!");
+	}
 } catch(e) { sendErrorToDev(e) }
 });
 
