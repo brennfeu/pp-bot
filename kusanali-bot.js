@@ -355,13 +355,12 @@ async function kusanaliBotMessage(_message) {
 
             // 1 character = 1 line
             txt += "- ";
-            if (amount <= 0) "~~";
+            if (amount <= 0) txt += "~~";
             if (characters[i].stars == 5) txt += "_";
             txt += characters[i].name;
             if (amount > 1) txt += " **C" + (amount-1) + "**";
             if (characters[i].stars == 5) txt += "_";
-            if (amount <= 0) "~~";
-            txt += amount;
+            if (amount <= 0) txt += "~~";
             txt += "\n"
         }
         if (txt == "") embedMessage.setDescription("...");
