@@ -780,7 +780,7 @@ CLIENT.on('voiceStateUpdate', (_guildMember, _speaking) => { try {
 } catch(e) { sendErrorToDev(e) }
 });
 CLIENT.on('guildMemberSpeaking', (_oldState, _newState) => { try {
-	if ([K_SERVER_ID, K_TEST_SERVER_ID].indexOf(_guildMember.guild.id) >= 0) return k_guildMemberSpeaking(_guildMember, _speaking);
+	if ([K_SERVER_ID, K_TEST_SERVER_ID].indexOf(_oldState.member.guild.id) >= 0) return k_guildMemberSpeaking(_guildMember, _speaking);
 
 	if (_newState.speaking) { // joins vc
 		_newState.channel.join();
