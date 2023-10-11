@@ -406,20 +406,20 @@ async function kusanaliBotMessage(_message) {
         }
         return;
     }
-    if (commande == "option") {
+    if (commande == "option" || commande == "options") {
         var args = _message.content.trim().toLowerCase().split(" ");
         var current_options = k_getUserOptions(_message.author.id);
         if (args.length == 1) return k_sendMessage(K_PROFIL_KUSANALI, "Les Options des Fleurs",
             "_fullinventory_ ("+["❌", "✅"][current_options["fullinventory"]]+") : Affiche tous les personnages avec la commande %characters\n" +
             "_autorefund_ ("+["❌", "✅"][current_options["autorefund"]]+") : Rembourse automatiquement les constellations au dessus de 6\n" +
-            "\nExemple de commande d'achat : ```%option autorefund```", _message.channel);
+            "\nExemple de commande de changement d'option : ```%option autorefund```", _message.channel);
         if (["fullinventory", "autorefund"].indexOf(args[1]) <= -1) return k_sendMessage(K_PROFIL_KUSANALI, "Les Options des Fleurs",
             "Je n'ai pas cette option, je suis désolée.", _message.channel);
 
         current_options[args[1]] = Math.abs(current_options[args[1]]-1);
         k_setUserOptions(_message.author.id, current_options);
         return k_sendMessage(K_PROFIL_KUSANALI, "Les Options des Fleurs",
-            "L'option _" + args[1] + "_ a été mise à jour !", _message.channel);
+            "L'option _" + args[1] + "_ a été mise à jour ! "+displayEmote(EMOTE_KUSANALI), _message.channel);
     }
     if (commande == "reset_cache") {
         k_loadGachaData();
