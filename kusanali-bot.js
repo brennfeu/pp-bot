@@ -215,7 +215,7 @@ async function kusanaliBotMessage(_message) {
                 "Un lot de 10 vœux, très bien !", _message.channel);
         }
         if (args[1] == "refund") {
-            k_checkRefund(_message);
+            return k_checkRefund(_message);
         }
         if (args[1] == "nsfw") {
             if (mora <= 5000000) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
@@ -412,7 +412,7 @@ async function kusanaliBotMessage(_message) {
         if (args.length == 1) return k_sendMessage(K_PROFIL_KUSANALI, "Les Options des Fleurs",
             "_fullinventory_ ("+["❌", "✅"][current_options["fullinventory"]]+") : Affiche tous les personnages avec la commande %characters\n" +
             "_autorefund_ ("+["❌", "✅"][current_options["autorefund"]]+") : Rembourse automatiquement les constellations au dessus de 6\n" +
-            "\nExemple de commande d'achat : ```%option color inazuma```", _message.channel);
+            "\nExemple de commande d'achat : ```%option autorefund```", _message.channel);
         if (["fullinventory", "autorefund"].indexOf(args[1]) <= -1) return k_sendMessage(K_PROFIL_KUSANALI, "Les Options des Fleurs",
             "Je n'ai pas cette option, je suis désolée.", _message.channel);
 
