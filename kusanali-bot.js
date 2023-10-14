@@ -28,13 +28,14 @@ async function kusanaliBotMessage(_message) {
     k_increaseMissionProgress(_message.author.id, "send_messages", _message.channel, dailies);
     if (_message.mentions.users.array().length > 0) for (var i in _message.mentions.users.array()) k_increaseMissionProgress(_message.author.id, "tag_people", _message.channel, dailies);
     if (Array.from(_message.attachments).length > 0) for (var i in Array.from(_message.attachments)) k_increaseMissionProgress(_message.author.id, "send_pictures", _message.channel, dailies);
-    for (var i in dailies) { // "use_word", "send_links", "send_messages", "use_reactions"
-        if ([ "use_word", "send_links", "send_messages", "use_reactions" ].indexOf(dailies[i].type) <= -1) continue;
+    for (var i in dailies) { // "use_word", "send_links", "send_messages", "use_reactions", "send_pictures"
+        if ([ "use_word", "send_links", "send_messages", "use_reactions", "send_pictures" ].indexOf(dailies[i].type) <= -1) continue;
 
         var word = "";
         if (dailies[i].type == "send_links") word = "http";
         else if (dailies[i].type == "send_messages") word = "message";
         else if (dailies[i].type == "use_reactions") word = "react";
+        else if (dailies[i].type == "send_pictures") word = "image";
         else word = dailies[i].word;
 
         var nb = ("aaa-" + _message.content.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "") + "-aaa").split(word).length-1;
@@ -457,26 +458,6 @@ async function kusanaliBotMessage(_message) {
     }
 
     return _message.reply("je ne connais pas cette commande :/");
-}
-
-var VOCAL_TRACKING = {};
-var VOCAL_TIME = {};
-function k_guildMemberSpeaking(_guildMember, _speaking) {
-    if (_speaking) VOCAL_TRACKING[_guildMember.user.id] = Date.now();
-    else {
-        if (VOCAL_TRACKING[_guildMember.user.id] == undefined) return;
-
-        if (VOCAL_TIME[_guildMember.user.id] == undefined) VOCAL_TIME[_guildMember.user.id] = 0;
-        var total_time = VOCAL_TIME[_guildMember.user.id] + Date.now() - VOCAL_TRACKING[_guildMember.user.id];
-
-        var total_point = Math.floor(total_time / 3000);
-        var remaining_time = total_time % 3000;
-
-        var no_mic_channel = _guildMember.guild.channels.cache.get(CHANNEL_NO_MIC);
-        for (var i = 0; i < total_point; i++) k_addMessageCount(_guildMember.user.id, _guildMember.user.username.secureXSS(), no_mic_channel)
-
-        VOCAL_TIME[_guildMember.user.id] = remaining_time;
-    }
 }
 
 function k_getUserAR(_userId) {
