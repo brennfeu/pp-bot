@@ -5,7 +5,7 @@ async function kusanaliBotMessage(_message) {
     updatePlayer(_message.author.id, _message.author.username.secureXSS());
     k_resetUserDailyProgress(_message.author.id);
 
-    k_addMessageCount(_message.author.id, _message.author.username.secureXSS());
+    k_addMessageCount(_message.author.id, _message.author.username.secureXSS(), _message.channel);
 
     // check role voyageur
     if (_message.channel.guild.id == K_SERVER_ID) {
