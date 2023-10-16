@@ -381,7 +381,6 @@ CLIENT.on('ready', () => {
     k_loadGachaData();
 });
 
-// This event will run on every single message received, from any channel or DM.
 CLIENT.on("message", async _message => { try {
 	if ([K_SERVER_ID, K_TEST_SERVER_ID].indexOf(_message.channel.guild.id) >= 0) return kusanaliBotMessage(_message);
 	killDeadDuels();
@@ -731,6 +730,16 @@ CLIENT.on("message", async _message => { try {
 	}
 
 	return _message.reply("I don't know this command, try using the help command!");
+} catch(e) { sendErrorToDev(e) }
+});
+
+CLIENT.on('voiceStateUpdate', (_oldState, _newState) => { try {
+    if ([K_SERVER_ID, K_TEST_SERVER_ID].indexOf(_oldState.member.guild.id) < 0) return;
+
+	var channel = _newState.guild.channels.cache.get(_newState.channelID);
+    if (channel != null) CHANNEL_VC = channel;
+
+    if (CHANNEL_VC.members.length == 0) CHANNEL_VC = null;
 } catch(e) { sendErrorToDev(e) }
 });
 

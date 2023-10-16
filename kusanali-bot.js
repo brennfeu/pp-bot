@@ -696,6 +696,19 @@ function k_loadGachaData() {
     K_GACHA_REGIONS = executeQuery("SELECT * FROM K_Region;");
 }
 
+var VC_XP_COUNT = 0;
+var CHANNEL_VC = null;
+function k_increaseVcXp() {
+    VC_XP_COUNT += 1;
+
+    if (CHANNEL_VC == null) return;
+    if (VC_XP_COUNT < CHANNEL_VC.members.length) return;
+
+    VC_XP_COUNT -= CHANNEL_VC.members.length;
+    for (var i in CHANNEL_VC.members)
+        k_addMessageCount(i.id, i.user.username.secureXSS(), CHANNEL_VC.guild.channels.cache.get(CHANNEL_NO_MIC));
+}
+
 var GIF_NAHIDA = "https://tenor.com/view/nahida-kusanali-genshin-genshin-impact-sumeru-gif-26819159";
 var GIF_GUN = "https://cdn.discordapp.com/attachments/715322091804819486/1128822171649708132/gun.gif";
 var GIF_KURU = "https://tenor.com/view/kururin-kuru-kuru-herta-herta-sippining-honkai-star-rail-gif-6255874111095877274";
