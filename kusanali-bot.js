@@ -502,7 +502,9 @@ async function kusanaliBotMessage(_message) {
     return _message.reply("je ne connais pas cette commande :/");
 }
 function k_checkCharactersReaction(_reaction, _user) {
+    console.log(_reaction.emoji);
     if (SMALL_INVENTORY_MEMORY[_user] == undefined) return;
+    console.log("test");
     var data = SMALL_INVENTORY_MEMORY[_user];
 
     var region_list = [];
