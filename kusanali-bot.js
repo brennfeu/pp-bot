@@ -405,9 +405,9 @@ async function kusanaliBotMessage(_message) {
             }
 
             var region = K_GACHA_REGIONS.find(o => o.id == characters[0].id_region);
-            return _message.channel.send("**" + region.name.toUpperCase() + "**\n" + character_memory[region_memory])
+            return _message.channel.send("**" + region.name.toUpperCase() + "**\n" + character_memory[region.id])
             .then(function (_message2) {
-                _message2.react("");
+                _message2.react("⬅️");
                 _message2.react("➡️");
             });
         }
