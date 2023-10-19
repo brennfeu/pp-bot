@@ -389,7 +389,7 @@ async function kusanaliBotMessage(_message) {
         if (txt == "") embedMessage.setDescription("...");
         else { // add field to embed
             var region = K_GACHA_REGIONS.find(o => o.id == last_region);
-            embedMessage.addField(region.name.toUpperCase(), txt, true);
+            character_memory[last_region] = txt;
 
             if (!smallinventory || embedMessage.fields.length == 0) // if smallinventory, only the 1st one
                 embedMessage.addField(region.name.toUpperCase(), txt, true);
@@ -594,10 +594,13 @@ function k_sendWebhookEmbedMessage(_webhook, _profil, _embed, _channel) {
     .then(function (_message2) {
         if (!SMALL_INVENTORY_MESSAGE) return;
 
-        CLIENT.channels.fetch(_message2.id)
-        .then(function (_message3) {
-            _message3.react("⬅️");
-            _message3.react("➡️");
+        CLIENT.channels.fetch(_message2.channel_id)
+        .then(function(_channel) {
+            _channel.fetch(_message2.id)
+            .then(function(_message3) {
+                _message3.react("⬅️");
+                _message3.react("➡️");
+            });
         });
 
         SMALL_INVENTORY_MESSAGE = false;
