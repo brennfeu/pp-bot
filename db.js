@@ -281,6 +281,7 @@ function k_getUserOptions(_id) {
 
     // default
     if (opt.fullinventory == undefined) opt.fullinventory = 0;
+    if (opt.smallinventory == undefined) opt.smallinventory = 0;
     if (opt.autorefund == undefined) opt.autorefund = 0;
 
     return opt;

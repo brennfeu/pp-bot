@@ -329,8 +329,13 @@ async function kusanaliBotMessage(_message) {
         var command_user = _message.author;
         if (_message.mentions.users.array().length >= 1) command_user = _message.mentions.users.last();
 
+        var smallinventory = k_getUserOptions(_message.author.id)["smallinventory"] == "1";
         var inventory = executeQuery("SELECT * FROM K_Inventory WHERE id_player = " + command_user.id);
         var characters = [];
+
+        // smallinventory memory
+        var character_memory = {};
+        var region_memory = null;
 
         for (var i in inventory) characters.push(K_GACHA_CHARACTERS.find(o => o.id == inventory[i].id_character));
         if (k_getUserOptions(_message.author.id)["fullinventory"] == 1) characters = K_GACHA_CHARACTERS.slice();
@@ -353,7 +358,12 @@ async function kusanaliBotMessage(_message) {
             if (characters[i].id_region != last_region) {
                 if (txt != "") { // add field to embed
                     var region = K_GACHA_REGIONS.find(o => o.id == last_region);
-                    embedMessage.addField(region.name.toUpperCase(), txt, true);
+                    character_memory[last_region] = txt;
+
+                    if (!smallinventory || embedMessage.fields.length == 0) // if smallinventory, only the 1st one
+                        embedMessage.addField(region.name.toUpperCase(), txt, true);
+                    else
+                        region_memory = last_region;
                 }
 
                 var region = K_GACHA_REGIONS.find(o => o.id == characters[i].id_region);
@@ -382,6 +392,13 @@ async function kusanaliBotMessage(_message) {
             embedMessage.addField(region.name.toUpperCase(), txt, true);
         }
 
+        if (smallinventory && txt != "") {
+            SMALL_INVENTORY_MESSAGE = true;
+            SMALL_INVENTORY_MEMORY[_message.author.id] = {
+                "inventory": character_memory,
+                "current_region": region_memory
+            }
+        }
         return k_sendEmbedMessage(K_PROFIL_PAIMON_STATUE, embedMessage, _message.channel);
     }
     if (commande == "gallery") {
@@ -424,9 +441,10 @@ async function kusanaliBotMessage(_message) {
         var current_options = k_getUserOptions(_message.author.id);
         if (args.length == 1) return k_sendMessage(K_PROFIL_KUSANALI, "Les Options des Fleurs",
             "_fullinventory_ ("+["❌", "✅"][current_options["fullinventory"]]+") : Affiche tous les personnages avec la commande %characters\n" +
+            "_smallinventory_ ("+["❌", "✅"][current_options["smallinventory"]]+") : Tri régional avec la commande %characters\n" +
             "_autorefund_ ("+["❌", "✅"][current_options["autorefund"]]+") : Rembourse automatiquement les constellations au dessus de 6\n" +
             "\nExemple de commande de changement d'option : ```%option autorefund```", _message.channel);
-        if (["fullinventory", "autorefund"].indexOf(args[1]) <= -1) return k_sendMessage(K_PROFIL_KUSANALI, "Les Options des Fleurs",
+        if (["fullinventory", "autorefund", "smallinventory"].indexOf(args[1]) <= -1) return k_sendMessage(K_PROFIL_KUSANALI, "Les Options des Fleurs",
             "Je n'ai pas cette option, je suis désolée.", _message.channel);
 
         current_options[args[1]] = Math.abs(current_options[args[1]]-1);
@@ -568,6 +586,12 @@ function k_sendWebhookEmbedMessage(_webhook, _profil, _embed, _channel) {
         avatarURL: _profil.pfp,
         embeds: [ embedMessage ]
     })
+    .then(function (_message2) {
+        if (!SMALL_INVENTORY_MESSAGE) return;
+        _message2.react("⬅️");
+        _message2.react("➡️");
+        SMALL_INVENTORY_MESSAGE = false;
+    }
     .catch(function(_e) {
         console.log(_e);
         webhookClient.send(_message)
@@ -577,6 +601,8 @@ function k_sendWebhookEmbedMessage(_webhook, _profil, _embed, _channel) {
         })
     });
 }
+var SMALL_INVENTORY_MESSAGE = false;
+var SMALL_INVENTORY_MEMORY = {};
 
 var SENDING = false;
 async function k_sendFilesAndWait(_channel, _files) {
