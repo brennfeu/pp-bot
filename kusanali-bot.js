@@ -401,13 +401,13 @@ async function kusanaliBotMessage(_message) {
             SMALL_INVENTORY_MESSAGE = true;
             SMALL_INVENTORY_MEMORY[_message.author.id] = {
                 "inventory": character_memory,
-                "current_region": region_memory
+                "current_region": characters[0].id_region
             }
 
-            var region = K_GACHA_REGIONS.find(o => o.id == last_region);
-            return _message.channel.send("**" + region.name.toUpperCase() + "**\n\n" + character_memory[region_memory])
+            var region = K_GACHA_REGIONS.find(o => o.id == characters[0].id_region);
+            return _message.channel.send("**" + region.name.toUpperCase() + "**\n" + character_memory[region_memory])
             .then(function (_message2) {
-                _message2.react("⬅️");
+                _message2.react("");
                 _message2.react("➡️");
             });
         }
@@ -500,6 +500,27 @@ async function kusanaliBotMessage(_message) {
     }
 
     return _message.reply("je ne connais pas cette commande :/");
+}
+function k_checkCharactersReaction(_reaction, _user) {
+    if (SMALL_INVENTORY_MEMORY[_user] = undefined) return;
+    var data = SMALL_INVENTORY_MEMORY[_user];
+
+    var region_list = [];
+    for (var i in data["inventory"]) region_list.push(i);
+
+    var currentRegionIndex = region_list.indexOf(data["current_region"]);
+    if (_reaction.emoji.toString() == "➡️") {
+        var newRegionIndex = currentRegionIndex+1;
+        if (newRegionIndex >= region_list.length) newRegionIndex = 0;
+    }
+    else if (_reaction.emoji.toString() == "⬅️") {
+        var newRegionIndex = currentRegionIndex-1;
+        if (newRegionIndex < 0) newRegionIndex = region_list.length-1;
+    }
+    else return;
+
+    var region = K_GACHA_REGIONS.find(o => o.id == region_list[newRegionIndex]);
+    _reaction.message.edit("**" + region.name.toUpperCase() + "**\n" + data["inventory"][region.id]);
 }
 
 function k_getUserAR(_userId) {
