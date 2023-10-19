@@ -593,10 +593,13 @@ function k_sendWebhookEmbedMessage(_webhook, _profil, _embed, _channel) {
     })
     .then(function (_message2) {
         if (!SMALL_INVENTORY_MESSAGE) return;
-        console.log(_message2);
 
-        _message2.react("⬅️");
-        _message2.react("➡️");
+        CLIENT.channels.fetch(_message2.id)
+        .then(function (_message3) {
+            _message3.react("⬅️");
+            _message3.react("➡️");
+        });
+
         SMALL_INVENTORY_MESSAGE = false;
     })
     .catch(function(_e) { console.log(_e); });
