@@ -506,7 +506,7 @@ function k_checkCharactersReaction(_reaction, _user) {
     var data = SMALL_INVENTORY_MEMORY[_user.id];
 
     var region_list = [];
-    for (var i in data["inventory"]) region_list.push(i);
+    for (var i in data["inventory"]) region_list.push(parseInt(i));
 
     var currentRegionIndex = region_list.indexOf(data["current_region"]);
     if (_reaction.emoji.name == "➡️") {
@@ -518,10 +518,6 @@ function k_checkCharactersReaction(_reaction, _user) {
         if (newRegionIndex < 0) newRegionIndex = region_list.length-1;
     }
     else return;
-    console.log(data);
-    console.log(region_list);
-    console.log(currentRegionIndex);
-    console.log(newRegionIndex);
 
     var region = K_GACHA_REGIONS.find(o => o.id == region_list[newRegionIndex]);
     SMALL_INVENTORY_MEMORY[_user.id]["current_region"] = region.id;
