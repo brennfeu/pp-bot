@@ -511,13 +511,14 @@ function k_checkCharactersReaction(_reaction, _user) {
     var currentRegionIndex = region_list.indexOf(data["current_region"]);
     if (_reaction.emoji.name == "➡️") {
         var newRegionIndex = currentRegionIndex+1;
-        //if (newRegionIndex >= region_list.length) newRegionIndex = 0;
+        if (newRegionIndex >= region_list.length) newRegionIndex = 0;
     }
     else if (_reaction.emoji.name == "⬅️") {
         var newRegionIndex = currentRegionIndex-1;
-        //if (newRegionIndex < 0) newRegionIndex = region_list.length-1;
+        if (newRegionIndex < 0) newRegionIndex = region_list.length-1;
     }
     else return;
+    SMALL_INVENTORY_MEMORY[_user.id]["current_region"] = newRegionIndex;
 
     var region = K_GACHA_REGIONS.find(o => o.id == region_list[newRegionIndex]);
     _reaction.message.edit("**" + region.name.toUpperCase() + "**\n" + data["inventory"][region.id]);
