@@ -502,20 +502,18 @@ async function kusanaliBotMessage(_message) {
     return _message.reply("je ne connais pas cette commande :/");
 }
 function k_checkCharactersReaction(_reaction, _user) {
-    console.log(_reaction.emoji);
-    if (SMALL_INVENTORY_MEMORY[_user] == undefined) return;
-    console.log("test");
+    if (SMALL_INVENTORY_MEMORY[_user.id] == undefined) return;
     var data = SMALL_INVENTORY_MEMORY[_user];
 
     var region_list = [];
     for (var i in data["inventory"]) region_list.push(i);
 
     var currentRegionIndex = region_list.indexOf(data["current_region"]);
-    if (_reaction.emoji.toString() == "➡️") {
+    if (_reaction.emoji.name == "➡️") {
         var newRegionIndex = currentRegionIndex+1;
         if (newRegionIndex >= region_list.length) newRegionIndex = 0;
     }
-    else if (_reaction.emoji.toString() == "⬅️") {
+    else if (_reaction.emoji.name == "⬅️") {
         var newRegionIndex = currentRegionIndex-1;
         if (newRegionIndex < 0) newRegionIndex = region_list.length-1;
     }
