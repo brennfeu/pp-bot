@@ -519,8 +519,8 @@ function k_checkCharactersReaction(_reaction, _user) {
     }
     else return;
     console.log(data);
+    console.log(region_list);
     console.log(currentRegionIndex);
-    console.log(newRegionIndex);
     console.log(newRegionIndex);
 
     var region = K_GACHA_REGIONS.find(o => o.id == region_list[newRegionIndex]);
