@@ -160,7 +160,7 @@ async function kusanaliBotMessage(_message) {
         var args = _message.content.trim().toLowerCase().split(" ");
         if (args.length == 1) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
             "**Double XP pendant 24h** ( _doublexp_ ) - 200 000 Moras\n" +
-            "**Changement de couleur** ( _color_ [ _mondstadt_ / _liyue_ / _inazuma_ / _sumeru_ / _fontaine_ / _natlan_ / _snezhnaya_ / _khaenri'ah_ / _celestia_ ] ) - 500 000 Moras\n\n" +
+            "**Changement de couleur** ( _color_ [ _mondstadt_ / _liyue_ / _inazuma_ / _sumeru_ / _fontaine_ / _natlan_ / _snezhnaya_ / _khaenri'ah_ / _celestia_ ] ) - 500 000 Moras / Gratuit après 1er achat\n\n" +
 
             "**Lot de 10 vœux** ( _wishes_ ) - 500 000 Moras\n" +
             "**Lot de 10 vœux** ( _refund_ ) - Toute constellation au dessus de C6\n\n" +
@@ -183,26 +183,37 @@ async function kusanaliBotMessage(_message) {
                 "Double XP jusqu'au " + date_message + ", très bien !", _message.channel);
         }
         if (args[1] == "color") {
-            if (mora <= 500000) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
-                "Vous n'avez pas assez de moras.", _message.channel);
             if (args.length == 2) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
                 "Très bien, mais il faut me préciser la couleur.", _message.channel);
             if (K_COLOR_ROLES[args[2]] == undefined) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
                 "Je n'ai pas cette couleur en stock.", _message.channel);
 
+            var CHECK_HAD_ROLE = false;
             for (var i in K_COLOR_ROLES) {
-                _message.guild.roles.fetch(K_COLOR_ROLES[i])
-                .then(function(_role) {
+                await _message.guild.roles.fetch(K_COLOR_ROLES[i])
+                .then(async function(_role) {
                     if (_message.member.roles.cache.get(_role.id) == undefined) return;
-                    _message.member.roles.remove(_role);
 
+                    _message.member.roles.remove(_role);
+                    if (!CHECK_HAD_ROLE) {
+                        await _message.guild.roles.fetch(K_COLOR_ROLES[args[2]])
+                            .then(function(_role) { _message.member.roles.add(_role); })
+                            .catch(console.error);
+                    }
+                    CHECK_HAD_ROLE = true;
                 })
                 .catch(console.error);
             }
-            _message.guild.roles.fetch(K_COLOR_ROLES[args[2]])
-            .then(function(_role) { _message.member.roles.add(_role); })
-            .catch(console.error);
-            executeQuery('UPDATE Player SET k_mora = (k_mora-500000) WHERE id = ' + _message.author.id);
+
+            if (!CHECK_HAD_ROLE) {
+                if (mora <= 500000) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+                    "Vous n'avez pas assez de moras.", _message.channel);
+
+                _message.guild.roles.fetch(K_COLOR_ROLES[args[2]])
+                    .then(function(_role) { _message.member.roles.add(_role); })
+                    .catch(console.error);
+                executeQuery('UPDATE Player SET k_mora = (k_mora-500000) WHERE id = ' + _message.author.id);
+            }
 
             return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
                 "Un changement de couleur, très bien !", _message.channel);
@@ -613,7 +624,16 @@ function k_generateDailyMissions() {
                 break;
             case "use_word":
                 json[currentId].target = randomFromList([2, 3, 4]);
-                json[currentId].word = randomFromList(["leak", "nahida", "loli", "genshin", "liben", "paypal", "lilas", "bio", "paimon", "dainsleif", "primo", "mora", "hentai", "abyss", "discord", "twitter", "kaleidoscope", "atiss", "novel", "sdf", "fischl", "meta", "design", "lore", "archon"]);
+                json[currentId].word = randomFromList([
+                    "hoyo", "leak", "discord", "twitter", "ban",
+                    "genshin", "liben", "primo", "mora", "abyss", "design", "lore", "archon",
+                    "meta", "rotation", "hyperbloom", "support", "carry",
+                    "mondstadt", "liyue", "inazuma", "sumeru", "fontaine", "natlan",
+                    "anemo", "geo", "electro", "dendro", "hydro", "pyro", "cryo",
+                    "paimon", "dainsleif", "nahida", "fischl", "neuvillette", "qiqi",
+                    "loli", "paypal", "hentai", "kaleidoscope",
+                    "lilas", "bio", "atiss", "novel", "sdf"
+                ]);
                 break;
         }
     }
@@ -703,6 +723,7 @@ function k_increaseVcXp() {
     VC_XP_COUNT += 1;
 
     if (CHANNEL_VC == null) return;
+    if (CHANNEL_VC.members.length == 0) return;
     if (VC_XP_COUNT < CHANNEL_VC.members.length) return;
 
     VC_XP_COUNT -= CHANNEL_VC.members.length;
