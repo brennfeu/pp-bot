@@ -405,10 +405,10 @@ async function kusanaliBotMessage(_message) {
             }
 
             var region = K_GACHA_REGIONS.find(o => o.id == last_region);
-            return _message.channel.send("**" + region + "**\n\n" + character_memory[region_memory])
+            return _message.channel.send("**" + region.name.toUpperCase() + "**\n\n" + character_memory[region_memory])
             .then(function (_message2) {
-                _message3.react("⬅️");
-                _message3.react("➡️");
+                _message2.react("⬅️");
+                _message2.react("➡️");
             });
         }
         return k_sendEmbedMessage(K_PROFIL_PAIMON_STATUE, embedMessage, _message.channel);
