@@ -503,7 +503,7 @@ async function kusanaliBotMessage(_message) {
 }
 function k_checkCharactersReaction(_reaction, _user) {
     if (SMALL_INVENTORY_MEMORY[_user.id] == undefined) return;
-    var data = SMALL_INVENTORY_MEMORY[_user];
+    var data = SMALL_INVENTORY_MEMORY[_user.id];
 
     var region_list = [];
     for (var i in data["inventory"]) region_list.push(i);
