@@ -591,7 +591,7 @@ function k_sendWebhookEmbedMessage(_webhook, _profil, _embed, _channel) {
         _message2.react("⬅️");
         _message2.react("➡️");
         SMALL_INVENTORY_MESSAGE = false;
-    }
+    })
     .catch(function(_e) {
         console.log(_e);
         webhookClient.send(_message)
