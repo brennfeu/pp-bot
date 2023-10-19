@@ -599,14 +599,7 @@ function k_sendWebhookEmbedMessage(_webhook, _profil, _embed, _channel) {
         _message2.react("➡️");
         SMALL_INVENTORY_MESSAGE = false;
     })
-    .catch(function(_e) {
-        console.log(_e);
-        webhookClient.send(_message)
-        .catch(function(_e) {
-            console.log(_e);
-            _message.channel.send(_message);
-        })
-    });
+    .catch(function(_e) { console.log(_e); });
 }
 var SMALL_INVENTORY_MESSAGE = false;
 var SMALL_INVENTORY_MEMORY = {};
