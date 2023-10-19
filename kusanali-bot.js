@@ -598,6 +598,7 @@ function k_sendWebhookEmbedMessage(_webhook, _profil, _embed, _channel) {
         .then(function(_channel) {
             _channel.fetch(_message2.id)
             .then(function(_message3) {
+                console.log(_message3);
                 _message3.react("⬅️");
                 _message3.react("➡️");
             });
