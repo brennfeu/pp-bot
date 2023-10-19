@@ -518,9 +518,9 @@ function k_checkCharactersReaction(_reaction, _user) {
         if (newRegionIndex < 0) newRegionIndex = region_list.length-1;
     }
     else return;
-    SMALL_INVENTORY_MEMORY[_user.id]["current_region"] = newRegionIndex;
 
     var region = K_GACHA_REGIONS.find(o => o.id == region_list[newRegionIndex]);
+    SMALL_INVENTORY_MEMORY[_user.id]["current_region"] = region.id;
     _reaction.message.edit("**" + region.name.toUpperCase() + "**\n" + data["inventory"][region.id]);
 }
 
