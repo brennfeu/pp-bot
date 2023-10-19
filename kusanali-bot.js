@@ -397,12 +397,19 @@ async function kusanaliBotMessage(_message) {
                 region_memory = last_region;
         }
 
-        if (smallinventory && txt != "") {
+        if (smallinventory && txt != "") { // send regular message
             SMALL_INVENTORY_MESSAGE = true;
             SMALL_INVENTORY_MEMORY[_message.author.id] = {
                 "inventory": character_memory,
                 "current_region": region_memory
             }
+
+            var region = K_GACHA_REGIONS.find(o => o.id == last_region);
+            return _channel.send("**" + region + "**\n\n" + character_memory[region_memory])
+            .then(function (_message2) {
+                _message3.react("⬅️");
+                _message3.react("➡️");
+            });
         }
         return k_sendEmbedMessage(K_PROFIL_PAIMON_STATUE, embedMessage, _message.channel);
     }
@@ -590,21 +597,6 @@ function k_sendWebhookEmbedMessage(_webhook, _profil, _embed, _channel) {
         username: _profil.nom,
         avatarURL: _profil.pfp,
         embeds: [ embedMessage ]
-    })
-    .then(function (_message2) {
-        if (!SMALL_INVENTORY_MESSAGE) return;
-
-        CLIENT.channels.fetch(_message2.channel_id)
-        .then(function(_channel) {
-            _channel.fetch(_message2.id)
-            .then(function(_message3) {
-                console.log(_message3);
-                _message3.react("⬅️");
-                _message3.react("➡️");
-            });
-        });
-
-        SMALL_INVENTORY_MESSAGE = false;
     })
     .catch(function(_e) { console.log(_e); });
 }
