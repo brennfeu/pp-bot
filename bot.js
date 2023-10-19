@@ -745,6 +745,7 @@ CLIENT.on('voiceStateUpdate', (_oldState, _newState) => { try {
 
 CLIENT.on('messageReactionAdd', (_reaction, _user) => { try {
 	if ([K_SERVER_ID, K_TEST_SERVER_ID].indexOf(_reaction.message.channel.guild.id) >= 0) {
+        if (_user.bot) return;
         k_checkCharactersReaction(_reaction, _user);
         k_increaseMissionProgress(_user.id, "use_reactions", _reaction.message.channel);
         return;
