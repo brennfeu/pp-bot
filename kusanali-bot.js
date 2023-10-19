@@ -405,7 +405,7 @@ async function kusanaliBotMessage(_message) {
             }
 
             var region = K_GACHA_REGIONS.find(o => o.id == last_region);
-            return _channel.send("**" + region + "**\n\n" + character_memory[region_memory])
+            return _message.channel.send("**" + region + "**\n\n" + character_memory[region_memory])
             .then(function (_message2) {
                 _message3.react("⬅️");
                 _message3.react("➡️");
