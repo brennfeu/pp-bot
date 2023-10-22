@@ -767,8 +767,10 @@ function k_loadGachaData() {
 var VC_XP_COUNT = 0;
 var CHANNEL_VC = null;
 function k_increaseVcXp() {
+    console.log("before:");
+    console.log(VC_XP_COUNT);
     VC_XP_COUNT += 1;
-
+    console.log("after:");
     console.log(VC_XP_COUNT);
 
     if (CHANNEL_VC == null) return;
