@@ -774,8 +774,11 @@ function k_increaseVcXp() {
     if (VC_XP_COUNT < CHANNEL_VC.members.size) return;
 
     VC_XP_COUNT -= parseInt(CHANNEL_VC.members.size);
-    for (var i in CHANNEL_VC.members)
-        k_addMessageCount(i.id, i.user.username.secureXSS(), CHANNEL_VC.guild.channels.cache.get(CHANNEL_NO_MIC));
+    var list = Array.from(CHANNEL_VC.members);
+    for (var i in list) {
+        var member = list[i];
+        k_addMessageCount(member.id, member.user.username.secureXSS(), CHANNEL_VC.guild.channels.cache.get(CHANNEL_NO_MIC));
+    }
 }
 
 var GIF_NAHIDA = "https://tenor.com/view/nahida-kusanali-genshin-genshin-impact-sumeru-gif-26819159";
