@@ -776,7 +776,7 @@ function k_increaseVcXp() {
     VC_XP_COUNT -= parseInt(CHANNEL_VC.members.size);
     var list = Array.from(CHANNEL_VC.members);
     for (var i in list) {
-        var member = list[i];
+        var member = list[i][1];
         console.log(member);
         k_addMessageCount(member.id, member.user.username.secureXSS(), CHANNEL_VC.guild.channels.cache.get(CHANNEL_NO_MIC));
     }
