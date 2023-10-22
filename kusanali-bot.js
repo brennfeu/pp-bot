@@ -769,6 +769,9 @@ var CHANNEL_VC = null;
 function k_increaseVcXp() {
     VC_XP_COUNT += 1;
 
+    console.log(VC_XP_COUNT);
+    console.log(CHANNEL_VC);
+
     if (CHANNEL_VC == null) return;
     if (CHANNEL_VC.members.length == 0) return;
     if (VC_XP_COUNT < CHANNEL_VC.members.length) return;
@@ -794,6 +797,7 @@ var ROLE_VOYAGEUR = "836619851869978714";
 var ROLE_NSFW = "1159221938141540502";
 
 var CHANNEL_NO_MIC = "836404086235463721";
+var CHANNEL_DEFAULT_VOC = "836402809649233920";
 
 var K_PROFIL_PAIMON_CHAD = {
     "nom": "Paimon",

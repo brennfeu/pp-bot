@@ -376,7 +376,8 @@ function cloneObject(obj) {
 CLIENT.on('ready', () => {
 	console.log(`Logged in as ${CLIENT.user.tag}!`);
 	setBotActivity("nothing, I just rebooted.");
-    CLIENT.channels.fetch(CHANNEL_NO_MIC); // kusanali no_mic channel
+	CLIENT.channels.fetch(CHANNEL_NO_MIC); // kusanali no_mic channel
+    CLIENT.channels.fetch(CHANNEL_DEFAULT_VOC).then(_channel => { CHANNEL_VC = _channel; }); // kusanali no_mic channel
 	checkUpdateEncyclopedia();
     k_loadGachaData();
 });
