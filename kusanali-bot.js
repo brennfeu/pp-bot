@@ -768,15 +768,12 @@ var VC_XP_COUNT = 0;
 var CHANNEL_VC = null;
 function k_increaseVcXp() {
     VC_XP_COUNT += 1;
-    console.log(CHANNEL_VC);
-    console.log(CHANNEL_VC.members);
-    console.log(CHANNEL_VC.members.length);
 
     if (CHANNEL_VC == null) return;
     if (CHANNEL_VC.members.length == 0) return;
-    if (VC_XP_COUNT < CHANNEL_VC.members.length) return;
+    if (VC_XP_COUNT < CHANNEL_VC.members.size) return;
 
-    VC_XP_COUNT -= parseInt(CHANNEL_VC.members.length);
+    VC_XP_COUNT -= parseInt(CHANNEL_VC.members.size);
     for (var i in CHANNEL_VC.members)
         k_addMessageCount(i.id, i.user.username.secureXSS(), CHANNEL_VC.guild.channels.cache.get(CHANNEL_NO_MIC));
 }
