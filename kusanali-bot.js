@@ -62,6 +62,7 @@ async function kusanaliBotMessage(_message) {
     if (commande == "tada") return _message.channel.send(GIF_BESTGRILS);
     if (commande == "kafkval") return _message.channel.send(GIF_KAFKYA);
     if (commande == "cancelsdf") return _message.channel.send(GIF_CANCELSDF);
+    if (commande == "cancelnatytou") return _message.channel.send(GIF_CANCELNATYTOU);
     if (commande == "hornynovel") return _message.channel.send(GIF_NOVEL);
 
     if (commande == "rank") {
@@ -486,6 +487,7 @@ async function kusanaliBotMessage(_message) {
             "**status _(@someone)_**: Affiche ton statut actuel sur le serveur.\n" +
 
             "\n" +
+            "**cancelnatytou**: #cancelNatytou\n" +
             "**cancelsdf**: #cancelsdf\n" +
             "**cryo**: " + displayEmote("1133393876548321342") + "\n" +
             "**fleurs**: FC Loli des Fleurs\n" +
@@ -788,6 +790,7 @@ var GIF_CRYO = "https://media.discordapp.net/attachments/852660792428068874/1132
 var GIF_BESTGRILS = "https://media.discordapp.net/attachments/852660792428068874/1132440942796886147/Nouveau_projet_205_60D7D23.gif";
 var GIF_KAFKYA = "https://media.discordapp.net/attachments/852660792428068874/1132453402077581322/Nouveau_projet_207_6EBC14F.gif";
 var GIF_CANCELSDF = "https://media.discordapp.net/attachments/1011223267928981584/1140618171510968421/New_Project_79_140F995.gif";
+var GIF_CANCELNATYTOU = "https://cdn.discordapp.com/attachments/1006231038269325332/1169652164822581359/New_Project_164_9D587D4.gif";
 var GIF_NOVEL = "https://cdn.discordapp.com/attachments/1011225594714914936/1158425276297003068/New_Project_118_D20A914.gif";
 
 var EMOTE_KUSANALI = "1011319146186813480";
