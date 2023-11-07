@@ -1,6 +1,8 @@
+var K_MEMBERS_CACHE = {};
 async function kusanaliBotMessage(_message) {
     if (_message.author.bot) return;
     if (_message.channel.id == "1006622544008319007") return; // zonz
+    K_MEMBERS_CACHE[_message.author.id] = _message.author;
 
     updatePlayer(_message.author.id, _message.author.username.secureXSS());
     k_resetUserDailyProgress(_message.author.id);
