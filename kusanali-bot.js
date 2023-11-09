@@ -475,15 +475,15 @@ async function kusanaliBotMessage(_message) {
             "Chaque compte ici-présent peut gagner de l'xp d'aventurier en discutant dans un channel textuel, à un taux de 1 message = 1 xp.\n"+
             "Les paliers de rang d'aventurier (AR) sont calqués sur ceux de genshin, à un taux de 1/10. Atteindre certains paliers confère automatiquement un nouveau rôle.\n"+
             "Vous pouvez utiliser la commande '%rank' à tout moment pour savoir ou vous en êtes, et quelle est la prochaine étape.\n\n"+
-            "AR 5 : Mondstadtois\n"+
-            "AR 10 : Liyuéen\n"+
-            "AR 20 : Inazumien\n"+
-            "AR 30 : Sumérien\n"+
-            "AR 40 : Fontainois\n"+
-            "AR 45 : Natlanais\n"+
-            "AR 50 : Snezhnayen\n"+
-            "AR 55 : Habitant du Royaume Déchu\n"+
-            "AR 60 : Divinité Céleste",
+            "**AR 5 :** Mondstadtois\n"+
+            "**AR 10 :** Liyuéen\n"+
+            "**AR 20 :** Inazumien\n"+
+            "**AR 30 :** Sumérien\n"+
+            "**AR 40 :** Fontainois\n"+
+            "**AR 45 :** Natlanais\n"+
+            "**AR 50 :** Snezhnayen\n"+
+            "**AR 55 :** Habitant du Royaume Déchu\n"+
+            "**AR 60 :** Divinité Céleste",
             _message.channel
         );
         k_sendMessage(K_PROFIL_KATHERYNE, "Tutoriel",
@@ -491,8 +491,8 @@ async function kusanaliBotMessage(_message) {
             "Afin de rendre l'experience plus agréable, la pity est à 70, et ne se réinitialise pas si un personnage 5* arrive plus tôt que prévu. La pity est la même pour les bannières Genshin et HSR.\n"+
             "Les bannières tournent chaque jour. Vous pouvez utiliser la commande '%banners' pour savoir quelles sont les bannières en cours.\n\n"+
             "Taux de drop :\n"+
-            "4* : 5% par vœu. 100% pour le premier d'une multi.\n"+
-            "5* : 2% par vœu. 100% quand la pity est atteinte.",
+            "**4* :** 5% par vœu. 100% pour le premier d'une multi.\n"+
+            "**5* :** 2% par vœu. 100% quand la pity est atteinte.",
             _message.channel
         );
         k_sendMessage(K_PROFIL_LIBEN, "Tutoriel",
@@ -515,7 +515,7 @@ async function kusanaliBotMessage(_message) {
     }
     if (commande == "help") {
         k_sendMessage(K_PROFIL_KUSANALI, "Commandes",
-            "**banners**: Affiche la bannière actuelle.\n" +
+            "**banners**: Affiche les bannières actuelles.\n" +
             "**characters _(@someone)_**: Affiche la liste des personnages obtenus (texte).\n" +
             "**dailies**: Affiche la listes des missions quotidiennes.\n" +
             "**gallery _(@someone)_**: Affiche la liste des personnages obtenus (images).\n" +
