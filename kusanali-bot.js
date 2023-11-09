@@ -483,7 +483,8 @@ async function kusanaliBotMessage(_message) {
             "AR 45 : Natlanais\n"+
             "AR 50 : Snezhnayen\n"+
             "AR 55 : Habitant du Royaume Déchu\n"+
-            "AR 60 : Divinité Céleste"
+            "AR 60 : Divinité Céleste",
+            _message.channel
         );
         k_sendMessage(K_PROFIL_KATHERYNE, "Tutoriel",
             "Chaque jour, vous pouvez faire vos quêtes quotidiennes, vous faisant ainsi gagner moras, vœux, et tickets. Les vœux et les tickets permettent d'invoquer des personnages de Genshin Impact et Honkai Star Rail respectivement.\n"+
@@ -491,17 +492,20 @@ async function kusanaliBotMessage(_message) {
             "Les bannières tournent chaque jour. Vous pouvez utiliser la commande '%banners' pour savoir quelles sont les bannières en cours.\n\n"+
             "Taux de drop :\n"+
             "4* : 5% par vœu. 100% pour le premier d'une multi.\n"+
-            "5* : 2% par vœu. 100% quand la pity est atteinte."
+            "5* : 2% par vœu. 100% quand la pity est atteinte.",
+            _message.channel
         );
         k_sendMessage(K_PROFIL_LIBEN, "Tutoriel",
             "Vous pouvez dépenser vos moras dans le shop.\n"+
             "Vous pourrez notamment y acheter un changement de couleur, un doubleur d'xp, ou de quoi participer encore plus au gacha.\n"+
-            "Le shop est accessible par la commande '%shop'"
+            "Le shop est accessible par la commande '%shop'",
+            _message.channel
         );
         k_sendMessage(K_PROFIL_KUSANALI, "Tutoriel",
             "Vous pouvez aussi customiser votre experience avec les options, disponibles par la commande '%options'.\n"+
             "Si vous avez des demandes pour le bot, ou souhaitez signaler un problème, n'hésitez pas à passer dans le channel #autres-jeux dans la catégorie du bot.\n\n"+
-            "Merci pour votre attention ! " + displayEmote(EMOTE_KUSANALI)
+            "Merci pour votre attention ! " + displayEmote(EMOTE_KUSANALI),
+            _message.channel
         );
         return;
     }
