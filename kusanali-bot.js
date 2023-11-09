@@ -755,7 +755,7 @@ function k_increaseMissionProgress(_userId, _missionType, _channel, _dailies = "
         txt = txt.replace("[x]", '**' + dailies[i].target + '**');
         if (dailies[i].type  == "use_word") txt = txt.replace("[y]", '**' + dailies[i].word + '**');
         txt += " - **Mission Accomplie !**\nVous avez gagné **" + sciText(mora) + "** Moras !";
-        k_sendMessage(K_PROFIL_KATHERYNE, "Missions Quotidiennes - "+K_MEMBERS_CACHE[_userId].user.username.secureXSS(),
+        k_sendMessage(K_PROFIL_KATHERYNE, "Missions Quotidiennes - "+K_MEMBERS_CACHE[_userId].username.secureXSS(),
             txt, _channel);
         mission_accomplie = true;
     }
@@ -764,7 +764,7 @@ function k_increaseMissionProgress(_userId, _missionType, _channel, _dailies = "
     if (!mission_accomplie) return;
     for (var i in dailies) if (dailies[i].progress < dailies[i].target) return;
     executeQuery('UPDATE Player SET k_wishes=(k_wishes+1), k_tickets=(k_tickets+1) WHERE id = ' + _userId);
-    k_sendMessage(K_PROFIL_KATHERYNE, "Missions Quotidiennes - "+K_MEMBERS_CACHE[_userId].user.username.secureXSS(),
+    k_sendMessage(K_PROFIL_KATHERYNE, "Missions Quotidiennes - "+K_MEMBERS_CACHE[_userId].username.secureXSS(),
         "Merci d'avoir fait toutes vos missions quotidiennes.\nVoici un lot de **10 vœux** et de **10 tickets** pour vos efforts.", _channel);
 }
 
