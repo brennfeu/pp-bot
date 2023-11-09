@@ -158,7 +158,7 @@ async function kusanaliBotMessage(_message) {
             txt += " - ("  + dailies[i].progress + '/' + dailies[i].target + ")\n";
         }
 
-        return k_sendMessage(K_PROFIL_KATHERYNE, "Missions Quotidiennes",
+        return k_sendMessage(K_PROFIL_KATHERYNE, "Missions Quotidiennes - "+_message.author.username.secureXSS(),
             txt, _message.channel);
     }
     if (commande == "shop") {
