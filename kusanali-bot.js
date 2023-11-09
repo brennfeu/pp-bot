@@ -108,7 +108,7 @@ async function kusanaliBotMessage(_message) {
             "e**\n\nVœux : **" + sciText(v) +
             "**\nTickets : **" + sciText(t) +
             "**\nPity : **" + sciText(pi) +
-            "/70**\nPersos : **" + inventory.length + "/" + K_GACHA_CHARACTERS.length +
+            "/70**\nPersos : **" + inventory.length + "/" + K_GACHA_CHARACTERS_GI.length +
             "**\n\nMora : **" + sciText(m) +
             "**";
 
@@ -256,18 +256,15 @@ async function kusanaliBotMessage(_message) {
             "Je n'ai pas ça en stock, désolé.", _message.channel);
     }
     if (commande == "banner" || commande == "banners") {
-        var banner = k_getTodaysBanner();
-        _message.channel.send(banner.image_link);
-        if (banner.element != "cryo") return;
-
-        var banner_omni = K_GACHA_BANNERS.find(o => o.element == "omni");
-        return _message.channel.send(banner_omni.image_link);
+        var banners = k_getTodaysBanners();
+        for (var i in banners) _message.channel.send(banner[i].image_link);
+        return;
     }
-    if (commande == "pull") {
+    if (commande == "pull" || commande == "wish") {
         var voeux = k_getUserWishes(_message.author.id);
         if (voeux < 10) return _message.channel.send("Pas assez de vœux.");
 
-        var todaysElement = k_getTodaysBanner().element;
+        var todaysElement = k_getTodaysBanners()[0].element;
         var pity = k_getUserPity(_message.author.id);
         var loot = [];
         var animation = GIF_ANIMATION_VOEU_4S;
@@ -276,9 +273,9 @@ async function kusanaliBotMessage(_message) {
         var args = _message.content.toLowerCase().split(" ");
         if (args.length > 1 && args[1] == "omni" && todaysElement != "cryo") return _message.channel.send("Bannière Omni indisponible.");
         else if (args.length > 1 && [ "omni", "cryo" ].indexOf(args[1]) > -1 && todaysElement == "cryo") todaysElement = args[1];
-        else if (todaysElement == "cryo" && args.length <= 1) return _message.channel.send("Veuillez spécifier la bannière.\n```%pull cryo // OU // %pull omni```");
+        else if (todaysElement == "cryo" && args.length <= 1) return _message.channel.send("Veuillez spécifier la bannière.\n```%wish cryo // OU // %wish omni```");
 
-        randomCharacters = shuffleArray(K_GACHA_CHARACTERS);
+        randomCharacters = shuffleArray(K_GACHA_CHARACTERS_GI);
         loot.push(randomCharacters.find(o => o.stars == 4));
         var attempts = 9; // 10 - obligatory 4 stars
 
@@ -286,19 +283,19 @@ async function kusanaliBotMessage(_message) {
         if (pity >= 70) { // 5* !!
             pity = 0; attempts -= 1;
 
-            randomCharacters = shuffleArray(K_GACHA_CHARACTERS);
+            randomCharacters = shuffleArray(K_GACHA_CHARACTERS_GI);
             loot.push(randomCharacters.find(o => o.stars == 5 && (o.element == todaysElement || todaysElement == "omni")));
             animation = GIF_ANIMATION_VOEU_5S;
         }
 
         for (var i in Array.from(Array(attempts).keys())) { // regular rolls
             if (getRandomPercent() <= 2) { // 5* !!
-                randomCharacters = shuffleArray(K_GACHA_CHARACTERS);
+                randomCharacters = shuffleArray(K_GACHA_CHARACTERS_GI);
                 loot.push(randomCharacters.find(o => o.stars == 5 && (o.element == todaysElement || todaysElement == "omni")));
                 animation = GIF_ANIMATION_VOEU_5S;
             }
             else if (getRandomPercent() <= 5) { // 4* !
-                randomCharacters = shuffleArray(K_GACHA_CHARACTERS);
+                randomCharacters = shuffleArray(K_GACHA_CHARACTERS_GI);
                 loot.push(randomCharacters.find(o => o.stars == 4));
             }
         }
@@ -342,8 +339,8 @@ async function kusanaliBotMessage(_message) {
         var character_memory = {};
         var region_memory = null;
 
-        for (var i in inventory) characters.push(K_GACHA_CHARACTERS.find(o => o.id == inventory[i].id_character));
-        if (k_getUserOptions(_message.author.id)["fullinventory"] == 1) characters = K_GACHA_CHARACTERS.slice();
+        for (var i in inventory) characters.push(K_GACHA_CHARACTERS_GI.find(o => o.id == inventory[i].id_character));
+        if (k_getUserOptions(_message.author.id)["fullinventory"] == 1) characters = K_GACHA_CHARACTERS_GI.slice();
         characters.sort(function(a, b) {
             if (a.id_region != b.id_region) return a.id_region - b.id_region;
             if (a.stars != b.stars) return b.stars - a.stars;
@@ -425,7 +422,7 @@ async function kusanaliBotMessage(_message) {
         var inventory = executeQuery("SELECT * FROM K_Inventory WHERE id_player = " + command_user.id);
         var characters = [];
 
-        for (var i in inventory) characters.push(K_GACHA_CHARACTERS.find(o => o.id == inventory[i].id_character));
+        for (var i in inventory) characters.push(K_GACHA_CHARACTERS_GI.find(o => o.id == inventory[i].id_character));
         if (characters.length == 0) return _message.channel.send("...");
         characters.sort(function(a, b) {
             if (a.id_region != b.id_region) return a.id_region - b.id_region;
@@ -503,7 +500,7 @@ async function kusanaliBotMessage(_message) {
         );
         k_sendMessage(K_PROFIL_KUSANALI, "Tutoriel",
             "Vous pouvez aussi customiser votre experience avec les options, disponibles par la commande '%options'.\n"+
-            "Si vous avez des demandes pour le bot, ou souhaitez signaler un problème, n'hésitez pas à passer dans le channel #autres-jeux dans la catégorie du bot.\n\n"+
+            "Si vous avez des demandes pour le bot, ou souhaitez signaler un problème, n'hésitez pas à passer dans le channel #autres-jeux, dans la catégorie 'Paimon When?' propre au bot.\n\n"+
             "Merci pour votre attention ! " + displayEmote(EMOTE_KUSANALI),
             _message.channel
         );
@@ -525,11 +522,11 @@ async function kusanaliBotMessage(_message) {
             "**links**: Envoie les liens vers les résaux sociaux du serveur.\n" +
             "**option**: Permet de customiser votre experience.\n" +
             "**paypal**: Non.\n" +
-            "**pull**: Fais une multi.\n" +
             "**rank _(@someone)_**: Affiche ton statut actuel sur le leaderboard.\n" +
             "**shop**: Pour dépenser les moras.\n" +
             "**status _(@someone)_**: Affiche ton statut actuel sur le serveur.\n" +
             "**tutorial**: Explique les différentes mécaniques du bot.\n" +
+            "**wish**: Fais une multi.\n" +
 
             "\n" +
             "**cancelnatytou**: #cancelNatytou\n" +
@@ -800,13 +797,22 @@ function k_getTodayDate() {
     return today.toISOString().split('T')[0];
 }
 
-function k_getTodaysBanner() {
+function k_getTodaysBanners() {
     var currentDay = new Date().getDay();
-    var elementsDays = [ "cryo", "anemo", "geo", "electro", "dendro", "hydro", "pyro" ]
+    var elementsDays = [
+        [ "cryo", "omni" ], // dimanche
+        [ "anemo" ], // lundi
+        [ "geo" ], // mardi
+        [ "electro" ], // mercredi
+        [ "dendro" ], // jeudi
+        [ "hydro" ], // vendredi
+        [ "pyro" ] // samedi
+    ]
     return K_GACHA_BANNERS.find(o => o.element == elementsDays[currentDay]);
 }
 function k_loadGachaData() {
-    K_GACHA_CHARACTERS = executeQuery("SELECT * FROM K_Character;");
+    K_GACHA_CHARACTERS_GI = executeQuery("SELECT * FROM K_Character WHERE game='genshin';");
+    K_GACHA_CHARACTERS_HSR = executeQuery("SELECT * FROM K_Character WHERE game='hsr';");
     K_GACHA_BANNERS = executeQuery("SELECT * FROM K_Banner;");
     K_GACHA_REGIONS = executeQuery("SELECT * FROM K_Region;");
 }
@@ -889,7 +895,8 @@ var K_COLOR_ROLES = {
     "celestia": "1123437430775746681",
 }
 
-var K_GACHA_CHARACTERS = [];
+var K_GACHA_CHARACTERS_GI = [];
+var K_GACHA_CHARACTERS_HSR = [];
 var K_GACHA_BANNERS = [];
 var K_GACHA_REGIONS = [];
 
