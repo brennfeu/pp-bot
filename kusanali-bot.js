@@ -97,6 +97,7 @@ async function kusanaliBotMessage(_message) {
         var m = k_getUserMora(command_user.id);
         var n = k_getUserPlacement(command_user.id);
         var v = k_getUserWishes(command_user.id);
+        var t = k_getUserTickets(command_user.id);
         var pi = k_getUserPity(command_user.id);
         var inventory = executeQuery("SELECT * FROM K_Inventory WHERE id_player = " + command_user.id);
         var artwork_column = k_getArtworkColumn(command_user.id);
@@ -105,6 +106,7 @@ async function kusanaliBotMessage(_message) {
             "**\nRang d'Aventurier : **" + ar +
             "**\nPlacement du serveur : **" + n +
             "e**\n\nVœux : **" + sciText(v) +
+            "**\nTickets : **" + sciText(t) +
             "**\nPity : **" + sciText(pi) +
             "/70**\nPersos : **" + inventory.length + "/" + K_GACHA_CHARACTERS.length +
             "**\n\nMora : **" + sciText(m) +
@@ -253,7 +255,7 @@ async function kusanaliBotMessage(_message) {
         return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
             "Je n'ai pas ça en stock, désolé.", _message.channel);
     }
-    if (commande == "banner") {
+    if (commande == "banner" || commande == "banners") {
         var banner = k_getTodaysBanner();
         _message.channel.send(banner.image_link);
         if (banner.element != "cryo") return;
@@ -467,13 +469,49 @@ async function kusanaliBotMessage(_message) {
         return k_sendMessage(K_PROFIL_KUSANALI, "Les Options des Fleurs",
             "L'option _" + args[1] + "_ a été mise à jour ! "+displayEmote(EMOTE_KUSANALI), _message.channel);
     }
+    if (commande == "tutorial") {
+        _message.channel.send("Voici une petite liste des fonctionnalités du bot :");
+        k_sendMessage(K_PROFIL_PAIMON_STATUE, "Tutoriel",
+            "Chaque compte ici-présent peut gagner de l'xp d'aventurier en discutant dans un channel textuel, à un taux de 1 message = 1 xp.\n"+
+            "Les paliers de rang d'aventurier (AR) sont calqués sur ceux de genshin, à un taux de 1/10. Atteindre certains paliers confère automatiquement un nouveau rôle.\n"+
+            "Vous pouvez utiliser la commande '%rank' à tout moment pour savoir ou vous en êtes, et quelle est la prochaine étape.\n\n"+
+            "AR 5 : Mondstadtois\n"+
+            "AR 10 : Liyuéen\n"+
+            "AR 20 : Inazumien\n"+
+            "AR 30 : Sumérien\n"+
+            "AR 40 : Fontainois\n"+
+            "AR 45 : Natlanais\n"+
+            "AR 50 : Snezhnayen\n"+
+            "AR 55 : Habitant du Royaume Déchu\n"+
+            "AR 60 : Divinité Céleste"
+        );
+        k_sendMessage(K_PROFIL_KATHERYNE, "Tutoriel",
+            "Chaque jour, vous pouvez faire vos quêtes quotidiennes, vous faisant ainsi gagner moras, vœux, et tickets. Les vœux et les tickets permettent d'invoquer des personnages de Genshin Impact et Honkai Star Rail respectivement.\n"+
+            "Afin de rendre l'experience plus agréable, la pity est à 70, et ne se réinitialise pas si un personnage 5* arrive plus tôt que prévu. La pity est la même pour les bannières Genshin et HSR.\n"+
+            "Les bannières tournent chaque jour. Vous pouvez utiliser la commande '%banners' pour savoir quelles sont les bannières en cours.\n\n"+
+            "Taux de drop :\n"+
+            "4* : 5% par vœu. 100% pour le premier d'une multi.\n"+
+            "5* : 2% par vœu. 100% quand la pity est atteinte."
+        );
+        k_sendMessage(K_PROFIL_LIBEN, "Tutoriel",
+            "Vous pouvez dépenser vos moras dans le shop.\n"+
+            "Vous pourrez notamment y acheter un changement de couleur, un doubleur d'xp, ou de quoi participer encore plus au gacha.\n"+
+            "Le shop est accessible par la commande '%shop'"
+        );
+        k_sendMessage(K_PROFIL_KUSANALI, "Tutoriel",
+            "Vous pouvez aussi customiser votre experience avec les options, disponibles par la commande '%options'.\n"+
+            "Si vous avez des demandes pour le bot, ou souhaitez signaler un problème, n'hésitez pas à passer dans le channel #autres-jeux dans la catégorie du bot.\n\n"+
+            "Merci pour votre attention ! " + displayEmote(EMOTE_KUSANALI)
+        );
+        return;
+    }
     if (commande == "reset_cache") {
         k_loadGachaData();
         return _message.reply("fait !");
     }
     if (commande == "help") {
         k_sendMessage(K_PROFIL_KUSANALI, "Commandes",
-            "**banner**: Affiche la bannière actuelle.\n" +
+            "**banners**: Affiche la bannière actuelle.\n" +
             "**characters _(@someone)_**: Affiche la liste des personnages obtenus (texte).\n" +
             "**dailies**: Affiche la listes des missions quotidiennes.\n" +
             "**gallery _(@someone)_**: Affiche la liste des personnages obtenus (images).\n" +
@@ -487,6 +525,7 @@ async function kusanaliBotMessage(_message) {
             "**rank _(@someone)_**: Affiche ton statut actuel sur le leaderboard.\n" +
             "**shop**: Pour dépenser les moras.\n" +
             "**status _(@someone)_**: Affiche ton statut actuel sur le serveur.\n" +
+            "**tutorial**: Explique les différentes mécaniques du bot.\n" +
 
             "\n" +
             "**cancelnatytou**: #cancelNatytou\n" +
@@ -577,7 +616,7 @@ function k_sendWebhookMessage(_webhook, _profil, _title, _message, _channel, _av
     embedMessage.setTitle("**" + _title + "**");
     embedMessage.setDescription(sciText(_message));
     embedMessage.setColor([ 125, 171, 73 ]);
-    embedMessage.setFooter('Perdu ? Tapez \'%help\' pour plus de détails.', 'https://cdn.discordapp.com/attachments/721498678925328434/721511440598696056/arbitrator.png');
+    embedMessage.setFooter('Perdu ? Tapez \'%help\' ou \'%tutorial\' pour plus de détails.', 'https://cdn.discordapp.com/attachments/721498678925328434/721511440598696056/arbitrator.png');
     if (_avatar != undefined) embedMessage.setThumbnail(_avatar);
 
     webhookClient.send('', {
@@ -617,7 +656,7 @@ function k_sendWebhookEmbedMessage(_webhook, _profil, _embed, _channel) {
 
     var embedMessage = _embed;
     embedMessage.setColor([ 125, 171, 73 ]);
-    embedMessage.setFooter('Perdu ? Tapez \'%help\' pour plus de détails.', 'https://cdn.discordapp.com/attachments/721498678925328434/721511440598696056/arbitrator.png');
+    embedMessage.setFooter('Perdu ? Tapez \'%help\' ou \'%tutorial\' pour plus de détails.', 'https://cdn.discordapp.com/attachments/721498678925328434/721511440598696056/arbitrator.png');
 
     webhookClient.send('', {
         username: _profil.nom,
@@ -712,7 +751,7 @@ function k_increaseMissionProgress(_userId, _missionType, _channel, _dailies = "
         txt = txt.replace("[x]", '**' + dailies[i].target + '**');
         if (dailies[i].type  == "use_word") txt = txt.replace("[y]", '**' + dailies[i].word + '**');
         txt += " - **Mission Accomplie !**\nVous avez gagné **" + sciText(mora) + "** Moras !";
-        k_sendMessage(K_PROFIL_KATHERYNE, "Missions Quotidiennes",
+        k_sendMessage(K_PROFIL_KATHERYNE, "Missions Quotidiennes - "+K_MEMBERS_CACHE[_userId].user.username.secureXSS(),
             txt, _channel);
         mission_accomplie = true;
     }
@@ -720,9 +759,9 @@ function k_increaseMissionProgress(_userId, _missionType, _channel, _dailies = "
     // all dailies done ?
     if (!mission_accomplie) return;
     for (var i in dailies) if (dailies[i].progress < dailies[i].target) return;
-    executeQuery('UPDATE Player SET k_wishes=(k_wishes+1) WHERE id = ' + _userId);
-    k_sendMessage(K_PROFIL_KATHERYNE, "Missions Quotidiennes",
-        "Vous avez fait toutes vos missions quotidiennes.\nVoici un lot de **10 vœux** pour vos efforts.", _channel);
+    executeQuery('UPDATE Player SET k_wishes=(k_wishes+1), k_tickets=(k_tickets+1) WHERE id = ' + _userId);
+    k_sendMessage(K_PROFIL_KATHERYNE, "Missions Quotidiennes - "+K_MEMBERS_CACHE[_userId].user.username.secureXSS(),
+        "Merci d'avoir fait toutes vos missions quotidiennes.\nVoici un lot de **10 vœux** et de **10 tickets** pour vos efforts.", _channel);
 }
 
 function k_checkRoles(_message) {

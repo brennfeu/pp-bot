@@ -231,6 +231,12 @@ function k_getUserWishes(_userId) {
 	if (result.length == 0) return 0;
 	else return parseInt(result[0].k_wishes)*10;
 }
+function k_getUserTickets(_userId) {
+	var result = executeQuery("SELECT k_tickets FROM Player WHERE id = " + _userId);
+
+	if (result.length == 0) return 0;
+	else return parseInt(result[0].k_tickets)*10;
+}
 function k_getUserPity(_userId) {
 	var result = executeQuery("SELECT k_pity FROM Player WHERE id = " + _userId)
 
