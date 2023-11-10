@@ -810,7 +810,7 @@ function k_getTodaysBanners() {
     ];
     var l = [];
 
-    for (var i in elementsDays[current_day])
+    for (var i in elementsDays[currentDay])
         l.push(K_GACHA_BANNERS.find(o => o.element == elementsDays[currentDay][i]));
     return l;
 }
