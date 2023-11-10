@@ -807,8 +807,12 @@ function k_getTodaysBanners() {
         [ "dendro" ], // jeudi
         [ "hydro" ], // vendredi
         [ "pyro" ] // samedi
-    ]
-    return K_GACHA_BANNERS.find(o => o.element == elementsDays[currentDay]);
+    ];
+    var l = [];
+
+    for (var i in elementsDays[current_day])
+        l.push(K_GACHA_BANNERS.find(o => o.element == elementsDays[currentDay][i]));
+    return l;
 }
 function k_loadGachaData() {
     K_GACHA_CHARACTERS_GI = executeQuery("SELECT * FROM K_Character WHERE game='genshin';");
