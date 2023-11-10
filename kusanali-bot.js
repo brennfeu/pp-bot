@@ -257,7 +257,7 @@ async function kusanaliBotMessage(_message) {
     }
     if (commande == "banner" || commande == "banners") {
         var banners = k_getTodaysBanners();
-        for (var i in banners) _message.channel.send(banner[i].image_link);
+        for (var i in banners) _message.channel.send(banners[i].image_link);
         return;
     }
     if (commande == "pull" || commande == "wish") {
