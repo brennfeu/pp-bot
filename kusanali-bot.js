@@ -318,6 +318,14 @@ async function kusanaliBotMessage(_message) {
             message_files.push(message_image);
         }
 
+        // skip animation
+        if (k_getUserOptions(_message.author.id)["skipanimations"] == 1) {
+            _message.channel.send({ files: message_files }).then(function (_message4) {
+                if (k_getUserOptions(_message.author.id)["autorefund"] == 1) k_checkRefund(_message);
+            });
+            return;
+        }
+        // play animation
         return _message.channel.send(animation).then(function (_message2) {
 			setTimeout(function(_message3, message_files) {
                 _message3.channel.send({ files: message_files }).then(function (_message4) {
