@@ -809,7 +809,8 @@ function k_getUserOptions(_id) {
     opt = JSON.parse(opt);
 
     // default values
-    for (var i in K_OPTIONS_DEFAULT) opt[i] = K_OPTIONS_DEFAULT[i];
+    for (var i in K_OPTIONS_DEFAULT) if (opt[i] == undefined) opt[i] = K_OPTIONS_DEFAULT[i];
+
     return opt;
 }
 function k_setUserOptions(_id, _options) {
