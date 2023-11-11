@@ -281,17 +281,3 @@ function k_getArtworkColumn(_userId) {
 
 	return txt;
 }
-function k_getUserOptions(_id) {
-    var opt = executeQuery("SELECt k_options FROM Player WHERE id=" + _id)[0]["k_options"];
-    opt = JSON.parse(opt);
-
-    // default
-    if (opt.fullinventory == undefined) opt.fullinventory = 0;
-    if (opt.smallinventory == undefined) opt.smallinventory = 0;
-    if (opt.autorefund == undefined) opt.autorefund = 0;
-
-    return opt;
-}
-function k_setUserOptions(_id, _options) {
-    executeQuery('UPDATE Player SET k_options=\'' + JSON.stringify(_options) + '\' WHERE id = ' + _id);
-}

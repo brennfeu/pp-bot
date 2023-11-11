@@ -457,8 +457,9 @@ async function kusanaliBotMessage(_message) {
             "_fullinventory_ ("+["❌", "✅"][current_options["fullinventory"]]+") : Affiche tous les personnages avec la commande %characters\n" +
             "_smallinventory_ ("+["❌", "✅"][current_options["smallinventory"]]+") : Tri régional avec la commande %characters\n" +
             "_autorefund_ ("+["❌", "✅"][current_options["autorefund"]]+") : Rembourse automatiquement les constellations au dessus de 6\n" +
+            "_skipanimations_ ("+["❌", "✅"][current_options["skipanimations"]]+") : Affiche directement le résultat des pulls\n" +
             "\nExemple de commande de changement d'option : ```%option autorefund```", _message.channel);
-        if (["fullinventory", "autorefund", "smallinventory"].indexOf(args[1]) <= -1) return k_sendMessage(K_PROFIL_KUSANALI, "Les Options des Fleurs",
+        if (K_OPTIONS_DEFAULT[args[1]] == undefined) return k_sendMessage(K_PROFIL_KUSANALI, "Les Options des Fleurs",
             "Je n'ai pas cette option, je suis désolée.", _message.channel);
 
         current_options[args[1]] = Math.abs(current_options[args[1]]-1);
@@ -787,6 +788,24 @@ function k_checkRoles(_message) {
             .catch(console.error);
         }
     }
+}
+
+var K_OPTIONS_DEFAULT = {
+    "fullinventory": 0,
+    "smallinventory": 0,
+    "skipanimations": 0,
+    "autorefund": 0
+}
+function k_getUserOptions(_id) {
+    var opt = executeQuery("SELECt k_options FROM Player WHERE id=" + _id)[0]["k_options"];
+    opt = JSON.parse(opt);
+
+    // default values
+    for (var i in K_OPTIONS_DEFAULT) opt[i] = K_OPTIONS_DEFAULT[i];
+    return opt;
+}
+function k_setUserOptions(_id, _options) {
+    executeQuery('UPDATE Player SET k_options=\'' + JSON.stringify(_options) + '\' WHERE id = ' + _id);
 }
 
 function k_getToday() {
