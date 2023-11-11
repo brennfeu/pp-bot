@@ -257,7 +257,7 @@ async function kusanaliBotMessage(_message) {
     }
     if (commande == "banner" || commande == "banners") {
         var banners = k_getTodaysBanners();
-        for (var i in banners) _message.channel.send(banner[i].image_link);
+        for (var i in banners) _message.channel.send(banners[i].image_link);
         return;
     }
     if (commande == "pull" || commande == "wish") {
@@ -826,8 +826,12 @@ function k_getTodaysBanners() {
         [ "dendro" ], // jeudi
         [ "hydro" ], // vendredi
         [ "pyro" ] // samedi
-    ]
-    return K_GACHA_BANNERS.find(o => o.element == elementsDays[currentDay]);
+    ];
+    var l = [];
+
+    for (var i in elementsDays[currentDay])
+        l.push(K_GACHA_BANNERS.find(o => o.element == elementsDays[currentDay][i]));
+    return l;
 }
 function k_loadGachaData() {
     K_GACHA_CHARACTERS_GI = executeQuery("SELECT * FROM K_Character WHERE game='genshin';");
