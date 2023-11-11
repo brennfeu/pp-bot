@@ -209,7 +209,7 @@ function k_addMessageCount(_userId, _username, _channel) {
                 "**Bravo "+_username+"**, tu es passé Rang d'Aventurier **"+_current_ar+"** !\n\nTu gagnes "+sciText(_mora)+" Moras !", _channel);
 
             executeQuery('UPDATE Player SET k_mora=(k_mora+' + _mora + ') WHERE id = ' + _userId);
-			k_checkRoles(K_MEMBERS_CACHE[_userId]);
+			k_checkRoles2(_channel.guild, K_MEMBERS_CACHE[_userId], _channel.guild.members.cache.get(_userId), _channel);
         }
     }
 }

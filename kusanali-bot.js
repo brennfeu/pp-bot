@@ -8,7 +8,7 @@ async function kusanaliBotMessage(_message) {
     k_resetUserDailyProgress(_message.author.id);
 
     if (_message.channel.id == CHANNEL_NO_MIC) k_increaseVcXp();
-    else k_addMessageCount(_message.author.id, _message.author.username.secureXSS(), _message.channel);
+    else k_addMessageCount(_message.author.id, _message.author.username.secureXSS(), _message.channel, _message);
 
     // check role voyageur
     if (_message.channel.guild.id == K_SERVER_ID) {
@@ -775,23 +775,26 @@ function k_increaseMissionProgress(_userId, _missionType, _channel, _dailies = "
 }
 
 function k_checkRoles(_message) {
-    if (_message.guild.id != K_SERVER_ID) return;
-    var ar = k_getUserAR(_message.author.id);
+    return k_checkRoles2(_message.guild, _message.author, _message.member, _message.channel)
+}
+function k_checkRoles2(_guild, _author, _member, _channel) {
+    if (_guild.id != K_SERVER_ID) return;
+    var ar = k_getUserAR(_author.id);
 
     for (var i in K_AR_LIST) {
         if (parseInt(i) >= ar) return;
 
         if (K_AR_LIST[i].role != undefined) {
-            _message.guild.roles.fetch(K_AR_LIST[i].role)
+            _guild.roles.fetch(K_AR_LIST[i].role)
             .then(function(_role) {
                 // check doesn't already have role
-                if (_message.member.roles.cache.get(_role.id) != undefined) return;
+                if (_member.roles.cache.get(_role.id) != undefined) return;
 
-                _message.member.roles.add(_role);
+                _member.roles.add(_role);
                 k_sendMessage(K_PROFIL_PAIMON_CHAD,
                     "Nouveau Role obtenu !",
-                    "**Bravo " + _message.author.username.secureXSS() + "**, tu as obtenu le rôle **" + _role.name + "** !",
-                    _message.channel);
+                    "**Bravo " + _author.username.secureXSS() + "**, tu as obtenu le rôle **" + _role.name + "** !",
+                    _channel);
             })
             .catch(console.error);
         }
