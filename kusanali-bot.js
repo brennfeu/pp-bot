@@ -260,7 +260,7 @@ async function kusanaliBotMessage(_message) {
         for (var i in banners) _message.channel.send(banners[i].image_link);
         return;
     }
-    if (commande == "pull" || commande == "wish") {
+    if (commande == "wish") {
         var voeux = k_getUserWishes(_message.author.id);
         if (voeux < 10) return _message.channel.send("Pas assez de vœux.");
 
@@ -831,13 +831,13 @@ function k_getTodayDate() {
 function k_getTodaysBanners() {
     var currentDay = new Date().getDay();
     var elementsDays = [
-        [ "cryo", "omni" ], // dimanche
-        [ "anemo" ], // lundi
-        [ "geo" ], // mardi
-        [ "electro" ], // mercredi
-        [ "dendro" ], // jeudi
-        [ "hydro" ], // vendredi
-        [ "pyro" ] // samedi
+        [ "cryo", "omni", "quantum", "lightning", "imaginary", "wind", "ice", "fire", "physical" ], // dimanche
+        [ "anemo", "quantum" ], // lundi
+        [ "geo", "lightning" ], // mardi
+        [ "electro", "imaginary" ], // mercredi
+        [ "dendro", "wind" ], // jeudi
+        [ "hydro", "ice" ], // vendredi
+        [ "pyro", "fire" ] // samedi
     ];
     var l = [];
 
