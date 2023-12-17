@@ -346,8 +346,10 @@ async function kusanaliBotMessage(_message) {
 
         // check omni
         var args = _message.content.toLowerCase().split(" ");
-        if (args.length > 1 && [ "physical", "quantum", "lightning", "imaginary", "wind", "ice", "fire" ].indexOf(args[1]) > -1 && todaysElement == "physical") todaysElement = args[1];
-        else if (todaysElement == "physical" && args.length <= 1) return _message.channel.send("Veuillez spécifier la bannière.\n```%warp physical // OU // %warp quantum // OU // %warp lightning // OU // %warp imaginary // OU // %warp wind // OU // %warp ice // OU // %warp fire```");
+        if (todaysElement == "physical") {
+            if (args.length > 1 && [ "physical", "quantum", "lightning", "imaginary", "wind", "ice", "fire" ].indexOf(args[1]) > -1 && todaysElement == "physical") todaysElement = args[1];
+            else return _message.channel.send("Veuillez spécifier la bannière.\n```%warp physical // OU // %warp quantum // OU // %warp lightning // OU // %warp imaginary // OU // %warp wind // OU // %warp ice // OU // %warp fire```");
+        }
 
         randomCharacters = shuffleArray(K_GACHA_CHARACTERS_HSR);
         loot.push(randomCharacters.find(o => o.stars == 4));
