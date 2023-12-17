@@ -439,6 +439,8 @@ async function kusanaliBotMessage(_message) {
         var txt = "";
         var last_region = 0;
         for (var i in characters) {
+            if (characters[i] == null) continue; // skip if couldn't find character (another game)
+
             // check new region
             if (characters[i].id_region != last_region) {
                 if (txt != "") { // add field to embed
@@ -503,6 +505,8 @@ async function kusanaliBotMessage(_message) {
         var txt = "";
         var last_region = 0;
         for (var i in characters) {
+            if (characters[i] == null) continue; // skip if couldn't find character (another game)
+            
             // check new region
             if (characters[i].id_region != last_region) {
                 if (txt != "") { // add field to embed
@@ -571,7 +575,6 @@ async function kusanaliBotMessage(_message) {
 
         for (var i in inventory) characters.push(K_GACHA_CHARACTERS_ALL.find(o => o.id == inventory[i].id_character));
         if (characters.length == 0) return _message.channel.send("...");
-        console.log(characters.length);
         characters.sort(function(a, b) {
             if (a.id_region != b.id_region) return a.id_region - b.id_region;
             if (a.stars != b.stars) return b.stars - a.stars;
@@ -580,7 +583,6 @@ async function kusanaliBotMessage(_message) {
             else if (a.name > b.name) return 1;
             return 0;
         });
-        console.log(characters.length);
 
         var artwork_column = k_getArtworkColumn(_message.author.id);
         var last_region = characters[0].id_region;
