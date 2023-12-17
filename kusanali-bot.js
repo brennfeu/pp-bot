@@ -342,7 +342,7 @@ async function kusanaliBotMessage(_message) {
         var todaysElement = k_getTodaysHsrBanners()[0].element;
         var pity = k_getUserPity(_message.author.id);
         var loot = [];
-        var animation = GIF_ANIMATION_VOEU_4S;
+        var animation = GIF_ANIMATION_WARP_4S;
 
         // check omni
         var args = _message.content.toLowerCase().split(" ");
@@ -359,14 +359,14 @@ async function kusanaliBotMessage(_message) {
 
             randomCharacters = shuffleArray(K_GACHA_CHARACTERS_HSR);
             loot.push(randomCharacters.find(o => o.stars == 5 && (o.element == todaysElement || todaysElement == "omni")));
-            animation = GIF_ANIMATION_VOEU_5S;
+            animation = GIF_ANIMATION_WARP_5S;
         }
 
         for (var i in Array.from(Array(attempts).keys())) { // regular rolls
             if (getRandomPercent() <= 2) { // 5* !!
                 randomCharacters = shuffleArray(K_GACHA_CHARACTERS_HSR);
                 loot.push(randomCharacters.find(o => o.stars == 5 && (o.element == todaysElement || todaysElement == "omni")));
-                animation = GIF_ANIMATION_VOEU_5S;
+                animation = GIF_ANIMATION_WARP_5S;
             }
             else if (getRandomPercent() <= 5) { // 4* !
                 randomCharacters = shuffleArray(K_GACHA_CHARACTERS_HSR);
@@ -406,7 +406,7 @@ async function kusanaliBotMessage(_message) {
                     if (k_getUserOptions(_message.author.id)["autorefund"] == 1) k_checkRefund(_message);
                 });
                 _message3.delete();
-            }, GIF_ANIMATION_TIMING, _message2, message_files);
+            }, GIF_ANIMATION_TIMING2, _message2, message_files);
 		});
     }
     if (commande == "characters") {
@@ -506,7 +506,7 @@ async function kusanaliBotMessage(_message) {
         var last_region = 0;
         for (var i in characters) {
             if (characters[i] == null) continue; // skip if couldn't find character (another game)
-            
+
             // check new region
             if (characters[i].id_region != last_region) {
                 if (txt != "") { // add field to embed
@@ -1108,6 +1108,10 @@ var K_GACHA_REGIONS = [];
 var GIF_ANIMATION_VOEU_4S = "https://cdn.discordapp.com/attachments/715322091804819486/1122928890696966164/wish4.gif";
 var GIF_ANIMATION_VOEU_5S = "https://cdn.discordapp.com/attachments/715322091804819486/1122796824609169448/wish.gif";
 var GIF_ANIMATION_TIMING = 9000;
+
+var GIF_ANIMATION_WARP_4S = "https://cdn.discordapp.com/attachments/715322091804819486/1185967095792554054/warp4.gif";
+var GIF_ANIMATION_WARP_5S = "https://cdn.discordapp.com/attachments/715322091804819486/1185967116218802246/warp5.gif";
+var GIF_ANIMATION_TIMING2 = 14000;
 
 var K_SERVER_ID = "835951523325542400";
 var K_TEST_SERVER_ID = "715322089904537731";
