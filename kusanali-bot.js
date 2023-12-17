@@ -415,13 +415,13 @@ async function kusanaliBotMessage(_message) {
 
         var smallinventory = k_getUserOptions(_message.author.id)["smallinventory"] == "1";
         var inventory = executeQuery("SELECT * FROM K_Inventory WHERE id_player = " + command_user.id);
-        var characters = [];
 
         // smallinventory memory
         var character_memory = {};
         var region_memory = null;
 
         // GENSHIN //
+        var characters = [];
         for (var i in inventory) characters.push(K_GACHA_CHARACTERS_GI.find(o => o.id == inventory[i].id_character));
         if (k_getUserOptions(_message.author.id)["fullinventory"] == 1) characters = K_GACHA_CHARACTERS_GI.slice();
         characters.sort(function(a, b) {
@@ -485,8 +485,9 @@ async function kusanaliBotMessage(_message) {
         if (!smallinventory) k_sendEmbedMessage(K_PROFIL_PAIMON_STATUE, embedMessage, _message.channel);
 
         // HSR //
-        for (var i in inventory) characters.push(K_GACHA_CHARACTERS_GI.find(o => o.id == inventory[i].id_character));
-        if (k_getUserOptions(_message.author.id)["fullinventory"] == 1) characters = K_GACHA_CHARACTERS_GI.slice();
+        var characters = [];
+        for (var i in inventory) characters.push(K_GACHA_CHARACTERS_HSR.find(o => o.id == inventory[i].id_character));
+        if (k_getUserOptions(_message.author.id)["fullinventory"] == 1) characters = K_GACHA_CHARACTERS_HSR.slice();
         characters.sort(function(a, b) {
             if (a.id_region != b.id_region) return a.id_region - b.id_region;
             if (a.stars != b.stars) return b.stars - a.stars;
@@ -570,7 +571,7 @@ async function kusanaliBotMessage(_message) {
 
         for (var i in inventory) characters.push(K_GACHA_CHARACTERS_ALL.find(o => o.id == inventory[i].id_character));
         if (characters.length == 0) return _message.channel.send("...");
-        console.log(characters);
+        console.log(characters.length);
         characters.sort(function(a, b) {
             if (a.id_region != b.id_region) return a.id_region - b.id_region;
             if (a.stars != b.stars) return b.stars - a.stars;
@@ -579,7 +580,7 @@ async function kusanaliBotMessage(_message) {
             else if (a.name > b.name) return 1;
             return 0;
         });
-        console.log(characters);
+        console.log(characters.length);
 
         var artwork_column = k_getArtworkColumn(_message.author.id);
         var last_region = characters[0].id_region;
