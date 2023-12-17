@@ -108,7 +108,7 @@ async function kusanaliBotMessage(_message) {
             "e**\n\nVœux : **" + sciText(v) +
             "**\nTickets : **" + sciText(t) +
             "**\nPity : **" + sciText(pi) +
-            "/70**\nPersos : **" + inventory.length + "/" + K_GACHA_CHARACTERS_GI.length +
+            "/70**\nPersos : **" + inventory.length + "/" + K_GACHA_CHARACTERS_ALL.length +
             "**\n\nMora : **" + sciText(m) +
             "**";
 
