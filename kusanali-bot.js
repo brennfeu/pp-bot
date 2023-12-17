@@ -264,7 +264,7 @@ async function kusanaliBotMessage(_message) {
         var voeux = k_getUserWishes(_message.author.id);
         if (voeux < 10) return _message.channel.send("Pas assez de vœux.");
 
-        var todaysElement = k_getTodaysBanners()[0].element;
+        var todaysElement = k_getTodaysGenshinBanners()[0].element;
         var pity = k_getUserPity(_message.author.id);
         var loot = [];
         var animation = GIF_ANIMATION_VOEU_4S;
@@ -301,6 +301,80 @@ async function kusanaliBotMessage(_message) {
         }
 
         executeQuery('UPDATE Player SET k_wishes=(k_wishes-1), k_pity='+pity+' WHERE id = ' + _message.author.id);
+        var message_files = [];
+        var artwork_column = k_getArtworkColumn(_message.author.id);
+        loot.sort(function(a, b) {
+            return b.stars - a.stars;
+        });
+        for (var i in loot) {
+            try { executeQuery("INSERT INTO K_Inventory(id_character, id_player) VALUES("+
+                loot[i].id + ", " + _message.author.id + ");"); } catch(e) {}
+            executeQuery("UPDATE K_Inventory SET amount=(amount+1) " +
+                "WHERE id_character='" + loot[i].id + "' AND id_player='" + _message.author.id + "';");
+
+            var message_image = {};
+            message_image["attachment"] = loot[i][artwork_column];
+            message_image["name"] = 'SPOILER_gacha'+i+'.png';
+            message_files.push(message_image);
+        }
+
+        // skip animation
+        if (k_getUserOptions(_message.author.id)["skipanimations"] == 1) {
+            _message.channel.send({ files: message_files }).then(function (_message4) {
+                if (k_getUserOptions(_message.author.id)["autorefund"] == 1) k_checkRefund(_message);
+            });
+            return;
+        }
+        // play animation
+        return _message.channel.send(animation).then(function (_message2) {
+			setTimeout(function(_message3, message_files) {
+                _message3.channel.send({ files: message_files }).then(function (_message4) {
+                    if (k_getUserOptions(_message.author.id)["autorefund"] == 1) k_checkRefund(_message);
+                });
+                _message3.delete();
+            }, GIF_ANIMATION_TIMING, _message2, message_files);
+		});
+    }
+    if (commande == "warp") {
+        var voeux = k_getUserTickets(_message.author.id);
+        if (voeux < 10) return _message.channel.send("Pas assez de tickets.");
+
+        var todaysElement = k_getTodaysHsrBanners()[0].element;
+        var pity = k_getUserPity(_message.author.id);
+        var loot = [];
+        var animation = GIF_ANIMATION_VOEU_4S;
+
+        // check omni
+        var args = _message.content.toLowerCase().split(" ");
+        if (args.length > 1 && [ "physical", "quantum", "lightning", "imaginary", "wind", "ice", "fire" ].indexOf(args[1]) > -1 && todaysElement == "physical") todaysElement = args[1];
+        else if (todaysElement == "physical" && args.length <= 1) return _message.channel.send("Veuillez spécifier la bannière.\n```%warp physical // OU // %warp quantum // OU // %warp lightning // OU // %warp imaginary // OU // %warp wind // OU // %warp ice // OU // %warp fire```");
+
+        randomCharacters = shuffleArray(K_GACHA_CHARACTERS_HSR);
+        loot.push(randomCharacters.find(o => o.stars == 4));
+        var attempts = 9; // 10 - obligatory 4 stars
+
+        pity += 10;
+        if (pity >= 70) { // 5* !!
+            pity = 0; attempts -= 1;
+
+            randomCharacters = shuffleArray(K_GACHA_CHARACTERS_HSR);
+            loot.push(randomCharacters.find(o => o.stars == 5 && (o.element == todaysElement || todaysElement == "omni")));
+            animation = GIF_ANIMATION_VOEU_5S;
+        }
+
+        for (var i in Array.from(Array(attempts).keys())) { // regular rolls
+            if (getRandomPercent() <= 2) { // 5* !!
+                randomCharacters = shuffleArray(K_GACHA_CHARACTERS_HSR);
+                loot.push(randomCharacters.find(o => o.stars == 5 && (o.element == todaysElement || todaysElement == "omni")));
+                animation = GIF_ANIMATION_VOEU_5S;
+            }
+            else if (getRandomPercent() <= 5) { // 4* !
+                randomCharacters = shuffleArray(K_GACHA_CHARACTERS_HSR);
+                loot.push(randomCharacters.find(o => o.stars == 4));
+            }
+        }
+
+        executeQuery('UPDATE Player SET k_tickets=(k_tickets-1), k_pity='+pity+' WHERE id = ' + _message.author.id);
         var message_files = [];
         var artwork_column = k_getArtworkColumn(_message.author.id);
         loot.sort(function(a, b) {
@@ -535,7 +609,8 @@ async function kusanaliBotMessage(_message) {
             "**shop**: Pour dépenser les moras.\n" +
             "**status _(@someone)_**: Affiche ton statut actuel sur le serveur.\n" +
             "**tutorial**: Explique les différentes mécaniques du bot.\n" +
-            "**wish**: Fais une multi.\n" +
+            "**warp**: Fais une multi hsr.\n" +
+            "**wish**: Fais une multi genshin.\n" +
 
             "\n" +
             "**cancelnatytou**: #cancelNatytou\n" +
@@ -829,15 +904,35 @@ function k_getTodayDate() {
 }
 
 function k_getTodaysBanners() {
+    return k_getTodaysGenshinBanners().concat(k_getTodaysHsrBanners());
+}
+function k_getTodaysGenshinBanners() {
     var currentDay = new Date().getDay();
     var elementsDays = [
-        [ "cryo", "omni", "quantum", "lightning", "imaginary", "wind", "ice", "fire", "physical" ], // dimanche
-        [ "anemo", "quantum" ], // lundi
-        [ "geo", "lightning" ], // mardi
-        [ "electro", "imaginary" ], // mercredi
-        [ "dendro", "wind" ], // jeudi
-        [ "hydro", "ice" ], // vendredi
-        [ "pyro", "fire" ] // samedi
+        [ "cryo", "omni" ], // dimanche
+        [ "anemo" ], // lundi
+        [ "geo" ], // mardi
+        [ "electro" ], // mercredi
+        [ "dendro" ], // jeudi
+        [ "hydro" ], // vendredi
+        [ "pyro" ] // samedi
+    ];
+    var l = [];
+
+    for (var i in elementsDays[currentDay])
+        l.push(K_GACHA_BANNERS.find(o => o.element == elementsDays[currentDay][i]));
+    return l;
+}
+function k_getTodaysHsrBanners() {
+    var currentDay = new Date().getDay();
+    var elementsDays = [
+        [ "physical", "quantum", "lightning", "imaginary", "wind", "ice", "fire" ], // dimanche
+        [ "quantum" ], // lundi
+        [ "lightning" ], // mardi
+        [ "imaginary" ], // mercredi
+        [ "wind" ], // jeudi
+        [ "ice" ], // vendredi
+        [ "fire" ] // samedi
     ];
     var l = [];
 
