@@ -421,8 +421,72 @@ async function kusanaliBotMessage(_message) {
         var character_memory = {};
         var region_memory = null;
 
-        for (var i in inventory) characters.push(K_GACHA_CHARACTERS_ALL.find(o => o.id == inventory[i].id_character));
-        if (k_getUserOptions(_message.author.id)["fullinventory"] == 1) characters = K_GACHA_CHARACTERS_ALL.slice();
+        // GENSHIN //
+        for (var i in inventory) characters.push(K_GACHA_CHARACTERS_GI.find(o => o.id == inventory[i].id_character));
+        if (k_getUserOptions(_message.author.id)["fullinventory"] == 1) characters = K_GACHA_CHARACTERS_GI.slice();
+        characters.sort(function(a, b) {
+            if (a.id_region != b.id_region) return a.id_region - b.id_region;
+            if (a.stars != b.stars) return b.stars - a.stars;
+
+            if (a.name < b.name) return -1;
+            else if (a.name > b.name) return 1;
+            return 0;
+        });
+
+        var embedMessage = new DISCORD.MessageEmbed();
+        embedMessage.setTitle("**Inventaire de Personnages**");
+
+        var txt = "";
+        var last_region = 0;
+        for (var i in characters) {
+            // check new region
+            if (characters[i].id_region != last_region) {
+                if (txt != "") { // add field to embed
+                    var region = K_GACHA_REGIONS.find(o => o.id == last_region);
+                    character_memory[last_region] = txt;
+
+                    if (!smallinventory || embedMessage.fields.length == 0) // if smallinventory, only the 1st one
+                        embedMessage.addField(region.name.toUpperCase(), txt, true);
+                    else
+                        region_memory = last_region;
+                }
+
+                var region = K_GACHA_REGIONS.find(o => o.id == characters[i].id_region);
+                last_region = characters[i].id_region;
+                txt = "";
+            }
+
+            // get amount
+            var amount = 0;
+            var char = inventory.find(o => o.id_character == characters[i].id);
+            if (char != undefined) amount = char.amount;
+
+            // 1 character = 1 line
+            txt += "- ";
+            if (amount <= 0) txt += "~~";
+            if (characters[i].stars == 5) txt += "_";
+            txt += characters[i].name;
+            if (amount > 1) txt += " **C" + (amount-1) + "**";
+            if (characters[i].stars == 5) txt += "_";
+            if (amount <= 0) txt += "~~";
+            txt += "\n"
+        }
+        if (txt == "") embedMessage.setDescription("...");
+        else { // add field to embed
+            var region = K_GACHA_REGIONS.find(o => o.id == last_region);
+            character_memory[last_region] = txt;
+
+            if (!smallinventory || embedMessage.fields.length == 0) // if smallinventory, only the 1st one
+                embedMessage.addField(region.name.toUpperCase(), txt, true);
+            else
+                region_memory = last_region;
+        }
+
+        if (!smallinventory) k_sendEmbedMessage(K_PROFIL_PAIMON_STATUE, embedMessage, _message.channel);
+
+        // HSR //
+        for (var i in inventory) characters.push(K_GACHA_CHARACTERS_GI.find(o => o.id == inventory[i].id_character));
+        if (k_getUserOptions(_message.author.id)["fullinventory"] == 1) characters = K_GACHA_CHARACTERS_GI.slice();
         characters.sort(function(a, b) {
             if (a.id_region != b.id_region) return a.id_region - b.id_region;
             if (a.stars != b.stars) return b.stars - a.stars;
@@ -495,7 +559,7 @@ async function kusanaliBotMessage(_message) {
                 _message2.react("➡️");
             });
         }
-        return k_sendEmbedMessage(K_PROFIL_PAIMON_STATUE, embedMessage, _message.channel);
+        return k_sendEmbedMessage(K_PROFIL_POM_POM, embedMessage, _message.channel);
     }
     if (commande == "gallery") {
         var command_user = _message.author;
@@ -506,6 +570,7 @@ async function kusanaliBotMessage(_message) {
 
         for (var i in inventory) characters.push(K_GACHA_CHARACTERS_ALL.find(o => o.id == inventory[i].id_character));
         if (characters.length == 0) return _message.channel.send("...");
+        console.log(characters);
         characters.sort(function(a, b) {
             if (a.id_region != b.id_region) return a.id_region - b.id_region;
             if (a.stars != b.stars) return b.stars - a.stars;
@@ -514,6 +579,7 @@ async function kusanaliBotMessage(_message) {
             else if (a.name > b.name) return 1;
             return 0;
         });
+        console.log(characters);
 
         var artwork_column = k_getArtworkColumn(_message.author.id);
         var last_region = characters[0].id_region;
@@ -991,6 +1057,10 @@ var K_PROFIL_PAIMON_CHAD = {
 var K_PROFIL_PAIMON_STATUE = {
     "nom": "Paimon",
     "pfp": "https://cdn.discordapp.com/attachments/715322091804819486/1161209344319303741/static_wikia_nocookie_net-latest.jpg"
+}
+var K_PROFIL_POM_POM = {
+    "nom": "Pom-Pom",
+    "pfp": "https://cdn.discordapp.com/attachments/715322091804819486/1185958273174753280/image.png"
 }
 var K_PROFIL_KUSANALI = {
     "nom": "Loli des Fleurs",
