@@ -421,8 +421,8 @@ async function kusanaliBotMessage(_message) {
         var character_memory = {};
         var region_memory = null;
 
-        for (var i in inventory) characters.push(K_GACHA_CHARACTERS_GI.find(o => o.id == inventory[i].id_character));
-        if (k_getUserOptions(_message.author.id)["fullinventory"] == 1) characters = K_GACHA_CHARACTERS_GI.slice();
+        for (var i in inventory) characters.push(K_GACHA_CHARACTERS_ALL.find(o => o.id == inventory[i].id_character));
+        if (k_getUserOptions(_message.author.id)["fullinventory"] == 1) characters = K_GACHA_CHARACTERS_ALL.slice();
         characters.sort(function(a, b) {
             if (a.id_region != b.id_region) return a.id_region - b.id_region;
             if (a.stars != b.stars) return b.stars - a.stars;
@@ -504,7 +504,7 @@ async function kusanaliBotMessage(_message) {
         var inventory = executeQuery("SELECT * FROM K_Inventory WHERE id_player = " + command_user.id);
         var characters = [];
 
-        for (var i in inventory) characters.push(K_GACHA_CHARACTERS_GI.find(o => o.id == inventory[i].id_character));
+        for (var i in inventory) characters.push(K_GACHA_CHARACTERS_ALL.find(o => o.id == inventory[i].id_character));
         if (characters.length == 0) return _message.channel.send("...");
         characters.sort(function(a, b) {
             if (a.id_region != b.id_region) return a.id_region - b.id_region;
@@ -943,6 +943,7 @@ function k_getTodaysHsrBanners() {
 function k_loadGachaData() {
     K_GACHA_CHARACTERS_GI = executeQuery("SELECT * FROM K_Character WHERE game='genshin';");
     K_GACHA_CHARACTERS_HSR = executeQuery("SELECT * FROM K_Character WHERE game='hsr';");
+    K_GACHA_CHARACTERS_ALL = executeQuery("SELECT * FROM K_Character;");
     K_GACHA_BANNERS = executeQuery("SELECT * FROM K_Banner;");
     K_GACHA_REGIONS = executeQuery("SELECT * FROM K_Region;");
 }
@@ -1027,6 +1028,7 @@ var K_COLOR_ROLES = {
 
 var K_GACHA_CHARACTERS_GI = [];
 var K_GACHA_CHARACTERS_HSR = [];
+var K_GACHA_CHARACTERS_ALL = [];
 var K_GACHA_BANNERS = [];
 var K_GACHA_REGIONS = [];
 
