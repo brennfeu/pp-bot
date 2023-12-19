@@ -1111,8 +1111,8 @@ var GIF_ANIMATION_VOEU_4S = "https://cdn.discordapp.com/attachments/715322091804
 var GIF_ANIMATION_VOEU_5S = "https://cdn.discordapp.com/attachments/715322091804819486/1122796824609169448/wish.gif";
 var GIF_ANIMATION_TIMING = 9000;
 
-var GIF_ANIMATION_WARP_4S = "https://cdn.discordapp.com/attachments/715322091804819486/1185967095792554054/warp4.gif";
-var GIF_ANIMATION_WARP_5S = "https://cdn.discordapp.com/attachments/715322091804819486/1185967116218802246/warp5.gif";
+var GIF_ANIMATION_WARP_4S = "https://cdn.discordapp.com/attachments/715322091804819486/1186779455537020990/warp4.gif";
+var GIF_ANIMATION_WARP_5S = "https://cdn.discordapp.com/attachments/715322091804819486/1186779487959003186/warp5.gif";
 var GIF_ANIMATION_TIMING2 = 14000;
 
 var K_SERVER_ID = "835951523325542400";
