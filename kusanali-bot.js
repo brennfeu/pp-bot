@@ -736,7 +736,10 @@ function k_getARFromPoints(_p) {
 function k_checkRefund(_message) {
     var total_gi = executeQuery('SELECT SUM(amount-7) AS total FROM K_Inventory ki JOIN K_Character kc ON ki.id_character = kc.id WHERE id_player=' + _message.author.id + ' AND amount > 7 AND game = \'genshin\';')[0]["total"];
     var total_hsr = executeQuery('SELECT SUM(amount-7) AS total FROM K_Inventory ki JOIN K_Character kc ON ki.id_character = kc.id WHERE id_player=' + _message.author.id + ' AND amount > 7 AND game = \'hsr\';')[0]["total"];
+    console.log(total_gi);
+    console.log(total_hsr);
     var total = parseInt(total_gi) + parseInt(total_hsr);
+    console.log(total);
     if (total <= 0) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
         "Vous n'avez aucune constellation à rembourser.", _message.channel);
 
