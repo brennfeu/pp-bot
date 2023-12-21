@@ -734,11 +734,13 @@ function k_getARFromPoints(_p) {
 }
 
 function k_checkRefund(_message) {
-    var total = executeQuery('SELECT SUM(amount-7) AS total FROM K_Inventory WHERE id_player=' + _message.author.id + ' AND amount > 7;')[0]["total"];
+    var total_gi = executeQuery('SELECT SUM(amount-7) AS total FROM K_Inventory ki JOIN K_Character kc ON ki.id_character = kc.id WHERE id_player=' + _message.author.id + ' AND amount > 7 AND game = \'genshin\';')[0]["total"];
+    var total_hsr = executeQuery('SELECT SUM(amount-7) AS total FROM K_Inventory ki JOIN K_Character kc ON ki.id_character = kc.id WHERE id_player=' + _message.author.id + ' AND amount > 7 AND game = \'hsr\';')[0]["total"];
+    var total = parseInt(total_gi) + parseInt(total_hsr);
     if (total <= 0) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
         "Vous n'avez aucune constellation à rembourser.", _message.channel);
 
-    executeQuery('UPDATE Player SET k_wishes = (k_wishes+' + total + ') WHERE id = ' + _message.author.id);
+    executeQuery('UPDATE Player SET k_wishes = (k_wishes+' + total_gi + '), k_tickets = (k_tickets+' + total_hsr + ') WHERE id = ' + _message.author.id);
     executeQuery('UPDATE K_Inventory SET amount=7 WHERE id_player=' + _message.author.id + " AND amount > 7;");
 
     if (total == 1) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
