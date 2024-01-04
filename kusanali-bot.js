@@ -99,15 +99,15 @@ async function kusanaliBotMessage(_message) {
         var v = k_getUserWishes(command_user.id);
         var t = k_getUserTickets(command_user.id);
         var pi = k_getUserPity(command_user.id);
+        var pi2 = k_getUserPity2(command_user.id);
         var inventory = executeQuery("SELECT * FROM K_Inventory WHERE id_player = " + command_user.id);
         var artwork_column = k_getArtworkColumn(command_user.id);
 
         var txt = "Points d'Experience : **" + sciText(p) +
             "**\nRang d'Aventurier : **" + ar +
             "**\nPlacement du serveur : **" + n +
-            "e**\n\nVœux : **" + sciText(v) +
-            "**\nTickets : **" + sciText(t) +
-            "**\nPity : **" + sciText(pi) +
+            "e**\n\nVœux : **" + sciText(v) + " - **Pity : **" + sciText(pi) +
+            "**\nTickets : **" + sciText(t) + " - **Pity : **" + sciText(pi2) +
             "/70**\nPersos : **" + inventory.length + "/" + K_GACHA_CHARACTERS_ALL.length +
             "**\n\nMora : **" + sciText(m) +
             "**";
@@ -168,7 +168,8 @@ async function kusanaliBotMessage(_message) {
             "**Changement de couleur** ( _color_ [ _mondstadt_ / _liyue_ / _inazuma_ / _sumeru_ / _fontaine_ / _natlan_ / _snezhnaya_ / _khaenri'ah_ / _celestia_ ] ) - 500 000 Moras / Gratuit après 1er achat\n\n" +
 
             "**Lot de 10 vœux** ( _wishes_ ) - 500 000 Moras\n" +
-            "**Lot de 10 vœux** ( _refund_ ) - Toute constellation au dessus de C6\n\n" +
+            "**Lot de 10 tickets** ( _tickets_ ) - 500 000 Moras\n" +
+            "**Lot de 10 vœux/tickets** ( _refund_ ) - Toute constellation au dessus de C6\n\n" +
 
             "**Mode '_alternatif_'** ( _nsfw_ ) - 5 000 000 Moras\n" +
             "\nExemple de commande d'achat : ```%shop color inazuma```", _message.channel);
@@ -231,6 +232,15 @@ async function kusanaliBotMessage(_message) {
 
             return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
                 "Un lot de 10 vœux, très bien !", _message.channel);
+        }
+        if (args[1] == "tickets") {
+            if (mora <= 500000) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+                "Vous n'avez pas assez de moras.", _message.channel);
+
+            executeQuery('UPDATE Player SET k_tickets = (k_tickets+1), k_mora = (k_mora-500000) WHERE id = ' + _message.author.id);
+
+            return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
+                "Un lot de 10 tickets, très bien !", _message.channel);
         }
         if (args[1] == "refund") {
             return k_checkRefund(_message);
@@ -340,7 +350,7 @@ async function kusanaliBotMessage(_message) {
         if (voeux < 10) return _message.channel.send("Pas assez de tickets.");
 
         var todaysElement = k_getTodaysHsrBanners()[0].element;
-        var pity = k_getUserPity(_message.author.id);
+        var pity = k_getUserPity2(_message.author.id);
         var loot = [];
         var animation = GIF_ANIMATION_WARP_4S;
 
@@ -376,7 +386,7 @@ async function kusanaliBotMessage(_message) {
             }
         }
 
-        executeQuery('UPDATE Player SET k_tickets=(k_tickets-1), k_pity='+pity+' WHERE id = ' + _message.author.id);
+        executeQuery('UPDATE Player SET k_tickets=(k_tickets-1), k_pity2='+pity+' WHERE id = ' + _message.author.id);
         var message_files = [];
         var artwork_column = k_getArtworkColumn(_message.author.id);
         loot.sort(function(a, b) {

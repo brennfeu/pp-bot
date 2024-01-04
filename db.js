@@ -243,6 +243,12 @@ function k_getUserPity(_userId) {
 	if (result.length == 0) return 0;
 	else return parseInt(result[0].k_pity);
 }
+function k_getUserPity2(_userId) {
+	var result = executeQuery("SELECT k_pity2 FROM Player WHERE id = " + _userId)
+
+	if (result.length == 0) return 0;
+	else return parseInt(result[0].k_pity2);
+}
 function k_getUserPlacement(_userId) {
 	return parseInt(executeQuery("SELECT COUNT(id) count FROM Player WHERE k_points >= ( SELECT k_points FROM Player WHERE id = " + _userId + " )")[0].count);
 }
