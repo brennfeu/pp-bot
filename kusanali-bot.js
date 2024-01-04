@@ -106,9 +106,9 @@ async function kusanaliBotMessage(_message) {
         var txt = "Points d'Experience : **" + sciText(p) +
             "**\nRang d'Aventurier : **" + ar +
             "**\nPlacement du serveur : **" + n +
-            "e**\n\nVœux : **" + sciText(v) + " - **Pity : **" + sciText(pi) +
-            "**\nTickets : **" + sciText(t) + " - **Pity : **" + sciText(pi2) +
-            "/70**\nPersos : **" + inventory.length + "/" + K_GACHA_CHARACTERS_ALL.length +
+            "e**\n\nVœux : **" + sciText(v) + "** - Pity : **" + sciText(pi) + "/70" +
+            "**\nTickets : **" + sciText(t) + "** - Pity : **" + sciText(pi2) + "/70" +
+            "**\nPersos : **" + inventory.length + "/" + K_GACHA_CHARACTERS_ALL.length +
             "**\n\nMora : **" + sciText(m) +
             "**";
 
