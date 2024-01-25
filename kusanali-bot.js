@@ -165,7 +165,7 @@ async function kusanaliBotMessage(_message) {
         var args = _message.content.trim().toLowerCase().split(" ");
         if (args.length == 1) return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
             "**Double XP pendant 24h** ( _doublexp_ ) - 200 000 Moras\n" +
-            "**Changement de couleur** ( _color_ [ _mondstadt_ / _liyue_ / _inazuma_ / _sumeru_ / _fontaine_ / _natlan_ / _snezhnaya_ / _khaenri'ah_ / _celestia_ ] ) - 500 000 Moras / Gratuit après 1er achat\n\n" +
+            "**Changement de couleur** ( _color_ [ _mondstadt_ / _liyue_ / _inazuma_ / _sumeru_ / _fontaine_ / _natlan_ / _snezhnaya_ / _khaenri'ah_ / _celestia_ / _quantum_ / _imaginary_ / _wind_ / _lightning_ / _fire_ / _ice_ / _physical_ ] ) - 500 000 Moras / Gratuit après 1er achat\n\n" +
 
             "**Lot de 10 vœux** ( _wishes_ ) - 500 000 Moras\n" +
             "**Lot de 10 tickets** ( _tickets_ ) - 500 000 Moras\n" +
@@ -1113,6 +1113,13 @@ var K_COLOR_ROLES = {
     "snezhnaya": "1123437421858668604",
     "khaenri'ah": "1123437426283651274",
     "celestia": "1123437430775746681",
+    "quantum": "1199769497872113785",
+    "imaginary": "1199769797332840519",
+    "wind": "1199769272285667438",
+    "lightning": "1199769106451267709",
+    "fire": "1199769001237155862",
+    "ice": "1199768647275659365",
+    "physical": "1199768415863320686"
 }
 
 var K_GACHA_CHARACTERS_GI = [];
