@@ -612,7 +612,7 @@ async function kusanaliBotMessage(_message) {
         var last_region = characters[0].id_region;
         var artworks = [];
         for (var i in characters) {
-            if (false && artworks.length >= 9 || last_region != characters[i].id_region) { // send all messages
+            if (false && (artworks.length >= 9 || last_region != characters[i].id_region)) { // send all messages
                 // DISABLED UNTIL DISCORD FIX
                 await k_sendFilesAndWait(_message.channel, artworks);
                 last_region = characters[i].id_region;
