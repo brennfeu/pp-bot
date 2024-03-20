@@ -330,17 +330,23 @@ async function kusanaliBotMessage(_message) {
 
         // skip animation
         if (k_getUserOptions(_message.author.id)["skipanimations"] == 1) {
-            _message.channel.send({ files: message_files }).then(function (_message4) {
-                if (k_getUserOptions(_message.author.id)["autorefund"] == 1) k_checkRefund(_message);
-            });
+            // _message.channel.send({ files: message_files }).then(function (_message4) {
+            //     if (k_getUserOptions(_message.author.id)["autorefund"] == 1) k_checkRefund(_message);
+            // });
+            // DISABLED UNTIL DISCORD FIX
+            for (var i in message_files) _message.channel.send(message_files[i].attachment);
+            if (k_getUserOptions(_message.author.id)["autorefund"] == 1) k_checkRefund(_message);
             return;
         }
         // play animation
         return _message.channel.send(animation).then(function (_message2) {
 			setTimeout(function(_message3, message_files) {
-                _message3.channel.send({ files: message_files }).then(function (_message4) {
-                    if (k_getUserOptions(_message.author.id)["autorefund"] == 1) k_checkRefund(_message);
-                });
+                // _message3.channel.send({ files: message_files }).then(function (_message4) {
+                //     if (k_getUserOptions(_message.author.id)["autorefund"] == 1) k_checkRefund(_message);
+                // });
+                // DISABLED UNTIL DISCORD FIX
+                for (var i in message_files) _message.channel.send(message_files[i].attachment);
+                if (k_getUserOptions(_message.author.id)["autorefund"] == 1) k_checkRefund(_message);
                 _message3.delete();
             }, GIF_ANIMATION_TIMING, _message2, message_files);
 		});
@@ -406,17 +412,23 @@ async function kusanaliBotMessage(_message) {
 
         // skip animation
         if (k_getUserOptions(_message.author.id)["skipanimations"] == 1) {
-            _message.channel.send({ files: message_files }).then(function (_message4) {
-                if (k_getUserOptions(_message.author.id)["autorefund"] == 1) k_checkRefund(_message);
-            });
+            // _message.channel.send({ files: message_files }).then(function (_message4) {
+            //     if (k_getUserOptions(_message.author.id)["autorefund"] == 1) k_checkRefund(_message);
+            // });
+            // DISABLED UNTIL DISCORD FIX
+            for (var i in message_files) _message.channel.send(message_files[i].attachment);
+            if (k_getUserOptions(_message.author.id)["autorefund"] == 1) k_checkRefund(_message);
             return;
         }
         // play animation
         return _message.channel.send(animation).then(function (_message2) {
 			setTimeout(function(_message3, message_files) {
-                _message3.channel.send({ files: message_files }).then(function (_message4) {
-                    if (k_getUserOptions(_message.author.id)["autorefund"] == 1) k_checkRefund(_message);
-                });
+                // _message3.channel.send({ files: message_files }).then(function (_message4) {
+                //     if (k_getUserOptions(_message.author.id)["autorefund"] == 1) k_checkRefund(_message);
+                // });
+                // DISABLED UNTIL DISCORD FIX
+                for (var i in message_files) _message.channel.send(message_files[i].attachment);
+                if (k_getUserOptions(_message.author.id)["autorefund"] == 1) k_checkRefund(_message);
                 _message3.delete();
             }, GIF_ANIMATION_TIMING2, _message2, message_files);
 		});
@@ -600,7 +612,8 @@ async function kusanaliBotMessage(_message) {
         var last_region = characters[0].id_region;
         var artworks = [];
         for (var i in characters) {
-            if (artworks.length >= 9 || last_region != characters[i].id_region) { // send all messages
+            if (false && artworks.length >= 9 || last_region != characters[i].id_region) { // send all messages
+                // DISABLED UNTIL DISCORD FIX
                 await k_sendFilesAndWait(_message.channel, artworks);
                 last_region = characters[i].id_region;
                 artworks = [];
@@ -610,6 +623,7 @@ async function kusanaliBotMessage(_message) {
             message_image["attachment"] = characters[i][artwork_column];
             message_image["name"] = 'gallery_'+i+'.png';
             artworks.push(message_image);
+            _message.channel.send(message_image["attachment"]);
         }
         return;
     }
