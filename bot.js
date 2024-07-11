@@ -737,6 +737,24 @@ CLIENT.on("message", async _message => { try {
 CLIENT.on('voiceStateUpdate', (_oldState, _newState) => { try {
     if ([K_SERVER_ID, K_TEST_SERVER_ID].indexOf(_oldState.member.guild.id) < 0) return;
 
+	if (_newState.channelID == null || _newState.channelID == undefined) { // REMOVE VC ROLE
+		_oldState.member.guild.roles.fetch(ROLE_VC)
+		.then(function(_role) {
+			if (_oldState.member.roles.cache.get(_role.id) == undefined) return;
+			_oldState.member.roles.remove(_role);
+		})
+		.catch(console.error);
+		return;
+	}
+	else { // ADD VC ROLE
+		_oldState.member.guild.roles.fetch(ROLE_VC)
+		.then(function(_role) {
+			if (_oldState.member.roles.cache.get(_role.id) != undefined) return;
+			_oldState.member.roles.add(_role);
+		})
+		.catch(console.error);
+	}
+
 	var channel = _newState.guild.channels.cache.get(_newState.channelID);
     if (channel != null) CHANNEL_VC = channel;
 
