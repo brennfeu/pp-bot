@@ -265,6 +265,35 @@ async function kusanaliBotMessage(_message) {
         return k_sendMessage(K_PROFIL_LIBEN, "Le Shop de Liben",
             "Je n'ai pas ça en stock, désolé.", _message.channel);
     }
+    if (commande == "donate") {
+        var args = _message.content.trim().toLowerCase().split(" ");
+        if (args.length == 1) return k_sendMessage(K_PROFIL_LIBEN, "Les deals de Liben",
+            "Il faut tagger la personne à qui vous voulez donner vos moras et spécifier le montant." +
+            "\nExemple : ```%donate @brennfeu 5000000```", _message.channel);
+        if (_message.mentions.users.array().length <= 0) return k_sendMessage(K_PROFIL_LIBEN, "Les deals de Liben",
+            "Il faut tagger la personne à qui vous voulez donner vos moras." +
+            "\nExemple : ```%donate @brennfeu 5000000```", _message.channel);
+        if (args.length <= 2) return k_sendMessage(K_PROFIL_LIBEN, "Les deals de Liben",
+            "Il faut spécifier le montant que vous voulez donner." +
+            "\nExemple : ```%donate @brennfeu 5000000```", _message.channel);
+        
+        var montant = parseInt(args[2]);
+        if (isNaN(montant)) return k_sendMessage(K_PROFIL_LIBEN, "Les deals de Liben",
+            "Montant invalide ?" +
+            "\nExemple : ```%donate @brennfeu 5000000```", _message.channel);
+        if (montant < 0) return k_sendMessage(K_PROFIL_LIBEN, "Les deals de Liben",
+            "Petit malin, mais ça ne passe pas avec moi.", _message.channel);
+
+        var mora = k_getUserMora(_message.author.id);
+        if (montant > mora) return k_sendMessage(K_PROFIL_LIBEN, "Les deals de Liben",
+            "Vous n'avez pas assez de moras.", _message.channel);
+        
+        executeQuery('UPDATE Player SET k_mora = (k_mora-'+montant+') WHERE id = ' + _message.author.id);
+        executeQuery('UPDATE Player SET k_mora = (k_mora+'+montant+') WHERE id = ' + _message.mentions.users.array()[0].id);
+
+        return k_sendMessage(K_PROFIL_LIBEN, "Les deals de Liben",
+            "Don de "+montant+" moras effectué avec succès !", _message.channel);
+    }
     if (commande == "banner" || commande == "banners") {
         var banners = k_getTodaysBanners();
         for (var i in banners) _message.channel.send(banners[i].image_link);
@@ -693,6 +722,7 @@ async function kusanaliBotMessage(_message) {
             "**banners**: Affiche les bannières actuelles.\n" +
             "**characters _(@someone)_**: Affiche la liste des personnages obtenus (texte).\n" +
             "**dailies**: Affiche la listes des missions quotidiennes.\n" +
+            "**donate**: Effectue un don de moras à un membre du serveur.\n" +
             "**gallery _(@someone)_**: Affiche la liste des personnages obtenus (images).\n" +
             "**help**: Euh...\n" +
             "**leaderboard**: Affiche le top 10 du serveur.\n" +
