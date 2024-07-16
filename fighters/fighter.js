@@ -1150,7 +1150,7 @@ var Fighter = class {
 			_fighter.attackFighter(this, _amount, _options);
 			return false;
 		}
-		else if (this.tempestBuff && _amount > 0 && getRandomPercent() >= 33) { // Tempest (Ais buff)
+		else if (_fighter.tempestBuff && _amount > 0 && getRandomPercent() >= 33) { // Tempest (Ais buff)
 			this.duel.addMessage(_fighter.getName() + "'s Tempest protects him!");
 			_fighter.attackFighter(this, _fighter.STR/10, { damageType: "wind" });
 			return false;
