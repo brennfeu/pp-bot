@@ -499,6 +499,11 @@ var Fighter = class {
 		// TITLE
 		var nameTxt = "";
 		if (this.duel.MERGED_WORLDS.indexOf(DLC_GENSHIN) > -1) {
+			if (this.giElementManager == undefined) {
+				this.giElementManager = new GenshinElementManager();
+        		this.giElementManager.giElementManagerOrigin = this;
+			}
+
 			for (var i in GENSHIN_ELEMENT_LIST) {
 				if (this.giElementManager.isAffectedBy(GENSHIN_ELEMENT_LIST[i])) nameTxt += displayEmote(getEmoteFromGenshinElement(GENSHIN_ELEMENT_LIST[i]));
 			}
