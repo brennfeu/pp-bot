@@ -1697,8 +1697,8 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     this.duel.addMessage("The Hand brings him a gift against 10 quickening charges!");
                     this.quickeningCharges -= 10;
                     this.duel.addMessage("-----------------");
-                    this.duel.addMessage("**Requiem Acquired!**\n" + REQUIEM_HELP[this.requiemPower]);
                     this.requiemPower = randomFromList(REQUIEM_LIST);
+                    this.duel.addMessage("**Requiem Acquired!**\n" + REQUIEM_HELP[this.requiemPower]);
                 }
                 else {
                     this.duel.addMessage(this.getName() + " needs more quickening charges to deal with it!");

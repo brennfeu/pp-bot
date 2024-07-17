@@ -1209,7 +1209,7 @@ var Fighter = class {
 
 		// victim effects
 		if ((_fighter.madnessStacks > 0 && getRandomPercent() <= 10+_fighter.madnessStacks) ||
-		(this.isScarredPP && getRandomPercent() <= 10)) { // flinch
+		(_fighter.isScarredPP && getRandomPercent() <= 10)) { // flinch
 			this.duel.addMessage(_fighter.getName() + " flinched!");
 			_fighter.hasBurst = 2;
 		}
