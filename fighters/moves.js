@@ -372,7 +372,7 @@ Fighter.prototype.playMove = function(_newMove = this.attack) {
                     this.duel.addMessage(this.getName() + " sets up a barrel!");
                     this.duel.addMessage("It explodes!");
                     this.duel.allFightersAction(function(_fighter) {
-                        this.attackFighter(oppFighter, 200, { damageType: "explosion" });
+                        _fighter.attackFighter(oppFighter, 200, { damageType: "explosion" });
                     });
                 }
                 break;
