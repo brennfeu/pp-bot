@@ -568,7 +568,7 @@ var Fighter = class {
 		if (this.specialCharges > 0) {
 			godsText += "\n" + displayEmote(EMOTE_PP52) + " Special Charges: " + this.specialCharges;
 		}
-        if (godsText.length > 1000) godsText = godsText.substring(0, 1000) + "...";
+        if (godsText.length > 903) godsText = godsText.substring(0, 900) + "...";
 		if (godsText != "") embedMessage.addField("Faith", sciText(godsText), true);
 
 		// RELICS
@@ -592,7 +592,7 @@ var Fighter = class {
 
 		// STATUS
 		var statusTxt = this.getStatusTxt();
-        if (statusTxt.length > 1020) statusTxt = statusTxt.substring(0, 1020) + "...";
+        if (statusTxt.length > 903) statusTxt = statusTxt.substring(0, 900) + "...";
 		if (statusTxt != "") embedMessage.addField("Status", sciText(statusTxt), true);
 
         // MERGED WORLDS
@@ -600,7 +600,7 @@ var Fighter = class {
             var _function = this.duel.MERGED_WORLDS[i].statusFunction;
             if (_function != undefined) {
                 var worldTxt = sciText(this[_function]());
-                if (worldTxt.length > 1020) worldTxt = worldTxt.substring(0, 1020) + "...";
+                if (worldTxt.length > 903) worldTxt = worldTxt.substring(0, 900) + "...";
         		if (worldTxt != "") embedMessage.addField(this.duel.MERGED_WORLDS[i].name, sciText(worldTxt), true);
             }
         }
