@@ -728,10 +728,10 @@ async function kusanaliBotMessage(_message) {
                 "**character_add [ _game (genshin / hsr)_  ] [ _element_ ] [ _stars_ ] [ _art\_link_ ] [ _art\_link\_alt1_ ]**: Crée un nouveau perso.\n" +
                 "**character_del [ _id_ ]**: Supprime un perso.\n" +
                 "\n" +
-                "**help**: Affiche la liste des commandes admin\n" +
+                "**help**: Affiche la liste des commandes admin.\n" +
                 "**reset_cache**: Actualise le bot.\n" +
                 "\n" +
-                "\nN'oubliez pas le %admin ! "+displayEmote(EMOTE_KUSANALI),
+                "N'oubliez pas le %admin ! "+displayEmote(EMOTE_KUSANALI),
             _message.channel);
 
             // banners
@@ -811,7 +811,7 @@ async function kusanaliBotMessage(_message) {
             "**dailies**: Affiche la listes des missions quotidiennes.\n" +
             "**donate**: Effectue un don de moras à un membre du serveur.\n" +
             "**gallery _(@someone)_**: Affiche la liste des personnages obtenus (images).\n" +
-            "**help**: Affiche la liste des commandes\n" +
+            "**help**: Affiche la liste des commandes.\n" +
             "**leaderboard**: Affiche le top 10 du serveur.\n" +
             "**legacy**: Affecte les rôles manquants.\n" +
             "**links**: Envoie les liens vers les résaux sociaux du serveur.\n" +
