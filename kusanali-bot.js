@@ -736,6 +736,7 @@ async function kusanaliBotMessage(_message) {
                 for (var i in characters) {
                     txt += "\n- [" + characters[i]["id"] + "] " + characters[i]["name"];
                 }
+                _message.channel.send(txt);
 
                 characters = K_GACHA_CHARACTERS_HSR.slice();
                 characters.sort(function(a, b) {
@@ -743,12 +744,13 @@ async function kusanaliBotMessage(_message) {
                     else if (a.name > b.name) return 1;
                     return 0;
                 });
-                txt += "\n# HSR";
+                txt = "# HSR";
                 for (var i in characters) {
                     txt += "\n- [" + characters[i]["id"] + "] " + characters[i]["name"];
                 }
+                _message.channel.send(txt);
 
-                return _message.channel.send(txt);
+                return;
             }
             if (args[1] == "reset_cache") {
                 k_loadGachaData();
