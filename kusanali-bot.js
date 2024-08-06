@@ -721,10 +721,11 @@ async function kusanaliBotMessage(_message) {
             // help
             if (args.length == 1 || args[1] == "help") return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin",
                 "**character_list**: Liste des persos avec ID.\n" +
+                "**character_details [ _id_ ]**: Détails du perso avec ID.\n" +
                 "**reset_cache**: Actualise le bot.\n",
             _message.channel);
 
-			// character list
+			// characters
             if (args[1] == "character_list") {
                 var characters = K_GACHA_CHARACTERS_GI.slice();
                 characters.sort(function(a, b) {
@@ -752,6 +753,21 @@ async function kusanaliBotMessage(_message) {
 
                 return;
             }
+            if (args[1] == "character_details") {
+                var char = executeQuery("SELECT c.id, c.game, c.name, c.element, c.stars, r.name AS region, c.art_link, c.art_link_alt1 FROM K_Character c JOIN K_Region r On r.id = c.id_region WHERE c.id = " + parseInt(args[2]));
+                k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", 
+                    "**"+char.name+" ["+char.id+"]**\n"+
+                    "Infos : "+char.stars+"* "+char.elements+"\n"+
+                    "Origine : "+char.region+"\n\n"+
+                    "Lien artwork : "+char.art_link+"\n"+
+                    "Lien artwork nsfw : "+char.art_link_alt1, 
+                    _message.channel);
+                _message.channel.send(char.art_link);
+                _message.channel.send(char.art_link_alt1);
+                return;
+            }
+
+            // other
             if (args[1] == "reset_cache") {
                 k_loadGachaData();
                 return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", "C'est bon ! "+displayEmote(EMOTE_KUSANALI), _message.channel);
