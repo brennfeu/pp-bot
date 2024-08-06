@@ -723,29 +723,22 @@ async function kusanaliBotMessage(_message) {
                 "**character_list**: Liste des persos avec ID.\n" +
                 "**character_details [ _id_ ]**: Détails du perso avec ID.\n" +
                 "**character_mod [ _id_ ] [ _game_ / _name_ / _element_ / _stars_ / _id\_region_ / _art\_link_ / _art\_link\_alt1_ ] [ _nouvelle\_valeur_ ]**: Modif d'un détail d'un perso.\n" +
+                "**character_add [ _game (genshin / hsr)_  ] [ _element_ ] [ _stars_ ] [ _art\_link_ ] [ _art\_link\_alt1_ ]**: Crée un nouveau perso.\n" +
+                "**character_del [ _id_ ]**: Supprime un perso.\n" +
+
                 "**reset_cache**: Actualise le bot.\n",
             _message.channel);
 
 			// characters
             if (args[1] == "character_list") {
-                var characters = K_GACHA_CHARACTERS_GI.slice();
-                characters.sort(function(a, b) {
-                    if (a.name < b.name) return -1;
-                    else if (a.name > b.name) return 1;
-                    return 0;
-                });
+                var characters = executeQuery("SELECT * FROM K_Character WHERE game='genshin' ORDER BY name;");
                 var txt = "# GENSHIN";
                 for (var i in characters) {
                     txt += "\n- [" + characters[i]["id"] + "] " + characters[i]["name"];
                 }
                 _message.channel.send(txt);
 
-                characters = K_GACHA_CHARACTERS_HSR.slice();
-                characters.sort(function(a, b) {
-                    if (a.name < b.name) return -1;
-                    else if (a.name > b.name) return 1;
-                    return 0;
-                });
+                characters = executeQuery("SELECT * FROM K_Character WHERE game='hsr' ORDER BY name;");
                 txt = "# HSR";
                 for (var i in characters) {
                     txt += "\n- [" + characters[i]["id"] + "] " + characters[i]["name"];
@@ -775,8 +768,16 @@ async function kusanaliBotMessage(_message) {
                     else if (i > 4) value += " " + values[i];
                 }
                 executeQuery("UPDATE K_Character SET "+args[3]+"='"+value+"' WHERE id = " + parseInt(args[2]));
-                k_loadGachaData();
                 return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", "Requête effectuée ! "+displayEmote(EMOTE_KUSANALI), _message.channel);
+            }
+            if (args[1] == "character_add") {
+                var values = _message.content.trim().split(" ");
+                executeQuery("INSERT INTO K_Characters(game, name, element, stars, art_link, art_link_alt1) VALUES('"+values[2]+"', 'Sans Nom', '"+values[3]+"', "+values[4]+", '"+values[5]+"', '"+values[6]+"');");
+                return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", "C'est bon ! "+displayEmote(EMOTE_KUSANALI), _message.channel);
+            }
+            if (args[1] == "character_del") {
+                executeQuery("DELETE FROM K_Characters WHERE id = " + parseInt(args[2]));
+                return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", "C'est bon ! "+displayEmote(EMOTE_KUSANALI), _message.channel);
             }
 
             // other
