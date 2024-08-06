@@ -772,11 +772,11 @@ async function kusanaliBotMessage(_message) {
             }
             if (args[1] == "character_add") {
                 var values = _message.content.trim().split(" ");
-                executeQuery("INSERT INTO K_Characters(game, name, element, stars, art_link, art_link_alt1) VALUES('"+values[2]+"', 'Sans Nom', '"+values[3]+"', "+values[4]+", '"+values[5]+"', '"+values[6]+"');");
+                executeQuery("INSERT INTO K_Character(game, name, element, stars, art_link, art_link_alt1) VALUES('"+values[2]+"', 'Sans Nom', '"+values[3]+"', "+values[4]+", '"+values[5]+"', '"+values[6]+"');");
                 return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", "C'est bon ! "+displayEmote(EMOTE_KUSANALI), _message.channel);
             }
             if (args[1] == "character_del") {
-                executeQuery("DELETE FROM K_Characters WHERE id = " + parseInt(args[2]));
+                executeQuery("DELETE FROM K_Character WHERE id = " + parseInt(args[2]));
                 return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", "C'est bon ! "+displayEmote(EMOTE_KUSANALI), _message.channel);
             }
 
