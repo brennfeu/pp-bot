@@ -728,12 +728,12 @@ async function kusanaliBotMessage(_message) {
             if (args[1] == "character_list") {
                 var txt = "**Genshin**";
                 for (var i in K_GACHA_CHARACTERS_GI) {
-                    txt += "\n[" + i["id"] + "] " + $i["name"] + "\n";
+                    txt += "\n[" + i["id"] + "] " + i["name"] + "\n";
                 }
 
                 txt += "\n\n**HSR**";
                 for (var i in K_GACHA_CHARACTERS_HSR) {
-                    txt += "\n[" + i["id"] + "] " + $i["name"] + "\n";
+                    txt += "\n[" + i["id"] + "] " + i["name"] + "\n";
                 }
 
                 return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", txt, _message.channel);
