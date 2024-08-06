@@ -762,7 +762,7 @@ async function kusanaliBotMessage(_message) {
                 k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", 
                     "**"+char.name+" ["+char.id+"]**\n"+
                     "Infos : "+char.stars+"* "+char.element+"\n"+
-                    "Origine : "+char.region+"\n\n"+
+                    "Région : "+char.region+"\n\n"+
                     "Lien artwork : <"+char.art_link+">\n"+
                     "Lien artwork nsfw : <"+char.art_link_alt1 + ">", 
                     _message.channel);
