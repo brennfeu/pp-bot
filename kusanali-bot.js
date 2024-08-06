@@ -757,10 +757,10 @@ async function kusanaliBotMessage(_message) {
                 var char = executeQuery("SELECT c.id, c.game, c.name, c.element, c.stars, r.name AS region, c.art_link, c.art_link_alt1 FROM K_Character c JOIN K_Region r On r.id = c.id_region WHERE c.id = " + parseInt(args[2]))[0];
                 k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", 
                     "**"+char.name+" ["+char.id+"]**\n"+
-                    "Infos : "+char.stars+"* "+char.elements+"\n"+
+                    "Infos : "+char.stars+"* "+char.element+"\n"+
                     "Origine : "+char.region+"\n\n"+
-                    "Lien artwork : "+char.art_link+"\n"+
-                    "Lien artwork nsfw : "+char.art_link_alt1, 
+                    "Lien artwork : <"+char.art_link+">\n"+
+                    "Lien artwork nsfw : <"+char.art_link_alt1 + ">", 
                     _message.channel);
                 _message.channel.send(char.art_link);
                 _message.channel.send(char.art_link_alt1);
