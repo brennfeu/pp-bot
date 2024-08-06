@@ -720,6 +720,8 @@ async function kusanaliBotMessage(_message) {
 			
             // help
             if (args.length == 1 || args[1] == "help") return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin",
+                "**banner_update [ _element_ ] [ _lien_ ]**: Mise à jour d'une bannière.\n" +
+
                 "**character_list**: Liste des persos avec ID.\n" +
                 "**character_details [ _id_ ]**: Détails du perso avec ID.\n" +
                 "**character_mod [ _id_ ] [ _game_ / _name_ / _element_ / _stars_ / _id\_region_ / _art\_link_ / _art\_link\_alt1_ ] [ _nouvelle\_valeur_ ]**: Modif d'un détail d'un perso.\n" +
@@ -728,6 +730,14 @@ async function kusanaliBotMessage(_message) {
 
                 "**reset_cache**: Actualise le bot.\n",
             _message.channel);
+
+            // banners
+            if (args[1] == "banner_update") {
+                var values = _message.content.trim().split(" ");
+                executeQuery("UPDATE K_Banner SET image_link="+values[4]+" WHERE element="+values[3]);
+
+                return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", "C'est bon ! "+displayEmote(EMOTE_KUSANALI), _message.channel);
+            }
 
 			// characters
             if (args[1] == "character_list") {
@@ -768,7 +778,7 @@ async function kusanaliBotMessage(_message) {
                     else if (i > 4) value += " " + values[i];
                 }
                 executeQuery("UPDATE K_Character SET "+args[3]+"='"+value+"' WHERE id = " + parseInt(args[2]));
-                return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", "Requête effectuée ! "+displayEmote(EMOTE_KUSANALI), _message.channel);
+                return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", "C'est bon ! "+displayEmote(EMOTE_KUSANALI), _message.channel);
             }
             if (args[1] == "character_add") {
                 var values = _message.content.trim().split(" ");
