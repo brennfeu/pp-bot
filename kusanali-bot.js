@@ -722,6 +722,7 @@ async function kusanaliBotMessage(_message) {
             if (args.length == 1 || args[1] == "help") return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin",
                 "**character_list**: Liste des persos avec ID.\n" +
                 "**character_details [ _id_ ]**: Détails du perso avec ID.\n" +
+                "**character_mod [ _id_ ] [ _game_ / _name_ / _element_ / _stars_ / _id\_region_ / _art\_link_ / _art\_link\_alt1_ ] [ _nouvelle\_valeur_ ]**: Modif d'un détail d'un perso.\n" +
                 "**reset_cache**: Actualise le bot.\n",
             _message.channel);
 
@@ -765,6 +766,11 @@ async function kusanaliBotMessage(_message) {
                 _message.channel.send(char.art_link);
                 _message.channel.send(char.art_link_alt1);
                 return;
+            }
+            if (args[1] == "character_mod") {
+                executeQuery("UPDATE K_Character SET "+args[3]+"='"+args[4]+"' WHERE c.id = " + parseInt(args[2]));
+                k_loadGachaData();
+                return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", "Requête effectuée ! "+displayEmote(EMOTE_KUSANALI), _message.channel);
             }
 
             // other
