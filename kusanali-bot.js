@@ -734,7 +734,7 @@ async function kusanaliBotMessage(_message) {
             // banners
             if (args[1] == "banner_update") {
                 var values = _message.content.trim().split(" ");
-                executeQuery("UPDATE K_Banner SET image_link="+values[4]+" WHERE element="+values[3]);
+                executeQuery("UPDATE K_Banner SET image_link='"+values[3]+"' WHERE element='"+values[2]+"'");
 
                 return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", "C'est bon ! "+displayEmote(EMOTE_KUSANALI), _message.channel);
             }
