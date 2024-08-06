@@ -721,14 +721,17 @@ async function kusanaliBotMessage(_message) {
             // help
             if (args.length == 1 || args[1] == "help") return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin",
                 "**banner_update [ _element_ ] [ _lien_ ]**: Mise à jour d'une bannière.\n" +
-
+                "\n" +
                 "**character_list**: Liste des persos avec ID.\n" +
                 "**character_details [ _id_ ]**: Détails du perso avec ID.\n" +
                 "**character_mod [ _id_ ] [ _game_ / _name_ / _element_ / _stars_ / _id\_region_ / _art\_link_ / _art\_link\_alt1_ ] [ _nouvelle\_valeur_ ]**: Modif d'un détail d'un perso.\n" +
                 "**character_add [ _game (genshin / hsr)_  ] [ _element_ ] [ _stars_ ] [ _art\_link_ ] [ _art\_link\_alt1_ ]**: Crée un nouveau perso.\n" +
                 "**character_del [ _id_ ]**: Supprime un perso.\n" +
-
-                "**reset_cache**: Actualise le bot.\n",
+                "\n" +
+                "**help**: Affiche la liste des commandes admin\n",
+                "**reset_cache**: Actualise le bot.\n" +
+                "\n" +
+                "\nN'oubliez pas le %admin ! "+displayEmote(EMOTE_KUSANALI),
             _message.channel);
 
             // banners
@@ -808,7 +811,7 @@ async function kusanaliBotMessage(_message) {
             "**dailies**: Affiche la listes des missions quotidiennes.\n" +
             "**donate**: Effectue un don de moras à un membre du serveur.\n" +
             "**gallery _(@someone)_**: Affiche la liste des personnages obtenus (images).\n" +
-            "**help**: Euh...\n" +
+            "**help**: Affiche la liste des commandes\n" +
             "**leaderboard**: Affiche le top 10 du serveur.\n" +
             "**legacy**: Affecte les rôles manquants.\n" +
             "**links**: Envoie les liens vers les résaux sociaux du serveur.\n" +
