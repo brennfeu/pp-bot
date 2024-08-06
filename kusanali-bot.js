@@ -728,7 +728,7 @@ async function kusanaliBotMessage(_message) {
                 "**character_add [ _game (genshin / hsr)_  ] [ _element_ ] [ _stars_ ] [ _art\_link_ ] [ _art\_link\_alt1_ ]**: Crée un nouveau perso.\n" +
                 "**character_del [ _id_ ]**: Supprime un perso.\n" +
                 "\n" +
-                "**help**: Affiche la liste des commandes admin\n",
+                "**help**: Affiche la liste des commandes admin\n" +
                 "**reset_cache**: Actualise le bot.\n" +
                 "\n" +
                 "\nN'oubliez pas le %admin ! "+displayEmote(EMOTE_KUSANALI),
