@@ -726,18 +726,29 @@ async function kusanaliBotMessage(_message) {
 
 			// character list
             if (args[1] == "character_list") {
+                var characters = K_GACHA_CHARACTERS_GI.slice();
+                characters.sort(function(a, b) {
+                    if (a.name < b.name) return -1;
+                    else if (a.name > b.name) return 1;
+                    return 0;
+                });
                 var txt = "# GENSHIN";
-                for (var i in K_GACHA_CHARACTERS_GI) {
-                    txt += "\n- [" + K_GACHA_CHARACTERS_GI[i]["id"] + "] " + K_GACHA_CHARACTERS_GI[i]["name"] + "\n";
-                }
-                k_sendMessage(K_PROFIL_KUSANALI, "GENSHIN", txt, _message.channel);
-
-                txt = "# HSR";
-                for (var i in K_GACHA_CHARACTERS_HSR) {
-                    txt += "\n- [" + K_GACHA_CHARACTERS_HSR[i]["id"] + "] " + K_GACHA_CHARACTERS_HSR[i]["name"] + "\n";
+                for (var i in characters) {
+                    txt += "\n- [" + characters[i]["id"] + "] " + characters[i]["name"];
                 }
 
-                return k_sendMessage(K_PROFIL_KUSANALI, "HSR", txt, _message.channel);
+                characters = K_GACHA_CHARACTERS_HSR.slice();
+                characters.sort(function(a, b) {
+                    if (a.name < b.name) return -1;
+                    else if (a.name > b.name) return 1;
+                    return 0;
+                });
+                txt += "\n# HSR";
+                for (var i in characters) {
+                    txt += "\n- [" + characters[i]["id"] + "] " + characters[i]["name"];
+                }
+
+                return _message.channel.send(txt);
             }
             if (args[1] == "reset_cache") {
                 k_loadGachaData();
