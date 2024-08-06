@@ -726,17 +726,18 @@ async function kusanaliBotMessage(_message) {
 
 			// character list
             if (args[1] == "character_list") {
-                var txt = "**Genshin**";
+                var txt = "# GENSHIN";
                 for (var i in K_GACHA_CHARACTERS_GI) {
-                    txt += "\n[" + K_GACHA_CHARACTERS_GI[i]["id"] + "] " + i["name"] + "\n";
+                    txt += "\n- [" + K_GACHA_CHARACTERS_GI[i]["id"] + "] " + K_GACHA_CHARACTERS_GI[i]["name"] + "\n";
                 }
+                k_sendMessage(K_PROFIL_KUSANALI, "GENSHIN", txt, _message.channel);
 
-                txt += "\n\n**HSR**";
+                txt = "# HSR";
                 for (var i in K_GACHA_CHARACTERS_HSR) {
-                    txt += "\n[" + K_GACHA_CHARACTERS_HSR[i]["id"] + "] " + i["name"] + "\n";
+                    txt += "\n- [" + K_GACHA_CHARACTERS_HSR[i]["id"] + "] " + K_GACHA_CHARACTERS_HSR[i]["name"] + "\n";
                 }
 
-                return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", txt, _message.channel);
+                return k_sendMessage(K_PROFIL_KUSANALI, "HSR", txt, _message.channel);
             }
             if (args[1] == "reset_cache") {
                 k_loadGachaData();
