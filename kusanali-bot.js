@@ -713,9 +713,40 @@ async function kusanaliBotMessage(_message) {
         );
         return;
     }
-    if (commande == "reset_cache") {
-        k_loadGachaData();
-        return _message.reply("fait !");
+    if (commande == "admin") {
+        try {
+			if (K_ADMIN_LIST.indexOf(_message.author.id) < 0) return _message.reply("bah non frero");
+            var args = _message.content.trim().toLowerCase().split(" ");
+			
+            // help
+            if (args.length == 1 || args[1] == "help") return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin",
+                "**character_list**: Liste des persos avec ID.\n" +
+                "**reset_cache**: Actualise le bot.\n",
+            _message.channel);
+
+			// character list
+            if (args[1] == "character_list") {
+                var txt = "**Genshin**";
+                for (var i in K_GACHA_CHARACTERS_GI) {
+                    txt += "\n[" + i["id"] + "] " + $i["name"] + "\n";
+                }
+
+                txt += "\n\n**HSR**";
+                for (var i in K_GACHA_CHARACTERS_HSR) {
+                    txt += "\n[" + i["id"] + "] " + $i["name"] + "\n";
+                }
+
+                return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", txt, _message.channel);
+            }
+            if (args[1] == "reset_cache") {
+                k_loadGachaData();
+                return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", "C'est bon ! "+displayEmote(EMOTE_KUSANALI), _message.channel);
+            }
+		}
+		catch(e) {
+			console.log(e);
+			return _message.reply("erreur durant la commande");
+		}
     }
     if (commande == "help") {
         k_sendMessage(K_PROFIL_KUSANALI, "Commandes",
