@@ -768,7 +768,13 @@ async function kusanaliBotMessage(_message) {
                 return;
             }
             if (args[1] == "character_mod") {
-                executeQuery("UPDATE K_Character SET "+args[3]+"='"+args[4]+"' WHERE id = " + parseInt(args[2]));
+                var values = _message.content.trim().split(" ");
+                var value = "";
+                for (var i in values) {
+                    if (i == 4) value += values[i];
+                    else if (i > 4) value += " " + values[i];
+                }
+                executeQuery("UPDATE K_Character SET "+args[3]+"='"+value+"' WHERE id = " + parseInt(args[2]));
                 k_loadGachaData();
                 return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", "Requête effectuée ! "+displayEmote(EMOTE_KUSANALI), _message.channel);
             }
