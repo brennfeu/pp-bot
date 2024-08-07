@@ -725,8 +725,13 @@ async function kusanaliBotMessage(_message) {
                 "**character_list**: Liste des persos avec ID.\n" +
                 "**character_details [ _id_ ]**: Détails du perso avec ID.\n" +
                 "**character_mod [ _id_ ] [ _game_ / _name_ / _element_ / _stars_ / _id\_region_ / _art\_link_ / _art\_link\_alt1_ ] [ _nouvelle\_valeur_ ]**: Modif d'un détail d'un perso.\n" +
-                "**character_add [ _game (genshin / hsr)_  ] [ _element_ ] [ _stars_ ] [ _art\_link_ ] [ _art\_link\_alt1_ ]**: Crée un nouveau perso.\n" +
+                "**character_add [ _jeu (genshin / hsr)_  ] [ _element_ ] [ _etoiles_ ] [ _lien\_image_ ] [ _lien\_image\_nsfw_ ]**: Crée un nouveau perso.\n" +
                 "**character_del [ _id_ ]**: Supprime un perso.\n" +
+                "\n" +
+                "**region_list**: Liste des régions avec ID.\n" +
+                "**region_mod [ _id_ ] [ _nom_ ]**: Modif d'une région.\n" +
+                "**region_add [ _nom_ ]**: Crée une nouvelle région.\n" +
+                "**region_del [ _id_ ]**: Supprime une région.\n" +
                 "\n" +
                 "**help**: Affiche la liste des commandes admin.\n" +
                 "**reset_cache**: Actualise le bot.\n" +
@@ -790,6 +795,40 @@ async function kusanaliBotMessage(_message) {
             }
             if (args[1] == "character_del") {
                 executeQuery("DELETE FROM K_Character WHERE id = " + parseInt(args[2]));
+                return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", "C'est bon ! "+displayEmote(EMOTE_KUSANALI), _message.channel);
+            }
+
+            // regions
+            if (args[1] == "region_list") {
+                var regions = executeQuery("SELECT * FROM K_Region WHERE game='genshin' ORDER BY name;");
+                var txt = "# REGIONS";
+                for (var i in regions) {
+                    txt += "\n- [" + regions[i]["id"] + "] " + regions[i]["name"];
+                }
+                return _message.channel.send(txt);;
+            }
+            if (args[1] == "region_mod") {
+                var values = _message.content.trim().split(" ");
+                var value = "";
+                for (var i in values) {
+                    if (i == 3) value += values[i];
+                    else if (i > 3) value += " " + values[i];
+                }
+                executeQuery("UPDATE K_Region SET name='"+value+"' WHERE id = " + parseInt(args[2]));
+                return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", "C'est bon ! "+displayEmote(EMOTE_KUSANALI), _message.channel);
+            }
+            if (args[1] == "region_add") {
+                var values = _message.content.trim().split(" ");
+                var value = "";
+                for (var i in values) {
+                    if (i == 2) value += values[i];
+                    else if (i > 2) value += " " + values[i];
+                }
+                executeQuery("INSERT INTO K_Region(name) VALUES('"+value+"');");
+                return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", "C'est bon ! "+displayEmote(EMOTE_KUSANALI), _message.channel);
+            }
+            if (args[1] == "region_del") {
+                executeQuery("DELETE FROM K_Region WHERE id = " + parseInt(args[2]));
                 return k_sendMessage(K_PROFIL_KUSANALI, "Commandes admin", "C'est bon ! "+displayEmote(EMOTE_KUSANALI), _message.channel);
             }
 
