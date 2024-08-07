@@ -231,7 +231,7 @@ function addTextToBibleCat(_cat, _txt) {
 
 var MERCREDI_TIMER = "";
 function checkMercredi() {
-	if (d.getDay() != 3) return;
+	if (new Date().getDay() != 3) return;
 	if (new Date().getHours() != 9) return;
 
 	var today = new Date().toISOString().slice(0, 10);
