@@ -229,6 +229,25 @@ function addTextToBibleCat(_cat, _txt) {
     FULL_BIBLE[_cat].push(_txt);
 }
 
+var MERCREDI_TIMER = "";
+function checkMercredi() {
+	if (d.getDay() != 3) return;
+	if (new Date().getHours() != 9) return;
+
+	var today = new Date().toISOString().slice(0, 10);
+	if (MERCREDI_TIMER == today) return; // déjà fait !
+	MERCREDI_TIMER = today;
+
+	CLIENT.channels.fetch(678640416010272820).then((_channel) => {
+		_channel.send(randomFromList([
+			"Joyeux mercredi les amis ! 🙂",
+			"C'est mercredi, le troisième jour de la semaine ! 😆",
+			"Devinez quel jour on est aujourd'hui ! 😉",
+			"On est enfin mercredi !! 🤣🤣"
+		]));
+	})
+}
+
 function setBotActivity(_texte = "") {
 	var texte = _texte;
 	if (DUEL_LIST.length > 0) {
@@ -383,6 +402,8 @@ CLIENT.on('ready', () => {
 });
 
 CLIENT.on("message", async _message => { try {
+	checkMercredi();
+
 	if ([K_SERVER_ID, K_TEST_SERVER_ID].indexOf(_message.channel.guild.id) >= 0) return kusanaliBotMessage(_message);
 	killDeadDuels();
 	setBotActivity();
