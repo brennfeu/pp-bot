@@ -9,7 +9,7 @@ var DB_CONNECTION = new MYSQL({
 
 function executeQuery(_str) {
 	try {
-		//console.log(_str);
+		console.log(_str);
 		return DB_CONNECTION.query(_str)
 	}
 	catch(e) {
