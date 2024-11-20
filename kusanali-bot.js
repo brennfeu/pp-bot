@@ -800,7 +800,7 @@ async function kusanaliBotMessage(_message) {
 
             // regions
             if (args[1] == "region_list") {
-                var regions = executeQuery("SELECT * FROM K_Region WHERE game='genshin' ORDER BY name;");
+                var regions = executeQuery("SELECT * FROM K_Region ORDER BY name;");
                 var txt = "# REGIONS";
                 for (var i in regions) {
                     txt += "\n- [" + regions[i]["id"] + "] " + regions[i]["name"];
