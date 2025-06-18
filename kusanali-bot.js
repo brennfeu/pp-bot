@@ -1208,7 +1208,7 @@ function k_loadGachaData() {
     K_GACHA_CHARACTERS_GI = executeQuery("SELECT * FROM K_Character WHERE game='genshin';");
     K_GACHA_CHARACTERS_HSR = executeQuery("SELECT * FROM K_Character WHERE game='hsr';");
     K_GACHA_CHARACTERS_ALL = executeQuery("SELECT * FROM K_Character;");
-    K_GACHA_BANNERS = executeQuery("SELECT * FROM K_Banner ORDER BY game;");
+    K_GACHA_BANNERS = executeQuery("SELECT * FROM K_Banner;");
     K_GACHA_REGIONS = executeQuery("SELECT * FROM K_Region;");
 }
 
