@@ -1172,7 +1172,7 @@ function k_getAllBanners() {
     var l = [];
 
     for (var i in elements)
-        l.push(K_GACHA_BANNERS.find(o => o.element == elementsDays[i]));
+        l.push(K_GACHA_BANNERS.find(o => o.element == elements[i]));
     return l;
 }
 function k_getTodaysGenshinBanners() {
