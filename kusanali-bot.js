@@ -295,6 +295,11 @@ async function kusanaliBotMessage(_message) {
             "Don de "+montant+" moras effectué avec succès !", _message.channel);
     }
     if (commande == "banner" || commande == "banners") {
+        var banners = k_getAllBanners();
+        for (var i in banners) _message.channel.send(banners[i].image_link);
+        return;
+    }
+    if (commande == "today") {
         var banners = k_getTodaysBanners();
         for (var i in banners) _message.channel.send(banners[i].image_link);
         return;
@@ -845,7 +850,7 @@ async function kusanaliBotMessage(_message) {
     }
     if (commande == "help") {
         k_sendMessage(K_PROFIL_KUSANALI, "Commandes",
-            "**banners**: Affiche les bannières actuelles.\n" +
+            "**banners**: Affiche toutes les bannières existantes.\n" +
             "**characters _(@someone)_**: Affiche la liste des personnages obtenus (texte).\n" +
             "**dailies**: Affiche la listes des missions quotidiennes.\n" +
             "**donate**: Effectue un don de moras à un membre du serveur.\n" +
@@ -859,6 +864,7 @@ async function kusanaliBotMessage(_message) {
             "**rank _(@someone)_**: Affiche ton statut actuel sur le leaderboard.\n" +
             "**shop**: Pour dépenser les moras.\n" +
             "**status _(@someone)_**: Affiche ton statut actuel sur le serveur.\n" +
+            "**today**: Affiche les bannières du jour.\n" +
             "**tutorial**: Explique les différentes mécaniques du bot.\n" +
             "**warp**: Fais une multi hsr.\n" +
             "**wish**: Fais une multi genshin.\n" +
@@ -1161,6 +1167,9 @@ function k_getTodayDate() {
 function k_getTodaysBanners() {
     return k_getTodaysGenshinBanners().concat(k_getTodaysHsrBanners());
 }
+function k_getAllBanners() {
+    return K_GACHA_BANNERS;
+}
 function k_getTodaysGenshinBanners() {
     var currentDay = new Date().getDay();
     var elementsDays = [
@@ -1199,7 +1208,7 @@ function k_loadGachaData() {
     K_GACHA_CHARACTERS_GI = executeQuery("SELECT * FROM K_Character WHERE game='genshin';");
     K_GACHA_CHARACTERS_HSR = executeQuery("SELECT * FROM K_Character WHERE game='hsr';");
     K_GACHA_CHARACTERS_ALL = executeQuery("SELECT * FROM K_Character;");
-    K_GACHA_BANNERS = executeQuery("SELECT * FROM K_Banner;");
+    K_GACHA_BANNERS = executeQuery("SELECT * FROM K_Banner ORDER BY game;");
     K_GACHA_REGIONS = executeQuery("SELECT * FROM K_Region;");
 }
 
