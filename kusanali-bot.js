@@ -1168,7 +1168,12 @@ function k_getTodaysBanners() {
     return k_getTodaysGenshinBanners().concat(k_getTodaysHsrBanners());
 }
 function k_getAllBanners() {
-    return K_GACHA_BANNERS;
+    var elements = [ "anemo", "geo", "electro", "dendro", "hydro", "pyro", "cryo", "omni", "quantum", "lightning", "imaginary", "wind", "ice", "fire", "physical" ];
+    var l = [];
+
+    for (var i in elements)
+        l.push(K_GACHA_BANNERS.find(o => o.element == elementsDays[i]));
+    return l;
 }
 function k_getTodaysGenshinBanners() {
     var currentDay = new Date().getDay();
